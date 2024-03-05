@@ -113,39 +113,39 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 # 목차
 
-- [서문](#%EC%84%9C%EB%AC%B8)
-  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-- [1.JDBC 시작하기](#1jdbc-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
-  - [JDBC 드라이버 설치](#jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EC%84%A4%EC%B9%98)
-  - [데이터베이스에 연결하기](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%97%90-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0)
-  - [연결 정보](#%EC%97%B0%EA%B2%B0-%EC%A0%95%EB%B3%B4)
-  - [Statement와 ResultSet 다루기](#statement%EC%99%80-resultset-%EB%8B%A4%EB%A3%A8%EA%B8%B0)
+- [서문](#서문)
+  - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
+- [1.JDBC 시작하기](#1jdbc-시작하기)
+  - [JDBC 드라이버 설치](#jdbc-드라이버-설치)
+  - [데이터베이스에 연결하기](#데이터베이스에-연결하기)
+  - [연결 정보](#연결-정보)
+  - [Statement와 ResultSet 다루기](#statement와-resultset-다루기)
   - [JDBC Connection Failover](#jdbc-connection-failover)
-- [2.기본 기능](#2%EA%B8%B0%EB%B3%B8-%EA%B8%B0%EB%8A%A5)
-  - [IPv6 접속](#ipv6-%EC%A0%91%EC%86%8D)
-  - [Statement, PreparedStatement 및 CallableStatement](#statement-preparedstatement-%EB%B0%8F-callablestatement)
-  - [내셔널 캐릭터 셋 사용](#%EB%82%B4%EC%85%94%EB%84%90-%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%85%8B-%EC%82%AC%EC%9A%A9)
-- [3.고급 기능](#3%EA%B3%A0%EA%B8%89-%EA%B8%B0%EB%8A%A5)
-  - [자동 생성 키](#%EC%9E%90%EB%8F%99-%EC%83%9D%EC%84%B1-%ED%82%A4)
-  - [타임아웃](#%ED%83%80%EC%9E%84%EC%95%84%EC%9B%83)
+- [2.기본 기능](#2기본-기능)
+  - [IPv6 접속](#ipv6-접속)
+  - [Statement, PreparedStatement 및 CallableStatement](#statement-preparedstatement-및-callablestatement)
+  - [내셔널 캐릭터 셋 사용](#내셔널-캐릭터-셋-사용)
+- [3.고급 기능](#3고급-기능)
+  - [자동 생성 키](#자동-생성-키)
+  - [타임아웃](#타임아웃)
   - [DataSource](#datasource)
   - [Connection Pool](#connection-pool)
   - [Multiple ResultSet](#multiple-resultset)
-  - [JDBC와 Failover](#jdbc%EC%99%80-failover)
+  - [JDBC와 Failover](#jdbc와-failover)
   - [JDBC Escapes](#jdbc-escapes)
-  - [ResultSet 사용하기](#resultset-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
+  - [ResultSet 사용하기](#resultset-사용하기)
   - [Atomic Batch](#atomic-batch)
   - [Date, Time, Timestamp](#date-time-timestamp)
   - [GEOMETRY](#geometry)
   - [LOB](#lob)
-  - [Autocommit 제어](#autocommit-%EC%A0%9C%EC%96%B4)
+  - [Autocommit 제어](#autocommit-제어)
   - [BIT, VARBIT](#bit-varbit)
-  - [JDBC 로깅](#jdbc-%EB%A1%9C%EA%B9%85)
+  - [JDBC 로깅](#jdbc-로깅)
   - [Hibernate](#hibernate)
   - [SQL Plan](#sql-plan)
 - [4.Tips & Recommendation](#4tips--recommendation)
-  - [성능을 위한 팁](#%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%8C%81)
-- [5.에러 메시지](#5%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80)
+  - [성능을 위한 팁](#%성능을-위한-팁)
+- [5.에러 메시지](#5에러-메시지)
   - [SQL States](#sql-states)
 - [6.JDBC 4.2 API References](#6jdbc-42-api-references)
     - [java.sql.Connection](#javasqlconnection)
@@ -164,10 +164,10 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     - [java.sql.DriverAction](#javasqldriveraction)
     - [java.sql.SQLTypes](#javasqlsqltypes)
     - [Java 8 Time API](#java-8-time-api)
-- [A.부록: 데이터 타입 맵핑](#a%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
-  - [데이터 타입 맵핑](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
-  - [Java 데이터형을 데이터베이스 데이터형으로 변환하기](#java-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
-  - [데이터베이스 데이터형을 Java 데이터형으로 변환하기](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-java-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
+- [A.부록: 데이터 타입 맵핑](#a부록-데이터-타입-맵핑)
+  - [데이터 타입 맵핑](#데이터-타입-맵핑)
+  - [Java 데이터형을 데이터베이스 데이터형으로 변환하기](#java-데이터형을-데이터베이스-데이터형으로-변환하기)
+  - [데이터베이스 데이터형을 Java 데이터형으로 변환하기](#데이터베이스-데이터형을-Java-데이터형으로-변환하기)
 
 <br>
 
@@ -274,16 +274,16 @@ Altibase의 JDBC 드라이버는 JDBC 사양을 대부분 준수하나, 경우�
 
 아래 테이블은 코드 예제에서 사용된 인쇄 규칙에 대해 설명한다.
 
-| 규칙         | 의미                                                                                | 예제                                                                                                         |
-|--------------|-------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| [ ]          | 선택 항목을 표시                                                                    | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                                                                     |
-| { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시                               | { ENABLE \| DISABLE \| COMPILE }                                                                             |
-| \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                                           | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ]                                            |
-| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시                           | SQL\> SELECT ename FROM employee; ENAME  ----------------------- SWNO  HJNO  HSCHOI  . . . 20 rows selected. |
-| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                                                   | EXEC :p1 := 1; acc NUMBER(11,2);                                                                             |
-| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치         | SELECT \* FROM *table_name*; CONNECT *userID*/*password*;                                                    |
-| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                                                                  |
-| 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드                              | DESC SYSTEM_.SYS_INDICES_;                                                                                   |
+| 규칙         | 의미                                                         | 예제                                                         |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)] [[FIXED \|] VARIABLE]                     |
+| { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
+| \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
+| . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee; ENAME  ----------------------- SWNO  HJNO  HSCHOI  . . . 20 rows selected. |
+| 그 밖에 기호 | 위에서 보여진 기호 이 외에 기호들                            | EXEC :p1 := 1; acc NUMBER(11,2);                             |
+| 기울임 꼴    | 구문 요소에서 사용자가 지정해야 하는 변수, 특수한 값을 제공해야만 하는 위치 | SELECT \* FROM *table_name*; CONNECT *userID*/*password*;    |
+| 소문자       | 사용자가 제공하는 프로그램의 요소들, 예를 들어 테이블 이름, 칼럼 이름, 파일 이름 등 | SELECT ename FROM employee;                                  |
+| 대문자       | 시스템에서 제공하는 요소들 또는 구문에 나타나는 키워드       | DESC SYSTEM_.SYS_INDICES_;                                   |
 
 #### 관련 자료
 
@@ -521,18 +521,18 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 
 | 기본값    |                                                              |
 | --------- | ------------------------------------------------------------ |
-| 값의 범위 | [ host_name:port_number[/dbname][, host_name:port_number[/dbname] ]* |
+| 값의 범위 | [ host_name:port_number[/dbname] [, host_name:port_number[/dbname] ]* |
 | 필수 여부 | No                                                           |
 | 설정 범위 |                                                              |
-| 설명      | Connection Failover 발생 시 접속할 수 있는 서버들의 리스트이다. <br />사용법은 3장의 "JDBC와 Failover" 절을 참고한다. |
+| 설명      | Connection Failover 발생 시 접속할 수 있는 서버들의 리스트이다. <br />최대 2개까지 설정할 수 있다.<br/>사용법은 3장의 "JDBC와 Failover" 절을 참고한다. |
 
 ##### app_info
 
-| 기본값    |                                                               |
-|-----------|---------------------------------------------------------------|
-| 값의 범위 | 임의의 문자열                                                 |
-| 필수 여부 | No                                                            |
-| 설정 범위 | 세션                                                          |
+| 기본값    |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 값의 범위 | 임의의 문자열                                                |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
 | 설명      | V\$SESSION의 CLIENT_APP_INFO 칼럼에 저장될 문자열을 지정한다. |
 
 ##### auto_commit
@@ -597,7 +597,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 <p> 제약사항 </p>
 <ul>
 <li>바인드 변수가 없을 때 강제로 setXXX를 이용해 값을 바인드하면 에러가 발생하는 것이 원칙이지만, deferred 옵션을 사용한 경우에는 예외적으로 에러가 발생하지 않는다.</li>
-<li>nchar, nvarchar 타입 컬럼에 값을 바인딩 할 때, deferred 옵션을 사용하는 경우 반드시 setNString() 메서드를 사용해야 한다. deferred 옵션을 사용하지 않을 때는 setString() 메서드도 사용 가능하다.</li>
+<li>nchar, nvarchar 타입 칼럼에 값을 바인딩 할 때, deferred 옵션을 사용하는 경우 반드시 setNString() 메서드를 사용해야 한다. deferred 옵션을 사용하지 않을 때는 setString() 메서드도 사용 가능하다.</li>
 </ul>
 </td>
 </tr>
@@ -827,6 +827,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 설정 범위 | 세션                                                         |
 | 설명      | 클라이언트에 캐시할 수 있는 LOB 데이터의 최대 크기를 설정한다. |
 
+##### lob_null_select
+
+| 기본값    | off                                                          |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | [on \| off ]                                                 |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | lob 칼럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 LOB 객체를 반환하는지 여부<br/>- off: null을 반환한다. <br/>- on: LOB 객체를 반환한다. |
+
 ##### login_timeout
 
 | 기본값    |                                                              |
@@ -1050,7 +1059,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | [true \| false ]                                             |
 | 필수 여부 | No                                                           |
 | 설정 범위 | N/A                                                          |
-| 설명      | BLOB 타입 컬럼을 대상으로 PreparedStatement.setBytes()를 executeBatch()로 실행 시<br/> 이진 타입과 BLOB 타입 중 어느 것으로 처리할지 설정한다. true는 BLOB 타입으로 처리한다.<br/> BLOB 데이터가 이진 타입이 처리할 수 있는 최대 크기인 65,534바이트를 초과하면 <br/>java.lang.ClassCastException 에러가 발생하므로 이 경우 프로퍼티 값을 true로 설정한다. <br/>false는 이진 타입으로 처리한다. |
+| 설명      | BLOB 타입 칼럼을 대상으로 PreparedStatement.setBytes()를 executeBatch()로 실행 시<br/> 이진 타입과 BLOB 타입 중 어느 것으로 처리할지 설정한다. true는 BLOB 타입으로 처리한다.<br/> BLOB 데이터가 이진 타입이 처리할 수 있는 최대 크기인 65,534바이트를 초과하면 <br/>java.lang.ClassCastException 에러가 발생하므로 이 경우 프로퍼티 값을 true로 설정한다. <br/>false는 이진 타입으로 처리한다. |
 
 ### Statement와 ResultSet 다루기
 
@@ -3558,7 +3567,7 @@ while ( sRS.next() ) -> (2)
 따라서, 이러한 로직에서 LOB 데이터를 다룰 때는 먼저 setAutoCommit(false)를
 호출하여 세션의 자동커밋을 해제해야 한다.
 
-> NOT NULL 제약이 있는 LOB 타입 컬럼에 setNull을 수행하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생한다. 이 경우, Empty로 초기화된 데이터가 남아 있어 **반드시 트랜잭션을 롤백해야 한다.** 
+> NOT NULL 제약이 있는 LOB 타입 칼럼에 setNull을 수행하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생한다. 이 경우, Empty로 초기화된 데이터가 남아 있어 **반드시 트랜잭션을 롤백해야 한다.** 
 
 
 
@@ -3765,46 +3774,47 @@ Altibase.jdbc.driver.logging.MultipleFileHandler.formatter = java.util.logging.X
 
 ```
 ### Hibernate
-Altibase 는 비표준 SQL 을 제공하며, Hibernate 는 이러한 기능을 수행할 수 있도록 Dialect 클래스를 지원한다.
-Hibernate 에서 Altibase 를 연동하려면 Altibase 의 JDBC Driver 를 설정하고, Hibernate 의 configuration 에
-AltibaseDialect.class 를 지정해야 한다.
+Altibase는 비표준 SQL을 제공하며, Hibernate 는 이러한 기능을 수행할 수 있도록 Dialect 클래스를 지원한다.
+Hibernate 에서 Altibase 를 연동하려면 Altibase 의 JDBC Driver 를 설정하고, Hibernate 의 configuration 에 AltibaseDialect.class 를 지정해야 한다.
 
 #### AltibaseDialect
-Hibernate 가 공식적으로 제공하는 라이브러리는 AltibaseDialect.class 를 포함하지 않기 때문에
-AltibaseDialect.java 파일 (필요에 따라 AltibaseLimitHandler.java 포함)을 컴파일하고 Hibernate 가
-제공하는 파일에 포팅해야 사용할 수 있다. AltibaseDialect.java 파일과 AltibaseLimitHandler.java 파일은
-Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 AltibaseDialect 포팅 방법
-(https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
 
-#### Lob 관련 속성
-Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이 
-null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 해당 인터페이스는 기존에 값이 null이더라도 Lob관련 객체가
-리턴되었기 때문에 다음 JDBC연결 속성을 통해 제어가 가능하다.
+##### Hibernate 6.4 부터 공식 지원
 
-##### lob_null_select
-| 기본값    | off                                                           |
-|----------|---------------------------------------------------------------|
-| 값의 범위 | [on \| off ]                                                 |
-| 필수 여부 | No                                                            |
-| 설정 범위 | 세션                                                           |
-| 설명     | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 객체를 리턴하는지 여부  |
-##### 예제 
-lob_null_select의 기본값이 off이기 때문에 다음과 같이 getBlob(), getClob()을 한 후 null처리를 해줘야 한다.
+Hibernate 6.4 부터는 AltibaseDialect가 Hibernate ORM 패키지에 포함되었다. 이제 AltibaseDialect를 사용하려면 Maven 의존성 설정만 추가하면 된다.
+
+##### Hibernate 6.4 이전
+
+Hibernate 6.4 이전 버전에서는 AltibaseDialect가 없으므로, AltibaseDialect.class 를 직접 지정해야 한다. 이를 위해서는  Altibase 에서 제공하는 AltibaseDialect.java 파일 (필요에 따라 AltibaseLimitHandler.java 포함)을 컴파일하고 Hibernate 가 제공하는 파일에 포팅해야 사용할 수 있다. AltibaseDialect.java 파일과 AltibaseLimitHandler.java 파일은 Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 [AltibaseDialect 포팅 방법](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
+
+#### Maven 의존성(Dependency) 설정
+
+##### AltibaseDialect 의존성 추가
+
+Hibernate 6.4 부터 hibernate-community-dialects에  AltibaseDialect가 포함되었기 때문에, 아래와 같이 의존성을 추가하면 된다.
+
+```xml
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-community-dialects</artifactId>
+    <version>6.4.1.Final</version>
+</dependency>
 ```
-Blob sBlob = sRs.getBlob();
-if (sBlob != null) // sBlob이 null인 경우 NullpointerException이 발생할 수 있다.
-{
-   long sLength = sBlob.length();  
-   System.out.println("blob length===>" + sLength);
-}
-...
-Clob sClob = sRs.getClob();
-if (sClob != null) // sClob이 null인 경우 NullpointerException이 발생할 수 있다.
-{
-   long sLength = sClob.length();  
-   System.out.println("clob length===>" + sLength);
-}
+
+##### Altibase JDBC 드라이버 의존성 추가
+
+Altibase 7.3.0.0.2부터  [Maven Central Repository](https://mvnrepository.com/artifact/com.altibase/altibase-jdbc)에서 Altibase JDBC 드라이버를 다운로드할 수 있어서, 아래와 같이 의존성을 추가하면 된다.
+
+```xml
+<dependency>
+    <groupId>com.altibase</groupId>
+    <artifactId>altibase-jdbc</artifactId>
+    <version>7.3.0.0.2</version>
+</dependency>
 ```
+
+#### Lob 관련 연결 속성
+Altibase 7.1에서는 Lob 칼럼 값이 null인 경우, ResultSet.getBlob(), ResultSet.getClob() 수행시 Lob객체를 반환하기 때문에 [**lob_null_select**](#lob_null_select) 연결 속성의 값을 "off"로 변경해야 했다. 그러나 Altibase 7.3 부터는 **lob_null_select** 연결 속성의 기본값이 off로 변경됨에 따라, 더이상 연결 속성을 변경하지 않아도 된다.
 
 ### SQL Plan
 
