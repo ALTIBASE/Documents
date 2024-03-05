@@ -111,39 +111,39 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 # 목차
 
-- [서문](#서문)
-  - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
-- [1.JDBC 시작하기](#1jdbc-시작하기)
-  - [JDBC 드라이버 설치](#jdbc-드라이버-설치)
-  - [데이터베이스에 연결하기](#데이터베이스에-연결하기)
-  - [연결 정보](#연결-정보)
-  - [Statement와 ResultSet 다루기](#statement와-resultset-다루기)
+- [서문](#%EC%84%9C%EB%AC%B8)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [1.JDBC 시작하기](#1jdbc-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)
+  - [JDBC 드라이버 설치](#jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EC%84%A4%EC%B9%98)
+  - [데이터베이스에 연결하기](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%97%90-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0)
+  - [연결 정보](#%EC%97%B0%EA%B2%B0-%EC%A0%95%EB%B3%B4)
+  - [Statement와 ResultSet 다루기](#statement%EC%99%80-resultset-%EB%8B%A4%EB%A3%A8%EA%B8%B0)
   - [JDBC Connection Failover](#jdbc-connection-failover)
-- [2.기본 기능](#2기본-기능)
-  - [IPv6 접속](#ipv6-접속)
-  - [Statement, PreparedStatement 및 CallableStatement](#statement-preparedstatement-및-callablestatement)
-  - [내셔널 캐릭터 셋 사용](#내셔널-캐릭터-셋-사용)
-- [3.고급 기능](#3고급-기능)
-  - [자동 생성 키](#자동-생성-키)
-  - [타임아웃](#타임아웃)
+- [2.기본 기능](#2%EA%B8%B0%EB%B3%B8-%EA%B8%B0%EB%8A%A5)
+  - [IPv6 접속](#ipv6-%EC%A0%91%EC%86%8D)
+  - [Statement, PreparedStatement 및 CallableStatement](#statement-preparedstatement-%EB%B0%8F-callablestatement)
+  - [내셔널 캐릭터 셋 사용](#%EB%82%B4%EC%85%94%EB%84%90-%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%85%8B-%EC%82%AC%EC%9A%A9)
+- [3.고급 기능](#3%EA%B3%A0%EA%B8%89-%EA%B8%B0%EB%8A%A5)
+  - [자동 생성 키](#%EC%9E%90%EB%8F%99-%EC%83%9D%EC%84%B1-%ED%82%A4)
+  - [타임아웃](#%ED%83%80%EC%9E%84%EC%95%84%EC%9B%83)
   - [DataSource](#datasource)
   - [Connection Pool](#connection-pool)
   - [Multiple ResultSet](#multiple-resultset)
-  - [JDBC와 Failover](#jdbc와-failover)
+  - [JDBC와 Failover](#jdbc%EC%99%80-failover)
   - [JDBC Escapes](#jdbc-escapes)
-  - [ResultSet 사용하기](#resultset-사용하기)
+  - [ResultSet 사용하기](#resultset-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
   - [Atomic Batch](#atomic-batch)
   - [Date, Time, Timestamp](#date-time-timestamp)
   - [GEOMETRY](#geometry)
   - [LOB](#lob)
-  - [Autocommit 제어](#autocommit-제어)
+  - [Autocommit 제어](#autocommit-%EC%A0%9C%EC%96%B4)
   - [BIT, VARBIT](#bit-varbit)
-  - [JDBC 로깅](#jdbc-로깅)
+  - [JDBC 로깅](#jdbc-%EB%A1%9C%EA%B9%85)
   - [Hibernate](#hibernate)
   - [SQL Plan](#sql-plan)
 - [4.Tips & Recommendation](#4tips--recommendation)
-  - [성능을 위한 팁](#성능을-위한-팁)
-- [5.에러 메시지](#5에러-메시지)
+  - [성능을 위한 팁](#%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%8C%81)
+- [5.에러 메시지](#5%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80)
   - [SQL States](#sql-states)
 - [6.JDBC 4.2 API References](#6jdbc-42-api-references)
     - [java.sql.Connection](#javasqlconnection)
@@ -162,10 +162,10 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     - [java.sql.DriverAction](#javasqldriveraction)
     - [java.sql.SQLTypes](#javasqlsqltypes)
     - [Java 8 Time API](#java-8-time-api)
-- [A.부록: 데이터 타입 맵핑](#a부록-데이터-타입-맵핑)
-  - [데이터 타입 맵핑](#데이터-타입-맵핑)
-  - [Java 데이터형을 데이터베이스 데이터형으로 변환하기](#java-데이터형을-데이터베이스-데이터형으로-변환하기)
-  - [데이터베이스 데이터형을 Java 데이터형으로 변환하기](#데이터베이스-데이터형을-Java-데이터형으로-변환하기)
+- [A.부록: 데이터 타입 맵핑](#a%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
+  - [데이터 타입 맵핑](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
+  - [Java 데이터형을 데이터베이스 데이터형으로 변환하기](#java-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
+  - [데이터베이스 데이터형을 Java 데이터형으로 변환하기](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-java-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
 
 <br>
 
@@ -1109,7 +1109,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | [true \| false ]                                             |
 | 필수 여부 | No                                                           |
 | 설정 범위 | N/A                                                          |
-| 설명      | BLOB 타입 칼럼을 대상으로 PreparedStatement.setBytes()를 executeBatch()로 실행 시<br/> 이진 타입과 BLOB 타입 중 어느 것으로 처리할지 설정한다. true는 BLOB 타입으로 처리한다.<br/> BLOB 데이터가 이진 타입이 처리할 수 있는 최대 크기인 65,534바이트를 초과하면 <br/>java.lang.ClassCastException 에러가 발생하므로 이 경우 프로퍼티 값을 true로 설정한다. <br/>false는 이진 타입으로 처리한다. |
+| 설명      | BLOB 타입 컬럼을 대상으로 PreparedStatement.setBytes()를 executeBatch()로 실행 시<br/> 이진 타입과 BLOB 타입 중 어느 것으로 처리할지 설정한다. true는 BLOB 타입으로 처리한다.<br/> BLOB 데이터가 이진 타입이 처리할 수 있는 최대 크기인 65,534바이트를 초과하면 <br/>java.lang.ClassCastException 에러가 발생하므로 이 경우 프로퍼티 값을 true로 설정한다. <br/>false는 이진 타입으로 처리한다.|
 
 ### Statement와 ResultSet 다루기
 
@@ -1936,9 +1936,9 @@ Failover에 대한 자세한 내용은 *Replication Manual*의 “Failover”장
 
 Properties 객체에 아래의 속성을 추가해서 CTF 기능을 사용할 수 있다.
 
-```java
+```
 Properties sProps = new Properties();
-sProps.put("alternateservers", "(database1:20300, database2:20300)");
+sProps.put("alternateservers", "database1:20300, database2:20300");
 sProps.put("connectionretrycount", "5");
 sProps.put("connectionretrydelay", "2");
 sProps.put("sessionfailover", "off");
@@ -3841,7 +3841,7 @@ Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 Altibas
 (https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
 
 #### Lob 관련 속성
-Lob 칼럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이
+Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이
 null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 해당 인터페이스는 기존에 값이 null 이더라도 Lob 관련 객체가
 리턴되었기 때문에 Hibernate에서 Lob 관련 기능을 사용하려면 아래 JDBC 연결 속성을 off로 설정하는 것이 권장된다.
 
@@ -3851,7 +3851,7 @@ null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 해당 �
 | 값의 범위 | [on \| off ]                                                 |
 | 필수 여부 | No                                                            |
 | 설정 범위 | 세션                                                           |
-| 설명     | lob 칼럼값이 null 일때 ResultSet.getBlob(), ResultSet.getClob()이 객체를 리턴하는지 여부  |
+| 설명     | lob 컬럼값이 null 일때 ResultSet.getBlob(), ResultSet.getClob()이 객체를 리턴하는지 여부  |
 ##### 예제
 lob_null_select 값이 off 인 경우 다음과 같이 getBlob(), getClob()을 한 후 null 처리를 해줘야 한다.
 ```
