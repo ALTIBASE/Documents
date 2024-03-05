@@ -112,31 +112,31 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 # 목차
 
-- [서문](#%EC%84%9C%EB%AC%B8)
-  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-- [1.iSQL 이용방법](#1iSQL-%EC%9D%B4%EC%9A%A9%EB%B0%A9%EB%B2%95)
-  - [iSQL의 개요](#iSQL%EC%9D%98-%EA%B0%9C%EC%9A%94)
-  - [iSQL 설정](#iSQL-%EC%84%A4%EC%A0%95)
-  - [iSQL 커맨드 라인 옵션](#iSQL-%EC%BB%A4%EB%A7%A8%EB%93%9C-%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98)
-  - [iSQL 명령어](#iSQL-%EB%AA%85%EB%A0%B9%EC%96%B4)
-  - [iSQL 관련 환경변수](#iSQL-%EA%B4%80%EB%A0%A8-%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98)
-  - [개인별 iSQL 환경 설정](#%EA%B0%9C%EC%9D%B8%EB%B3%84-iSQL-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
-- [2.iSQL 사용 예](#2iSQL-%EC%82%AC%EC%9A%A9-%EC%98%88)
-  - [로그인](#%EB%A1%9C%EA%B7%B8%EC%9D%B8)
-  - [Altibase의 구동 및 종료](#altibase%EC%9D%98-%EA%B5%AC%EB%8F%99-%EB%B0%8F-%EC%A2%85%EB%A3%8C)
-  - [접속 연결 및 해제](#%EC%A0%91%EC%86%8D-%EC%97%B0%EA%B2%B0-%EB%B0%8F-%ED%95%B4%EC%A0%9C)
-  - [데이터베이스와 객체 정보 조회](#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%99%80-%EA%B0%9D%EC%B2%B4-%EC%A0%95%EB%B3%B4-%EC%A1%B0%ED%9A%8C)
-  - [트랜잭션 제어](#%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EC%A0%9C%EC%96%B4)
-  - [파일 관리](#%ED%8C%8C%EC%9D%BC-%EA%B4%80%EB%A6%AC)
-  - [SELECT 결과 포맷팅](#select-%EA%B2%B0%EA%B3%BC-%ED%8F%AC%EB%A7%B7%ED%8C%85)
-  - [출력 옵션](#%EC%B6%9C%EB%A0%A5-%EC%98%B5%EC%85%98)
-  - [iSQL 화면 설정 보기](#iSQL-%ED%99%94%EB%A9%B4-%EC%84%A4%EC%A0%95-%EB%B3%B4%EA%B8%B0)
-  - [호스트 변수](#%ED%98%B8%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98)
-  - [PREPARE SQL문 수행](#prepare-sql%EB%AC%B8-%EC%88%98%ED%96%89)
-  - [프로시저 생성과 실행 및 삭제](#%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%EC%83%9D%EC%84%B1%EA%B3%BC-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%82%AD%EC%A0%9C)
-  - [함수 생성과 실행 및 삭제](#%ED%95%A8%EC%88%98-%EC%83%9D%EC%84%B1%EA%B3%BC-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%82%AD%EC%A0%9C)
-  - [사용자 편의 기능](#%EC%82%AC%EC%9A%A9%EC%9E%90-%ED%8E%B8%EC%9D%98-%EA%B8%B0%EB%8A%A5)
-  - [내셔널 캐릭터 사용법](#%EB%82%B4%EC%85%94%EB%84%90-%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%82%AC%EC%9A%A9%EB%B2%95)
+- [서문](#서문)
+  - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
+- [1.iSQL 이용방법](#1iSQL-이용방법)
+  - [iSQL의 개요](#iSQL의-개요)
+  - [iSQL 설정](#iSQL-설정)
+  - [iSQL 커맨드 라인 옵션](#iSQL-커맨드-라인-옵션)
+  - [iSQL 명령어](#iSQL-명령어)
+  - [iSQL 관련 환경변수](#iSQL-관련-환경변수)
+  - [개인별 iSQL 환경 설정](#개인별-iSQL-환경-설정)
+- [2.iSQL 사용 예](#2iSQL-사용-예)
+  - [로그인](#로그인)
+  - [Altibase의 구동 및 종료](#altibase의-구동-및-종료)
+  - [접속 연결 및 해제](#접속-연결-및-해제)
+  - [데이터베이스와 객체 정보 조회](#데이터베이스와-객체-정보-조회)
+  - [트랜잭션 제어](#트랜잭션-제어)
+  - [파일 관리](#파일-관리)
+  - [SELECT 결과 포맷팅](#select-결과-포맷팅)
+  - [출력 옵션](#출력-옵션)
+  - [iSQL 화면 설정 보기](#iSQL-화면-설정-보기)
+  - [호스트 변수](#호스트-변수)
+  - [PREPARE SQL문 수행](#prepare-sql문-수행)
+  - [프로시저 생성과 실행 및 삭제](#프로시저-생성과-실행-및-삭제)
+  - [함수 생성과 실행 및 삭제](#함수-생성과-실행-및-삭제)
+  - [사용자 편의 기능](#사용자-편의-기능)
+  - [내셔널 캐릭터 사용법](#내셔널-캐릭터-사용법)
 
 <br>
 
@@ -600,7 +600,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>2ED[IT] 또는 2 ED[IT]</TD><TD>히스토리 목록에 있는 번호가 2인 질의문을 편집한다.</TD>
      </TR>
       <TR>
-     <TD ROWSPAN="41">출력 옵션 제어</TD><TD ROWSPAN="11">Select 결과 포맷팅</TD><TD>SET LINESIZE 100;</TD><TD>select 결과 출력 시 디스플레이 되는 한 라인의 사이즈를 설정한다. 10 에서 32767 사이의 값이어야 한다.<BR>기본값: 80</TD>
+     <TD ROWSPAN="43">출력 옵션 제어</TD><TD ROWSPAN="11">Select 결과 포맷팅</TD><TD>SET LINESIZE 100;</TD><TD>select 결과 출력 시 디스플레이 되는 한 라인의 사이즈를 설정한다. 10 에서 32767 사이의 값이어야 한다.<BR>기본값: 80</TD>
      </TR>
      <TR>
          <TD>SET LOBSIZE 10;</TD><TD>CLOB 칼럼을 출력 시 디스플레이 되는 데이터의 길이를 설정한다. <BR>기본값: 80</TD>
@@ -670,7 +670,7 @@ nls 옵션은 문자 집합을 설정한다. 문자집합에 대한 자세한 �
          <TD>MULTIERROR 출력 여부</TD><TD>SET MULTIERROR ON;<BR>SET MULTIERROR OFF;</TD><TD>SQL 수행시 이 값을 ON으로 설정하면, 다중에러가 표시될 수 있다.<BR>기본값: OFF 이고 이때는 다중에러가 발생해도 하나의 에러만 표시된다.</TD>
      </TR>
      <TR>
-         <TD ROWSPAN="19">iSQL 화면 설정 값 보기</TD><TD>SHOW LINESIZE</TD><TD>현재의 LINESIZE 값을 보여준다.</TD>
+         <TD ROWSPAN="20">iSQL 화면 설정 값 보기</TD><TD>SHOW LINESIZE</TD><TD>현재의 LINESIZE 값을 보여준다.</TD>
      </TR>
      <TR>
          <TD>SHOW COLSIZE</TD><TD>현재의 COLSIZE 값을 보여준다.</TD>
@@ -775,6 +775,7 @@ iSQL 상에서 두 가지 수행 방법에 대한 결과에는 차이가 없으�
           <TD>도움말</TD> <TD>HELP;<BR>HELP INDEX;<BR>HELP EXIT;</TD> <TD>도움말 사용법<BR>명령어 리스트 출력<BR>EXIT 명령어에 대한 설명</TD>
        </TR>          
 </table>         
+
 
 
 
