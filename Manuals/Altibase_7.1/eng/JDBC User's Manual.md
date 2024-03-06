@@ -464,7 +464,7 @@ This section offers descriptions of the connection attributes available for use 
 | Range         | [ host_name:port_number[/dbname][, host_name:port_number[/dbname] ]* |
 | Mandatory     | No                                                           |
 | Setting Range |                                                              |
-| Description   | The list of servers available for connection in the event of a Connection Failover. <br />Users can configure up to two alternateservers.<br/>For instructions on its use, please refer to “JDBC and Failover” in Chapter 3. |
+| Description   | The list of servers available for connection in the event of a Connection Failover. <br />For instructions on its use, please refer to “JDBC and Failover” in Chapter 3. |
 
 ##### app_info
 
