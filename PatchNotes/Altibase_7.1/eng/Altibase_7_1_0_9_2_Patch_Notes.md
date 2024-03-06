@@ -36,7 +36,7 @@
 
 - **Reproducibility** : Always
 
-- **Description** : Previously, when a trigger with the Row Referencing clause was executed, it internally copied the referenced records to specific variables. During this process, unnecessary columns were also copied. However, it has been improved to copy only the columns that are actually used.
+- **Description** : Previously, when a trigger with the Row Referencing clause was executed, it internally copied the referenced records to specific variables. During this process, unused columns were also copied. However, it has been improved to copy only the columns that are actually used.
 
   With this update, Altibase fixed the issue where a trigger using the Referencing clause would result in an  [ERR-21031: Unable to convert the data type.] error when the trigger does not use the LOB column.
 
@@ -288,16 +288,15 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : Altibase has fixed the issue of invalid memory access due to incorrect row offset information in the logic that checks column constraints in a hybrid partitioned table.
+-   **Description** : Altibase has fixed the issue of invalid memory access which occurs during checking column constraints in a hybrid partitioned table. This issue has occurred due to incorrect row offset information.
     
 -   **How to reproduce this bug**
-
     -   **Reproduction conditions**
-
+    
     -   **Actual Results**
-
+    
     -   **Expected Results**
-
+    
 -   **Workaround**
 
 -   **Changes**
