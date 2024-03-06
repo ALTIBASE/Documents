@@ -3799,6 +3799,7 @@ Hibernate 6.4 부터 hibernate-community-dialects에  AltibaseDialect가 포함�
     <artifactId>hibernate-community-dialects</artifactId>
     <version>6.4.1.Final</version>
 </dependency>
+
 ```
 
 ##### Altibase JDBC 드라이버 의존성 추가
