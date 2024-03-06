@@ -963,7 +963,7 @@ Desired Permission Setting: user:rw, group:--, other:--
 export ALTIBASE_UT_FILE_PERMISSION=600
 ```
 
-If ISQL_FILE_PERMISSION, AEXPORT_FILE_PERMISSION, or ILO_FILE_PERMISSION is set in advance, this value takes precedence over ALTIBASE_UT_FILE_PERMISSION. 
+If ISQL_FILE_PERMISSION, AEXPORT_FILE_PERMISSION, or ILO_FILE_PERMISSION is set in advance, these properties take precedence over ALTIBASE_UT_FILE_PERMISSION. 
 
 Example)
 
@@ -972,7 +972,9 @@ export ALTIBASE_UT_FILE_PERMISSION=660;
 export ISQL_FILE_PERMISSION=600; 
 ```
 
-In the above case, the permission setting of files created in iSQL is 600, which means user:rw, group:--, other:--. The others' permission settings are user:rw, group:rw, other:--, according to ALTIBASE_UT_FILE_PERMISSION=660
+In the example, the ALTIBASE_UT_FILE_PERMISSION is set to 660, which means that the user and group have "rw" permission, and everyone else has no permission (user:rw, group:rw, other:--). Notably, the ISQL_FILE_PERMISSION also holds a setting, taking precedence over ALTIBASE_UT_FILE_PERMISSION. Consequently, the permission setting for files generated in iSQL adheres to the ISQL_FILE_PERMISSION, granting only the user read and write permissions (user:rw, group:--, other:--).
+
+> Note: Files created in aexport and iloader continue to follow the ALTIBASE_UT_FILE_PERMISSION setting.
 
 #### ISQL_FILE_PERMISSION
 
@@ -988,11 +990,11 @@ export ISQL_FILE_PERMISSION=600
 
 #### ISQL_SECURE_LOGIN_MSG
 
-To reinforce security, this environment variable sets whether a detailed reason for login failure is displayed or not when users try logging in with the wrong user ID or password on iSQL.
+To reinforce security, this environment variable sets whether a detailed reason for login failure is displayed or not when users try logging in with the wrong user ID or password on iSQL. If users do not specify this value, it is automatically set to 0.
 
 - 1: Error message "Invalid UserID or Password" is displayed.
 
-- 0 or do not set this vaue: The specific reason for login failure is displayed.
+- 0 or do not set this value: The specific reason for login failure is displayed.
 
 - Example
 
