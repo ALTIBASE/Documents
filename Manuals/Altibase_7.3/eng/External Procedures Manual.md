@@ -296,7 +296,7 @@ The Agent Process is a process separately created by the Altibase server to load
 
 When the stored procedure that registered an external procedure is invoked in the client session, the Altibase server starts the Agent Process for external procedures. And when the execution of external procedures is complete, the Altibase server stands by for a while and, if no other external procedure is being executed, terminates the Agent Process. 
 
-Because the Agent Process is subordinate to the service session of the Altibase server, n number of Agent Processes are created when external procedures are invoked in n number of client sessions. Also, the Agent Process created by a session also terminates when the session does.
+The Agent Process is subordinate to the service session of Altibase Server. If external procedures are called in multiple sessions, a corresponding number of Agent Processes will be generated, and when the sessions are terminated, the associated Agent Processes will also be terminated.
 
 In the internal mode, external procedures are executed without an agent process by directly loading dynamic libraries within Altibase server.
 
