@@ -524,7 +524,7 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 값의 범위 | [ host_name:port_number[/dbname] [, host_name:port_number[/dbname] ]* |
 | 필수 여부 | No                                                           |
 | 설정 범위 |                                                              |
-| 설명      | Connection Failover 발생 시 접속할 수 있는 서버들의 리스트이다. <br />최대 2개까지 설정할 수 있다.<br/>사용법은 3장의 "JDBC와 Failover" 절을 참고한다. |
+| 설명      | Connection Failover 발생 시 접속할 수 있는 서버들의 리스트이다. <br />사용법은 3장의 "JDBC와 Failover" 절을 참고한다. |
 
 ##### app_info
 
