@@ -395,7 +395,7 @@ SELECT * FROM SPATIAL_REF_SYS;
 
 SYS_SPATIAL.ADD_SPATIAL_REF_SYS 사용 방법은 Spatial SQL Reference 매뉴얼을 참고한다.
 
-- [Altibase 7.2 Spatial SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.2/kor/Spatial%20SQL%20Reference.md#add_spatial_ref_sys)
+- [Altibase 7.3 Spatial SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Spatial%20SQL%20Reference.md#add_spatial_ref_sys)
 - [Altibase 7.1 Spatial SQL Reference](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Spatial%20SQL%20Reference.md#add_spatial_ref_sys)
 
 ### 실행 옵션

@@ -50,7 +50,6 @@ Altibase® Administration
 <div align="left">
     <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
 </div>
-
 <br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
@@ -304,7 +303,7 @@ NCHAR and NVARCHAR are Unicode character types. The available maximum length of 
         <th>Precision</th>
         <th>Scale</th>
         <th>Size (bytes)</th>
-        <th>Remakrs</th>
+        <th>Remarks</th>
     </tr>
     <tr>
         <td>NUMERIC</td>
@@ -404,6 +403,7 @@ NCHAR and NVARCHAR are Unicode character types. The available maximum length of 
 </table>
 
 
+
 ###### Example 1
 
 Fixed-Point Numbers Size Calculation: 
@@ -492,7 +492,7 @@ length = M if the input value is stored in a fixed area
     </table>
 
 
-**Geomerty Data Type**
+**Geometry Data Type**
 
 | Type     | Length       | Size (byte) |
 | -------- | ------------ | ----------- |
@@ -560,7 +560,7 @@ I1
 Therefore, implicit data type conversion follows the rules below:
 
 - When comparing numeric or character data types or arithmetic operations, the character data types are converted to numeric data types.
-- When comparing the date data type with the character data type, the character data type is converted to the date data type and the comparison opertion is performed.
+- When comparing the date data type with the character data type, the character data type is converted to the date data type and the comparison operation is performed.
 - Operation that cannot convert data types are invalidated.
 - The argument used in the function is converted to the data type of the argument defined in the function.
 - If a character data type or numeric data type that uses decimal precisions to a floating-point data type that uses binary precision is converted
@@ -691,9 +691,9 @@ The following data types can be specified as VARIABLE: CHAR, VARCHAR, NCHAR, NVA
 
 #### IN ROW Clause
 
-This clause pertains only to column data that are to be stored in a variable area. If the FIXED and IN ROW clause are both specified when a table is created, the IN ROW clause is ignored. When data are entered into a VARIABLE column, if the length of the data is less than or equal to the value specified using the IN ROW clause, the data will be stored in the fixed area, whereas if the data length is greated than the value specified using the IN ROW clause, the data will be sotred in the variable area.
+This clause pertains only to column data that are to be stored in a variable area. If the FIXED and IN ROW clause are both specified when a table is created, the IN ROW clause is ignored. When data are entered into a VARIABLE column, if the length of the data is less than or equal to the value specified using the IN ROW clause, the data will be stored in the fixed area, whereas if the data length is greater than the value specified using the IN ROW clause, the data will be stored in the variable area.
 
-Here, "data length" does not mean the length of the input data, but the length of the data to be sotred in memory or on disk, which will be somewhat larger. For example, when a column is defined as "VARCHAR(400) in row 200", data will be inserted into the fixed area if the length of the data that is input is smaller than or equal to 198, because 2 additional bytes are required when storing the data.
+Here, "data length" does not mean the length of the input data, but the length of the data to be stored in memory or on disk, which will be somewhat larger. For example, when a column is defined as "VARCHAR(400) in row 200", data will be inserted into the fixed area if the length of the data that is input is smaller than or equal to 198, because 2 additional bytes are required when storing the data.
 
 The default size of lob data stored in the fixed area can be specified using the MEMORY_LOB_COLUMN_IN_ROW_SIZE property for memory tables and the DISK_LOB_COLUMN_IN_ROW_SIZE for disk tables. Additionally, the default size for columns containing other types of data with the VARIABLE option can be specified using the MEMORY_VARIABLE_COLUMN_IN_ROW_SIZE property. 
 
@@ -724,7 +724,7 @@ CHAR [(size)] [ FIXED | VARIABLE [IN ROW size] ]
 
 ##### Description
 
-Tihs is a character data type that has a fixed length equal to the specified size. If an input value is shorter than the specified size, the remaining area is filled with blank spaces.
+This is a character data type that has a fixed length equal to the specified size. If an input value is shorter than the specified size, the remaining area is filled with blank spaces.
 
 The default size of CHAR column is 1byte, and its maximum length is 32000 bytes.
 
@@ -1003,7 +1003,7 @@ Commas can be used multiple times.
 
 ###### Restriction
 
-A comman cannot be placed at the end of a number, to the right of a decimal point, or at the very beginning of a number.
+A comma cannot be placed at the end of a number, to the right of a decimal point, or at the very beginning of a number.
 
 ###### Example
 
@@ -1460,7 +1460,7 @@ The range of dates that can be stored depends on the system. Typically, the date
 
 The date value can be displayed in various formats using a date format string.
 
-#### The Datetime Formal Model
+#### The Datetime Format Model
 
 The date data type is managed as numerical data d it is internally managed by the database. However, it can be displayed with character strings with the conversion function TO_CHAR or TO_DATE. The user should specify a character string of the date data type in accordance with a report format when using conversion functions.
 
@@ -2007,7 +2007,7 @@ TO_CHAR ( '28-DEC-1980', 'WW' )
 
 This date type indicates the week of the year regardless of day of the week. The first week begins with the 1st of January distinguished by a 7-days unit (1st to 53th week). 
 
-This element cannot be used within the TO_DATE funcion.
+This element cannot be used within the TO_DATE function.
 
 ###### Example
 
@@ -2239,11 +2239,11 @@ Represents a year according to the ISO 8601 standard. The start of the week is M
 
 IYYYY returns the ISO standard year. 
 
-IYY returns the last three difigts of the ISO standard year. 
+IYY returns the last three digits of the ISO standard year. 
 
 IY returns the last two digits of the ISO standard year. 
 
-I returns the last 1 digit of the ISO startdard year.
+I returns the last 1 digit of the ISO standard year.
 
 This cannot be used with thee TO_DATE function.
 
@@ -2460,7 +2460,7 @@ The LOB data type is divided into the Binary Large Object (BLOB) type, which is 
 
 The LOB data type provided with Altibase has the following features:
 
-- Data Sotrage Functions
+- Data Storage Functions
 - Partial Read
 - Disk LOB Partitioning
 
@@ -2502,7 +2502,7 @@ BLOB [ VARIABLE ( IN ROW size ) ]
 
 ##### Description
 
-BLOB is a binary data type that can vary in length up to 4GB-1byte and is intedned for use in storing large amounts of binary data.
+BLOB is a binary data type that can vary in length up to 4GB-1byte and is intended for use in storing large amounts of binary data.
 
 For more detailed information about the FIXED and VARIABLE clauses, please refer to the "FIXED/VARIABLE OPTIONS" and "IN ROW Clauses" sections above.
 
@@ -2545,7 +2545,7 @@ The only geometry data type that is defined and supported for use with SQL in Al
 - MultiLineString
 - MultiPoint
 
-For more detailed information information about the geometry datatype, please refer to the *Spatial SQL Refernce*.
+For more detailed information about the geometry datatype, please refer to the *Spatial SQL Refernce*.
 
 # 2. Altibase Properties
 
@@ -2634,1639 +2634,1636 @@ The values in the “Alter Level” column have the following meaning:
 - NONE: Cannot be changed
 
   <table>
-      <tr>
-      	<th>Group</th>
-          <th>Class</th>
-          <th>Property Name</th>
-          <th>Alter Level</th>
-      </tr>
-      <tr>
-      	<td rowspan="85">D</td>
-          <td rowspan="85"></td>
-          <td>BUFFER_AREA_CHUNK_SIZE</td>
-          <td></td>
-      </tr>
-      <tr>
-          <td>BUFFER_AREA_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>BUFFER_CHECKPOINT_LIST_CNT</td>
-          <td rowspan="9"></td>
-      </tr>
-      <tr>
-      	<td>BUFFER_FLUSHER_CNT </td>
-      </tr>
-      <tr>
-      	<td>BUFFER_FLUSH_LIST_CNT</td>
-      </tr>
-      <tr>
-      	<td>BUFFER_HASH_BUCKET_DENSITY</td>
-      </tr>
-      <tr>
-      	<td>BUFFER_HASH_CHAIN_LATCH_DENSITY</td>
-      </tr>
-      <tr>
-      	<td>BUFFER_LRU_LIST_CNT</td>
-      </tr>
-      <tr>
-      	<td>BUFFER_PREPARE_LIST_CNT</td>
-      </tr>
-      <tr>
-      	<td>COMPRESSION_RESOURCE_GC_SECOND</td>
-      </tr>
-      <tr>
-      	<td>DB_NAME</td>
-      </tr>
-      <tr>
-      	<td>DDL_SUPPLEMENTAL_LOG_ENABLE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DEFAULT_DISK_DB_DIR</td>
-          <td rowspan="7"></td>
-      </tr>
-      <tr>
-      	<td>DEFAULT_MEM_DB_FILE_SIZE</td>
-      </tr>
-      <tr>
-      	<td>DEFAULT_SEGMENT_MANAGEMENT_TYPE</td>
-      </tr>
-      <tr>
-      	<td>DEFAULT_SEGMENT_STORAGE_INITEXTENTS</td>
-      </tr>
-      <tr>
-      	<td>DEFAULT_SEGMENT_STORAGE_MAXEXTENTS</td>
-      </tr>
-      <tr>
-      	<td>DEFAULT_SEGMENT_STORAGE_MINEXTENTS</td>
-      </tr>
-      <tr>
-      	<td>DEFAULT_SEGMENT_STORAGE_NEXTEXTENTS</td>
-      </tr>
-      <tr>
-      	<td>DIRECT_PATH_BUFFER_PAGE_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DISK_INDEX_UNBALANCED_SPLIT_RATE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DISK_LOB_COLUMN_IN_ROW_SIZE</td>
-          <td rowspan="4"></td>
-      </tr>
-      <tr>
-      	<td>DISK_MAX_DB_SIZE</td>
-      </tr>
-      <tr>
-      	<td>DOUBLE_WRITE_DIRECTORY</td>
-      </tr>
-      <tr>
-      	<td>DOUBLE_WRITE_DIRECTORY_COUNT</td>
-      </tr>
-      <tr>
-      	<td>DRDB_FD_MAX_COUNT_PER_DATAFILE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>EXPAND_CHUNK_PAGE_COUNT</td>
-          <td rowspan="3"></td>
-      </tr>
-      <tr>
-      	<td>LOB_OBJECT_BUFFER_SIZE</td>
-      </tr>
-      <tr>
-      	<td>LOCK_MGR_CACHE_NODE</td>
-      </tr>
-      <tr>
-      	<td>LOCK_NODE_CACHE_COUNT</td>
-      </tr>
-      <tr>
-      	<td>LOGANCHOR_DIR</td>
-      </tr>
-      <tr>
-      	<td>LOG_DIR</td>
-      </tr>
-      <tr>
-      	<td>LOG_FILE_SIZE</td>
-      </tr>
-      <tr>
-      	<td>MAX_CLIENT</td>
-      </tr>
-      <tr>
-      	<td>MEM_DB_DIR</td>
-      </tr>
-      <tr>
-      	<td>MEM_MAX_DB_SIZE</td>
-      </tr>
-      <tr>
-      	<td>MEMORY_INDEX_BUILD_RUN_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>MEMORY_INDEX_BUILD_VALUE_LENGTH_THRESHOLD</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>MEMORY_INDEX_UNBALANCED_SPLIT_RATE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>MEMORY_LOB_COLUMN_IN_ROW_SIZE</td>
-          <td rowspan="4"></td>
-      </tr>
-      <tr>
-      	<td>MEMORY_VARIABLE_COLUMN_IN_ROW_SIZE</td>
-      </tr>
-      <tr>
-      	<td>MEM_SIZE_CLASS_COUNT</td>
-      </tr>
-      <tr>
-      	<td>MIN_COMPRESSION_RESOURCE_COUNT</td>
-      </tr>
-      <tr>
-      	<td>MIN_LOG_RECORD_SIZE_FOR_COMPRESS</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>MIN_PAGES_ON_DB_FREE_LIST</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>MIN_PAGES_ON_TABLE_FREE_LIST</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>MIN_TASK_COUNT_FOR_THREAD_LIVE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>PCTFREE</td>
-          <td rowspan="3"></td>
-      </tr>
-      <tr>
-      	<td>PCTUSED</td>
-      </tr>
-      <tr>
-      	<td>QP_MEMORY_CHUNK_SIZE</td>
-      </tr>
-      <tr>
-      	<td>RECYCLEBIN_DISK_MAX_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>RECYCLEBIN_ENABLE</td>
-          <td>SESSION</td>
-      </tr>
-      <tr>
-      	<td>RECYCLEBIN_MEM_MAX_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REDUCE_TEMP_MEMORY_ENABLE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SECURITY_ECC_POLICY_NAME</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SECURITY_MODULE_LIBRARY</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SECURITY_MODULE_NAME</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SERVICE_THREAD_INITIAL_LIFESPAN</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SMALL_TABLE_THRESHOLD</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>ST_OBJECT_BUFFER_SIZE</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>SYS_DATA_FILE_INIT_SIZE</td>
-          <td rowspan="13"></td>
-      </tr>
-      <tr>
-      	<td>SYS_DATA_FILE_MAX_SIZE</td>       
-      </tr>
-      <tr>
-      	<td>SYS_DATA_FILE_NEXT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>SYS_DATA_TBS_EXTENT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>SYS_TEMP_FILE_INIT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>SYS_TEMP_FILE_MAX_SIZE</td>
-      </tr>
-      <tr>
-      	<td>SYS_TEMP_FILE_NEXT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>SYS_TEMP_TBS_EXTENT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>SYS_UNDO_FILE_INIT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>SYS_UNDO_FILE_MAX_SIZE</td>
-      </tr>
-      <tr>
-      	<td>SYS_UNDO_FILE_NEXT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>SYS_UNDO_TBS_EXTENT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>TABLE_BACKUP_FILE_BUFFER_SIZE</td>
-      </tr>
-      <tr>
-      	<td>TABLE_COMPACT_AT_SHUTDOW</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>TEMP_HASH_BUCKET_DENSITY</td>
-          <td rowspan="11"></td>
-      </tr>  
-      <tr>
-        	<td>TEMP_PAGE_CHUNK_COUNT</td>
-      </tr>
-      <tr>
-      	<td>USER_DATA_FILE_INIT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>USER_DATA_FILE_MAX_SIZE</td>
-      </tr>
-      <tr>
-      	<td>USER_DATA_FILE_NEXT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>USER_DATA_TBS_EXTENT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>USER_TEMP_FILE_INIT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>USER_TEMP_FILE_MAX_SIZE</td>
-      </tr>
-      <tr>
-      	<td>USER_TEMP_FILE_NEXT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>USER_TEMP_TBS_EXTENT_SIZE</td>
-      </tr>
-      <tr>
-      	<td>VOLATILE_MAX_DB_SIZE</td>
-      </tr>
-      <tr>
-      	<td rowspan="102">P</td>
-          <td rowspan="102"></td>
-          <td>AGER_WAIT_MAXIMUM</td>
-          <td rowspan="2"></td>
-      </tr>
-       <tr>
-      	<td>AGER_WAIT_MINIMUM</td>
-      </tr>
-      <tr>
-      	<td>BUFFER_VICTIM_SEARCH_INTERVAL</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>BUFFER_VICTIM_SEARCH_PCT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>BULKIO_PAGE_COUNT_FOR_DIRECT_PATH_INSERT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-          <td>CHECKPOINT_BULK_SYNC_PAGE_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>CHECKPOINT_BULK_WRITE_PAGE_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>CHECKPOINT_BULK_WRITE_SLEEP_SEC</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>CHECKPOINT_BULK_WRITE_SLEEP_USEC</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>CHECKPOINT_FLUSH_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>CHECKPOINT_FLUSH_MAX_GAP</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>CHECKPOINT_FLUSH_MAX_WAIT_SEC</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>CM_BUFFER_MAX_PENDING_LIST</td>
-          <td rowspan="3"></td>
-      </tr>
-      <tr>
-      	<td>CM_DISPATCHER_SOCK_POLL_TYPE</td>
-      </tr>
-      <tr>
-      	<td>DATABASE_IO_TYPE</td>
-      </tr>
-      <tr>
-      	<td>DATAFILE_WRITE_UNIT_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DB_FILE_MULTIPAGE_READ_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DEDICATED_THREAD_CHECK_INTERVAL</td>
-          <td rowspan="4"></td>
-      </tr>
-      <tr>
-      	<td>DEDICATED_THREAD_INIT_COUNT</td>
-      </tr>
-      <tr>
-      	<td>DEDICATED_THREAD_MAX_COUNT</td>
-      </tr>
-      <tr>
-      	<td>DEDICATED_THREAD_MODE</td>
-      </tr>
-      <tr>
-      	<td>DEFAULT_FLUSHER_WAIT_SEC</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DELAYED_FLUSH_LIST_PCT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DELAYED_FLUSH_PROTECTION_TIME_MSEC</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DIRECT_IO_ENABLED</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>DISK_INDEX_BUILD_MERGE_PAGE_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>EXECUTE_STMT_MEMORY_MAXIMUM</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>EXECUTOR_FAST_SIMPLE_QUERY</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>FAST_START_IO_TARGET</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>FAST_START_LOGFILE_TARGET</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>FAST_UNLOCK_LOG_ALLOC_MUTEX</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>HASH_AREA_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>HASH_JOIN_MEM_TEMP_AUTO_BUCKET_COUNT_DISABLE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>HASH_JOIN_MEM_TEMP_PARTITIONING_DISABLE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>HIGH_FLUSH_PCT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>HOT_LIST_PCT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>HOT_TOUCH_CNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>INDEX_BUILD_THREAD_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>INDEX_INITRANS</td>
-          <td rowspan="5"></td>
-      </tr>
-      <tr>
-      	<td>INDEX_MAXTRANS</td>
-      </tr>
-      <tr>
-      	<td>LFG_GROUP_COMMIT_INTERVAL_USEC</td>
-      </tr>
-      <tr>
-      	<td>LFG_GROUP_COMMIT_RETRY_USEC</td>
-      </tr>
-      <tr>
-      	<td>LFG_GROUP_COMMIT_UPDATE_TX_COUNT</td>
-      </tr>
-      <tr>
-      	<td>LOB_CACHE_THRESHOLD</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>LOCK_ESCALATION_MEMORY_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-          <td>LOG_CREATE_METHOD</td>
-      	<td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>LOG_IO_TYPE</td>
-      </tr>
-      <tr>
-      	<td>LOW_FLUSH_PCT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>LOW_PREPARE_PCT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>MATHEMATICS_TEMP_MEMORY_MAXIMUM</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>MAX_FLUSHER_WAIT_SEC</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>MEM_INDEX_KEY_REDISTRIBUTION</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>MEM_INDEX_KEY_REDISTRIBUTION_STANDARD_RATE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>MULTIPLEXING_CHECK_INTERVAL</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>MULTIPLEXING_MAX_THREAD_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>MULTIPLEXING_THREAD_COUNT</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>NORMALFORM_MAXIMUM</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>OPTIMIZER_AUTO_STATS</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>OPTIMIZER_DELAYED_EXECUTION</td>
-          <td>SESSION</td>
-      </tr>
-      <tr>
-      	<td>OPTIMIZER_FEATURE_ENABLE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>OPTIMIZER_MODE</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>OPTIMIZER_PERFORMANCE_VIEW</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>OPTIMIZER_UNNEST_AGGREGATION_SUBQUERY</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>OPTIMIZER_UNNEST_COMPLEX_SUBQUERY</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>OPTIMIZER_UNNEST_SUBQUERY</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>OUTER_JOIN_OPERATOR_TRANSFORM_ENABLE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>PARALLEL_LOAD_FACTOR</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>PARALLEL_QUERY_THREAD_MAX</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>PARALLEL_QUERY_QUEUE_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>PREPARE_STMT_MEMORY_MAXIMUM</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>QUERY_REWRITE_ENABLE</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>REFINE_PAGE_COUNT</td>
-      	<td></td>
-      </tr>
-      <tr>
-      	<td>RESULT_CACHE_ENABLE</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>RESULT_CACHE_MEMORY_MAXIMUM</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SECONDARY_BUFFER_ENABLE</td>
-          <td rowspan="5"></td>
-      </tr>
-      <tr>
-      	<td>SECONDARY_BUFFER_FILE_DIRECTORY</td>
-      </tr>
-      <tr>
-      	<td>SECONDARY_BUFFER_FLUSHER_CNT</td>
-      </tr>
-      <tr>
-      	<td>SECONDARY_BUFFER_SIZE</td>
-      </tr>
-      <tr>
-      	<td>SECONDARY_BUFFER_TYPE</td>
-      </tr>
-      <tr>
-      	<td>SORT_AREA_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SQL_PLAN_CACHE_BUCKET_CNT</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>SQL_PLAN_CACHE_HOT_REGION_LRU_RATIO</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SQL_PLAN_CACHE_PREPARED_EXECUTION_CONTEXT_CNT</td>
-          <td>SYSTEM</td>     
-      </tr>
-      <tr>
-          <td>SQL_PLAN_CACHE_SIZE</td>
-      	<td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>STATEMENT_LIST_PARTIAL_SCAN_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>TABLE_INITRANS</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>TABLE_LOCK_ENABLE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-          <td>TABLE_LOCK_MODE</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>TABLE_MAXTRANS</td>
-      </tr>
-      <tr>
-      	<td>TABLESPACE_LOCK_ENABLE</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>TEMP_MAX_PAGE_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>TEMP_STATS_WATCH_TIME</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>THREAD_CPU_AFFINITY</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>THREAD_REUSE_ENABLE</td>
-      </tr>
-      <tr>
-          <td>TIMED_STATISTICS</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>TIMER_RUNNING_LEVEL</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>TIMER_THREAD_RESOLUTION</td>
-          <td>SYSTEM</td>
-      </tr>
-       <tr>
-      	<td>TOP_RESULT_CACHE_MODE</td>
-          <td>BOTH</td>
-      </tr>
-       <tr>
-      	<td>
-         </td>
-          <td>SYSTEM</td>
-      </tr>
-       <tr>
-      	<td>TOUCH_TIME_INTERVAL</td>
-          <td>SYSTEM</td>
-      </tr>
-       <tr>
-      	<td>TRANSACTION_SEGMENT_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-       <tr>
-      	<td>TRX_UPDATE_MAX_LOGSIZE</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-          <td rowspan="42">S</td>
-          <td rowspan="31">Normal</td>
-          <td>CM_DISCONN_DETECT_TIME</td>
-          <td></td>
-      </tr>
-       <tr>
-      	<td>CONCURRENT_EXEC_DEGREE_DEFAULT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>CONCURRENT_EXEC_DEGREE_MAX </td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>CONCURRENT_EXEC_WAIT_INTERVAL</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DEFAULT_THREAD_STACK_SIZE</td>
-          <td rowspan="4"></td>
-      </tr>
-      <tr>
-      	<td>IPC_CHANNEL_COUNT</td>
-      </tr>
-      <tr>
-      	<td>IPC_FILEPATH</td>
-      </tr>
-      <tr>
-      	<td>IPCDA_CHANNEL_COUNT</td>
-      </tr>
-      <tr>
-      	<td>IPCDA_DATABLOCK_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>IPCDA_FILEPATH</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>MAX_LISTEN</td>
-      </tr>
-      <tr>
-          <td>MAX_STATEMENTS_PER_SESSION</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>NET_CONN_IP_STACK</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>NLS_COMP</td>
-      </tr>
-      <tr>
-      	<td>NLS_CURRENCY</td>
-      	<td>SESSION</td>
-      </tr>
-      <tr>
-      	<td>NLS_ISO_CURRENCY</td>
-          <td>SESSION</td>
-      </tr>
-      <tr>
-      	<td>NLS_NCHAR_CONV_EXCP</td>
-          <td>SESSION</td>
-      </tr>
-      <tr>
-      	<td>NLS_NCHAR_LITERAL_REPLACE</td>
-          <td>SESSION</td>
-      </tr>
-      <tr>
-      	<td>NLS_NUMERIC_CHARACTERS</td>
-          <td>SESSION</td>
-      </tr>
-      <tr>
-      	<td>NLS_TERRITORY</td>
-          <td>SESSION</td>
-      </tr>
-      <tr>
-      	<td>PORT_NO</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>PSM_CURSOR_OPEN_LIMIT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>PSM_FILE_OPEN_LIMIT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>TIME_ZONE</td>
-          <td>SESSION</td>
-      </tr>
-      <tr>
-      	<td>UNIXDOMAIN_FILEPATH</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>USE_MEMORY_POOL</td>
-      </tr>
-      <tr>
-      	<td>USER_LOCK_POOL_INIT_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>USER_LOCK_REQUEST_CHECK_INTERVAL</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>USER_LOCK_REQUEST_LIMIT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>USER_LOCK_REQUEST_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>XA_HEURISTIC_COMPLETE</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td rowspan="11">Time-Out</td>
-          <td>BLOCK_ALL_TX_TIME_OUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DDL_LOCK_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DDL_TIMEOUT</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>FETCH_TIMEOUT</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>IDLE_TIMEOUT</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>LOGIN_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>MULTIPLEXING_POLL_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>QUERY_TIMEOUT</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>SHUTDOWN_IMMEDIATE_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>UTRANS_TIMEOUT</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>XA_INDOUBT_TX_TIMEOUT</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td rowspan="3">T</td>
-          <td rowspan="3"></td>
-          <td>AUTO_COMMIT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>ISOLATION_LEVEL</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>TRANSACTION_TABLE_SIZE</td>
-      </tr>
-      <tr>
-      	<td rowspan="17">B</td>
-          <td rowspan="17"></td>
-          <td>ARCHIVE_DIR</td>
-          <td rowspan="6"></td>
-      </tr>
-      <tr>
-      	<td>ARCHIVE_FULL_ACTION</td>
-      </tr>
-      <tr>
-      	<td>ARCHIVE_MULTIPLEX_COUNT</td>
-      </tr>
-      <tr>
-      	<td>ARCHIVE_MULTIPLEX_DIR</td>
-      </tr>
-      <tr>
-      	<td>ARCHIVE_THREAD_AUTOSTART</td>
-      </tr>
-      <tr>
-      	<td>CHECKPOINT_ENABLED</td>
-      </tr>
-      <tr>
-      	<td>CHECKPOINT_INTERVAL_IN_LOG</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>CHECKPOINT_INTERVAL_IN_SEC</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>COMMIT_WRITE_WAIT_MODE</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>INCREMENTAL_BACKUP_CHUNK_SIZE</td>
-          <td rowspan="6"></td>
-      </tr>
-      <tr>
-      	<td>INCREMENTAL_BACKUP_INFO_RETENTION_PERIOD</td>
-      </tr>
-      <tr>
-      	<td>LOG_BUFFER_TYPE</td>
-      </tr>
-      <tr>
-      	<td>LOG_MULTIPLEX_COUNT</td>
-      </tr>
-      <tr>
-      	<td>LOG_MULTIPLEX_DIR</td>
-      </tr>
-      <tr>
-      	<td>PREPARE_LOG_FILE_COUNT</td>
-      </tr>
-      <tr>
-      	<td>SNAPSHOT_MEM_THRESHOLD</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SNAPSHOT_DISK_UNDO_THRESHOLD</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td rowspan="55">R</td>
-          <td rowspan="55"></td>
-          <td>REPLICATION_ACK_XLOG_COUNT</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_ALLOW_DUPLICATE_HOSTS</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_BEFORE_IMAGE_LOG_ENABLE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_COMMIT_WRITE_WAIT_MODE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_CONNECT_RECEIVE_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_CONNECT_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_DDL_ENABLE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_DDL_ENABLE_LEVEL</td>
-          <td></td>
-        </tr>
-        <tr>
-        	<td>REPLICATION_DDL_SYNC</td>
-            <td>SYSTEM</td>
-        </tr>
-        <tr>
-        	<td>REPLICATION_DDL_SYNC_TIMEOUT</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_EAGER_PARALLEL_FACTOR</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_EAGER_RECEIVER_MAX_ERROR_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_FAILBACK_INCREMENTAL_SYNC</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_GAP_UNIT</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_GAPLESS_ALLOW_TIME</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_GAPLESS_MAX_WAIT_TIME</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_GROUPING_TRANSACTION_MAX_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_HBT_CONNECT_WAIT_TIME</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_HBT_DETECT_HIGHWATER_MARK</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_HBT_DETECT_TIME</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_IB_LATENCY</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_IB_PORT_NO</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_INSERT_REPLACE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-          <td>REPLICATION_KEEP_ALIVE_CNT</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_LOCK_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_LOG_BUFFER_SIZE</td>
-          <td rowspan="3"></td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_MAX_COUNT</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_MAX_LISTEN</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_MAX_LOGFILE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_POOL_ELEMENT_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_POOL_ELEMENT_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_PORT_NO</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_RECEIVE_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_PREFETCH_LOGFILE_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_RECOVERY_MAX_LOGFILE</td>
-          <td rowspan="3"></td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_RECOVERY_MAX_TIME</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_SENDER_AUTO_START</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_SENDER_COMPRESS_XLOG</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_SENDER_ENCRYPT_XLOG</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_SENDER_SEND_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_SENDER_SLEEP_TIME</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_SENDER_SLEEP_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_SENDER_START_AFTER_GIVING_UP</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_SERVER_FAILBACK_MAX_TIME</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_SQL_APPLY_ENABLE</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_SYNC_APPLY_METHOD</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_SYNC_LOCK_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_SYNC_LOG</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_SYNC_TUPLE_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_TIMESTAMP_RESOLUTION</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>REPLICATION_TRANSACTION_POOL_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-           <td>REPLICATION_UPDATE_REPLACE</td>
-           <td>SYSTEM</td>
-      </tr>
-      <tr>
-          <td rowspan="26">NM</td>
-          <td rowspan="26"></td>
-          <td>IB_CONCHKSPIN</td>
-          <td rowspan="5"></td>
-      </tr>
-      <tr>
-          <td>IB_ENABLE</td>
-      </tr>
-      <tr>
-      	<td>IB_LATENCY</td>
-      </tr>
-      <tr>
-      	<td>IB_LISTEN_DISABLE</td>
-      </tr>
-      <tr>
-      	<td>IB_MAX_LISTEN</td>
-      </tr>
-      <tr>
-      	<td>IB_PORT_NO</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SNMP_ALARM_QUERY_TIMEOUT</td>
-          <td rowspan="5"></td>
-      </tr>
-      <tr>
-      	<td>SNMP_ALARM_FETCH_TIMEOUT</td>
-      </tr>
-      <tr>
-      	<td>SNMP_ALARM_UTRANS_TIMEOUT</td>
-      </tr>
-       <tr>
-      	<td>SNMP_ALARM_SESSION_FAILURE_COUNT</td>
-      </tr>
-       <tr>
-      	<td>SNMP_ENABLE</td>
-      </tr>
-      <tr>
-      	<td>SNMP_MSGLOG_FLAG</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SNMP_PORT_NO</td>
-          <td rowspan="12"></td>
-      </tr>
-      <tr>
-      	<td>SNMP_TRAP_PORT_NO</td>
-      </tr>
-      <tr>
-      	<td>SNMP_RECV_TIMEOUT</td>
-      </tr>
-      <tr>
-      	<td>SNMP_SEND_TIMEOUT</td>
-      </tr>
-      <tr>
-      	<td>SSL_CA</td>
-      </tr>
-      <tr>
-      	<td>SSL_CAPATH</td>
-      </tr>
-      <tr>
-      	<td>SSL_CERT</td>
-      </tr>
-      <tr>
-      	<td>SSL_CIPHER_LIST</td>
-      </tr>
-      <tr>
-      	<td>SSL_CLIENT_AUTHENTICATION</td>
-      </tr>
-      <tr>
-      	<td>SSL_ENABLE</td>
-      </tr>
-      <tr>
-      	<td>SSL_KEY</td>
-      </tr>
-      <tr>
-      	<td>SSL_MAX_LISTEN</td>
-      </tr>
-      <tr>
-      	<td>SSL_PORT_NO</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>TCP_ENABLE</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td rowspan="60">M</td>
-          <td rowspan="60"></td>
-          <td>ALL_MSGLOG_FLUSH</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>COLLECT_DUMP_INFO</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DK_MSGLOG_COUNT</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>DK_MSGLOG_FILE</td>
-      </tr>
-      <tr>
-      	<td>DK_MSGLOG_FLAG</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DK_MSGLOG_RESERVE_SIZE</td>
-          <td rowspan="17"></td>
-      </tr>
-      <tr>
-      	<td>DK_MSGLOG_SIZE</td>
-      </tr>
-      <tr>
-      	<td>DUMP_MSGLOG_COUNT</td>
-      </tr>
-      <tr>
-      	<td>DUMP_MSGLOG_SIZE</td>
-      </tr>
-      <tr>
-      	<td>DUMP_MSGLOG_RESERVE_SIZE</td>
-      </tr>
-      <tr>
-      	<td>ERROR_MSGLOG_COUNT</td>
-      </tr>
-      <tr>
-      	<td>ERROR_MSGLOG_FILE</td>
-      </tr>
-      <tr>
-      	<td>ERROR_MSGLOG_SIZE</td>
-      </tr>
-      <tr>
-      	<td>ERROR_MSGLOG_RESERVE_SIZE</td>
-      </tr>
-      <tr>
-      	<td>LB_MSGLOG_COUNT</td>
-      </tr>
-      <tr>
-      	<td>LB_MSGLOG_FILE</td>
-      </tr>
-      <tr>
-      	<td>LB_MSGLOG_FLAG</td>
-      </tr>
-      <tr>
-      	<td>LB_MSGLOG_SIZE</td>
-      </tr>
-      <tr>
-      	<td>MM_MSGLOG_COUNT</td>
-      </tr>
-      <tr>
-      	<td>MM_MSGLOG_FILE</td>
-      </tr>
-      <tr>
-      	<td>MM_MSGLOG_RESERVE_SIZE</td>
-      </tr>
-      <tr>
-      	<td>MM_MSGLOG_SIZE</td>
-      </tr>
-      <tr>
-      	<td>MM_SESSION_LOGGING</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>NETWORK_ERROR_LOG</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>QP_MSGLOG_COUNT</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>QP_MSGLOG_FILE</td>
-      </tr>
-      <tr>
-      	<td>QP_MSGLOG_FLAG</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>QP_MSGLOG_RESERVE_SIZE</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>QP_MSGLOG_SIZE</td>
-      </tr>
-      <tr>
-      	<td>QUERY_PROF_FLAG</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>QUERY_PROF_LOG_DIR</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>RP_CONFLICT_MSGLOG_COUNT</td>
-          <td rowspan="4"></td>
-      </tr>
-      <tr>
-      	<td>RP_CONFLICT_MSGLOG_DIR</td>
-      </tr>
-       <tr>
-      	<td>RP_CONFLICT_MSGLOG_ENABLE</td>
-      </tr>
-       <tr>
-      	<td>RP_CONFLICT_MSGLOG_FILE</td>
-      </tr>
-      <tr>
-      	<td>RP_CONFLICT_MSGLOG_FLAG</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>RP_CONFLICT_MSGLOG_SIZE</td>
-          <td rowspan="3"></td>
-      </tr>
-      <tr>
-      	<td>RP_MSGLOG_COUNT</td>
-      </tr>
-      <tr>
-      	<td>RP_MSGLOG_FILE</td>
-      </tr>
-      <tr>
-      	<td>RP_MSGLOG_FLAG</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>RP_MSGLOG_RESERVE_SIZE</td>
-          <td rowspan="5"></td>
-      </tr>
-      <tr>
-      	<td>RP_MSGLOG_SIZE</td>
-      </tr>
-      <tr>
-      	<td>SERVER_MSGLOG_COUNT</td>
-      </tr>
-      <tr>
-      	<td>SERVER_MSGLOG_DIR</td>
-      </tr>
-      <tr>
-      	<td>ERVER_MSGLOG_FILE</td>
-      </tr>
-      <tr>
-      	<td>SERVER_MSGLOG_FLAG</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SERVER_MSGLOG_RESERVE_SIZE</td>
-          <td rowspan="4"></td>
-      </tr>
-      <tr>
-      	<td>SERVER_MSGLOG_SIZE</td>
-      </tr>
-      <tr>
-      	<td>SM_MSGLOG_COUNT</td>
-      </tr>
-      <tr>
-      	<td>SM_MSGLOG_FILE</td>
-      </tr>
-      <tr>
-      	<td>SM_MSGLOG_FLAG</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SM_MSGLOG_RESERVE_SIZE</td>
-          <td rowspan="3"></td>
-      </tr>
-      <tr>
-      	<td>SM_MSGLOG_SIZE</td>
-      </tr>
-      <tr>
-      	<td>TRC_MSGLOG_RESERVE_SIZE</td>
-      </tr>
-      <tr>
-      	<td>TRCLOG_DETAIL_PREDICATE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>XA_MSGLOG_COUNT</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>XA_MSGLOG_FILE</td>
-      </tr>
-      <tr>
-      	<td>XA_MSGLOG_FLAG</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>XA_MSGLOG_RESERVE_SIZE</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>XA_MSGLOG_SIZE</td>
-      </tr>
-      <tr>
-      	<td rowspan="9">L</td>
-          <td rowspan="9"></td>
-          <td>DBLINK_ALTILINKER_CONNECT_TIMEOUT</td>
-          <td rowspan="6"></td>
-      </tr>
-      <tr>
-      	<td>DBLINK_DATA_BUFFER_ALLOC_RATIO</td>
-      </tr>
-      <tr>
-      	<td>DBLINK_DATA_BUFFER_BLOCK_COUNT</td>
-      </tr>
-      <tr>
-      	<td>DBLINK_DATA_BUFFER_BLOCK_SIZE</td>
-      </tr>
-      <tr>
-      	<td>DBLINK_ENABLE</td>
-      </tr>
-      <tr>
-      	<td>DBLINK_GLOBAL_TRANSACTION_LEVEL</td>
-      </tr>
-      <tr>
-      	<td>DBLINK_RECOVERY_MAX_LOGFILE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>DBLINK_REMOTE_STATEMENT_AUTOCOMMIT</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-          <td>DBLINK_REMOTE_TABLE_BUFFER_SIZE</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td rowspan="4">U</td>
-          <td rowspan="4"></td>
-          <td>AUDIT_FILE_SIZE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>AUDIT_LOG_DIR</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>AUDIT_OUTPUT_METHOD</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>AUDIT_TAG_NAME_IN_SYSLOG</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td rowspan="4">A</td>
-          <td rowspan="4"></td>
-          <td>EXTPROC_AGENT_CONNECT_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>EXTPROC_AGENT_CALL_RETRY_COUNT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>EXTPROC_AGENT_IDLE_TIMEOUT</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>EXTPROC_AGENT_SOCKET_FILEPATH</td>
-          <td></td>
-      </tr>
-      <tr>
-      	<td rowspan="8">AS</td>
-          <td rowspan="8"></td>
-          <td>CASE_SENSITIVE_PASSWORD</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>FAILED_LOGIN_ATTEMPTS</td>
-          <td rowspan="7"></td>
-      </tr>
-      <tr>
-          <td>PASSWORD_LOCK_TIME</td>
-      </tr>
-      <tr>
-          <td>PASSWORD_LIFE_TIME</td>
-      </tr>
-      <tr>
-      	<td>PASSWORD_GRACE_TIME</td>
-      </tr>
-      <tr>
-      	<td>PASSWORD_REUSE_TIME</td>
-      </tr>
-      <tr>
-      	<td>PASSWORD_REUSE_MAX</td>
-      </tr>
-      <tr>
-      	<td>PASSWORD_VERIFY_FUNCTION</td>
-      </tr>
-      <tr>
-          <td rowspan="27">E</td>
-          <td rowspan="27"></td>
-          <td>ACCESS_LIST</td>
-          <td rowspan="2"></td>
-      </tr>
-  	<tr>
-      	<td>ACCESS_LIST_FILE</td>     
-      </tr>
-      <tr>
-      	<td>ADMIN_MODE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>ARITHMETIC_OPERATION_MODE</td>
-          <td>SESSION</td>
-      </tr>
-      <tr>
-      	<td>CHECK_MUTEX_DURATION_TIME_ENABLE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>COERCE_HOST_VAR_IN_SELECT_LIST_TO_VARCHAR</td>
-          <td rowspan="2"></td>
-      </tr>
-      <tr>
-      	<td>DEFAULT_DATE_FORMAT</td>
-      </tr>
-      <tr>
-      	<td>EXEC_DDL_DISABLE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>GROUP_CONCAT_PRECISION</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>JOB_SCHEDULER_ENABLE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>JOB_THREAD_COUNT</td>
-          <td rowspan="4"></td>
-      </tr>
-      <tr>
-      	<td>JOB_THREAD_QUEUE_SIZE</td>
-      </tr>
-      <tr>
-      	<td>MSG_QUEUE_PERMISSION</td>
-      </tr>
-      <tr>
-      	<td>PSM_CHAR_DEFAULT_PRECISION</td>
-      </tr>
-      <tr>
-      	<td>PSM_IGNORE_NO_DATA_FOUND_ERROR</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>PSM_NCHAR_UTF16_DEFAULT_PRECISION</td>
-          <td rowspan="6"></td>
-      </tr>
-      <tr>
-      	<td>PSM_NCHAR_UTF8_DEFAULT_PRECISION</td>
-      </tr>
-      <tr>
-      	<td>PSM_NVARCHAR_UTF16_DEFAULT_PRECISION</td>
-      </tr>
-      <tr>
-      	<td>PSM_NVARCHAR_UTF8_DEFAULT_PRECISION</td>
-      </tr>
-      <tr>
-      	<td>PSM_PARAM_AND_RETURN_WITHOUT_PRECISION_ENABLE</td>
-      </tr>
-      <tr>
-      	<td>PSM_VARCHAR_DEFAULT_PRECISION</td>
-      </tr>
-      <tr>
-      	<td>QUERY_STACK_SIZE</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>RECURSION_LEVEL_MAXIMUM</td>
-          <td>SESSION</td>
-      </tr>
-      <tr>
-      	<td>REMOTE_SYSDBA_ENABLE</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SELECT_HEADER_DISPLAY</td>
-          <td>BOTH</td>
-      </tr>
-      <tr>
-      	<td>SYS_CONNECT_BY_PATH_PRECISION</td>
-          <td>SYSTEM</td>
-      </tr>
-      <tr>
-      	<td>SERIAL_EXECUTE_MODE</td>
-          <td>BOTH</td>
-      </tr>
+  <tbody>
+  <tr>
+  <th>Group</th>
+  <th>Class</th>
+  <th>Property Name</th>
+  <th>Alter Level</th>
+  </tr>
+  <tr>
+  <td rowspan="85">D</td>
+  <td rowspan="85">&nbsp;</td>
+  <td>BUFFER_AREA_CHUNK_SIZE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>BUFFER_AREA_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>BUFFER_CHECKPOINT_LIST_CNT</td>
+  <td rowspan="9">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>BUFFER_FLUSHER_CNT</td>
+  </tr>
+  <tr>
+  <td>BUFFER_FLUSH_LIST_CNT</td>
+  </tr>
+  <tr>
+  <td>BUFFER_HASH_BUCKET_DENSITY</td>
+  </tr>
+  <tr>
+  <td>BUFFER_HASH_CHAIN_LATCH_DENSITY</td>
+  </tr>
+  <tr>
+  <td>BUFFER_LRU_LIST_CNT</td>
+  </tr>
+  <tr>
+  <td>BUFFER_PREPARE_LIST_CNT</td>
+  </tr>
+  <tr>
+  <td>COMPRESSION_RESOURCE_GC_SECOND</td>
+  </tr>
+  <tr>
+  <td>DB_NAME</td>
+  </tr>
+  <tr>
+  <td>DDL_SUPPLEMENTAL_LOG_ENABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DEFAULT_DISK_DB_DIR</td>
+  <td rowspan="7">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>DEFAULT_MEM_DB_FILE_SIZE</td>
+  </tr>
+  <tr>
+  <td>DEFAULT_SEGMENT_MANAGEMENT_TYPE</td>
+  </tr>
+  <tr>
+  <td>DEFAULT_SEGMENT_STORAGE_INITEXTENTS</td>
+  </tr>
+  <tr>
+  <td>DEFAULT_SEGMENT_STORAGE_MAXEXTENTS</td>
+  </tr>
+  <tr>
+  <td>DEFAULT_SEGMENT_STORAGE_MINEXTENTS</td>
+  </tr>
+  <tr>
+  <td>DEFAULT_SEGMENT_STORAGE_NEXTEXTENTS</td>
+  </tr>
+  <tr>
+  <td>DIRECT_PATH_BUFFER_PAGE_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DISK_INDEX_UNBALANCED_SPLIT_RATE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DISK_LOB_COLUMN_IN_ROW_SIZE</td>
+  <td rowspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>DISK_MAX_DB_SIZE</td>
+  </tr>
+  <tr>
+  <td>DOUBLE_WRITE_DIRECTORY</td>
+  </tr>
+  <tr>
+  <td>DOUBLE_WRITE_DIRECTORY_COUNT</td>
+  </tr>
+  <tr>
+  <td>DRDB_FD_MAX_COUNT_PER_DATAFILE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>EXPAND_CHUNK_PAGE_COUNT</td>
+  <td rowspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>LOB_OBJECT_BUFFER_SIZE</td>
+  </tr>
+  <tr>
+  <td>LOCK_MGR_CACHE_NODE</td>
+  </tr>
+  <tr>
+  <td>LOCK_NODE_CACHE_COUNT</td>
+  </tr>
+  <tr>
+  <td>LOGANCHOR_DIR</td>
+  </tr>
+  <tr>
+  <td>LOG_DIR</td>
+  </tr>
+  <tr>
+  <td>LOG_FILE_SIZE</td>
+  </tr>
+  <tr>
+  <td>MAX_CLIENT</td>
+  </tr>
+  <tr>
+  <td>MEM_DB_DIR</td>
+  </tr>
+  <tr>
+  <td>MEM_MAX_DB_SIZE</td>
+  </tr>
+  <tr>
+  <td>MEMORY_INDEX_BUILD_RUN_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MEMORY_INDEX_BUILD_VALUE_LENGTH_THRESHOLD</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MEMORY_INDEX_UNBALANCED_SPLIT_RATE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MEMORY_LOB_COLUMN_IN_ROW_SIZE</td>
+  <td rowspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>MEMORY_VARIABLE_COLUMN_IN_ROW_SIZE</td>
+  </tr>
+  <tr>
+  <td>MEM_SIZE_CLASS_COUNT</td>
+  </tr>
+  <tr>
+  <td>MIN_COMPRESSION_RESOURCE_COUNT</td>
+  </tr>
+  <tr>
+  <td>MIN_LOG_RECORD_SIZE_FOR_COMPRESS</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MIN_PAGES_ON_DB_FREE_LIST</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>MIN_PAGES_ON_TABLE_FREE_LIST</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MIN_TASK_COUNT_FOR_THREAD_LIVE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>PCTFREE</td>
+  <td rowspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>PCTUSED</td>
+  </tr>
+  <tr>
+  <td>QP_MEMORY_CHUNK_SIZE</td>
+  </tr>
+  <tr>
+  <td>RECYCLEBIN_DISK_MAX_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>RECYCLEBIN_ENABLE</td>
+  <td>SESSION</td>
+  </tr>
+  <tr>
+  <td>RECYCLEBIN_MEM_MAX_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REDUCE_TEMP_MEMORY_ENABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SECURITY_ECC_POLICY_NAME</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SECURITY_MODULE_LIBRARY</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SECURITY_MODULE_NAME</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SERVICE_THREAD_INITIAL_LIFESPAN</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SMALL_TABLE_THRESHOLD</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>ST_OBJECT_BUFFER_SIZE</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>SYS_DATA_FILE_INIT_SIZE</td>
+  <td rowspan="13">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>SYS_DATA_FILE_MAX_SIZE</td>
+  </tr>
+  <tr>
+  <td>SYS_DATA_FILE_NEXT_SIZE</td>
+  </tr>
+  <tr>
+  <td>SYS_DATA_TBS_EXTENT_SIZE</td>
+  </tr>
+  <tr>
+  <td>SYS_TEMP_FILE_INIT_SIZE</td>
+  </tr>
+  <tr>
+  <td>SYS_TEMP_FILE_MAX_SIZE</td>
+  </tr>
+  <tr>
+  <td>SYS_TEMP_FILE_NEXT_SIZE</td>
+  </tr>
+  <tr>
+  <td>SYS_TEMP_TBS_EXTENT_SIZE</td>
+  </tr>
+  <tr>
+  <td>SYS_UNDO_FILE_INIT_SIZE</td>
+  </tr>
+  <tr>
+  <td>SYS_UNDO_FILE_MAX_SIZE</td>
+  </tr>
+  <tr>
+  <td>SYS_UNDO_FILE_NEXT_SIZE</td>
+  </tr>
+  <tr>
+  <td>SYS_UNDO_TBS_EXTENT_SIZE</td>
+  </tr>
+  <tr>
+  <td>TABLE_BACKUP_FILE_BUFFER_SIZE</td>
+  </tr>
+  <tr>
+  <td>TABLE_COMPACT_AT_SHUTDOW</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>TEMP_HASH_BUCKET_DENSITY</td>
+  <td rowspan="11">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>TEMP_PAGE_CHUNK_COUNT</td>
+  </tr>
+  <tr>
+  <td>USER_DATA_FILE_INIT_SIZE</td>
+  </tr>
+  <tr>
+  <td>USER_DATA_FILE_MAX_SIZE</td>
+  </tr>
+  <tr>
+  <td>USER_DATA_FILE_NEXT_SIZE</td>
+  </tr>
+  <tr>
+  <td>USER_DATA_TBS_EXTENT_SIZE</td>
+  </tr>
+  <tr>
+  <td>USER_TEMP_FILE_INIT_SIZE</td>
+  </tr>
+  <tr>
+  <td>USER_TEMP_FILE_MAX_SIZE</td>
+  </tr>
+  <tr>
+  <td>USER_TEMP_FILE_NEXT_SIZE</td>
+  </tr>
+  <tr>
+  <td>USER_TEMP_TBS_EXTENT_SIZE</td>
+  </tr>
+  <tr>
+  <td>VOLATILE_MAX_DB_SIZE</td>
+  </tr>
+  <tr>
+  <td rowspan="102">P</td>
+  <td rowspan="102">&nbsp;</td>
+  <td>AGER_WAIT_MAXIMUM</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>AGER_WAIT_MINIMUM</td>
+  </tr>
+  <tr>
+  <td>BUFFER_VICTIM_SEARCH_INTERVAL</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>BUFFER_VICTIM_SEARCH_PCT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>BULKIO_PAGE_COUNT_FOR_DIRECT_PATH_INSERT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CHECKPOINT_BULK_SYNC_PAGE_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CHECKPOINT_BULK_WRITE_PAGE_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CHECKPOINT_BULK_WRITE_SLEEP_SEC</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CHECKPOINT_BULK_WRITE_SLEEP_USEC</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CHECKPOINT_FLUSH_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CHECKPOINT_FLUSH_MAX_GAP</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CHECKPOINT_FLUSH_MAX_WAIT_SEC</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CM_BUFFER_MAX_PENDING_LIST</td>
+  <td rowspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>CM_DISPATCHER_SOCK_POLL_TYPE</td>
+  </tr>
+  <tr>
+  <td>DATABASE_IO_TYPE</td>
+  </tr>
+  <tr>
+  <td>DATAFILE_WRITE_UNIT_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DB_FILE_MULTIPAGE_READ_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DEDICATED_THREAD_CHECK_INTERVAL</td>
+  <td rowspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>DEDICATED_THREAD_INIT_COUNT</td>
+  </tr>
+  <tr>
+  <td>DEDICATED_THREAD_MAX_COUNT</td>
+  </tr>
+  <tr>
+  <td>DEDICATED_THREAD_MODE</td>
+  </tr>
+  <tr>
+  <td>DEFAULT_FLUSHER_WAIT_SEC</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DELAYED_FLUSH_LIST_PCT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DELAYED_FLUSH_PROTECTION_TIME_MSEC</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DIRECT_IO_ENABLED</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>DISK_INDEX_BUILD_MERGE_PAGE_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>EXECUTE_STMT_MEMORY_MAXIMUM</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>EXECUTOR_FAST_SIMPLE_QUERY</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>FAST_START_IO_TARGET</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>FAST_START_LOGFILE_TARGET</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>FAST_UNLOCK_LOG_ALLOC_MUTEX</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>HASH_AREA_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>HASH_JOIN_MEM_TEMP_AUTO_BUCKET_COUNT_DISABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>HASH_JOIN_MEM_TEMP_PARTITIONING_DISABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>HIGH_FLUSH_PCT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>HOT_LIST_PCT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>HOT_TOUCH_CNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>INDEX_BUILD_THREAD_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>INDEX_INITRANS</td>
+  <td rowspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>INDEX_MAXTRANS</td>
+  </tr>
+  <tr>
+  <td>LFG_GROUP_COMMIT_INTERVAL_USEC</td>
+  </tr>
+  <tr>
+  <td>LFG_GROUP_COMMIT_RETRY_USEC</td>
+  </tr>
+  <tr>
+  <td>LFG_GROUP_COMMIT_UPDATE_TX_COUNT</td>
+  </tr>
+  <tr>
+  <td>LOB_CACHE_THRESHOLD</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>LOCK_ESCALATION_MEMORY_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>LOG_CREATE_METHOD</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>LOG_IO_TYPE</td>
+  </tr>
+  <tr>
+  <td>LOW_FLUSH_PCT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>LOW_PREPARE_PCT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MATHEMATICS_TEMP_MEMORY_MAXIMUM</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MAX_FLUSHER_WAIT_SEC</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MEM_INDEX_KEY_REDISTRIBUTION</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MEM_INDEX_KEY_REDISTRIBUTION_STANDARD_RATE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MULTIPLEXING_CHECK_INTERVAL</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MULTIPLEXING_MAX_THREAD_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MULTIPLEXING_THREAD_COUNT</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>NORMALFORM_MAXIMUM</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>OPTIMIZER_AUTO_STATS</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>OPTIMIZER_DELAYED_EXECUTION</td>
+  <td>SESSION</td>
+  </tr>
+  <tr>
+  <td>OPTIMIZER_FEATURE_ENABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>OPTIMIZER_MODE</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>OPTIMIZER_PERFORMANCE_VIEW</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>OPTIMIZER_UNNEST_AGGREGATION_SUBQUERY</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>OPTIMIZER_UNNEST_COMPLEX_SUBQUERY</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>OPTIMIZER_UNNEST_SUBQUERY</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>OUTER_JOIN_OPERATOR_TRANSFORM_ENABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>PARALLEL_LOAD_FACTOR</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>PARALLEL_QUERY_THREAD_MAX</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>PARALLEL_QUERY_QUEUE_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>PREPARE_STMT_MEMORY_MAXIMUM</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>QUERY_REWRITE_ENABLE</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>REFINE_PAGE_COUNT</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>RESULT_CACHE_ENABLE</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>RESULT_CACHE_MEMORY_MAXIMUM</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SECONDARY_BUFFER_ENABLE</td>
+  <td rowspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>SECONDARY_BUFFER_FILE_DIRECTORY</td>
+  </tr>
+  <tr>
+  <td>SECONDARY_BUFFER_FLUSHER_CNT</td>
+  </tr>
+  <tr>
+  <td>SECONDARY_BUFFER_SIZE</td>
+  </tr>
+  <tr>
+  <td>SECONDARY_BUFFER_TYPE</td>
+  </tr>
+  <tr>
+  <td>SORT_AREA_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SQL_PLAN_CACHE_BUCKET_CNT</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>SQL_PLAN_CACHE_HOT_REGION_LRU_RATIO</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SQL_PLAN_CACHE_PREPARED_EXECUTION_CONTEXT_CNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SQL_PLAN_CACHE_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>STATEMENT_LIST_PARTIAL_SCAN_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>TABLE_INITRANS</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>TABLE_LOCK_ENABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>TABLE_LOCK_MODE</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>TABLE_MAXTRANS</td>
+  </tr>
+  <tr>
+  <td>TABLESPACE_LOCK_ENABLE</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>TEMP_MAX_PAGE_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>TEMP_STATS_WATCH_TIME</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>THREAD_CPU_AFFINITY</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>THREAD_REUSE_ENABLE</td>
+  </tr>
+  <tr>
+  <td>TIMED_STATISTICS</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>TIMER_RUNNING_LEVEL</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>TIMER_THREAD_RESOLUTION</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>TOP_RESULT_CACHE_MODE</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>&nbsp;</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>TOUCH_TIME_INTERVAL</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>TRANSACTION_SEGMENT_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>TRX_UPDATE_MAX_LOGSIZE</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td rowspan="42">S</td>
+  <td rowspan="31">Normal</td>
+  <td>CM_DISCONN_DETECT_TIME</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>CONCURRENT_EXEC_DEGREE_DEFAULT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CONCURRENT_EXEC_DEGREE_MAX</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>CONCURRENT_EXEC_WAIT_INTERVAL</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DEFAULT_THREAD_STACK_SIZE</td>
+  <td rowspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>IPC_CHANNEL_COUNT</td>
+  </tr>
+  <tr>
+  <td>IPC_FILEPATH</td>
+  </tr>
+  <tr>
+  <td>IPCDA_CHANNEL_COUNT</td>
+  </tr>
+  <tr>
+  <td>IPCDA_DATABLOCK_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>IPCDA_FILEPATH</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>MAX_LISTEN</td>
+  </tr>
+  <tr>
+  <td>MAX_STATEMENTS_PER_SESSION</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>NET_CONN_IP_STACK</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>NLS_COMP</td>
+  </tr>
+  <tr>
+  <td>NLS_CURRENCY</td>
+  <td>SESSION</td>
+  </tr>
+  <tr>
+  <td>NLS_ISO_CURRENCY</td>
+  <td>SESSION</td>
+  </tr>
+  <tr>
+  <td>NLS_NCHAR_CONV_EXCP</td>
+  <td>SESSION</td>
+  </tr>
+  <tr>
+  <td>NLS_NCHAR_LITERAL_REPLACE</td>
+  <td>SESSION</td>
+  </tr>
+  <tr>
+  <td>NLS_NUMERIC_CHARACTERS</td>
+  <td>SESSION</td>
+  </tr>
+  <tr>
+  <td>NLS_TERRITORY</td>
+  <td>SESSION</td>
+  </tr>
+  <tr>
+  <td>PORT_NO</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>PSM_CURSOR_OPEN_LIMIT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>PSM_FILE_OPEN_LIMIT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>TIME_ZONE</td>
+  <td>SESSION</td>
+  </tr>
+  <tr>
+  <td>UNIXDOMAIN_FILEPATH</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>USE_MEMORY_POOL</td>
+  </tr>
+  <tr>
+  <td>USER_LOCK_POOL_INIT_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>USER_LOCK_REQUEST_CHECK_INTERVAL</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>USER_LOCK_REQUEST_LIMIT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>USER_LOCK_REQUEST_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>XA_HEURISTIC_COMPLETE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td rowspan="11">Time-Out</td>
+  <td>BLOCK_ALL_TX_TIME_OUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DDL_LOCK_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DDL_TIMEOUT</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>FETCH_TIMEOUT</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>IDLE_TIMEOUT</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>LOGIN_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MULTIPLEXING_POLL_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>QUERY_TIMEOUT</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>SHUTDOWN_IMMEDIATE_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>UTRANS_TIMEOUT</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>XA_INDOUBT_TX_TIMEOUT</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td rowspan="3">T</td>
+  <td rowspan="3">&nbsp;</td>
+  <td>AUTO_COMMIT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>ISOLATION_LEVEL</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>TRANSACTION_TABLE_SIZE</td>
+  </tr>
+  <tr>
+  <td rowspan="17">B</td>
+  <td rowspan="17">&nbsp;</td>
+  <td>ARCHIVE_DIR</td>
+  <td rowspan="6">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ARCHIVE_FULL_ACTION</td>
+  </tr>
+  <tr>
+  <td>ARCHIVE_MULTIPLEX_COUNT</td>
+  </tr>
+  <tr>
+  <td>ARCHIVE_MULTIPLEX_DIR</td>
+  </tr>
+  <tr>
+  <td>ARCHIVE_THREAD_AUTOSTART</td>
+  </tr>
+  <tr>
+  <td>CHECKPOINT_ENABLED</td>
+  </tr>
+  <tr>
+  <td>CHECKPOINT_INTERVAL_IN_LOG</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CHECKPOINT_INTERVAL_IN_SEC</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>COMMIT_WRITE_WAIT_MODE</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>INCREMENTAL_BACKUP_CHUNK_SIZE</td>
+  <td rowspan="6">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>INCREMENTAL_BACKUP_INFO_RETENTION_PERIOD</td>
+  </tr>
+  <tr>
+  <td>LOG_BUFFER_TYPE</td>
+  </tr>
+  <tr>
+  <td>LOG_MULTIPLEX_COUNT</td>
+  </tr>
+  <tr>
+  <td>LOG_MULTIPLEX_DIR</td>
+  </tr>
+  <tr>
+  <td>PREPARE_LOG_FILE_COUNT</td>
+  </tr>
+  <tr>
+  <td>SNAPSHOT_MEM_THRESHOLD</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SNAPSHOT_DISK_UNDO_THRESHOLD</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td rowspan="54">R</td>
+  <td rowspan="54">&nbsp;</td>
+  <td>REPLICATION_ACK_XLOG_COUNT</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_ALLOW_DUPLICATE_HOSTS</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_BEFORE_IMAGE_LOG_ENABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_COMMIT_WRITE_WAIT_MODE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_CONNECT_RECEIVE_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_CONNECT_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_DDL_ENABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_DDL_ENABLE_LEVEL</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_DDL_SYNC</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_DDL_SYNC_TIMEOUT</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_EAGER_PARALLEL_FACTOR</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_EAGER_RECEIVER_MAX_ERROR_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_FAILBACK_INCREMENTAL_SYNC</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_GAP_UNIT</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_GAPLESS_ALLOW_TIME</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_GAPLESS_MAX_WAIT_TIME</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_GROUPING_TRANSACTION_MAX_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_HBT_DETECT_HIGHWATER_MARK</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_HBT_DETECT_TIME</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_IB_LATENCY</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_IB_PORT_NO</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_INSERT_REPLACE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_KEEP_ALIVE_CNT</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_LOCK_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_LOG_BUFFER_SIZE</td>
+  <td rowspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_MAX_COUNT</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_MAX_LISTEN</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_MAX_LOGFILE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_POOL_ELEMENT_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_POOL_ELEMENT_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_PORT_NO</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_RECEIVE_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_PREFETCH_LOGFILE_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_RECOVERY_MAX_LOGFILE</td>
+  <td rowspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_RECOVERY_MAX_TIME</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SENDER_AUTO_START</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SENDER_COMPRESS_XLOG</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SENDER_ENCRYPT_XLOG</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SENDER_SEND_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SENDER_SLEEP_TIME</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SENDER_SLEEP_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SENDER_START_AFTER_GIVING_UP</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SERVER_FAILBACK_MAX_TIME</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SQL_APPLY_ENABLE</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SYNC_APPLY_METHOD</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SYNC_LOCK_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SYNC_LOG</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SYNC_TUPLE_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_TIMESTAMP_RESOLUTION</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_TRANSACTION_POOL_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_UPDATE_REPLACE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td rowspan="26">NM</td>
+  <td rowspan="26">&nbsp;</td>
+  <td>IB_CONCHKSPIN</td>
+  <td rowspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>IB_ENABLE</td>
+  </tr>
+  <tr>
+  <td>IB_LATENCY</td>
+  </tr>
+  <tr>
+  <td>IB_LISTEN_DISABLE</td>
+  </tr>
+  <tr>
+  <td>IB_MAX_LISTEN</td>
+  </tr>
+  <tr>
+  <td>IB_PORT_NO</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SNMP_ALARM_QUERY_TIMEOUT</td>
+  <td rowspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>SNMP_ALARM_FETCH_TIMEOUT</td>
+  </tr>
+  <tr>
+  <td>SNMP_ALARM_UTRANS_TIMEOUT</td>
+  </tr>
+  <tr>
+  <td>SNMP_ALARM_SESSION_FAILURE_COUNT</td>
+  </tr>
+  <tr>
+  <td>SNMP_ENABLE</td>
+  </tr>
+  <tr>
+  <td>SNMP_MSGLOG_FLAG</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SNMP_PORT_NO</td>
+  <td rowspan="12">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>SNMP_TRAP_PORT_NO</td>
+  </tr>
+  <tr>
+  <td>SNMP_RECV_TIMEOUT</td>
+  </tr>
+  <tr>
+  <td>SNMP_SEND_TIMEOUT</td>
+  </tr>
+  <tr>
+  <td>SSL_CA</td>
+  </tr>
+  <tr>
+  <td>SSL_CAPATH</td>
+  </tr>
+  <tr>
+  <td>SSL_CERT</td>
+  </tr>
+  <tr>
+  <td>SSL_CIPHER_LIST</td>
+  </tr>
+  <tr>
+  <td>SSL_CLIENT_AUTHENTICATION</td>
+  </tr>
+  <tr>
+  <td>SSL_ENABLE</td>
+  </tr>
+  <tr>
+  <td>SSL_KEY</td>
+  </tr>
+  <tr>
+  <td>SSL_MAX_LISTEN</td>
+  </tr>
+  <tr>
+  <td>SSL_PORT_NO</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>TCP_ENABLE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td rowspan="60">M</td>
+  <td rowspan="60">&nbsp;</td>
+  <td>ALL_MSGLOG_FLUSH</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>COLLECT_DUMP_INFO</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DK_MSGLOG_COUNT</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>DK_MSGLOG_FILE</td>
+  </tr>
+  <tr>
+  <td>DK_MSGLOG_FLAG</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DK_MSGLOG_RESERVE_SIZE</td>
+  <td rowspan="17">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>DK_MSGLOG_SIZE</td>
+  </tr>
+  <tr>
+  <td>DUMP_MSGLOG_COUNT</td>
+  </tr>
+  <tr>
+  <td>DUMP_MSGLOG_SIZE</td>
+  </tr>
+  <tr>
+  <td>DUMP_MSGLOG_RESERVE_SIZE</td>
+  </tr>
+  <tr>
+  <td>ERROR_MSGLOG_COUNT</td>
+  </tr>
+  <tr>
+  <td>ERROR_MSGLOG_FILE</td>
+  </tr>
+  <tr>
+  <td>ERROR_MSGLOG_SIZE</td>
+  </tr>
+  <tr>
+  <td>ERROR_MSGLOG_RESERVE_SIZE</td>
+  </tr>
+  <tr>
+  <td>LB_MSGLOG_COUNT</td>
+  </tr>
+  <tr>
+  <td>LB_MSGLOG_FILE</td>
+  </tr>
+  <tr>
+  <td>LB_MSGLOG_FLAG</td>
+  </tr>
+  <tr>
+  <td>LB_MSGLOG_SIZE</td>
+  </tr>
+  <tr>
+  <td>MM_MSGLOG_COUNT</td>
+  </tr>
+  <tr>
+  <td>MM_MSGLOG_FILE</td>
+  </tr>
+  <tr>
+  <td>MM_MSGLOG_RESERVE_SIZE</td>
+  </tr>
+  <tr>
+  <td>MM_MSGLOG_SIZE</td>
+  </tr>
+  <tr>
+  <td>MM_SESSION_LOGGING</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>NETWORK_ERROR_LOG</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>QP_MSGLOG_COUNT</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>QP_MSGLOG_FILE</td>
+  </tr>
+  <tr>
+  <td>QP_MSGLOG_FLAG</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>QP_MSGLOG_RESERVE_SIZE</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>QP_MSGLOG_SIZE</td>
+  </tr>
+  <tr>
+  <td>QUERY_PROF_FLAG</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>QUERY_PROF_LOG_DIR</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>RP_CONFLICT_MSGLOG_COUNT</td>
+  <td rowspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>RP_CONFLICT_MSGLOG_DIR</td>
+  </tr>
+  <tr>
+  <td>RP_CONFLICT_MSGLOG_ENABLE</td>
+  </tr>
+  <tr>
+  <td>RP_CONFLICT_MSGLOG_FILE</td>
+  </tr>
+  <tr>
+  <td>RP_CONFLICT_MSGLOG_FLAG</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>RP_CONFLICT_MSGLOG_SIZE</td>
+  <td rowspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>RP_MSGLOG_COUNT</td>
+  </tr>
+  <tr>
+  <td>RP_MSGLOG_FILE</td>
+  </tr>
+  <tr>
+  <td>RP_MSGLOG_FLAG</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>RP_MSGLOG_RESERVE_SIZE</td>
+  <td rowspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>RP_MSGLOG_SIZE</td>
+  </tr>
+  <tr>
+  <td>SERVER_MSGLOG_COUNT</td>
+  </tr>
+  <tr>
+  <td>SERVER_MSGLOG_DIR</td>
+  </tr>
+  <tr>
+  <td>ERVER_MSGLOG_FILE</td>
+  </tr>
+  <tr>
+  <td>SERVER_MSGLOG_FLAG</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SERVER_MSGLOG_RESERVE_SIZE</td>
+  <td rowspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>SERVER_MSGLOG_SIZE</td>
+  </tr>
+  <tr>
+  <td>SM_MSGLOG_COUNT</td>
+  </tr>
+  <tr>
+  <td>SM_MSGLOG_FILE</td>
+  </tr>
+  <tr>
+  <td>SM_MSGLOG_FLAG</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SM_MSGLOG_RESERVE_SIZE</td>
+  <td rowspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>SM_MSGLOG_SIZE</td>
+  </tr>
+  <tr>
+  <td>TRC_MSGLOG_RESERVE_SIZE</td>
+  </tr>
+  <tr>
+  <td>TRCLOG_DETAIL_PREDICATE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>XA_MSGLOG_COUNT</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>XA_MSGLOG_FILE</td>
+  </tr>
+  <tr>
+  <td>XA_MSGLOG_FLAG</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>XA_MSGLOG_RESERVE_SIZE</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>XA_MSGLOG_SIZE</td>
+  </tr>
+  <tr>
+  <td rowspan="9">L</td>
+  <td rowspan="9">&nbsp;</td>
+  <td>DBLINK_ALTILINKER_CONNECT_TIMEOUT</td>
+  <td rowspan="6">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>DBLINK_DATA_BUFFER_ALLOC_RATIO</td>
+  </tr>
+  <tr>
+  <td>DBLINK_DATA_BUFFER_BLOCK_COUNT</td>
+  </tr>
+  <tr>
+  <td>DBLINK_DATA_BUFFER_BLOCK_SIZE</td>
+  </tr>
+  <tr>
+  <td>DBLINK_ENABLE</td>
+  </tr>
+  <tr>
+  <td>DBLINK_GLOBAL_TRANSACTION_LEVEL</td>
+  </tr>
+  <tr>
+  <td>DBLINK_RECOVERY_MAX_LOGFILE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>DBLINK_REMOTE_STATEMENT_AUTOCOMMIT</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>DBLINK_REMOTE_TABLE_BUFFER_SIZE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td rowspan="4">U</td>
+  <td rowspan="4">&nbsp;</td>
+  <td>AUDIT_FILE_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>AUDIT_LOG_DIR</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>AUDIT_OUTPUT_METHOD</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>AUDIT_TAG_NAME_IN_SYSLOG</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td rowspan="4">A</td>
+  <td rowspan="4">&nbsp;</td>
+  <td>EXTPROC_AGENT_CONNECT_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>EXTPROC_AGENT_CALL_RETRY_COUNT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>EXTPROC_AGENT_IDLE_TIMEOUT</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>EXTPROC_AGENT_SOCKET_FILEPATH</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td rowspan="8">AS</td>
+  <td rowspan="8">&nbsp;</td>
+  <td>CASE_SENSITIVE_PASSWORD</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>FAILED_LOGIN_ATTEMPTS</td>
+  <td rowspan="7">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>PASSWORD_LOCK_TIME</td>
+  </tr>
+  <tr>
+  <td>PASSWORD_LIFE_TIME</td>
+  </tr>
+  <tr>
+  <td>PASSWORD_GRACE_TIME</td>
+  </tr>
+  <tr>
+  <td>PASSWORD_REUSE_TIME</td>
+  </tr>
+  <tr>
+  <td>PASSWORD_REUSE_MAX</td>
+  </tr>
+  <tr>
+  <td>PASSWORD_VERIFY_FUNCTION</td>
+  </tr>
+  <tr>
+  <td rowspan="27">E</td>
+  <td rowspan="27">&nbsp;</td>
+  <td>ACCESS_LIST</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ACCESS_LIST_FILE</td>
+  </tr>
+  <tr>
+  <td>ADMIN_MODE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>ARITHMETIC_OPERATION_MODE</td>
+  <td>SESSION</td>
+  </tr>
+  <tr>
+  <td>CHECK_MUTEX_DURATION_TIME_ENABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>COERCE_HOST_VAR_IN_SELECT_LIST_TO_VARCHAR</td>
+  <td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>DEFAULT_DATE_FORMAT</td>
+  </tr>
+  <tr>
+  <td>EXEC_DDL_DISABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>GROUP_CONCAT_PRECISION</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>JOB_SCHEDULER_ENABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>JOB_THREAD_COUNT</td>
+  <td rowspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>JOB_THREAD_QUEUE_SIZE</td>
+  </tr>
+  <tr>
+  <td>MSG_QUEUE_PERMISSION</td>
+  </tr>
+  <tr>
+  <td>PSM_CHAR_DEFAULT_PRECISION</td>
+  </tr>
+  <tr>
+  <td>PSM_IGNORE_NO_DATA_FOUND_ERROR</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>PSM_NCHAR_UTF16_DEFAULT_PRECISION</td>
+  <td rowspan="6">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>PSM_NCHAR_UTF8_DEFAULT_PRECISION</td>
+  </tr>
+  <tr>
+  <td>PSM_NVARCHAR_UTF16_DEFAULT_PRECISION</td>
+  </tr>
+  <tr>
+  <td>PSM_NVARCHAR_UTF8_DEFAULT_PRECISION</td>
+  </tr>
+  <tr>
+  <td>PSM_PARAM_AND_RETURN_WITHOUT_PRECISION_ENABLE</td>
+  </tr>
+  <tr>
+  <td>PSM_VARCHAR_DEFAULT_PRECISION</td>
+  </tr>
+  <tr>
+  <td>QUERY_STACK_SIZE</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>RECURSION_LEVEL_MAXIMUM</td>
+  <td>SESSION</td>
+  </tr>
+  <tr>
+  <td>REMOTE_SYSDBA_ENABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SELECT_HEADER_DISPLAY</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>SYS_CONNECT_BY_PATH_PRECISION</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>SERIAL_EXECUTE_MODE</td>
+  <td>BOTH</td>
+  </tr>
+  </tbody>
   </table>
 
 In this chapter, each property is explained as follows:
@@ -4318,7 +4315,7 @@ Read-Write, Single Value
 
 ##### Range
 
-[8192, 2<sup>64</sup>-1]
+[8 * 1024 * 10, 2<sup>64</sup>-1]
 
 ##### Description
 
@@ -4495,7 +4492,7 @@ Unsigned Integer
 
 Read-Write, Single Value
 
-##### Rnage
+##### Range
 
 [128, 12800]
 
@@ -4801,7 +4798,7 @@ Read-Only, Single Value
 
 ##### Description
 
-Ths property sets the default column size, in bytes, when LOB type data are stored directly in disk tables. When data are entered into a LOB data type column, if the data length is smaller or the same as the value specified here, they are saved in table segment, whereas if the data are larger than this value, they are saved in a LOB segment. This property pertains only to disk tables, and has no effect on how memory tables are managed.
+This property sets the default column size, in bytes, when LOB type data are stored directly in disk tables. When data are entered into a LOB data type column, if the data length is smaller or the same as the value specified here, they are saved in table segment, whereas if the data are larger than this value, they are saved in a LOB segment. This property pertains only to disk tables, and has no effect on how memory tables are managed.
 
 For more detailed information about LOB type data, please refer to Chapter1: Data Types.
 
@@ -5254,7 +5251,7 @@ Read-Write, Single Value
 
 ##### Description
 
-This property sets the default column size, in bytes, when the variable type data are stored directly in memory tables. When data are entered into the variable type column, if the data length is smaller or the same as the value specified here, they are saved in a fixed amount of area, whereas if the data are arger than this value, they are saved in a variable area. This property pertains only to memory tables, and has no effect on how disk tables are managed. 
+This property sets the default column size, in bytes, when the variable type data are stored directly in memory tables. When data are entered into the variable type column, if the data length is smaller or the same as the value specified here, they are saved in a fixed amount of area, whereas if the data are larger than this value, they are saved in a variable area. This property pertains only to memory tables, and has no effect on how disk tables are managed. 
 
 For more detailed information about the IN ROW clause, please refer to Chapter1: Data Types.
 
@@ -6208,7 +6205,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This specifies the initial size, in bytes, of a data file when a user-defined temporary data file is created or added to a user temporary tablespace. If no initial size is specified, the default value specifed here is used.
+This specifies the initial size, in bytes, of a data file when a user-defined temporary data file is created or added to a user temporary tablespace. If no initial size is specified, the default value specified here is used.
 
 #### USER_TEMP_FILE_MAX_SIZE (Unit: byte)
 
@@ -6983,7 +6980,7 @@ Read-Write, Single Value
 
 This property indicates the number of redo pages that the server reads when performing recovery after being restarted. 
 
-When the flusher performs checkpoint flushing while the system is running, if the number of dirty pages remaining in the buffer is greater than the value saved in this property, the oldest dirty pages, equal in number to the difference therebetween, are written to disk. 
+When the flusher performs checkpoint flushing while the system is running, if the number of dirty pages remaining in the buffer is greater than the value saved in this property, the oldest dirty pages, equal in number to the difference there between, are written to disk. 
 
 This value is important in determining the recovery time when the server is restarted. Because the number of pages to be flushed increases as this value is decreased, the recovery time when the server is restarted can be reduced.
 
@@ -7438,7 +7435,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property selects the system call used to creat the log file. Optionally, the value written to the awrite utility can be used to help improve performance. For more detailed information about the awrite utility, please refer to the *Utilities Manual*.
+This property selects the system call used to create the log file. Optionally, the value written to the awrite utility can be used to help improve performance. For more detailed information about the awrite utility, please refer to the *Utilities Manual*.
 
 0 : write() system call
 
@@ -7721,7 +7718,7 @@ The number of collectable pages range from 1 to 10 as described below. If it is 
 
 This property can be changed by using the ALTER SESSION and SYSTEM statements while the system is running.
 
-| Value            | Pages        | Collection Status for gathering statistics (ON/OFf) |
+| Value            | Pages        | Collection Status for gathering statistics (ON/OFF) |
 | ---------------- | ------------ | --------------------------------------------------- |
 | 0(Default value) | 0            | OFF                                                 |
 | 1                | 32           | ON                                                  |
@@ -8348,7 +8345,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property inidicates the number of hash table buckets in a SQL plan cache.
+This property indicates the number of hash table buckets in a SQL plan cache.
 
 #### SQL_PLAN_CACHE_HOT_REGION_LRU_RATIO (Unit: percentage)
 
@@ -8370,7 +8367,7 @@ Read-Write, Single Value
 
 ##### Description
 
-This property inidicates the percentage of a hot area in an LRU list in a SQL plan cache. A HOT area in an LRU list is a separate portion of an LRU list in a SQL plan cache in which plans that are referred to frequently are saved. 
+This property indicates the percentage of a hot area in an LRU list in a SQL plan cache. A HOT area in an LRU list is a separate portion of an LRU list in a SQL plan cache in which plans that are referred to frequently are saved. 
 
 This property can be changed using the ALTER SYSTEM statement while the system is running.
 
@@ -9544,7 +9541,7 @@ Read-Write, Single Value
 
 ##### Range
 
-The vlue that exists in the V\$TIME_ZONE_NAMES performance view.
+The value that exists in the V\$TIME_ZONE_NAMES performance view.
 
 ##### Description
 
@@ -9672,7 +9669,7 @@ Read-Write, Single Value
 
 ##### Default Value
 
-The USER_LOCK_REQUEST_LIMIT sets number of times the user lock that one session can request. The value of this property can be modified through the ALTER SYSTEM statement during the operation of Altibase..
+The USER_LOCK_REQUEST_LIMIT sets number of times the user lock that one session can request. The value of this property can be modified through the ALTER SYSTEM statement during the operation of Altibase.
 
 #### USER_LOCK_REQUEST_TIMEOUT (Unit: second)
 
@@ -10502,7 +10499,7 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies thresholds usable in disk after the snapshot settings (BEGING SNAPSHOT).
+This property specifies thresholds usable in disk after the snapshot settings (BEGIN SNAPSHOT).
 
 It verifies what percentage of the SYS_UNDO_FILE_MAX_SIZE property has been used by the disk undo tablespace up to now, and if it exceeds specified threshold, the snapshot is automatically stopped.
 
@@ -10786,9 +10783,9 @@ Read-Write, Single Value
 
 This property indicates whether DDL is replicated during replication.
 
-0 : Do not allow DDL replication during replication. When executing DDL, it is executed only in the replicaiton local server.
+0 : Do not allow DDL replication during replication. When executing DDL, it is executed only in the replication local server.
 
-1 : Allow DDL replication during replication. When executing DDL, DDL is replicated to the replicaiton remote server.
+1 : Allow DDL replication during replication. When executing DDL, DDL is replicated to the replication remote server.
 
 This property can be changed using the ALTER SYSTEM or ALTER SESSION statement while Altibase is running.
 
@@ -10812,7 +10809,7 @@ Read-Write, Single Value
 
 ##### Description
 
-If the execution time of DDL copy exceeds the number of seconds set in this property, the execution of that statement is canceled for both the replicaiton local and remote servers.
+If the execution time of DDL copy exceeds the number of seconds set in this property, the execution of that statement is canceled for both the replication local and remote servers.
 
 Timeout value is measured based on the replication local server that performs DDL replication.
 
@@ -11441,13 +11438,13 @@ REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE
 
 The REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE property sets the mode in which the replication sender is to assign XLogs to the applier. 
 
-0: XLog Count Mode
+0: Transaction Count Mode
 
-1: Transaction Count Mode
+1: XLog Count Mode
 
-If the REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE property is set to 0, XLogs are assigned to the applier with the least amount of XLogs. 
+If the REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE property is set to 0, XLogs are assigned to the applier with the least number of transactions.
 
-If the REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE property is set to 1, XLogs are assigned to the applier with the least number of transactions. 
+If the REPLICATION_RECEIVER_APPLIER_ASSIGN_MODE property is set to 1, XLogs are assigned to the applier with the least amount of XLogs.
 
 The value of this property can be altered using the ALTER SYSTEM statement while Altibase is running. 
 
@@ -12428,6 +12425,28 @@ A list of cipher algorithms available for the server and client to use and negot
 $ openssl ciphers
 ```
 
+#### SSL_CIPHER_SUITES
+
+##### Data Type
+
+String
+
+##### Default Value
+
+None
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+None
+
+##### Description
+
+This property allows users to set one or more specific cipher algorithm candidates for TLS v1.3, separated by a colon (:). If not configured, OpenSSL allows the use of all available TLS 1.3 cipher algorithm candidates.
+
 #### SSL_CLIENT_AUTHENTICATION
 
 ##### Data Type
@@ -12503,6 +12522,32 @@ None
 Sets the server private (secret) key path. 
 
 An example of this value could be $ALTIBASE_HOME/cert/server- key.pem.
+
+#### SSL_LOAD_CONFIG
+
+##### Data Type
+
+String
+
+##### Default Value
+
+0
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+[0,1]
+
+##### Description
+
+This property configures loading the OpenSSL configuration file (openssl.cnf). The default value is 0 (Disable). To use the OpenSSL FIPS module, this property should be set to 1.
+
+0: Do not load the file
+
+1: Load the file
 
 #### SSL_MAX_LISTEN
 
@@ -12712,7 +12757,7 @@ Read-Only, Single Value
 
 ##### Description
 
-THis property specifies the maximum size of the message file of the connect process in the database link.
+This property specifies the maximum size of the message file of the connect process in the database link.
 
 #### DUMP_MSGLOG_COUNT
 
@@ -13210,7 +13255,7 @@ Read-Only, Single value
 
 ##### Description
 
-This property specifies the amount of space to be reseroved on disk to store the message file of the query processor.
+This property specifies the amount of space to be reserved on disk to store the message file of the query processor.
 
 #### QP_MSGLOG_SIZE (Unit: byte)
 
@@ -13432,7 +13477,7 @@ Read-Only, Single value
 
 ##### Description
 
-This property specifies the amount of space to be reserved on disk for storing the trace log file for a replication collison.
+This property specifies the amount of space to be reserved on disk for storing the trace log file for a replication collision.
 
 #### RP_CONFLICT_MSGLOG_SIZE (Unit: bytes)
 
@@ -13544,7 +13589,7 @@ Read-Write, Single Value
 
 ##### Description
 
-This property specifies the amount of space to be reserved on the disk for storage of the replicaiton message file.
+This property specifies the amount of space to be reserved on the disk for storage of the replication message file.
 
 #### RP_MSGLOG_SIZE (Unit: byte)
 
@@ -13838,7 +13883,7 @@ Read-Only, Single Value
 
 ##### Description
 
-This property specifies the size in advance to secure the space of the trace log file on the disk where warning messsages, etc., gneerated when starting the server can be recorded.
+This property specifies the size in advance to secure the space of the trace log file on the disk where warning messages, etc., generated when starting the server can be recorded.
 
 #### TRCLOG_DETAIL_PREDICATE
 
@@ -14130,7 +14175,7 @@ This property specifies the execution level of the global transaction. When this
 
 * 2:Two-Phase Commit (2PC) Level. 
 
-  At this level, the 2PC protocol is supported to ensure ttransaction consistency of database systems that participating in one global transaction. If a global transaction begines, this property cannot be changed until the end of the transaction.
+  At this level, the 2PC protocol is supported to ensure transaction consistency of database systems that participating in one global transaction. If a global transaction begins, this property cannot be changed until the end of the transaction.
 
 #### DBLINK_RECOVERY_MAX_LOGFILE
 
@@ -14430,7 +14475,7 @@ None
 
 ##### Description
 
-This is a socket file's path created for Altibase server to connect with the external procedure agent. If the external procedure uses, the session creates a socket file with socket_sessionID when creating an external procedure agent. The socket file is automatically deleted when the session is colsed normally. And, be careful not to delete this file.
+This is a socket file's path created for Altibase server to connect with the external procedure agent. If the external procedure uses, the session creates a socket file with socket_sessionID when creating an external procedure agent. The socket file is automatically deleted when the session is closed normally. And, be careful not to delete this file.
 
 ### Account Security Properties
 
@@ -15016,6 +15061,29 @@ This property sets the permission type of a message queue. The value of this pro
 
 1: (rw-r-r 0644) - Only the system owner can read and write, but other users are only allowed to read.
 
+#### PSM_CASE_SENSITIVE_MODE
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+1
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[0, 1]
+
+##### Description
+
+This property sets whether to use case sensitivity when referring to column names of RECORD and ROWTYPE types or LABEL names in PSM. If set to 0, the behavior is case insensitive, and if set to 1, the behavior is case sensitive.
+This property can be changed using the ALTER SYSTEM statement while Altibase is running.
+
 #### PSM_CHAR_DEFAULT_PRECISION
 
 ##### Data Type
@@ -15260,7 +15328,7 @@ Read-Write, Single Value
 
 This property repeatedly executes recursive queries for specified number of times(level). 
 
-The value of this property can be modified through ALTHER SESSION statement during the Altibase operation.
+The value of this property can be modified through ALTER SESSION statement during the Altibase operation.
 
 #### REMOTE_SYSDBA_ENABLE
 

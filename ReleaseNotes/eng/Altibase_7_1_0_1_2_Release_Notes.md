@@ -31,12 +31,12 @@ The final version of the Altibase 7.1 release is 7.1.0.1.2, and maintenance star
 
 Altibase 7.1.0.1.2 can be run on the operating systems and platforms listed in the table below.
 
-| OS    | CPU                                         | Version               | Bit (Server) | Bit (Client) |
-| ----- | ------------------------------------------- | --------------------- | ------------ | ------------ |
-| AIX   | PowerPC                                     | 6.1 tl03 and higher   | 64-bit       | 64-bit       |
-| HP-UX | IA64                                        | 11.31 and higher      | 64-bit       | 64-bit       |
-| LINUX | X86-64, PowerPC (GNU glibc 2.12 and higher) | redhat 6.0 and higher | 64-bit       | 64-bit       |
-| LINUX | PowerPC8(LE) (GNU glib 2.17)                | redhat 7.2            | 64-bit       | 64-bit       |
+| OS    | CPU                                     | Version               | Bit (Server) | Bit (Client) |
+| ----- | --------------------------------------- | --------------------- | ------------ | ------------ |
+| AIX   | PowerPC                                 | 6.1 tl03 and higher   | 64-bit       | 64-bit       |
+| HP-UX | IA64                                    | 11.31 and higher      | 64-bit       | 64-bit       |
+| LINUX | X86-64, PowerPC (GNU glibc 2.12 ~ 2.33) | redhat 6.0 and higher | 64-bit       | 64-bit       |
+| LINUX | PowerPC8(LE) (GNU glib 2.17 ~ 2.33)     | redhat 7.2            | 64-bit       | 64-bit       |
 
 > Java version: Altibase 7.1 is compatiable with JDK 1.5 or higher.
 >

@@ -100,7 +100,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 <br>
 
-# Table Of Contents
+# Table of Contents
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
@@ -203,20 +203,20 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Window (Analytic) Functions](#window-analytic-functions)
   - [Numeric Functions](#numeric-functions)
   - [Character Functions](#character-functions)
-  - [Datatime Funcitons](#datatime-funcitons)
+  - [Datetime Functions](#datetime-functions)
   - [Conversion Functions](#conversion-functions)
   - [Encryption Functions](#encryption-functions)
   - [Other Functions](#other-functions)
 - [8. Arithmetic Operators](#8-arithmetic-operators)
   - [Arithmetic Operators](#arithmetic-operators)
   - [Unary Operator](#unary-operator)
-  - [Binary Opeartors](#binary-opeartors)
+  - [Binary Operators](#binary-operators)
   - [Concatenation Operator](#concatenation-operator)
   - [CAST Operator](#cast-operator)
 - [9. SQL Conditions](#9-sql-conditions)
   - [SQL Conditions Overview](#sql-conditions-overview)
   - [Logical Condition](#logical-condition)
-  - [Comparision Conditions](#comparision-conditions)
+  - [Comparison Conditions](#comparison-conditions)
   - [Other Conditions](#other-conditions)
 - [Appendix A. Regular Expressions](#appendix-a-regular-expressions)
   - [Regular Expression Support](#regular-expression-support)
@@ -227,7 +227,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 ### About This Manual
 
-This manual explains how to use Structured Query Langauge (SQL) statements with Altibase
+This manual explains how to use Structured Query Language (SQL) statements with Altibase.
 
 #### Audience
 
@@ -255,7 +255,7 @@ This manual is organized as follows:
 - Chapter 2: Altibase SQL Basics  
   This chapter describes the basics for using Altibase's SQL.
 - Chapter 3: Data Definition Language   
-  This chpater explains each of the Data Definition Language (DDL) statements that are available in Altibase.
+  This chapter explains each of the Data Definition Language (DDL) statements that are available in Altibase.
 - Chapter 4: Data Manipulation Language  
   This chapter explains each of the Data Manipulation Language (DML) statements that are available in Altibase. 
 - Chapter 5: Data Control Language  
@@ -288,13 +288,13 @@ This manual describes command syntax using diagrams composed of the following el
 | ------------------------------- | ------------------------------------------------------------ |
 | ![image1](media/SQL/image1.gif) | Indicates the start of a command. If a syntactic element starts with an arrow, it is not a complete command. |
 | ![image2](media/SQL/image2.gif) | Indicates that the command continues to the next line. If a syntactic element ends with this symbol, it is not a complete command. |
-| ![image3](media/SQL/image3.gif) | Indicates taht the command continues from the previous line. If a syntactic element starts witht his symbol, it is not a complete command. |
+| ![image3](media/SQL/image3.gif) | Indicates that the command continues from the previous line. If a syntactic element starts with this symbol, it is not a complete command. |
 | ![image4](media/SQL/image4.gif) | Indicates the end of a statement.                            |
-| ![image5](media/SQL/image5.gif) | Indicates a manatory element.                                |
+| ![image5](media/SQL/image5.gif) | Indicates a mandatory element.                                |
 | ![image6](media/SQL/image6.gif) | Indicates an optional element.                               |
 | ![image7](media/SQL/image7.gif) | Indicates a mandatory element comprised of options. One, and only one, option must be specified. |
 | ![image8](media/SQL/image8.gif) | Indicates an optional element comprised of options.          |
-| ![image9](media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comman must precede all but the first element. |
+| ![image9](media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comma must precede all but the first element. |
 
 ##### Sample Code Conventions
 
@@ -322,7 +322,7 @@ For more detailed information, please refer to the following documents.
 - Replication Manual
 - Precompiler User’s Manual
 - CLI User’s Manual
-- Application Program Interface User’s Manual
+- API User’s Manual
 - iSQL User’s Manual
 - Utilities Manual
 - Error Message Reference
@@ -353,7 +353,7 @@ Structured Query Language (SQL) is a language for defining data objects and mana
 
 ##### Superior Query Performance
 
-Altibase creates an optimized execution plan tree when it is preparing a SQL statement . This is because the system catalog information for most queries does not change between the preparation and execution of the statement. The execution plan tree can greatly improve execution speed when the query is repeatedly executed. This is useful for applications that frequently execute Data Manipulation Language (DML) statements but seldom execute Data Definition Language (DDL) statements.
+Altibase creates an optimized execution plan tree when it is preparing a SQL statement. This is because the system catalog information for most queries does not change between the preparation and execution of the statement. The execution plan tree can greatly improve execution speed when the query is repeatedly executed. This is useful for applications that frequently execute Data Manipulation Language (DML) statements but seldom execute Data Definition Language (DDL) statements.
 
 ##### • Support for SQL-92
 
@@ -391,7 +391,7 @@ Altibase supports SQL statements of the following categories:
 
 This chapter briefly introduces each SQL statement.
 
-For more detailed informatuon about their use, please refer to Chapter 3: Data Definition Language (DDL), Chapter 4: Data Manipulation Language (DML), and Chapter 5: Data Control Language (DCL).
+For more detailed information about their use, please refer to Chapter 3: Data Definition Language (DDL), Chapter 4: Data Manipulation Language (DML), and Chapter 5: Data Control Language (DCL).
 
 #### Data Definition Language (DDL)
 
@@ -517,7 +517,7 @@ Session control statements and transaction control statements only affect each s
 
 | SQL Statement | Description                    |
 | ------------- | ------------------------------ |
-| AUDIT         | Seting the auditing conditions |
+| AUDIT         | Set the auditing conditions |
 | DELAUDIT      | Delete the auditing conditions |
 | NOAUDIT       | Stop the auditing conditions   |
 
@@ -536,11 +536,11 @@ In Altibase, the following two types of comment delimiters can be used in SQL st
 - /\*         \*/  
   In the same way as using the same syntax as in C, the start of a comment is indicated with '/*' and the end with '\*/'. This kind of comment can occupy multiple lines. 
 - \--  
-  Use two hyphen '-' chracters to indicate the start of a single-line comment.
+  Use two hyphen '-' characters to indicate the start of a single-line comment.
 
 ###  Altibase Objects
 
-Altibase provides the following data objects taht are either schema objects or non-schema objects:
+Altibase provides the following data objects that are either schema objects or non-schema objects:
 
 - ###### Schema Objects
   - Constraint
@@ -576,17 +576,15 @@ Database objects are named using identifiers that follow these rules:
   ```
 
 - Nonquoted identifiers can contain upper and lowercases letters of the alphabet, numeric character between 0 ~ 9, the underscore character ('_'), the dollar-sign character ("$") and the pound-sign character ('#'). An identifier must start with either a letter or the underscore character('\_'). Nonquoted identified cannot begin with 'V\$', 'X\$, or 'D\$'.
-  
-  
-  
-  Quoted identifiers can contain characters, punctuation marks and spaces, but not double quotation marks.
+
+- Quoted identifiers can contain characters, punctuation marks and spaces, but not double quotation marks.
 
 - Altibase reserved words cannot be used as object names (A list of reserved words in Altibase is provided below.).
   
 - Objects should not share the same name within the same namespace.
 
   - The following schema objects share one namespace:  
-    Tables, Views, Sequences, Sysnonyms, Stored procedures
+    Tables, Views, Sequences, Synonyms, Stored procedures
   - The following schema objects have their own namespace:  
     Constraints, Indexes, Triggers, Database link objects
   - A table and view in the same schema cannot share the same name because tables and views share the same namespace. However, a table and index can share the same name in the same namespace because tables and indexes exist in different namespaces.  
@@ -597,7 +595,7 @@ For more detailed information about Altibase objects, please refer to the *Admin
 
 ##### Passwords
 
-Altibase uses passowrd authentication. This means that the user has to enter a password when logging into the database.
+Altibase uses password authentication. This means that the user has to enter a password when logging into the database.
 
 The password the user uses to connect to Altibase also has similar constraints as the object name: characters for passwords are A\~Z, a\~z, 0~9, _, and $. In addition, Altibase's reserved words cannot be in passwords. The first character must be a letter or _. The maximum length of the password is 40 bytes.
 
@@ -1474,7 +1472,7 @@ hints ::=
 
 #### Prerequisites
 
-The hint can be speicifed in the following:
+The hint can be specified in the following:
 
 - Simple SELECT, UPDATE, DELETE, and INSERT statements 
 - The main query or subquery of a compound statement 
@@ -1512,11 +1510,11 @@ The following query selects the employee numbers, names, and occupations of all 
 SELECT eno, e_firstname, e_lastname, emp_job FROM employees WHERE sex = 'F';
 ```
 
-For example, an index would be created on the Genter (SEX) column of the table EMPLOYEES witht he number of employees, and the value of this column would be either 'M' or 'F'.
+For example, an index would be created on the Genter (SEX) column of the table EMPLOYEES with the number of employees, and the value of this column would be either 'M' or 'F'.
 
 If there are as many male employees as female employees, a full scan would be faster than an index scan. However, if there are many more male employees than female employees, an index scan would be faster than a full scan. If a column has only two different values, the query optimizer assumes that half of the rows contain each value and uses the cost-based approach to perform a full scan. 
 
-Comparing the number of accesses in the queires below, the number of accesses are 20 and 4, respectively. 
+Comparing the numbers of accesses in the queries below, the numbers of accesses are 20 and 4, respectively.  
 
 <Query\> Select the employee numbers, names, and jobs of all female employees (use a full scan). 
 
@@ -1769,7 +1767,7 @@ This section briefly discusses how to use hints and their meanings. For more det
 
 #### APPEND
 
-This hint specifies a direct-path INSERT operation and can only be used in INSERT statements. Direct-path INSERT creates a new page and inserts data, instead of searching for free space in pages. The V$DIRECT_PATH_INSERT performnace view displays statistics for direct-Path INSERT operations. 
+This hint specifies a direct-path INSERT operation and can only be used in INSERT statements. Direct-path INSERT creates a new page and inserts data, instead of searching for free space in pages. The V$DIRECT_PATH_INSERT performance view displays statistics for direct-Path INSERT operations. 
 
 ![append](media/SQL/append.gif)
 
@@ -1812,7 +1810,7 @@ This hint specifies that predicates in the WHERE clause are to be normalized in 
 #### EXEC_FAST 
 
 If this hint is specified when EXECUTOR_FAST_SIMPLE_QUERY property is deactivated, simple statements, such as SELECT, INSERT, UPDATE, or DELETE statement are executed with SIMPLE
-QUERY. If SIPLE QUERY is applied, it will be output on the execution plan.
+QUERY. If SIMPLE QUERY is applied, it will be output on the execution plan.
 
 ![](media/SQL/b4dbcc345d928a319bb06d8f68f29338.png)
 
@@ -1868,7 +1866,7 @@ If this hint is specified, a nested subquery uses a hash join to perform a semi-
 
 This is a hint used for preventing errors in the four fundamental arithmetic operations and mod operation. 
 
-When this hint is used, the float type is used as the data type. When operating with a float type, computational performance may be lower than that of a real or double data type. But, the precision of up to 38 digits and mod oepration is guaranteed. 
+When this hint is used, the float type is used as the data type. When operating with a float type, computational performance may be lower than that of a real or double data type. But, the precision of up to 38 digits and mod operation is guaranteed. 
 
 ![](media/SQL/8b81157ae9e013610fec42063de0648f.png)
 
@@ -1906,7 +1904,7 @@ This hint performs the same action equivalent to the INDEX DESC hint.
 
 If this hint is specified, a nested subquery uses an inverse join[^1] to perform either an anti-join or a semi-join. The user needs to specify this hint within the subquery. 
 
-[^1]: 1An inverse join can be either an inverse index nested loop join, an inverse hash join, or an inverse sort join. For more detailed information about inverse joins, please refer to the *Performance Tuning Guide*.
+[^1]: An inverse join can be either an inverse index nested loop join, an inverse hash join, or an inverse sort join. For more detailed information about inverse joins, please refer to the *Performance Tuning Guide*.
 
 This hint can be used with other hints that force semi-joins or anti-joins. For example, this hint forces an inverse hash join if it is used with the HASH_SJ hint.
 
@@ -2012,7 +2010,7 @@ This hint specifies that a WHERE predicate outside a view is not to be pushed in
 
 #### NO_SERIAL_FILTER
 
-If a hint is specified while the SERIAL_EXECUTE_MODE property is enabled, it will not operate in Serial Excute Mode.
+If a hint is specified while the SERIAL_EXECUTE_MODE property is enabled, it will not operate in Serial Execute Mode.
 
 ![no_serial_filter](media/SQL/no_serial_filter.gif)
 
@@ -2063,7 +2061,7 @@ This hint specifies to execute queries in parallel when scanning partitioned tab
 
 #### PLAN_CACHE_KEEP
 
-This is used to instruct the plan to exclude it from the victim selection process and keep it in the plan cache. This hint is applied during the hardprepare process. So when users switch the plan to unkeep, the soft prepare will not go back tothe keep state.
+This is used to instruct the plan to exclude it from the victim selection process and keep it in the plan cache. This hint is applied during the hardprepare process. So when users switch the plan to unkeep, the soft prepare will not go back to the keep state.
 
 ![plan_cache_keep](media/SQL/plan_cache_keep.gif)
 
@@ -2099,13 +2097,13 @@ If this hint is specified, the optimizer creates a rule-based execution plan.
 
 #### SET BUCKET COUNT
 
-It is a hint to specify the number of hash buckets for SET-INTERECT and SET-DIFFERENCE execution nodes.
+It is a hint to specify the number of hash buckets for SET-INTERSECT and SET-DIFFERENCE execution nodes.
 
 ![set_bucket_count](media/SQL/set_bucket_count.gif)
 
 #### SERIAL_FILTER
 
-If the hint is specifeid while the SERIAL_EXCUTE_MODE property is disabled, it operates in Serial Excute mode.
+If the hint is specified while the SERIAL_EXECUTE_MODE property is disabled, it operates in Serial Execute mode.
 
 ![serial_filter](media/SQL/serial_filter.gif)
 
@@ -2604,7 +2602,7 @@ The ALTER INDEX statement is used to change or rebuild an existing index.
 
 This specifies the name of the owner of the index to be altered.
 
-If omitted, Altibase will assum that the index belongs to the schema of the user connected via the current session.
+If omitted, Altibase will assume that the index belongs to the schema of the user connected via the current session.
 
 *index_name*
 
@@ -2890,15 +2888,15 @@ For more information about replication, please refer to the Replication Manual.
 
 *replication_name*
 
-Thi specifies the name of the replication object.
+This specifies the name of the replication object.
 
 *SYNC*
 
-Thi sends all data in replication target tables on the local server to the corresponding tables on the remote server and starts replication.
+This sends all data in replication target tables on the local server to the corresponding tables on the remote server and starts replication.
 
 *SYNC ONLY*
 
-This send all data in replication target tables on the local server to the corresponding tables on the remote server. It does not initiate a replication sender thread.
+This sends all data in replication target tables on the local server to the corresponding tables on the remote server. It does not initiate a replication sender thread.
 
 *PARALLEL parallel_factor*
 
@@ -3498,7 +3496,7 @@ This switches the data access mode for the partition to Read-Only, Read/Write or
 
 This is used to add a new column to the table.
 
-*partition lob storage_clause*
+*partition_lob_storage_clause*
 
 When a LOB column is added to a partitioned table, this clause is used to set the tablespace in which each of the LOB column partitions is stored. 
 
@@ -3510,7 +3508,7 @@ These clauses are used to change the default value for an existing column.
 
 This is used to change the data type of an existing column. 
 
-SRIC can be used an integer within the 4-byte range. If the SRID value is changed, only the value that matches the value entered in the table is selected.
+SRID can be used an integer within the 4-byte range. If the SRID value is changed, only the value that matches the value entered in the table is selected.
 
 The following table shows which data types can be changed into which data types.
 
@@ -3518,19 +3516,19 @@ The following table shows which data types can be changed into which data types.
 
 - ###### Prerequisites when changing data types
 
-  - Character data type --> Numeric data type  
+  - Character data type → Numeric data type  
     Character data should consist only of numbers and decimal points  
-    Character data must be within the rage of numeric data types
-  - Character data type --> Character data type  
+    Character data must be within the range of numeric data types
+  - Character data type → Character data type  
     The column size must be greater than or equal to the length of the data type before the change
-  - Numeric data type --\> Character data type  
+  - Numeric data type → Character data type  
     The column size must be greater than or equal to the length of the data type before the change
-  - Numeric data type --\> Numeric data type 
+  - Numeric data type → Numeric data type 
     The data must be within the range of the numeric data type users want to change.
-  - Character data type --> Data date type  
+  - Character data type → Data date type  
     The data before the change should stored as a date  
     The data format must match the DEFAULT_DATE_FORMAT property
-  - Date data type --> Character data type 
+  - Date data type → Character data type 
     When converted to the character type, it is changed to DEFAULT_DATE_FORMAT
 
 | After Modification /  Before Modifaciton | char | var char | nchar | nvarchar | clob | big int | dou ble | float | int eger | num ber | num eric | real | small int | date | blob | byte | nibble | bit  | varbit | geometry |
@@ -3673,7 +3671,7 @@ However, it can be transferred into the tablespace identical to the table type (
 
 The LOB columns the relevant table can specify the tablespace to store.
 
-However, the tablespace stroing the LOB columns can specify different disk tablespace only in the case of transferring to the partitioned tablespace.
+However, the tablespace storing the LOB columns can specify different disk tablespace only in the case of transferring to the partitioned tablespace.
 
 *TOUCH*
 
@@ -3708,7 +3706,7 @@ This clause intentionally manipulates the optimizer by increasing the SCN(System
 
 - A timestamp constraint cannot be added to or removed from an existing column using the ADD/DROP CONSTRAINT clause.
 - When an INSERT or UPDATE statement is executed on a table containing a column with the TIMESTAMP constraint, the system time is inserted into that column by default. Therefore, the DEFAULT value cannot be changed or dropped using the ALTER TABLE SET/DROP DEFAULT statement. For more information, please refer to the description of the CREATE TABLE statement.
-- When the SRID of a GEOMETRY column is changed, values that match the values entered in the table can only be selected. For example, if a value with a SRID of 100, 101, or 102 is entered in a table, it cannot be cahnged to any value.
+- When the SRID of a GEOMETRY column is changed, values that match the values entered in the table can only be selected. For example, if a value with a SRID of 100, 101, or 102 is entered in a table, it cannot be changed to any value.
 
 #### Example
 
@@ -4675,7 +4673,7 @@ When a disk tablespace is taken offline, the contents of all data pages in the b
 
 In the case of a memory tablespace, the contents of the data pages are written to checkpoint image files, and the page memory is released.
 
-All memory that has been allocated to indexes in the tablespace is released, and the indexes for the tables in the tablespace become unavailable. In addition, the tables in the tablespace become unavailable until the tablespace is brought back online
+All memory that has been allocated to indexes in the tablespace is released, and the indexes for the tables in the tablespace become unavailable. In addition, the tables in the tablespace become unavailable until the tablespace is brought back online.
 
 *ONLINE*
 
@@ -4823,7 +4821,7 @@ Because the other commands are the same as the corresponding commands executed u
 *LIMIT clause*
 
 This modifies password management policies for accounts. This clause can only be executed by the SYS user.
-When a password management policy is changed, an existing policy taht is not specified is initialized.
+When a password management policy is changed, an existing policy that is not specified is initialized.
 
 *ACCOUNT LOCK/UNLOCK*
 
@@ -5675,7 +5673,7 @@ The value of parallel_factor can be set within the range from 0 to 512. The defa
 
 If parallel_factor is not set, or is set to 0, the value of the INDEX_BUILD_THREAD_COUNT property in the altibase.properties file, which has the same meaning as parallel_factor, is used instead. If the INDEX_BUILD_THREAD_COUNT property has not been set either, the number of CPUs is used as a hint to set the optimum number of index creation threads.
 
-If parallel_factor is set to a value taht is greater than the number of CPUs, or is set to a value greater than 512, the user-defined value is ignored and the number of CPUs is used as a hint for setting the optimum number of threads.
+If parallel_factor is set to a value that is greater than the number of CPUs, or is set to a value greater than 512, the user-defined value is ignored and the number of CPUs is used as a hint for setting the optimum number of threads.
 
 *logging_clause*
 
@@ -5993,7 +5991,7 @@ This is used to specify how messages are saved. (For more information, please re
 
 *column_definition*
 
-This clause specifies the user-defined column. It refers to CREATE TABLE statement's column_definition and does not support column_constraint, crypt_clasue and timestamp.
+This clause specifies the user-defined column. It refers to CREATE TABLE statement's column_definition and does not support column_constraint, crypt_clause and timestamp.
 
 *MAXROWS count*
 
@@ -6060,7 +6058,7 @@ Only the SYS user can execute replication-related statements.
 
 #### Description
 
-This statement is used to create a replication object, set the connection between a local server and one or more remote servers, and establish replication therebetween. Replication takes place between tables on a 1:1 basis; that is, a table is matched to only one corresponding table.
+This statement is used to create a replication object, set the connection between a local server and one or more remote servers, and establish replication there between. Replication takes place between tables on a 1:1 basis; that is, a table is matched to only one corresponding table.
 
 In order to resolve conflicts, the AS MASTER or AS SLAVE clause can be specified in the statement. Doing so stipulates that a master-slave scheme is to be used to resolve conflicts. For more detailed information about replication conflict resolution, please refer to Chapter 2 of the *Replication Manual.*
 
@@ -6236,7 +6234,7 @@ This is used to specify the name of the owner of the sequence to be created. If 
 
 *seq_name*
 
-This is used to specify the name of the sequence to be created. Refer to "[Rules for Object Names](#object_name)" for more informaiton on specifying names.
+This is used to specify the name of the sequence to be created. Refer to "[Rules for Object Names](#object_name)" for more information on specifying names.
 
 *START WITH*
 
@@ -6571,7 +6569,7 @@ CREATE SEQUENCE seq1 CACHE 100 ENABLE SYNC TABLE;
 At least one of the following conditions must be met: 
 
 - The SYS user
-- Users having the CREATE SYNONYM or CREATE ANY SYNONYM system privilege in order to create a synonym in own's schema can execute this statement. 
+- Users having the CREATE SYNONYM or CREATE ANY SYNONYM system privilege in order to create a synonym in their own can execute this statement. 
 - Additionally, it is necessary to be the SYS user or have the CREATE ANY SYNONYM system privilege in order to create a synonym in another user's schema, and it is necessary to be the SYS user or have the CREATE PUBLIC SYNONYM system privilege in order to create a public synonym
 
 #### Description
@@ -6610,7 +6608,7 @@ When creating a PRIVATE synonym, it is possible to specify the name of the owner
 
 *synonym_name*
 
-If there is a table, view, sequence, stored procedure, stored function,or another synonym that has the same name as the synonym to be created, an error will be raised. Because synonyms occupy the same namespace as these object types, the name for the synonym must be unique within the schema in which it is created. Refer to "Rules for Object Names"  for more information onf specifying names.
+If there is a table, view, sequence, stored procedure, stored function,or another synonym that has the same name as the synonym to be created, an error will be raised. Because synonyms occupy the same namespace as these object types, the name for the synonym must be unique within the schema in which it is created. Refer to "Rules for Object Names"  for more information of specifying names.
 
 *FOR clause*
 
@@ -7568,7 +7566,7 @@ PARTITION BY RANGE (I1)
 
 - List Partitioning
 
-\<Query\> Create the table list_customers, which is list-partitioned on the basis of the nls_territory column into the asia partition for the values 'CHINA' and 'THAILAND', the europe partition for the values 'GERMANY', 'ITALY' and 'SWITZERLAND', the west partition for the value 'AMERICA', the east partition for the value 'INDIA', and the default partition for any other values.
+\<Query\> Create the table list_customers, which is list-partitioned on the basis of the nls_territory column into the asia partition for the values 'CHINA' and 'THAILAND', the Europe partition for the values 'GERMANY', 'ITALY' and 'SWITZERLAND', the west partition for the value 'AMERICA', the east partition for the value 'INDIA', and the default partition for any other values.
 
 ```
 CREATE TABLE list_customers 
@@ -8122,7 +8120,7 @@ Create success.
 At least one of the following conditions must be met: 
 
 - The SYS user 
-- Users have the CREATE TRIGGER or CREATE ANY TRIGGER system privilege to create a trigger in own's schema 
+- Users have the CREATE TRIGGER or CREATE ANY TRIGGER system privilege to create a trigger in their own 
 - Users have the CREATE ANY TRIGGER system privilege to create a trigger in another user's schema
 
 #### Description
@@ -8139,7 +8137,7 @@ This is used to specify the name of the owner of the trigger to be created. If t
 
 *trigger_name*
 
-This is used to specify the name of the trigger to be created. Refer to “Rules for Object Names” in Chapter 2for more information on specifying names.
+This is used to specify the name of the trigger to be created. Refer to “Rules for Object Names” in Chapter 2 for more information on specifying names.
 
 *AFTER*
 
@@ -8543,7 +8541,7 @@ iSQL> CREATE USER rose4 IDENTIFIED BY rose4
 At least one of the following conditions must be met: 
 
 - The SYS user 
-- Users have the CREATE VIEW or CREATE ANY VIEW system privilege to create a view in own's schema 
+- Users have the CREATE VIEW or CREATE ANY VIEW system privilege to create a view in their own 
 - Users have the CREATE ANY VIEW system privilege to create a view in another user's schema
 
 #### Description
@@ -8582,7 +8580,7 @@ This is used to specify the text of a query that identifies rows and columns in 
 
 *WITH READ ONLY*
 
-This is used to specify that the view will be a read-only view. If you do not specify this option, the updatable view is created that can be performed INSERT, UPDATE, and DELETE operations on views.
+This is used to specify that the view will be a read-only view. If you do not specify this option, the updatable view is created that can perform INSERT, UPDATE, and DELETE operations on views.
 
 #### Limitations on the Use of Queries in Views 
 
@@ -8720,7 +8718,7 @@ This specifies the initial time point at which data of the materialized view is 
 - IMMEDIATE: Data is built at the time point that the materialized view is created.
 - DEFERRED: Data is built during refresh execution after the materialized view is created.
 
-*refresh_clause Clause*
+*refresh_clause clause*
 
 If the base table of the materialized view is altered, the data of the materialized view must be updated. This clause specifies the method and time that the materialized view is refreshed. On omission, the default values are FORCE and ON DEMAND.
 
@@ -8733,7 +8731,7 @@ After the REFRESH keyword, one of the following must be specified: COMPLETE, FAS
 - ON COMMIT: currently not supported.
 - NEVER REFRESH: currently not supported.
 
-> Note: The user can manually request materialized view refresh by calling the REFRESH_MATERIALIZED_VIEW stored procedure. For further information on the REFRESH_MATERIALIZED_VIEW stored procedure, refer to the Chpater 10 in the *Stored Procedures Manual.*
+> Note: The user can manually request materialized view refresh by calling the REFRESH_MATERIALIZED_VIEW stored procedure. For further information on the REFRESH_MATERIALIZED_VIEW stored procedure, refer to the Chapter 10 in the *Stored Procedures Manual.*
 
 *subquery clause*
 
@@ -8897,7 +8895,7 @@ Drop success.
 
 #### Prerequisites
 
-Only the SYS user, the owner of the schema containing the index, users having the INDEX object privilegm on table, and users having the DROP ANY INDEX system privilege can execute the DROP INDEX statement.
+Only the SYS user, the owner of the schema containing the index, users having the INDEX object privilege on table, and users having the DROP ANY INDEX system privilege can execute the DROP INDEX statement.
 
 #### Description
 
@@ -9139,7 +9137,7 @@ Drop success.
 
 #### Prerequisites
 
-Only the SYS user, the owner of the schema containing the table, and users withthe DROP ANY TABLE system privilege can execute the DROP TABLE statement.
+Only the SYS user, the owner of the schema containing the table, and users with the DROP ANY TABLE system privilege can execute the DROP TABLE statement.
 
 #### Description
 
@@ -9422,9 +9420,9 @@ At least one or more of the following conditions must be met:
 
 -   The SYS user
 
--   The user with the CREATE TABLE or CREATE ANY TABLE system privilege in own's schema.
+-   The users with the CREATE TABLE or CREATE ANY TABLE system privilege in their own schema.
   
--   The user with the CREATE ANY TABLE system privilege in another user's schema.
+-   The users with the CREATE ANY TABLE system privilege in another user's schema.
 
 #### Description
 
@@ -9506,7 +9504,7 @@ This is used to specify the name of the role to which system privileges are to b
 
 *TO PUBLIC*
 
-This is used to specify that the sytem privilege(s) is/are to be granted to all users.
+This is used to specify that the system privilege(s) is/are to be granted to all users.
 
 ##### Notes:
 
@@ -9531,23 +9529,23 @@ Altibase supports the following system privileges.
 | 201    | DATABASE          | ALTER SYSTEM                 | For changing Altibase property settings using ALTER SYSTEM statements when Altibase is online |
 | 233    |                   | ALTER DATABASE               | Cannot be granted to any users other than the SYS user       |
 | 234    |                   | DROP DATABASE                | Cannot be granted to any users other than the SYS user       |
-| 202    | INDEX             | CREATE ANY INDEX             | For creating indexes not only in one's own schema but also in other users' schemas |
-| 203    |                   | ALTER ANY INDEX              | For altering the definition of any index in the database다.  |
+| 202    | INDEX             | CREATE ANY INDEX             | For creating indexes not only in the user's own schema but also in other users' schema |
+| 203    |                   | ALTER ANY INDEX              | For altering the definition of any index in the database.  |
 | 204    |                   | DROP ANY INDEX               | For dropping any index from the database                     |
-| 205    | PROCEDURE         | CREATE PROCEDURE             | For creating stored procedures and stored functions in one's own schema |
-| 206    |                   | CREATE ANY PROCEDURE         | For creating stored procedures and stored functions not only in one's own schema but also in other users' schemas |
+| 205    | PROCEDURE         | CREATE PROCEDURE             | For creating stored procedures and stored functions in the user's own schema |
+| 206    |                   | CREATE ANY PROCEDURE         | For creating stored procedures and stored functions not only in the user's own schema but also in other users' schema |
 | 207    |                   | ALTER ANY PROCEDURE          | For recompiling any stored procedure or function in the database |
 | 208    |                   | DROP ANY PROCEDURE           | For dropping any stored procedure or function in the database |
 | 209    |                   | EXECUTE ANY PROCEDURE        | For executing any stored procedure or function in the database |
-| 210    | SEQUENCE          | CREATE SEQUENCE              | For creating sequences in one's own schema                   |
-| 211    |                   | CREATE ANY SEQUENCE          | For creating sequences not only in one's own schema but also in other users' schemas |
+| 210    | SEQUENCE          | CREATE SEQUENCE              | For creating sequences in the user's own schema                   |
+| 211    |                   | CREATE ANY SEQUENCE          | For creating sequences not only in the user's own schema but also in other users' schema |
 | 212    |                   | ALTER ANY SEQUENCE           | For changing the definition of any sequence in the database  |
 | 213    |                   | DROP ANY SEQUENCE            | For deleting any sequence in the database                    |
 | 214    |                   | SELECT ANY SEQUENCE          | For querying any sequence in the database                    |
 | 215    | SESSION           | CREATE SESSION               | For connecting to the database                               |
 | 216    |                   | ALTER SESSION                | Granted automatically to every user                          |
-| 217    | TABLE             | CREATE TABLE                 | For creating tables in one's own schema                      |
-| 218    |                   | CREATE ANY TABLE             | For creating tables not only in one's own schema but also in other users' schemas |
+| 217    | TABLE             | CREATE TABLE                 | For creating tables in the user's own schema                      |
+| 218    |                   | CREATE ANY TABLE             | For creating tables not only in the user's own schema but also in other users' schema |
 | 219    |                   | ALTER ANY TABLE              | For truncating all records from any table or changing the definition of any table in the database |
 | 220    |                   | DELETE ANY TABLE             | For deleting any table from the database                     |
 | 221    |                   | DROP ANY TABLE               | For dropping any table in the database                       |
@@ -9558,8 +9556,8 @@ Altibase supports the following system privileges.
 | 226    | USER              | CREATE USER                  | For creating new users                                       |
 | 227    |                   | ALTER USER                   | For changing the definition of any user in the database      |
 | 228    |                   | DROP USER                    | For dropping users                                           |
-| 229    | VIEW              | CREATE VIEW                  | For creating views in one's own schema                       |
-| 230    |                   | CREATE ANY VIEW              | For creating views not only in one's own schema but also in other users' schemas |
+| 229    | VIEW              | CREATE VIEW                  | For creating views in the user's own schema                       |
+| 230    |                   | CREATE ANY VIEW              | For creating views not only in the user's own schema but also in other users' schema |
 | 231    |                   | DROP ANY VIEW                | For deleting any view in the database                        |
 | 232    | MISCELLANEOUS     | GRANT ANY PRIVILEGES         | For granting any system privilege to other users             |
 | 235    | TABLESPACES       | CREATE TABLESPACE            | For creating tablespaces                                     |
@@ -9568,22 +9566,22 @@ Altibase supports the following system privileges.
 | 238    |                   | MANAGE TABLESPACE            | Cannot be granted to any users other than the SYS user       |
 | 240    |                   | SYSDBA                       | Cannot be granted to any users other than the SYS user       |
 | 241    | TRIGGER           | CREATE TRIGGER               | For creating new triggers                                    |
-| 242    |                   | CREATE ANY TRIGGER           | 자신의 스키마 뿐 아니라 다른 사용자의 스키마 내에서도 트리거 생성이 가능하다. |
-| 243    |                   | ALTER ANY TRIGGER            | 데이터베이스에 존재하는 모든 트리거의 정의를 변경할 수 있다. |
-| 244    |                   | DROP ANY TRIGGER             | 데이터베이스에 존재하는 모든 트리거를 제거할 수 있다.        |
+| 242    |                   | CREATE ANY TRIGGER           | For creating triggers not only in the user's own schema but also in other users' schema |
+| 243    |                   | ALTER ANY TRIGGER            | For changing the definition of any trigger in the database |
+| 244    |                   | DROP ANY TRIGGER             | For deleting any trigger in the database        |
 | 245    | SYNONYM           | CREATE SYNONYM               | For creating new triggers                                    |
 | 246    |                   | CREATE PUBLIC SYNONYM        | For creating a PUBLIC synonym                                |
-| 247    |                   | CREATE ANY SYNONYM           | For creating private synonyms not only in one's own schema but also in other users' schemas |
+| 247    |                   | CREATE ANY SYNONYM           | For creating private synonyms not only in the user's own schema but also in other users' schema |
 | 248    |                   | DROP ANY SYNONYM             | For dropping any private synonym                             |
 | 249    |                   | DROP PUBLIC SYNONYM          | For dropping public synonyms                                 |
 | 250    | DIRECTORY         | CREATE ANY DIRECTORY         | A directory object can be created to control a file within the stored procedure. |
 | 251    |                   | DROP ANY DIRECTORY           | This privilege can drop a directory object.                  |
-| 252    | MATERIALIZED VIEW | CREATE MATERIALIZED VIEW     | This privilege can create a new materialized view in one's own schema |
-| 253    |                   | CREATE ANY MATERIALIZED VIEW | This privilege can create a materialized view not only in one's own schema, but also in other user's schemas. |
+| 252    | MATERIALIZED VIEW | CREATE MATERIALIZED VIEW     | This privilege can create a new materialized view in the user's own schema |
+| 253    |                   | CREATE ANY MATERIALIZED VIEW | This privilege can create a materialized view not only in the user's own schema, but also in other user's schemas. |
 | 254    |                   | ALTER ANY MATERIALIZED VIEW  | This privilege can be modified any materialized view in the database. |
 | 255    |                   | DROP ANY MATERIALIZED VIEW   | Any materialized view in the database can be dropped with this privilege. |
-| 256    | LIBRARY           | CREATE LIBRARY               | For creating new library objects in one's own schema         |
-| 257    |                   | CREATE ANY LIBRARY           | For creating library objects not only in one's own schema but also in other users' schemas |
+| 256    | LIBRARY           | CREATE LIBRARY               | For creating new library objects in the user's own schema         |
+| 257    |                   | CREATE ANY LIBRARY           | For creating library objects not only in the user's own schema but also in other users' schema |
 | 258    |                   | ALTER ANY LIBRARY            | For recompiling any library object in the database           |
 | 259    |                   | DROP ANY LIBRARY             | For dropping any library object in the database              |
 | 260    | DATABASE LINK     | CREATE DATABASE LINK         | New database link can be created.                            |
@@ -9592,7 +9590,7 @@ Altibase supports the following system privileges.
 | 263    | ROLE              | CREATE ROLE                  | For creating a new role                                      |
 | 264    |                   | DROP ANY ROLE                | For dropping all roles existing in the database              |
 | 265    |                   | GRANT ANY ROLE               | For granting all roles to other users                        |
-| 266    | JOB               | CREATE ANY JOB               | This privilege can create a new job not only in one's own schema, but also in other user's schemas. |
+| 266    | JOB               | CREATE ANY JOB               | This privilege can create a new job not only in the user's own schema, but also in other user's schemas. |
 | 268    |                   | ALTER ANY JOB                | Any job in the database can be modified with this privilege. |
 | 267    |                   | DROP ANY JOB                 | Any JOB in the database can be dropped with this privilege.  |
 
@@ -11373,7 +11371,7 @@ However, if the EXCLUSIVE mode is selected in the lock_mode, the auto commit is 
 <p>&nbsp;</p>
 <p><strong>The lock type shown in parentheses is:</strong></p>
 <p>1. If the current lock mode switch is allowed by another transaction(Y), the lock type currently held is switched to the type in parentheses.</p>
-<p>2. If the current lock mode switch is not allowed by another transaction (N), the lock type can be switched to the type in parentheses only when the transaction taht is currently acquiring the lcok acquires a new lock.</p>
+<p>2. If the current lock mode switch is not allowed by another transaction (N), the lock type can be switched to the type in parentheses only when the transaction that is currently acquiring the lcok acquires a new lock.</p>
 </td>
 </tr>
 </tbody>
@@ -11398,7 +11396,7 @@ The following example shows how Altibase manages data concurrency, integrity, an
 | iSQL\> LOCK TABLE employees IN EXCLUSIVE MODE; Lock success. (acquire X lock on employees) | 8          |                                                              |
 |                                                              |            | iSQL\> SELECT SALARY FROM employees WHERE eno = 15; wait wait wait |
 | iSQL\> UPDATE employees SET eno = 30 WHERE eno = 15; 1 row updated. | 10         |                                                              |
-| iSQL\> COMMIT; Commit success. (release X loc on employees)  | 11         |                                                              |
+| iSQL\> COMMIT; Commit success. (release X lock on employees)  | 11         |                                                              |
 |                                                              | 12         | (resume) SALARY -------------- 2500 1 row selected.          |
 
 ### SELECT 
@@ -11575,7 +11573,7 @@ If a SELECT statement contains a GROUP BY clause, then only constants, aggregate
 
 If the SELECT list is composed of expressions or constants that do not include columns, the FROM clause can be omitted.
 
-SThe specification of only the asterisk symbol(*) in the SELECT list represents every column of every table and view in the FROM clause. What the asterisk symbol represents does not change, even if it is specified with a column or expression.
+The specification of only the asterisk symbol(*) in the SELECT list represents every column of every table and view in the FROM clause. What the asterisk symbol represents does not change, even if it is specified with a column or expression.
 
 *FROM Clause*
 
@@ -12159,7 +12157,7 @@ Please refer to "Hint Syntax" and "Hint List" for more detailed information.
 
 Altibase has the following restrictions on SQL query and stored procedure execution:
 
-- A maximum of 65536 internal tuples<sup>[7]can be used to process one query.
+- A maximum of 65536 internal tuples<sup>[7]</sup>can be used to process one query.
 
   > <sup>[7]</sup> Internal tuples are the units of memory that Altibase assigns internally for query processing.
 
@@ -12607,7 +12605,7 @@ DNO         AVG_SAL
 - If the user wants to give the column a nickname, or if the user wants to use a nickname that is different from the column name, write the nickname to use after the column name, as in AS avg_sal above. The AS keyword can be omitted when creating column aliases.
 - If two hypens ("-") are given, all subsequent parts of the line are treated as comments.
 
-\<Query\> Use the GROUP BY clause in multiple columns to output the total amount of salary paid for each postion within each department.
+\<Query\> Use the GROUP BY clause in multiple columns to output the total amount of salary paid for each position within each department.
 
 ```
 iSQL> SELECT dno, emp_job, COUNT(emp_job) num_emp, SUM(salary) sum_sal 
@@ -12948,7 +12946,7 @@ Gottlieb              Fleischer             500
 SELECT eno, e_firstname, e_lastname, emp_job FROM employees WHERE sex = 'F';
 ```
 
-For example, assume that an index has been defined for the gender column 	of the employees table, which contains many records, and that the value of t	he column can be 'M' or 'F'. If the number of male employees is similar to the number of female employees, querying the entire table using a full scan will be much faster than using an index scan. However, if the number of female employees is substantially lower than the number of male employees, using an index scan will be faster than scanning the entire table. 
+For example, assume that an index has been defined for the gender column of the employees table, which contains many records, and that the value of the column can be 'M' or 'F'. If the number of male employees is similar to the number of female employees, querying the entire table using a full scan will be much faster than using an index scan. However, if the number of female employees is substantially lower than the number of male employees, using an index scan will be faster than scanning the entire table. 
 
 In other words, when a column contains only two different values, the optimizer assumes that each value accounts for 50% of the rows in a table, and therefore, when using a cost-based approach to find records that match one of the two values for that column, opts to perform a full table scan rather than an index scan. 
 
@@ -13838,7 +13836,7 @@ This clause specifies the value to be inserted into the column of the target tab
 
 The record that satisfies the condition of the ON clause in the TEST_MERGE table is changed to data in the USING clause, and a new record is inserted if it is not satisfied.
 
-As in the condition of the ON clause, if there is a record with the sdame EMPNO column value by comparing the data of the TEST_MERGE table in the INTO clause with the USING clause, the LASTNAME column value of the record in the INTO clause TEST_MERGE table is changed. If there is no record with the same EMPNO column value, insert the data from the USING clause into the TEST_MERGE table as a new record.
+As in the condition of the ON clause, if there is a record with the same EMPNO column value by comparing the data of the TEST_MERGE table in the INTO clause with the USING clause, the LASTNAME column value of the record in the INTO clause TEST_MERGE table is changed. If there is no record with the same EMPNO column value, insert the data from the USING clause into the TEST_MERGE table as a new record.
 
 ```
 CREATE TABLE TEST_MERGE (EMPNO INT, LASTNAME CHAR(20));
@@ -13879,7 +13877,7 @@ EMPNO       LASTNAME
 ```
 The records with EMPNO = 1 and EMPNO = 7 in the TEST_MERGE table have been changed to LASTNAME = 'KANG' and LASTNAME = 'SON' and EMPNO = 9 and LASTNAME = 'CHEON' have been inserted as new records.
 
-\<Query\> The following exampl shows how to change the same record repeatedly due to misuse of the ON clause.
+\<Query\> The following example shows how to change the same record repeatedly due to misuse of the ON clause.
 ```
 DROP TABLE TEST_MERGE;
 CREATE TABLE TEST_MERGE (EMPNO INT, LASTNAME CHAR(20));
@@ -14073,7 +14071,7 @@ This chapter explains each of the Data Control Language (DCL) statements that ar
 
 #### Description
 
-CALTER REPLICATION controls the operation of a replication object that has been created with the CREATE REPLICATION statement. For more information about replication, please refer to the *Replication Manual.* 
+ALTER REPLICATION controls the operation of a replication object that has been created with the CREATE REPLICATION statement. For more information about replication, please refer to the *Replication Manual.* 
 
 *STOP*
 
@@ -14797,7 +14795,7 @@ The isolation level can be set to any of the three levels described below.
 
 *READ COMMITTED*
 
-This isolation level allows data within a table that have been changed by a committed transaction to be read, while also allowing other transactions to read the previous version of data that will be changed by a transaction that has not been committed. READ COMMITED is the default Altibase transaction isolation level.
+This isolation level allows data within a table that has been changed by a committed transaction to be read, while also allowing other transactions to read the previous version of data that will be changed by a transaction that has not been committed. READ COMMITTED is the default Altibase transaction isolation level.
 
 *REPEATABLE READ*
 
@@ -15052,12 +15050,12 @@ SQL functions can be broadly classified into the categories set forth in the fol
 | ------------------------------------- | :----------------------------------------------------------- |
 | Aggregate functions                   | The aggregate functions return a single value as a result of processing multiple rows. They can be used in select_list, ORDER BY, and HAVING clauses.<br />**The aggregate functions**<br/>AVG, CORR, COUNT, COVAR_POP, COVAR_SAMP, CUME_DIST, FIRST, GROUP_CONCAT, LAST, LISTAGG, MAX, MIN, PERCENTILE_CONT, PERCENTILE_DISC, PERCENT_RANK, RANK, STATS_ONE_WAY_ANOVA, STDDEV, STDDEV_POP, STDDEV_SAMP, SUM, VARIANCE, VAR_POP, VAR_SAMP |
 | Window functions (Analytic Functions) | The window functions calculate aggregate values based on groups of rows. The groups of rows that window functions operate on are defined by the PARTITION BY and the ROWS/RANGE subclause nested in the OVER clause. <br />**Aggregate Window Functions**<br/>AVG, CORR, COUNT, COVAR_POP, COVAR_SAMP, LISTAGG, MAX, MIN, PERCENTILE_CONT, PERCENTILE_DISC, RATIO_TO_REPORT, STDDEV, SUM, VARIANCE, GROUP_CONCAT <br />**Ranking Window Functions**<br/>RANK, DENSE_RANK, ROW_NUMBER, LAG, LEAD,NTILE, FIRST, LAST <br /><br />**Row Order-related Window Functions**<br/>FIRST_VALUE, LAST_VALUE, NTH_VALUE |
-| Numeric Functions                     | The numeric function performs a task on a input numerical value and return a numeric value. <br />ABS, ACOS, ASIN, ATAN, ATAN2, CEIL, COS, COSH, EXP, FLOOR, ISNUMERIC, LN, LOG, MOD, NUMAND, NUMOR, NUMSHIFT, NUMXOR, POWER, RAND, RANDOM, ROUND, SIGN, SIN, SINH, SQRT, TAN, TANH, TRUNC, BITAND, BITOR, BITXOR, BITNOT |
+| Numeric Functions                     | The numeric function performs a task on an input numerical value and returns a numeric value. <br />ABS, ACOS, ASIN, ATAN, ATAN2, CEIL, COS, COSH, EXP, FLOOR, ISNUMERIC, LN, LOG, MOD, NUMAND, NUMOR, NUMSHIFT, NUMXOR, POWER, RAND, RANDOM, ROUND, SIGN, SIN, SINH, SQRT, TAN, TANH, TRUNC, BITAND, BITOR, BITXOR, BITNOT |
 | Character Functions                   | These functions perform a task on an input string and return either a string or a numeric value. <br />**Functions that Return Strings**<br/>CHR, CHOSUNG, CONCAT, DIGITS, INITCAP, LOWER, LPAD, LTRIM, NCHR, PKCS7PAD16, PKCS7UNPAD16, RANDOM_STRING, REGEXP_COUNT, REGEXP_REPLACE, REPLICATE, REPLACE2, REVERSE_STR, RPAD, RTRIM, STUFF, SUBSTRB(SUBSTRING), TRANSLATE, TRIM, UPPER <br />**Functions that Return Numeric Values**<br/>ASCII, CHAR_LENGTH(CHARACTER_LENGTH,LENGTH), DIGEST,INSTR(POSITION, INSTRB), OCTET_LENGTH(LENGTHB), REGEXP_INSTR, REGEXP_SUBSTR, SIZEOF |
 | Date Functions                        | These functions perform a task on an input date/time value and return a character string, a numerical value, or a date/time value. <br />ADD_MONTHS, DATEADD, DATEDIFF, DATENAME, EXTRACT(DATEPART), LAST_DAY, MONTHS_BETWEEN, NEXT_DAY, SESSION_TIMEZONE, SYSDATE, SYSTIMESTAMP, UNIX_DATE, UNIX_TIMESTAMP, CURRENT_DATE, CURRENT_TIMESTAMP, DB_TIMEZONE, CONV_TIMEZONE |
 | Conversion Functions                  | These functions convert an input character, numeric or date/time value and return a character, numeric or date/time value. <br />ASCIISTR, BIN_TO_NUM, CONVERT, DATE_TO_UNIX, HEX_ENCODE, HEX_DECODE, HEX_TO_NUM, OCT_TO_NUM, RAW_TO_FLOAT, RAW_TO_INTEGER, RAW_TO_NUMERIC, RAW_TO_VARCHAR, TO_BIN, TO_CHAR(datetime), TO_CHAR(number), TO_DATE, TO_HEX, TO_INTERVAL, TO_NCHAR(character), TO_NCHAR(datetime), TO_NCHAR(number), TO_NUMBER, TO_OCT, TO_RAW, UNISTR, TO_RAW, UNIX_TO_DATE |
 | Encryption Functions                  | These functions are used to perform DES encryption and decryption on strings. <br />AESDECRYPT, AESENCRYPT, DESENCRYPT, DESDECRYPT, TDESDECRYPT/TRIPLE_DESDECRYPT, TDESENCRYPT/TRIPLE_DESENCRYPT |
-| Other Functions                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HOST_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT 등 |
+| Other Functions                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HOST_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, NVL_EQUAL, NVL_NOT_EQUAL, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT 등 |
 
 ### Aggregate Functions
 
@@ -16098,7 +16096,7 @@ LEAD (expr [, offset [, default_value]]) OVER {...}
 
 ##### Description
 
-This function obtains the value of the row at the given physical *offset* following the current row within each ordered partition. Only positive integers are accepted for offset ; on omission, the default value is 1. For rows that exceed the specified offset, *default_ value* is applied. On *default_value* omission, the default value is NULL.
+This function obtains the value of the row at the given physical *offset* following the current row within each ordered partition. Only positive integers are accepted for offset; on omission, the default value is 1. For rows that exceed the specified offset, *default_value* is applied. On *default_value* omission, the default value is NULL.
 
 ##### Limitations
 
@@ -16118,7 +16116,7 @@ LEAD_IGNORE_NULLS (expr [, offset [, default_value]]) OVER {...}
 
 ##### Description
 
-This function obtains the first value (excluding NULL) of the row at the given physical offset following the current row within each ordered partition. Only positive integers are accepted for offset ; on omission, the default value is 1. For rows that exceed the specified *offset*, *default_ value* is applied. On *default_value* omission, the default value is NULL.
+This function obtains the first value (excluding NULL) of the row at the given physical offset following the current row within each ordered partition. Only positive integers are accepted for offset; on omission, the default value is 1. For rows that exceed the specified *offset*, *default_value* is applied. On *default_value* omission, the default value is NULL.
 
 ##### Limitation
 
@@ -17927,7 +17925,7 @@ DIGITS (n)
 
 This returns an integer as a character string.
 
-The length of the character string depends on the data type (or size) of n. A string comprising 5 digits is returned for a SMALLINT, 10 digits for an INTEGER, and 19 digits for a BIGINT. If the number of digits in the input value is less than the number of digits that can be stored in the numeric data type, the leading spaces are populated with 0's (zeroes).
+The length of the character string depends on the data type (or size) of n. A string comprising 5 digits is returned for a SMALLINT, 10 digits for an INTEGER, and 19 digits for a BIGINT. If the number of digits in the input value is less than the number of digits that can be stored in the numeric data type, the leading spaces are populated with 0s (zeros).
 
 ##### Example
 
@@ -18403,7 +18401,7 @@ For *pattern_expr*, use this function to enter the regular expression pattern (u
 
 Entering *replace_string* returns the result of replacing *replace_string* with the matched string in *expr*. If *replace_string* is omitted or NULL, the string that matches the regular expression pattern in *expr* is returned.
 
-*start* is the starting position of the search, and it enters a nonzero postiive integer. If this value is omitted, the default value is 1, and the search starts from the first character of the *expr* string entered,
+*start* is the starting position of the search, and it enters a nonzero positive integer. If this value is omitted, the default value is 1, and the search starts from the first character of the *expr* string entered,
 
 *occurrence* allows to set the number of *expr* occurrences of *pattern_expr*. The default value is 0, meaning that all occurrences of *pattern_expr* will be replaced.
 
@@ -18567,7 +18565,7 @@ Note that n is the number of characters, not bytes, and thus the number of bytes
 
 ##### Example
 
-\<Query\>  In the following example, the right side of the character string “123” is padded with “0” (zeroes) and then type-converted to return a 10-digit number.
+\<Query\>  In the following example, the right side of the character string “123” is padded with “0” (zeros) and then type-converted to return a 10-digit number.
 
 ```
 iSQL> SELECT TO_NUMBER(RPAD('123', 10, '0')) rpad_ex FROM dual;
@@ -18953,7 +18951,7 @@ STUFF ('알티베이스0', 5, 1, '데이터베이스’)
 
 
 
-### Datatime Funcitons
+### Datetime Functions
 
 These functions perform tasks on entered date and time values and return character, numeric or date/time type values. If a value of an input argument is of the character data type, the value must be entered in the format set in the ALTIBASE_DATE_FORMAT environment variable or the DEFAULT_DATE_FORMAT property (the former takes precedence). Additionally, this format is also used to display date/time values that are returned when these functions are executed at the iSQL prompt. 
 
@@ -19113,7 +19111,7 @@ The following table shows the date_field_name values that can be used with the D
 | QUARTER         | The month portion of date is increased by n*3.    |
 | MONTH           | The month portion of date is increased by n.      |
 | WEEK            | The day portion of date is increased by n*7       |
-| DAY             | The day portion of date is increased by n..       |
+| DAY             | The day portion of date is increased by n.       |
 | HOUR            | The hour portion of date is increased by n.       |
 | MINUTE          | The minute portion of date is increased by n.     |
 | SECOND          | The second portion of date is increased by n.     |
@@ -19596,7 +19594,7 @@ TRUNC (date [, ‘fmt’])
 
 This is a discard function.
 
-TRUNC returns date truncated to the unit specified using fmt. In other words, it replaces the value of all units below the unit specified using fmt with zeroes (0's). 
+TRUNC returns date truncated to the unit specified using fmt. In other words, it replaces the value of all units below the unit specified using fmt with zeros (0s). 
 
 If fmt is omitted, then the time portion of the day is removed, that is, date is truncated to the beginning of date.
 
@@ -19742,11 +19740,11 @@ BIN_TO_NUM (expr)
 
 ##### Description
 
-This function converts expr into a decimal number. expr can be a binary number or a string that consists exclusively of ones (1's) and zeroes (0's) and is a maximum of 32 characters long. The return type is INTEGER.
+This function converts expr into a decimal number. expr can be a binary number or a string that consists exclusively of ones (1s) and zeros (0s) and is a maximum of 32 characters long. The return type is INTEGER.
 
 > Note 
 >
-> If any arithmetic operations are performed in expr, the numbers are handled as decimal numbers. The resultant decimal number has to comprise only ones and zeroes in order to be implicitly converted to BIN before being converted back to a decimal number.
+> If any arithmetic operations are performed in expr, the numbers are handled as decimal numbers. The resultant decimal number has to comprise only ones and zeros in order to be implicitly converted to BIN before being converted back to a decimal number.
 
 ##### Example
 
@@ -19982,7 +19980,7 @@ RAW_TO_FLOAT (expr)
 
 ##### Description
 
-The RAW_TO_NUMERIC and RAW_TO_FLAOT functions employ the TO_RAW function to return the values, which were converted into the VARBYTE data type, by converting into NUMERIC or FLOAT data type.The return type is VARCHAR.
+The RAW_TO_NUMERIC and RAW_TO_FLAOT functions employ the TO_RAW function to return the values, which were converted into the VARBYTE data type, by converting into NUMERIC or FLOAT data type. The return type is VARCHAR.
 
 ##### Example
 
@@ -20042,7 +20040,7 @@ TO_BIN converts n into a binary number. n can be a decimal integer or a string c
 
 The range of possible input values is from -2147483647 to 2147483647, that is, from -(2<sup>31</sup> -1) to (2<sup>31</sup> -1). When a negative value is entered, all bits are flipped, and 1 is added to the output. 
 
-The output is signed. Because leading zeroes are not output, the sign value does not appear for positive numbers.
+The output is signed. Because leading zeros are not output, the sign value does not appear for positive numbers.
 
 ##### Example
 
@@ -20209,7 +20207,7 @@ TO_HEX (n)
 
 TO_HEX converts n into a hexadecimal number. n can be a decimal integer or a string consisting of the numeric characters from 0 to 9. 
 
-TO_HEX returns VARCHAR type data
+TO_HEX returns VARCHAR type data.
 
 ##### Example
 
@@ -20383,7 +20381,7 @@ TO_NUMBER (char [, number_fmt] )
 
 TO_NUMBER converts a string into a numeric data type. The user can specify the desired numeric output format. For more information about the numeric output format, please refer to the *General Reference.*
 
-The return type is FLOAT
+The return type is FLOAT.
 
 ##### Examples
 
@@ -21258,7 +21256,7 @@ EMPTY_CLOB()
 
 ##### Description
 
-This function can be used in INSEART and UPDATE, and this function. This indicates the empty state in which LOB column has been initialized, but data is not visible. Therefore, the column using this function has NOT NULL state.
+This function can be used in INSERT and UPDATE, and this function. This indicates the empty state in which LOB column has been initialized, but data is not visible. Therefore, the column using this function has NOT NULL state.
 
 ##### Example
 
@@ -21380,7 +21378,7 @@ GROUPING_ID (expr1 [, expr2, expr3…])
 
 This function returns binary numbers corresponding to bit character strings that demonstrate, whether or not the values selected by each expr taken as arguments for this function return NULL, when operated on by the ROLLUP, CUBE or GROUPING SETS in the GROUP BY clause, as decimal number values. 
 
-For each row, the GROUPING_ID function combines the 1's and 0's returned for each expr argument on which the GROUPING function is operated, into a binary number and returns that value as a decimal number. 
+For each row, the GROUPING_ID function combines the 1s and 0s returned for each expr argument on which the GROUPING function is operated, into a binary number and returns that value as a decimal number. 
 
 Only expressions contained in the GROUP BY clause can be taken as arguments for this function. 
 
@@ -21699,6 +21697,135 @@ Aaron                 Foster                1800        1980
 .
 .
 20 rows selected.
+```
+
+
+
+#### NVL_EQUAL
+
+##### Syntax
+
+```
+NVL_EQUAL (expr1, expr2, expr3)
+```
+
+
+
+##### Description
+
+If *expr1* is NULL, compare *expr2* and *expr3*.
+
+If *expr1* is not NULL, compare *expr1* and *expr3*.
+
+"NVL_EQUAL(*expr1*, *expr2*, *expr3*)" is equivalent to "NVL(*expr1*, *expr2*) = *expr3*".
+
+In the example below, the results of both queries are the same, but the difference is that NVL_EQUAL uses the index scan, while the NVL function does not use the index.  
+
+> **Notice**
+>
+> *expr1* can have a data type of DATE, CHAR, and NUMBER, and the data types of *expr1*, *expr2*, and *expr3* must be the same.
+>
+> To use indexes in NVL_EQUAL, *expr1* must be the index column and *expr3* must be a constant.
+
+##### Example
+
+The results of the below queries are the same, but NVL_EQUAL uses indexes.
+
+```
+iSQL> SELECT e_firstname, e_lastname
+     FROM employees
+     WHERE NVL_EQUAL(TO_CHAR(salary), 'Unknown','Unknown');
+E_FIRSTNAME           E_LASTNAME
+-----------------------------------------------
+Chan-seung            Moon
+Xiong                 Wang
+William               Blake
+3 rows selected.
+
+iSQL> SELECT e_firstname, e_lastname
+     FROM employees
+     WHERE NVL(TO_CHAR(salary), 'Unknown') = 'Unknown';
+E_FIRSTNAME           E_LASTNAME
+-----------------------------------------------
+Chan-seung            Moon
+Xiong                 Wang
+William               Blake
+3 rows selected.
+```
+
+
+
+#### NVL_NOT_EQUAL
+
+##### Syntax
+
+```
+NVL_NOT_EQUAL (expr1, expr2, expr3)
+```
+
+
+
+##### Description
+
+If *expr1* is NULL, compare *expr2* and *expr3*.
+
+If *expr1* is not NULL, compare *expr1* and *expr3*.
+
+"NVL_NOT_EQUAL(*expr1*, *expr2*, *expr3*)" is equivalent to "NVL(*expr1*, *expr2*) != *expr3*".
+
+In the example below, the results of both queries are the same, but the difference is that NVL_NOT_EQUAL uses the index scan, while the NVL function does not use the index.  
+
+> **Notice**
+>
+> *expr1* can have a data type of DATE, CHAR, and NUMBER, and the data types of *expr1*, *expr2*, and *expr3* must be the same.
+>
+> To use indexes in NVL_NOT_EQUAL, *expr1* must be the index column and *expr3* must be a constant.
+
+##### Example
+
+The results of the below queries are the same, but NVL_NOT_EQUAL uses indexes.
+
+```
+iSQL> SELECT e_firstname, e_lastname, birth
+     FROM employees
+     WHERE nvl_not_equal(birth, 'Unknown', 'Unknown');
+E_FIRSTNAME           E_LASTNAME            BIRTH
+--------------------------------------------------------
+Susan                 Davenport             721219
+Ken                   Kobain                650226
+Aaron                 Foster                820730
+Ryu                   Momoi                 790822
+Gottlieb              Fleischer             840417
+Xiong                 Wang                  810726
+Curtis                Diaz                  660102
+Elizabeth             Bae                   710213
+Sandra                Hammond               810211
+Mitch                 Jones                 801102
+Jason                 Davenport             901212
+Wei-Wei               Chen                  780509
+Takahiro              Fubuki                781026
+13 rows selected.
+
+
+iSQL> SELECT e_firstname, e_lastname, birth
+     FROM employees
+     WHERE nvl(birth, 'Unknown') != 'Unknown';
+E_FIRSTNAME           E_LASTNAME            BIRTH
+--------------------------------------------------------
+Susan                 Davenport             721219
+Ken                   Kobain                650226
+Aaron                 Foster                820730
+Ryu                   Momoi                 790822
+Gottlieb              Fleischer             840417
+Xiong                 Wang                  810726
+Curtis                Diaz                  660102
+Elizabeth             Bae                   710213
+Sandra                Hammond               810211
+Mitch                 Jones                 801102
+Jason                 Davenport             901212
+Wei-Wei               Chen                  780509
+Takahiro              Fubuki                781026
+13 rows selected.
 ```
 
 
@@ -22120,6 +22247,39 @@ SYS_CONTEXT('USERENV','SID')
 
 
 
+#### SYS_GUID
+
+##### Syntax	
+
+```
+SYS_GUID()
+```
+
+
+
+##### Description
+
+SYS_GUID generates globally unique identifier made up of 16 bytes, converts it to hexadecimal string of 16 characters, and returns the final result. The return type is BYTE type.
+
+##### Example
+
+```
+iSQL> SELECT SYS_GUID() FROM DUAL;
+SYS_GUID()
+------------------------------------
+080027253126D13B69F892D46508FD9D
+1 row selected.
+
+iSQL> SELECT DUMP(SYS_GUID()) FROM DUAL;
+DUMP(SYS_GUID())                                                                                                  
+------------------------------------------------------------------------------------------------------------------------------
+Type=BYTE(UTF8) Length=18: 16,0,8,0,39,37,49,38,209,59,105,248,146,214,101,8,253,157                              
+1 row selected.
+
+```
+
+
+
 #### SYS_GUID_STR
 
 ##### Syntax	
@@ -22242,7 +22402,7 @@ This chapter describes the arithmetic operators that can be used in SQL statemen
 
 Arithmetic operators are used to sign, add, subtract, multiply, and divide numeric values. Some of these operators can also be used to perform arithmetic on date values. Arithmetic operations can only be performed on numeric data types or on data types that can be implicitly converted to numeric data types.
 
-#### The Type of Arthmetic Operators
+#### The Type of Arithmetic Operators
 
 The following is a brief description of the kinds of arithmetic operators that are supported in Altibase
 
@@ -22267,7 +22427,7 @@ The following is a brief description of the kinds of arithmetic operators that a
 
 ##### Description
 
-This operator is used to xplicitly indicate that n is a positive number.
+This operator is used to explicitly indicate that n is a positive number.
 
 #### Negative Sign
 
@@ -22283,7 +22443,7 @@ This operator is used to xplicitly indicate that n is a positive number.
 
 This operator is used to change the sign of n.
 
-### Binary Opeartors
+### Binary Operators
 
 #### Addition	
 
@@ -22502,9 +22662,9 @@ The other conditions that are supported for use with Altibase are listed and des
 | BETWEEN condition     | This is a kind of comparison condition that is used to determine whether a value is within a given range. |
 | EXISTS condition      | The EXISTS condition is used to check whether a subquery returns at least one row. |
 | IN condition          | The IN condition is used to determine whether a value is the same as one or more in a list of values or results returned by a subquery. A NOT IN condition is used to determine whether a value is unlike all members in a list of values or results returned by a subquery. |
-| INLIST condition      | The IN condition is used to determin whether a value is in a given list. |
+| INLIST condition      | The INLIST condition is used to determine whether a value is in a given list. |
 | IS NULL condition     | The IS NULL condition is used to determine whether a value is a NULL value. |
-| LIKE condition        | LIKE is a patter-matching condition that is used to determine whether a string contains a given sequence of characters ("patters"). |
+| LIKE condition        | LIKE is a pattern-matching condition that is used to determine whether a string contains a given sequence of characters ("patters"). |
 | REGEXP_LIKE condition | REGEXP_LIKE is a regular expression matching condition that is used to determine whether a string contains a given regular expression. |
 | UNIQUE condition      | A UNIQUE condition is used to check whether a subquery returns exactly one row. |
 
@@ -22654,7 +22814,7 @@ F111100001 AU-100 AC0010 10000
 
 
 
-### Comparision Conditions	
+### Comparison Conditions	
 
 Comparison conditions can be broadly classified into simple comparison conditions and group comparison conditions on the basis of whether a single expression is compared with one expression or with many expressions.
 

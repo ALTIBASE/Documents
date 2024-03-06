@@ -133,6 +133,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [JDBC와 Failover](#jdbc%EC%99%80-failover)
   - [JDBC Escapes](#jdbc-escapes)
   - [ResultSet 사용하기](#resultset-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
+  - [Statement Caching](#statement-caching)
   - [Atomic Batch](#atomic-batch)
   - [Date, Time, Timestamp](#date-time-timestamp)
   - [GEOMETRY](#geometry)
@@ -147,21 +148,21 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 - [5.에러 메시지](#5%EC%97%90%EB%9F%AC-%EB%A9%94%EC%8B%9C%EC%A7%80)
   - [SQL States](#sql-states)
 - [6.JDBC 4.2 API References](#6jdbc-42-api-references)
-    - [java.sql.Connection](#java.sql.connection)
-    - [java.sql.Wrapper](#java.sql.wrapper)
-    - [java.sql.Driver](#java.sql.driver)
-    - [java.sql.Statement](#java.sql.statement)
-    - [java.sql.PreparedStatement](#java.sql.preparedstatement)
-    - [java.sql.CallableStatement](#java.sql.callablestatement)
-    - [java.sql.PooledConnection](#java.sql.pooledconnection)
-    - [java.sql.ResultSet](#java.sql.resultset)
-    - [java.sql.CommonDataSource](#java.sql.commondatasource)
-    - [java.sql.DatabaseMetaData](#java.sql.databasemetadata)
-    - [java.sql.Blob](#java.sql.blob)
-    - [java.sql.Clob](#java.sql.clob)
-    - [java.sql.Types](#java.sql.types)
+    - [java.sql.Connection](#javasqlconnection)
+    - [java.sql.Wrapper](#javasqlwrapper)
+    - [java.sql.Driver](#javasqldriver)
+    - [java.sql.Statement](#javasqlstatement)
+    - [java.sql.PreparedStatement](#javasqlpreparedstatement)
+    - [java.sql.CallableStatement](#javasqlcallablestatement)
+    - [java.sql.PooledConnection](#javasqlpooledconnection)
+    - [java.sql.ResultSet](#javasqlresultset)
+    - [java.sql.CommonDataSource](#javasqlcommondatasource)
+    - [java.sql.DatabaseMetaData](#javasqldatabasemetadata)
+    - [java.sql.Blob](#javasqlblob)
+    - [java.sql.Clob](#javasqlclob)
+    - [java.sql.Types](#javasqltypes)
     - [java.sql.DriverAction](#javasqldriveraction)
-    - [java.sql.SQLTypes](#java.sql.sqltypes)
+    - [java.sql.SQLTypes](#javasqlsqltypes)
     - [Java 8 Time API](#java-8-time-api)
 - [A.부록: 데이터 타입 맵핑](#a%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
   - [데이터 타입 맵핑](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85-%EB%A7%B5%ED%95%91)
@@ -543,65 +544,6 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 설정 범위 | 세션                                                         |
 | 설명      | 구문의 수행이 완료될 때 트랜잭션이 자동으로 커밋될 지 여부를 지정한다. |
 
-##### defer_prepares
-
-<table>
-<tbody>
-<tr>
-   <th>
-<p>기본값</p>
-</th>
-<td>
-<p>off</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>값의 범위</p>
-</td>
-<td>
-<p>[on | off]</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>필수 여부</p>
-</td>
-<td>
-<p>No</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>설정 범위</p>
-</td>
-<td>
-<p>세션</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>설명</p>
-</td>
-<td>
-<p>prepareStatement()가 호출될 때 서버와의 통신을 보류할지 여부(ON, OFF)를 지정할 수 있다.<br /> 
-이 속성이 ON이면, prepareStatement()가 호출이 되더라도 execute() 메소드가 호출될 때까지 <br /> prepare 요청이 서버로 전송되지 않는다. <br /> 반면에 이 속성이 OFF이면, prepareStatement()가 호출될 때 prepare 요청이 즉시 서버로 전송된다.<br /> 
-또한 예외적으로 defer_prepares 속성이 활성화된 상태이더라도 prepareStatement() 뒤에 다음의 메소드들이 호출되면, prepare 요청이 즉시 서버로 전송된다.</p>
-<ul>
-<li>getMetData</li>
-<li>getParameterMetaData</li>
-<li>setObject(int, Object, int)</li>
-<li>setBigDecimal(int, BigDecimal)</li>
-</ul>
-<p> 제약사항 </p>
-<ul>
-<li>바인드 변수가 없을 때 강제로 setXXX를 이용해 값을 바인드하면 에러가 발생하는 것이 원칙이지만, deferred 옵션을 사용한 경우에는 예외적으로 에러가 발생하지 않는다.</li>
-<li>nchar, nvarchar 타입 컬럼에 값을 바인딩 할 때, deferred 옵션을 사용하는 경우 반드시 setNString() 메서드를 사용해야 한다. deferred 옵션을 사용하지 않을 때는 setString() 메서드도 사용 가능하다.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
 
 ##### ciphersuite_list
 
@@ -718,6 +660,69 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 설정 범위 | 세션                                                         |
 | 설명      | DDL문 수행 시간의 한계값을 설정한다. <br />수행 시간이 이 시간을 넘어가면 구문의 수행이 취소된다. <br />단위는 초(sec)이다. <br />이 값이 0이면 무한대를 의미한다. |
 
+##### defer_prepares
+
+<table>
+<tbody>
+<tr>
+   <th>
+<p>기본값</p>
+</th>
+<td>
+<p>off</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>값의 범위</p>
+</td>
+<td>
+<p>[on | off]</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>필수 여부</p>
+</td>
+<td>
+<p>No</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>설정 범위</p>
+</td>
+<td>
+<p>세션</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>설명</p>
+</td>
+<td>
+<p>prepareStatement()가 호출될 때 서버와의 통신을 보류할지 여부(ON, OFF)를 지정할 수 있다.<br /> 
+이 속성이 ON이면, prepareStatement()가 호출이 되더라도 execute() 메소드가 호출될 때까지 <br /> prepare 요청이 서버로 전송되지 않는다. <br /> 반면에 이 속성이 OFF이면, prepareStatement()가 호출될 때 prepare 요청이 즉시 서버로 전송된다.<br /> 
+또한 예외적으로 defer_prepares 속성이 활성화된 상태이더라도 prepareStatement() 뒤에 다음의 메소드들이 호출되면, prepare 요청이 즉시 서버로 전송된다.</p>
+<ul>
+<li>getMetData</li>
+<li>getParameterMetaData</li>
+<li>setObject(int, Object, int)</li>
+<li>setBigDecimal(int, BigDecimal)</li>
+</ul>
+<p> 제약사항 </p>
+<ul>
+<li>바인드 변수가 없을 때 강제로 setXXX를 이용해 값을 바인드하면 에러가 발생하는 것이 원칙이지만, deferred 옵션을 사용한 경우에는 예외적으로 에러가 발생하지 않는다.</li>
+<li>nchar, nvarchar 타입 컬럼에 값을 바인딩 할 때, deferred 옵션을 사용하는 경우 반드시 setNString() 메서드를 사용해야 한다. deferred 옵션을 사용하지 않을 때는 setString() 메서드도 사용 가능하다.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+##### ciphersuite_list
+
 ##### description
 
 | 기본값    |                               |
@@ -825,6 +830,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 필수 여부 | No                                                           |
 | 설정 범위 | 세션                                                         |
 | 설명      | 클라이언트에 캐시할 수 있는 LOB 데이터의 최대 크기를 설정한다. |
+
+##### lob_null_select
+
+| 기본값    | off                                                          |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | [on \| off ]                                                 |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 LOB 객체를 반환하는지 여부<br/>- off: null을 반환한다. <br/>- on: LOB 객체를 반환한다. |
 
 ##### login_timeout
 
@@ -960,6 +974,33 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 필수 여부 | No                                                           |
 | 설정 범위 | 세션                                                         |
 | 설명      | 서버에 SSL 통신을 사용해서 접속할지 여부를 설정한다. <br />자세한 내용은 SSL/TLS User's Guide를 참조한다. |
+
+##### stmt_cache_enable
+
+| 기본값    | false                                                        |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | [true \| false ]                                             |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | Statement Caching 기능을 활성화 또는 비활성화할지 여부를 설정한다. <br />자세한 내용은 3. 고급기능-Statement Caching을 참조한다. |
+
+##### stmt_cache_size
+
+| 기본값    | 25                                                           |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | 1 ~ 2,147,483,647                                            |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | Statement Cache 기능이 활성화된 경우, 캐시할 수 있는 statement의 최대 개수를 설정한다. </br>캐시된 statement의 갯수가 이 값을 초과하면, LRU 알고리즘에 따라 가장 오래된 statement가 캐시에서 삭제된다.</br>자세한 내용은 3. 고급기능-Statement Caching을 참조한다. |
+
+##### stmt_cache_sql_limit
+
+| 기본값    | 1024                                                         |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | 1 ~ 2,147,483,647                                            |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | Statement Cache에 저장할 SQL의 최대 길이를 설정한다. <br />SQL 길이가 이 값을 초과하는 경우 캐싱되지 않는다. </br>자세한 내용은 3. 고급기능-Statement Caching을 참조한다. |
 
 ##### time_zone
 
@@ -2490,6 +2531,95 @@ ResultSet 객체의 refreshRow() 메소드를 사용하면, SELECT문을 실행�
 TYPE_FORWARD_ONLY일 경우에는 이 메소드를 호출하면 예외가 발생하고,
 TYPE_SCROLL_INSENSITIVE일 경우에는 아무런 동작도 일어나지 않는다.
 
+### Statement Caching
+
+Statement Caching은 동일한 SQL statement를 반복적으로 수행할 때, 해당 statement를 캐싱하여 성능을 개선할 수 있는 기능이다. Statement Caching을 이용하기 위해서는 기존 프로그램의 수정없이 관련 연결 속성만 설정하면 된다. 캐싱의 대상은 PreparedStatement, CallableStatement 객체이며, Statement 객체는 캐싱하지 않는다. Statement Caching은 연결(Connection) 단위로 설정 및 관리된다.
+
+#### 기본 동작
+
+Statement 인터페이스의 close() 메소드를 실행하면 statement가 캐싱되고, prepareStatement() 또는 prepareCall() 메소드를 실행할 때 캐시된 statement에서 일치하는 statement를 검색한다. 일치하는 statement가 캐시에 있으면 해당 Statement 객체를 반환하고, 없으면 새로운 Statement 객체를 생성하여 반환한다.
+
+캐시된 statement와 동일한 statement로 간주되는 조건은 다음과 같다.
+
+* SQL문이 동일할 것
+* PreparedStatement 또는 CallableStatement와 같은 statement type이 동일 할 것
+* 해당 statement가 생성한 ResultSet 객체의 속성(Scrollable, Concurrency, Holdability)이 동일할 것
+
+Statement Caching 기능이 활성화되어있는 경우 Statement 인터페이스의 close() 메소드 수행시, statement가 캐싱되기 때문에 statement는 물리적으로 close 되지 않는다. 
+
+그러나 아래의 경우에는 statement가 물리적으로 close 된다.
+
+* Connection 인터페이스의 close() 메소드 수행 시
+
+  해당 connection에서 생성한 모든 statement 객체가 물리적으로 close 된다. 그러나 pooled connection의 경우는 물리적으로 close되지 않는다.
+
+* isPoolable() 메소드값이 false인 statement의 객체를 close 하는 경우
+
+  isPoolable() 메소드값이 false인 경우 캐싱되지 않으므로 그 statement 객체는 물리적으로 close된다.
+
+* stmt_cache_size 설정값을 초과하여 캐싱이 시도되는 경우
+
+  * LRU 알고리즘에 의해 가장 오랫동안 접근되지 않은 statement 객체는 물리적으로 close 된다.
+
+#### 사용법
+
+Statement Caching을 사용하기 위해서는 아래의 연결 속성을 설정해야 한다. 각 연결 속성에 대한 자세한 설명은 [1.JDBC 시작하기 연결 속성 정보](#연결-속성-정보)를 참고한다.
+
+* stmt_cache_enable
+
+  stmt_cache_enable의 기본값은 false 이므로, Statement Caching 기능을 사용하기 위해서는 아래와 같이 설정해야 한다.
+
+  ```java
+  Properties sProps = new Properties();
+  ...
+  sProps.put("stmt_cache_enable", "true");
+  ...
+  ```
+
+* stmt_cache_size
+
+* stmt_cache_sql_limit
+
+만약, Statement Caching 활성화 상태에서 특정 statement를 캐싱하지 않으려면, Statement 인터페이스의 setPoolable(false) 메소드를 수행해야 한다.
+
+```java
+...
+sStmt.setPoolable(false);
+...
+```
+
+#### 코드 예제
+
+아래의 예제와 같이 특정 SQL을 반복적으로 수행해야 할 때, Statement Caching 기능을 활성화하면 캐시된 statement를 재사용함으로써 성능 향상을 기대할 수 있다.
+
+```java
+...
+Properties        sProps   = new Properties();
+...        
+sProps.put("stmt_cache_enable", "true");
+...
+Connection        sCon     = DriverManager.getConnection( sURL, sProps );
+Statement         sStmt    = sCon.createStatement();
+...
+ for (int i = 0; i < 100; i++)
+ {
+     PreparedStatement sPreStmt = sCon.prepareStatement( "INSERT INTO T1 VALUES(1,1)" );
+     sPreStmt.execute();
+     sPreStmt.close();
+  }
+ /* Finalize process */
+ sStmt.close();
+ sCon.close();
+...
+```
+
+#### 주의 사항
+
+* Statement Caching 기능이 활성화된 상태에서 데이터베이스 객체에 DDL을 수행하면 execute시에 에러가 발생할 수 있으므로 주의가 필요하다.
+* Statement Caching 기능은 defer_prepares 기능과 함께 사용할 수 없다.
+* Statement Caching 기능을 DBCP의 poolPreparedStatement와 같은 다른 라이브러리에서 제공하는 statement pooling 기능과 중복 사용하지 않도록 주의해야 한다.
+* Statement Caching 기능을 사용하면 서버와 클라이언트의 메모리 사용량이 증가할 수 있다. 이는 stmt_cache_size와 stmt_cache_sql_limit 속성을 적절히 조절하여 튜닝하는 것을 권장한다. 필요 시 자바 힙(heap) 메모리 크기 설정도 함께 고려한다.
+
 ### Atomic Batch
 
 알티베이스 JDBC 드라이버는 Atomic Batch 기능을 제공하여, 일괄처리(Batch)의
@@ -3764,46 +3894,48 @@ Altibase.jdbc.driver.logging.MultipleFileHandler.formatter = java.util.logging.X
 
 ```
 ### Hibernate
-Altibase 는 비표준 SQL 을 제공하며, Hibernate 는 이러한 기능을 수행할 수 있도록 Dialect 클래스를 지원한다.
-Hibernate 에서 Altibase 를 연동하려면 Altibase 의 JDBC Driver 를 설정하고, Hibernate 의 configuration 에
-AltibaseDialect.class 를 지정해야 한다.
+Altibase는 비표준 SQL을 제공하며, Hibernate 는 이러한 기능을 수행할 수 있도록 Dialect 클래스를 지원한다.
+Hibernate 에서 Altibase 를 연동하려면 Altibase 의 JDBC Driver 를 설정하고, Hibernate 의 configuration 에 AltibaseDialect.class 를 지정해야 한다.
 
 #### AltibaseDialect
-Hibernate 가 공식적으로 제공하는 라이브러리는 AltibaseDialect.class 를 포함하지 않기 때문에
-AltibaseDialect.java 파일 (필요에 따라 AltibaseLimitHandler.java 포함)을 컴파일하고 Hibernate 가
-제공하는 파일에 포팅해야 사용할 수 있다. AltibaseDialect.java 파일과 AltibaseLimitHandler.java 파일은
-Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 AltibaseDialect 포팅 방법
-(https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
 
-#### Lob 관련 속성
-Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이 
-null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 해당 인터페이스는 기존에 값이 null이더라도 Lob관련 객체가
-리턴되었기 때문에 다음 JDBC연결 속성을 통해 제어가 가능하다.
+##### Hibernate 6.4 부터 공식 지원
 
-##### lob_null_select
-| 기본값    | off                                                           |
-|----------|---------------------------------------------------------------|
-| 값의 범위 | [on \| off ]                                                 |
-| 필수 여부 | No                                                            |
-| 설정 범위 | 세션                                                           |
-| 설명     | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 객체를 리턴하는지 여부  |
-##### 예제 
-lob_null_select의 기본값이 off이기 때문에 다음과 같이 getBlob(), getClob()을 한 후 null처리를 해줘야 한다.
+Hibernate 6.4 부터는 AltibaseDialect가 Hibernate ORM 패키지에 포함되었다. 이제 AltibaseDialect를 사용하려면 Maven 의존성 설정만 추가하면 된다.
+
+##### Hibernate 6.4 이전
+
+Hibernate 6.4 이전 버전에서는 AltibaseDialect가 없으므로, AltibaseDialect.class 를 직접 지정해야 한다. 이를 위해서는  Altibase 에서 제공하는 AltibaseDialect.java 파일 (필요에 따라 AltibaseLimitHandler.java 포함)을 컴파일하고 Hibernate 가 제공하는 파일에 포팅해야 사용할 수 있다. AltibaseDialect.java 파일과 AltibaseLimitHandler.java 파일은 Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 [AltibaseDialect 포팅 방법](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
+
+#### Maven 의존성(Dependency) 설정
+
+##### AltibaseDialect 의존성 추가
+
+Hibernate 6.4 부터 hibernate-community-dialects에  AltibaseDialect가 포함되었기 때문에, 아래와 같이 의존성을 추가하면 된다.
+
+```xml
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-community-dialects</artifactId>
+    <version>6.4.1.Final</version>
+</dependency>
 ```
-Blob sBlob = sRs.getBlob();
-if (sBlob != null) // sBlob이 null인 경우 NullpointerException이 발생할 수 있다.
-{
-   long sLength = sBlob.length();  
-   System.out.println("blob length===>" + sLength);
-}
-...
-Clob sClob = sRs.getClob();
-if (sClob != null) // sClob이 null인 경우 NullpointerException이 발생할 수 있다.
-{
-   long sLength = sClob.length();  
-   System.out.println("clob length===>" + sLength);
-}
+
+##### Altibase JDBC 드라이버 의존성 추가
+
+Altibase 7.3.0.0.2부터  [Maven Central Repository](https://mvnrepository.com/artifact/com.altibase/altibase-jdbc)에서 Altibase JDBC 드라이버를 다운로드할 수 있어서, 아래와 같이 의존성을 추가하면 된다.
+
+```xml
+<dependency>
+    <groupId>com.altibase</groupId>
+    <artifactId>altibase-jdbc</artifactId>
+    <version>7.3.0.0.2</version>
+</dependency>
 ```
+
+#### Lob 관련 연결 속성
+
+Altibase 7.1에서는 Lob 컬럼 값이 null인 경우, ResultSet.getBlob(), ResultSet.getClob() 수행시 Lob객체를 반환하기 때문에 [**lob_null_select**](#lob_null_select) 연결 속성의 값을 "off"로 변경해야 했다. 그러나 Altibase 7.3 부터는 **lob_null_select** 연결 속성의 기본값이 off로 변경됨에 따라, 더이상 연결 속성을 변경하지 않아도 된다.
 
 ### SQL Plan
 
@@ -4026,8 +4158,8 @@ JDBC 4.2 API를 준수하는 Altibase JDBC 드라이버에서 지원하는 기�
 ### java.sql.Statement
 | 인터페이스명                                                 | JDBC API 버전 | 지원여부  | 설명                                                                  |      예외 처리                                        |
 |:-----------------------------------------------------------|:--------:|:--------:|:-------------------------------------------------------------------------|:-----------------------------------------------------|
-| setPoolable(boolean poolable)                              | 4.0      |    O     | 알티베이스 JDBC에서 직접 Statement Pool은 지원하지 않고 플래그 설정만 가능   |                                                      |
-| isPoolable()                                               | 4.0      |    O     |                                                                          |                                                      |
+| setPoolable(boolean poolable)                              | 4.0      |    O     | stmt_cache_enable=true인 설정에서 statement를 캐싱하지 않도록 하거나, 다시 캐싱하게 하는데 사용한다.<br>setPoolable(false)는 캐싱하지 않도록하고, setPoolable(true)는 캐싱하게 한다.<br>그러나 stmt_cache_enable=false 로 설정되어있는 경우, 매개변수의 값에 관계없이 statement를 캐싱하지 않는다. <br>즉, stmt_cache_enable=false 인 설정에서는 setPoolable(true)를 수행해도 statement는 캐싱되지 않는다. |                                                      |
+| isPoolable()                                               | 4.0      |    O     | Statement 객체의 isPoolable()의 기본값은 false이고, PreparedStatement, CallableStatement의 기본값은 true 이다. |                                                      |
 | closeOnCompletion()                                        | 4.1      |    O     |                                                                          |                                                      |
 | isCloseOnCompletion()                                      | 4.1      |    O     |                                                                          |                                                      |
 | executeLargeBatch()                                        | 4.2      |    O     |                                                                          |                                                      |

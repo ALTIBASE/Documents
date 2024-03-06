@@ -112,17 +112,17 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 # 목차
 
-- [서문](#%EC%84%9C%EB%AC%B8)
-  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-- [1.Altibase SQL 소개](#1altibase-sql-%EC%86%8C%EA%B0%9C)
-  - [SQL 개요](#sql-%EA%B0%9C%EC%9A%94)
-  - [SQL문 분류](#sql%EB%AC%B8-%EB%B6%84%EB%A5%98)
-- [2.Altibase SQL 기본](#2altibase-sql-%EA%B8%B0%EB%B3%B8)
-  - [주석](#%EC%A3%BC%EC%84%9D)
-  - [Altibase 객체 (Object)](#altibase-%EA%B0%9D%EC%B2%B4-object)
-  - [힌트 구문](#%ED%9E%8C%ED%8A%B8-%EA%B5%AC%EB%AC%B8)
-  - [힌트 목록](#%ED%9E%8C%ED%8A%B8-%EB%AA%A9%EB%A1%9D)
-- [3.데이터 정의어](#3%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%95%EC%9D%98%EC%96%B4)
+- [서문](#서문)
+  - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
+- [1.Altibase SQL 소개](#1altibase-sql-소개)
+  - [SQL 개요](#sql-개요)
+  - [SQL문 분류](#sql문-분류)
+- [2.Altibase SQL 기본](#2altibase-sql-기본)
+  - [주석](#주석)
+  - [Altibase 객체 (Object)](#altibase-객체-object)
+  - [힌트 구문](#힌트-구문)
+  - [힌트 목록](#힌트-목록)
+- [3.데이터 정의어](#3데이터-정의어)
   - [ALTER DATABASE](#alter-database)
   - [ALTER DATABASE LINKER](#alter-database-linker)
   - [ALTER INDEX](#alter-index)
@@ -180,7 +180,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [RENAME TABLE](#rename-table)
   - [REVOKE](#revoke)
   - [TRUNCATE TABLE](#truncate-table)
-- [4.데이터 조작어](#4%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A1%B0%EC%9E%91%EC%96%B4)
+- [4.데이터 조작어](#4데이터-조작어)
   - [DELETE](#delete)
   - [INSERT](#insert)
   - [LOCK TABLE](#lock-table)
@@ -190,7 +190,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [MERGE](#merge)
   - [ENQUEUE](#enqueue)
   - [DEQUEUE](#dequeue)
-- [5.데이터 제어어](#5%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%9C%EC%96%B4%EC%96%B4)
+- [5.데이터 제어어](#5데이터-제어어)
   - [ALTER REPLICATION](#alter-replication-1)
   - [ALTER SESSION](#alter-session)
   - [ALTER SYSTEM](#alter-system)
@@ -201,34 +201,34 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [SAVEPOINT](#savepoint)
   - [ROLLBACK](#rollback)
   - [SET TRANSACTION](#set-transaction)
-- [6.집합 연산자](#6%EC%A7%91%ED%95%A9-%EC%97%B0%EC%82%B0%EC%9E%90)
+- [6.집합 연산자](#6집합-연산자)
   - [UNION](#union)
   - [UNION ALL](#union-all)
   - [INTERSECT](#intersect)
   - [MINUS](#minus)
-  - [연산 순서](#%EC%97%B0%EC%82%B0-%EC%88%9C%EC%84%9C)
-- [7.SQL 함수](#7sql-%ED%95%A8%EC%88%98)
-  - [SQL 함수 소개](#sql-%ED%95%A8%EC%88%98-%EC%86%8C%EA%B0%9C)
-  - [집계 함수](#%EC%A7%91%EA%B3%84-%ED%95%A8%EC%88%98)
-  - [윈도우(분석) 함수](#%EC%9C%88%EB%8F%84%EC%9A%B0%EB%B6%84%EC%84%9D-%ED%95%A8%EC%88%98)
-  - [숫자 함수](#%EC%88%AB%EC%9E%90-%ED%95%A8%EC%88%98)
-  - [문자 함수](#%EB%AC%B8%EC%9E%90-%ED%95%A8%EC%88%98)
-  - [날짜시간 함수](#%EB%82%A0%EC%A7%9C%EC%8B%9C%EA%B0%84-%ED%95%A8%EC%88%98)
-  - [변환 함수](#%EB%B3%80%ED%99%98-%ED%95%A8%EC%88%98)
-  - [암호화 함수](#%EC%95%94%ED%98%B8%ED%99%94-%ED%95%A8%EC%88%98)
-  - [기타 함수](#%EA%B8%B0%ED%83%80-%ED%95%A8%EC%88%98)
-- [8.산술 연산자](#8%EC%82%B0%EC%88%A0-%EC%97%B0%EC%82%B0%EC%9E%90)
-  - [산술 연산자](#%EC%82%B0%EC%88%A0-%EC%97%B0%EC%82%B0%EC%9E%90)
-  - [단항 연산자](#%EB%8B%A8%ED%95%AD-%EC%97%B0%EC%82%B0%EC%9E%90)
-  - [이항 연산자](#%EC%9D%B4%ED%95%AD-%EC%97%B0%EC%82%B0%EC%9E%90)
-  - [연결 연산자](#%EC%97%B0%EA%B2%B0-%EC%97%B0%EC%82%B0%EC%9E%90)
-  - [CAST 연산자](#cast-%EC%97%B0%EC%82%B0%EC%9E%90)
-- [9.조건 연산자](#9%EC%A1%B0%EA%B1%B4-%EC%97%B0%EC%82%B0%EC%9E%90)
-  - [SQL 조건의 개요](#sql-%EC%A1%B0%EA%B1%B4%EC%9D%98-%EA%B0%9C%EC%9A%94)
-  - [논리 연산자](#%EB%85%BC%EB%A6%AC-%EC%97%B0%EC%82%B0%EC%9E%90)
-  - [비교조건](#%EB%B9%84%EA%B5%90%EC%A1%B0%EA%B1%B4)
-  - [그 외의 조건](#%EA%B7%B8-%EC%99%B8%EC%9D%98-%EC%A1%B0%EA%B1%B4)
-- [A.부록: 정규 표현식](#a%EB%B6%80%EB%A1%9D-%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D)
+  - [연산 순서](#연산-순서)
+- [7.SQL 함수](#7sql-함수)
+  - [SQL 함수 소개](#sql-함수-소개)
+  - [집계 함수](#집계-함수)
+  - [윈도우(분석) 함수](#윈도우분석-함수)
+  - [숫자 함수](#숫자-함수)
+  - [문자 함수](#문자-함수)
+  - [날짜시간 함수](#날짜시간-함수)
+  - [변환 함수](#변환-함수)
+  - [암호화 함수](#암호화-함수)
+  - [기타 함수](#기타-함수)
+- [8.산술 연산자](#산술-연산자)
+  - [산술 연산자](#산술-연산자)
+  - [단항 연산자](#단항-연산자)
+  - [이항 연산자](#이항-연산자)
+  - [연결 연산자](#연결-연산자)
+  - [CAST 연산자](#cast-연산자)
+- [9.조건 연산자](#9조건-연산자)
+  - [SQL 조건의 개요](#sql-조건의-개요)
+  - [논리 연산자](#논리-연산자)
+  - [비교조건](#비교조건)
+  - [그 외의 조건](#그-외의-조건)
+- [A.부록: 정규 표현식](#a부록-정규-표현식)
   - [정규 표현식](#정규-표현식)
   - [정규 표현식 모드 설정 방법](#정규-표현식-모드-설정-방법)
   - [Altibase 정규 표현식 모드](#altibase-정규-표현식-모드)
@@ -303,8 +303,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 ##### 구문 다이어그램
 
-이 매뉴얼에서는 다음 구성 요소로 구축된 다이어그램을 사용하여, 명령문의 구문을
-설명한다.
+이 매뉴얼에서는 다음 구성 요소로 구축된 다이어그램을 사용하여, 명령문의 구문을 설명한다.
 
 | 구성 요소                       | 의미                                                         |
 | ------------------------------- | ------------------------------------------------------------ |
@@ -345,7 +344,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 - Replication Manual
 - Precompiler User’s Manual
 - CLI User’s Manual
-- Application Program Interface User’s Manual
+- API User’s Manual
 - iSQL User’s Manual
 - Utilities Manual
 - Error Message Reference
@@ -643,20 +642,28 @@ Altibase에서 제공하는 데이터베이스 객체(object)는 스키마가 �
   지정하면, 이 후에 그 객체를 참조할 때는 항상 큰따옴표로 묶은 이름을 사용해야
   한다.
 
-- 인용부호가 없는 이름은 아무런 구분자 없이 사용되며, 대소문자가 구별되지
-  않는다. Altibase는 내부적으로 이름을 대문자로 변경하며, 인용부호로 묶은
-  이름은 대소문자가 구별된다. 다음의 이름은 Altibase 내에서 같은 이름으로
-  사용되기 때문에 같은 이름의 공간에서 다른 객체로 사용될 수 없다:  
+- 인용부호가 없는 이름은 대소문자가 구별되지 않는다. Altibase는 내부적으로 인용부호가 없는 이름을 대문자로 변경하며, 인용부호로 묶은 이름은 대소문자가 구별된다. 아래의 이름은 Altibase 내에서 같은 이름으로 사용되기 때문에 같은 이름 공간(Name Space)에서 다른 객체로 사용될 수 없다.
 
   ```
   employees, EMPLOYEES, “EMPLOYEES”
   ```
 
-- 인용부호가 없는 이름은 A-Z, a-z, 0-9, \_, \$, \#을 포함할 수 있다. 또한 객체
-  이름의 첫 글자는 문자이거나 \_ 이어야 한다. 그러나 V\$, X\$ 또는 D\$로
-  시작할 수는 없다.  
-  인용부호가 있는 이름은 문자, 구두점 또는 공백을 포함할 수 있다. 그러나
-  큰따옴표(“)를 포함할 수 없다.
+- 인용부호가 없는 이름은 아래의 문자를 포함할 수 있다.
+
+  ```
+  A-Z, a-z, 0-9, _, $, #
+  ```
+
+- 객체 이름의 첫 글자는 문자이거나 \_ 이어야 한다. 
+
+  그러나 아래의 문자로는 시작할 수 없다.
+
+  ```
+   V$, X$ D$
+  ```
+
+- 
+  인용부호가 있는 이름은 문자, 구두점 또는 공백을 포함할 수 있다. 그러나 큰따옴표(“)를 포함할 수 없다.
 
 - Altibase의 예약어는 객체 이름으로 사용될 수 없다. (Altibase의 예약어 목록은
   아래에 나열해 두었다.)
@@ -2261,7 +2268,7 @@ FROM절에 나열된 순서대로 조인하도록 지시하는 힌트이다.
 
 #### SET BUCKET COUNT
 
-SET-INTERECT와 SET-DIFFERENCE 실행 노드의 해시 버킷 수를 지정하는 힌트이다.
+SET-INTERSECT와 SET-DIFFERENCE 실행 노드의 해시 버킷 수를 지정하는 힌트이다.
 
 ![set_bucket_count](media/SQL/set_bucket_count.gif)
 
@@ -3869,7 +3876,7 @@ INTO 절은 분리된 2개의 파티션의 이름과 파티션이 저장될 테�
 
 테이블에 새로운 칼럼을 추가한다.
 
-*partition lob storage_clause*
+*partition_lob_storage_clause*
 
 파티션드 테이블에 LOB 칼럼을 추가할 경우 이 절을 사용해서 LOB 칼럼 파티션을 어떤
 테이블스페이스에 저장할 것인지 지정할 수 있다.
@@ -17061,7 +17068,7 @@ SQL 함수는 크게 다음의 표처럼 분류된다.
 | 날짜 함수                       | 날짜 및 시간 입력 값에 대한 작업을 수행하며 문자열, 숫자 또는 날짜/시간 값을 반환한다. <br />ADD_MONTHS, DATEADD, DATEDIFF, DATENAME, EXTRACT(DATEPART), LAST_DAY, MONTHS_BETWEEN, NEXT_DAY, SESSION_TIMEZONE, SYSDATE, SYSTIMESTAMP, UNIX_DATE, UNIX_TIMESTAMP, CURRENT_DATE, CURRENT_TIMESTAMP, DB_TIMEZONE, CONV_TIMEZONE, ROUND, TRUNC |
 | 변환 함수                       | 입력 값(문자, 숫자 또는 날짜/시간)에 대해 문자, 날짜/시간, 또는 숫자 값으로 변환한다. <br />ASCIISTR, BIN_TO_NUM, CONVERT, DATE_TO_UNIX, HEX_ENCODE, HEX_DECODE, HEX_TO_NUM, OCT_TO_NUM, RAW_TO_FLOAT, RAW_TO_INTEGER, RAW_TO_NUMERIC, RAW_TO_VARCHAR, TO_BIN, TO_CHAR(datetime), TO_CHAR(number), TO_DATE, TO_HEX, TO_INTERVAL, TO_NCHAR(character), TO_NCHAR(datetime), TO_NCHAR(number), TO_NUMBER, TO_OCT, TO_RAW, UNISTR, UNIX_TO_DATE |
 | 암호화 함수                     | 문자열에 대해 암호화와 복호화를 수행한다. <br />AESDECRYPT, AESENCRYPT, DESENCRYPT, DESDECRYPT, TDESDECRYPT/TRIPLE_DESDECRYPT, TDESENCRYPT/TRIPLE_DESENCRYPT |
-| 기타 함수                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HASH, HOST_NAME, INVOKE_USER_ID, INVOKE_USER_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT 등 |
+| 기타 함수                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HASH, HOST_NAME, INVOKE_USER_ID, INVOKE_USER_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, NVL_EQUAL, NVL_NOT_EQUAL, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT 등 |
 
 ### 집계 함수
 
@@ -24350,6 +24357,135 @@ Aaron                 Foster                1800        1980
 
 
 
+#### NVL_EQUAL
+
+##### 구문
+
+```
+NVL_EQUAL (expr1, expr2, expr3)
+```
+
+
+
+##### 설명
+
+*expr1*이 NULL이면, *expr2*와 *expr3*를 비교한다.
+
+*expr1*이 NULL이 아니면, *expr1*과 *expr3*를 비교한다.
+
+즉, "NVL_EQUAL(*expr1*, *expr2*, *expr3*)"은 "NVL(*expr1*, *expr2*) = *expr3*"과 동치이다.
+
+아래의 예제를 보면, 두 쿼리의 결과는 동일하나 NVL_EQUAL 의 경우 *expr1*이 인덱스 컬럼이고 *expr3*이 상수인 경우 인덱스를 사용하는 반면, NVL 함수는 인덱스를 사용하지 않는 차이가 있다. 
+
+> **주의 사항**
+>
+> *expr1*의 데이터 타입은 DATE, CHAR 및 NUMBER일 수 있으며, *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
+>
+> NVL_EQUAL 에서 인덱스를 사용하기 위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
+
+##### 예제
+
+아래의 두 쿼리는 동일한 결과를 출력하지만, NVL_EQUAL 경우 인덱스를 이용한다.
+
+```
+iSQL> SELECT e_firstname, e_lastname
+     FROM employees
+     WHERE NVL_EQUAL(TO_CHAR(salary), 'Unknown','Unknown');
+E_FIRSTNAME           E_LASTNAME
+-----------------------------------------------
+Chan-seung            Moon
+Xiong                 Wang
+William               Blake
+3 rows selected.
+
+iSQL> SELECT e_firstname, e_lastname
+     FROM employees
+     WHERE NVL(TO_CHAR(salary), 'Unknown') = 'Unknown';
+E_FIRSTNAME           E_LASTNAME
+-----------------------------------------------
+Chan-seung            Moon
+Xiong                 Wang
+William               Blake
+3 rows selected.
+```
+
+
+
+#### NVL_NOT_EQUAL
+
+##### 구문
+
+```
+NVL_NOT_EQUAL (expr1, expr2, expr3)
+```
+
+
+
+##### 설명
+
+*expr1*이 NULL이면, *expr2*와 *expr3*를 비교한다.
+
+*expr1*이 NULL이 아니면, *expr1*과 *expr3*를 비교한다.
+
+"NVL_NOT_EQUAL(*expr1*, *expr2*, *expr3*)"은 "NVL(*expr1*, *expr2*) != *expr3*"과 동치이다.
+
+아래의 예제를 보면, 두 쿼리의 결과는 동일하나 NVL_NOT_EQUAL 의 경우 *expr1*이 인덱스 컬럼이고 *expr3*이 상수인 경우 인덱스를 사용하는 반면, NVL 함수는 인덱스를 사용하지 않는 차이가 있다. 
+
+> **주의 사항**
+>
+> *expr1*의 데이터 타입은 DATE, CHAR 및 NUMBER일 수 있으며, *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
+>
+> NVL_NOT_EQUAL 에서 인덱스를 사용하기 위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
+
+##### 예제
+
+아래의 두 쿼리는 동일한 결과를 출력하지만, NVL_NOT_EQUAL 경우 인덱스를 이용한다.
+
+```
+iSQL> SELECT e_firstname, e_lastname, birth
+     FROM employees
+     WHERE nvl_not_equal(birth, 'Unknown', 'Unknown');
+E_FIRSTNAME           E_LASTNAME            BIRTH
+--------------------------------------------------------
+Susan                 Davenport             721219
+Ken                   Kobain                650226
+Aaron                 Foster                820730
+Ryu                   Momoi                 790822
+Gottlieb              Fleischer             840417
+Xiong                 Wang                  810726
+Curtis                Diaz                  660102
+Elizabeth             Bae                   710213
+Sandra                Hammond               810211
+Mitch                 Jones                 801102
+Jason                 Davenport             901212
+Wei-Wei               Chen                  780509
+Takahiro              Fubuki                781026
+13 rows selected.
+
+
+iSQL> SELECT e_firstname, e_lastname, birth
+     FROM employees
+     WHERE nvl(birth, 'Unknown') != 'Unknown';
+E_FIRSTNAME           E_LASTNAME            BIRTH
+--------------------------------------------------------
+Susan                 Davenport             721219
+Ken                   Kobain                650226
+Aaron                 Foster                820730
+Ryu                   Momoi                 790822
+Gottlieb              Fleischer             840417
+Xiong                 Wang                  810726
+Curtis                Diaz                  660102
+Elizabeth             Bae                   710213
+Sandra                Hammond               810211
+Mitch                 Jones                 801102
+Jason                 Davenport             901212
+Wei-Wei               Chen                  780509
+Takahiro              Fubuki                781026
+13 rows selected.
+```
+
+
+
 #### RAW_CONCAT
 
 ##### 구문
@@ -24788,6 +24924,41 @@ iSQL> SELECT SYS_CONTEXT('USERENV','SID') FROM DUAL;
 SYS_CONTEXT('USERENV','SID')
 -------------------------------------------------------
 87
+```
+
+
+
+#### SYS_GUID
+
+##### 구문
+
+```
+SYS_GUID()
+```
+
+
+
+##### 설명
+
+이 함수는 16바이트로 구성된 전역적으로 고유한 식별자를 생성하여 길이가 16인
+16진수 문자열로 반환한다. 반환 타입은 BYTE이다.
+
+##### 예제
+
+```
+iSQL> SELECT SYS_GUID() FROM DUAL;
+SYS_GUID()
+------------------------------------
+080027253126D13B69F892D46508FD9D
+1 row selected.
+
+
+iSQL> SELECT DUMP(SYS_GUID()) FROM DUAL;
+DUMP(SYS_GUID())                                                                                                  
+------------------------------------------------------------------------------------------------------------------------------
+Type=BYTE(UTF8) Length=18: 16,0,8,0,39,37,49,38,209,59,105,248,146,214,101,8,253,157                              
+1 row selected.
+
 ```
 
 

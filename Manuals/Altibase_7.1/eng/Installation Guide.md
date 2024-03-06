@@ -118,7 +118,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Meta Downgrade](#meta-downgrade)
 - [4. Patching Products With the Altibase Package Installer](#4-patching-products-with-the-altibase-package-installer)
   - [About Patches](#about-patches)
-  - [Patching Altibase Ser Products](#patching-altibase-ser-products)
+  - [Patching Altibase Server Products](#patching-altibase-server-products)
   - [Patching Altibase Client Products](#patching-altibase-client-products)
 - [Appendix A. Installation Prerequisites](#appendix-a-installation-prerequisites)
   - [Setting User Resource Limit Values](#setting-user-resource-limit-values)
@@ -298,7 +298,7 @@ All operations during the most recent installation are written to this file.
 
 #### Backup Directory
 
-When installing a new patch, the Altibase Package Installer creates backups of the patched files to which the patch is applied and stored it in the $ALTIBASE_HOME/APatch directory. Within this directory, these are seperated backup directories generated for each patch. These backup files are used to roll back the patch in the future.
+When installing a new patch, the Altibase Package Installer creates backups of the patched files to which the patch is applied and stored it in the $ALTIBASE_HOME/APatch directory. Within this directory, these are separated backup directories generated for each patch. These backup files are used to roll back the patch in the future.
 
 In addition, executable files that are used to uninstall or rollback patches are installed in the $ALTIBASE_HOME/APatch directory when a product is installed or patched.
 
@@ -378,12 +378,12 @@ It is recommended to use a dedicated line when using the replication feature.
 | **HP-UX Itanium (IA-64)**                                    |                     |                           |                                        |
 | HP-UX 11.31                                                  |          ●          |             ●             |                                        |
 | **Linux x86-64**                                             |                     |                           |                                        |
-| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 or later*                |
-| Red Hat Enterprise Linux 8 [Note before installation](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 or later*  <br />        |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 ~ 2.33*          |
+| Red Hat Enterprise Linux 8 [Note before installation](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 ~ 2.33*  <br />   |
 | **Linux on Power**                                           |                     |                           |                                        |
-| POWER7 Red Hat Enterprise Linux 6 |          ●          |             ●             | *- GNU glibc 2.12 or later*                |
+| POWER7 Red Hat Enterprise Linux 6 |          ●          |             ●             | *- GNU glibc 2.12 ~ 2.33*           |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                        |
-| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 or later*<br />*- Altibase 7.1.0.3.6 or later* |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 ~ 2.33*<br />*- Altibase 7.1.0.3.6 or later* |
 | **Microsoft Windows (x64)**                                  |                     |                           |                                        |
 | Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase client 7.1.0.4.5 or later* |
 
@@ -443,7 +443,7 @@ Ex) Altibase Client Package Installer
 altibase-client-7.1.0.0.0-LINUX-X86-64bit-release.run
 ```
 
-The Altibase Server Package and Client Package are distributed in seperate packages. However, the Altibase Server Package includes the Client Package.
+The Altibase Server Package and Client Package are distributed in separate packages. However, the Altibase Server Package includes the Client Package.
 
 The Altibase Package Installer is provided for the following operating systems. Before installing, check the OS related information with the following command and select the appropriate package installer.
 
@@ -456,7 +456,7 @@ Linux rhel6-x64 2.6.32-71.el6.x86_64 #1 SMP Wed Sep 1 01:33:01 EDT 2010 x86_64 x
 |-------|------------------------------|-----------------|--------------|--------------|
 | AIX   | PowerPC                      | 6.1 tl03 or later   | 64-bit       | 64-bit,      |
 | HP-UX | IA64                         | 11.31 or later      | 64-bit       | 64-bit,      |
-| LINUX | x86-64 (GNU glibc 2.12 or later) | redhat 6.0 or later | 64-bit       | 64-bit,      |
+| LINUX | x86-64 (GNU glibc 2.12 ~ 2.33) | redhat 6.0 or later | 64-bit       | 64-bit,      |
 
 Altibase 7.1 is compatible with JDK 1.5 or later.
 
@@ -543,7 +543,7 @@ $ xhost +
 
 #### Start the Altibase Package Installer
 
-To run the Altibase Package Installerm a suer needs to download the Package Installer and then change file permissions, using chmod.
+To run the Altibase Package Installer, a user needs to download the Package Installer and then change file permissions, using chmod.
 
 ```
 $ chmod +x altibase-server-7.1.0.0.0-LINUX-X86-64bit-release.run
@@ -579,7 +579,7 @@ Kernel parameters should be manually set before proceeding to the next step. To 
 
 ![](media/Installation/fc2a996b31a60f8bf22b1e67d667c030.png)
 
-To ensure that Altibase runs properly, you should configure your system environment first. To do so, you must modify kernel parameter values using root privileges before installing Altibase. Kernel parameter values may be modified after installation; however, they must be set before running Altibase. The following is an example of showing the recommended values of system kernel parameters for each OS. For more detailed information on OS-specific kernel parameters, please refer to *[Installation Prerequisites*](#installation-prerequisites).
+To ensure that Altibase runs properly, you should configure your system environment first. To do so, you must modify kernel parameter values using root privileges before installing Altibase. Kernel parameter values may be modified after installation; however, they must be set before running Altibase. The following is an example of showing the recommended values of system kernel parameters for each OS. For more detailed information on OS-specific kernel parameters, please refer to [*Installation Prerequisites*](#appendix-a-installation-prerequisites).
 
 Ex) HPUX
 
@@ -1306,7 +1306,7 @@ Table 4-2 Full Package vs. Patch Package
 | Installing the Altibase Client Product       | O            | O             |
 | Finishing Installation                       | O            | O             |
 
-### Patching Altibase Ser Products
+### Patching Altibase Server Products
 
 The following sections describe how to apply patches for Altibase Server Products.
 
