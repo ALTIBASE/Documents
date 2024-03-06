@@ -831,6 +831,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 설정 범위 | 세션                                                         |
 | 설명      | 클라이언트에 캐시할 수 있는 LOB 데이터의 최대 크기를 설정한다. |
 
+##### lob_null_select
+
+| 기본값    | off                                                          |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | [on \| off ]                                                 |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 LOB 객체를 반환하는지 여부<br/>- off: null을 반환한다. <br/>- on: LOB 객체를 반환한다. |
+
 ##### login_timeout
 
 | 기본값    |                                                              |
@@ -3885,46 +3894,48 @@ Altibase.jdbc.driver.logging.MultipleFileHandler.formatter = java.util.logging.X
 
 ```
 ### Hibernate
-Altibase 는 비표준 SQL 을 제공하며, Hibernate 는 이러한 기능을 수행할 수 있도록 Dialect 클래스를 지원한다.
-Hibernate 에서 Altibase 를 연동하려면 Altibase 의 JDBC Driver 를 설정하고, Hibernate 의 configuration 에
-AltibaseDialect.class 를 지정해야 한다.
+Altibase는 비표준 SQL을 제공하며, Hibernate 는 이러한 기능을 수행할 수 있도록 Dialect 클래스를 지원한다.
+Hibernate 에서 Altibase 를 연동하려면 Altibase 의 JDBC Driver 를 설정하고, Hibernate 의 configuration 에 AltibaseDialect.class 를 지정해야 한다.
 
 #### AltibaseDialect
-Hibernate 가 공식적으로 제공하는 라이브러리는 AltibaseDialect.class 를 포함하지 않기 때문에
-AltibaseDialect.java 파일 (필요에 따라 AltibaseLimitHandler.java 포함)을 컴파일하고 Hibernate 가
-제공하는 파일에 포팅해야 사용할 수 있다. AltibaseDialect.java 파일과 AltibaseLimitHandler.java 파일은
-Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 AltibaseDialect 포팅 방법
-(https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
 
-#### Lob 관련 속성
-Lob 컬럼 값이 null 일때 Hibernate는 JDBC 스펙에 따라 ResultSet.getBlob(), ResultSet.getClob()이 
-null을 리턴할 것을 가정하고 기능이 동작한다. 하지만 해당 인터페이스는 기존에 값이 null이더라도 Lob관련 객체가
-리턴되었기 때문에 다음 JDBC연결 속성을 통해 제어가 가능하다.
+##### Hibernate 6.4 부터 공식 지원
 
-##### lob_null_select
-| 기본값    | off                                                           |
-|----------|---------------------------------------------------------------|
-| 값의 범위 | [on \| off ]                                                 |
-| 필수 여부 | No                                                            |
-| 설정 범위 | 세션                                                           |
-| 설명     | lob 컬럼값이 null일때 ResultSet.getBlob(), ResultSet.getClob()이 객체를 리턴하는지 여부  |
-##### 예제 
-lob_null_select의 기본값이 off이기 때문에 다음과 같이 getBlob(), getClob()을 한 후 null처리를 해줘야 한다.
+Hibernate 6.4 부터는 AltibaseDialect가 Hibernate ORM 패키지에 포함되었다. 이제 AltibaseDialect를 사용하려면 Maven 의존성 설정만 추가하면 된다.
+
+##### Hibernate 6.4 이전
+
+Hibernate 6.4 이전 버전에서는 AltibaseDialect가 없으므로, AltibaseDialect.class 를 직접 지정해야 한다. 이를 위해서는  Altibase 에서 제공하는 AltibaseDialect.java 파일 (필요에 따라 AltibaseLimitHandler.java 포함)을 컴파일하고 Hibernate 가 제공하는 파일에 포팅해야 사용할 수 있다. AltibaseDialect.java 파일과 AltibaseLimitHandler.java 파일은 Altibase Github 사이트에서 제공한다. 상세한 사용 방법은 [AltibaseDialect 포팅 방법](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md) 을 참고한다.
+
+#### Maven 의존성(Dependency) 설정
+
+##### AltibaseDialect 의존성 추가
+
+Hibernate 6.4 부터 hibernate-community-dialects에  AltibaseDialect가 포함되었기 때문에, 아래와 같이 의존성을 추가하면 된다.
+
+```xml
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-community-dialects</artifactId>
+    <version>6.4.1.Final</version>
+</dependency>
 ```
-Blob sBlob = sRs.getBlob();
-if (sBlob != null) // sBlob이 null인 경우 NullpointerException이 발생할 수 있다.
-{
-   long sLength = sBlob.length();  
-   System.out.println("blob length===>" + sLength);
-}
-...
-Clob sClob = sRs.getClob();
-if (sClob != null) // sClob이 null인 경우 NullpointerException이 발생할 수 있다.
-{
-   long sLength = sClob.length();  
-   System.out.println("clob length===>" + sLength);
-}
+
+##### Altibase JDBC 드라이버 의존성 추가
+
+Altibase 7.3.0.0.2부터  [Maven Central Repository](https://mvnrepository.com/artifact/com.altibase/altibase-jdbc)에서 Altibase JDBC 드라이버를 다운로드할 수 있어서, 아래와 같이 의존성을 추가하면 된다.
+
+```xml
+<dependency>
+    <groupId>com.altibase</groupId>
+    <artifactId>altibase-jdbc</artifactId>
+    <version>7.3.0.0.2</version>
+</dependency>
 ```
+
+#### Lob 관련 연결 속성
+
+Altibase 7.1에서는 Lob 컬럼 값이 null인 경우, ResultSet.getBlob(), ResultSet.getClob() 수행시 Lob객체를 반환하기 때문에 [**lob_null_select**](#lob_null_select) 연결 속성의 값을 "off"로 변경해야 했다. 그러나 Altibase 7.3 부터는 **lob_null_select** 연결 속성의 기본값이 off로 변경됨에 따라, 더이상 연결 속성을 변경하지 않아도 된다.
 
 ### SQL Plan
 
