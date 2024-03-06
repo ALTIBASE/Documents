@@ -52,7 +52,6 @@ Altibase® Application Development
 </div>
 
 
-
 <br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
@@ -98,11 +97,12 @@ Telephone : +82-2-2082-1000
 Fax       : +82-2-2082-1099
 Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
-
-
 <br>
 
-# Table Of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+# Table of Contents
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
@@ -128,9 +128,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Configuration](#configuration)
   - [Examples](#examples)
 
-
-
-<br>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 Preface
 ====
@@ -149,13 +147,13 @@ This manual has been prepared for the following users of Altibase:
 - Application developers
 - Technical Supporters
 
-It is recommended for those reading this manual possess the following background knowledge:
+It is recommended that those reading this manual possess the following background knowledge:
 
-- Basic knowledge in the use of computers, operating systems, and operating system utilities
-- Experience in using relational database and an understanding of database concepts
+- Basic knowledge of the use of computers, operating systems, and operating system utilities
+- Experience in using relational databases and an understanding of database concepts
 - Computer programming experience
 - Experience in database server management, operating system management, or network administration
-- Knowledge related to the storage, management and processing of data in distributed environments
+- Knowledge related to the storage, management, and processing of data in distributed environments
 
 #### Organization
 
@@ -212,9 +210,9 @@ For more detailed information, please refer to the following documents.
 
 - Error Message Reference
 
-#### Altibase Welcomes Your Comments and Feedbacks
+#### Altibase Welcomes Your Comments and Feedback
 
-Please let us know what you like or dislike about our manuals. To help us with better future versions of our manuals, please tell us if there is any corrections or classifications that you would find useful.
+Please let us know what you like or dislike about our manuals. To help us with better future versions of our manuals, please tell us if there are any corrections or classifications that you would find useful.
 
 Include the following information:
 
@@ -224,7 +222,7 @@ Include the following information:
 
 If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact [Altibase's Support Portal](http://support.altibase.com/en/).
 
-Thank you. We always welcome your feedbacks and suggestions.
+Thank you. We always welcome your feedback and suggestions.
 
 <br>
 
@@ -327,6 +325,7 @@ Double-clicking on the database connection information in the list attempts to e
 If needed, users can rename the database connection information to the desired name.
 
 ![connect10_eng](media/DBeaver/connect10_eng.png)
+
 
 ### FAQ
 
@@ -590,6 +589,7 @@ Reference: https://dbeaver.com/docs/dbeaver/Workspace-Location/
 2.SQuirreL SQL Client
 =======================
 
+
 This chapter describes how to install SQuirreL SQL Client and Altibase Plugin for SQuirreL SQL and integrate with Altibase via Altibase JDBC.
 
 ### Installing Altibase Plugin for SQuirreL SQL Client
@@ -682,7 +682,7 @@ This chapter describes how to install SQuirreL SQL Client.
 
 1. Double-click "squirrel-sql.bat" in the directory where SQuirreL SQL Client is installed to run the program. 
 
-2. Click Driver -> New Driver to register the Altibase JDBC driver. If the Drivers menu is inactive, click Windows -> View Drivers to activate it. 
+2. Click Driver → New Driver to register the Altibase JDBC driver. If the Drivers menu is inactive, click Windows → View Drivers to activate it. 
 
 3. Enter the following in the Driver section of the Add Driver window.
    
@@ -703,7 +703,7 @@ After selecting the file, press the "List Drivers" button, and check if "Altibas
 
 #### Database Connection Information Registration
 
-1. Click Aliases -> New Alias in the main menu to register the database information to be accessed. If the Aliases menu is disabled, click Windows -> View Aliases to activate it. 
+1. Click Aliases → New Alias in the main menu to register the database information to be accessed. If the Aliases menu is disabled, click Windows → View Aliases to activate it. 
 
 2. Enter the information below:
    
@@ -723,7 +723,7 @@ After selecting the file, press the "List Drivers" button, and check if "Altibas
 
 #### Using Database
 
-1. Click Aliases -> Connect in the main menu to open the connection window.
+1. Click Aliases → Connect in the main menu to open the connection window.
 
 ![](media/3rdPartyConnector/3843e6b7c58b308e9dd87c8530ef0ac0.jpg)
 
@@ -768,12 +768,12 @@ In the SQuirreL SQL client, LOB data can be retrieved in the SQL tab or the Obje
 The following setting is required to display LOB data in the SQL tab or the Objects tab.
 
 1. Change the Data Type Controls setting.<br>
-   In 'File -> Global Preferences -> Data Type Controls tab', check the "Read contents when table is first loaded" option of BLOB or CLOB 
+   In 'File → Global Preferences → Data Type Controls tab', check the "Read contents when table is first loaded" option of BLOB or CLOB 
 
 ![](media/3rdPartyConnector/squirrel_lob_view.jpg)
 
 2. Change the autocommit mode to false in the session properties.<br>
-   In Altibase HDB, transactions must be managed explicitly for LOB data. To apply this, uncheck the "Auto Commit SQL" checkbox in File -> New Session Properties -> SQL tab.
+   In Altibase HDB, transactions must be managed explicitly for LOB data. To apply this, uncheck the "Auto Commit SQL" checkbox in File → New Session Properties → SQL tab.
 
 ![](media/3rdPartyConnector/squirrel_lob_autocommit.jpg)
 
@@ -784,7 +784,7 @@ The following setting is required to display LOB data in the SQL tab or the Obje
    - Altibase 7.2.0.0.2 or higher
 
 2. Add getcolumns_return_jdbctype=true to the JDBC connection properties.<br>
-   It can be changed in Drivers -> Add Driver to designate a new driver, or Aliases -> Modify the selected Alias to add or change existing connection information.
+   It can be changed in Drivers → Add Driver to designate a new driver, or Aliases → Modify the selected Alias to add or change existing connection information.
 
 ![](media/3rdPartyConnector/squirrel_lob_add_driver.jpg)
 
@@ -792,8 +792,10 @@ The following setting is required to display LOB data in the SQL tab or the Obje
 
 <br>
 
+
 3.Hibernate
 =========
+
 
 ### Hibernate
 
@@ -809,8 +811,10 @@ Please refer to [AltibaseDialect Porting Method](https://github.com/ALTIBASE/hib
 
 <br>
 
+
 4.OpenLDAP
 ========
+
 
 This chapter describes how to integrate openLDAP with Altibase.
 
