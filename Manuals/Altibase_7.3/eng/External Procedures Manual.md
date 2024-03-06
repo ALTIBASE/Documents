@@ -298,7 +298,7 @@ When the stored procedure that registered an external procedure is invoked in th
 
 The Agent Process is subordinate to the service session of Altibase Server. If external procedures are called in multiple sessions, a corresponding number of Agent Processes will be generated, and when the sessions are terminated, the associated Agent Processes will also be terminated.
 
-In the internal mode, external procedures are executed without an agent process by directly loading dynamic libraries within Altibase server.
+But in the internal mode of external procedures, no agent process is created.
 
 
 
