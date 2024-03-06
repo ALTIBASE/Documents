@@ -183,7 +183,7 @@ This section describes the conventions used in this manual. Understanding these 
 
 There are two sets of conventions:
 
--   Syntax diagram convetions
+-   Syntax diagram conventions
 -   Sample code conventions
 
 ##### Syntax Diagram Conventions
@@ -194,13 +194,13 @@ This manual describes command syntax using diagrams composed of the following el
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [![image1](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif) | Indicates the start of a command. If a syntactic element starts with an arrow, it is not a complete command. |
 | [![image2](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif) | Indicates that the command continues to the next line. If a syntactic element ends with this symbol, it is not a complete command. |
-| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates taht the command continues from the previous line. If a syntactic element starts witht his symbol, it is not a complete command. |
+| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates that the command continues from the previous line. If a syntactic element starts with this symbol, it is not a complete command. |
 | [![image4](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif) | Indicates the end of a statement.                            |
-| [![image5](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif) | Indicates a manatory element.                                |
+| [![image5](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif) | Indicates a mandatory element.                               |
 | [![image6](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif) | Indicates an optional element.                               |
 | [![image7](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image7.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image7.gif) | Indicates a mandatory element comprised of options. One, and only one, option must be specified. |
 | [![image8](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif) | Indicates an optional element comprised of options.          |
-| [![image9](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comman must precede all but the first element. |
+| [![image9](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comma must precede all but the first element. |
 
 ##### Sample Code Conventions
 
@@ -349,7 +349,7 @@ Depending on whether or not the remote server, which is connected through the da
 
 ##### Heterogeneous Link
 
-A Heterogeneous Link refers to the connection between the Altibase server and a heterogeneous database server. If the version of the remote server database and the local serverAltibase is different, regardless of the remote server database being Altibase, a heterogeneous link is established. A Heterogeneous Link is possible between Altibase servers of the same version. 
+A Heterogeneous Link refers to the connection between the Altibase server and a heterogeneous database server. If the version of the remote server database and the local server is different, regardless of the remote server database being Altibase, a heterogeneous link is established. A Heterogeneous Link is possible between Altibase servers of the same version. 
 
 ##### Homogeneous Link
 
@@ -372,7 +372,7 @@ The following table displays the full names and meanings of the notations used i
 
 Among the components of the Altibase DB Link, this section describes the Database Link Module and the AltiLinker process.
 
-#### Database Link Modul
+#### Database Link Module
 
 The Database Link Module(DK Module) is a module which implements the database link within the Altibase server. This module manages sessions for connection to the remote server in a distributed database system environment, database link objects which represent connection to the remote server, transactions processed through the database link, information to be provided to various performance views, record sets retrieved as the result of a remote query execution and so on. Further information for each of the following is provided in the next section.
 
@@ -545,7 +545,7 @@ To support the pass-through style, Altibase Database Link provides the REMOTE_TA
 
 REMOTE functions are divided into functions that can bind values to parameter markers in SQL statements and those that do not.
 
-The following table shows the availability of the RETMOTE_TABLE keyword and the REMOTE functions for each SQL statement type.
+The following table shows the availability of the REMOTE_TABLE keyword and the REMOTE functions for each SQL statement type.
 
 |                                             | REMOTE_TABLE Keyword | REMOTE_EXECUTE_IMMEDIATE | REMOTE Functions that support binding |
 | ------------------------------------------- | -------------------- | ------------------------ | ------------------------------------- |
@@ -566,7 +566,7 @@ This is a built-in stored procedure which executes input SQL statements on the r
 
 For the syntax of this procedure, please refer to Chapter 4: Database Link-Related SQL Statements.
 
-#### REMOTE Functions Supporting Bindin
+#### REMOTE Functions Supporting Binding
 
 This section describes the REMOTE functions that can execute an SQL statement that includes a parameter marker through a database link.
 
@@ -910,7 +910,7 @@ DB Link processes in the following steps:
 3.  The prepared queries are sent to AltiLinker. 
 4.  AltiLinker receives the queries and requests the execution of queries to the remote server. The JDBC interface is used for this step. 
 5.  The remote server executes the requested queries and returns the results to AltiLinker. 
-6.  Altilinker sends the queried results received from the remote server to the local server. The local server converts the received data according to its purpose and uses it. 
+6.  AltiLinker sends the queried results received from the remote server to the local server. The local server converts the received data according to its purpose and uses it. 
 
 For the above third and sixth steps, only TCP connection is supported between the Altibase server and AltiLinker, and data exchange conforms to the ADLP protocol. Also, AltiLinker accesses the remote database server by using the JDBC interface. Configuration of the JDBC can differ by environment and circumstance; this chapter provides an explanation based on the Java SE 1.5 environment.
 
@@ -1069,7 +1069,7 @@ USING Altibase;
 
 #### Prerequisites 
 
-Only the SYS user or the user granted the DROP DATABASE LINk system privilege can remove a database link object.
+Only the SYS user or the user granted the DROP DATABASE LINK system privilege can remove a database link object.
 
 #### Description
 

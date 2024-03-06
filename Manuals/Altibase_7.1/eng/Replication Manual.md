@@ -120,7 +120,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Starting, Stopping and Modifying Replication using “ALTER REPLICATION”](#starting-stopping-and-modifying-replication-using-alter-replication)
   - [DROP REPLICATION](#drop-replication)
   - [Executing DDL Statements on Replication Target Tables](#executing-ddl-statements-on-replication-target-tables)
-  - [Executing DDL Replication Statements on Replication Target Tables](#executing-ddl-replication-statements-on-replication-target-tables)
+  - [Executing DDL Synchronization on Replication Target Tables](#executing-ddl-synchronization-on-replication-target-tables)
   - [SQL Reflection Mode](#sql-reflection-mode)
   - [Extra Features](#extra-features)
   - [Replication in a Multiple IP Network Environment](#replication-in-a-multiple-ip-network-environment)
@@ -207,7 +207,7 @@ This manual describes command syntax using diagrams composed of the following el
 
 The code examples explain SQL, stored procedures, iSQL, and other command line syntax.
 
-The following describes the conventions used in the cod examples:
+The following describes the conventions used in the code examples:
 
 | Rules            | Meaning                                                      | Example                                                      |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -379,7 +379,7 @@ Also, the replication Sender and Receiver threads automatically detect whether o
 
 Figure [1-1] shows various ways in which replication is supported.
 
-In Altibase, the best of these ways is to transform redo logs into a directly executable logical structure to maximize performnace and flexibility.
+In Altibase, the best of these ways is to transform redo logs into a directly executable logical structure to maximize performance and flexibility.
 
 ![](media/Replication/d6ea6c6febc5fb2ec5e4702e8e7d90f0.png)
 
@@ -406,7 +406,7 @@ Figure 1-1 A Review of Replication Methods
 6. Transmitting logs and performing log-based recovery  
     This method is fast but cannot be used in an "Active-Active" environemnt (one in which both servers are providing service).
 
-#### Choosing a Repliation Server
+#### Choosing a Replication Server
 
 To perform replication in Altibase, the database character sets and the national sets must be the same on both the local and remote servers. 
 
@@ -489,7 +489,7 @@ Altibase provides the following additional features. A detaield description of h
     : This option allows receivers to apply XLog received from the sender in parallel.
 
 -   Replication Transaction Grouping Option  
-    : This option sends logs to a sender thread by grouping multiple transaction to a single transaction when replciation gap occurs.
+    : This option sends logs to a sender thread by grouping multiple transaction to a single transaction when replication gap occurs.
 
 > #### Considerations
 >
@@ -713,7 +713,7 @@ iSQL> ALTER REPLICATION rep1 START
 
 ###### Operating as Master
 
--   IINSERT conflict: Not committed. 
+-   INSERT conflict: Not committed. 
 -   UPDATE conflict: Not committed. 
 -   DELETE conflict: Not committed. 
 -   Other: XLOG transferred from the Slave is processed as usual.
@@ -823,19 +823,19 @@ Altibase supports the Timestamp-Based Scheme only for INSERT and UPDATE operatio
 
 ### Eager Replication Failback
 
-This section examines how the data of both servers are synchronized and then failback when a node fails in the replication environemtn of eager mode.
+This section examines how the data of both servers are synchronized and then failback when a node fails in the replication environment of eager mode.
 
 To configure a replication environment in eager mode, replication of both servers in eager mode must be created and started. In addition, in order to failback in a replication environment of the eager mode, replication must be operated in the eager mode even in the failback environment (recovery).
 
 #### Incremental Sync
 
-In the replication environemtn in Eager mode, a failure (equipment issue or Altibase server failure) may occur on a Server A without a commit log written on one server (Server A) and the commit log is not sent to the other server (Server B). In this case, Server A returns an error to the application that executed the transaction commit, and Server B will roll back the transaction because it does not receive the commit log. Then, application will fail over and continue working on Server B. AS a result, there may be a situation in which data in the same record does not match on Server A and Server B.
+In the replication environment in Eager mode, a failure (equipment issue or Altibase server failure) may occur on a Server A without a commit log written on one server (Server A) and the commit log is not sent to the other server (Server B). In this case, Server A returns an error to the application that executed the transaction commit, and Server B will roll back the transaction because it does not receive the commit log. Then, application will fail over and continue working on Server B. AS a result, there may be a situation in which data in the same record does not match on Server A and Server B.
 
 Since this data affects the replication operation in the future, a failback process for inconsistent data of both nodes is required. This is called 'incremental sync', a data synchronization operation for removing inconsistencies caused by replication node failures of EAGER mode. Targets of this operation are records with any possibility of committed on only one node. Incremental Sync analyzes data that can be different from the other node, requests and synchronizes those missing transaction logs. 
 
 When Server A comes back online, it is determined as the value of the REMOTE_FAULT_DETECT_TIME column in the SYS_REPLICATIONS meta tables of both servers (when the failure of the other nodes is detected), to become master or slave respectively. That is, the server with later value becomes the master. In this case, Server B will be the master server. Once the master and the slave are determined, the replication sender of the slave (Server A) analyzes its transaction log from the restart SN (sequence number) and determines the data that have not been sent to the other server (i.e., may be different from the master), and import the data from the master and perform the synchronization. The master's replication sender sends the data requested by the slave. That is, the replication senders of both servers operate as master and slave. 
 
-Thus, in order to increment synchronization to complete successfullt, neither of the replications of both servers should be stopped.
+Thus, in order to increment synchronization to complete successfully, neither of the replications of both servers should be stopped.
 
 Then, replication sender of Server A updates the restart SN (sequence number) to the latest. This is to prevent the replication sender of Server A from retransmitting the data that are already syncrhonized in the above process.
 
@@ -845,7 +845,7 @@ Incremental Sync can be enabled or disabled by adjusting the REPLICATION_FAILBAC
 
 After the server completes or skips the incremental sync, before the Eager mode replication starts normally, it synchronizes the data from the transaction log that failed to transfer from Server B to Server A during the failure. This synchronization is called normal sync. When transmitting a log that could not be transmitted could be transmitted due to a failure, replication switches to the Lazy mode, and when all the logs are transmitted and there is no replication gap, replication starts by switching back to the Eager mode.
 
-When the REPLICATION_FAILBACK_INCREMENTAL_SYNC property value is set to 1, normal synchronization will be performed after the above incremental sync. Otherwise, incremental sync will be skipped and noraml synchronization will be performed immediately. 
+When the REPLICATION_FAILBACK_INCREMENTAL_SYNC property value is set to 1, normal synchronization will be performed after the above incremental sync. Otherwise, incremental sync will be skipped and normal synchronization will be performed immediately. 
 
 ### Parallel Replication
 
@@ -854,9 +854,9 @@ Parallel replication indicates using multiple sending and receiving threads when
 Altibase supports the following parallel replication based upon the replication mode:
 
 -   Lazy mode: This is one of the additional features which allows receiver parallel replication.
--   Eager mode: This allows sending parallel replciation by controlling properties
+-   Eager mode: This allows sending parallel replication by controlling properties
 
-In the eager mode, the parallel replication is used by controlling REPLICATION_EAGER_PARALLEL_FACTOR property in order to manage multiple sneding threads.
+In the eager mode, the parallel replication is used by controlling REPLICATION_EAGER_PARALLEL_FACTOR property in order to manage multiple sending threads.
 
 In case of replication in the eager mode, it is available to replicate a transaction unit since commit execution is possible if nodes in both sides are read. Altibase materializes the parallel replication with multiple replication sender threads so that each thread can process one transaction. Also, this type of parallel replication offers much enhanced replication performance with rapid speed that that of the conventional synchronous replication.
 
@@ -864,7 +864,7 @@ The parallel replication method in lazy mode is described in the Extra Features 
 
 > #### Note*: 
 >
-> If using the parellel replication, there might be an impossible situation to commit due to reversred transaction sequence in the process of replicating. Thus, the application program should impliment logic in order to overtly execute a rollback if a commit failure is returned when using the parallel replication.
+> If using the parallel replication, there might be an impossible situation to commit due to reversed transaction sequence in the process of replicating. Thus, the application program should implement logic in order to overtly execute a rollback if a commit failure is returned when using the parallel replication.
 
 ### Performance View related to Replication
 
@@ -917,7 +917,7 @@ There are several conditions apply when establishing replication. If these condi
 #### Prerequisites
 
 -   If a conflict occurs during an INSERT, UPDATE, or DELETE operation, the operation is skipped, and a message is written to an error file. 
--   If an error occurs during replication, partial rollback is performed. For example, if a duplicate row is found while inserting rows into a table, only the insertion of the duplicate row is cancelled, while the remainder of the task is completed as usual. 
+-   If an error occurs during replication, partial rollback is performed. For example, if a duplicate row is found while inserting rows into a table, only the insertion of the duplicate row is canceled, while the remainder of the task is completed as usual. 
 -   Replication is much slower than the main data provision service
 
 #### Connection Constraints
@@ -947,7 +947,7 @@ The following constraints apply to replication in EAGER mode.
   
 -   Data can be lost if the server abnormally terminates before a committed XLog is applied on disk in EAGER mode. To prevent data loss, specify the recovery option or adjust the values for commit-related properties (COMMIT_WRITE_WAIT_MODE, REPLICATION_COMMIT_WRITE_WAIT_MODE, and REPLICATION_SYNC_LOG)
   
--   SQL reflection mode is not available for replication in theEAGER mode.
+-   SQL reflection mode is not available for replication in the EAGER mode.
 
 #### Partitioned Table Constraints
 
@@ -1024,10 +1024,10 @@ When creating a replication object, one of the LAZY and EAGER modes can be selec
   This specifies the name of the replication object to be created. The same name must be used on both the local server and the remote server.
   
 - ***FOR ANALYSIS \| FOR ANALYSIS PROPAGATION***  
-  This creates the Xlog Sender. For more detailed information about properties, please refer to the Log Analyzer User’s Manaul.
+  This creates the Xlog Sender. For more detailed information about properties, please refer to the Log Analyzer User’s Manual.
   
 - ***FOR PROPAGABLE LOGGING \| FOR PROPAGATION***  
-  Replication recevier writes the logs received with FOR PROPAGABLE LOGGING. FOR PROPAGATION is used to send propagable logs to other target server. 
+  Replication receiver writes the logs received with FOR PROPAGABLE LOGGING. FOR PROPAGATION is used to send propagable logs to other target server. 
   
   This function cannot be used with recovery option.
   
@@ -1041,10 +1041,10 @@ When creating a replication object, one of the LAZY and EAGER modes can be selec
   This is the port number at which the remote server Receiver thread listens. More specifically, this is the port number specified in REPLICATION_PORT_NO in the altibase.properties file on the remote server.
   
 - ***conn_type***  
-  This is the communication method with a remote sever (TCP/InfiniBand). The default value is TCP.
+  This is the communication method with a remote server (TCP/InfiniBand). The default value is TCP.
 
 - ***ib_latency***  
-  This is the RDMA_LATENCY option value for rsocket. It can be only inserted when conn_typoe is IB
+  This is the RDMA_LATENCY option value for rsocket. It can be only inserted when conn_type is IB
 
 - ***user_name***  
   This is the name of the owner of the table to be replicated.
@@ -1315,84 +1315,79 @@ iSQL> DROP REPLICATION rep1;
 
 ### Executing DDL Statements on Replication Target Tables
 
-#### Syntax
+#### Allowed DDL Statements
 
-Supported DDL statements differ depending on the REPLICATION_DDL_ENABLE_LEVEL property value. 
+Altibase supports three types of DDL statements for replication target tables.
 
-The following statements supported when the value of REPLICATION_DDL_ENABLE_LEVEL is 0.
+- ##### DDL statements without REPLICATION_DDL_ENABLE/REPLICATION_DDL_ENABLE_LEVEL settings.
 
-```
-ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE);
+  ```sql
+  ALTER INDEX index_name AGING;
+  ALTER TABLE table_name COMPACT;
+  ```
 
-ALTER TABLE table_name DROP COLUMN column_name;
+- ##### DDL statements with REPLICATION_DDL_ENABLE_LEVEL = 0
 
-ALTER TABLE table_name ALTER COLUMN column_name SET DEFAULT;
+  - Columns including NOT NULL/NULL, Unique constraints, or function-based index cannot be added/deleted.
+  - A unique/function-based index cannot be deleted.
+  
 
-ALTER TABLE table_name ALTER COLUMN column_name DROP DEFAULT;
+  ```sql
+  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE ); 
+  // Columns including NOT NULL,NULL,Unique or function-based index cannot be added
+  ALTER TABLE table_name DROP COLUMN column_name; 
+  // Columns including NOT NULL,NULL,Unique or function-based index cannot be deleted
+  ALTER TABLE table_name ALTER COLUMN column_name SET DEFAULT;
+  ALTER TABLE table_name ALTER COLUMN column_name DROP DEFAULT;
+  
+  ALTER TABLE table_name ALTER TABLESPACE tablespace_name;
+  ALTER TABLE table_name ALTER PARTITION partition_name TABLESPACE;
+  ALTER TABLE table_name TRUNCATE PARTITION partition_name;
+  
+  TRUNCATE TABLE table_name;
+  
+  CREATE INDEX index_name ON table_name ( column_name );
+  DROP INDEX index_name; //Unique or function-based index cannot be deleted.
+  ```
+  
+- ##### DDL statements with REPLICATION_DDL_ENABLE_LEVEL = 1
 
-ALTER TABLE table_name ALTER TABLESPACE;
+  ```sql
+  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
+  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );
+  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE LOCALUNIQUE );
+  ALTER TABLE table_name ALTER COLUMN ( column_name NOT NULL );
+  ALTER TABLE table_name ALTER COLUMN ( column_name NULL );
+  ALTER TABLE table_name MODIFY COLUMN ( column_name DATA_TYPE );
+  ALTER TABLE table_name MODIFY COLUMN ( column_name NULL );
+  ALTER TABLE table_name MODIFY COLUMN ( column_name NOT NULL );
+  ALTER TABLE table_name DROP COLUMN column_name; // Columns including NOT NULL,NULL,Unique or function-base index can be deleted
+  
+  ALTER TABLE table_name SPLIT PARTITION partition_name ( condition ) INTO ( PARTITION partition_name PARTITION partition_name );
+  ALTER TABLE table_name MERGE PARTITIONS partition_name, partition_name INTO PARTITION partition_name;
+  ALTER TABLE table_name DROP PARTITION partiton_name; 
+  
+  ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name );
+  ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name ) LOCAL;
+  ALTER TABLE table_name RENAME CONSTRAINT constraint_name TO constraint_name;
+  ALTER TABLE table_name DROP CONSTRAINT constraint_name; // Constraints including Unique or Local Unique can be deleted 
+  
+  CREATE UNIQUE INDEX index_name ON table_name ( column_name );
+  CREATE INDEX index_name ON table_name ( expression );
+  DROP INDEX index_name; //Unique or function-base index can be deleted
+  ```
 
-ALTER TABLE table_name TRUNCATE PARTITION partition_name;
-
-ALTER TABLE table_name SPLIT PARTITION partition_name(condition) INTO
-( PARTITION partition_name
-   PARTITION partition_name);
-
-ALTER TABLE table_name MERGE PARTITIONS partition_name, partition_name INTO PARTITION partition_name;
-
-ALTER TABLE table_name DROP PARTITION partiton_name; 
-
-TRUNCATE TABLE table_name;
-
-CREATE INDEX index_name ON table_name (column_name);
-
-DROP INDEX index_name;
-```
-
-The following DDL statements are supported when the value of REPLICATION_DDL_ENABLE LEVEL is 1.
-
-```
-ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE NOT NULL);
-
-ALTER TABLE table_name ADD COLUMN (column_name DATA_TYPE UNIQUE);
-
-ALTER TABLE table_name ALTER COLUMN (column_name NOT NULL);
-
-ALTER TABLE table_name ALTER COLUMN (column_name NULL);
-
-ALTER TABLE table_name MODIFY COLUMN (column_name DATA_TYPE);
-
-ALTER TABLE table_name MODIFY COLUMN (column_name NULL);
-
-ALTER TABLE table_name MODIFY COLUMN (column_name NOT NULL);
-
-ALTER TABLE table_name DROP COLUMN column_name; ( NOT NULL, NULL, Unique, function-base index columns can be dropped) 
-
-ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name);
-
-ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name) LOCAL;
-
-ALTER TABLE table_name DROP CONSTRAINT constraint_name; 
- ( Unique, Local Unique columns can be dropped)
-
-CREATE UNIQUE INDEX index_name ON table_name (column_name);
-
-CREATE INDEX index_name ON table_name (expression);
-
-DROP INDEX index_name; ( unique, function-base indexes can be dropped)
-```
 
 #### Description
 
 Altibase supports the execution of DDL statements on replication target tables. However, the following property settings must be set
 
 -   The REPLICATION_DDL_ENABLE property must be set to 1.
-
--   The replication session property, set using the ALTER SESSION SET REPLICATION statement, must be set to some value other than NONE.
-  
+-   The REPLICATION_DDL_ENABLE_LEVEL to the desired level.
+-   ALTER SESSION SET REPLICATION as DEFAULT.
 -   The target table should be locked by the LOCK TABLE...UNTIL NEXT DDL statement in order to execute SPLIT PARTITION, MERGE PARTITION, and DROP PARTITION on a replication target table. Moreover, the data should be checked to identify since there would be a replication gap between the local and remote server.
 
-If the SPLIT, MERGE, or DROP is executed on a replication target partition, a partition with the same name must be created or deleted on the remote server and a newly created or deleted partition is automatically added or removed as a replication target partition.
+If users execute the SPLIT, MERGE, or DROP PARTITION on a replication target partition, users must execute the same DDL statements on remote servers. And, newly created or deleted partitions are automatically added or removed as a replication target partition.
 
 #### Restrictions
 
@@ -1411,12 +1406,12 @@ The restrictions that govern the use of particular DDL statements are as follows
     -LOCK TABLE is executed on a target table.  
     -The replication target should identify the replication gap between the local and remote server. In order to relieve the replication gap, the FLUSH ALL option of replication should be executed before executing a DDL statement.  
     -MERGE target partition should exists in all the replication target objects. There should be more than two partitions or tables in the replication object in order for DROP PARTITION to be executed.
--   TRUNCATE TABLE  
-    - This is supported only for tables without compressed columns.
+-   TRUNCATE TABLE 
+    -This is supported only for tables without compressed columns.
 
 #### Example
 
-Supposing that the name of a replicaiton target table is *t1*, DDL statements can be executed on the replication target table as follows
+Supposing that the name of a replication target table is *t1*, DDL statements can be executed on the replication target table as follows
 
 -   Execute the TRUNCATE TABLE statement
 
@@ -1462,118 +1457,236 @@ iSQL> ALTER REPLICATION REP1 STOP;
 iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
 ```
 
-### Executing DDL Replication Statements on Replication Target Tables
+### Executing DDL Synchronization on Replication Target Tables
 
-The DDL statements that Altibase supports for replication target tables to the replication remote server can be replicated.
+Altibase supports the DDL synchronization feature. DDL synchronization means replicating the execution of DDL statements. With this feature, DDL statements that run on one node are automatically executed on the other nodes as well. The following prerequisites and property configurations are required. The detailed procedure is explained below.
 
-All DDL statements supported by the REPLICATION_DDL_ENABLE_LEVEL property are supported for replication to the remote server. The following DDL statements support replication regardless of the value of REPLICATION_DDL_ENABLE_LEVEL.
+#### Restrictions of DDL Synchronization
 
-```
-ALTER INDEX index_name AGING;
-ALTER TABLE table_name COMPACT;
-ALTER TABLE table_name ALTER COLUMN ( column_name DROP DEFAULT );
-ALTER TABLE table_name RENAME CONSTRAINT contraint_name TO constraint_name;
-ALTER TABLE table_name ALTER COLUMN ( column_name SET DEFAULT default_value );  
-```
+The following conditions must be satisfied for DDL synchronization.
 
-#### Description
+1. To replicate DDL statements, the replication protocol versions of local and remote servers should be identical.
+2. To replicate DDL statements, replication of local and remote servers should be started in advance. 
+3. The name of the DDL statements replication target table(partition), and user name must be the same on both local and remote servers.
+4. The DDL statements replication target table must be part of the LAZY mode replication.
+5. When the DDL statements replication target is a partitioned table, DDL synchronization cannot be executed if the table has a Global Non-Partitioned index.
+6. When using the propagation option, DDL synchronization is not allowed.
+7. For the table with a replication recovery option, DDL synchronization is not allowed.
 
-Altibase can replicate DDL statements for tables that are subject to be replicated. However, for DDL replication statements, the properties must be set as follows:
--   Set the REPLICATION_DDL_ENABLE property to 1
--   Set the REPLICATION_DDL_ENABLE_LEVEL property to the same value of the replication local server that executes DDL and the replication remote server that receives DDL
--   Set the REPLICATION session property, which can be set with ALTER SESSION SET REPLICATION statemnet, to a value other than NONE.
--   Set the REPLICATION_DDL_SYNC property value to 1 for the replication local server session that executes DDL.
--   Set the REPLICATION_DDL_SYNC property value of the replication remote server system that receives DDL to 1.
--   Set the REPLICATION_SQL_APPLY_ENABLE property value of the replication remote server system that receives DDL in more than triple replication structure to 1.
+#### How to Use
 
-#### Restrictions
+This section describes how to use DDL synchronization. DDL statement is executed on the local server, and DDL synchronization is automatically executed on the remote server. 
 
-Restrictions for every DDL replication are as follows.
+##### Prerequisites on the User Environment
 
-- **All three digits of replication protocol version(Major, Minor, Patch) should be the same.**
-  - Replication protocol version can be found in two ways.
-    1. SELECT REPL_PROTOCOL_VERSION FROM V$VERSION;
-    2. altibase -v
+- Move operating services
 
--   DDL replication cannot be executed on a table for which the replication recovery option is specified.
--   DDL replication cannot be executed when replication is running in EAGER mode. 
--   The table (partition) name and user name for DDL replication must be the same for both the local and remote servers.
--   Replication must be executed for both local and remote servers that execute DDL replication.
--   When using the propagation option, DDL replication is not allowed.
--   When replicating partitioned table, DDL replication cannot be executed if there is a Global Non Partitioned index.
--   No more than one DDL can be replicated at the same time.
--   DDL replication cannot be performed on the same table from different nodes to one node.
--   DDL replication on a table included in a replication that executes DDL replicaiton cannot be executed.
--   No gaps are allowed between replication remote servers receiving DDL in more than triple replication structure because data incosistency can occur otherwise.
+  Services that manipulate (Insert/Delete/Update) data during active operations should be moved to the local server, where DDL statements are executed to prevent potential data inconsistency. 
 
-According to the supported DDL, the restrictions are as follows:
+> **Notes**
+>
+> If services that manipulate (Insert/Delete/Update) are executed on the remote server, data inconsistency may occur.
+>
 
--   ALTER TABLE table_name ADD COLUMN  
-    A foreign key cannot be added  
-    A compressed column cannot be added.
+- Remove the replication gap of the remote server
 
--   ALTER TABLE table_name DROP COLUMN  
-    A primary key cannot be dropped.  
-    A compressed column cannot be dropped.
+  Users can remove the replication gap with statements below:
 
--   TRUNCATE TABLE  
-    This is only supported for tables without compressed columns.
-
-#### Example
-
-Assuming that the target table for replication is *t1*, execute DDL replication for the target table as follows:
-
--   Execute TRUNCATE TABLE:
-
-```
-(Local SYS User)
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-Alter success.
-iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
-Alter success.
-(Remote SYS User)
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-Alter success.
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
-Alter success.
-(Remote Table Owner)
-iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
-Alter success.
-(Local Table Owner)
-iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
-Alter success.
-iSQL> TRUNCATE TABLE t1;
-Truncate success.
-(Local SYS User)
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-Alter success.
-iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
-Alter success.
-(Remote SYS User)
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-Alter success.
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
-Alter success.
+```sql
+ALTER REPLICATION Replication_name1 FLUSH;
+ALTER REPLICATION Replication_name2 FLUSH;
+ALTER REPLICATION Replication_name... FLUSH;
 ```
 
-(SPLIT TABLE) Create a table T1 by splitting partition P3 and P4 in partition P2.
+##### Prerequisites on the Local Server
 
-```
-iSQL> ALTER TABLE T1 SPLIT PARTITION P2 
-       INTO (PARTITION P3, PARTITION P4 ); 
+Only the SYS user can set the properties for DDL statement execution. SYS user should run the following property configuration statements on the local server that executes DDL statements. About the REPLICATION_DDL_ENABLE_LEVEL property, please refer to **["Allowed DDL statements"](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Replication%20Manual.md#allowed-ddl-statements-1)** for a more specific configuration.
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;
+
+// Execute the following statements as SYS user or Table Owner.
+ALTER SESSION SET REPLICATION_DDL_SYNC=1;
+ALTER SESSION SET REPLICATION=DEFAULT;
 ```
 
-(MERGE TABLE) Create a table T1 by merging partition 2 and 3 in partition P2 and P3. 
 
-```
-iSQL> ALTER TABLE T1 MERGE PARTITIONS P2, P3 INTO PARTITION P23;
+
+##### Prerequisites on the Remote Server
+
+For the remote server where DDL replication will be (automatically) executed, perform the following property configuration statements. If REPLICATION_DDL_ENABLE_LEVEL is set to 1, REPLICATION_SQL_APPLY_ENABLE must also be set to 1. 
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;
+ALTER SYSTEM SET REPLICATION_DDL_SYNC=1;
+// The below statement can be omitted if REPLICATION_DDL_ENABLE_LEVEL is 0.
+ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=1;
 ```
 
-(DROP TABLE) Drop the partition P1.
 
+
+##### Execute DDL statements
+
+To remove the replication gap on the **local server**, run the following statements before the execution of DDL statements. *Replication_name1* and *Replication_name2* refer to all replication objects related to DDL statement execution.
+
+```sql
+ALTER REPLICATION Replication_name1 FLUSH;
+ALTER REPLICATION Replication_name2 FLUSH;
+ALTER REPLICATION Replication_name... FLUSH;
 ```
-iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
-```
+
+
+
+###### Allowed DDL statements
+
+Please refer to **["Allowed DDL statements"](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Replication%20Manual.md#allowed-ddl-statements-1)**.
+
+###### Disallowed DDL Statements
+
+- DDL statement that deletes a primary key.
+- DDL statement that adds a foreign key.
+- DDL statement that adds or deletes a compressed column.
+- DDL statement that truncates the table which has a compressed column.
+
+> **Notes** 
+>
+> - During the progress of DDL replication, updates to the table undergoing DDL statements might be temporarily restricted. In such cases, try the update again after the completion of DDL statements replication, then the process will succeed.
+>
+> - For example, if users try to a DML statement such as 'INSERT INTO t1 VALUES ...' while the DDL replication is running on table *t1*, the system shows the error message as below:
+>
+>   [ERR-313D6 : Unable to update table or partition T1].
+
+##### Post-Action(Properties Restoration)
+
+When the execution of DDL statements is completed, and there are no more DDL statements to be executed, users need to restore the previously changed property configurations. At this point, there might be replication gaps related to DDL processing on the local server. To address this, it is essential to perform a FLUSH operation.
+
+- Local server
+
+  - To remove the replication gap related to DDL processing, run FLUSH as follows:
+
+  ```sql
+  ALTER REPLICATION Replication_name1 FLUSH;
+  ALTER REPLICATION Replication_name2 FLUSH;
+  ALTER REPLICATION Replication_name... FLUSH;
+  ```
+
+  - After FLUSH operations, restore the property configurations as follows:
+
+  ```sql
+  ALTER SYSTEM SET REPLICATION_DDL_ENABLE=0;
+  ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=0;
+  ALTER SESSION SET REPLICATION_DDL_SYNC=0;
+  ```
+
+- Remote server
+
+  ```sql
+  ALTER SYSTEM SET REPLICATION_DDL_ENABLE=0;
+  ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=0;
+  ALTER SYSTEM SET REPLICATION_DDL_SYNC=0;
+  // The below statement can be omitted if REPLICATION_DDL_ENABLE_LEVEL is 0.
+  ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=0;
+  ```
+
+  
+
+#### Examples
+
+1. Suppose that the table *t1* is the replication target and the REPLICATION_DDL_ENABLE_LEVEL is set to 0. The following example shows how the DDL statements replication is executed.   
+
+- Run TRUNCATE TABLE
+
+  ```sql
+  // Change the prerequisite properties
+  (Remote SYS User)
+  iSQL> ALTER REPLICATION rep1 FLUSH;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
+  
+  (Local SYS User)
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+  iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
+  iSQL> ALTER REPLICATION rep1 FLUSH;
+  
+  // Execute DDL statements
+  (Local Table Owner)
+  iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+  iSQL> TRUNCATE TABLE t1;
+  
+  // Restore the changed properties
+  (Local SYS User)
+  iSQL> ALTER REPLICATION rep1 FLUSH;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+  iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
+  
+  (Remote SYS User)
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
+  ```
+
+  
+
+2. In a triple-replication environment where the replication target table is *t1* and *t1* has a column *c1*, refer to the following example. (Assuming replication between the local server and remote server 1, between the local server and remote server 2, and between remote server 1 and remote server 2 as *rep1*, *rep2*, and *rep3*, respectively.)
+
+- Run ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL )
+
+  ```sql
+  // Change the prerequisite properties
+  (Remote1 SYS User)
+  iSQL> ALTER REPLICATION Rep1 FLUSH;
+  iSQL> ALTER REPLICATION Rep3 FLUSH;
+  (Remote2 SYS User)
+  iSQL> ALTER REPLICATION Rep2 FLUSH;
+  iSQL> ALTER REPLICATION Rep3 FLUSH;
+  
+  (Local SYS User)
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+  iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+  (Remote1 SYS User)
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
+  (Remote2 SYS User)
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
+  
+  (local SYS User)
+  iSQL> ALTER REPLICATION Rep1 FLUSH;
+  iSQL> ALTER REPLICATION Rep2 FLUSH;
+  
+  // Execute DDL statements
+  (Local Table Owner)
+  iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
+  iSQL> ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );
+  
+  // Restore the changed properties
+  (local SYS User)
+  iSQL> ALTER REPLICATION Rep1 FLUSH;
+  iSQL> ALTER REPLICATION Rep2 FLUSH;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+  iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+  
+  (Remote1 SYS User)
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
+  
+  (Remote2 SYS User)
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
+  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
+  ```
+
+
 
 ### SQL Reflection Mode
 
@@ -1630,9 +1743,9 @@ ALTER REPLICATION replication_name SET RECOVERY {ENABLE|DISABLE};
 
 ##### Description
 
-If abnormal server termination occurs during the replication, the user can recover data by using the main transaction which was executed in normally operating server or replicated transactin logs. 
+If abnormal server termination occurs during the replication, the user can recover data by using the main transaction which was executed in normally operating server or replicated transaction logs. 
 
-This feature is highly effieicnt if transaction logs are specified not to be written to disk in COMMIT_WRITE_WAIT_MODE or REPLICATION_COMMIT_WRITE_WAIT_MODE property. For example, a committed transaction can be lost if the system is abnormally shut down. However, in that case, the lost data can be consistent by the replication recovery option.
+This feature is highly efficient if transaction logs are specified not to be written to disk in COMMIT_WRITE_WAIT_MODE or REPLICATION_COMMIT_WRITE_WAIT_MODE property. For example, a committed transaction can be lost if the system is abnormally shut down. However, in that case, the lost data can be consistent by the replication recovery option.
 
 However, the recovery option cannot be changed while the replication is being processed. In case of not using the recovery option, the recovery related materials the system retains are all released. 
 
@@ -1708,7 +1821,7 @@ The below figure is an example of the offline option in use.
 
 - The Standby Server should not be restarted before starting offline replication, because the information used to analyze the logs that could not be received will disappear when starting up the Standby Server.
 
-- **Option compatibility beween different Altibase versions or Altibase and heterogeneous database**
+- **Option compatibility between different Altibase versions or Altibase and heterogeneous database**
 
   Offline replication or creating replication object with offline option fails if it does not meet the compatibility condition
 
@@ -1849,7 +1962,7 @@ The replication transaction grouping option accumulates multiple transactions in
 
 If the replication transaction grouping option has been specified and a replication gap occurs, the Ahead Analyzer which analyzes logs (before the sender does) and creates replication transaction groups, is created. The Ahead Analyzer analyzes as many XLogs as the value set for the REPLICATION_GROUPING_AHEAD_READ_NEXT_LOG_FILE property and starts with the file of the second largest number to the log file being analyzed by the sender. The REPLICATION_GROUPING_TRANSACTION_MAX_COUNT property determines the maximum number of transactions that can be accumulated into single replication transaction groups. 
 
-Replication transactions are accumulated into two types of groups: commited transactions and rolled back transactions. The sender converts groups of committed transactions into a single transaction, whereas the sender does not send the XLogs for rolled-back transactions.
+Replication transactions are accumulated into two types of groups: committed transactions and rolled back transactions. The sender converts groups of committed transactions into a single transaction, whereas the sender does not send the XLogs for rolled-back transactions.
 
 For more detailed information about properties, please refer to the *General Reference*. 
 
@@ -2208,7 +2321,7 @@ public interface ABFailOverCallback
 };
 ```
 
-The meaing of the values is as follows: 
+The meaning of the values is as follows: 
 
 -   FO_BEGIN  
     FailOverCallback is notified of the start of STF (Service Time FailOver).
@@ -2345,7 +2458,7 @@ When using Embedded SQL, after executing the EXEC SQL command, if sqlca.sqlcode 
 
 The actual method of determining whether Fail-Over has succeeded varies according to the type of client application, as will be explained below.
 
-In case of PDO, if the driver-specific error code is same as PDO::ALTIBASE_FAIL_SUCESS, this means that STF (Service Time Fail-Over) was sucecessful.
+In case of PDO, if the driver-specific error code is same as PDO::ALTIBASE_FAIL_SUCCESS, this means that STF (Service Time Fail-Over) was successful.
 
 #### Writing Fail-Over Callback Functions
 
@@ -3161,7 +3274,7 @@ function focbfunnc($db, $context, $event)
     PDO object when Failover occurs
 
 -   \$context  
-    Arbitrary value refered in callback function, and it can be specified when registering callback.
+    Arbitrary value referred in callback function, and it can be specified when registering callback.
 
 -   \$event  
     Possible values for $event are as follows:
@@ -3227,11 +3340,11 @@ $db->setFailoverCallback('focbfunc', $appctx);
 
 #### Checking Whether Fail-Over Succeeded
 
-In case of Failover, if the driver-specific erro cod is PDO::ALTIBASE_FAILOVER_SUCCESS, STF is successful.
+In case of Failover, if the driver-specific error code is PDO::ALTIBASE_FAILOVER_SUCCESS, STF is successful.
 
-Failover only guarantees connection, so pelase be sure to check whether STF is succeeded and the execution is retried.
+Failover only guarantees connection, so please be sure to check whether STF is succeeded and the execution is retried.
 
-THe following is an example of checking whether STF is succeeded and the execution is retried.
+The following is an example of checking whether STF is succeeded and the execution is retried.
 
 ```
 FailoverRetry:
@@ -3270,7 +3383,7 @@ This chapter will cover the conditions and methods supporting the sequence repli
 
 Altibase sequence replication is a feature allowing the remote and local server to use an identical sequence even in the situation of fail-over. Thus, the same sequence and program sources can be used in an application.
 
-Sequence replication should replicate the cache start value so that the sequence vales are not duplicated on the two servers. The sequence equivalent to the cache size is stored in the memory to use, and if the stored sequence is used all, the cache size sequence is stored again in the memory.
+Sequence replication should replicate the cache start value so that the sequence values are not duplicated on the two servers. The sequence equivalent to the cache size is stored in the memory to use, and if the stored sequence is used all, the cache size sequence is stored again in the memory.
 
 The tables for sequence replication is internally created because Altibase replication only supports tables.
 
@@ -3343,7 +3456,7 @@ ALTER SEQUENCE user_name.seq_name DISABLE SYNC TABLE;
 > 
 > -   The sequence replication with tables is not recommended. If a fail-over occurs in the situation of sequence replication delay caused by a table replication delay, sequence duplicate key error might occur. 
 >   
-> -   If the fail-over occurs, there would be blanks among key values since the remote server start from the next cache vales when referencing the sequence.
+> -   If the fail-over occurs, there would be blanks among key values since the remote server start from the next cache values when referencing the sequence.
 >   
 > -   Replication recreation, sequence recreation, and modification should be equivalently applied to all servers.
 >
@@ -3383,7 +3496,7 @@ Is replication possible between two servers located on different local networks?
 
 ##### **Answer**
 
-Yes, it's possible. However, because of the physical distance between two servers, replication performance may downgrade somewhat in aoccradance with bandwidth and  latency.
+Yes, it's possible. However, because of the physical distance between two servers, replication performance may downgrade somewhat in accordance with bandwidth and latency.
 
 ##### **Question**
 

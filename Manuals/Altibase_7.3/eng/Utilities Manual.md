@@ -176,11 +176,11 @@ This manual is organized as follows:
 -   Chapter 2: altiComp  
     This chapter describes the altiComp utility's features and explains the capabilities of comparing and matching inconsistent data.
 
--   Chapter 3: dataCompJ  
-    This chapter describes dataCompJ, which provides data consistency checking and resolution of inconsistencies when replicating data from Altibase databases to heterogeneous databases.
+-   Chapter 3: aku  
+    This chapter describes aku, the utility to support the data replication between pods using Kubernetes.
 
 -   Chapter 4: Utilities  
-    This chapter describes the rest of the utilities except aexport, altiComp, and dataCompJ.
+    This chapter describes the rest of the utilities except aexport, altiComp, and aku.
 
 #### Documentation Conventions
 
@@ -188,7 +188,7 @@ This section describes the conventions used in this manual. Understanding these 
 
 There are two sets of conventions:
 
--   Syntax diagram convetions
+-   Syntax diagram conventions
 -   Sample code conventions
 
 ##### Syntax Diagram Conventions
@@ -199,13 +199,13 @@ This manual describes command syntax using diagrams composed of the following el
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [![image1](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif) | Indicates the start of a command. If a syntactic element starts with an arrow, it is not a complete command. |
 | [![image2](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif) | Indicates that the command continues to the next line. If a syntactic element ends with this symbol, it is not a complete command. |
-| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates taht the command continues from the previous line. If a syntactic element starts witht his symbol, it is not a complete command. |
+| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates that the command continues from the previous line. If a syntactic element starts with this symbol, it is not a complete command. |
 | [![image4](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif) | Indicates the end of a statement.                            |
-| [![image5](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif) | Indicates a manatory element.                                |
+| [![image5](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif) | Indicates a mandatory element.                               |
 | [![image6](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif) | Indicates an optional element.                               |
 | [![image7](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image7.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image7.gif) | Indicates a mandatory element comprised of options. One, and only one, option must be specified. |
 | [![image8](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif) | Indicates an optional element comprised of options.          |
-| [![image9](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comman must precede all but the first element. |
+| [![image9](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A conma must precede all but the first element. |
 
 ##### Sample Code Conventions
 
@@ -4278,7 +4278,7 @@ The server script includes the following functionalities:
 -   Creating an Altibase 
 -   Starting the Altibase process as the role manager
 
-For more information about using SQL to manage Altibase databases, please refer to the *SQL Reference*. For more detailed information on the role manager, please refer to the *Disaster Recovery Manual.* 
+For more information about using SQL to manage Altibase databases, please refer to the *SQL Reference*.
 
 #### Examples
 
@@ -4299,4 +4299,4 @@ $ server stopRoleManager
 
 #### References
 
-Please refer to the *Administrator’s Manual*, *SQL Reference*, and *Disaster Recovery Manual.*
+Please refer to the *Administrator’s Manual* and *SQL Reference*.

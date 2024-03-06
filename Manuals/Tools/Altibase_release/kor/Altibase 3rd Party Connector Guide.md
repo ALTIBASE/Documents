@@ -124,14 +124,12 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     - [Altibase JDBC 드라이버 등록](#altibase-jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EB%93%B1%EB%A1%9D)
     - [Altibase와 연동](#altibase%EC%99%80-%EC%97%B0%EB%8F%99)
     - [FAQ](#faq)
-- [3.Hibernate](#3hibernate)
-    - [Hibernate](#hibernate)
-- [4.OpenLDAP](#4openldap)
+- [3.OpenLDAP](#3openldap)
     - [OpenLDAP 소개](#openldap-%EC%86%8C%EA%B0%9C)
     - [메타 데이터 설정](#%EB%A9%94%ED%83%80-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%84%A4%EC%A0%95)
     - [환경 설정](#%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
     - [예제](#%EC%98%88%EC%A0%9C)
-- [5.Oracle GoldenGate](#5oracle-goldengate)
+- [4.Oracle GoldenGate](#4oracle-goldengate)
     - [Oracle GoldenGate 소개](#oracle-goldengate-%EC%86%8C%EA%B0%9C)
     - [설치 및 구성](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B5%AC%EC%84%B1)
     - [테스트 버전](#%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%B2%84%EC%A0%84)
@@ -264,9 +262,11 @@ DBeaver 상세 매뉴얼은 https://github.com/dbeaver/dbeaver/wiki 를 참조�
 
 #### 소프트웨어 요구 사항
 
-##### 지원하는 OS 및 플랫폼
+##### 호환되는 DBeaver 버전
 
-Altibase에서 제공하는 DBeaver 패키지는 마이크로소프트 윈도우용 패키지를 제공한다.
+Altibase와 호환되는 DBeaver 버전을 열거한다.
+
+* DBeaver 23.3.3 이상
 
 ##### 호환되는 Altibase 서버 버전
 
@@ -276,9 +276,7 @@ DBeaver와 호환되는 Altibase 서버 버전을 열거한다.
 
 ### 설치 및 제거
 
-DBeaver는 공식 Altibase 고객서비스포털 <http://support.altibase.com>에서 내려받을 수 있으며 zip 파일 형식으로 제공된다.
-
-설치는 원하는 폴더에 압축을 풀면 완료된다. DBeaver를 제거하려면, DBeaver가 설치되어 있는 디렉토리를 삭제하기만 하면 된다.
+DBeaver 공식 다운로드 사이트 https://dbeaver.io/download/ 에서 내려받을 수 있다. 자세한 설치 및 제거 방법은 해당 사이트의 설명을 참조한다.
 
 ### Altibase 데이터베이스 시스템 연결
 
@@ -300,47 +298,41 @@ Host, Port, Database/Schema, Username, Password에 연결하고자 하는 데이
 
 ![connect3](media/DBeaver/connect3.png)
 
-#### 4. JDBC 드라이버 파일
+데이터베이스 접속 정보 입력을 마치고 [Finish] 를 클릭하면, Database 목록에 입력한 데이터베이스 연결 정보(mydb)가 추가된다. 
 
-접속 정보 입력을 마치고 Finish 를 클릭하면 Database 목록에 입력한 데이터베이스 연결 정보가 추가된다. ![auto1](media/DBeaver/auto1.png)
+![auto1](media/DBeaver/auto1.png)
 
-처음 Altibase 연결 정보를 등록하면, DBeaver에는 Altibase JDBC 드라이버 파일이 없기 때문에, JDBC 드라이버 파일을 등록해야 접속이 가능하다. '4.1 자동 다운로드' 또는 '4.2 수동으로 JDBC 드라이버 등록' 을 참고한다.
+#### 4. JDBC 드라이버 파일 다운로드
 
-Altibase 연결 정보(mydb)를 더블 클릭하면 연결을 시도한다. 
+처음 Altibase 연결 정보를 등록한 경우, Altibase JDBC 드라이버 파일이 있어야 연결이 가능하다. 인터넷에 접속 가능한 환경인 경우, '4.1 JDBC 드라이버 다운로드'를 참고한다. 인터넷 접속이 불가능한 환경이거나 수동으로 JDBC 드라이버를 등록하려는 경우는 '4.2 수동으로 JDBC 드라이버 등록' 을 참고한다.
 
-##### 4.1 자동 다운로드
+##### 4.1 JDBC 드라이버 다운로드
 
-데이터베이스 연결을 시도할 때, 인터넷에 접속 가능한 환경이면 DBeaver는  Altibase JDBC 드라이버 파일을 자동 다운로드한다. Driver settings 창이 표시되고 JDBC 드라이버 파일을 자동 다운로드 할 것인지 여부를 묻는 창이 표시된다.
+Database Navigator 에 추가된 Altibase 연결 정보(mydb)를 더블 클릭하면, Altibase의 JDBC 드라이버 파일을 다운로드 할 수 있는 Driver settings 창이 열린다. 다운로드하려는 JDBC 드라이버를 선택한 다음, [Download]를 클릭한다.
 
-![auto2](media/DBeaver/auto2.png)
+![](media/DBeaver/dbeaver_jdbcdownload.png)
 
-Download 를 클릭하여 JDBC 드라이버 파일을 다운로드한다.
-
-![auto3](media/DBeaver/auto3.png)
-
-다운로드가 완료되면 데이터베이스 연결이 수행된다.
+다운로드가 완료되면 데이터베이스 연결이 수행된다. 이 작업은 최초 한번만 수행하면 된다.
 
 ##### 4.2 수동으로 JDBC 드라이버 등록
 
-사용자가 JDBC 드라이버를 직접 등록할 수 있다. 이를 위해, 데이터베이스 접속 정보 입력 창 하단 Driver Settings 버튼을 클릭한다.
+사용자가 JDBC 드라이버를 직접 등록할 수 있다. 이를 위해, 데이터베이스 접속 정보 입력 창 하단 [Driver Settings] 버튼을 클릭한다.
 
 ![connect4](media/DBeaver/connect4.png)
 
-Libraries 탭의 Add File을 클릭한다.
+Libraries 탭의 [Add File]을 클릭한다.
 
 ![connect5](media/DBeaver/connect5.png)
 
-사용할 Altibase JDBC 드라이버 파일을 선택하여 추가한 후 Classpath 버튼을 클릭한다.
+사용할 Altibase JDBC 드라이버 파일을 선택하여 추가한 후 [Classpath] 버튼을 클릭한다.
 
 ![connect6](media/DBeaver/connect6.png)
 
-Global libraries 에 사용할 JDBC 드라이버 파일 위치를 추가하고 Apply and Close 를 클릭한다.
+Global libraries 에 사용할 JDBC 드라이버 파일 위치를 추가하고 [Apply and Close] 를 클릭한다.
 
 ![connect7](media/DBeaver/connect7.png)
 
-설정이 완료되었다면 OK 버튼을 클릭하고, 마지막으로 Finish 버튼을 클릭하여 설정을 완료한다.
-
-![connect8](media/DBeaver/connect8.png)
+설정이 완료되었다면 [OK] 버튼을 클릭하고, 마지막으로 [Finish] 버튼을 클릭하여 설정을 완료한다.
 
 #### 5. 데이터베이스 연결 완료
 
@@ -590,34 +582,7 @@ SQuirreL SQL 클라이언트에서 LOB 데이터는 SQL 탭 또는 Objects 탭�
 
 <br>
 
-3.Hibernate
-=========
-
-### Hibernate
-
-Altibase는 비표준SQL을 제공하며, Hibernate는 이러한 기능을 수행할 수 있도록
-Dialect 클래스를 지원한다.
-
-Hibernate에서 Altibase를 연동하려면 Altibase의 JDBC Driver를 설정하고,
-Hibernate의 configuration에 AltibaseDialect.class를 지정해야 한다.
-
-#### AltibaseDialect
-
-Hibernate가 공식적으로 제공하는 라이브러리는 AltibaseDialect.class를 포함하지
-않기 때문에 AltibaseDialect.java파일 (필요에 따라
-[AltibaseLimitHandler.java](https://github.com/ALTIBASE/hibernate-orm/blob/master/hibernate-core/src/main/java/org/hibernate/dialect/pagination/AltibaseLimitHandler.java)포함)을
-컴파일하고 Hibernate가 제공하는 파일에 포팅해야 사용할 수 있다.
-AltibaseDialect.java파일과
-[AltibaseLimitHandler.java](https://github.com/ALTIBASE/hibernate-orm/blob/master/hibernate-core/src/main/java/org/hibernate/dialect/pagination/AltibaseLimitHandler.java)파일은
-Altibase Github사이트에서 제공한다.
-
-상세한 사용 방법은 [AltibaseDialect 포팅방법](https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md)
-(https://github.com/ALTIBASE/hibernate-orm/blob/master/ALTIBASE_DIALECT_PORTING.md )을
-참고한다.
-
-<br>
-
-4.OpenLDAP
+3.OpenLDAP
 ========
 
 이 장은 openLDAP과 Altibase를 연동하는 방법을 설명한다.
@@ -955,7 +920,7 @@ $ isql -s localhost -u ldap -p ldap -f testdb_data.sql
 
 <br>
 
-5.Oracle GoldenGate
+4.Oracle GoldenGate
 =========
 
 ### Oracle GoldenGate 소개
