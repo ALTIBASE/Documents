@@ -1737,7 +1737,7 @@ REPLICATIONS = (
 )
 ```
 
-For details of each properties, refer to [aku-properties](#aku-properies).
+For details of each properties, refer to [aku-properties](#aku-properties).
 
 ## Setup to run aku
 
