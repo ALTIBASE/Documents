@@ -10,12 +10,12 @@
     - [BUG-50694 Resolve a problem where the server would abnormally terminate when a group by column in a subquery within a disk table was referenced in the main query.](#bug-50694)
     - [BUG-50710 Fix an issue where the server could abnormally terminate when creating a package that calls an external procedure.](#bug-50710)
     - [BUG-50714  Fix a problem that Altibase does not work properly when directly modifying a variable with the constant or nocopy option within a package.](#bug-50714)
-    - [BUG-50729 Address an issue where the stack size of terminated threads continued to be output in v$memstat.](#bug-50729)
-    - [BUG-50758 APRE에서 double quote 문자에 대한 escape 처리 누락](#bug-50758)
-    - [BUG-50778 getColumCount 함수에 예외처리 추가](#bug-50778)
-    - [BUG-50783 프로시저 실행 중 Table에 DDL 수행시, Invalid use of host variables error 가 발생하는 문제를 수정합니다.](#bug-50783)
-    - [BUG-50789 매체 복구(MEDIA RECOVERY) 진행 중에 체크포인트 이미지 파일이 추가되는 경우, 복구가 실패하는 문제를 수정합니다.](#bug-50789)
-    - [BUG-50792 스냅샷 지정시, 언두 테이블 스페이스의 최대값을 계산하는 로직에 오류를 수정합니다.](#bug-50792)
+    - [BUG-50729 Address an issue where the stack size of terminated threads continued to be output in V$MEMSTAT.](#bug-50729)
+    - [BUG-50758 Fix an escape processing omission for double quote characters in APRE.](#bug-50758)
+    - [BUG-50778 Add exception handling to the getColumnCount function.](#bug-50778)
+    - [BUG-50783 Resolve an issue where an "Invalid use of host variables" error occurred during DDL on a table while executing a procedure.](#bug-50783)
+    - [BUG-50789 Fix a problem where media recovery failed when additional checkpoint image files were added during the process.](#bug-50789)
+    - [BUG-50792 Fix a logic error in calculating the maximum value of undo tablespace during snapshot specification.](#bug-50792)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [Compatibility](#Compatibility)
@@ -286,7 +286,7 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : 쓰레드 종료 시 스택이 해제되어도 V$MEMSTAT 조회에 반영되지 않는 문제를 수정합니다. 이로 인해, 실제 메모리 사용량보다 더 많은 사용량으로 표시되는 문제가 해결되었습니다.
+-   **Description** : Altibase addressed an issue where the stack size of terminated threads continued to be ouptut in V$MEMSTAT. Through this patch, the issue where more memory usage was being reported than the actual memory usage has been resolved.
 
 -   **How to reproduce this bug**
 
@@ -305,7 +305,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50758<a name=bug-50758></a> APRE에서 double quote 문자에 대한 escape 처리 누락
+### BUG-50758<a name=bug-50758></a> Fix an escape processing omission for double quote characters in APRE.
 
 -   **module** : mm-apre
 
@@ -313,15 +313,15 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : EXEC SQL 구문에 "(double quote)문자가 포함된 경우, apre precompile후에 생성되는 .c, .cpp 파일에 escape 문자가 자동으로 추가되도록 수정하였습니다.
+-   **Description** : Escape character is automatically added to .c and .cpp files generated after apre precompile when EXEC SQL statements include "(double quote) character.
     
-    예)
+    Example)
 
-    .sc 파일 : EXEC SQL SELECT ' " ' FROM DUAL;
+    .sc File : EXEC SQL SELECT ' " ' FROM DUAL;
 
     ==\>
 
-    .c 파일 : ulpSqlstmt.stmt = (char \*)"SELECT ' \\" ' FROM DUAL";
+    .c File : ulpSqlstmt.stmt = (char \*)"SELECT ' \\" ' FROM DUAL";
 
 - **How to reproduce this bug**
 
@@ -336,7 +336,7 @@ Fixed Bugs
 
   - **Actual Results**
 
-    .c 파일에서 아래와 같이 변환된다.
+    It is converted as follows in the .c file.
 
     ```c
     int main()
@@ -360,7 +360,7 @@ Fixed Bugs
 
   -   **Expected Results**
 
-      .c 파일에서 아래와 같이 " 앞에 \이 추가된 것을 확인할 수 있다.
+      In the .c file, users can find \ is added before " as follows.
       
       ```c
       int main()
@@ -391,12 +391,12 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50778<a name=bug-50778></a> getColumnCount 함수에 예외처리 추가
+### BUG-50778<a name=bug-50778></a> Add exception handling to the getColumnCount function.
 
 -   **module** : qp
 -   **Category** : Fatal
 -   **Reproducibility** : Rare
--   **Description** : Prepare 과정 중에 컬럼 정보를 요청하기 위해 내부적으로 getColumnCount를 호출하는데, 예외적인 상황에서 잘못된 자료구조에 접근하여 서버가 비정상 종료되는 문제가 있었습니다. 이러한 상황에 대한 예외처리를 추가하였습니다.
+-   **Description** : Altibase internally invokes the getColumnCount function to request column information during the Prepare process. There was an issue that the server was abnormally terminated because of incorrect data structure access in an exceptional situation. Altibase added exception handling to this situation.
 -   **How to reproduce this bug**
     -   **Reproduction conditions**
     -   **Actual Results**
@@ -410,7 +410,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50783<a name=bug-50783></a> 프로시저 실행 중 Table에 DDL 수행시, Invalid use of host variables error 가 발생하는 문제를 수정합니다.
+### BUG-50783<a name=bug-50783></a> Resolve an issue where an "Invalid use of host variables" error occurred during DDL on a table while executing a procedure.
 
 -   **module** : qp
 
@@ -418,7 +418,7 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : 프로시저 실행 중 테이블에 DDL 구문 수행시, ERR-3123B : Invalid use of host variables 에러가 발생하는 문제를 수정합니다.
+-   **Description** : Altibase resolved an issue where an  "ERR-3123B : Invalid use of host variables" error occurred during DDL on a table while executing a procedure.
     
 - **How to reproduce this bug**
 
@@ -488,12 +488,12 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50789<a name=bug-50789></a> 매체 복구(MEDIA RECOVERY) 진행 중에 체크포인트 이미지 파일이 추가되는 경우, 복구가 실패하는 문제를 수정합니다.
+### BUG-50789<a name=bug-50789></a> Fix a problem where media recovery failed when additional checkpoint image files were added during the process.
 
 -   **module** : sm
 -   **Category** : Fatal
 -   **Reproducibility** : Always
--   **Description** : 매체 복구(MEDIA RECOVERY) 진행 중에 체크포인트 이미지 파일이 추가되는 경우, 추가된 체크포인트 이미지 파일의 LSN을 알수 없어서 복구에 실패했습니다. 이 문제를 해결하기 위해 매체 복구 진행 중 생성된 파일의 헤더에 CreateLSN을 기록하도록 수정하였습니다.
+-   **Description** : When additional checkpoint image files were added during the MEDIA RECOVERY process, the media recovery failed because it was not able to find LSNs of the added checkpoint image files. To resolve this, now Altibase records CreateLSN of the added file during the MEDIA RECOVERY process on its header.
 -   **How to reproduce this bug**
     -   **Reproduction conditions**
 
@@ -508,7 +508,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50792<a name=bug-50792></a> 스냅샷 지정시, 언두 테이블 스페이스의 최대값을 계산하는 로직에 오류를 수정합니다.
+### BUG-50792<a name=bug-50792></a> Fix a logic error in calculating the maximum value of undo tablespace during snapshot specification.
 
 -   **module** : sm
 
@@ -516,7 +516,7 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : 스냅샷 지정시, 언두 테이블 스페이스의 최대값을 계산하는 로직에 오류를 수정합니다.
+-   **Description** : Altibase fixed a logic error in calculating the maximum value of undo tablespace during snapshot specification.
     
 -   **How to reproduce this bug**
 
