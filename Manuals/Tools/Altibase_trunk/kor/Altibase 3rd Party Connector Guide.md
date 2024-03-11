@@ -530,7 +530,7 @@ DATE 타입을 마이크로 초까지 볼 수 있도록 설정을 변경하는 �
 
    Datasource settings → Settings에서 "Disable date/time formatting" 옵션을 선택하고 [ Apply and Close ]를 클릭한다.
 
-   ![datetype6](media/DBeaver/datetype7.png)
+   ![datetype7](media/DBeaver/datetype7.png)
 
    DATE 타입 데이터를 조회하면 아래와 같이 소수점 뒤 6자리까지 유효한 숫자를 표시한다.
 
@@ -592,7 +592,24 @@ DBeaver에서 이진 데이터는 바이트 단위로 처리된다. 이진 데�
 
 참조: https://dbeaver.com/docs/dbeaver/Workspace-Location/
 
-<br>
+#### SQLEditor에서 Auto commit off를 기본 설정으로 사용하고 싶습니다
+
+DBeaver는 auto commit on을 기본으로 설정하고 있다.
+
+Auto commit off를 상시 기본 설정으로 사용하고 싶다면,
+
+1. 특정 연결을 클릭 -> 오른쪽 마우스 클릭 -> Edit Connection 메뉴 클릭 또는 F4 버튼을 눌러 설정 화면을 연다.
+2. Connection settings -> Initialization -> Connection -> Auto-commit 체크 박스를 꺼 준다.
+
+![defalutAutoCommitOff1](media/DBeaver/defaultAutoCommitOff1.png)
+
+
+
+일시적으로 auto-commit 모드를 변경하고 싶은 경우는 아래 그램처럼 트랜잭션 버튼을 눌러 설정 변경이 가능하다.
+
+![defalutAutoCommitOff2](media/DBeaver/defaultAutoCommitOff2.png)
+
+
 
 2.SQuirreL SQL 클라이언트
 =======================

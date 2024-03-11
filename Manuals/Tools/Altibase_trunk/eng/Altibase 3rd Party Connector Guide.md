@@ -337,24 +337,22 @@ Here is how users can make the change:
 
 Method 1. Click on the ▼ in the toolbar to switch to Manual Commit mode.
 
-   ![commit1](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/commit1.png)
+   ![commit1](media/DBeaver/commit1.png)
 
 Method 2. Select "Manual Commit" from the list of commit modes.
 
-   ![commit2](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/commit2.png)
+   ![commit2](media/DBeaver/commit2.png)
 
 | Button Icon                           | Commit Mode   |
 | ------------------------------------- | ------------- |
 | ![button1](media/DBeaver/button1.png) | Auto-Commit   |
 | ![button2](media/DBeaver/button2.png) | Manual Commit |
 
-
-
 Method 3. Deselect the "Auto-commit" default setting option in the menu and reconnect to the database.
 
    [ Window ] → [ 설정 ]
 
-   ![commit3](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/commit3.png)
+   ![commit3](media/DBeaver/commit3.png)
 
    [ 연결 ] → 연결 유형 탭에서 "Auto-commit by default" 체크 박스를 해제 후 [ Apply and Close ] 클릭 → 데이터베이스 연결을 재접속한다.
 
@@ -366,11 +364,11 @@ Uncheck the "Auto-commit by default" checkbox, then click [ Apply and Close].
 
 Reconnect to the database
 
-   ![commit4](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/commit4.png)
+   ![commit4](media/DBeaver/commit4.png)
 
 In Manual Commit mode, users must explicitly commit or roll back when modifying tables.
 
-![commit5](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/commit5.png)
+![commit5](media/DBeaver/commit5.png)
 
 Reference: https://dbeaver.com/docs/dbeaver/Auto-and-Manual-Commit-Modes/
 
@@ -380,13 +378,13 @@ DBeaver, by default, does not display system objects. To view the SYSTEM_ schema
 
 Select Connection View → Show system objects option.
 
-![sysschema1](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/sysschema1.png)
+![sysschema1](media/DBeaver/sysschema1.png)
 
 After reconnecting to the database, users will be able to see the tables and views in the SYSTEM_ schema.
 
-![sysschema2](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/sysschema2.png)
+![sysschema2](media/DBeaver/sysschema2.png)
 
-![sysschema3](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/sysschema3.png)
+![sysschema3](media/DBeaver/sysschema3.png)
 
 ####  The DDL output for the object is not accurate.
 
@@ -398,7 +396,7 @@ CREATE QUEUE q1(40) MAXROWS 100000;
 
 After executing the above statement and attempting to retrieve the DDL for the Q1 object in DBeaver, the abnormal output may be displayed as follows. 
 
-![ddl1](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/ddl1.png)
+![ddl1](media/DBeaver/ddl1.png)
 
 To retrieve the accurate DDL of Altibase objects, it is essential to install the DBMS_METADATA package by SYS user.
 
@@ -412,7 +410,7 @@ $ is -f ./packages/dbms_metadata.plb
 
 After installation, reconnect to the target Altibase in DBeaver. Users can accurately retrieve the DDL for the Q1 object.
 
-![ddl2](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/ddl2.png)
+![ddl2](media/DBeaver/ddl2.png)
 
 #### Where can I review the query execution plan for my queries? 
 
@@ -420,13 +418,13 @@ Open the SQL script window in the database, enter the users' query, and click on
 
 [ SQL 편집기 ] of connected database → [ 새 SQL 편집기 ] 
 
-![excplan1](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/excplan1.png)
+![excplan1](media/DBeaver/excplan1.png)
 
 Users can input the query in the SQL Script window and click on the "Explain Execution Plan" icon to review the query execution plan.
 
 /* DBeaver 공식 문서를 보니 SQL editor의 Script Panel부분 같은데 용어를 어떻게..?*/
 
-![excplan2](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/excplan2.png)
+![excplan2](media/DBeaver/excplan2.png)
 
 The default option value for the query execution plan is "Explain Plan Only."
 
@@ -440,25 +438,25 @@ To change the Explain plan setting, follow these steps:
 
    Click on the connected database.
 
-   ![explain1](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/explain1.png)
+   ![explain1](media/DBeaver/explain1.png)
 
    [ File ] → [  설정 ]
 
-   ![explain2](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/explain2.png)
+   ![explain2](media/DBeaver/explain2.png)
 
    Click on Altibase settings → Datasource settings → Explain Plan 
 
-   ![explain3](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/explain3.png)
+   ![explain3](media/DBeaver/explain3.png)
 
 2. Call Preferences from the script window.
 
    Click the Preferences button beside the script window.
 
-   ![explain4](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/explain4.png)
+   ![explain4](media/DBeaver/explain4.png)
 
    Click on Altibase settings → Datasource settings → Explain Plan mode
 
-   ![explain5](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/explain5.png)
+   ![explain5](media/DBeaver/explain5.png)
 
 #### I want to see the server output (PSM PRINTLN output).
 
@@ -466,21 +464,21 @@ To view the server output, users need to enable the "Enable DBMS Output" option 
 
 Click on the connected database.
 
-![println1](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/println1.png)
+![println1](media/DBeaver/println1.png)
 
 [ File ] → [ 설정 ]
 
-![println2](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/println2.png)
+![println2](media/DBeaver/println2.png)
 
 [ Altibase settings ] → [ Datasource settings ] → Check the "Enable DBMS Output" checkbox in the 기타.
 
-![println3](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/println3.png)
+![println3](media/DBeaver/println3.png)
 
 In the SQL script window of the database connection for which users changed the settings, click the "서버 출력 내용 보기" button. After that, when users execute a SQL statement, the server output will be displayed in the Output tab.
 
 
 
-![println4](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/println4.png)
+![println4](media/DBeaver/println4.png)
 
 #### Microseconds in DATE type are not visible.
 
@@ -488,21 +486,21 @@ DBeaver's timestamp output format is 'yyyy-MM-dd HH:mm:ss.SSS', displaying milli
 
 The query results for DATE type data under the default settings of DBeaver are as follows.
 
-![datetype1](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/datetype1.png)
+![datetype1](media/DBeaver/datetype1.png)
 
 To display the DATE type in microseconds, users need to change DBeaver's data type settings. The location for changing the settings is as follows.
 
 [ 윈도우 ] → [ 설정 ]
 
-![datetype2](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/datetype2.png)
+![datetype2](media/DBeaver/datetype2.png)
 
 Click on [ 편집기 ] → [ 데이터 편집기 ] → [ 데이터 포맷 ] → [ Datasource settings ]
 
-![datetype3](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/datetype3.png)
+![datetype3](media/DBeaver/datetype3.png)
 
 Select the database connection for which users want to change the settings and click [ Select ].
 
-![datetype4](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/datetype4.png)
+![datetype4](media/DBeaver/datetype4.png)
 
 There are two methods to change the settings to view DATE type up to microseconds.
 
@@ -510,21 +508,21 @@ There are two methods to change the settings to view DATE type up to microsecond
 
    Navigate to Datasource settings → Format, set the Type to Timestamp, and change the Value to 'yyyy-MM-dd HH:mm.ss.SSSSSS', and then click [ Apply and Close ].
 
-   ![datetype5](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/datetype5.png)
+   ![datetype5](media/DBeaver/datetype5.png)
 
    When querying DATE type data, it displays a fixed six digits after the decimal point, including zero, as shown below.
 
-   ![datetype6](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/datetype6.png)
+   ![datetype6](media/DBeaver/datetype6.png)
 
 2. Set the Data format "Disable date/time formatting" option
 
    Click on Datasource settings → Settings, Check the "Disable date/time formatting" checkbox, then click on [ Apply and Close ].
 
-   ![datetype6](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/datetype7.png)
+   ![datetype7](media/DBeaver/datetype7.png)
 
    When querying DATE type data, it displays valid fixed six digits after the decimal point as shown below.
 
-   ![datetype8](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/datetype8.png)
+   ![datetype8](media/DBeaver/datetype8.png)
 
 Reference: https://dbeaver.com/docs/dbeaver/Managing-Data-Formats/
 
@@ -532,31 +530,31 @@ Reference: https://dbeaver.com/docs/dbeaver/Managing-Data-Formats/
 
 DBeaver Data Editor defaults to executing INSERT statements when modifying data. Before saving the changes made with the Data Editor, ensure that the modified data does not exceed the column size.
 
-![chartype1](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/chartype1.png)
+![chartype1](media/DBeaver/chartype1.png)
 
 #### I want to see Binary Data type as Hex.
 
 DBeaver's default setting displays binary data as a String type. To view binary data as Hex, users need to make some adjustments to the settings.
 
-![binarytype1](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/binarytype1.png)
+![binarytype1](media/DBeaver/binarytype1.png)
 
 Click on database connection.
 
-![binarytype2](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/binarytype2.png)
+![binarytype2](media/DBeaver/binarytype2.png)
 
 [ 파일 ] → [ 설정 ]
 
-![binarytype3](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/binarytype3.png)
+![binarytype3](media/DBeaver/binarytype3.png)
 
 Navigate to [ 편집기 ] → [ 데이터 편집기 ] → [ 편집기 ] → Binary data
 
 Change the Binary data formatter setting to Hex, then click on [ Apply and Close ].
 
-![binarytype4](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/binarytype4.png)
+![binarytype4](media/DBeaver/binarytype4.png)
 
 Pressing the [Refresh] button at the bottom of the table displays binary type data in Hex format.
 
-![binarytype5](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/binarytype5.png)
+![binarytype5](media/DBeaver/binarytype5.png)
 
 Reference: https://dbeaver.com/docs/dbeaver/Data-View-and-Format/
 
@@ -564,7 +562,7 @@ Reference: https://dbeaver.com/docs/dbeaver/Data-View-and-Format/
 
 To modify binary type data in DBeaver, users need to enter the data to be modified in the "Value" field of the Data Editor. Data directly entered into the cell of the grid is converted to the binary value and stored.
 
-![binarytype6](C:/Users/ALTIBASE/Desktop/work/tw/ALTIBASE/Documents/Manuals/Tools/Altibase_trunk/kor/media/DBeaver/binarytype6.png)
+![binarytype6](media/DBeaver/binarytype6.png)
 
 #### How does DBeaver handle BIT, VARBIT, and NIBBLE of Binary Data Types? 
 
@@ -583,6 +581,21 @@ Check the default DBeaver workspace folder location based on the users' operatin
 | Linux   | `$XDG_DATA_HOME/DBeaverData/` ($XDG_DATA_HOME=`~/.local/share` if not set) |
 
 Reference: https://dbeaver.com/docs/dbeaver/Workspace-Location/
+
+#### In SQLEditor, I would like to set Auto commit off as default.
+
+"Auto-commit" setting of DBeaver is on as default.
+
+If users want to set "Auto commit" to off as default, please follow the below steps:
+
+1. Navigate to [특정 연결] -> 오른쪽 마우스 클릭 -> [Edit Connection] or press F4 Button to open Configuration window.
+2. Navigate to [Connection settings] -> [Initialization] -> [Connection] -> uncheck [Auto-commit] 
+
+![defalutAutoCommitOff1](media\DBeaver\defaultAutoCommitOff1.png)
+
+If users want to temporarily change the auto-commit mode, press the transaction button, as shown in the capture below.
+
+![defalutAutoCommitOff2](media/DBeaver/defaultAutoCommitOff2.png)
 
 
 
