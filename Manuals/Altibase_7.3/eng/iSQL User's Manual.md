@@ -972,9 +972,7 @@ export ALTIBASE_UT_FILE_PERMISSION=660;
 export ISQL_FILE_PERMISSION=600; 
 ```
 
-In the example, the ALTIBASE_UT_FILE_PERMISSION is set to 660, which means that the user and group have "rw" permission, and everyone else has no permission (user:rw, group:rw, other:--). Notably, the ISQL_FILE_PERMISSION also holds a setting, taking precedence over ALTIBASE_UT_FILE_PERMISSION. Consequently, the permission setting for files generated in iSQL adheres to the ISQL_FILE_PERMISSION, granting only the user read and write permissions (user:rw, group:--, other:--).
-
-> Note: Files created in aexport and iloader continue to follow the ALTIBASE_UT_FILE_PERMISSION setting.
+In the example, the permission setting for files generated in iSQL adheres to the ISQL_FILE_PERMISSION=600, which grants only the user read and write permissions (user:rw, group:--, other:--). Note that the permission settings for files generated in aexport and iLoader still follow the ALTIBASE_UT_FILE_PERMISSION.
 
 #### ISQL_FILE_PERMISSION
 

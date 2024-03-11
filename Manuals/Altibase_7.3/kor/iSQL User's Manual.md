@@ -971,9 +971,7 @@ export ISQL_FILE_PERMISSION=600;
 ```
 
 위와 같이 ALTIBASE_UT_FILE_PERMISSION 값이 660, ISQL_FILE_PERMISSION 값이 600으로 설정된 환경에서
-iSQL에서 생성되는 파일의 권한은 ISQL_FILE_PERMISSION의 값이 우선적으로 적용된어 user:rw, group:--, other:--으로 설정된다.
-
-> 주의: 이 때, aexport, iloader가 생성하는 파일의 권한은 여전히 ALTIBASE_UT_FILE_PERMISSION=660에 따라 user:rw,  group:rw,  other:--으로 설정되는 것에 유의한다.
+iSQL에서 생성되는 파일의 권한은 ISQL_FILE_PERMISSION의 값이 우선적으로 적용된어 user:rw, group:--, other:--으로 설정된다. 이 때, aexport, iloader가 생성하는 파일의 권한은 여전히 ALTIBASE_UT_FILE_PERMISSION=660에 따라 user:rw,  group:rw,  other:--으로 설정되는 것에 유의한다.
 
 #### ISQL_FILE_PERMISSION
 
