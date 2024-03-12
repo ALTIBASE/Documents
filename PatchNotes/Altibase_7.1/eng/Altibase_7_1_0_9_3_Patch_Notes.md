@@ -418,7 +418,7 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : Altibase resolved an issue where an  "ERR-3123B : Invalid use of host variables" error occurred during DDL on a table while executing a procedure.
+-   **Description** : Altibase resolved the issue where "ERR-3123B : Invalid use of host variables" occurred and a procedure was terminated when a DDL statement was executed on the table being referenced within the procedure.
     
 - **How to reproduce this bug**
 
