@@ -508,7 +508,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50792<a name=bug-50792></a> Fix a logic error in calculating the maximum value of undo tablespace during snapshot specification.
+### BUG-50792<a name=bug-50792></a> Fix a logic error in calculating the maximum value of undo tablespace when SNAPSHOT is set up.
 
 -   **module** : sm
 
