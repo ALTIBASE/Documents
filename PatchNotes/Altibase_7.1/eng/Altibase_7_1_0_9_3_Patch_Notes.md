@@ -32,7 +32,7 @@ New Features
 -   **module** : cm
 -   **Category** : Functionality
 -   **Reproducibility** : Rare
--   **Description** : When the Protocol header error occurs because of an incorrect packet receiving, the error message now displays the header information to assist in problem analysis.
+-   **Description** : When the Protocol header error occurs due to malformed packets, the error message now displays the header information to assist in problem analysis.
     - Before : ERR-7101d(errno=0) Protocol header error.(TCP 127.0.0.1:41462)
     - After : ERR-710cc(errno=0) Protocol header error.(TCP 127.0.0.1:41462, 0, 3132333435363738393031323334353637383930)
 -   **How to reproduce this bug**
