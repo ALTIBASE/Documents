@@ -13,7 +13,7 @@
     - [BUG-50729 Address an issue where the stack size of terminated threads continued to be output in V$MEMSTAT.](#bug-50729)
     - [BUG-50758 Fix an escape processing omission for double quote characters in APRE.](#bug-50758)
     - [BUG-50778 Add exception handling to the getColumnCount function.](#bug-50778)
-    - [BUG-50783 Resolve an issue where an "Invalid use of host variables" error occurred during DDL on a table while executing a procedure.](#bug-50783)
+    - [BUG-50783 Resolve the issue where "ERR-3123B : Invalid use of host variables" occurred and a procedure was terminated when a DDL statement was executed on the table being referenced within the procedure.](#bug-50783)
     - [BUG-50789 Fix a problem where media recovery failed when additional checkpoint image files were added during the process.](#bug-50789)
     - [BUG-50792 Fix a logic error in calculating the maximum value of undo tablespace when SNAPSHOT is set up.](#bug-50792)
 - [Changes](#changes)
