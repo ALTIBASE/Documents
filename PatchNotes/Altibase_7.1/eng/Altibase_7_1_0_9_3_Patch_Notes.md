@@ -410,7 +410,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50783<a name=bug-50783></a> Resolve an issue where an "Invalid use of host variables" error occurred during DDL on a table while executing a procedure.
+### BUG-50783<a name=bug-50783></a> Resolve the issue where "ERR-3123B : Invalid use of host variables" occurred and a procedure was terminated when a DDL statement was executed on the table being referenced within the procedure.
 
 -   **module** : qp
 
