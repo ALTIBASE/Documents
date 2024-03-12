@@ -15,7 +15,7 @@
     - [BUG-50778 Add exception handling to the getColumnCount function.](#bug-50778)
     - [BUG-50783 Resolve an issue where an "Invalid use of host variables" error occurred during DDL on a table while executing a procedure.](#bug-50783)
     - [BUG-50789 Fix a problem where media recovery failed when additional checkpoint image files were added during the process.](#bug-50789)
-    - [BUG-50792 Fix a logic error in calculating the maximum value of undo tablespace during snapshot specification.](#bug-50792)
+    - [BUG-50792 Fix a logic error in calculating the maximum value of undo tablespace when SNAPSHOT is set up.](#bug-50792)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [Compatibility](#Compatibility)
