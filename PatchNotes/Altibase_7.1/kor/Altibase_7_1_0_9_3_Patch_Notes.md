@@ -15,7 +15,7 @@
     - [BUG-50778 getColumnCount 함수에 예외처리 추가](#bug-50778)
     - [BUG-50783 프로시저 실행 중 Table에 DDL 수행시, Invalid use of host variables error 가 발생하는 문제를 수정합니다.](#bug-50783)
     - [BUG-50789 매체 복구(MEDIA RECOVERY) 진행 중에 체크포인트 이미지 파일이 추가되는 경우, 복구가 실패하는 문제를 수정합니다.](#bug-50789)
-    - [BUG-50792 스냅샷 지정시, 언두 테이블 스페이스의 최대값을 계산하는 로직에 오류를 수정합니다.](#bug-50792)
+    - [BUG-50792 스냅샷 지정시, 언두 테이블 스페이스의 최대값을 계산하는 로직의 오류를 수정합니다.](#bug-50792)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
