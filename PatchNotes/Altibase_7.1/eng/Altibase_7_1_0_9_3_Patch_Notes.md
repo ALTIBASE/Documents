@@ -4,7 +4,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [New Features](#new-features)
-    - [BUG-50713 Improve that the error message includes the header information when the Protocol header error occurs because of an incorrect packet receiving.](#bug-50713)
+    - [BUG-50713 Improve that the error message includes the header information when the Protocol header error occurs due to malformed packets.](#bug-50713)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-48041 Fix an issue where triggers using %ROWTYPE or %TYPE did not automatically recompile when the table definition changed.](#bug-48041)
     - [BUG-50694 Resolve a problem where the server would abnormally terminate when a group by column in a subquery within a disk table was referenced in the main query.](#bug-50694)
