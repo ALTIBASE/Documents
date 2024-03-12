@@ -493,7 +493,7 @@ Fixed Bugs
 -   **module** : sm
 -   **Category** : Fatal
 -   **Reproducibility** : Always
--   **Description** : When additional checkpoint image files were added during the MEDIA RECOVERY process, the media recovery failed because it was not able to find LSNs of the added checkpoint image files. To resolve this, now Altibase records CreateLSN of the added file during the MEDIA RECOVERY process on its header.
+-   **Description** : When additional checkpoint image files were added during the MEDIA RECOVERY process, the media recovery failed because it could not find LSNs of the added checkpoint image files. To resolve this, now Altibase records CreateLSN on the file header that are added during the MEDIA RECOVERY process.
 -   **How to reproduce this bug**
     -   **Reproduction conditions**
 
