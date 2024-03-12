@@ -396,7 +396,7 @@ Fixed Bugs
 -   **module** : qp
 -   **Category** : Fatal
 -   **Reproducibility** : Rare
--   **Description** : Altibase internally invokes the getColumnCount function to request column information during the Prepare process. There was an issue that the server was abnormally terminated because of incorrect data structure access in an exceptional situation. Altibase added exception handling to this situation.
+-   **Description** : Altibase internally invokes the getColumnCount function to request column information during the Prepare process. There was an issue that the server was abnormally terminated because of an invalid data structure access in an exceptional situation. Altibase added exception handling to this situation.
 -   **How to reproduce this bug**
     -   **Reproduction conditions**
     -   **Actual Results**
