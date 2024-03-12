@@ -516,7 +516,7 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : Altibase fixed a logic error in calculating the maximum value of undo tablespace during snapshot specification.
+-   **Description** : Altibase fixed a logic error in calculating the maximum value of undo tablespace when SNAPSHOT is set up.
     
 -   **How to reproduce this bug**
 
