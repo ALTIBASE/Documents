@@ -27,7 +27,7 @@
 New Features
 ============
 
-### BUG-50713<a name=bug-50713></a> Improve that the error message includes the header information when the Protocol header error occurs because of an incorrect packet receiving.
+### BUG-50713<a name=bug-50713></a> Improve that the error message includes the header information when the Protocol header error occurs due to malformed packets.
 
 -   **module** : cm
 -   **Category** : Functionality
