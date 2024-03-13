@@ -116,6 +116,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
 - [1.aexport](#1aexport)
   - [aexport소개](#aexport소개)
+  - [사전 설정](#사전-설정)
   - [aexport사용방법](#aexport사용방법)
 - [2.altiComp](#2alticomp)
   - [altiComp 소개](#alticomp-소개)
@@ -501,7 +502,9 @@ aexport에 의해 생성된 모든 파일은 텍스트 파일이기 때문에 �
     생성하는 SQL 스크립트를 포함한다. 또한, ALL_OBJECT_CONSTRATINS.sql을
     실행하는 run_is_con.sh 쉘 스크립트 파일이 생성된다.
 
-### 알티베이스 요구사항
+## 사전 설정
+
+### DBMS_METADATA 패키지 설치
 
 DBMS_METADATA 패키지는 데이터베이스 딕셔너리로부터 객체 생성 DDL 구문 또는 권한 GRANT 구문을 추출하는 기능을 제공한다. 
 
