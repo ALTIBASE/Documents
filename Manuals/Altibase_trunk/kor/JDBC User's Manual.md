@@ -3028,11 +3028,14 @@ while(sRs.next())
 
 ##### BLOB 데이터 읽기
 
+LOB 데이터를 읽을 때, 내부적으로는 Lob Locator를 이용하기 때문에 반드시 commit 또는 rollback과 같은 명시적인 트랜잭션 종료 작업을 추가해야 한다.
+
 ###### 1. InputStream 객체와 getBinaryStream 메소드를 사용한 방법
 
-```
+```java
 ...
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN
+sCon = getConnection();
+PreparedStatement sPstmt = sCon.prepareStatement("SELECT BLOB_COLUMN
 FROM BLOB_TABLE");
 ResultSet sRs = sPstmt.executeQuery();
 while(sRs.next())
@@ -3042,13 +3045,14 @@ while(sRs.next())
   ...
 }
 ...
+sCon.commit(); 
 ```
 
 
 
 ###### 2. getBlob 메소드와 InputStream 객체를 사용한 방법
 
-```
+```java
 ...
 PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN
 FROM BLOB_TABLE");
@@ -3067,7 +3071,7 @@ while(sRs.next())
 
 ###### 3. getBlob 메소드와 byte 배열을 사용한 방법
 
-```
+```java
 ...
 final int sReadLength = 100;
   
