@@ -119,6 +119,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Data Types](#data-types)
   - [Adapter for JDBC Utility](#adapter-for-jdbc-utility)
   - [Command-Line Option](#command-line-option)
+  - [Offline Option](#offline-option)
 - [Appendix A: FAQ](#appendix-a-faq)
 - [Appendix B: DDL execution order when using the jdbcAdapter](#appendix-b-ddl-execution-order-when-using-the-jdbcadapter)
 
@@ -892,15 +893,105 @@ Adapter for JDBC version 7.1.0.0.2
 ...
 ```
 
+### Offline Option
+
+#### Syntax
+
+```
+CREATE REPLICATION ala_replication_name FOR ANALYSIS OPTIONS META_LOGGING 
+                   WITH 'remote_host_ip', remote_host_port_no 
+                   FROM user_name.table_name TO user_name.table_name;                   
+ALTER REPLICATION ala_replication_name SET OFFLINE ENABLE WITH 'log_dir';
+ALTER REPLICATION ala_replication_name SET OFFLINE DISABLE;
+ALTER REPLICATION ala_replication_name BUILD OFFLINE META [AT SN(sn)];
+ALTER REPLICATION ala_replication_name RESET OFFLINE META;
+ALTER REPLICATION ala_replication_name START WITH OFFLINE;
+```
+
+
+
+#### Description
+
+When data updated on Altibase are applied to another database using jdbcAdapter, logs unapplied to another database yet can not be sent if a failure occurs on the Altibase server providing the service. In this case, if the Altibase server is running with the META_LOGGING option and there is a Standby server with the same database structure as the Altibase server, the Offline option helps the Standby server access the unsent log files in the Altibase server where the failure occurs directly, and apply them to the other database.
+
+- META_LOGGING
+
+  This logs replication meta information and SN in the file. When a failure occurs, the file is used to configure the meta information necessary to read unapplied logs. The file path is created within the ala_meta_files folder in the log file path.
+
+- SET OFFLINE ENABLE WITH 'log_dir' 
+
+  This enables to use of the offline replication option. This statement can only be executed when replication is stopped. It sets up the Standby server to access the log files directly by specifying the log file path of the failed Altibase server.
+
+- SET OFFLINE DISABLE
+
+  This disables to use of the offline replication option. This statement can only be executed when replication is stopped.
+
+- BUILD OFFLINE META
+
+  This reads meta and SN files from the ala_meta_files folder in the specified log file path. This constructs the necessary meta information for offline replication.
+
+- RESET OFFLINE META 
+
+  This resets the meta information configured by BUILD OFFLINE META when it is no longer needed or configuring new meta information.
+
+- START WITH OFFLINE
+
+  This starts replication through the specified offline path. Offline replication is a one-time operation, so it terminates right after applying all unsent logs. After the completion of offline replication, users can start replication again.
+
+#### Constraints
+
+- ALA can only use the read and write functions of the replication meta information file.
+- The ALA object name for the server running the offline jdbcAdapter must be the same as the ALA object name for the Active server.
+- Offline jdbcAdapter does not support ALA objects with compressed tables as replication targets.
+- If the offline jdbcAdapter cannot access the log file and meta information file paths of the Active server due to disk issues, the operation fails.
+- The log file size of the Active server and Standby server must be the same. The size is determined during the database creation, so it must be verified before using the offline option.
+- Changing log files and meta files arbitrarily (renaming, copying log files to another system, deleting) can lead to abnormal termination issues.
+- If users restart the Standby server after performing BUILD OFFLINE META, the Remote Meta information used for analyzing logs disappears. Therefore, users need to execute BUILD OFFLINE META again.
+- When using the META_LOGGING Option, ALA also does not process the gap as the Archive logs, similar to replication.
+- If the SM version, OS, OS bit size (32 or 64), or log file size of the two database servers are different, starting Offline jdbcAdapter or creating an ALA object with the offline option fails.
+
+#### Example
+
+| No                                                      | Active Server                                                | Standby Server                                               | Other DB                                               |
+| ------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------ |
+| 1. Create scheme                                        | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20));       | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20));       | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20)); |
+| 2. Create replication                                   | CREATE REPLICATION ALA FOR ANALYSIS OPTIONS META_LOGGING WITH 'adapter_ip', adapter_port FROM SYS.T1 to SYS.T1; | CREATE REPLICATION ALA FOR ANALYSIS WITH 'adapter_ip', adapter_port FROM SYS.T1 to SYS.T1; |                                                        |
+| 3. Start jdbcAdapter on the Active server               | $oaUtility start                                             |                                                              |                                                        |
+| 4. Start replication on the Active server               | ALTER REPLICATION ALA START;                                 |                                                              |                                                        |
+| 5. Failure occurs on the Active server                  | Failure occurs                                               |                                                              |                                                        |
+| 6. Start jdbcAdapter on the Standby server              |                                                              | $oaUtility start                                             |                                                        |
+| 7. Set offline option on the Standby server replication |                                                              | ALTER REPLICATION ALA SET OFFLINE ENABLE WITH 'active_home/logs' |                                                        |
+| 8. Configure the offline meta information               |                                                              | ALTER REPLICATION ALA BUILD OFFLINE META;                    |                                                        |
+| 9. Start offline replication                            |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
+
+#### Example - Processing When Replication GAP contains DDL
+
+| No                                                      | Active Server                                                | Standby Server                                               | Other DB                                               |
+| ------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------ |
+| 1. Create scheme                                        | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20));       | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20));       | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20)); |
+| 2. Create replication                                   | CREATE REPLICATION ALA FOR ANALYSIS OPTIONS META_LOGGING WITH 'adapter_ip', adapter_port FROM SYS.T1 to SYS.T1; | CREATE REPLICATION ALA FOR ANALYSIS WITH 'adapter_ip', adapter_port FROM SYS.T1 to SYS.T1; |                                                        |
+| 3. Start jdbcAdapter on the Active server               | $oaUtility start                                             |                                                              |                                                        |
+| 4. Start replication on the Active server               | ALTER REPLICATION ALA START;                                 |                                                              |                                                        |
+| 5. DDL on the active server                             | DDL                                                          |                                                              |                                                        |
+| 6. Failure occurs on the Active server                  | Failure occurs                                               |                                                              |                                                        |
+| 7. Start jdbcAdapter on the Standby server              |                                                              | $oaUtility start                                             |                                                        |
+| 8. Set offline option on the Standby server replication |                                                              | ALTER REPLICATION ALA SET OFFLINE ENABLE WITH 'active_home/logs' |                                                        |
+| 9. Configure the offline meta information               |                                                              | ALTER REPLICATION ALA BUILD OFFLINE META;                    |                                                        |
+| 10. Start offline replication                           |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
+| 11. The error occurs because of  DDL logs               |                                                              | [ERR-611B6 : Offline ALA Sender read DDL log.]               |                                                        |
+| 12.DDL on Other DB                                      |                                                              |                                                              | DDL                                                    |
+| 13. Restart jdbcAdatper on the Standby server           |                                                              | $oaUtility start                                             |                                                        |
+| 14. Restart offline replication                         |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
+
 # Appendix A: FAQ
 
 #### What do I have to do after modifying environment variables or properties?
 
-If environment variables or properties are modified after jdbcAdapter has been run, jdbcAdapter should be retstarted in order to apply the modifications.
+If environment variables or properties are modified after jdbcAdapter has been run, jdbcAdapter should be restarted in order to apply the modifications.
 
-#### What happens if data is not propery applied to Altibase DB?
+#### What happens if data is not property applied to Altibase DB?
 
-If jdbcAdapter fails to apply data to Altibase DB, only log messages are left and the next data is applied.The log messages are written to a trace log file located in $JDBC_ADAPTER_HOME/trc directory.
+If jdbcAdapter fails to apply data to Altibase DB, only log messages are left and the next data is applied. The log messages are written to a trace log file located in $JDBC_ADAPTER_HOME/trc directory.
 
 # Appendix B: DDL execution order when using the jdbcAdapter
 
@@ -916,7 +1007,7 @@ When using jdbcAdapter, DDL that is performing replication must be executed in t
 | 6. Setting property values related to replication for DDL execution | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1; |                                                              |                                                          |
 | 7. Execute DDL on the active server                          |                                                              | Adapter termination (due to DDL log processing)              |                                                          |
 | 8. Check the jdbcAdapter trc log                             | SELECT REP_NAME, STATUS FROM V\$REPSENDER; Query to check STATUS 2 | 'Log Record : Meta change xlog was arrived, adapter will be finished' Check trc log message |                                                          |
-| 9. Execyte DDL on the standby server                         |                                                              |                                                              | DDL                                                      |
+| 9. Execute DDL on the standby server                         |                                                              |                                                              | DDL                                                      |
 | 10.Restart jdbcAdapter                                       |                                                              | \$ oaUtility start                                           |                                                          |
 | 11.Stop and restart replication (optional)                   | (optional) ALTER REPLICATION ALA STOP; ALTER REPLICATION ALA START; |                                                              |                                                          |
 | 12. Check for data replication                               | DML (Service)                                                |                                                              | Verify data replication                                  |
