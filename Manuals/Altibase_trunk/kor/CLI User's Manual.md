@@ -6942,6 +6942,13 @@ LOB 데이터를 SELECT 할때, 내부적으로는 LOB Loctor를 얻어와서 �
 
 #### 자원 해제하기
 
+LOB 데이터와 관련한 작업이 완료된 경우, 관련된 자원을 해제해주어야 한다. 관련 CLI 함수는 아래와 같다. 
+
+* SQLFreeLob
+* SQLEndTran
+
+SQLFreeLob 함수는 Lob Locator와 관련된 자원을 해제할 뿐, 트랜잭션을 종료하지는 않는다.
+
 ### LOB 데이터 타입
 
 LOB 데이터 타입을 처리하는데 사용되는 SQL 데이터 타입과 C 데이터 타입을 소개한다.
