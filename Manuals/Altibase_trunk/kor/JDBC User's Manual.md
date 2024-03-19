@@ -2908,7 +2908,7 @@ sPstmt.execute();
 
 다음은 예제에서 사용되는 테이블을 생성하는 구문이다.
 
-```
+```sql
 CREATE TABLE BLOB_TABLE ( BLOB_COLUMN BLOB );
 ```
 
@@ -3054,7 +3054,8 @@ sCon.commit();
 
 ```java
 ...
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN
+sCon = getConnection();
+PreparedStatement sPstmt = sCon.prepareStatement("SELECT BLOB_COLUMN
 FROM BLOB_TABLE");
 ResultSet sRs = sPstmt.executeQuery();
 while(sRs.next())
@@ -3065,6 +3066,7 @@ while(sRs.next())
   ...
 }
 ...
+sCon.commit(); 
 ```
 
 
@@ -3074,8 +3076,8 @@ while(sRs.next())
 ```java
 ...
 final int sReadLength = 100;
-  
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE");
+sCon = getConnection();  
+PreparedStatement sPstmt = sCon.prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE");
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -3094,8 +3096,8 @@ while(sRs.next())
     }
     ...
 }
- 
 ...
+sCon.commit(); 
 ```
 
 
@@ -3374,11 +3376,14 @@ while(sRs.next())
 
 ##### CLOB 데이터 읽기
 
+LOB 데이터를 읽을 때, 내부적으로는 Lob Locator를 이용하기 때문에 반드시 commit 또는 rollback과 같은 명시적인 트랜잭션 종료 작업을 추가해야 한다.
+
 ###### 1. Reader 객체와 getCharacterStream 메소드를 사용한 방법
 
-```
+```java
 ...
-PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
+sCon = getConnection();
+PreparedStatement sPstmt = sCon.prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -3389,6 +3394,7 @@ while(sRs.next())
     ...
 }
 ...
+sCon.commit();
 ```
 
 
@@ -3396,8 +3402,9 @@ while(sRs.next())
 ###### 2. Reader 객체 와 getClob 메소드를 사용한 방법
 
 ```
-...  
-PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
+...
+sCon = getConnection();
+PreparedStatement sPstmt = sCon.prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -3409,17 +3416,18 @@ while(sRs.next())
     ...
 }
 ...
+sCon.commit();
 ```
 
 
 
 ###### 3. getClob 메소드와 String 객체를 사용한 방법
 
-```
+```java
 ...
 final int sReadLength = 100;
-  
-PreparedStatement sPstmt = connection().prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
+sCon = getConnection();  
+PreparedStatement sPstmt = sCon.prepareStatement("SELECT CLOB_COLUMN FROM CLOB_TABLE");
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -3438,8 +3446,8 @@ while(sRs.next())
     }
     ...
 }
- 
 ...
+sCon.commit();
 ```
 
 
@@ -3568,7 +3576,7 @@ sPstmt.close();
 
 아래는 Blob 객체를 해제하는 코드 예제이다.
 
-```
+```java
 ...
 Blob sBlob = sRs.getBlob(1);
 // Freeing Lob Locator
@@ -3581,7 +3589,7 @@ Blob 객체를 free 메소드로 해제하면, 대응하는 Lob Locator가 서�
 
 아래는 Clob 객체를 해제하는 코드 예제이다.
 
-```
+```java
 ...
 Clob sClob = sRs.getClob(1);
 // Freeing Lob Locator
@@ -3594,7 +3602,7 @@ Clob 객체도 Blob과 마찬가지로 free 메소드로 해제하면, 대응하
 
 아래는 BlobInputStream 객체와 BlobOutputStream 객체를 해제하는 코드 예제이다.
 
-```
+```java
 InputStream sInputStream = sRs.getBinaryStream(1);
  
 // Freeing Lob Locator
@@ -3619,7 +3627,7 @@ BlobInputStream 또는 BlobOutputStream 객체를 freeLocator 메소드로 해�
 
 아래는 ClobReader 객체와 ClobWriter 객체를 해제하는 코드 예제이다.
 
-```
+```java
 Reader sClobReader = sRs.getCharacterStream(1);
  
 // Freeing Lob Locator

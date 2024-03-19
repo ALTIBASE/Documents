@@ -6944,8 +6944,8 @@ LOB 데이터를 SELECT 할때, 내부적으로는 LOB Loctor를 얻어와서 �
 
 LOB 데이터와 관련한 작업이 완료된 경우, 관련된 자원을 해제해주어야 한다. 관련 CLI 함수는 아래와 같다. 
 
-* SQLFreeLob
-* SQLEndTran
+* [SQLFreeLob](#sqlfreelob)
+* [SQLEndTran](#sqlendtran)
 
 SQLFreeLob 함수는 Lob Locator와 관련된 자원을 해제할 뿐, 트랜잭션을 종료하지는 않는다.
 
