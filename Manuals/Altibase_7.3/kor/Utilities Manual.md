@@ -780,7 +780,7 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     생성한 스크립트를 자동으로 수행할 것인지 여부를 설정한다.  
     EXECUTE = ON/OFF  
     ON일 경우 OPERATION 에 지정된 작업에 맞는 적절한 스크립트 파일을 자동으로 실행한다. 스크립트 파일 이름은 ILOADER_OUT, ILOADER_IN, ISQL, ISQL_CON, ISQL_INDEX, ISQL_FOREIGN_KEY, ISQL_REPL, ISQL_REFRESH_MVIEW, 그리고 ISQL_ALT_TBL 프로퍼티로 설정된다.  
-    OFF일 경우 스크립트를 생성하기만 하고 실행하지는 않는다.
+    OFF일 경우 스크립트를 생성하기만 하고 실행하지는 않는다.    
 -   INVALID_SCRIPT  
     이 프로퍼티는 유효하지 않은 객체들을 생성하는 SQL 스크립트를 하나의 스크립트 파일에 모을 것인지 여부를 결정한다.  
     INVALID_SCRIPT = ON/OFF  
@@ -797,7 +797,7 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     이 프로퍼티를 ON으로 설정하면, 사용자 모드에서 해당 사용자와 관련된 테이블스페이스를 생성하는 SQL문을 추출한다. 사용자 관련 테이블스페이스는 기본 테이블스페이스, 기본 임시 테이블스페이스, 접근 가능 여부가 설정된 테이블스페이스이다.
 -   INDEX  
     INDEX = ON/OFF  
-    대상 데이터베이스에 스키마 구성 시 인덱스 포함여부를 결정한다. 데이터 로딩 후에 인덱스를 생성하고자 할 경우 이 프로퍼티를 ON으로 설정한다. TWO_PHASE_SCRIPT프로퍼티는 OFF일 때 제대로 동작한다.
+    대상 데이터베이스에 스키마 구성 시 인덱스 포함여부를 결정한다. 데이터 로딩 후에 인덱스를 생성하고자 할 경우 이 프로퍼티를 ON으로 설정한다. TWO_PHASE_SCRIPT 프로퍼티는 OFF일 때 제대로 동작한다.
 -   USER_PASSWORD  
     USER_PASSWORD = *password*  
     원본 데이터베이스에서 추출된 사용자를 대상 데이터베이스에 생성할 때 사용할 암호를 지정한다. (aexport는 사용자 객체 추출 시 사용자의 암호를 알 수 없기 때문에 수동 설정이 필요하다.) 이 프로퍼티가 설정되어 있지 않을 경우 각 사용자의 암호를 묻는 프롬프트가 나타난다.
