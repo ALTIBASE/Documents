@@ -350,19 +350,15 @@ Method 2. Select "Manual Commit" from the list of commit modes.
 
 Method 3. Deselect the "Auto-commit" default setting option in the menu and reconnect to the database.
 
-   [ Window ] → [ 설정 ]
+   [ Window ] → [ Preferences ]
 
    ![commit3](media/DBeaver/commit3.png)
 
-   [ 연결 ] → 연결 유형 탭에서 "Auto-commit by default" 체크 박스를 해제 후 [ Apply and Close ] 클릭 → 데이터베이스 연결을 재접속한다.
+ Click [ Connections ] → [ Connection Types ]
 
-Click [ 연결 ].
+Uncheck the "Auto-commit by default" check box, then click [ Apply and Close].
 
-Click 연결 유형 tab.
-
-Uncheck the "Auto-commit by default" checkbox, then click [ Apply and Close].
-
-Reconnect to the database
+Reconnect to the database.
 
    ![commit4](media/DBeaver/commit4.png)
 
@@ -416,13 +412,11 @@ After installation, reconnect to the target Altibase in DBeaver. Users can accur
 
 Open the SQL script window in the database, enter the users' query, and click on the "Explain Execution Plan" icon to review the query execution plan.
 
-[ SQL 편집기 ] of connected database → [ 새 SQL 편집기 ] 
+[ SQL Editor ] of the connected database → [ New SQL script ] 
 
 ![excplan1](media/DBeaver/excplan1.png)
 
-Users can input the query in the SQL Script window and click on the "Explain Execution Plan" icon to review the query execution plan.
-
-/* DBeaver 공식 문서를 보니 SQL editor의 Script Panel부분 같은데 용어를 어떻게..?*/
+Users can input the query in the SQL Script panel and click on the "Explain Execution Plan" icon to review the query execution plan.
 
 ![excplan2](media/DBeaver/excplan2.png)
 
@@ -440,21 +434,21 @@ To change the Explain plan setting, follow these steps:
 
    ![explain1](media/DBeaver/explain1.png)
 
-   [ File ] → [  설정 ]
+   [ File ] → [  Properties ]
 
    ![explain2](media/DBeaver/explain2.png)
 
-   Click on Altibase settings → Datasource settings → Explain Plan 
+   Click on [ Altibase settings ] → Check "Datasource settings" → Click on "Explain Plan = ON" 
 
    ![explain3](media/DBeaver/explain3.png)
 
-2. Call Preferences from the script window.
+2. Call Preferences from the script panel.
 
-   Click the Preferences button beside the script window.
+   Click the Preferences button beside the script panel.
 
    ![explain4](media/DBeaver/explain4.png)
 
-   Click on Altibase settings → Datasource settings → Explain Plan mode
+   Click on [ Altibase settings ] → Check "Datasource settings" → Click on "Explain Plan = ON" 
 
    ![explain5](media/DBeaver/explain5.png)
 
@@ -466,15 +460,15 @@ Click on the connected database.
 
 ![println1](media/DBeaver/println1.png)
 
-[ File ] → [ 설정 ]
+[ File ] → [ Properties ]
 
 ![println2](media/DBeaver/println2.png)
 
-[ Altibase settings ] → [ Datasource settings ] → Check the "Enable DBMS Output" checkbox in the 기타.
+Click on [ Altibase settings ] →  Check "Datasource settings" → Check the "Enable DBMS Output"
 
 ![println3](media/DBeaver/println3.png)
 
-In the SQL script window of the database connection for which users changed the settings, click the "서버 출력 내용 보기" button. After that, when users execute a SQL statement, the server output will be displayed in the Output tab.
+In the SQL script window of the database connection for which users changed the settings, click the "Show server output" button. After that, when users execute the SQL statement, the server output will be displayed in the Output tab.
 
 
 
@@ -490,11 +484,11 @@ The query results for DATE type data under the default settings of DBeaver are a
 
 To display the DATE type in microseconds, users need to change DBeaver's data type settings. The location for changing the settings is as follows.
 
-[ 윈도우 ] → [ 설정 ]
+[ Windows ] → [ Preference ]
 
 ![datetype2](media/DBeaver/datetype2.png)
 
-Click on [ 편집기 ] → [ 데이터 편집기 ] → [ 데이터 포맷 ] → [ Datasource settings ]
+Navigate to [ Editors ] → [ Data Editor ] → [ Data Formats ] → Click on "Datasource settings"
 
 ![datetype3](media/DBeaver/datetype3.png)
 
