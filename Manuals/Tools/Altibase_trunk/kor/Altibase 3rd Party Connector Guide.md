@@ -178,14 +178,17 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 이 매뉴얼은 다음과 같이 구성되어 있다.
 
-- 제 1장 SQuirreL SQL 클라이언트  
-  이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을
-  설치하고 Altibase JDBC를 통해 Altibase와 연동하는 방법을 설명한다.
+- 제 1장 DBeaver
+  
+  이 장에서는  DBeaver와 Altibase를 연동하고 이용하는 방법을 설명한다.
 
-- 제 2장 Hibernate
+- 제 2장 SQuirreL SQL 클라이언트  
+  이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을 설치하고 Altibase JDBC를 통해 Altibase와 연동하는 방법을 설명한다.
+  
+- 제 3장 Hibernate
 
-- 제 3장 OpenLDAP  
-  이 장은 openLDAP과 Altibase를 연동하는 방법을 설명한다.
+- 제 4장 OpenLDAP  
+  이 장에서는 OpenLDAP과 Altibase를 연동하는 방법을 설명한다.
 
 #### 문서화 규칙
 
@@ -355,36 +358,40 @@ Database Navigator 탭에서 등록된 데이터베이스 연결 정보 목록�
 
 DBeaver는 Auto-Commit이 기본으로 설정되어 있다. 알티베이스 LOB 타입 데이터를 조회하기 위해서는 커밋 모드를 Auto-Commit에서 Manual Commit으로 변경해야 한다.
 
-변경 방법은 다음과 같다.
+다음과 같이 세 가지 방법으로 변경할 수 있다.
 
 1. 툴바에서 버튼 아이콘을 눌러 Manual Commit으로 전환한다.
 
    ![commit1](media/DBeaver/commit1.png)
-
-2. 커밋 모드 목록에서 Manual Commit을 선택한다.
-
-   ![commit2](media/DBeaver/commit2.png)
-
 | 버튼 아이콘                           | 커밋 모드                 |
 | ------------------------------------- | ------------------------- |
 | ![button1](media/DBeaver/button1.png) | Auto-Commit (자동 커밋)   |
 | ![button2](media/DBeaver/button2.png) | Manual Commit (수동 커밋) |
 
 
+2. 커밋 모드 목록에서 Manual Commit을 선택한다.
 
-3. 메뉴에서 Auto-commit 기본 설정 옵션을 해제하고 데이터베이스를 재접속한다.
+   ![commit2](media/DBeaver/commit2.png)
+
+
+
+3. 메뉴에서 Auto-commit 기본 설정 옵션을 해제한다. 이 설정을 적용하려면 데이터베이스에 다시 연결을 해야한다.
 
    [ 윈도우 ] → [ 설정 ]
 
    ![commit3](media/DBeaver/commit3.png)
 
-   [ 연결 ] → 연결 유형 탭에서 "Auto-commit by default" 체크 박스를 해제 후 [ Apply and Close ] 클릭 → 데이터베이스 연결을 재접속한다.
+   [ 연결 ] → 연결 유형 탭에서 "Auto-commit by default" 체크 박스를 해제
 
+   [ Apply and Close ] 클릭 → 데이터베이스에 재접속
+   
    ![commit4](media/DBeaver/commit4.png)
 
-Manual Commit 모드에서는 테이블 수정 시 반드시 명시적으로 커밋 또는 롤백해야 한다.
-
-![commit5](media/DBeaver/commit5.png)
+> [!NOTE]
+>
+>  Manual Commit 모드에서는 테이블 수정 시 반드시 명시적으로 커밋 또는 롤백해야 한다.
+>
+> ![commit5](media/DBeaver/commit5.png)
 
 참조: https://dbeaver.com/docs/dbeaver/Auto-and-Manual-Commit-Modes/
 
@@ -404,6 +411,18 @@ DBeaver는 시스템 객체를 보여주지 않는 것이 기본값이다. SYSTE
 
 ####  객체에 대해 정확하지 않은 DDL이 출력됩니다.
 
+정확한 알티베이스 객체의 DDL을 조회하기 위해서는 반드시 SYS 계정으로 DBMS_METADATA 패키지를 설치해야 한다.
+
+SYS 계정으로 알티베이스에 접속하여 아래 구문을 수행하여 DBMS_METADATA 패키지를 설치한다.
+
+```
+$ cd $ALTIBASE_HOME
+$ is -f ./packages/dbms_metadata.sql
+$ is -f ./packages/dbms_metadata.plb
+```
+
+예)
+
 다음은 큐 객체 Q1을 생성하는 구문 예제이다.
 
    ```
@@ -414,9 +433,7 @@ DBeaver는 시스템 객체를 보여주지 않는 것이 기본값이다. SYSTE
 
 ![ddl1](media/DBeaver/ddl1.png)
 
-정확한 알티베이스 객체의 DDL을 조회하기 위해서는 반드시 SYS 계정으로 DBMS_METADATA 패키지를 설치해야 한다.
-
-SYS 계정으로 알티베이스에 접속하여 아래 구문을 수행한다.
+정확한 DDL 구문 출력을 위해 DBMS_METADATA 패키지를 설치한다.
 
 ```
 $ cd $ALTIBASE_HOME
@@ -440,7 +457,9 @@ SQL Script 창에 쿼리를 입력 후 "Explain Execution Plan" 아이콘을 클
 
 ![excplan2](media/DBeaver/excplan2.png)
 
-쿼리 실행 계획의 기본 옵션 값은 Explain Plan Only이다.
+>  [!NOTE] 
+>
+> 쿼리 실행 계획의 기본 옵션 값은 Explain Plan Only이다.
 
 #### 쿼리 실행 계획을 EXPLAIN_PLAN = ON으로 수행하고 싶습니다.
 
@@ -598,14 +617,14 @@ DBeaver는 auto commit on을 기본으로 설정하고 있다.
 
 Auto commit off를 상시 기본 설정으로 사용하고 싶다면,
 
-1. 특정 연결을 클릭 -> 오른쪽 마우스 클릭 -> Edit Connection 메뉴 클릭 또는 F4 버튼을 눌러 설정 화면을 연다.
-2. Connection settings -> Initialization -> Connection -> Auto-commit 체크 박스를 꺼 준다.
+1. 특정 연결을 클릭 → 오른쪽 마우스 클릭 → Edit Connection 메뉴 클릭 또는 F4 버튼을 눌러 설정 화면을 연다.
+2. Connection settings → Initialization → Connection → Auto-commit 체크 박스를 꺼 준다.
 
 ![defalutAutoCommitOff1](media/DBeaver/defaultAutoCommitOff1.png)
 
 
 
-일시적으로 auto-commit 모드를 변경하고 싶은 경우는 아래 그램처럼 트랜잭션 버튼을 눌러 설정 변경이 가능하다.
+일시적으로 auto-commit 모드를 변경하고 싶은 경우는 아래 그림처럼 트랜잭션 버튼을 눌러 설정 변경이 가능하다.
 
 ![defalutAutoCommitOff2](media/DBeaver/defaultAutoCommitOff2.png)
 
