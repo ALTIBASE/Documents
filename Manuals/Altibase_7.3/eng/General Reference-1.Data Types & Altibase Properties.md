@@ -3279,10 +3279,6 @@ The values in the “Alter Level” column have the following meaning:
   <td>BOTH</td>
   </tr>
   <tr>
-  <td>TEMP_MAX_PAGE_COUNT</td>
-  <td>SYSTEM</td>
-  </tr>
-  <tr>
   <td>TEMP_STATS_WATCH_TIME</td>
   <td>SYSTEM</td>
   </tr>
@@ -3310,7 +3306,11 @@ The values in the “Alter Level” column have the following meaning:
   <td>BOTH</td>
   </tr>
   <tr>
-  <td>&nbsp;</td>
+  <td>TOTAL_WA_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>INIT_TOTAL_WA_SIZE</td>
   <td>SYSTEM</td>
   </tr>
   <tr>
@@ -3326,8 +3326,8 @@ The values in the “Alter Level” column have the following meaning:
   <td>BOTH</td>
   </tr>
   <tr>
-  <td rowspan="42">S</td>
-  <td rowspan="31">Normal</td>
+  <td rowspan="47">S</td>
+  <td rowspan="35">Normal</td>
   <td>CM_DISCONN_DETECT_TIME</td>
   <td>&nbsp;</td>
   </tr>
@@ -3345,13 +3345,19 @@ The values in the “Alter Level” column have the following meaning:
   </tr>
   <tr>
   <td>DEFAULT_THREAD_STACK_SIZE</td>
-  <td rowspan="4">&nbsp;</td>
+  <td rowspan="6">&nbsp;</td>
   </tr>
   <tr>
   <td>IPC_CHANNEL_COUNT</td>
   </tr>
   <tr>
   <td>IPC_FILEPATH</td>
+  </tr>
+  <tr>
+  <td>IPC_SEM_KEY</td>
+  </tr>
+  <tr>
+  <td>IPC_SHM_KEY</td>
   </tr>
   <tr>
   <td>IPCDA_CHANNEL_COUNT</td>
@@ -3362,7 +3368,13 @@ The values in the “Alter Level” column have the following meaning:
   </tr>
   <tr>
   <td>IPCDA_FILEPATH</td>
-  <td rowspan="2">&nbsp;</td>
+  <td rowspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+  <td>IPCDA_SEM_KEY</td>
+  </tr>
+  <tr>
+  <td>IPCDA_SHM_KEY</td>
   </tr>
   <tr>
   <td>MAX_LISTEN</td>
@@ -3446,7 +3458,7 @@ The values in the “Alter Level” column have the following meaning:
   <td>&nbsp;</td>
   </tr>
   <tr>
-  <td rowspan="11">Time-Out</td>
+  <td rowspan="12">Time-Out</td>
   <td>BLOCK_ALL_TX_TIME_OUT</td>
   <td>SYSTEM</td>
   </tr>
@@ -3477,6 +3489,10 @@ The values in the “Alter Level” column have the following meaning:
   <tr>
   <td>QUERY_TIMEOUT</td>
   <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>SERVICE_THREAD_RECV_TIMEOUT</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>SHUTDOWN_IMMEDIATE_TIMEOUT</td>
@@ -3564,8 +3580,8 @@ The values in the “Alter Level” column have the following meaning:
   <td>SYSTEM</td>
   </tr>
   <tr>
-  <td rowspan="54">R</td>
-  <td rowspan="54">&nbsp;</td>
+  <td rowspan="58">R</td>
+  <td rowspan="58">&nbsp;</td>
   <td>REPLICATION_ACK_XLOG_COUNT</td>
   <td>&nbsp;</td>
   </tr>
@@ -3637,6 +3653,10 @@ The values in the “Alter Level” column have the following meaning:
   <td>SYSTEM</td>
   </tr>
   <tr>
+  <td>REPLICATION_HBT_CONNECT_WAIT_TIME</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
   <td>REPLICATION_HBT_DETECT_HIGHWATER_MARK</td>
   <td>SYSTEM</td>
   </tr>
@@ -3678,6 +3698,10 @@ The values in the “Alter Level” column have the following meaning:
   <td>SYSTEM</td>
   </tr>
   <tr>
+  <td>REPLICATION_META_ITEM_COUNT_DIFF_ENABLE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
   <td>REPLICATION_POOL_ELEMENT_COUNT</td>
   <td>SYSTEM</td>
   </tr>
@@ -3706,6 +3730,10 @@ The values in the “Alter Level” column have the following meaning:
   <td>SYSTEM</td>
   </tr>
   <tr>
+  <td>REPLICATION_RECEIVER_APPLIER_YIELD_COUNT</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
   <td>REPLICATION_RECOVERY_MAX_LOGFILE</td>
   <td rowspan="3">&nbsp;</td>
   </tr>
@@ -3721,6 +3749,10 @@ The values in the “Alter Level” column have the following meaning:
   </tr>
   <tr>
   <td>REPLICATION_SENDER_ENCRYPT_XLOG</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SENDER_IP</td>
   <td>&nbsp;</td>
   </tr>
   <tr>
@@ -3775,8 +3807,8 @@ The values in the “Alter Level” column have the following meaning:
   <td>SYSTEM</td>
   </tr>
   <tr>
-  <td rowspan="26">NM</td>
-  <td rowspan="26">&nbsp;</td>
+  <td rowspan="28">NM</td>
+  <td rowspan="28">&nbsp;</td>
   <td>IB_CONCHKSPIN</td>
   <td rowspan="5">&nbsp;</td>
   </tr>
@@ -3787,7 +3819,7 @@ The values in the “Alter Level” column have the following meaning:
   <td>IB_LATENCY</td>
   </tr>
   <tr>
-  <td>IB_LISTEN_DISABLE</td>
+  <td>IB_LISTENER_DISABLE</td>
   </tr>
   <tr>
   <td>IB_MAX_LISTEN</td>
@@ -3818,7 +3850,7 @@ The values in the “Alter Level” column have the following meaning:
   </tr>
   <tr>
   <td>SNMP_PORT_NO</td>
-  <td rowspan="12">&nbsp;</td>
+  <td rowspan="14">&nbsp;</td>
   </tr>
   <tr>
   <td>SNMP_TRAP_PORT_NO</td>
@@ -3842,6 +3874,9 @@ The values in the “Alter Level” column have the following meaning:
   <td>SSL_CIPHER_LIST</td>
   </tr>
   <tr>
+  <td>SSL_CIPHER_SUITES</td>
+  </tr>
+  <tr>
   <td>SSL_CLIENT_AUTHENTICATION</td>
   </tr>
   <tr>
@@ -3849,6 +3884,9 @@ The values in the “Alter Level” column have the following meaning:
   </tr>
   <tr>
   <td>SSL_KEY</td>
+  </tr>
+  <tr>
+  <td>SSL_LOAD_CONFIG</td>
   </tr>
   <tr>
   <td>SSL_MAX_LISTEN</td>
@@ -3862,10 +3900,26 @@ The values in the “Alter Level” column have the following meaning:
   <td>&nbsp;</td>
   </tr>
   <tr>
-  <td rowspan="60">M</td>
-  <td rowspan="60">&nbsp;</td>
+  <td rowspan="73">M</td>
+  <td rowspan="73">&nbsp;</td>
   <td>ALL_MSGLOG_FLUSH</td>
   <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CM_MSGLOG_COUNT</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>CM_MSGLOG_FILE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>CM_MSGLOG_SIZE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>CM_MSGLOG_FLAG</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>COLLECT_DUMP_INFO</td>
@@ -3884,13 +3938,16 @@ The values in the “Alter Level” column have the following meaning:
   </tr>
   <tr>
   <td>DK_MSGLOG_RESERVE_SIZE</td>
-  <td rowspan="17">&nbsp;</td>
+  <td rowspan="22">&nbsp;</td>
   </tr>
   <tr>
   <td>DK_MSGLOG_SIZE</td>
   </tr>
   <tr>
   <td>DUMP_MSGLOG_COUNT</td>
+  </tr>
+  <tr>
+  <td>DUMP_MSGLOG_FILE</td>
   </tr>
   <tr>
   <td>DUMP_MSGLOG_SIZE</td>
@@ -3906,6 +3963,18 @@ The values in the “Alter Level” column have the following meaning:
   </tr>
   <tr>
   <td>ERROR_MSGLOG_SIZE</td>
+  </tr>
+  <tr>
+  <td>JOB_MSGLOG_COUNT</td>
+  </tr>
+  <tr>
+  <td>JOB_MSGLOG_FILE</td>
+  </tr>
+  <tr>
+  <td>JOB_MSGLOG_FLAG</td>
+  </tr>
+  <tr>
+  <td>JOB_MSGLOG_SIZE</td>
   </tr>
   <tr>
   <td>ERROR_MSGLOG_RESERVE_SIZE</td>
@@ -4013,7 +4082,7 @@ The values in the “Alter Level” column have the following meaning:
   <td>SERVER_MSGLOG_DIR</td>
   </tr>
   <tr>
-  <td>ERVER_MSGLOG_FILE</td>
+  <td>SERVER_MSGLOG_FILE</td>
   </tr>
   <tr>
   <td>SERVER_MSGLOG_FLAG</td>
@@ -4038,13 +4107,31 @@ The values in the “Alter Level” column have the following meaning:
   </tr>
   <tr>
   <td>SM_MSGLOG_RESERVE_SIZE</td>
-  <td rowspan="3">&nbsp;</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>SM_MSGLOG_SIZE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ST_MSGLOG_COUNT</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ST_MSGLOG_FILE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ST_MSGLOG_FLAG</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>ST_MSGLOG_SIZE</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>TRC_MSGLOG_RESERVE_SIZE</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>TRCLOG_DETAIL_PREDICATE</td>
@@ -4166,8 +4253,8 @@ The values in the “Alter Level” column have the following meaning:
   <td>PASSWORD_VERIFY_FUNCTION</td>
   </tr>
   <tr>
-  <td rowspan="27">E</td>
-  <td rowspan="27">&nbsp;</td>
+  <td rowspan="30">E</td>
+  <td rowspan="30">&nbsp;</td>
   <td>ACCESS_LIST</td>
   <td rowspan="2">&nbsp;</td>
   </tr>
@@ -4207,16 +4294,23 @@ The values in the “Alter Level” column have the following meaning:
   </tr>
   <tr>
   <td>JOB_THREAD_COUNT</td>
-  <td rowspan="4">&nbsp;</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>JOB_THREAD_QUEUE_SIZE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>LISTAGG_PRECISION</td>
+  <td>SYSTEM</td>
   </tr>
   <tr>
   <td>MSG_QUEUE_PERMISSION</td>
+  <td>SYSTEM</td>
   </tr>
   <tr>
   <td>PSM_CHAR_DEFAULT_PRECISION</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>PSM_IGNORE_NO_DATA_FOUND_ERROR</td>
@@ -4250,6 +4344,10 @@ The values in the “Alter Level” column have the following meaning:
   <td>SESSION</td>
   </tr>
   <tr>
+  <td>REGEXP_MODE</td>
+  <td>BOTH</td>
+  </tr>
+  <tr>
   <td>REMOTE_SYSDBA_ENABLE</td>
   <td>SYSTEM</td>
   </tr>
@@ -4264,6 +4362,10 @@ The values in the “Alter Level” column have the following meaning:
   <tr>
   <td>SERIAL_EXECUTE_MODE</td>
   <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>VARRAY_MEMORY_MAXIMUM</td>
+  <td>SYSTEM</td>
   </tr>
   </tbody>
   </table>
@@ -6902,9 +7004,45 @@ Read-Write, Single Value
 
 ##### Description
 
-When a disk index is created, if the keys extracted from data cannot all be sorted in memory at the same time, this property specifies the number of pages to be used for external sorting. 
+When creating a single disk index using the CREATE INDEX statement or rebuilding it with the ALTER INDEX ~ REBUILD statement, this property determines the number of pages used for disk index key sorting. It is utilized when the size of disk index keys is larger than DISK_INDEX_BUILD_SORT_AREA_SIZE, indeed, when it is impossible to sort all disk index keys within the designated memory space.
+
+If the disk I/O causes slower disk index creation (or rebuilding), adjusting the value of this property can potentially increase the speed of disk index creation (or rebuilding). However, it's recommended to set it below 10% of BUFFER_AREA_SIZE. This suggestion is because multiple transactions accessing not only disk indexes but also disk tables access BUFFER_AREA_SIZE memory area simultaneously.
+
+The default value of this property is approximately 1% size of the default value of BUFFER_AREA_SIZE. Adjust this property value appropriately considering the disk index when adjusting BUFFER_AREA_SIZE based on the disk table size.
 
 This property can be changed using the ALTER SYSTEM statement during system operation.
+
+#### DISK_INDEX_BUILD_SORT_AREA_SIZE (Unit : byte)
+
+##### Data Type
+
+Unsigned Long
+
+##### Default Value
+
+10MB
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[512K, 2<sup>64</sup>-1]
+
+##### Description
+
+When creating a single disk index using the CREATE INDEX statement or rebuilding it with the ALTER INDEX ~ REBUILD statement, this property determines the maximum memory size used for disk index key sorting. Memory is allocated as much as the size of disk index keys and increases by the amount specified in this value when necessary. 
+
+디스크 인덱스를 생성(또는 재구축)하는 동안 할당된 메모리 크기는 V$MEMSTAT의 Storage_Disk_Index에서 확인할 수 있으며 동시에 생성(또는 재구축)하는 디스크 인덱스 수 * DISK_INDEX_BUILD_SORT_AREA_SIZE 만큼 메모리가 할당될 수 있다.
+
+Users can find the size of allocated memory size during disk index creation or rebuilding in Storage_Disk_Index of  V$MEMSTAT. 
+
+This memory is released immediately after the completion of sorting disk index keys. However, if the size of disk index keys is smaller than the value set in this property, which means all disk index keys are sorted within the memory specified in this property during disk index creation(or rebuilding), the memory is released when all processes are done.
+
+Users can adjust this property when they need to improve the disk index creation(or rebuilding) speed. The recommended value is INDEX_BUILD_THREAD_COUNT * 20MB.
+
+This property can be changed using the ALTER SYSTEM statement.
 
 #### EXECUTE_STMT_MEMORY_MAXIMUM (Unit: byte)
 
@@ -6914,7 +7052,7 @@ Unsigned Long
 
 ##### Default Value
 
-1G
+2147483648
 
 ##### Attributes
 
@@ -8796,7 +8934,7 @@ Read-Write, Single Value
 
 ##### Range
 
-[512K, 2<sup>64</sup>-1]
+[0, 2<sup>64</sup>-1]
 
 ##### Description
 
@@ -8870,11 +9008,17 @@ Read-Write, Single Value
 
 ##### Range
 
-[1, 512]
+[1, 16384]
 
 ##### Description
 
-This property specifies the number of transaction segments (Undo segments and TTS segments) created when the server is started. 
+This property specifies the number of transaction segments managed by undo tablespace. There are two transaction segments, TSS segment and undo segment. The default value of 256 refers to 256 TSS segments and 256 Undo segments.
+
+Transaction segments are created when the Altibase server starts up. If there is an insufficiency of transaction segments during transaction processing, the system logs "TRANSACTION_SEGMENT_COUNT is full" in the altibase_boot.log file. Then, transactions wait until they are allocated available transaction segments.
+
+정리되지 않은 분산 트랜잭션이 있을 때 현재 값보다 작게 설정하고 Altibase 서버를 재시작한 경우 기존 언두 테이블스페이스의 공간에 접근할 수 없어 Altibase 서버 구동이 실패한다.
+
+If users want to set this property smaller than before in Altibase distributed database system, users should quit all distributed transactions and stop Altibase server. If an active distributed transaction remains and, Altibase server startup fails when users try restarting the server as it cannot access the space in the existing undo tablespace.
 
 This property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
@@ -9109,6 +9253,62 @@ This is a socket file created for Altibase server to connect with the client thr
 
 If the server starts, a socket file is created under $ALTIBASE_HOME/trc/cm-ipc directory, and be careful not to delete this file. 
 
+#### IPC_SEM_KEY
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+0
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+[0, 4294967294]
+
+##### Description
+
+This property sets semaphore keys for IPC channel creation to the user-defined value. 
+
+The default value is 0. Altibase generates semaphore keys based on the process identifier(PID) of the Altibase server process automatically. 
+
+When setting this property to any other numbers, it creates IPC channels using a range of contiguous semaphore keys, starting from IPC_SEM_KEY up to IPC_SEM_KEY + (IPC_CHANNEL_COUNT + 1). The additional +1 is reserved for the IPC channel used by the SYS user to connect in administrator mode (sysdba). For instance, if IPC_SEM_KEY is set to 10000 and IPC_CHANNEL_COUNT is set to 1000, the semaphore keys range from 10000 to 11000.
+
+IPC channels are generated while Altibase server starts up. If the semaphore key is in use or unable to create a semaphore due to other reasons, the startup of the Altibase server will fail. In such cases, check the system error(errno) in the Altibase server trace log, altibase_boot.log, and take appropriate action.
+
+#### IPC_SHM_KEY
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+0
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+[0, 4294967294]
+
+##### Description
+
+This property sets shared memory keys for IPC channel creation to the user-defined value. 
+
+The default value is 0. Altibase generates shared memory keys based on the process identifier(PID) of the Altibase server process automatically. 
+
+When setting this property to any other numbers, the IPC_SHM_KEY value is used for the shared memory key.
+
+IPC channels are generated while Altibase server starts up. If the shared memory key is in use or unable to create shared memory due to other reasons, the startup of the Altibase server will fail. In such cases, check the system error(errno) in the Altibase server trace log, altibase_boot.log, and take appropriate action.
+
 #### IPCDA_CHANNEL_COUNT
 
 ##### Data Type
@@ -9169,7 +9369,7 @@ String
 
 ##### Attributes
 
-Read-Only, Multiple Value
+Read-Only, Multiple Values
 
 ##### Range
 
@@ -9180,6 +9380,62 @@ None
 This is a socket file created for Altibase server to connect with the client through IPCDA in the UNIX environment. 
 
 If the server starts, a socket file is created under $ALTIBASE_HOME/trc/cm-ipcda directory, and be careful not to delete this file. 
+
+#### IPCDA_SEM_KEY
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+0
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+[0, 4294967294]
+
+##### Description
+
+This property sets semaphore keys for IPCDA channel creation to the user-defined value. 
+
+The default value is 0. Altibase generates semaphore keys based on the process identifier(PID) of the Altibase server process automatically. 
+
+When setting this property to any other numbers, it creates IPC channels using a range of contiguous semaphore keys, starting from IPCDA_SEM_KEY up to IPCDA_SEM_KEY + IPC_CHANNEL_COUNT. For instance, if IPCDA_SEM_KEY is set to 10000 and IPC_CHANNEL_COUNT is set to 1000, the semaphore keys range from 10000 to 10999.
+
+IPCDA channels are generated while Altibase server starts up. If the semaphore key is in use or unable to create a semaphore due to other reasons, the startup of the Altibase server will fail. In such cases, check the system error(errno) in the Altibase server trace log, altibase_boot.log, and take appropriate action.
+
+#### IPCDA_SHM_KEY
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+0
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+[0, 4294967294]
+
+##### Description
+
+This property sets shared memory keys for IPCDA channel creation to the user-defined value. 
+
+The default value is 0. Altibase generates shared memory keys based on the process identifier(PID) of the Altibase server process automatically. 
+
+When setting this property to any other numbers, two contiguous numbers from IPCDA_SHM_KEY are used for the shared memory keys. For example, if IPCDA_SHM_KEY is 10000, the shared memory keys will be 10000 and 10001.
+
+IPCDA channels are generated while Altibase server starts up. If the shared memory key is in use or unable to create shared memory due to other reasons, the startup of the Altibase server will fail. In such cases, check the system error(errno) in the Altibase server trace log, altibase_boot.log, and take appropriate action.
 
 #### MAX_LISTEN
 
@@ -9474,7 +9730,7 @@ Unsigned Integer
 
 ##### Attributes
 
-읽기 전용, 단일 값
+Read-Only, Single Value
 
 ##### Range
 
@@ -9920,6 +10176,28 @@ This property is set to prevent abnormal increases in database memory consumptio
 
 This property can be changed using the ALTER SYSTEM or ALTER SESSION statement while Altibase is running.
 
+#### SERVICE_THREAD_RECV_TIMEOUT(Unit : second)
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default
+
+60
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+[0, 3600]
+
+##### Description
+
+This property is configured to prevent service threads from indefinite waiting in case of receiving malformed packets from clients. If a completed packet is not received from the client within the time set by this property, a timeout occurs, leading the server to terminate the connection. Setting the value of this property to 0 causes service threads to wait indefinitely until a completed packet is received. Conversely, setting it too low might lead to connection termination in slower network environments. Supported communication methods include TCP, Unix domain, SSL, and Infiniband.
+
 #### SHUTDOWN_IMMEDIATE_TIMEOUT
 
 ##### Data Type
@@ -10114,11 +10392,11 @@ Unsigned Integer
 
 ##### Attributes
 
-Read-Only, Single Value
+Read-Write, Single Value
 
 ##### Range
 
-[0, 1]
+[0, 2]
 
 ##### Description
 
@@ -10127,6 +10405,8 @@ This property controls the action of the archivelog thread, which conducts archi
 If this parameter is set to 0, the archivelog thread will output an error message and stop the archive log file backup. Even if enough disk space can subsequently be secured, archive log backup will not resume until the user explicitly issues a command to do so. If checkpointing takes place in such cases, unnecessary log files will be deleted, even if no archive log file backup has been conducted. Therefore care must be taken when using this mode.
 
 If this parameter is set to 1, the archivelog thread waits until enough disk space can be secured to perform the archive log file backup. Because the archive log files have not been backed up, care must be taken to prevent the log files from being deleted if checkpointing takes place during this waiting period.
+
+If this parameter is set to 2, the archivelog thread will write an error message in the trace log file(altibase_sm.log) and attempt to back up the next log files in case of backup failure.  Every log file takes this step in a row, so there may be log files that have not been backed up in the archivelog file path from when the log file backup failure occurs until the backup failure is resolved. At this time, if a checkpoint occurs, it may not be possible to recover the database because even the failed backup log file is judged to be an unnecessary log file and deleted. Therefore, users should take care of this when setting this property to 2.
 
 #### ARCHIVE_MULTIPLEX_COUNT
 
@@ -10168,7 +10448,7 @@ String
 
 ##### Attributes
 
-Read-Only, Multiple Value
+Read-Only, Multiple Values
 
 ##### Range
 
@@ -10320,7 +10600,7 @@ Unsigned Integer
 
 ##### Attributes
 
-Read-Only, Multiple Value
+Read-Only, Multiple Values
 
 ##### Range
 
@@ -10834,7 +11114,7 @@ Read-Only, Single Value
 
 ##### Range
 
-[1, 512]
+[2, 512]
 
 ##### Description
 
@@ -11477,6 +11757,30 @@ Although a large value for the REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE property 
 
 The value of this property can be altered using the ALTER SYSTEM statement while Altibase is running. 
 
+#### REPLICATION_RECEIVER_APPLIER_YIELD_COUNT
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+20000
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[0, 2<sup>32</sup>-1]
+
+##### Description
+
+This property specifies the number of times an Applier waits for the reflection of another Applier's transaction using the system function "yield".
+
+When using the yield function, CPU usage occurs. Therefore, after exceeding this specified count, the timed_wait function is called, which doesn’t consume CPU resources.
+
 #### REPLICATION_RECOVERY_MAX_LOGFILE
 
 ##### Data Type
@@ -11608,6 +11912,41 @@ The REPLICATION_SENDER_ENCRYPT_XLOG property sets whether or not to encrypt XLog
 0: Does not encrypt XLogs.
 
 1: Encrypts XLogs.
+
+#### REPLICATION_SENDER_IP
+
+##### Data Type
+
+String
+
+##### Default Value
+
+ANY
+
+##### Attributes
+
+Read-Only, Multiple Values
+
+##### Range
+
+None
+
+##### Description
+
+This property stores the IP address of the replication sender. Users can set this value to 'ANY' or a specific IP address. 
+
+If the value is set to ANY, the default value, users can use every IP address of the local server which creates replication objects for replication communication. In this case, the IP address allocated by OS is used for the sender IP address. If the value is set to a specific IP address, users can only use that IP address when the local server communicates with a remote server(receiver). Users can set several IP addresses by adding REPLICATION_SENDER_IP = *value*. These values are used in a row. IPv4, IPv6, and IPv6 extension address formats are supported.
+
+##### Example
+
+```
+REPLICATION_SENDER_IP = 10.0.0.1
+REPLICATION_SENDER_IP = 0000:0000:0000:0000:0000:ffff:1400:0001
+```
+
+
+
+자세한 내용은 *Replication Manual에서 [송신자 IP 주소 설정](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Replication Manual.md#송신자-ip-주소-설정)* 설명을 참고한다.
 
 #### REPLICATION_SENDER_SEND_TIMEOUT (Unit: second)
 
@@ -11951,6 +12290,32 @@ Read-Write, Single Value
 ##### Description
 
 This property specifies whether to keep updated contents if an update conflict occurs during replication. If this value has been set to 0, the update will not be committed, and the data conflict will be handled as an error, whereas if this value has been set to 1, the data conflict will be ignored and the update will be committed. 
+
+This property can be changed using the ALTER SYSTEM statement while Altibase is running.
+
+#### REPLICATION_META_ITEM_COUNT_DIFF_ENABLE
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+0
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[0, 1]
+
+##### Description
+
+Lazy 모드로 이중화 수행 과정에서 SPLIT PARTITION과 MERGE PARTITION, DROP PARTITION을 수행하여 Active 서버와 Standby 서버의 이중화 테이블 파티션 메타 아이템 개수가 다른 경우에 이중화를 START 할 수 있는 프로퍼티이다. 이 값을 1로 설정하면 이중화 테이블 파티션 메타 아이템 개수가 다른 경우에도 이중화를 START 할 수 있다.
+
+If this property is set to 1, users can START replication even if the number of replication table partitions meta items of the Active server and Standby server are different when LAZY mode replication is operating. During this process, SPLIT PARTITION, MERGE PARTITION, and DROP PARTITION are performed.
 
 This property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
@@ -12672,6 +13037,96 @@ This property specifies whether or not information about message files and log f
 
 1: Information about message files and log files are collected.
 
+#### CM_MSGLOG_COUNT
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+10
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+[0, 2<sup>32</sup>-1]
+
+##### Description
+
+This property specifies the maximum number of message log files for communication(CM) module.
+
+#### CM_MSGLOG_FILE
+
+##### Data Type
+
+String
+
+##### Default Value
+
+altibase_cm.log
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+None
+
+##### Description
+
+This file stores messages generated during the communication(CM) module processing.
+
+#### CM_MSGLOG_SIZE(Unit: byte)
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+10 * 1024 * 1024
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+[0, 232-1]
+
+##### Description
+
+This property sets the maximum size of the communication(CM) module message file.
+
+#### CM_MSGLOG_FLAG
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+3
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[0, 2<sup>32</sup>-1]
+
+##### Description
+
+This is a flag value indicating whether warning or trace messages generated by the communication (CM) module will be recorded in the CM_MSGLOG_FILE.
+
+If this value is 0, the messages are not recorded. If this value is larger than 0, the messages are recorded.
+
 #### DK_MSGLOG_COUNT
 
 ##### Data Type
@@ -12938,6 +13393,96 @@ Read-Only, Single value
 
 This property specifies the amount of space to be reserved in advance for the file where the server error message is stored.
 
+#### JOB_MSGLOG_COUNT
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+10
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+[0, 2<sup>32</sup>-1]
+
+##### Description
+
+This property specifies the maximum number of JOB-related message log files.
+
+#### JOB_MSGLOG_FILE
+
+##### Data Type
+
+String
+
+##### Default Value
+
+altibase_job.log
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+None
+
+##### Description
+
+This file stores messages generated during JOB processing.
+
+#### JOB_MSGLOG_FLAG
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+2
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[0, 2<sup>32</sup> –1]
+
+##### Description
+
+This is a flag value indicating whether warning or trace messages generated by JOB will be recorded in the JOB_MSGLOG_FILE.
+
+If this value is 0, the messages are not recorded. If this value is larger than 0, the messages are recorded.
+
+#### JOB_MSGLOG_SIZE(Unit : byte)
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+10 * 1024 * 1024
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+[0, 2<sup>32</sup>-1]
+
+##### Description
+
+This property sets the maximum size of the JOB-related message file.
+
 #### LB_MSGLOG_COUNT 
 
 ##### Data Type
@@ -13169,6 +13714,28 @@ Read-Write, Single Value
 This property specifies whether to write network-related error messages in the server message file. 
 
 In an unstable network environment, in which error messages are frequently output, setting this value to 0 prevents network-related error messages from being output.
+
+#### NETWORK_ERROR_LOG_FILE
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+0
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[0, 1]
+
+##### Description
+
+This property determines which log file will record network-related error messages. By default value 0, these errors are logged in altibase_boot.log. Setting this property to 1 will record them in altibase_cm.log. However, this property only operates effectively when NETWORK_ERROR_LOG is set to. If NETWORK_ERROR_LOG is set to 0, network-related error messages will not be output.
 
 #### QP_MSGLOG_COUNT
 
@@ -13694,7 +14261,7 @@ Unsigned Integer
 
 ##### Default Value
 
-7
+15
 
 ##### Attributes
 
@@ -13865,6 +14432,101 @@ Read-Only, Single Value
 ##### Description
 
 This property specifies the maximum size, in bytes, of the Storage Manager message log files.
+
+#### ST_MSGLOG_FLAG
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+0
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[0, 1]
+
+##### Description
+
+This is a flag value indicating whether spatial topological(ST) information will be recorded in the altibase_st.log file.
+
+If this value is 0, the messages are not recorded. If this value is larger than 0, the messages are recorded.
+
+altibase_st.log 파일에 st 정보를 기록한다.
+
+- 0: st 정보 기록하지 않는다.
+- 1: st 정보를 기록한다.
+
+#### ST_MSGLOG_COUNT
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+10
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+[0, 2<sup>32</sup>-1]
+
+##### Description
+
+This property specifies the maximum number of message log files for spatial topological(ST) message files.
+
+#### ST_MSGLOG_FILE
+
+##### Data Type
+
+String
+
+##### Default Value
+
+altibase_st.log
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+None
+
+##### Description
+
+This file stores messages generated during the spatial topological(ST) processing.
+
+#### ST_MSGLOG_SIZE
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+10 * 1024 * 1024
+
+##### Attributes
+
+Read-Only, Single Value
+
+##### Range
+
+[0, 2<sup>32</sup> -1]
+
+##### Description
+
+This property sets the maximum size of the spatial topological(ST) message file.
 
 #### TRC_MSGLOG_RESERVE_SIZE (Unit : byte)
 
@@ -14302,7 +14964,7 @@ String
 
 ##### Attributes
 
-Read-Write, Multiple Value
+Read-Write, Multiple Values
 
 ##### Range
 
@@ -14448,7 +15110,7 @@ Unsigned Integer
 
 ##### Attributes
 
-Read-Only, Multiple Value
+Read-Only, Multiple Values
 
 ##### Range
 
@@ -14751,7 +15413,7 @@ ACCESS_LIST = permit, 192.168.3.17, 255.255.255.255, 5
 
 
 
-**ACCESS_LIST_FILE**
+#### ACCESS_LIST_FILE
 
 ##### Data Type
 
@@ -15038,6 +15700,30 @@ Read-Only, Single Value
 
 This property specifies the number of queues to be created at server startup for a JOB to run. If the value of this property is large, a larger number of jobs can run in a given amount of time.
 
+#### LISTAGG_PRECISION (Unit: byte)
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+4000
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[1, 32000]
+
+##### Description
+
+This property specifies the size of the VARCHAR type that the LISTAGG function returns.
+
+This property can be changed using the ALTER SYSTEM statement while Altibase is running.
+
 #### MSG_QUEUE_PERMISSION
 
 ##### Data Type
@@ -15158,6 +15844,28 @@ Read-Only, Single Value
 ##### Description
 
 Altibase determines the values specified in the PSM_NCHAR_UTF16_DEFAULT_PRECISION property as the size of NCHAR in the case Altibase character set is UTF16, and the size of NCHAR type is unspecified in parameters or return values when creating stored procedures and functions.
+
+#### PSM_MAX_DDL_REFERENCE_DEPTH
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+128
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[64, 2<sup>32</sup>-1]
+
+##### Description
+
+This property limits the number of recursion calls or reference depths when compiling PSM. If the number of recursion calls or reference depths exceeds the set value, an error occurs.
 
 #### PSM_NCHAR_UTF8_DEFAULT_PRECISION
 
@@ -15424,4 +16132,66 @@ PCRE2 compatibility mode.
 Supports the regular expression syntax of the Perl Compatible Regular Expressions (PCRE2) library.
 
 This mode can be used when the Altibase server character set is US7ASCII or UTF-8, and there is a difference in syntax from Altibase regular expression mode. For more information, please refer to [SQL Reference-Appendix A. Regular Expressions](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#appendix-a-regular-expressions).
+
+#### REGEXP_MODE
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+0
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[0, 1]
+
+##### Description
+
+This property configures the regular expression mode, and the meanings of its settings are as follows:
+
+> **0**
+
+Altibase regular expression mode.
+
+It partially supports POSIX Basic Regular Expression (BRE) and Extended Regular Expression (ERE).
+
+> **1**
+
+PCRE2 compatibility mode.
+
+It supports the regular expression syntax of the Perl Compatible Regular Expressions (PCRE2) library.
+
+This mode is available when the Altibase server character set is US7ASCII or UTF-8. It differs in syntax from the Altibase regular expression mode. For more information, please refer to [SQL Reference-A. Regular Expressions](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL%20Reference.md#appendix-a-regular-expressions).
+
+#### VARRAY_MEMORY_MAXIMUM
+
+##### Data Type
+
+Unsigned Long
+
+##### Default Value
+
+209715200 (200M)
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[1048576, 2<sup>64</sup>-1]
+
+##### Description
+
+This property limits the amount of memory available for each VARRAY variable.
+
+When expanding VARRAY variables, memory usage can increase. If the memory usage exceeds the limit during expansion, an error occurs.
+
+This property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
