@@ -585,8 +585,8 @@ If users want to set "Auto commit" to off as default, please follow the below st
 1. Click the right mouse button on the connection -> [ Edit Connection ] or press the F4 Button to open the Configuration window.
 2. Navigate to [Connection settings] -> [Initialization] -> [Connection] -> uncheck [Auto-commit] 
 
-![defaultAutoCommitOff1](media\DBeaver\defaultAutoCommitOff1.png)
-![defaultAutoCommitOff2](media\DBeaver\defaultAutoCommitOff2.png)
+![defaultAutoCommitOff1](media/DBeaver/defaultAutoCommitOff1.png)
+![defaultAutoCommitOff2](media/DBeaver/defaultAutoCommitOff2.png)
 
 
 
