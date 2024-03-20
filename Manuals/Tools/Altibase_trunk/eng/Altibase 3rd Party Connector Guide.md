@@ -592,7 +592,7 @@ If users want to set "Auto commit" to off as default, please follow the below st
 
 If users want to temporarily change the auto-commit mode, press the transaction button, as shown in the capture below.
 
-![defalutAutoCommitOff3](media/DBeaver/defaultAutoCommitOff3.png)
+![defaultAutoCommitOff3](media/DBeaver/defaultAutoCommitOff3.png)
 
 
 
