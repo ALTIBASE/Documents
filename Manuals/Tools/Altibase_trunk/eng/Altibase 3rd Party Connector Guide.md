@@ -333,28 +333,28 @@ If needed, users can rename the database connection information to the desired n
 
 DBeaver is configured with Auto-Commit as the default setting. To retrieve Altibase LOB type data, users need to change the commit mode from Auto-Commit to Manual Commit.
 
-Here is how users can make the change:
+There are three methods to change the commit mode:
 
-Method 1. Click on the ▼ in the toolbar to switch to Manual Commit mode.
+1. Click on the ▼ in the toolbar to switch to Manual Commit mode.
 
    ![commit1](media/DBeaver/commit1.png)
-
-Method 2. Select "Manual Commit" from the list of commit modes.
-
-   ![commit2](media/DBeaver/commit2.png)
 
 | Button Icon                           | Commit Mode   |
 | ------------------------------------- | ------------- |
 | ![button1](media/DBeaver/button1.png) | Auto-Commit   |
 | ![button2](media/DBeaver/button2.png) | Manual Commit |
 
-Method 3. Deselect the "Auto-commit" default setting option in the menu and reconnect to the database.
+2. Select "Manual Commit" from the list of commit modes.
+
+   ![commit2](media/DBeaver/commit2.png)
+
+3. Deselect the "Auto-commit" default setting option in the menu and reconnect to the database.
 
    [ Window ] → [ Preferences ]
 
    ![commit3](media/DBeaver/commit3.png)
 
- Click [ Connections ] → [ Connection Types ]
+Click [ Connections ] → [ Connection Types ]
 
 Uncheck the "Auto-commit by default" check box, then click [ Apply and Close].
 
@@ -362,9 +362,11 @@ Reconnect to the database.
 
    ![commit4](media/DBeaver/commit4.png)
 
-In Manual Commit mode, users must explicitly commit or roll back when modifying tables.
-
-![commit5](media/DBeaver/commit5.png)
+> [!NOTE] 
+>
+> In Manual Commit mode, users must explicitly commit or roll back when modifying tables.
+>
+> ![commit5](media/DBeaver/commit5.png)
 
 Reference: https://dbeaver.com/docs/dbeaver/Auto-and-Manual-Commit-Modes/
 
@@ -372,7 +374,7 @@ Reference: https://dbeaver.com/docs/dbeaver/Auto-and-Manual-Commit-Modes/
 
 DBeaver, by default, does not display system objects. To view the SYSTEM_ schema, users need to set the "Show system objects" option.
 
-Select Connection View → Show system objects option.
+Click on [ Connection View ] → [ Show system objects ] option.
 
 ![sysschema1](media/DBeaver/sysschema1.png)
 
@@ -384,19 +386,9 @@ After reconnecting to the database, users will be able to see the tables and vie
 
 ####  The DDL output for the object is not accurate.
 
-The following is an example syntax for creating the queue object Q1..
+To retrieve the accurate DDL statements of Altibase objects, it is essential to install the DBMS_METADATA package by SYS user.
 
-   ```
-CREATE QUEUE q1(40) MAXROWS 100000;
-   ```
-
-After executing the above statement and attempting to retrieve the DDL for the Q1 object in DBeaver, the abnormal output may be displayed as follows. 
-
-![ddl1](media/DBeaver/ddl1.png)
-
-To retrieve the accurate DDL of Altibase objects, it is essential to install the DBMS_METADATA package by SYS user.
-
-Connect to Altibase using the SYS account and execute the following statement:
+To install the DBMS_METADATA package, connect to Altibase using the SYS account and execute the following statement:
 
 ```
 $ cd $ALTIBASE_HOME
@@ -404,19 +396,39 @@ $ is -f ./packages/dbms_metadata.sql
 $ is -f ./packages/dbms_metadata.plb
 ```
 
-After installation, reconnect to the target Altibase in DBeaver. Users can accurately retrieve the DDL for the Q1 object.
+Example)
+
+The following is an example syntax for creating the queue object Q1.
+
+   ```
+CREATE QUEUE q1(40) MAXROWS 100000;
+   ```
+
+After executing the above statement and attempting to retrieve the DDL for the Q1 object in DBeaver, the wrong output may be displayed as follows. 
+
+![ddl1](media/DBeaver/ddl1.png)
+
+Install the DBMS_METADATA package:
+
+```
+$ cd $ALTIBASE_HOME
+$ is -f ./packages/dbms_metadata.sql
+$ is -f ./packages/dbms_metadata.plb
+```
+
+After installation, reconnect to the target Altibase in DBeaver. Users can retrieve accurate DDL statements for the Q1.
 
 ![ddl2](media/DBeaver/ddl2.png)
 
-#### Where can I review the query execution plan for my queries? 
+#### Where can I find the query execution plan for my queries? 
 
-Open the SQL script window in the database, enter the users' query, and click on the "Explain Execution Plan" icon to review the query execution plan.
+The query execution plan can be viewed by entering a query in the SQL script window and then clicking on the "Explain Execution Plan" icon.
 
-[ SQL Editor ] of the connected database → [ New SQL script ] 
+Click on [ SQL Editor ] of the connected database → [ New SQL script ] 
 
 ![excplan1](media/DBeaver/excplan1.png)
 
-Users can input the query in the SQL Script panel and click on the "Explain Execution Plan" icon to review the query execution plan.
+In the SQL Script window, users can enter a query and then click on the "Explain Execution Plan" icon to view the query execution plan.
 
 ![excplan2](media/DBeaver/excplan2.png)
 
@@ -426,7 +438,7 @@ The default option value for the query execution plan is "Explain Plan Only."
 
 In the DBeaver Altibase Plugin, users can specify whether to use the Explain plan ONLY or ON for each connection. The default value is ONLY.
 
-To change the Explain plan setting, follow these steps:
+There is two methods to change the Explain plan setting:
 
 1. Change the connected database configuration.
 
@@ -434,7 +446,7 @@ To change the Explain plan setting, follow these steps:
 
    ![explain1](media/DBeaver/explain1.png)
 
-   [ File ] → [  Properties ]
+   Navigate to [ File ] → [  Properties ]
 
    ![explain2](media/DBeaver/explain2.png)
 
@@ -444,7 +456,7 @@ To change the Explain plan setting, follow these steps:
 
 2. Call Preferences from the script panel.
 
-   Click the Preferences button beside the script panel.
+   Click the Preferences button beside the SQL script panel.
 
    ![explain4](media/DBeaver/explain4.png)
 
@@ -460,7 +472,7 @@ Click on the connected database.
 
 ![println1](media/DBeaver/println1.png)
 
-[ File ] → [ Properties ]
+Navigate to [ File ] → [ Properties ]
 
 ![println2](media/DBeaver/println2.png)
 
@@ -484,7 +496,7 @@ The query results for DATE type data under the default settings of DBeaver are a
 
 To display the DATE type in microseconds, users need to change DBeaver's data type settings. The location for changing the settings is as follows.
 
-[ Windows ] → [ Preference ]
+Navigate to [ Windows ] → [ Preference ]
 
 ![datetype2](media/DBeaver/datetype2.png)
 
@@ -492,7 +504,7 @@ Navigate to [ Editors ] → [ Data Editor ] → [ Data Formats ] → Click on "D
 
 ![datetype3](media/DBeaver/datetype3.png)
 
-Select the database connection for which users want to change the settings and click [ Select ].
+Select the database connection and click [ Select ].
 
 ![datetype4](media/DBeaver/datetype4.png)
 
@@ -500,7 +512,7 @@ There are two methods to change the settings to view DATE type up to microsecond
 
 1. Change the data type Value Settings:
 
-   Navigate to Datasource settings → Format, set the Type to Timestamp, and change the Value to 'yyyy-MM-dd HH:mm.ss.SSSSSS', and then click [ Apply and Close ].
+   Navigate to [ Datasource settings ]→ [ Format ], set the Type to Timestamp, change the Value to 'yyyy-MM-dd HH:mm.ss.SSSSSS', and then click [ Apply and Close ].
 
    ![datetype5](media/DBeaver/datetype5.png)
 
@@ -508,9 +520,9 @@ There are two methods to change the settings to view DATE type up to microsecond
 
    ![datetype6](media/DBeaver/datetype6.png)
 
-2. Set the Data format "Disable date/time formatting" option
+2. Set the Data formats "Disable date/time formatting" option
 
-   Click on Datasource settings → Settings, Check the "Disable date/time formatting" checkbox, then click on [ Apply and Close ].
+   Click on [ Datasource settings ] → [ Settings ], check the "Disable date/time formatting" checkbox, then click on [ Apply and Close ].
 
    ![datetype7](media/DBeaver/datetype7.png)
 
@@ -528,7 +540,7 @@ DBeaver Data Editor defaults to executing INSERT statements when modifying data.
 
 #### I want to see Binary Data type as Hex.
 
-DBeaver's default setting displays binary data as a String type. To view binary data as Hex, users need to make some adjustments to the settings.
+DBeaver's default setting displays binary data as a String type. To view binary data as Hex, users need to change the setting.
 
 ![binarytype1](media/DBeaver/binarytype1.png)
 
@@ -546,7 +558,7 @@ Change the Binary data formatter setting to Hex, then click on [ Apply and Close
 
 ![binarytype4](media/DBeaver/binarytype4.png)
 
-Pressing the [Refresh] button at the bottom of the table displays binary type data in Hex format.
+Press the [ Refresh ] button at the bottom of the table, then the binary type data will be displayed in Hex format.
 
 ![binarytype5](media/DBeaver/binarytype5.png)
 
@@ -566,7 +578,7 @@ In DBeaver, binary data is processed on a byte-unit basis. For binary data types
 
 If users want to completely reset previous DBeaver settings and reinstall it, users need to completely remove the DBeaver application and user data before reinstalling.
 
-Check the default DBeaver workspace folder location based on the users' operating system below and remove all DBeaver data:
+Check the default DBeaver workspace folder location based on the operating system and remove all DBeaver data:
 
 | OS      | Default location of DBeaver workspace                        |
 | ------- | ------------------------------------------------------------ |
@@ -576,16 +588,19 @@ Check the default DBeaver workspace folder location based on the users' operatin
 
 Reference: https://dbeaver.com/docs/dbeaver/Workspace-Location/
 
-#### In SQLEditor, I would like to set Auto commit off as default.
+#### In SQL Editor, I would like to set Auto commit off as default.
 
 "Auto-commit" setting of DBeaver is on as default.
 
 If users want to set "Auto commit" to off as default, please follow the below steps:
 
-1. Click the right mouse button on the connection -> [ Edit Connection ] or press the F4 Button to open the Configuration window.
-2. Navigate to [Connection settings] -> [Initialization] -> [Connection] -> uncheck [Auto-commit] 
+1. Right-click on the connection → [ Edit Connection ] or press the F4  to open the Configuration window.
 
-![defaultAutoCommitOff1](media/DBeaver/defaultAutoCommitOff1.png)
+   ![defaultAutoCommitOff1](media/DBeaver/defaultAutoCommitOff1.png)
+
+2. Navigate to [ Connection settings ] → [ Initialization ] → [ Connection ] → Uncheck "Auto-commit" 
+
+
 ![defaultAutoCommitOff2](media/DBeaver/defaultAutoCommitOff2.png)
 
 

@@ -356,9 +356,9 @@ Database Navigator 탭에서 등록된 데이터베이스 연결 정보 목록�
 
 #### LOB 타입 데이터 조회가 안됩니다.
 
-DBeaver는 Auto-Commit이 기본으로 설정되어 있다. 알티베이스 LOB 타입 데이터를 조회하기 위해서는 커밋 모드를 Auto-Commit에서 Manual Commit으로 변경해야 한다.
+DBeaver는 Auto-Commit이 기본값으로 설정되어 있다. Altibase LOB 타입 데이터를 조회하기 위해서는 커밋 모드를 Auto-Commit에서 Manual Commit으로 변경해야 한다.
 
-다음과 같이 세 가지 방법으로 변경할 수 있다.
+다음과 같이 세 가지 방법으로 해당 설정을 변경할 수 있다.
 
 1. 툴바에서 버튼 아이콘을 눌러 Manual Commit으로 전환한다.
 
@@ -381,7 +381,7 @@ DBeaver는 Auto-Commit이 기본으로 설정되어 있다. 알티베이스 LOB 
 
    ![commit3](media/DBeaver/commit3.png)
 
-   [ 연결 ] → 연결 유형 탭에서 "Auto-commit by default" 체크 박스를 해제
+   [ 연결 ] → [ 연결 유형 ]에서 "Auto-commit by default" 체크 박스를 해제
 
    [ Apply and Close ] 클릭 → 데이터베이스에 재접속
    
@@ -397,13 +397,13 @@ DBeaver는 Auto-Commit이 기본으로 설정되어 있다. 알티베이스 LOB 
 
 #### SYSTEM_ 스키마가 보이지 않습니다.
 
-DBeaver는 시스템 객체를 보여주지 않는 것이 기본값이다. SYSTEM_ 스키마를 보기 위해서는 "Show system objects" 옵션을 설정해야 한다.
+DBeaver는 기본값으로 시스템 객체를 보여주지 않도록 설정되어 있다. SYSTEM_ 스키마를 보기 위해서는 "Show system objects" 옵션을 설정해야 한다.
 
-데이터베이스 연결의 Connection View → Show system objects 옵션을 선택한다.
+데이터베이스 연결의 [ Connection View ] → [ Show system objects ] 옵션을 선택한다.
 
 ![sysschema1](media/DBeaver/sysschema1.png)
 
-데이터베이스 연결을 재접속하면 SYSTEM_ 스키마의 테이블과 뷰를 볼 수 있다.
+데이터베이스에 다시 연결하면 SYSTEM_ 스키마의 테이블과 뷰를 볼 수 있다.
 
 ![sysschema2](media/DBeaver/sysschema2.png)
 
@@ -411,9 +411,9 @@ DBeaver는 시스템 객체를 보여주지 않는 것이 기본값이다. SYSTE
 
 ####  객체에 대해 정확하지 않은 DDL이 출력됩니다.
 
-정확한 알티베이스 객체의 DDL을 조회하기 위해서는 반드시 SYS 계정으로 DBMS_METADATA 패키지를 설치해야 한다.
+정확한 Altibase 객체의 DDL을 조회하기 위해서는 반드시 SYS 계정으로 DBMS_METADATA 패키지를 설치해야 한다.
 
-SYS 계정으로 알티베이스에 접속하여 아래 구문을 수행하여 DBMS_METADATA 패키지를 설치한다.
+DBMS_METADATA 패키지를 설치하기 위해서는 SYS 계정으로 Altibase에 접속하여 아래 구문을 수행해야 한다.
 
 ```
 $ cd $ALTIBASE_HOME
@@ -429,7 +429,7 @@ $ is -f ./packages/dbms_metadata.plb
    CREATE QUEUE q1(40) MAXROWS 100000;
    ```
 
-위 구문을 수행하고 DBeaver에서 Q1 객체의 DDL을 조회하면 아래와 같이 비정상적으로 출력되는 경우가 있다.
+위 구문을 수행하고 DBeaver에서 Q1 객체의 DDL을 조회하면 결과가 아래와 같이 비정상적으로 출력될 수 있다.
 
 ![ddl1](media/DBeaver/ddl1.png)
 
@@ -441,19 +441,19 @@ $ is -f ./packages/dbms_metadata.sql
 $ is -f ./packages/dbms_metadata.plb
 ```
 
-설치 후, DBeaver에서 대상 알티베이스 연결을 재접속하면 Q1 객체의 정확한 DDL을 조회할 수 있다.
+설치 후 DBeaver에서 대상 Altibase에 다시 연결하면, Q1 객체의 정확한 DDL을 조회할 수 있다.
 
 ![ddl2](media/DBeaver/ddl2.png)
 
 #### 쿼리 실행 계획을 어디서 확인해야 하나요?
 
-데이터베이스의 SQL script 창을 열고 쿼리를 입력 후 Explain Execution Plan 아이콘을 클릭하여 쿼리 실행 계획을 확인할 수 있다.
+쿼리 실행 계획은 SQL script 창에 쿼리를 입력한 후, Explain Execution Plan 아이콘을 클릭하여 확인할 수 있다.
 
-연결된 데이터베이스의 [ SQL 편집기 ] → [ 새 SQL 편집기 ] 
+연결된 데이터베이스의 [ SQL 편집기 ] → [ 새 SQL 편집기 ] 를 클릭한다.
 
 ![excplan1](media/DBeaver/excplan1.png)
 
-SQL Script 창에 쿼리를 입력 후 "Explain Execution Plan" 아이콘을 클릭하여 쿼리 실행 계획을 확인할 수 있다.
+SQL Script 창에 쿼리를 입력 후 "Explain Execution Plan" 아이콘을 클릭하면 쿼리 실행 계획을 확인할 수 있다.
 
 ![excplan2](media/DBeaver/excplan2.png)
 
@@ -463,11 +463,11 @@ SQL Script 창에 쿼리를 입력 후 "Explain Execution Plan" 아이콘을 클
 
 #### 쿼리 실행 계획을 EXPLAIN_PLAN = ON으로 수행하고 싶습니다.
 
-DBeaver Altibase Plugin에서는 접속 별로 Explain plan을 ONLY 또는 ON으로 지정하여 사용할 수 있다. 기본값은 ONLY이다.
+DBeaver Altibase Plugin에서는 각각의 접속마다 Explain plan을 ONLY 또는 ON으로 지정할 수 있다. 기본값은 ONLY이다.
 
-Explain plan 설정 값을 변경하는 방법은 다음과 같다.
+Explain plan 설정값을 변경하는 방법은 다음의 두 가지가 있다.
 
-1. 접속된 데이터베이스의 설정 값을 변경한다.
+1. 접속된 데이터베이스의 설정값을 변경한다.
 
    데이터베이스 연결을 클릭한다.
 
@@ -513,7 +513,7 @@ Explain plan 설정 값을 변경하는 방법은 다음과 같다.
 
 #### DATE 타입의 마이크로 초가 보이지 않습니다.
 
-DBeaver의 Timestamp 출력 형식은 'yyyy-MM-dd HH:mm:ss.SSS'로 밀리 세컨드 초(소수점 뒤 3자리)까지 표현되는 반면, 알티베이스의 DATE 타입은 마이크로 초(소수점 뒤 6자리)까지 표현할 수 있다.
+DBeaver의 Timestamp 출력 형식은 'yyyy-MM-dd HH:mm:ss.SSS'로 밀리 세컨드 초(소수점 뒤 3자리)까지 표현되는 반면, Altibase의 DATE 타입은 마이크로 초(소수점 뒤 6자리)까지 표현할 수 있다.
 
  DBeaver 기본 설정에 따른 DATE 타입 데이터 조회 결과는 아래와 같다.
 
@@ -537,7 +537,7 @@ DATE 타입을 마이크로 초까지 볼 수 있도록 설정을 변경하는 �
 
 1. 데이터 타입 Value Settings 변경
 
-   Datasource settings → Format의 Type을 Timestamp로 설정하고 Value 값을 'yyyy-MM-dd HH:mm.ss.SSSSSS'로 변경 후 [ Apply and Close ]를 클릭한다.
+   [ Datasource settings ] → [ Format ] 의 Type을 Timestamp로 설정하고 Value 값을 'yyyy-MM-dd HH:mm.ss.SSSSSS'로 변경 후 [ Apply and Close ]를 클릭한다.
 
    ![datetype5](media/DBeaver/datetype5.png)
 
@@ -547,7 +547,7 @@ DATE 타입을 마이크로 초까지 볼 수 있도록 설정을 변경하는 �
 
 2. 데이터 포맷 Disable date/time formatting 옵션 설정
 
-   Datasource settings → Settings에서 "Disable date/time formatting" 옵션을 선택하고 [ Apply and Close ]를 클릭한다.
+   [ Datasource settings ] → [ Settings ] 에서 "Disable date/time formatting" 옵션을 선택하고 [ Apply and Close ]를 클릭한다.
 
    ![datetype7](media/DBeaver/datetype7.png)
 
@@ -611,7 +611,7 @@ DBeaver에서 이진 데이터는 바이트 단위로 처리된다. 이진 데�
 
 참조: https://dbeaver.com/docs/dbeaver/Workspace-Location/
 
-#### SQLEditor에서 Auto commit off를 기본 설정으로 사용하고 싶습니다
+#### SQL Editor에서 Auto commit off를 기본 설정으로 사용하고 싶습니다
 
 DBeaver는 auto commit on을 기본으로 설정하고 있다.
 
