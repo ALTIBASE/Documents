@@ -536,11 +536,11 @@ Click on database connection.
 
 ![binarytype2](media/DBeaver/binarytype2.png)
 
-[ 파일 ] → [ 설정 ]
+Navigate to [ File ] → [ Properties ]
 
 ![binarytype3](media/DBeaver/binarytype3.png)
 
-Navigate to [ 편집기 ] → [ 데이터 편집기 ] → [ 편집기 ] → Binary data
+Navigate to [ Editors ] → [ Data Editor ] → [ Binary data ]
 
 Change the Binary data formatter setting to Hex, then click on [ Apply and Close ].
 
@@ -582,14 +582,16 @@ Reference: https://dbeaver.com/docs/dbeaver/Workspace-Location/
 
 If users want to set "Auto commit" to off as default, please follow the below steps:
 
-1. Navigate to [특정 연결] -> 오른쪽 마우스 클릭 -> [Edit Connection] or press F4 Button to open Configuration window.
+1. Click the right mouse button on the connection -> [ Edit Connection ] or press the F4 Button to open the Configuration window.
 2. Navigate to [Connection settings] -> [Initialization] -> [Connection] -> uncheck [Auto-commit] 
 
-![defalutAutoCommitOff1](media\DBeaver\defaultAutoCommitOff1.png)
+![defalutAutoCommitOff1](media\DBeaver\defaultAutoCommitOff1.png) ![defalutAutoCommitOff2](media\DBeaver\defaultAutoCommitOff2.png)
+
+
 
 If users want to temporarily change the auto-commit mode, press the transaction button, as shown in the capture below.
 
-![defalutAutoCommitOff2](media/DBeaver/defaultAutoCommitOff2.png)
+![defalutAutoCommitOff3](media/DBeaver/defaultAutoCommitOff3.png)
 
 
 
