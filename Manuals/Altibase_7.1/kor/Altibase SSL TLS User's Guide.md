@@ -751,9 +751,8 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다.
 ##### Step 4: 클라이언트 프로그램 작성
 
 클라이언트 애플리케이션에서 SSL 통신을 사용하기 위해 프로그램을 작성한다.
-Altibase 디렉토리에 SSL을 사용하는 샘플 프로그램을 확인할 수 있다.
-\$ALTIBASE_HOME/sample/SQLCLI/SSL 참고한다.
 
+Altibase 디렉토리 안의 \$ALTIBASE_HOME/sample/SQLCLI/SSL에서 SSL을 사용하는 샘플 프로그램을 확인할 수 있다.
 
 
 #### ADO.NET 환경 설정
@@ -779,12 +778,12 @@ SSL 통신을 사용하여 서버에 접속할 때, 다음의 프로퍼티들을
 | :--------- | :----------------------------------------------------------- | :---------------------- | :----- |
 | conn type  | 서버에 SSL 통신을 사용해서 접속할지 여부를 설정한다. 이 값이 ssl 일 경우 SSL 통신으로 서버에 접속한다. | ssl                     | 없음   |
 | port       | 접속할 대상 서버의 포트 번호인 SSL_PORT_NO의 값을 지정한다.  | 0 ~ 65535               |        |
-| ssl ca     | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CA 참조 | 없음                    | 없음   |
-| ssl capath | "ODBC 환경 설정 > Step 3: SSL을 위한 ODBC 프로퍼티 설정"에서 SSL_CAPATH 참조 | 없음                    | 없음   |
-| ssl cert   | "ODBC 환경 설정 > Step 3: SSL을 위한 ODBC 프로퍼티 설정"에서 SSL_CERT 참조 | 없음                    | 없음   |
-| ssl key    | "ODBC 환경 설정 > Step 3: SSL을 위한 ODBC 프로퍼티 설정"에서 SSL_KEY 참조 | 없음                    | 없음   |
-| ssl verify | "ODBC 환경 설정 > Step 3: SSL을 위한 ODBC 프로퍼티 설정"에서 SSL_VERIFY 참조 | false: OFF<br/>true: ON | false  |
-| ssl cipher | "ODBC 환경 설정 > Step 3: SSL을 위한 ODBC 프로퍼티 설정"에서 SSL_CIPHER 참조 | 없음                    | 없음   |
+| ssl ca     | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CA 참조 | 없음                    | 없음   |
+| ssl capath | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CAPATH 참조 | 없음                    | 없음   |
+| ssl cert   | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CERT 참조 | 없음                    | 없음   |
+| ssl key    | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_KEY 참조 | 없음                    | 없음   |
+| ssl verify | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_VERIFY 참조 | false: OFF<br/>true: ON | false  |
+| ssl cipher | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CIPHER 참조 | 없음                    | 없음   |
 
 ##### Step 4: 클라이언트 프로그램 작성
 
