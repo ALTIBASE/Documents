@@ -1511,7 +1511,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 
 |      | 원본          | 대상              | 주의 사항                                                    |
 | :--: | :------------ | :---------------- | :----------------------------------------------------------- |
-|  1   | BINARY        | BLOB              |                                                              |
+|  1   | BINARY        | BYTE              |                                                              |
 |  2   | BINARY_DOUBLE | DOUBLE            | Altibase는 특수한 값인 NaN (Not a Number)과 INF (Infinity)를 지원하지 않기 때문에, 이 값들은 마이그레이션 되지 않는다. |
 |  3   | BINARY_FLOAT  | FLOAT             |                                                              |
 |  4   | BLOB          | BLOB              |                                                              |
