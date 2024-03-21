@@ -119,7 +119,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Installing SQuirreL SQL Client](#installing-squirrel-sql-client)
   - [Altibase JDBC Driver Registration](#altibase-jdbc-driver-registration)
   - [Integration with Altibase](#integration-with-altibase)
-  - [FAQ](#faq)
+  - [FAQ](#faq-2)
 - [3.OpenLDAP](#3openldap)
   - [Introduction to OpenLDAP](#introduction-to-openldap)
   - [Meta Data Configuration](#meta-data-configuration)
