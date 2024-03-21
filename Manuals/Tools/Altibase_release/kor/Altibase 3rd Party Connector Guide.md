@@ -124,7 +124,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     - [SQuirreL SQL Client 설치](#squirrel-sql-client-설치)
     - [Altibase JDBC 드라이버 등록](#altibase-jdbc-드라이버-등록)
     - [Altibase와 연동](#altibase와-연동)
-    - [FAQ](#faq-2)
+    - [FAQ](#faq-1)
 - [3.OpenLDAP](#3openldap)
     - [OpenLDAP 소개](#openldap-소개)
     - [메타 데이터 설정](#메타-데이터-설정)
