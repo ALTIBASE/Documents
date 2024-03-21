@@ -361,7 +361,8 @@ DBeaver는 Auto-Commit이 기본값으로 설정되어 있다. Altibase LOB 타�
 1. 툴바에서 버튼 아이콘을 눌러 Manual Commit으로 전환한다.
 
    ![commit1](media/DBeaver/commit1.png)
-| 버튼 아이콘                           | 커밋 모드                 |
+   
+| 버튼 아이콘                             | 커밋 모드                 |
 | ------------------------------------- | ------------------------- |
 | ![button1](media/DBeaver/button1.png) | Auto-Commit (자동 커밋)   |
 | ![button2](media/DBeaver/button2.png) | Manual Commit (수동 커밋) |
