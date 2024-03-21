@@ -109,18 +109,19 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 # 목차
 
-- [서문](#%EC%84%9C%EB%AC%B8)
-  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-- [1.Altibase SSL/TLS 소개](#1altibase-ssltls-%EC%86%8C%EA%B0%9C)
-  - [SSL/TLS란](#ssltls%EB%9E%80)
-  - [Altibase의 통신 보안](#altibase%EC%9D%98-%ED%86%B5%EC%8B%A0-%EB%B3%B4%EC%95%88)
-- [2.SSL 설치 및 시작](#2ssl-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%8B%9C%EC%9E%91)
-  - [소프트웨어 요구사항](#%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
-  - [SSL 사용을 위한 환경 설정](#ssl-%EC%82%AC%EC%9A%A9%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
-- [3.SSL 연결 관리](#3ssl-%EC%97%B0%EA%B2%B0-%EA%B4%80%EB%A6%AC)
-  - [SSL 관리](#ssl-%EA%B4%80%EB%A6%AC)
-- [A.부록: SSL Sample](#a%EB%B6%80%EB%A1%9D-ssl-sample)
-  - [JDBC를 이용한 SSL 통신 샘플](#jdbc%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-ssl-%ED%86%B5%EC%8B%A0-%EC%83%98%ED%94%8C)
+- [서문](#서문)
+  - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
+- [1.Altibase SSL/TLS 소개](#1altibase-ssltls-소개)
+  - [SSL/TLS란](#ssltls란)
+  - [Altibase의 통신 보안](#altibase의-통신-보안)
+- [2.SSL 설치 및 시작](#2ssl-설치-및-시작)
+  - [소프트웨어 요구사항](#소프트웨어-요구사항)
+  - [SSL 사용을 위한 환경 설정](#ssl-사용을-위한-환경-설정)
+- [3.SSL 연결 관리](#3ssl-연결-관리)
+  - [SSL 관리](#ssl-관리)
+- [A.부록: SSL Sample](#a부록-ssl-sample)
+  - [JDBC를 이용한 SSL 통신 샘플](#jdbc를-이용한-ssl-통신-샘플)
+  - [ADO.NET을 이용한 SSL 통신 샘플](#adonet을-이용한-ssl-통신-샘플)
 
 <br>
 
@@ -167,7 +168,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 이 매뉴얼은 다음과 같이 구성되어 있다.
 
 -   제 1장 Altibase SSL/TLS 소개  
-    이 장에서는 AltibaseSSL/TLS의 개념 및 특징에 대해 설명한다.
+    이 장에서는 Altibase SSL/TLS의 개념 및 특징에 대해 설명한다.
 
 -   제 2장 SSL 설치 및 시작  
     이 장에서는 Altibase에서 SSL 통신을 사용하기 위한 소프트웨어 요구사항 및
@@ -197,7 +198,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 | 규칙         | 의미                                                         | 예제                                                         |
 | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)][[FIXED \|] VARIABLE]                      |
+| [ ]          | 선택 항목을 표시                                             | VARCHAR [(*size*)]\[[FIXED \|] VARIABLE]                     |
 | { }          | 필수 항목 표시. 반드시 하나 이상을 선택해야 되는 표시        | { ENABLE \| DISABLE \| COMPILE }                             |
 | \|           | 선택 또는 필수 항목 표시의 인자 구분 표시                    | { ENABLE \| DISABLE \| COMPILE } [ ENABLE \| DISABLE \| COMPILE ] |
 | . . .        | 그 이전 인자의 반복 표시 예제 코드들의 생략되는 것을 표시    | SQL\> SELECT ename FROM employee; <br/>ENAME<br/> ------------------------<br/> SWNO<br/> HJNO<br/> HSCHOI<br/> .<br/> .<br/> . <br/>20 rows selected. |
@@ -409,7 +410,7 @@ SSL을 통하여 클라이언트 자바 애플리케이션을 자유롭게 실�
 ##### Step 1:OpenSSL 설치 및 라이브러리 확인
 
 SSL이 활성화된 Altibase를 설치하기 전에 OpenSSL 툴킷을 설치하는 것이 좋다. 만약
-OpenSSL 툴킷이 설치되지 않았는데 Altibase의 SSL을 사용하면,Altibase는 OpenSSL
+OpenSSL 툴킷이 설치되지 않았는데 Altibase의 SSL을 사용하면, Altibase는 OpenSSL
 라이브러리를 찾을 수 없다는 경고 메세지가 나타난다.
 
 서버에 OpenSSL이 설치되었다는 것을 확인하고, 허트블리드 버그에 감염되지 않았는지
@@ -652,9 +653,9 @@ JDBC에서 port 프로퍼티를 설정하지 않았을 때, ALTIBASE_SSL_PORT_NO
 포트번호로 사용된다. 만약 ALTIBASE_SSL_PORT_NO가 생략되었다면, port 프로퍼티의
 기본 값이 사용된다.
 
-| Name                 | Description                             | Value                | Default Value |
-|----------------------|-----------------------------------------|----------------------|---------------|
-| ALTIBASE_SSL_PORT_NO | 접속할 서버의 SSL 포트 번호를 설정한다. | Range: 1024 \~ 65535 | N/A           |
+| 이름                 | 설명                                    | 값의 범위     | 기본값 |
+| -------------------- | --------------------------------------- | ------------- | ------ |
+| ALTIBASE_SSL_PORT_NO | 접속할 서버의 SSL 포트 번호를 설정한다. | 1024 \~ 65535 | N/A    |
 
 ##### JDBC에서 SSL 사용시 고려사항
 
@@ -681,7 +682,7 @@ $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
 
 -   Step 2: 클라이언트 인증서 준비
 
--   Step 3: SSL을 위한 ODBC 프로퍼티 설정
+-   Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정
 
 -   Step 4: 클라이언트 프로그램 작성
 
@@ -722,21 +723,21 @@ SSL 통신을 사용하려는 클라이언트 프로그램을 작성하기 전�
 
 SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다.
 
-| 이름       | 설명                                                                                                                                                                                                                                                                                                                                                                                                                          | 값의 범위    | 기본값  |
-|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|---------|
-| SSL_CA     | CA 인증서의 소유권을 인정받기 위해서 CA 인증서를 저장하는 파일의 경로를 지정할 수 있다. CA 인증서 파일은 사용자 지정 경로나 X.509 형식의 디렉토리에 위치한다. 예) SSL_CA=/cert/ca-cert.pem                                                                                                                                                                                                                                    | 없음         | NULL    |
-| SSL_CAPATH | CA 디렉토리 형식의 CAPATH를 지정할 수 있다. 예) SSL_CAPATH=/etc/ssl/certs                                                                                                                                                                                                                                                                                                                                                     | 없음         | NULL    |
-| SSL_CERT   | 클라이언트의 인증서 파일 경로를 지정한다. 예) SSL_CERT=/cert/client-cert.pem                                                                                                                                                                                                                                                                                                                                                  | 없음         | NULL    |
-| SSL_KEY    | 클라이언트의 개인 키(private key)가 저장된 파일 경로를 지정한다. 예) SSL_KEY=/cert/client-key.pem                                                                                                                                                                                                                                                                                                                             | 없음         | NULL    |
-| SSL_VERIFY | Altibase 서버의 인증서를 검증할지 여부를 설정한다. 만약 검증에 실패하면 SSL Handshake 는 실패하고, SSL 통신은 더 이상 진행되지 않는다. 0(OFF): 서버의 인증서를 검증하지 않는다. 1(ON): 서버의 인증서를 검증한다. 예) SSL_VERIFY=0                                                                                                                                                                                             | 0: OFF 1: ON | 0 (off) |
-| SSL_CIPHER | 이 프로퍼티는 클라이언트가 서버와 협의하여 사용할 수 있는 암호 알고리즘들이다. 암호 알고리즘은 사용자의 보안 정책에 따라 하나 또는 그 이상의 암호를 사용할 수 있다. 한 개 이상의 암호를 사용할 경우 콜론(:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은 OpenSSL( http://www.openssl.org/ )에서 확인하거나 다음과 같이 명령어를 사용하여 확인할 수 있다. \$ openssl ciphers 예) SSL_CIPHER=EDH-DSS-DES-CBC-SHA:DES-CBC-SHA | 없음         | NULL    |
+| 이름       | 설명                                                         | 값의 범위        | 기본값 |
+| ---------- | ------------------------------------------------------------ | ---------------- | ------ |
+| SSL_CA     | CA 인증서의 소유권을 인정받기 위해서 CA 인증서를 저장하는 파일의 경로를 지정할 수 있다. CA 인증서 파일은 사용자 지정 경로나 X.509 형식의 디렉토리에 위치한다. 예) SSL_CA=/cert/ca-cert.pem | 없음             | NULL   |
+| SSL_CAPATH | CA 디렉토리 형식의 CAPATH를 지정할 수 있다. 예) SSL_CAPATH=/etc/ssl/certs | 없음             | NULL   |
+| SSL_CERT   | 클라이언트의 인증서 파일 경로를 지정한다. 예) SSL_CERT=/cert/client-cert.pem | 없음             | NULL   |
+| SSL_KEY    | 클라이언트의 개인 키(private key)가 저장된 파일 경로를 지정한다. 예) SSL_KEY=/cert/client-key.pem | 없음             | NULL   |
+| SSL_VERIFY | Altibase 서버의 인증서를 검증할지 여부를 설정한다. 만약 검증에 실패하면 SSL Handshake 는 실패하고, SSL 통신은 더 이상 진행되지 않는다. 0(OFF): 서버의 인증서를 검증하지 않는다. 1(ON): 서버의 인증서를 검증한다. 예) SSL_VERIFY=0 | 0: OFF<br/>1: ON | 0(OFF) |
+| SSL_CIPHER | 이 프로퍼티는 클라이언트가 서버와 협의하여 사용할 수 있는 암호 알고리즘들이다. 암호 알고리즘은 사용자의 보안 정책에 따라 하나 또는 그 이상의 암호를 사용할 수 있다. 한 개 이상의 암호를 사용할 경우 콜론(:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은 OpenSSL( http://www.openssl.org/ )에서 확인하거나 다음과 같이 명령어를 사용하여 확인할 수 있다. \$ openssl ciphers 예) SSL_CIPHER=EDH-DSS-DES-CBC-SHA:DES-CBC-SHA | 없음             | NULL   |
 
 다음은 서버의 SSL 프로퍼티와 ODBC/CLI용 프로퍼티를 비교한 표이다.
 
 | 이름                      | 서버 (altibase.properties) | ODBC/CLI                                                     |
 | ------------------------- | -------------------------- | ------------------------------------------------------------ |
-| SSL_ENABLE                | O                          | X<br/> 클라이언트는 CONNTYPE=SSL 일 경우 SSL_ENABLE=1과 동일한 의미이다. |
-| SSL_PORT_NO               | O                          | X<br/> 클라이언트에서는 별도의 SSL용 포트 없이 CONNTYPE=SSL;PORT=20443 등으로 접속한다. |
+| SSL_ENABLE                | O                          | X<br/>클라이언트는 CONNTYPE=SSL 일 경우 SSL_ENABLE=1과 동일한 의미이다. |
+| SSL_PORT_NO               | O                          | X<br/>클라이언트에서는 별도의 SSL용 포트 없이 CONNTYPE=SSL;PORT=20443 등으로 접속한다. |
 | SSL_MAX_LISTEN            | O                          | X                                                            |
 | SSL_CLIENT_AUTHENTICATION | O                          | X                                                            |
 | SSL_CIPHER_LIST           | O                          | X                                                            |
@@ -753,7 +754,41 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다.
 Altibase 디렉토리에 SSL을 사용하는 샘플 프로그램을 확인할 수 있다.
 \$ALTIBASE_HOME/sample/SQLCLI/SSL 참고한다.
 
-<br>
+
+
+#### ADO.NET 환경 설정
+
+- Step 1: OpenSSL 라이브러리 확인
+- Step 2: 클라이언트 인증서 준비
+- Step 3: SSL을 위한 .NET 연결 속성 정보 설정
+- Step 4: 클라이언트 프로그램 작성
+
+##### Step 1: OpenSSL 라이브러리 확인
+
+[ODBC 환경 설정의 Step 1](#Step-1-OpenSSL-라이브러리-확인)과 동일하다.
+
+##### Step 2: 클라이언트 인증서 준비
+
+[ODBC 환경 설정의 Step 2](#Step-2-클라이언트-인증서-준비)와 동일하다.
+
+##### Step 3: SSL을 위한  .NET 연결 속성 정보 설정
+
+SSL 통신을 사용하여 서버에 접속할 때, 다음의 프로퍼티들을 연결 문자열(connection string)로 지정할 수 있다. 사용 방법은 샘플 프로그램을 참조한다.
+
+| 이름       | 설명                                                         | 값의 범위               | 기본값 |
+| :--------- | :----------------------------------------------------------- | :---------------------- | :----- |
+| conn type  | 서버에 SSL 통신을 사용해서 접속할지 여부를 설정한다. 이 값이 ssl 일 경우 SSL 통신으로 서버에 접속한다. | ssl                     | 없음   |
+| port       | 접속할 대상 서버의 포트 번호인 SSL_PORT_NO의 값을 지정한다.  | 0 ~ 65535               |        |
+| ssl ca     | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CA 참조 | 없음                    | 없음   |
+| ssl capath | "ODBC 환경 설정 > Step 3: SSL을 위한 ODBC 프로퍼티 설정"에서 SSL_CAPATH 참조 | 없음                    | 없음   |
+| ssl cert   | "ODBC 환경 설정 > Step 3: SSL을 위한 ODBC 프로퍼티 설정"에서 SSL_CERT 참조 | 없음                    | 없음   |
+| ssl key    | "ODBC 환경 설정 > Step 3: SSL을 위한 ODBC 프로퍼티 설정"에서 SSL_KEY 참조 | 없음                    | 없음   |
+| ssl verify | "ODBC 환경 설정 > Step 3: SSL을 위한 ODBC 프로퍼티 설정"에서 SSL_VERIFY 참조 | false: OFF<br/>true: ON | false  |
+| ssl cipher | "ODBC 환경 설정 > Step 3: SSL을 위한 ODBC 프로퍼티 설정"에서 SSL_CIPHER 참조 | 없음                    | 없음   |
+
+##### Step 4: 클라이언트 프로그램 작성
+
+A.부록: SSL Sample을 참고한다.
 
 3.SSL 연결 관리
 =============
@@ -1047,5 +1082,14 @@ class SslSimpleSQL
         }
     }
 }
+```
+
+### ADO.NET을 이용한 SSL 통신 샘플
+
+```
+string ConnectionString = "server=127.0.0.1;Port=20443;User=user;Password=pwd;conn type=ssl;ssl ca=/altibase_home/sample/CERT/ca-cert.pem;ssl cert=/altibase_home/sample/CERT/client-cert.pem;ssl key=/altibase_home/sample/CERT/client-key.pem";
+ 
+AltibaseConnection conn = new AltibaseConnection(ConnectionString);
+conn.Open();
 ```
 
