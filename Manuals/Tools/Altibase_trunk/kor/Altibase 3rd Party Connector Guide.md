@@ -109,33 +109,32 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 # 목차
 
-- [서문](#%EC%84%9C%EB%AC%B8)
-  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [서문](#서문)
+  - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
 - [1.DBeaver](#1dbeaver)
-    - [개요](#%EA%B0%9C%EC%9A%94)
-    - [시스템 요구사항](#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
-    - [설치 및 제거](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
-    - [Altibase 데이터베이스 시스템 연결](#altibase-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%97%B0%EA%B2%B0)
-- [2.SQuirreL SQL 클라이언트](#2squirrel-sql-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8)
-    - [Altibase Plugin for SQuirreL SQL Client 설치](#altibase-plugin-for-squirrel-sql-client-%EC%84%A4%EC%B9%98)
-    - [Altibase Plugin 설치 및 제거](#altibase-plugin-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%A0%9C%EA%B1%B0)
-    - [Altibase Plugin 특징](#altibase-plugin-%ED%8A%B9%EC%A7%95)
-    - [SQuirreL SQL Client 설치](#squirrel-sql-client-%EC%84%A4%EC%B9%98)
-    - [Altibase JDBC 드라이버 등록](#altibase-jdbc-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84-%EB%93%B1%EB%A1%9D)
-    - [Altibase와 연동](#altibase%EC%99%80-%EC%97%B0%EB%8F%99)
+    - [개요](#개요)
+    - [시스템 요구사항](#시스템-요구사항)
+    - [설치 및 제거](#설치-및-제거)
+    - [Altibase 데이터베이스 시스템 연결](#altibase-데이터베이스-시스템-연결)
     - [FAQ](#faq)
-- [3.Hibernate](#3hibernate)
-    - [Hibernate](#hibernate)
-- [4.OpenLDAP](#4openldap)
-    - [OpenLDAP 소개](#openldap-%EC%86%8C%EA%B0%9C)
-    - [메타 데이터 설정](#%EB%A9%94%ED%83%80-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%84%A4%EC%A0%95)
-    - [환경 설정](#%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95)
-    - [예제](#%EC%98%88%EC%A0%9C)
-- [5.Oracle GoldenGate](#5oracle-goldengate)
-    - [Oracle GoldenGate 소개](#oracle-goldengate-%EC%86%8C%EA%B0%9C)
-    - [설치 및 구성](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B5%AC%EC%84%B1)
-    - [테스트 버전](#%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%B2%84%EC%A0%84)
-    - [제약사항](#%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
+- [2.SQuirreL SQL 클라이언트](#2squirrel-sql-클라이언트)
+    - [Altibase Plugin for SQuirreL SQL Client 설치](#altibase-plugin-for-squirrel-sql-client-설치)
+    - [Altibase Plugin 설치 및 제거](#altibase-plugin-설치-및-제거)
+    - [Altibase Plugin 특징](#altibase-plugin-특징)
+    - [SQuirreL SQL Client 설치](#squirrel-sql-client-설치)
+    - [Altibase JDBC 드라이버 등록](#altibase-jdbc-드라이버-등록)
+    - [Altibase와 연동](#altibase와-연동)
+    - [FAQ](#faq-2)
+- [3.OpenLDAP](#3openldap)
+    - [OpenLDAP 소개](#openldap-소개)
+    - [메타 데이터 설정](#메타-데이터-설정)
+    - [환경 설정](#환경-설정)
+    - [예제](#예제)
+- [4.Oracle GoldenGate](#4oracle-goldengate)
+    - [Oracle GoldenGate 소개](#oracle-goldengate-소개)
+    - [설치 및 구성](#설치-및-구성)
+    - [테스트 버전](#테스트-버전)
+    - [제약사항](#제약사항)
 
 <br>
 
@@ -177,14 +176,17 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 이 매뉴얼은 다음과 같이 구성되어 있다.
 
-- 제 1장 SQuirreL SQL 클라이언트  
-  이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을
-  설치하고 Altibase JDBC를 통해 Altibase와 연동하는 방법을 설명한다.
+- 제 1장 DBeaver
+  
+  이 장에서는  DBeaver와 Altibase를 연동하고 이용하는 방법을 설명한다.
 
-- 제 2장 Hibernate
+- 제 2장 SQuirreL SQL 클라이언트  
+  이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을 설치하고 Altibase JDBC를 통해 Altibase와 연동하는 방법을 설명한다.
+  
+- 제 3장 Hibernate
 
-- 제 3장 OpenLDAP  
-  이 장은 openLDAP과 Altibase를 연동하는 방법을 설명한다.
+- 제 4장 OpenLDAP  
+  이 장에서는 OpenLDAP과 Altibase를 연동하는 방법을 설명한다.
 
 #### 문서화 규칙
 
@@ -347,6 +349,282 @@ Database Navigator 탭에서 등록된 데이터베이스 연결 정보 목록�
 필요시 mydb 데이터베이스 연결 정보 이름을 원하는 이름으로 변경할 수 있다.
 
 ![connect10](media/DBeaver/connect10.png)
+
+### FAQ
+
+#### LOB 타입 데이터 조회가 안됩니다.
+
+DBeaver는 Auto-Commit이 기본값으로 설정되어 있다. Altibase LOB 타입 데이터를 조회하기 위해서는 커밋 모드를 Auto-Commit에서 Manual Commit으로 변경해야 한다.
+
+다음과 같이 세 가지 방법으로 해당 설정을 변경할 수 있다.
+
+1. 툴바에서 버튼 아이콘을 눌러 Manual Commit으로 전환한다.
+
+   ![commit1](media/DBeaver/commit1.png)
+| 버튼 아이콘                           | 커밋 모드                 |
+| ------------------------------------- | ------------------------- |
+| ![button1](media/DBeaver/button1.png) | Auto-Commit (자동 커밋)   |
+| ![button2](media/DBeaver/button2.png) | Manual Commit (수동 커밋) |
+
+
+2. 커밋 모드 목록에서 Manual Commit을 선택한다.
+
+   ![commit2](media/DBeaver/commit2.png)
+
+
+
+3. 메뉴에서 Auto-commit 기본 설정 옵션을 해제한다. 이 설정을 적용하려면 데이터베이스에 다시 연결을 해야한다.
+
+   [ 윈도우 ] → [ 설정 ]
+
+   ![commit3](media/DBeaver/commit3.png)
+
+   [ 연결 ] → [ 연결 유형 ]에서 "Auto-commit by default" 체크 박스를 해제
+
+   [ Apply and Close ] 클릭 → 데이터베이스에 재접속
+   
+   ![commit4](media/DBeaver/commit4.png)
+
+> [!NOTE]
+>
+>  Manual Commit 모드에서는 테이블 수정 시 반드시 명시적으로 커밋 또는 롤백해야 한다.
+>
+> ![commit5](media/DBeaver/commit5.png)
+
+참조: https://dbeaver.com/docs/dbeaver/Auto-and-Manual-Commit-Modes/
+
+#### SYSTEM_ 스키마가 보이지 않습니다.
+
+DBeaver는 기본값으로 시스템 객체를 보여주지 않도록 설정되어 있다. SYSTEM_ 스키마를 보기 위해서는 "Show system objects" 옵션을 설정해야 한다.
+
+데이터베이스 연결의 [ Connection View ] → [ Show system objects ] 옵션을 선택한다.
+
+![sysschema1](media/DBeaver/sysschema1.png)
+
+데이터베이스에 다시 연결하면 SYSTEM_ 스키마의 테이블과 뷰를 볼 수 있다.
+
+![sysschema2](media/DBeaver/sysschema2.png)
+
+![sysschema3](media/DBeaver/sysschema3.png)
+
+####  객체에 대해 정확하지 않은 DDL이 출력됩니다.
+
+정확한 Altibase 객체의 DDL을 조회하기 위해서는 반드시 SYS 계정으로 DBMS_METADATA 패키지를 설치해야 한다.
+
+DBMS_METADATA 패키지를 설치하기 위해서는 SYS 계정으로 Altibase에 접속하여 아래 구문을 수행해야 한다.
+
+```
+$ cd $ALTIBASE_HOME
+$ is -f ./packages/dbms_metadata.sql
+$ is -f ./packages/dbms_metadata.plb
+```
+
+예)
+
+다음은 큐 객체 Q1을 생성하는 구문 예제이다.
+
+   ```
+   CREATE QUEUE q1(40) MAXROWS 100000;
+   ```
+
+위 구문을 수행하고 DBeaver에서 Q1 객체의 DDL을 조회하면 결과가 아래와 같이 비정상적으로 출력될 수 있다.
+
+![ddl1](media/DBeaver/ddl1.png)
+
+정확한 DDL 구문 출력을 위해 DBMS_METADATA 패키지를 설치한다.
+
+```
+$ cd $ALTIBASE_HOME
+$ is -f ./packages/dbms_metadata.sql
+$ is -f ./packages/dbms_metadata.plb
+```
+
+설치 후 DBeaver에서 대상 Altibase에 다시 연결하면, Q1 객체의 정확한 DDL을 조회할 수 있다.
+
+![ddl2](media/DBeaver/ddl2.png)
+
+#### 쿼리 실행 계획을 어디서 확인해야 하나요?
+
+쿼리 실행 계획은 SQL script 창에 쿼리를 입력한 후, Explain Execution Plan 아이콘을 클릭하여 확인할 수 있다.
+
+연결된 데이터베이스의 [ SQL 편집기 ] → [ 새 SQL 편집기 ] 를 클릭한다.
+
+![excplan1](media/DBeaver/excplan1.png)
+
+SQL Script 창에 쿼리를 입력 후 "Explain Execution Plan" 아이콘을 클릭하면 쿼리 실행 계획을 확인할 수 있다.
+
+![excplan2](media/DBeaver/excplan2.png)
+
+>  [!NOTE] 
+>
+> 쿼리 실행 계획의 기본 옵션 값은 Explain Plan Only이다.
+
+#### 쿼리 실행 계획을 EXPLAIN_PLAN = ON으로 수행하고 싶습니다.
+
+DBeaver Altibase Plugin에서는 각각의 접속마다 Explain plan을 ONLY 또는 ON으로 지정할 수 있다. 기본값은 ONLY이다.
+
+Explain plan 설정값을 변경하는 방법은 다음의 두 가지가 있다.
+
+1. 접속된 데이터베이스의 설정값을 변경한다.
+
+   데이터베이스 연결을 클릭한다.
+
+   ![explain1](media/DBeaver/explain1.png)
+
+   [ 파일 ] → [ 설정 ]
+
+   ![explain2](media/DBeaver/explain2.png)
+
+   Altibase settings → Datasource settings → Explain Plan 설정 값을 선택한다.
+
+   ![explain3](media/DBeaver/explain3.png)
+
+2. 스크립트 창에서 Preferences를 호출한다.
+
+   스크립트 창의 Preferences 호출 버튼을 클릭한다.
+
+   ![explain4](media/DBeaver/explain4.png)
+
+   Altibase settings → Datasource settings → Explain Plan 설정 값을 선택한다.
+
+   ![explain5](media/DBeaver/explain5.png)
+
+#### 서버 출력(PSM PRINTLN 출력) 내용을 보고 싶습니다.
+
+서버 출력 내용을 보기 위해서는 연결된 데이터베이스의 "Enable DBMS Output" 옵션을 설정해야 한다.
+
+데이터 베이스 연결을 클릭한다.
+
+![println1](media/DBeaver/println1.png)
+
+[ 파일 ] → [ 설정 ]
+
+![println2](media/DBeaver/println2.png)
+
+[ Altibase settings ] → [ Datasource settings ] → 기타에서 "Enable DBMS Output"을 선택한다.
+
+![println3](media/DBeaver/println3.png)
+
+설정을 변경한 데이터베이스 연결의 SQL script 창에서 서버 출력 내용보기 버튼을 클릭한다. 이후 SQL문을 수행하면 서버 출력 내용이 Output 창에 출력된다.
+
+![println4](media/DBeaver/println4.png)
+
+#### DATE 타입의 마이크로 초가 보이지 않습니다.
+
+DBeaver의 Timestamp 출력 형식은 'yyyy-MM-dd HH:mm:ss.SSS'로 밀리 세컨드 초(소수점 뒤 3자리)까지 표현되는 반면, Altibase의 DATE 타입은 마이크로 초(소수점 뒤 6자리)까지 표현할 수 있다.
+
+ DBeaver 기본 설정에 따른 DATE 타입 데이터 조회 결과는 아래와 같다.
+
+![datetype1](media/DBeaver/datetype1.png)
+
+DATE 타입을 마이크로 초 단위까지 출력하기 위해서는 DBeaver의 데이터 타입 설정을 변경해야 한다. 설정 변경 위치는 다음과 같다.
+
+[ 윈도우 ] → [ 설정 ]
+
+![datetype2](media/DBeaver/datetype2.png)
+
+[ 편집기 ] → [ 데이터 편집기 ] → [ 데이터 포맷 ] → [ Datasource settings ]을 클릭한다.
+
+![datetype3](media/DBeaver/datetype3.png)
+
+설정을 변경할 데이터베이스 연결을 선택하고 [ Select ]를 클릭한다.
+
+![datetype4](media/DBeaver/datetype4.png)
+
+DATE 타입을 마이크로 초까지 볼 수 있도록 설정을 변경하는 방법은 두 가지가 있다.
+
+1. 데이터 타입 Value Settings 변경
+
+   [ Datasource settings ] → [ Format ] 의 Type을 Timestamp로 설정하고 Value 값을 'yyyy-MM-dd HH:mm.ss.SSSSSS'로 변경 후 [ Apply and Close ]를 클릭한다.
+
+   ![datetype5](media/DBeaver/datetype5.png)
+
+   DATE 타입 데이터를 조회하면 아래와 같이 0을 포함하여 소수점 뒤 6자리까지 고정된 자리수를 표시한다.
+
+   ![datetype6](media/DBeaver/datetype6.png)
+
+2. 데이터 포맷 Disable date/time formatting 옵션 설정
+
+   [ Datasource settings ] → [ Settings ] 에서 "Disable date/time formatting" 옵션을 선택하고 [ Apply and Close ]를 클릭한다.
+
+   ![datetype7](media/DBeaver/datetype7.png)
+
+   DATE 타입 데이터를 조회하면 아래와 같이 소수점 뒤 6자리까지 유효한 숫자를 표시한다.
+
+   ![datetype8](media/DBeaver/datetype8.png)
+
+참조: https://dbeaver.com/docs/dbeaver/Managing-Data-Formats/
+
+#### CHAR 타입 수정 시 "Invalid data type length" 에러 메시지가 표시됩니다.
+
+DBeaver Data Editor는 데이터 수정 시 기본으로 INSERT 구문을 수행한다. Data Editor로 데이터를 수정한 후 저장 하기 전에 수정된 데이터가 칼럼 크기를 초과하지 않는지 확인해야 한다.
+
+![chartype1](media/DBeaver/chartype1.png)
+
+#### 이진 데이터 타입을 Hex로 보고 싶습니다.
+
+DBeaver의 기본 설정은 이진 데이터 타입을 String 타입으로 인코딩하여 보여준다. 이진 데이터 타입을 Hex 타입으로 보기 위해서는 설정을 변경해야 한다.
+
+![binarytype1](media/DBeaver/binarytype1.png)
+
+데이터 베이스 연결을 클릭한다.
+
+![binarytype2](media/DBeaver/binarytype2.png)
+
+[ 파일 ] → [ 설정 ]
+
+![binarytype3](media/DBeaver/binarytype3.png)
+
+[ 편집기 ] → [ 데이터 편집기 ] → [ 편집기 ] → Binary data에서 Binary data formatter 설정을 String에서 Hex로 변경한 후 [ Apply and Close ]를 클릭한다.
+
+![binarytype4](media/DBeaver/binarytype4.png)
+
+테이블 하단의 [ Refresh ] 버튼을 누르면 이진 타입 데이터를 Hex 타입으로 보여준다.
+
+![binarytype5](media/DBeaver/binarytype5.png)
+
+참조: https://dbeaver.com/docs/dbeaver/Data-View-and-Format/
+
+#### DBeaver Data Editor에서 이진 타입 데이터 수정이 안됩니다.
+
+DBeaver에서 이진 타입 데이터를 수정하기 위해서는 Data Editor에서 "Value" 창에 수정할 데이터를 입력해야 한다. 그리드 창의 셀에 직접 데이터를 입력하게 되면 해당 값이 이진값으로 변환되어 저장된다. 
+
+![binarytype6](media/DBeaver/binarytype6.png)
+
+#### 이진 데이터 타입 중 BIT, VARBIT, NIBBLE은 DBeaver에서 어떻게 처리되나요?
+
+DBeaver에서 이진 데이터는 바이트 단위로 처리된다. 이진 데이터 타입 중 BIT, VARBIT, NIBBLE은 바이트 단위보다 작게 설정될 수 있기 때문에 부득이하게 숫자형, 문자형으로 처리한다.
+
+#### 이전에 설정했던 DBeaver 설정을 완전히 지우고 다시 설치하고 싶습니다.
+
+이전 DBeaver 설정을 완전히 지우고 다시 설치하고자 할 경우 DBeaver 앱 및 사용자 데이터를 완전히 제거 후 다시 설치해야 한다.
+
+아래 OS 종류에 따른 기본 DBeaver workspace의 폴더 위치를 확인하고 DBeaver 데이터를 완전히 제거한다.
+
+| OS 종류 | Default location of DBeaver workspace                        |
+| ------- | ------------------------------------------------------------ |
+| Windows | `%APPDATE$\DBeaverData`                                      |
+| MacOS   | `~/Library/DBeaverData/`                                     |
+| Linux   | `$XDG_DATA_HOME/DBeaverData/` ($XDG_DATA_HOME=`~/.local/share` if not set) |
+
+참조: https://dbeaver.com/docs/dbeaver/Workspace-Location/
+
+#### SQL Editor에서 Auto commit off를 기본 설정으로 사용하고 싶습니다
+
+DBeaver는 auto commit on을 기본으로 설정하고 있다.
+
+Auto commit off를 상시 기본 설정으로 사용하고 싶다면,
+
+1. 특정 연결을 클릭 → 오른쪽 마우스 클릭 → Edit Connection 메뉴 클릭 또는 F4 버튼을 눌러 설정 화면을 연다.
+2. Connection settings → Initialization → Connection → Auto-commit 체크 박스를 꺼 준다.
+
+![defalutAutoCommitOff1](media/DBeaver/defaultAutoCommitOff1.png)
+
+
+
+일시적으로 auto-commit 모드를 변경하고 싶은 경우는 아래 그림처럼 트랜잭션 버튼을 눌러 설정 변경이 가능하다.
+
+![defalutAutoCommitOff2](media/DBeaver/defaultAutoCommitOff2.png)
 
 
 
