@@ -372,9 +372,9 @@ OPENSSL_NO_HEARTBEATS 옵션을 사용해 재컴파일하면 된다.
 
 #### 클라이언트(Client)
 
-##### ODBC
+##### ODBC, ADO.NET
 
-ODBC에서 SSL 통신을 사용하기 위해서 반드시 OpenSSL 툴킷이 설치되어야 한다.
+ODBC, ADO.NET에서 SSL 통신을 사용하기 위해서 반드시 OpenSSL 툴킷이 설치되어야 한다.
 
 ##### JDBC
 
@@ -395,7 +395,7 @@ SSL을 통하여 클라이언트 자바 애플리케이션을 자유롭게 실�
 
 -   [ODBC에서 SSL 사용을 위한 환경 설정](#ODBC-환경-설정)
 
--   [ADO .NET 에서 SSL 사용을 위한 환경 설정](#ADO-NET-환경-설정)
+-   [ADO.NET 에서 SSL 사용을 위한 환경 설정](#ADONET-환경-설정)
 
 #### 서버 환경 설정 
 
@@ -756,7 +756,7 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다.
 Altibase는 SSL을 사용하는 샘플 프로그램을 제공한다. 해당 파일의 경로는 $ALTIBASE_HOME/sample/SQLCLI/SSL 이다.
 
 
-#### ADO .NET 환경 설정
+#### ADO.NET 환경 설정
 
 - Step 1: OpenSSL 라이브러리 확인
 - Step 2: 클라이언트 인증서 준비
@@ -771,7 +771,7 @@ Altibase는 SSL을 사용하는 샘플 프로그램을 제공한다. 해당 파�
 
 [ODBC 환경 설정의 Step 2](#Step-2-클라이언트-인증서-준비)와 동일하다.
 
-##### Step 3: SSL을 위한  .NET 연결 속성 정보 설정
+##### Step 3: SSL을 위한 .NET 연결 속성 정보 설정
 
 SSL 통신을 사용하여 서버에 접속할 때, 다음의 프로퍼티들을 연결 문자열(connection string)로 지정할 수 있다.
 
