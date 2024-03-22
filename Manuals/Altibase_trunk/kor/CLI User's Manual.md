@@ -6899,7 +6899,7 @@ SQLTransact(SQL_NULL_HENV, dbc, SQL_COMMIT);
 
 ### LOB 데이터 처리 방식
 
-Altibase는 CLI에서 LOB데이터를 처리하기위해 LOB Locator를 이용한다. Lob Locator는 LOB 데이터를 가리키는  Altibase 서버의 내부 자료구조로, 운영체제의 파일 포인터와 유사하다. LOB 데이터를 연산하기 위해서는 먼저 LOB Locator를 획득해야 하며, 이를 통해 LOB 데이터를 읽거나 쓸 수 있다. LOB Locator는 MVCC와 관련하여 특정 시점의 LOB 데이터를 가리키기 때문에, LOB Locator를 발생시킨 트랜잭션과 생명주기를 같이하며, 그 트랜잭션에 종속된다.
+Altibase는 CLI에서 LOB데이터를 처리하기위해 LOB 위치 입력기(LOB Locator)를 이용한다. LOB 데이터에 대응되는 고유값으로 Altibase 서버의 내부 자료구조이다. LOB 데이터를 연산하기 위해서는 먼저 LOB Locator를 획득해야 하며, 이를 통해 LOB 데이터를 읽거나 쓸 수 있다. LOB Locator는 MVCC와 관련하여 특정 시점의 LOB 데이터를 가리키기 때문에, LOB Locator를 발생시킨 트랜잭션과 생명주기를 같이하며, 그 트랜잭션에 종속된다.
 
 #### 자동 커밋 모드 해제
 
