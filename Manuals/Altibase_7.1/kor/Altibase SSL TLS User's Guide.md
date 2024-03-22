@@ -752,7 +752,7 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다.
 
 클라이언트 애플리케이션에서 SSL 통신을 사용하기 위해 프로그램을 작성한다.
 
-Altibase 디렉토리 안의 \$ALTIBASE_HOME/sample/SQLCLI/SSL에서 SSL을 사용하는 샘플 프로그램을 확인할 수 있다.
+Altibase는 SSL을 사용하는 샘플 프로그램을 제공한다. 해당 파일의 경로는 $ALTIBASE_HOME/sample/SQLCLI/SSL 이다.
 
 
 #### ADO.NET 환경 설정
