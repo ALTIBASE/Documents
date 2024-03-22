@@ -1087,7 +1087,7 @@ class SslSimpleSQL
 ### ADO.NET을 이용한 SSL 통신 샘플
 
 ```
-string ConnectionString = "server=127.0.0.1;Port=20443;User=user;Password=pwd;conn type=ssl;ssl ca=/altibase_home/sample/CERT/ca-cert.pem;ssl cert=/altibase_home/sample/CERT/client-cert.pem;ssl key=/altibase_home/sample/CERT/client-key.pem";
+string ConnectionString = "Server=127.0.0.1;Port=20443;User=user;Password=pwd;conn type=ssl;ssl ca=/altibase_home/sample/CERT/ca-cert.pem;ssl cert=/altibase_home/sample/CERT/client-cert.pem;ssl key=/altibase_home/sample/CERT/client-key.pem";
  
 AltibaseConnection conn = new AltibaseConnection(ConnectionString);
 conn.Open();
