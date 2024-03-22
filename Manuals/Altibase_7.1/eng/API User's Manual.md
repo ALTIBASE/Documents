@@ -114,24 +114,24 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Restrictions and Cautions](#restrictions-and-cautions)
   - [How to Use](#how-to-use)
   - [Examples](#examples)
-- [3. XA Interface](#3-xa-interface)
+- [3.XA Interface](#3-xa-interface)
   - [XA Interface Overview](#xa-interface-overview)
   - [The XA Interface](#the-xa-interface)
   - [Using XA](#using-xa)
   - [Limitations when using XA](#limitations-when-using-xa)
   - [JDBC Distributed Transactions](#jdbc-distributed-transactions)
   - [How to Solve Application Problems Using XA](#how-to-solve-application-problems-using-xa)
-- [4. iLoader API](#4-iloader-api)
+- [4.iLoader API](#4-iloader-api)
   - [iLoader API Overview](#iloader-api-overview)
   - [Using the iLoader API](#using-the-iloader-api)
   - [iLoader API Data Structures](#iloader-api-data-structures)
   - [iLoader API](#iloader-api)
-- [5. CheckServer API](#5-checkserver-api)
+- [5.CheckServer API](#5-checkserver-api)
   - [Overview of the CheckServer API](#overview-of-the-checkserver-api)
   - [Using the CheckServer API](#using-the-checkserver-api)
   - [CheckServer API Data Structure](#checkserver-api-data-structure)
   - [CheckServer API](#checkserver-api)
-- [6.NET Data Provider](#6net-data-provider)
+- [6..NET Data Provider](#6net-data-provider)
   - [Altibase ADO.NET](#altibase-adonet)
 
 
@@ -178,6 +178,10 @@ This manual is organized as follows:
     
 -   Chapter 5: CheckServer API  
     This chapter introduces the Altibase CheckServer API, which is an application programming interface for creating applications that use function calls to monitor whether the Altibase server has terminated abnormally.
+    
+- Chapter 6: .NET Data Provider
+
+  This chapter introduces the <여기에 설명 넣기>
 
 ### Documentation Conventions
 
@@ -185,7 +189,7 @@ This section describes the conventions used in this manual. Understanding these 
 
 There are two sets of conventions:
 
--   Syntax diagram convetions
+-   Syntax diagram conventions
 -   Sample code conventions
 
 #### Syntax Diagram Conventions
@@ -196,13 +200,13 @@ This manual describes command syntax using diagrams composed of the following el
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [![image1](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif) | Indicates the start of a command. If a syntactic element starts with an arrow, it is not a complete command. |
 | [![image2](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif) | Indicates that the command continues to the next line. If a syntactic element ends with this symbol, it is not a complete command. |
-| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates taht the command continues from the previous line. If a syntactic element starts witht his symbol, it is not a complete command. |
+| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates that the command continues from the previous line. If a syntactic element starts with this symbol, it is not a complete command. |
 | [![image4](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif) | Indicates the end of a statement.                            |
-| [![image5](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif) | Indicates a manatory element.                                |
+| [![image5](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif) | Indicates a mandatory element.                               |
 | [![image6](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif) | Indicates an optional element.                               |
 | [![image7](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image7.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image7.gif) | Indicates a mandatory element comprised of options. One, and only one, option must be specified. |
 | [![image8](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif) | Indicates an optional element comprised of options.          |
-| [![image9](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comman must precede all but the first element. |
+| [![image9](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comma must precede all but the first element. |
 
 #### Sample Code Conventions
 
@@ -3165,7 +3169,7 @@ using Altibase.Data.AltibaseClient;
 
 이 절에서는 .NET Core 응용 프로그램에서 Altibase 서버에 접속하는 방법을 설명한다. 
 
-##### 연결 문자열 (Connection String)
+##### Connection String
 
 Altibase 서버에 접속하기 위한 연결 문자열의 형태는 다음과 같다. 
 
@@ -3173,55 +3177,57 @@ Altibase 서버에 접속하기 위한 연결 문자열의 형태는 다음과 �
 Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=value;...
 ~~~
 
-##### 연결 속성 정보
+##### About Connection Attributes
 
 위의 기본 연결 속성 외에 연결 문자열에서 사용할 수 있는 연결 속성을 설명한다. 각 연결 속성의 설명은 아래의 형식으로 작성되어 있다.
 
-- 기본값 : 연결 설정을 명시하지 않았을 때 기본적으로 사용되는 값
-- 값의 범위 : 설정 가능한 값
-- 필수 여부 : 반드시 설정해야 하는지 여부
-- 설정 범위 : 
+This section offers descriptions of the connection attributes available for use when connecting to Altibase except the Connection String. The following items are included in the description of each attribute:
+
+- Default Value : The value used by default, if no other value is specified
+- Range : The value available for specification
+- Mandatory : Whether or not the attribute must be specified
+- Setting Range : 
   Altibase 서버에 연결된 이후에 설정한 속성의 영향 범위에 따라 시스템과 세션으로 구분한다.
-  - 시스템 : 설정한 속성이 다른 세션에 영향을 준다.
-  - 세션 : 설정한 속성은 해당 세션에만 영향을 준다.
+  - System : The attribute configuration affects other sessions.설정한 속성이 다른 세션에 영향을 준다.
+  - Session : The attribute configuration affects only itself.설정한 속성은 해당 세션에만 영향을 준다.
   - N/A : 이 속성은 Altibase 서버에 연결하는 과정에서만 영향을 받는다.
-- 설명: 연결 속성에 대한 설명
+- Description: The description of the attribute
 
 ###### application name
 
-- 기본값 : .NET Altibase Data Provider
-- 값의 범위 : 임의의 문자열
-- 필수 여부 : 선택
-- 설정 범위 : 세션
-- 설명 : 세션의 애플리케이션 정보를 나타낸다. V$SESSION의 CLIENT_APP_INFO 컬럼에 출력되는 값이다.
+- Default Value : .NET Altibase Data Provider
+- Range : A random string
+- Mandatory : No
+- Setting Range : Session
+- Description : 세션의 애플리케이션 정보를 나타낸다. V$SESSION의 CLIENT_APP_INFO 컬럼에 출력되는 값이다.
 
 ###### connection life time
 
-- 기본값 : 0
-- 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
-- 필수 여부 : 선택
-- 설정 범위 : 세션
-- 설명 : 
+- Default Value : 0
+- Range : [0 ~ 2<sup>31</sup>(2147483648)]
+- Mandatory : No
+- Setting Range : Session
+- Description : 
   연결을 사용하지 않을 때 연결 풀에서 제거할 것인지 설정한다. 단위는 초(sec)이다. 
   0은 연결을 제거하지 않고 0이 아니면 설정 값 동안 연결을 사용하지 않으면 연결 풀에서 연결을 제거한다.
 
 ###### connection timeout
 
-- 기본값 : 15
-- 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
-- 필수 여부 : 선택
-- 설정 범위 : N/A
-- 설명 : 
+- Default Value : 15
+- Range : [0 ~ 2<sup>31</sup>(2147483648)]
+- Mandatory : No
+- Setting Range : N/A
+- Description : 
   Altibase 서버에 대한 연결을 대기하는 시간으로, 단위는 초(sec)이다. 
   0은 연결될 때까지 무한정 기다리고 0이 아닌 값은 설정 값 동안 연결되지 않으면 연결이 실패한다.
 
 ###### data source
 
-- 기본값 : 설명 참고
-- 값의 범위 : 임의의 문자열
-- 필수 여부 : 선택
-- 설정 범위 : N/A
-- 설명 : 
+- Default Value : 설명 참고
+- Range : A random string
+- Mandatory : No
+- Setting Range : N/A
+- Description : 
   데이터 소스의 이름을 나타내며 아래의 조건에 따라 사용되는 값이 달라진다.
   - 연결 속성 server의 값이 존재하면, data source의 값은 무시된다.
   - 연결 속성 server의 값이 없고 data source의 값과 같은 ODBC 데이터 원본이 있으면 ODBC 데이터 원본의 DSN(data source name)이 사용된다.
@@ -3229,107 +3235,107 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 
 ###### encoding
 
-- 기본값 : 없음
-- 값의 범위 :  [Altibase에서 지원하는 문자 집합](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Getting%20Started%20Guide.md#%EC%A7%80%EC%9B%90%ED%95%98%EB%8A%94-%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%85%8B)
-- 필수 여부 : 선택
-- 설정 범위 : 세션
-- 설명 : 클라이언트의 문자 집합을 설정한다.
+- Default Value : 없음
+- Range :  [Altibase에서 지원하는 문자 집합](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Getting%20Started%20Guide.md#%EC%A7%80%EC%9B%90%ED%95%98%EB%8A%94-%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%85%8B)
+- Mandatory : No
+- Setting Range : Session
+- Description : 클라이언트의 문자 집합을 설정한다.
 
 ###### enlist 
 
-- 기본값 :  true
-- 값의 범위 : [true | false]
-- 필수 여부 : 선택
-- 설정 범위 : 세션
-- 설명 : 암시적 트랜잭션 처리 여부를 설정한다. true는 암시적인 방식으로 false는 명시적인 방식으로 트랜잭션에 참여한다.
+- Default Value :  true
+- Range : [true | false]
+- Mandatory : No
+- Setting Range : Session
+- Description : 암시적 트랜잭션 처리 여부를 설정한다. true는 암시적인 방식으로 false는 명시적인 방식으로 트랜잭션에 참여한다.
 
 ###### max pool size
 
-- 기본값 : 100
-- 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
-- 필수 여부 : 선택
-- 설정 범위 : N/A
-- 설명 : 특정 연결 문자열에 대해 연결 풀에서 허용된 최대 연결 수
+- Default Value : 100
+- Range : [0 ~ 2<sup>31</sup>(2147483648)]
+- Mandatory : No
+- Setting Range : N/A
+- Description : 특정 연결 문자열에 대해 연결 풀에서 허용된 최대 연결 수
 
 ###### min pool size 
 
-- 기본값 : 0
-- 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
-- 필수 여부 : 선택
-- 설정 범위 : N/A
-- 설명 : 특정 연결 문자열에 대해 연결 풀에서 허용된 최소 연결 수. 연결 풀이 최초 생성될 때 이 설정 값만큼 연결이 생성된다. 
+- Default Value : 0
+- Range : [0 ~ 2<sup>31</sup>(2147483648)]
+- Mandatory : No
+- Setting Range : N/A
+- Description : 특정 연결 문자열에 대해 연결 풀에서 허용된 최소 연결 수. 연결 풀이 최초 생성될 때 이 설정 값만큼 연결이 생성된다. 
 
 ###### nchar literal replace
 
-- 기본값 : false
-- 값의 범위 : [true | false]
-- 필수 여부 : 선택
-- 설정 범위 : 세션
-- 설명 : 질의문에서 내셔널 캐릭터셋을 가지는 상수 문자열의 사용 여부를 결정한다. true는 내셔널 캐릭터셋을 가지는 상수 문자열을 사용하고 false는 사용하지 않는다.
+- Default Value : false
+- Range : [true | false]
+- Mandatory : No
+- Setting Range : Session
+- Description : 질의문에서 내셔널 캐릭터셋을 가지는 상수 문자열의 사용 여부를 결정한다. true는 내셔널 캐릭터셋을 가지는 상수 문자열을 사용하고 false는 사용하지 않는다.
 
 ###### password
 
-- 기본값 : 없음
-- 값의 범위 : 데이터베이스 사용자 비밀번호
-- 필수 여부 : 필수
-- 설정 범위 : N/A
-- 설명 : Altibase 서버에 접속할 데이터베이스 사용자의 비밀번호를 입력한다.
+- Default Value : 없음
+- Range : 데이터베이스 사용자 비밀번호
+- Mandatory : Yes
+- Setting Range : N/A
+- Description : Altibase 서버에 접속할 데이터베이스 사용자의 비밀번호를 입력한다.
 
 ###### persist security info 
 
-- 기본값 :  false
-- 값의 범위 : [true | false]
-- 필수 여부 : 선택
-- 설정 범위 : N/A
-- 설명 : 연결 정보에서 문자열을 가져올 때 비밀번호를 포함할지 설정한다. true는 비밀번호를 포함하고 false는 포함하지 않는다.
+- Default Value :  false
+- Range : [true | false]
+- Mandatory : No
+- Setting Range : N/A
+- Description : 연결 정보에서 문자열을 가져올 때 비밀번호를 포함할지 설정한다. true는 비밀번호를 포함하고 false는 포함하지 않는다.
 
 ###### pooling
 
-- 기본값 :  true
-- 값의 범위 : [true | false]
-- 필수 여부 : 선택
-- 설정 범위 : N/A
-- 설명 : 연결 풀링을 사용할 것인지 설정한다. true는 연결 풀링을 사용하고 false는 사용하지 않는다.
+- Default Value :  true
+- Range : [true | false]
+- Mandatory : No
+- Setting Range : N/A
+- Description : 연결 풀링을 사용할 것인지 설정한다. true는 연결 풀링을 사용하고 false는 사용하지 않는다.
 
 ###### port 
 
-- 기본값 :  20300
-- 값의 범위 : [0~65535]
-- 필수 여부 : 선택
-- 설정 범위 : N/A
-- 설명 : Altibase 서버의 서비스 포트 번호를 입력한다.
+- Default Value :  20300
+- Range : [0~65535]
+- Mandatory : No
+- Setting Range : N/A
+- Description : Altibase 서버의 서비스 포트 번호를 입력한다.
 
 ###### prefer ipv6 
 
-- 기본값 :  false
-- 값의 범위 : [true | false]
-- 필수 여부 : 선택
-- 설정 범위 : N/A
-- 설명 : 연결 속성 server에 호스트명을 입력하면, 이 속성 값에 따라 호스트명을 IPv4 주소 또는 IPv6주소로 변환한다. true는 호스트명을 IPv6주소로 변환하고 false는 호스트명을 IPv4주소로 변환하다.
+- Default Value :  false
+- Range : [true | false]
+- Mandatory : No
+- Setting Range : N/A
+- Description : 연결 속성 server에 호스트명을 입력하면, 이 속성 값에 따라 호스트명을 IPv4 주소 또는 IPv6주소로 변환한다. true는 호스트명을 IPv6주소로 변환하고 false는 호스트명을 IPv4주소로 변환하다.
 
 ###### server
 
-- 기본값 :  localhost
-- 값의 범위 : 임의의 문자열
-- 필수 여부 : 선택
-- 설정 범위 : N/A
-- 설명 : Altibase 서버의 IP 주소 또는 호스트명을 입력한다.
+- Default Value :  localhost
+- Range : A random string
+- Mandatory : No
+- Setting Range : N/A
+- Description : Altibase 서버의 IP 주소 또는 호스트명을 입력한다.
 
 ###### transaction timeout
 
-- 기본값 : 서버의 설정값
-- 값의 범위 :  [0 ~ 2<sup>31</sup>(2147483648)]
-- 필수 여부 : 선택
-- 설정 범위 : 세션
-- 설명 : 변경 연산(UPDATE, INSERT, DELETE)을 수행하는 트랜잭션의 수행 시간을 제한한다. 단위는 초(sec)이다. 0은 변경 트랜잭션의 수행 시간을 제한하지 않고, 0이 아니면 변경 트랜잭션의 수행 시간이 설정값을 초과하면 세션 연결을 해제하고 트랜잭션을 철회한다.
+- Default Value : 서버의 설정값
+- Range :  [0 ~ 2<sup>31</sup>(2147483648)]
+- Mandatory : No
+- Setting Range : Session
+- Description : 변경 연산(UPDATE, INSERT, DELETE)을 수행하는 트랜잭션의 수행 시간을 제한한다. 단위는 초(sec)이다. 0은 변경 트랜잭션의 수행 시간을 제한하지 않고, 0이 아니면 변경 트랜잭션의 수행 시간이 설정값을 초과하면 세션 연결을 해제하고 트랜잭션을 철회한다.
 
 ###### user id 또는 uid
 
-- 기본값 :  
-- 값의 범위 : 임의의 문자열
-- 필수 여부 : 필수
-- 설정 범위 : N/A
-- 설명 : Altibase 서버에 접속하려는 데이터베이스 사용자 이름을 입력한다.
+- Default Value :  
+- Range : A random string
+- Mandatory : Yes
+- Setting Range : N/A
+- Description : Altibase 서버에 접속하려는 데이터베이스 사용자 이름을 입력한다.
 
 
 
@@ -3446,7 +3452,7 @@ Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배�
 
 GetSchema() 메서드로 MetadataCollections, DataSourceInformation, DataTypes, Restrictions, ReservedWords와 같은 공통 스키마 외에 Altibase의 메타 테이블을 조회할 수 있다.
 
-| 스키마               | 메타 테이블              | 설명                                                         |
+| 스키마               | 메타 테이블              | Description                                                  |
 | :------------------- | :----------------------- | :----------------------------------------------------------- |
 | Users                | SYS_USERS_               | 데이터베이스 사용자 정보를 저장하는 메타 테이블              |
 | Tables               | SYS_TABLES_              | 테이블 정보를 저장하는 메타 테이블                           |
@@ -3479,7 +3485,7 @@ Altibase ADO.NET에서 구현한 ADO.NET API 중 대표적인 클래스와 제�
 
 Altibase ADO.NET은 Altibase 서버로의 연결 및 질의을 실행하고 결과를 검색하는 기능을 제공한다. 이 기능들은 아래 4개의 클래스에 기반하고 있다. 각 클래스들의 하위 메서드 기능은 마이크로소프트의 [.NET Core 3.1 API 문서](https://learn.microsoft.com/ko-kr/dotnet/api/?view=netcore-3.1)를 참고한다.
 
-| 클래스              | 설명                                                         |
+| 클래스              | Description                                                  |
 | :------------------ | :----------------------------------------------------------- |
 | AltibaseConnection  | Altibase 서버로 연결을 설정하고 트랜잭션을 시작할 수 있다.   |
 | AltibaseCommand     | Altibase 서버에서 질의문을 실행하고 매개변수를 표시할 수 있다. |
@@ -3490,7 +3496,7 @@ Altibase ADO.NET은 Altibase 서버로의 연결 및 질의을 실행하고 결�
 
 Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션 처리 등을 위해 다음 클래스들을 제공한다.
 
-| 클래스              | 설명                                                         |
+| 클래스              | Description                                                  |
 | :------------------ | :----------------------------------------------------------- |
 | AltibaseException   | 데이터베이스 오류나.NET Core에서 받은 클라이언트 오류를 출력할 수 있다. |
 | AltibaseParameter   | SQL 명령 및 저장 프로시저에 대한 입력, 출력 파라미터를 정의한다. |
