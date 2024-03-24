@@ -639,12 +639,12 @@ Altibase는 SSL을 사용하기 위해 SSL 연결을 위한 JDBC를 제공한다
 | 이름                      | 설명                                                         | 값의 범위             | 기본값 |
 | ------------------------- | ------------------------------------------------------------ | --------------------- | ------ |
 | verify_server_certificate | 대상 서버의 CA 인증서를 인증할지 여부를 설정한다. 이 값을 FALSE로 설정하면, 클라이언트의 애플리케이션은 서버의 CA 인증서를 인증하지 않고, SSL exception이 발생한다. 그러나 서버의 개인인증서를 가져올 필요는 없다. | true<br/>false        | true   |
-| keystore_url              | KeyStore의 경로를 지정한다. KeyStore는 개인 인증서와 공개 인증서를 가지고 있다. | String                | N/A    |
+| keystore_url              | KeyStore의 경로를 지정한다. KeyStore는 개인 인증서와 공개 인증서를 가지고 있다. | String                |        |
 | keystore_type             | keystore_url의 keystore 타입을 설정한다. Java는 기본적으로 Java Key Store(JKS) 타입으로 처리된다. | JKS, JCEKS, PKCS12 등 | JKS    |
-| keystore_password         | keystore_url에 비밀번호를 지정한다.                          | String                | N/A    |
-| truststore_url            | TrustStore의 경로를 지정한다. TrustStore는 CA의 인증서를 갖고있는 KeyStore이다. | String                | N/A    |
+| keystore_password         | keystore_url에 비밀번호를 지정한다.                          | String                |        |
+| truststore_url            | TrustStore의 경로를 지정한다. TrustStore는 CA의 인증서를 갖고있는 KeyStore이다. | String                |        |
 | truststore_type           | truststore_url의 TrustStore 타입을 설정한다. Java는 기본적으로 Java Key Store(JKS) 타입으로 처리된다. | JKS, JCEKS, PKCS12 등 | JKS    |
-| truststore_password       | truststore_url의 비밀번호를 지정할 수 있다.                  | String                | N/A    |
+| truststore_password       | truststore_url의 비밀번호를 지정할 수 있다.                  | String                |        |
 
 ##### Step 4: Altibase 환경변수 설정
 
@@ -657,7 +657,7 @@ JDBC에서 port 프로퍼티를 설정하지 않았을 때, ALTIBASE_SSL_PORT_NO
 
 | 이름                 | 설명                                    | 값의 범위     | 기본값 |
 | -------------------- | --------------------------------------- | ------------- | ------ |
-| ALTIBASE_SSL_PORT_NO | 접속할 서버의 SSL 포트 번호를 설정한다. | 1024 \~ 65535 | N/A    |
+| ALTIBASE_SSL_PORT_NO | 접속할 서버의 SSL 포트 번호를 설정한다. | 1024 \~ 65535 |        |
 
 ##### JDBC에서 SSL 사용시 고려사항
 
@@ -726,12 +726,12 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다.
 
 | 이름       | 설명                                                         | 값의 범위        | 기본값 |
 | ---------- | ------------------------------------------------------------ | ---------------- | ------ |
-| SSL_CA     | CA 인증서의 소유권을 인정받기 위해서 CA 인증서를 저장하는 파일의 경로를 지정할 수 있다. CA 인증서 파일은 사용자 지정 경로나 X.509 형식의 디렉토리에 위치한다. 예) SSL_CA=/cert/ca-cert.pem | N/A              | NULL   |
-| SSL_CAPATH | CA 디렉토리 형식의 CAPATH를 지정할 수 있다. 예) SSL_CAPATH=/etc/ssl/certs | N/A              | NULL   |
-| SSL_CERT   | 클라이언트의 인증서 파일 경로를 지정한다. 예) SSL_CERT=/cert/client-cert.pem | N/A              | NULL   |
-| SSL_KEY    | 클라이언트의 개인 키(private key)가 저장된 파일 경로를 지정한다. 예) SSL_KEY=/cert/client-key.pem | N/A              | NULL   |
+| SSL_CA     | CA 인증서의 소유권을 인정받기 위해서 CA 인증서를 저장하는 파일의 경로를 지정할 수 있다. CA 인증서 파일은 사용자 지정 경로나 X.509 형식의 디렉토리에 위치한다. 예) SSL_CA=/cert/ca-cert.pem |                  |        |
+| SSL_CAPATH | CA 디렉토리 형식의 CAPATH를 지정할 수 있다. 예) SSL_CAPATH=/etc/ssl/certs |                  |        |
+| SSL_CERT   | 클라이언트의 인증서 파일 경로를 지정한다. 예) SSL_CERT=/cert/client-cert.pem |                  |        |
+| SSL_KEY    | 클라이언트의 개인 키(private key)가 저장된 파일 경로를 지정한다. 예) SSL_KEY=/cert/client-key.pem |                  |        |
 | SSL_VERIFY | Altibase 서버의 인증서를 검증할지 여부를 설정한다. 만약 검증에 실패하면 SSL Handshake 는 실패하고, SSL 통신은 더 이상 진행되지 않는다. 예) SSL_VERIFY=0<br/>0(OFF): 서버의 인증서를 검증하지 않는다. 1(ON): 서버의 인증서를 검증한다. | 0: OFF<br/>1: ON | 0(OFF) |
-| SSL_CIPHER | 이 프로퍼티는 클라이언트가 서버와 협의하여 사용할 수 있는 암호 알고리즘들이다. 암호 알고리즘은 사용자의 보안 정책에 따라 하나 또는 그 이상의 암호를 사용할 수 있다. 한 개 이상의 암호를 사용할 경우 콜론(:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은 OpenSSL( http://www.openssl.org/ )에서 확인하거나  ''\$ openssl ciphers" 명령어를 사용하여 확인할 수 있다. 예) SSL_CIPHER=EDH-DSS-DES-CBC-SHA:DES-CBC-SHA | N/A              | NULL   |
+| SSL_CIPHER | 이 프로퍼티는 클라이언트가 서버와 협의하여 사용할 수 있는 암호 알고리즘들이다. 암호 알고리즘은 사용자의 보안 정책에 따라 하나 또는 그 이상의 암호를 사용할 수 있다. 한 개 이상의 암호를 사용할 경우 콜론(:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은 OpenSSL( http://www.openssl.org/ )에서 확인하거나  ''\$ openssl ciphers" 명령어를 사용하여 확인할 수 있다. 예) SSL_CIPHER=EDH-DSS-DES-CBC-SHA:DES-CBC-SHA |                  |        |
 
 다음은 서버의 SSL 프로퍼티와 ODBC/CLI용 프로퍼티를 비교한 표이다.
 
@@ -777,14 +777,14 @@ SSL 통신을 사용하여 서버에 접속할 때, 다음의 프로퍼티들을
 
 | 이름       | 설명                                                         | 값의 범위               | 기본값 |
 | :--------- | :----------------------------------------------------------- | :---------------------- | :----- |
-| conn type  | 서버에 SSL 통신을 사용해서 접속할지 여부를 설정한다. 이 값이 ssl 일 경우 SSL 통신으로 서버에 접속한다. | ssl                     | N/A    |
+| conn type  | 서버에 SSL 통신을 사용해서 접속할지 여부를 설정한다. 이 값이 ssl 일 경우 SSL 통신으로 서버에 접속한다. | ssl                     |        |
 | port       | 접속할 대상 서버의 포트 번호인 SSL_PORT_NO의 값을 지정한다.  | 0 ~ 65535               |        |
-| ssl ca     | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CA 참조 | N/A                     | N/A    |
-| ssl capath | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CAPATH 참조 | N/A                     | N/A    |
-| ssl cert   | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CERT 참조 | N/A                     | N/A    |
-| ssl key    | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_KEY 참조 | N/A                     | N/A    |
+| ssl ca     | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CA 참조 |                         |        |
+| ssl capath | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CAPATH 참조 |                         |        |
+| ssl cert   | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CERT 참조 |                         |        |
+| ssl key    | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_KEY 참조 |                         |        |
 | ssl verify | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_VERIFY 참조 | false: OFF<br/>true: ON | false  |
-| ssl cipher | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CIPHER 참조 | N/A                     | N/A    |
+| ssl cipher | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CIPHER 참조 |                         |        |
 
 ##### Step 4: 클라이언트 프로그램 작성
 
