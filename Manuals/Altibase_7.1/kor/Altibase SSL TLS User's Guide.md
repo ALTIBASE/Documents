@@ -415,7 +415,7 @@ SSL이 활성화된 Altibase를 설치하기 전에 OpenSSL 툴킷을 설치하�
 OpenSSL 툴킷이 설치되지 않았는데 Altibase의 SSL을 사용하면, Altibase는 OpenSSL
 라이브러리를 찾을 수 없다는 경고 메세지가 나타난다.
 
-서버에 OpenSSL이 설치되었다는 것을 확인하고, 허트블리드 버그에 감염되지 않았는지
+서버에 OpenSSL이 설치된 것을 확인하고, 허트블리드 버그에 감염되지 않았는지
 확인한다. 필요할 경우 OS에서 제공하는 패키지 매니저(e.g., RPM, Red Hat Linux)로
 설치하거나 http://www.openssl.org/source 에서 직접 다운로드받아서 컴파일한다.
 
