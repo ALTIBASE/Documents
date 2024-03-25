@@ -3034,7 +3034,7 @@ int altibase_check_server_cancel (
 
 #### Result Value
 
-ALTIBASE_CS_SUCCESS, ALTIBASE_CS_ERROR 또는 ALTIBASE_CS_INVALID_HANDLE
+ALTIBASE_CS_SUCCESS, ALTIBASE_CS_ERROR or ALTIBASE_CS_INVALID_HANDLE
 
 #### Description
 
@@ -3052,69 +3052,66 @@ altibase_check_server
 
 Refer to altibase_check_server.
 
-# 6.NET Data Provider
+# 6..NET Data Provider
 
 ## Altibase ADO.NET
 
-### Altibase ADO.NET 소개
+### Altibase ADO.NET Introduction
 
-#### 개요
+#### Overview
 
-Altibase ADO.NET은 .NET Core 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버이다.
-
-Altibase ADO.NET은 마이크로소프트의 ADO.NET API를 Altibase에서 사용할 수 있도록 구현한 것이다. .NET Core 개발자는 ADO.NET을 이용하여 DBMS와 같은 데이터 소스에 접근하여 명령을 수행하고 데이터를 조회하며, 결과를 가공하여 다시 데이터 소스에 반영할 수 있다. 
+Altibase ADO.NET is a driver that enables access to the Altibase server from applications based on .NET core. With this driver, users can use Microsoft's ADO.NET API with Altibase. .NET Core developers can utilize ADO.NET to access data sources such as DBMS, execute commands, retrieve data, manipulate results, and reflect the results to the data sources again.
 
 
-마이크로소프트의 ADO.NET에 관한 보다 자세한 내용은 마이크로소프트의 [.NET 문서](https://learn.microsoft.com/ko-kr/dotnet/)를 참고한다.
+For more detailed information about Microsoft's ADO.NET, please refer to [.NET documentation](https://learn.microsoft.com/en-us/dotnet/).
 
-#### 요구사항
-- Altibase CLI 라이브러리
+#### Requirements
+- Altibase CLI Library
   
-  Altibase ADO.NET은 CLI 라이브러리로 Altibase 서버에 접속한다. 아래 CLI 라이브러리는 Altibase ADO.NET Nuget 패키지에 포함되어 있다.
+  Altibase ADO.NET connects to the Altibase server via the CLI library. The following CLI library is included in the Altibase ADO.NET NuGet package:
+  
   - Linux x86-64  : libdotnet_sl.so
   - Windows x64 : dotnet_sl.dll
-- Altibase 7.1.0.8.3 이상
+  
+- Altibase 7.1.0.8.3 and above
+
 - .NET Core 3.1
 
-#### 지원 OS
+#### Supported OS
 
-Altibase ADO.NET이 지원하는 OS는 .NET Core 3.1의 지원 OS중에서 Altibase 7.1 클라이언트가 지원하는 OS이다.
+Altibase ADO.NET supports operating systems that are supported by both Altibase 7.1 clients and .NET Core 3.1.
 
 - [.NET Core 3.1 - Supported OS versions](https://github.com/dotnet/core/blob/main/release-notes/3.1/3.1-supported-os.md#net-core-31---supported-os-versions)
-- [Altibase 7.1 클라이언트의 지원 OS](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-71-server--client)
+- [Altibase 7.1 Client Supported OS](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-71-server--client)
 
-Altibase ADO.NET Nuget 패키지에 원하는 OS의 CLI 라이브러리가 포함되어 있지 않다면 [Altibase 고객 지원 센터](http://support.altibase.com/kr/)로 문의한다. 
-
-
-
-###  Altibase ADO.NET 사용
-
-.NET Core 개발자가  Altibase ADO.NET을 사용하여 개발할 때 알아야 할 사용 방법에 대해 설명한다.
-
-#### Altibase ADO.NET 다운로드
-
-[Nuget 사이트](https://www.nuget.org/packages/Altibase.Data.AltibaseClient)를 통해 Altibase.Data.AltibaseClient.nupkg를 제공한다.
+If Altibase ADO.NET NuGet package does not include the CLI library for the desired OS, please contact [Altibase's Support Portal](http://support.altibase.com/en/).
 
 
 
-#### .NET Core 응용 프로그램 컴파일
+###  How to Use Altibase ADO.NET 
 
-Altibase ADO.NET을 사용한 애플리케이션은 아래 2가지 방법으로 컴파일할 수 있다.
+This section describes how to Altibase ADO.NET for NET Core developers.
 
+#### Download Altibase ADO.NET
 
+Users can download Altibase.Data.AltibaseClient.nupkg [here](https://www.nuget.org/packages/Altibase.Data.AltibaseClient).
 
->  **dotnet CLI에서 컴파일하는 방법**
+#### Compile .NET Core Application Program
 
-1️⃣ dotnet CLI에서 NuGet 소스를 조회하는 명령을 수행한다.
+There are two methods to compile the application program with Altibase ADO.NET.
+
+>  **Compile using dotnet CLI**
+
+1️⃣ Lists all configured NuGet sources using dotnet CLI.
 
 ~~~c
 [user@ /] dotnet nuget list source
-등록된 소스:
-  1.  nuget.org [사용]
+Registered Sources:
+  1.  nuget.org [Enabled]
       https://api.nuget.org/v3/index.json
 ~~~
 
-2️⃣ 프로젝트 파일 내 \<PackageReference> 항목에 Altibase ADO.NET Nuget 패키지 종속성을 지정한다.
+2️⃣ Configure Altibase ADO.NET NuGet package dependency on \<PackageReference> in the project file.
 
 ~~~c#
 <Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -3123,7 +3120,7 @@ Altibase ADO.NET을 사용한 애플리케이션은 아래 2가지 방법으로 
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    /* Altibase ADO.NET Nuget 패키지 종속성을 지정 */
+    /* Configure Altibase ADO.NET NuGet package dependency */
     <PackageReference Include="Altibase.Data.AltibaseClient" />
   </ItemGroup>
   <ItemGroup>
@@ -3132,7 +3129,7 @@ Altibase ADO.NET을 사용한 애플리케이션은 아래 2가지 방법으로 
 </Project>
 ~~~
 
-3️⃣ 프로젝트를 빌드한다.
+3️⃣ Build the project.
 
 ~~~
 [user@ /] dotnet build demo.csproj
@@ -3140,24 +3137,24 @@ Altibase ADO.NET을 사용한 애플리케이션은 아래 2가지 방법으로 
 
 
 
->  **IDE 환경에서 컴파일하는 방법**
+>  **Compile with IDE**
 
-IDE(Integrated Development Environment) 환경에서 Altibase ADO.NET을 등록하는 방법이다. 아래는 MS Visual Studio에서 수행한 예이다.
+This is how to register Altibase ADO.NET with IDE(Integrated Development Environment). The following example is using MS Visual Studio.
 
-1️⃣ 새 프로젝트를 생성한다.
+1️⃣ Create a new project.
 
-<div align="left">
-    <img src="media/API/adonet1.png">
-</div>
-2️⃣ Nuget 패키지 관리자 창에서 패키지 소스 nuget.org를 선택하고 Altibase.Data.AltibaseClient를 검색하여 설치한다.
+![adonet1](media/API/adonet1.png)
 
-<div align="left">
-    <img src="media/API/adonet2.png">
-</div>
+2️⃣ Select the package source "nuget.org" on the "manage NuGet package for solution" window, search "Altibase.Data.AltibaseClient", and install it.
 
-#### Altibase ADO.NET 사용 선언
+![adonet2](media/API/adonet2.png)
 
-.NET Core 기반의 애플리케이션에서 Altibase ADO.NET의 클래스들을 사용하려면, 먼저 아래와 같이 선언해야 한다.
+
+
+
+#### Declare Using Altibase ADO.NET
+
+To use Altibase ADO.NET classes in the .NET Core-based application, users need to declare as follows:
 
 ~~~c#
 using Altibase.Data.AltibaseClient;
@@ -3165,33 +3162,31 @@ using Altibase.Data.AltibaseClient;
 
 
 
-#### 연결 설정
+#### Connection Setting
 
-이 절에서는 .NET Core 응용 프로그램에서 Altibase 서버에 접속하는 방법을 설명한다. 
+This section describes how to connect to the Altibase server from the .NET core application program.
 
-##### Connection String
+##### Using the Connection URL
 
-Altibase 서버에 접속하기 위한 연결 문자열의 형태는 다음과 같다. 
+The connection string to access the Altibase server is as follows: 
 
 ~~~c#
 Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=value;...
 ~~~
 
-##### About Connection Attributes
+##### Setting Connection Properties
 
-위의 기본 연결 속성 외에 연결 문자열에서 사용할 수 있는 연결 속성을 설명한다. 각 연결 속성의 설명은 아래의 형식으로 작성되어 있다.
-
-This section offers descriptions of the connection attributes available for use when connecting to Altibase except the Connection String. The following items are included in the description of each attribute:
+This section describes additional connection properties that can be used in the connection string besides the default connection properties mentioned above. The following items are included in the description of each property:
 
 - Default Value : The value used by default, if no other value is specified
 - Range : The value available for specification
-- Mandatory : Whether or not the attribute must be specified
+- Mandatory : Whether or not the property must be specified
 - Setting Range : 
-  Altibase 서버에 연결된 이후에 설정한 속성의 영향 범위에 따라 시스템과 세션으로 구분한다.
-  - System : The attribute configuration affects other sessions.설정한 속성이 다른 세션에 영향을 준다.
-  - Session : The attribute configuration affects only itself.설정한 속성은 해당 세션에만 영향을 준다.
-  - N/A : 이 속성은 Altibase 서버에 연결하는 과정에서만 영향을 받는다.
-- Description: The description of the attribute
+  The Setting Range is classified into System, Session, and N/A based on the scope of the property set after connecting to the Altibase server.
+  - System : This property setting can affects other sessions.
+  - Session : This property setting affects only the session itself.
+  - N/A : This property setting only affects the process of connecting to the Altibase server.
+- Description: The description of the property.
 
 ###### application name
 
@@ -3199,7 +3194,7 @@ This section offers descriptions of the connection attributes available for use 
 - Range : A random string
 - Mandatory : No
 - Setting Range : Session
-- Description : 세션의 애플리케이션 정보를 나타낸다. V$SESSION의 CLIENT_APP_INFO 컬럼에 출력되는 값이다.
+- Description : This indicates the information of the application of the session. This value can be outputted CLIENT_APP_INFO column of V$SESSION.
 
 ###### connection life time
 
@@ -3208,38 +3203,43 @@ This section offers descriptions of the connection attributes available for use 
 - Mandatory : No
 - Setting Range : Session
 - Description : 
-  연결을 사용하지 않을 때 연결 풀에서 제거할 것인지 설정한다. 단위는 초(sec)이다. 
-  0은 연결을 제거하지 않고 0이 아니면 설정 값 동안 연결을 사용하지 않으면 연결 풀에서 연결을 제거한다.
+  This setting determines whether to remove the connection from the connection pool if it has not been used for the specified amount of time. The unit for this property is seconds (sec). 
+  If the value of this property is set to 0, the connection will not be removed. If it is not 0, the connection will be removed from the connection pool if it remains unused for the specified value.
 
 ###### connection timeout
 
 - Default Value : 15
+
 - Range : [0 ~ 2<sup>31</sup>(2147483648)]
+
 - Mandatory : No
+
 - Setting Range : N/A
+
 - Description : 
-  Altibase 서버에 대한 연결을 대기하는 시간으로, 단위는 초(sec)이다. 
-  0은 연결될 때까지 무한정 기다리고 0이 아닌 값은 설정 값 동안 연결되지 않으면 연결이 실패한다.
+  
+  This sets the wait time for connecting to the Altibase server. The unit for this property is seconds (sec).
+  A value of 0 means waiting indefinitely until the connection is established, while a non-zero value indicates that the connection attempt will fail if it is not established within the specified value.
 
 ###### data source
 
-- Default Value : 설명 참고
+- Default Value : See description
 - Range : A random string
 - Mandatory : No
 - Setting Range : N/A
 - Description : 
-  데이터 소스의 이름을 나타내며 아래의 조건에 따라 사용되는 값이 달라진다.
-  - 연결 속성 server의 값이 존재하면, data source의 값은 무시된다.
-  - 연결 속성 server의 값이 없고 data source의 값과 같은 ODBC 데이터 원본이 있으면 ODBC 데이터 원본의 DSN(data source name)이 사용된다.
-  - 연결 속성 server의 값이 없고 data souce의 값과 같은 ODBC 데이터 원본이 없으면 서버의 IP 또는 호스트 이름을 사용한다.
+  This indicates the data source name. The used value will be changed by the following conditions:
+  - If the value of the connection property `server` exists, this setting will be ignored.
+  - If the value of the connection property `server` does not exist and the original ODBC data which has the same value as the data source exists, the DSN(data source name) of the original ODBC data will be used.
+  - If both the value of the connection property `server` and the original ODBC data which has the same value as the data source do not exist, this will use the server's IP or hostname.
 
 ###### encoding
 
-- Default Value : 없음
-- Range :  [Altibase에서 지원하는 문자 집합](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Getting%20Started%20Guide.md#%EC%A7%80%EC%9B%90%ED%95%98%EB%8A%94-%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%85%8B)
+- Default Value : N/A
+- Range :  [Supported Database Character Sets](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Getting%20Started%20Guide.md#supported-database-character-sets)
 - Mandatory : No
 - Setting Range : Session
-- Description : 클라이언트의 문자 집합을 설정한다.
+- Description : This configures the character sets of the client.
 
 ###### enlist 
 
@@ -3247,7 +3247,7 @@ This section offers descriptions of the connection attributes available for use 
 - Range : [true | false]
 - Mandatory : No
 - Setting Range : Session
-- Description : 암시적 트랜잭션 처리 여부를 설정한다. true는 암시적인 방식으로 false는 명시적인 방식으로 트랜잭션에 참여한다.
+- Description : This property configures implicit transaction handling. When set to true, transactions participate implicitly. When set to false, transactions participate explicitly.
 
 ###### max pool size
 
@@ -3255,7 +3255,7 @@ This section offers descriptions of the connection attributes available for use 
 - Range : [0 ~ 2<sup>31</sup>(2147483648)]
 - Mandatory : No
 - Setting Range : N/A
-- Description : 특정 연결 문자열에 대해 연결 풀에서 허용된 최대 연결 수
+- Description : This property sets the maximum number of connections in the connection pool for a specific connection string.
 
 ###### min pool size 
 
@@ -3263,7 +3263,7 @@ This section offers descriptions of the connection attributes available for use 
 - Range : [0 ~ 2<sup>31</sup>(2147483648)]
 - Mandatory : No
 - Setting Range : N/A
-- Description : 특정 연결 문자열에 대해 연결 풀에서 허용된 최소 연결 수. 연결 풀이 최초 생성될 때 이 설정 값만큼 연결이 생성된다. 
+- Description : This property sets the minimum number of connections in the connection pool for a specific connection string. When the connection pool is initially created, this setting determines the number of connections that are generated. 
 
 ###### nchar literal replace
 
@@ -3271,15 +3271,15 @@ This section offers descriptions of the connection attributes available for use 
 - Range : [true | false]
 - Mandatory : No
 - Setting Range : Session
-- Description : 질의문에서 내셔널 캐릭터셋을 가지는 상수 문자열의 사용 여부를 결정한다. true는 내셔널 캐릭터셋을 가지는 상수 문자열을 사용하고 false는 사용하지 않는다.
+- Description : This setting determines whether constant strings with national character sets are used in queries. "true" indicates that constant strings with national character sets are used, while "false" indicates that they are not used.
 
 ###### password
 
-- Default Value : 없음
-- Range : 데이터베이스 사용자 비밀번호
+- Default Value : N/A
+- Range : Database user password
 - Mandatory : Yes
 - Setting Range : N/A
-- Description : Altibase 서버에 접속할 데이터베이스 사용자의 비밀번호를 입력한다.
+- Description : This property holds the password associated with the database user connecting to the Altibase server.
 
 ###### persist security info 
 
@@ -3287,7 +3287,7 @@ This section offers descriptions of the connection attributes available for use 
 - Range : [true | false]
 - Mandatory : No
 - Setting Range : N/A
-- Description : 연결 정보에서 문자열을 가져올 때 비밀번호를 포함할지 설정한다. true는 비밀번호를 포함하고 false는 포함하지 않는다.
+- Description : This setting determines whether to include the password when retrieving strings from the connection information. "true" includes the password, while "false" does not.
 
 ###### pooling
 
@@ -3295,7 +3295,7 @@ This section offers descriptions of the connection attributes available for use 
 - Range : [true | false]
 - Mandatory : No
 - Setting Range : N/A
-- Description : 연결 풀링을 사용할 것인지 설정한다. true는 연결 풀링을 사용하고 false는 사용하지 않는다.
+- Description : This setting determines whether to enable connection pooling or not. "true" uses the connection pooling, while "false" does not.
 
 ###### port 
 
@@ -3303,7 +3303,7 @@ This section offers descriptions of the connection attributes available for use 
 - Range : [0~65535]
 - Mandatory : No
 - Setting Range : N/A
-- Description : Altibase 서버의 서비스 포트 번호를 입력한다.
+- Description : This property holds the service port number of the Altibase server.
 
 ###### prefer ipv6 
 
@@ -3311,7 +3311,7 @@ This section offers descriptions of the connection attributes available for use 
 - Range : [true | false]
 - Mandatory : No
 - Setting Range : N/A
-- Description : 연결 속성 server에 호스트명을 입력하면, 이 속성 값에 따라 호스트명을 IPv4 주소 또는 IPv6주소로 변환한다. true는 호스트명을 IPv6주소로 변환하고 false는 호스트명을 IPv4주소로 변환하다.
+- Description : When users enter the hostname into the connection property `server`, the hostname will be converted into IPv4 or IPv6 address following this value. If this value is set to "true", the hostname will be converted into IPv6 address. If this value is set to "false", the hostname will be converted into IPv4 address.
 
 ###### server
 
@@ -3319,114 +3319,114 @@ This section offers descriptions of the connection attributes available for use 
 - Range : A random string
 - Mandatory : No
 - Setting Range : N/A
-- Description : Altibase 서버의 IP 주소 또는 호스트명을 입력한다.
+- Description : This property holds the IP address or the hostname of the Altibase server.
 
 ###### transaction timeout
 
-- Default Value : 서버의 설정값
+- Default Value : Setting value of the server
 - Range :  [0 ~ 2<sup>31</sup>(2147483648)]
 - Mandatory : No
 - Setting Range : Session
-- Description : 변경 연산(UPDATE, INSERT, DELETE)을 수행하는 트랜잭션의 수행 시간을 제한한다. 단위는 초(sec)이다. 0은 변경 트랜잭션의 수행 시간을 제한하지 않고, 0이 아니면 변경 트랜잭션의 수행 시간이 설정값을 초과하면 세션 연결을 해제하고 트랜잭션을 철회한다.
+- Description : This setting limits the execution time of transactions performing change operations (UPDATE, INSERT, DELETE). The unit is in seconds (sec). A value of 0 means there is no limit on the execution time of change transactions. If the execution time of a change transaction exceeds the configured value (which is not 0), the session connection is terminated, and the transaction is rolled back.
 
-###### user id 또는 uid
+###### user id *or* uid
 
-- Default Value :  
+- Default Value :  N/A
 - Range : A random string
 - Mandatory : Yes
 - Setting Range : N/A
-- Description : Altibase 서버에 접속하려는 데이터베이스 사용자 이름을 입력한다.
+- Description : This property holds the database user name who accesses the Altibase server.
 
 
 
-#### 연결 풀링
+#### Connection Pooling
 
-애플리케이션이 데이터베이스 서버에 연결하는 과정은 여러 단계를 거치므로 시간이 많이 걸리며, 같은 과정을 여러 번 진행할 수 있다. ADO.NET에서는 연결하고 닫히는 횟수를 최소화하기 위해 연결 풀링(Connection Pooling)을 제공한다.
+The process of an application connecting to a database server involves multiple steps and can take a considerable amount of time, potentially being repeated many times. To minimize the number of connections opened and closed, ADO.NET provides connection pooling.
 
-연결 풀링은 연결에 필요한 소유권을 유지한다. 이를 위해 풀러는 연결 요청을 받으면 연결 풀에서 사용 가능한 연결이 있는지 확인하고 연결을 할당하거나 새로운 연결을 연결 풀에 생성해서 할당한다. 연결이 닫힐 때에도 연결을 바로 해제하지 않고 연결 풀에 반환한다.
+Connection pooling maintains ownership of connections. When a connection request is received, the pool checks if an available connection exists and either assigns it or creates a new connection in the connection pool for allocation. When a connection is closed, it is returned to the connection pool rather than being immediately released.
 
-##### 연결 풀 만들기
+##### Creating Connection Pools
 
-연결이 처음 열리면 연결 풀과 연결 문자열(Connection String)을 연결하는 일치 알고리즘에 따라 연결 풀이 생성된다. 연결이 열릴 때 연결 문자열이 기존 연결 풀과 정확하게 일치하지 않으면 새로운 연결 풀이 생성된다. 연결 문자열의 연결 속성이나 대소문자 및 공백에 차이가 있어도 다른 풀로 인식한다. 연결 문자열에 연결 속성 min pool size를 0이 아닌 값으로 설정하면 해당 값만큼 연결 풀이 자동으로 생성된다. 이 연결 속성을 설정하지 않았다면 기본값이 0이므로 자동 생성되는 연결은 없다.
+When a connection is first opened, a connection pool is created based on a matching algorithm that matches the connection string to the existing connection pools. If the connection string does not exactly match an existing connection pool, a new connection pool is created. Differences in connection properties of the connection string, including case and whitespace, result in different pools being recognized. If the connection string does not set the `min pool size` property to a non-zero value, no automatic connection pools are created (the default is 0).
 
-##### 연결 할당 및 추가
+##### Connection Allocation and Addition
 
-연결을 요청받으면 연결 문자열과 일치하는 연결 풀을 확인하여 연결을 할당하거나, 일치하는 연결 풀이 없으면 연결 풀을 생성하여 연결한다. 
+When a connection request is received, the pool checks the matching connection pool for an available connection. If no matching pool is found, a new one is created. Connections can be created up to the value set by the `max pool size` property. 
 
 연결은 연결 속성 max pool size의 값만큼 생성할 수 있으며, 이 값을 초과하면 연결 속성 connection life time 값을 초과하는 연결이 발생할 때까지 대기한다.
 
-예외가 발생한 연결은 자동으로 제거되며, 명시적으로 연결을 닫으면 연결이 제거되는 것이 아니라 연결 풀로 회수된다.
+Connections that encounter exceptions are automatically removed, and explicitly closing a connection does not remove it but returns the connection to the connection pool.
 
-##### 연결 제거
+##### Connection Removal
 
-응용 프로그램에서 명시적으로 연결을 닫거나 제거하지 않으면 연결 풀러는 정기적으로 연결 풀을 검사하여 연결을 제거한다. 연결은 연결 속성 connection life time에서 설정한 시간 동안 사용되지 않을 경우 제거되며, min pool size 의 값만큼 최소한의 연결을 남겨두고 회수된다. 그리고 예외가 발생한 연결도 제거된다. 
+If connections are not explicitly closed or removed by the application, the connection pooler periodically inspects the pools and removes connections not used within the specified time set by the `connection life time` property, maintaining at least the minimum number of connections set by the `min pool size` property. Exception-handling connections are also removed.
 
-##### 연결 풀 지우기
+##### Clearing Connection Pools
 
-AltibaseConnection 클래스에서 풀을 지우는 메서드는 ClearPool과 ClearAllPools이 있다. ClearPool 메서드는 지정된 연결 풀을 지우며, ClearAllPools 메서드는 모든 연결 풀을 지운다.
+The AltibaseConnection class provides methods for clearing pools: ClearPool and ClearAllPools. ClearPool removes a specified connection pool, while ClearAllPools removes all connection pools.
 
-##### 제약 사항
+##### Constraints
 
-연결은 Altibase 서버 프로퍼티 [MAX_CLINET](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#max_client) 이상 생성할 수 없으므로, 연결 속성 max pool size 및 min pool size 설정 시 MAX_CLIENT를 고려해야 한다.
+The number of created connections cannot exceed the Altibase server property [MAX_CLIENT](#https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#max_client), so when configuring the `max pool size` and `min pool size` properties, MAX_CLIENT should be taken into account.
 
 
 
-#### 트랜잭션 처리
+#### Transaction Processing
 
-Altibase ADO.NET에서 트랜잭션 처리는 AltibaseTransaction 객체를 사용하거나 CommittableTransaction 객체를 쓰는 방법이 있다.
+In Altibase ADO.NET, a transaction is processed by using AltibaseTransaction object or CommittableTransaction object.
 
-##### AltibaseTransaction 객체
+##### AltibaseTransaction Object
 
-AltibaseTransaction 객체는 아래 예제와 같이 AltibaseConnection.BeginTransaction() 메서드로 트랜잭션 객체를 얻는다.
+AltibaseTransaction gains the transaction object through AltibaseConnection.BeginTransaction() method as below.
 
-이 방법은 로컬 트랜잭션으로만 사용할 수 있다.
+This method can only be used for local transactions.
 
 ~~~c#
 AltibaseConnection sConn = new AltibaseConnection(sConnStr); sConn.Open();
 
-// 트랜잭션 시작
+// Transaction starts
 AltibaseTransaction sTrans = sConn.BeginTransaction();
 AltibaseCommand sCmd = sConn.CreateCommand();
 
-// 트랜잭션 작업 ...
+// Transaction processing ...
 
 // TODO
 
-// 트랜잭션 끝
+// Transaction ends 
 sTrans.Commit();
 ~~~
 
-##### CommitableTransaction 객체
+##### CommitableTransaction Object
 
-CommitableTransaction 객체는 트랜잭션에 암시적 또는 명시적으로 참여할 수 있다. Altibase ADO.NET에서 암시적인 방식으로 트랜잭션에 참여하려면 접속 문자열에 연결 설정 enlist를 설정하지 않거나 `enlist=true`라고 설정한다. 명시적인 참여는 접속 문자열에 `enlist=false`로 설정한다.
+The CommitableTransaction object can participate in transactions implicitly or explicitly. In Altibase ADO.NET, to participate implicitly in transactions, either do not set the enlist connection property in the connection string or set it to `enlist=true`. For explicit participation, set the enlist connection property to `enlist=false` in the connection string.
 
-##### 분산 트랜잭션
+##### Distributed Transaction
 
-Altibase ADO.NET은 AltibaseConnection.EnlistDistributedTransaction 메서드로 명시적으로 분산 트랜잭션에 참여할 수 있으나 .NET Core 3.1에서 분산 트랜잭션을 지원하지 않으므로 Altibase ADO.NET도 로컬 트랜잭션만 지원한다. 
+Altibase ADO.NET allows explicit participation in distributed transactions through the AltibaseConnection.EnlistDistributedTransaction method. However, since distributed transactions are not supported in .NET Core 3.1, Altibase ADO.NET only supports local transactions.
 
 
 
-#### 배열 바인딩
+#### Array Binding
 
-Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배열 형태의 데이터에 대하여 파라미터 바인딩이 가능하다는 것을 의미하며 일반적인 바인딩보다 적은 네트워크 비용으로 여러 개의 열을 처리하므로 속도 향상을 기대할 수 있다.
+Altibase ADO.NET supports "Array Binding", which means that the parameter binding for data in array format is possible. This allows processing multiple rows with fewer network costs compared to regular binding, resulting in improved performance.
 
-배열 바인딩 순서는 다음과 같다.
+The steps of array binding are as follows:
 
 1️⃣ 바인드하려는 변수들을 모두 배열로 잡는다. 
 
-배열 크기는 AltibaseCommand 클래스의 ArrayBindCount 값보다 크거나 같아야 한다.
+The size of the array must be greater than or equal to the value of the `ArrayBindCount` property of the AltibaseCommand class.
 
-2️⃣ 배열 변수들을 파라미터에 바인드한다. 
+2️⃣ Bind the array variables to parameters. 
 
-바인드하는 컬럼이 CHAR, VARCHAR, BLOB 타입이면, AltibaseParameter 클래스의 ArrayBindSize를 배열 요소 중 가장 큰 것과 같은 크기로 설정해야 한다.
+If the type of bound columns is CHAR, VARCHAR, or BLOB, the `ArrayBindSize` property of the AltibaseParameter class should be set to the size equal to the largest element in the array.
 
-3️⃣ AltibaseCommand 클래스의 ArrayBindCount 값을 설정한다.
+3️⃣ Set the ArrayBindCount value of the AltibaseCommand class.
 
-예) 한 번에 100개씩 입력하려면 ArrayBindCount = 100; 
+Example) To input 100 elements at once, set `ArrayBindCount = 100;` 
 
-4️⃣ 질의문을 실행한다.
+4️⃣ Execute the query.
 
-##### 주의 사항
+##### Cautions
 
 배열 바인딩할 때 다음 사항을 주의해야 한다.
 
@@ -3589,9 +3589,9 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 
 
-### Altibase ADO.NET 예제
+### Altibase ADO.NET Examples
 
-#### DDL 과 DML 단순 예제
+#### DDL and DML Statements
 
 AltibaseConnection 클래스를 사용하여 ALTIBASE HDB 에 접근하여 test_goods 테이블을 생성하고 데이터를 삽입한 후 검색한다.
 
@@ -3656,7 +3656,7 @@ class ConnectionTest
 } 
 ```
 
- 실행결과
+Result:
 
 ```c#
 GNO        GNAME    LOCATION STOCK PRICE
@@ -3666,7 +3666,7 @@ A111100002 IM-310   DD0001   100   98000
 B111100001 NT-H5000 AC0002   780   35800
 ```
 
-#### 벌크 복사 예제
+#### Bulk Copy
 
 AltibaseBulkCopy 를 이용해서 bulkcopy_source 테이블에서 bulkcopy_destination 테이블로 데이터를 복사한다.
 
@@ -3743,7 +3743,7 @@ class Program
 }
 ```
 
-#### 연결 풀링 예제
+#### Connection Pooling
 
 ADO.NET 에서 연결 풀링를 사용하는 예제는 다음과 같다.
 
@@ -3777,7 +3777,7 @@ static void Main(string[] sArgs)
 }
 ```
 
-#### 배열 바인딩 예제
+#### Array Binding
 
 ~~~c#
 using System;
