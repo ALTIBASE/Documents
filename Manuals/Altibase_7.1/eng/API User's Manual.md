@@ -3428,95 +3428,95 @@ Example) To input 100 elements at once, set `ArrayBindCount = 100;`
 
 ##### Cautions
 
-배열 바인딩할 때 다음 사항을 주의해야 한다.
+When performing array binding, the following points should be noted:
 
-- ArrayBindCount의 유효 범위는 1부터 65535까지이다. 배열 크기를 무조건 크게 잡는다고 속도가 빨라지는 것은 아니므로 적당한 크기로 바인딩한다.
-- CHAR, VARCHAR, BLOB 타입은 배열 단일 요소의 데이터 크기가 ArrayBindSize를 넘으면 에러가 발생한다.
-- NCHAR, NVARCHAR 타입은 ArrayBindSize 값을 byte가 아닌 문자 수로 설정해야 한다.
-- BLOB 타입은 응응 프로그램에서 배열 타입으로 Object[]를 쓰고, 배열 원소는 byte[]를 사용한다.
-  - 예시 
+- The valid range for ArrayBindCount is from 1 to 65535. It's not guaranteed that increasing the array size will always improve performance, so it's advisable to bind with an appropriate size.
+- For CHAR, VARCHAR, and BLOB types, if the data size of a single element in the array exceeds ArrayBindSize, an error will occur.
+- For NCHAR and NVARCHAR types, ArrayBindSize should be set in terms of the number of characters, not bytes.
+- For BLOB types, use Object[] as the array type in the application, and each array element should be of type byte[].
+  - Example 
     ~~~c#
     byte[] var1; 
     byte[] var2; 
     Object[] var = new Object[2] {var1, var2};
     ~~~
-- CLOB, BYTE, NIBBLE, BIT, VARBIT, GEOMETRY 타입의 배열 바인딩은 지원하지 않는다.
+- For CLOB, BYTE, NIBBLE, BIT, VARBIT, and GEOMETRY types, array binding is not supported.
 
-##### 제약 사항
+##### Constraints
 
-입력(Input) 파라미터만 배열 바인딩을 지원한다. 출력(Output)이나 입출력 공용 파라미터의 배열 바인딩은 지원하지 않는다.
+Array binding supports only input parameters. Output or bidirectional 공용 parameters are not supported.
 
 
 
-#### 데이터베이스 스키마 정보 검색
+#### Database Schema Information Search
 
-GetSchema() 메서드로 MetadataCollections, DataSourceInformation, DataTypes, Restrictions, ReservedWords와 같은 공통 스키마 외에 Altibase의 메타 테이블을 조회할 수 있다.
+GetSchema() method allows querying Altibase's meta tables in addition to common schemas such as MetadataCollections, DataSourceInformation, DataTypes, Restrictions, and ReservedWords.
 
-| 스키마               | 메타 테이블              | Description                                                  |
+| Schema               | Meta Table               | Description                                                  |
 | :------------------- | :----------------------- | :----------------------------------------------------------- |
-| Users                | SYS_USERS_               | 데이터베이스 사용자 정보를 저장하는 메타 테이블              |
-| Tables               | SYS_TABLES_              | 테이블 정보를 저장하는 메타 테이블                           |
-| Views                | SYS_VIEWS_               | 뷰 정보를 저장하는 메타 테이블                               |
-| Sequences            | V$SEQ                    | 시퀀스 정보를 저장하는 성능 뷰                               |
-| Synonyms             | SYS_SYNONYMS_            | 시노님 정보를 저장하는 메타 테이블                           |
-| Indexes              | SYS_INDICES_             | 인덱스 정보를 기록하고 있는 메타 테이블                      |
-| Columns              | SYS_COLUMNS_             | 컬럼 정보를 저장하는 메타 테이블                             |
-| Constraints          | SYS_CONSTRAINTS_         | 제약 조건 정보를 저장하는 메타 테이블                        |
-| Procedures           | SYS_PROCEDURES_          | 저장 프로시저 및 함수 정보를 저장하는 메타 테이블            |
-| ProcedurePa rameters | SYS_PROC_PARAS_          | 저장 프로시저 및 함수의 파라미터 정보를 저장하는 메타 테이블 |
-| IndexColumns         | SYS_INDEX_COLUMNS_       | 인덱스 컬럼 정보를 저장하는 메타 테이블                      |
-| ConstraintColumns    | SYS_CONSTRAINT_ COLUMNS_ | 제약 조건 컬럼 정보를 저장하는 메타 테이블                   |
-| Triggers             | SYS_TRIGGERS_            | 트리거 정보를 저장하는 메타 테이블                           |
+| Users                | SYS_USERS_               | This table contains information about users.                 |
+| Tables               | SYS_TABLES_              | This table contains information about all kinds of tables.   |
+| Views                | SYS_VIEWS_               | This table contains information about views.                 |
+| Sequences            | V$SEQ                    | This performance view contains information about sequences.  |
+| Synonyms             | SYS_SYNONYMS_            | This table contains information about synonyms.              |
+| Indexes              | SYS_INDICES_             | This table contains information about indexes.               |
+| Columns              | SYS_COLUMNS_             | This table contains information about columns.               |
+| Constraints          | SYS_CONSTRAINTS_         | This table contains information about constraints.           |
+| Procedures           | SYS_PROCEDURES_          | This table contains information about stored procedures and functions. |
+| ProcedurePa rameters | SYS_PROC_PARAS_          | This table contains information about the parameters for stored procedures and functions. |
+| IndexColumns         | SYS_INDEX_COLUMNS_       | This table contains information about index key columns.     |
+| ConstraintColumns    | SYS_CONSTRAINT_ COLUMNS_ | This table contains information about columns having constraints. |
+| Triggers             | SYS_TRIGGERS_            | This table contains information about triggers.              |
 
-Altibase에서 지원하는 데이터베이스 스키마와 관련 메타 테이블에 관한 설명은 아래 매뉴얼을 참고한다.
+Please refer to the following manuals for more information about database schemas and related meta tables that Altibase supports.
 
-- [Altibase 7.1 Administrator's Manual - 5.데이터베이스-객체-및-권한](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Administrator's%20Manual.md#5%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EB%B0%8F-%EA%B6%8C%ED%95%9C)
-- [Altibase 7.1 GeneralReference-2.The Data Dictionary.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md)
+- [Altibase 7.1 Administrator's Manual - 5.Objects and Privileges](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Administrator's%20Manual.md#5-objects-and-privileges)
+- [Altibase 7.1 GeneralReference-2.The Data Dictionary](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/General%20Reference-2.The%20Data%20Dictionary.md)
 
 
 
-### Altibase ADO.NET 인터페이스
+### Altibase ADO.NET Interface
 
-Altibase ADO.NET에서 구현한 ADO.NET API 중 대표적인 클래스와 제약 사항 그리고 지원하지 않는 API를 설명한다.
+This section describes the prominent classes implemented within Altibase ADO.NET's API, along with their constraints and unsupported APIs.
 
-#### 지원 인터페이스
+#### Supported Interfaces
 
-##### 연결 및 질의 실행, 결과 검색
+##### Establish Connection, Execute Query, and Retrieve Result
 
-Altibase ADO.NET은 Altibase 서버로의 연결 및 질의을 실행하고 결과를 검색하는 기능을 제공한다. 이 기능들은 아래 4개의 클래스에 기반하고 있다. 각 클래스들의 하위 메서드 기능은 마이크로소프트의 [.NET Core 3.1 API 문서](https://learn.microsoft.com/ko-kr/dotnet/api/?view=netcore-3.1)를 참고한다.
+Altibase ADO.NET provides functionalities for establishing connections to Altibase servers, executing queries, and retrieving results. These functionalities are based on the following four classes. The sub-method functionalities of each class can be referred to in Microsoft's [.NET Core 3.1 API documentation](https://learn.microsoft.com/en-us/dotnet/api/?view=netcore-3.1).
 
-| 클래스              | Description                                                  |
+| Class               | Description                                                  |
 | :------------------ | :----------------------------------------------------------- |
-| AltibaseConnection  | Altibase 서버로 연결을 설정하고 트랜잭션을 시작할 수 있다.   |
-| AltibaseCommand     | Altibase 서버에서 질의문을 실행하고 매개변수를 표시할 수 있다. |
-| AltibaseDataReader  | Altibase 서버에서 명령을 수행한 결과를 가져와 출력할 수 있다. |
-| AltibaseDataAdapter | DataSet에 데이터를 채우고 데이터베이스에 저장된 데이터를 갱신할 수 있다. |
+| AltibaseConnection  | Establish connections to the Altibase server and start transactions. |
+| AltibaseCommand     | Execute queries on the Altibase server and display the parameters. |
+| AltibaseDataReader  | Retrieve and output the results of commands executed on the Altibase server. |
+| AltibaseDataAdapter | Fill a DataSet with data and update the data stored in the database. |
 
-##### 예외 및 트랜잭션 처리
+##### Handling Exceptions and Executing Transactions
 
-Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션 처리 등을 위해 다음 클래스들을 제공한다.
+Altibase ADO.NET provides the following classes to handle exceptions, execute stored procedures, and process transactions, etc.
 
-| 클래스              | Description                                                  |
+| Class               | Description                                                  |
 | :------------------ | :----------------------------------------------------------- |
-| AltibaseException   | 데이터베이스 오류나.NET Core에서 받은 클라이언트 오류를 출력할 수 있다. |
-| AltibaseParameter   | SQL 명령 및 저장 프로시저에 대한 입력, 출력 파라미터를 정의한다. |
-| AltibaseTransaction | 데이터베이스에서 트랜잭션 관련 명령을 수행할 수 있다.        |
+| AltibaseException   | Output the database errors or client errors from .NET Core.  |
+| AltibaseParameter   | Define the input/output parameters of SQL commands or stored procedures. |
+| AltibaseTransaction | Perform transaction-related commands in the database.        |
 
-##### 기본 구현
+##### Basic Implementation
 
-다음은 ADO.NET 클래스 중 기본 구현을 그대로 상속받은 API 목록이다. 
+The following is a list of APIs that inherit the basic implementation from ADO.NET classes.
 
-| ADO.NET API 클래스 | Altibase ADO.NET 클래스 | 구분   |                               |
-| :----------------- | :---------------------- | ------ | ----------------------------- |
-| Dbproviderfactory  | AltibaseFactory         | 메서드 | CreateCommandBuilder          |
-|                    |                         | 메서드 | CreateConnectionStringBuilder |
-| Dbdatareader       | AltibaseDataReader      | 메서드 | GetProviderSpecificFieldType  |
-|                    |                         | 메서드 | GetProviderSpecificValue      |
-|                    |                         | 메서드 | GetProviderSpecificValues     |
-|                    |                         | 속성   | VisibleFieldCount             |
-| Dbdataadapter      | AltibaseDataAdapter     | 메서드 | GetBatchedRecordsAffected     |
+| ADO.NET API Class | Altibase ADO.NET Class | Category | Component                     |
+| :---------------- | :--------------------- | -------- | ----------------------------- |
+| DbProviderFactory | AltibaseFactory        | Method   | CreateCommandBuilder          |
+|                   |                        | Method   | CreateConnectionStringBuilder |
+| DbDataReader      | AltibaseDataReader     | Method   | GetProviderSpecificFieldType  |
+|                   |                        | Method   | GetProviderSpecificValue      |
+|                   |                        | Method   | GetProviderSpecificValues     |
+|                   |                        | Property | VisibleFieldCount             |
+| DbDataAdapter     | AltibaseDataAdapter    | Method   | GetBatchedRecordsAffected     |
 
-##### 지원 인터페이스의 제약 사항
+##### Constraints for Supported Interfaces
 
 - ColumnName 속성은 DataReader, CommandBuilder 등에서 대소문자를 구별한다. 
   
@@ -3528,62 +3528,62 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 - Altibase ADO.NET은 다중 질의문의 실행을 지원하지 않는다. 여러 개의 질의문을 한 번에 실행하려면 저장 프로시저를 사용해야 한다.
 
-#### 지원하지 않는 인터페이스
+#### Unsupported Interfaces
 
 아래 표는 Altibase ADO.NET에서 지원하지 않는 인터페이스 목록이다. 지원하지 않는 인터페이스를 사용하면 NotImplementedException에러가 발생한다.
 
-| ADO.NET API 클래스  | Altibase ADO.NET 클래스      | 구분   | 구성 요소                                                    |                    |
+| ADO.NET API Class | Altibase ADO.NET Class | Category | Component                                          |                    |
 | --------------------- | :--------------------------- | :----- | :----------------------------------------------------------- | :----------------- |
-| DbConnection          | AltibaseConnection           | 메서드 | ChangeDatabase                                               |                    |
-|                       |                              | 속성   | DataSource                                                   |                    |
-|                       |                              | 속성   | ServerVersion                                                |                    |
-| DbCommand             | AltibaseCommand              | 메서드 | Cancel                                                       |                    |
-|                       |                              | 속성   | CommandTimeout                                               |                    |
-|                       |                              | 속성   | CommandType                                                  |                    |
-| DbDataReader          | AltibaseDataReader           | 메서드 | GetData                                                      |                    |
-|                       |                              | 메서드 | GetDbDataReader                                              |                    |
-|                       |                              | 속성   | Depth                                                        | 항상 0을 반환한다. |
-|                       |                              | 속성   | HasRows                                                      |                    |
-| DbDataAdapter         | AltibaseDataAdapter          | 메서드 | AddToBatch(IDbCommand command)                               |                    |
-|                       |                              | 메서드 | CrearBatch                                                   |                    |
-|                       |                              | 메서드 | ExecuteBatch                                                 |                    |
-|                       |                              | 메서드 | GetBatchedParameter                                          |                    |
-|                       |                              | 메서드 | InitializeBatching                                           |                    |
-|                       |                              | 메서드 | TerminateBatching                                            |                    |
-| DbDataSourceEnumerator                 |  | 클래스 |  |             |
-| DbProviderFactory     | AltibaseFactory              | 메서드 | CreateDataSourceEnumerator |                    |
-| DbParameter           | AltibaseParameter            | 메서드 | ResetDbType                                                  |                    |
-| DbParameterCollection | AltibaseParameterCollection  | 메서드 | AddRange                                                     |                    |
+| DbConnection          | AltibaseConnection           | Method | ChangeDatabase                                               |                    |
+|                       |                              | Property | DataSource                                                   |                    |
+|                       |                              | Property | ServerVersion                                                |                    |
+| DbCommand             | AltibaseCommand              | Method | Cancel                                                       |                    |
+|                       |                              | Property | CommandTimeout                                               |                    |
+|                       |                              | Property | CommandType                                                  |                    |
+| DbDataReader          | AltibaseDataReader           | Method | GetData                                                      |                    |
+|                       |                              | Method | GetDbDataReader                                              |                    |
+|                       |                              | Property | Depth                                                        | 항상 0을 반환한다. |
+|                       |                              | Property | HasRows                                                      |                    |
+| DbDataAdapter         | AltibaseDataAdapter          | Method | AddToBatch(IDbCommand command)                               |                    |
+|                       |                              | Method | CrearBatch                                                   |                    |
+|                       |                              | Method | ExecuteBatch                                                 |                    |
+|                       |                              | Method | GetBatchedParameter                                          |                    |
+|                       |                              | Method | InitializeBatching                                           |                    |
+|                       |                              | Method | TerminateBatching                                            |                    |
+| DbDataSourceEnumerator                 |  | Class |  |             |
+| DbProviderFactory     | AltibaseFactory              | Method | CreateDataSourceEnumerator |                    |
+| DbParameter           | AltibaseParameter            | Method | ResetDbType                                                  |                    |
+| DbParameterCollection | AltibaseParameterCollection  | Method | AddRange                                                     |                    |
 
-### Altibase ADO.NET 데이터 타입
+### Altibase ADO.NET Data Types
 
 테이블 컬럼이나 파라미터의 데이터 타입을 선언하기 위해서 AltibaseDbType 클래스가 사용된다. 
 
 아래 표에서 AltibaseDbType 클래스, Altibase 서버의 데이터 타입과 .NET Core 데이터 타입 간의 관계를 확인할 수 있다.
 
-| AltibaseDbType 클래스 | Altibase의 데이터 타입 | .NET Core   |
-| :-------------------- | :--------------------- | :---------- |
-| BigInt                | BIGINT                 | Int64       |
-| BitArray              | BIT                    | BitArray[]  |
-| Blob                  | BLOB                   | Byte[]      |
-| Binary                | BYTE                   | Byte[]      |
-| Char                  | CHAR                   | String      |
-| Clob                  | CLOB                   | String      |
-| DateTime              | DATE                   | DateTime    |
-| Decimal               | DECIMAL                | Decimal     |
-| Double                | DOUBLE                 | Double      |
-| Float                 | FLOAT                  | Decimal     |
-| Geometry              | GEOMETRY               | Byte[]      |
-| Integer               | INT                    | Int32       |
-| NChar                 | NCHAR                  | String      |
-| NibbleArray           | NIBBLE                 | NibbleArray |
-| Number                | NUMBER                 | Decimal     |
-| Numeric               | NUMERIC                | Decimal     |
-| NVarChar              | NVARCHAR               | String      |
-| Real                  | REAL                   | Float       |
-| SmallInt              | SMALLINT               | Int16       |
-| VarBitArray           | VARBIT                 | BitArray[]  |
-| VarChar               | VARCHAR                | String      |
+| AltibaseDbType Class | Altibase Data Type | .NET Core   |
+| :------------------- | :----------------- | :---------- |
+| BigInt               | BIGINT             | Int64       |
+| BitArray             | BIT                | BitArray[]  |
+| Blob                 | BLOB               | Byte[]      |
+| Binary               | BYTE               | Byte[]      |
+| Char                 | CHAR               | String      |
+| Clob                 | CLOB               | String      |
+| DateTime             | DATE               | DateTime    |
+| Decimal              | DECIMAL            | Decimal     |
+| Double               | DOUBLE             | Double      |
+| Float                | FLOAT              | Decimal     |
+| Geometry             | GEOMETRY           | Byte[]      |
+| Integer              | INT                | Int32       |
+| NChar                | NCHAR              | String      |
+| NibbleArray          | NIBBLE             | NibbleArray |
+| Number               | NUMBER             | Decimal     |
+| Numeric              | NUMERIC            | Decimal     |
+| NVarChar             | NVARCHAR           | String      |
+| Real                 | REAL               | Float       |
+| SmallInt             | SMALLINT           | Int16       |
+| VarBitArray          | VARBIT             | BitArray[]  |
+| VarChar              | VARCHAR            | String      |
 
 질의문에서 내셔널 캐릭터를 포함하는 상수 문자열을 사용하려면, 해당 문자열 바로 앞에 ‘N’을 붙이면 된다.
 
