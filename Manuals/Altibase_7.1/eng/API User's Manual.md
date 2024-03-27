@@ -1919,7 +1919,7 @@ The following table summarizes the functions available in the iLoader API.
 | altibase_iloader_datain       | Uploads data into a table in a database                      |
 | CallbackFunctionName          | A user-defined callback function                             |
 
-<br/>
+
 
 ## Using the iLoader API
 
@@ -1948,7 +1948,7 @@ The iLoader API library files that are required in order to develop an applicati
 
 Sample iLoader API applications can be found in the $ALTIBASE_HOME/sample/ILOADERAPI directory.
 
-<br/>
+
 
 ## iLoader API Data Structures
 
@@ -2145,8 +2145,6 @@ typedef enum
 ```
 
 
-
-<br/>
 
 
 ## iLoader API

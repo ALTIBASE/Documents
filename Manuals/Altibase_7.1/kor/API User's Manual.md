@@ -1358,7 +1358,7 @@ JDBC 2.0 Optional 패키지의 표준 XA 인터페이스들과 이를 구현한 
 
 #### XADataSource Interface 
 
-javax.sql.XADataSource는 XA Connection의 factory 기능을 갖는 인터페이스이다. 이 인터페이스의 getXAConnection 메서드가 XA Connection 인스턴스를 반환한다.
+javax.sql.XADataSource는 XA Connection의 factory 기능을 갖는 인터페이스이다. 이 인터페이스의 getXAConnection 메소드가 XA Connection 인스턴스를 반환한다.
 
 ```
 public interface XADataSource
@@ -1381,7 +1381,7 @@ AltibaseConnectionPoolDataSource 클래스는 Altibase.jdbc.driver.DataSource를
 
 [그림 3‑4] AltibaseXADataSource 클래스
 
-AltibaseXADataSource 클래스의 getXAConnection 메서드는 XAConnection 타입의 인스턴스를 반환한다. 이 인스턴스는 실제로 ABPooledConnection 클래스의 인스턴스로서 ABPooledConnection 클래스는 XAConnection 인터페이스를 구현하고 있다.
+AltibaseXADataSource 클래스의 getXAConnection 메소드는 XAConnection 타입의 인스턴스를 반환한다. 이 인스턴스는 실제로 ABPooledConnection 클래스의 인스턴스로서 ABPooledConnection 클래스는 XAConnection 인터페이스를 구현하고 있다.
 
 XA data source는 Java Naming Directory와 Interface(JNDI)에 등록 및 사용할 수 있다.
 
@@ -1389,7 +1389,7 @@ XA data source는 Java Naming Directory와 Interface(JNDI)에 등록 및 사용�
 
 XAConnection 인터페이스는 PooledConnection 인터페이스의 하위 인터페이스이다.
 getConnection, close, addConnectionEventListener, removeConnectionEventListener
-메서드를 포함한다.
+메소드를 포함한다.
 
 ```
 public interface XAConnection extends PooledConnection
@@ -1403,7 +1403,7 @@ XAConnection의 인스턴스는 데이터베이스와 물리적으로 연결하�
 
 Altibase JDBC driver에서는 Altibase.jdbc.driver.ABPooledConnection 클래스의 인스턴스가 실질적인 XAConnection 타입의 인스턴스가 된다.
 
-ABPooledConnection 클래스의 getXAResource 메서드는 AltibaseXAResource 인스턴스를 반환하고, getConnection 메서드는 ABConnection 인스턴스를 반환한다.
+ABPooledConnection 클래스의 getXAResource 메소드는 AltibaseXAResource 인스턴스를 반환하고, getConnection 메소드는 ABConnection 인스턴스를 반환한다.
 
 <div align="left">
   <img src="media/API/image20.gif"> 
@@ -1411,10 +1411,10 @@ ABPooledConnection 클래스의 getXAResource 메서드는 AltibaseXAResource �
 
 [그림 3‑5] ABPooledConnection 클래스
 
-getConnection 메서드를 통해 반환되는 ABConnection 인스턴스는 데이터베이스와의 물리적인 연결에 대한 임시 핸들이고, 이 Connection은 글로벌 트랜잭션에 참여되기까지는 일반적인 Connection처럼 동작한다. 글로벌 트랜잭션에 참여되는 순간에 auto-commit 상태는 false가 되며, 글로벌 트랜잭션이 끝난 후에 auto-commit 상태는 글로벌 트랜잭션이 시작되기 이전 상태로 돌아간다.
+getConnection 메소드를 통해 반환되는 ABConnection 인스턴스는 데이터베이스와의 물리적인 연결에 대한 임시 핸들이고, 이 Connection은 글로벌 트랜잭션에 참여되기까지는 일반적인 Connection처럼 동작한다. 글로벌 트랜잭션에 참여되는 순간에 auto-commit 상태는 false가 되며, 글로벌 트랜잭션이 끝난 후에 auto-commit 상태는 글로벌 트랜잭션이 시작되기 이전 상태로 돌아간다.
 
-XAConnection의 getConnection 메서드가 호출될 때마다 새로운 Connection 인스턴스를 반환하는데, 동일한 XAConnection 인스턴스에 의해 반환되어 이전에 존재하던 Connection 인스턴스는 close 된다. 그럼에도 불구하고, 새로운 Connection이 오픈되기 전에 이전의 Connection은 명시적으로 close하기를 권장한다. XAConnection
-인스턴스의 close 메서드가 호출되면 데이터베이스로의 물리적인 연결이 끊어진다.
+XAConnection의 getConnection 메소드가 호출될 때마다 새로운 Connection 인스턴스를 반환하는데, 동일한 XAConnection 인스턴스에 의해 반환되어 이전에 존재하던 Connection 인스턴스는 close 된다. 그럼에도 불구하고, 새로운 Connection이 오픈되기 전에 이전의 Connection은 명시적으로 close하기를 권장한다. XAConnection
+인스턴스의 close 메소드가 호출되면 데이터베이스로의 물리적인 연결이 끊어진다.
 
 #### XAResource Interface
 
@@ -1428,11 +1428,11 @@ Altibse.jdbc.driver.AltibaseXAResource 타입의 인스턴스는 javax.transacti
 
 [그림 3‑6] AltibaseXAResource 클래스
 
-Altibase JDBC driver 는 ABPooledConnection 클래스의 getXAResource 메서드를 호출할 때마다 AltibaseXAResource 인스턴스를 생성하여 반환하고, Altibase JDBC driver AltibaseXAResource 인스턴스와 connection 인스턴스를 연결시킨다. 트랜잭션 브랜치는 이 connection으로 동작한다.
+Altibase JDBC driver 는 ABPooledConnection 클래스의 getXAResource 메소드를 호출할 때마다 AltibaseXAResource 인스턴스를 생성하여 반환하고, Altibase JDBC driver AltibaseXAResource 인스턴스와 connection 인스턴스를 연결시킨다. 트랜잭션 브랜치는 이 connection으로 동작한다.
 
-AltibaseXAResource 클래스는 분산된 트랜잭션의 트랜잭션 브랜치를 조정하기 위해 몇 개의 메서드를 갖고 있다.
+AltibaseXAResource 클래스는 분산된 트랜잭션의 트랜잭션 브랜치를 조정하기 위해 몇 개의 메소드를 갖고 있다.
 
-TM은 애플리케이션 서버와 같은 중간층의 컴포넌트로부터 AltibaseXAResource 인스턴스를 받으며, 아래의 메서드를 갖고 있다.
+TM은 애플리케이션 서버와 같은 중간층의 컴포넌트로부터 AltibaseXAResource 인스턴스를 받으며, 아래의 메소드를 갖고 있다.
 
 ```
 void start(Xid xid, int flags)
@@ -1464,7 +1464,7 @@ Altibase는 javax.transaction.xa.Xid 인터페이스를 구현한 클래스가 A
 
 ### 에러 처리
 
-XA 관련 메서드는 에러가 발생할 때, ABXAException을 throw한다. ABXAException 클래스는 javax.transaction.xa.XAException 클래스의 하위 클래스이다.
+XA 관련 메소드는 에러가 발생할 때, ABXAException을 throw한다. ABXAException 클래스는 javax.transaction.xa.XAException 클래스의 하위 클래스이다.
 
 
 
@@ -3144,7 +3144,7 @@ Altibase ADO.NET은 마이크로소프트의 ADO.NET API를 Altibase에서 사�
 #### 요구사항
 - Altibase CLI 라이브러리
   
-  Altibase ADO.NET은 CLI 라이브러리로 Altibase 서버에 접속한다. 아래 CLI 라이브러리는 Altibase ADO.NET Nuget 패키지에 포함되어 있다.
+  Altibase ADO.NET은 CLI 라이브러리로 Altibase 서버에 접속한다. 아래 CLI 라이브러리는 Altibase ADO.NET NuGet 패키지에 포함되어 있다.
   - Linux x86-64  : libdotnet_sl.so
   - Windows x64 : dotnet_sl.dll
 - Altibase 7.1.0.8.3 이상
@@ -3157,7 +3157,7 @@ Altibase ADO.NET이 지원하는 OS는 .NET Core 3.1의 지원 OS중에서 Altib
 - [.NET Core 3.1 - Supported OS versions](https://github.com/dotnet/core/blob/main/release-notes/3.1/3.1-supported-os.md#net-core-31---supported-os-versions)
 - [Altibase 7.1 클라이언트의 지원 OS](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-71-server--client)
 
-Altibase ADO.NET Nuget 패키지에 원하는 OS의 CLI 라이브러리가 포함되어 있지 않다면 [Altibase 고객 지원 센터](http://support.altibase.com/kr/)로 문의한다. 
+Altibase ADO.NET NuGet 패키지에 원하는 OS의 CLI 라이브러리가 포함되어 있지 않다면 [Altibase 고객 지원 센터](http://support.altibase.com/kr/)로 문의한다. 
 
 
 
@@ -3167,7 +3167,7 @@ Altibase ADO.NET Nuget 패키지에 원하는 OS의 CLI 라이브러리가 포�
 
 #### Altibase ADO.NET 다운로드
 
-[Nuget 사이트](https://www.nuget.org/packages/Altibase.Data.AltibaseClient)를 통해 Altibase.Data.AltibaseClient.nupkg를 제공한다.
+[NuGet 사이트](https://www.nuget.org/packages/Altibase.Data.AltibaseClient)를 통해 Altibase.Data.AltibaseClient.nupkg를 제공한다.
 
 
 
@@ -3188,7 +3188,7 @@ Altibase ADO.NET을 사용한 애플리케이션은 아래 2가지 방법으로 
       https://api.nuget.org/v3/index.json
 ~~~
 
-2️⃣ 프로젝트 파일 내 \<PackageReference> 항목에 Altibase ADO.NET Nuget 패키지 종속성을 지정한다.
+2️⃣ 프로젝트 파일 내 \<PackageReference> 항목에 Altibase ADO.NET NuGet 패키지 종속성을 지정한다.
 
 ~~~c#
 <Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -3197,7 +3197,7 @@ Altibase ADO.NET을 사용한 애플리케이션은 아래 2가지 방법으로 
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    /* Altibase ADO.NET Nuget 패키지 종속성을 지정 */
+    /* Altibase ADO.NET NuGet 패키지 종속성을 지정 */
     <PackageReference Include="Altibase.Data.AltibaseClient" />
   </ItemGroup>
   <ItemGroup>
@@ -3223,7 +3223,7 @@ IDE(Integrated Development Environment) 환경에서 Altibase ADO.NET을 등록�
 <div align="left">
     <img src="media/API/adonet1.png">
 </div>
-2️⃣ Nuget 패키지 관리자 창에서 패키지 소스 nuget.org를 선택하고 Altibase.Data.AltibaseClient를 검색하여 설치한다.
+2️⃣ NuGet 패키지 관리자 창에서 패키지 소스 nuget.org를 선택하고 Altibase.Data.AltibaseClient를 검색하여 설치한다.
 
 <div align="left">
     <img src="media/API/adonet2.png">
@@ -3258,8 +3258,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 기본값 : 연결 설정을 명시하지 않았을 때 기본적으로 사용되는 값
 - 값의 범위 : 설정 가능한 값
 - 필수 여부 : 반드시 설정해야 하는지 여부
-- 설정 범위 : 
-  Altibase 서버에 연결된 이후에 설정한 속성의 영향 범위에 따라 시스템과 세션으로 구분한다.
+- 설정 범위 : Altibase 서버에 연결된 이후에 설정한 속성의 영향 범위에 따라 시스템과 세션으로 구분한다.
   - 시스템 : 설정한 속성이 다른 세션에 영향을 준다.
   - 세션 : 설정한 속성은 해당 세션에만 영향을 준다.
   - N/A : 이 속성은 Altibase 서버에 연결하는 과정에서만 영향을 받는다.
@@ -3299,8 +3298,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 값의 범위 : 임의의 문자열
 - 필수 여부 : 선택
 - 설정 범위 : N/A
-- 설명 : 
-  데이터 소스의 이름을 나타내며 아래의 조건에 따라 사용되는 값이 달라진다.
+- 설명 : 데이터 소스의 이름을 나타내며 아래의 조건에 따라 사용되는 값이 달라진다.
   - 연결 속성 server의 값이 존재하면, data source의 값은 무시된다.
   - 연결 속성 server의 값이 없고 data source의 값과 같은 ODBC 데이터 원본이 있으면 ODBC 데이터 원본의 DSN(data source name)이 사용된다.
   - 연결 속성 server의 값이 없고 data souce의 값과 같은 ODBC 데이터 원본이 없으면 서버의 IP 또는 호스트 이름을 사용한다.
@@ -3327,7 +3325,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
 - 필수 여부 : 선택
 - 설정 범위 : N/A
-- 설명 : 특정 연결 문자열에 대해 연결 풀에서 허용된 최대 연결 수
+- 설명 : 특정 연결 문자열에 대해 연결 풀에서 허용된 최대 연결 수를 설정한다.
 
 ###### min pool size 
 
@@ -3335,7 +3333,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
 - 필수 여부 : 선택
 - 설정 범위 : N/A
-- 설명 : 특정 연결 문자열에 대해 연결 풀에서 허용된 최소 연결 수. 연결 풀이 최초 생성될 때 이 설정 값만큼 연결이 생성된다. 
+- 설명 : 특정 연결 문자열에 대해 연결 풀에서 허용된 최소 연결 수를 설정한다. 연결 풀이 최초 생성될 때 이 설정 값만큼 연결이 생성된다. 
 
 ###### nchar literal replace
 
@@ -3399,7 +3397,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 값의 범위 :  [0 ~ 2<sup>31</sup>(2147483648)]
 - 필수 여부 : 선택
 - 설정 범위 : 세션
-- 설명 : 변경 연산(UPDATE, INSERT, DELETE)을 수행하는 트랜잭션의 수행 시간을 제한한다. 단위는 초(sec)이다. 0은 변경 트랜잭션의 수행 시간을 제한하지 않고, 0이 아니면 변경 트랜잭션의 수행 시간이 설정값을 초과하면 세션 연결을 해제하고 트랜잭션을 철회한다.
+- 설명 : 변경 연산(UPDATE, INSERT, DELETE)을 수행하는 트랜잭션의 수행 시간을 제한한다. 단위는 초(sec)이다. 0은 변경 트랜잭션의 수행 시간을 제한하지 않는다. 0이 아닐 경우, 변경 트랜잭션의 수행 시간이 설정값을 초과하면 세션 연결을 해제하고 트랜잭션을 철회한다.
 
 ###### user id 또는 uid
 
@@ -3419,27 +3417,27 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 
 ##### 연결 풀 만들기
 
-연결이 처음 열리면 연결 풀과 연결 문자열(Connection String)을 연결하는 일치 알고리즘에 따라 연결 풀이 생성된다. 연결이 열릴 때 연결 문자열이 기존 연결 풀과 정확하게 일치하지 않으면 새로운 연결 풀이 생성된다. 연결 문자열의 연결 속성이나 대소문자 및 공백에 차이가 있어도 다른 풀로 인식한다. 연결 문자열에 연결 속성 min pool size를 0이 아닌 값으로 설정하면 해당 값만큼 연결 풀이 자동으로 생성된다. 이 연결 속성을 설정하지 않았다면 기본값이 0이므로 자동 생성되는 연결은 없다.
+연결이 처음 열리면 연결 풀과 연결 문자열(Connection String)을 연결하는 일치 알고리즘에 따라 연결 풀이 생성된다. 연결이 열릴 때 연결 문자열이 기존 연결 풀과 정확하게 일치하지 않으면 새로운 연결 풀이 생성된다. 연결 문자열의 연결 속성이나 대소문자 및 공백에 차이가 있어도 다른 풀로 인식한다. 연결 문자열에 연결 속성 `min pool size`를 0이 아닌 값으로 설정하면 해당 값만큼 연결 풀이 자동으로 생성된다. 이 연결 속성을 설정하지 않았다면 기본값이 0이므로 자동 생성되는 연결은 없다.
 
 ##### 연결 할당 및 추가
 
 연결을 요청받으면 연결 문자열과 일치하는 연결 풀을 확인하여 연결을 할당하거나, 일치하는 연결 풀이 없으면 연결 풀을 생성하여 연결한다. 
 
-연결은 연결 속성 max pool size의 값만큼 생성할 수 있으며, 이 값을 초과하면 연결 속성 connection life time 값을 초과하는 연결이 발생할 때까지 대기한다.
+연결은 연결 속성 `max pool size`의 값만큼 생성할 수 있으며, 이 값을 초과하면 연결 속성 `connection life time` 값을 초과하는 연결이 발생할 때까지 대기한다.
 
 예외가 발생한 연결은 자동으로 제거되며, 명시적으로 연결을 닫으면 연결이 제거되는 것이 아니라 연결 풀로 회수된다.
 
 ##### 연결 제거
 
-응용 프로그램에서 명시적으로 연결을 닫거나 제거하지 않으면 연결 풀러는 정기적으로 연결 풀을 검사하여 연결을 제거한다. 연결은 연결 속성 connection life time에서 설정한 시간 동안 사용되지 않을 경우 제거되며, min pool size 의 값만큼 최소한의 연결을 남겨두고 회수된다. 그리고 예외가 발생한 연결도 제거된다. 
+응용 프로그램에서 명시적으로 연결을 닫거나 제거하지 않으면 연결 풀러는 정기적으로 연결 풀을 검사하여 연결을 제거한다. 연결은 연결 속성 `connection life time`에서 설정한 시간 동안 사용되지 않을 경우 제거되며, `min pool size` 의 값만큼 최소한의 연결을 남겨두고 회수된다. 그리고 예외가 발생한 연결도 제거된다. 
 
 ##### 연결 풀 지우기
 
-AltibaseConnection 클래스에서 풀을 지우는 메서드는 ClearPool과 ClearAllPools이 있다. ClearPool 메서드는 지정된 연결 풀을 지우며, ClearAllPools 메서드는 모든 연결 풀을 지운다.
+AltibaseConnection 클래스에서 풀을 지우는 메소드는 ClearPool과 ClearAllPools이 있다. ClearPool 메소드는 지정된 연결 풀을 지우며, ClearAllPools 메소드는 모든 연결 풀을 지운다.
 
 ##### 제약 사항
 
-연결은 Altibase 서버 프로퍼티 [MAX_CLIENT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#max_client) 이상 생성할 수 없으므로, 연결 속성 max pool size 및 min pool size 설정 시 MAX_CLIENT를 고려해야 한다.
+연결은 Altibase 서버 프로퍼티 [MAX_CLIENT ](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#max_client)이상 생성할 수 없으므로, 연결 속성 `max pool size` 및 `min pool size` 설정 시 MAX_CLIENT를 고려해야 한다.
 
 
 
@@ -3449,7 +3447,7 @@ Altibase ADO.NET에서 트랜잭션 처리는 AltibaseTransaction 객체를 사�
 
 ##### AltibaseTransaction 객체
 
-AltibaseTransaction 객체는 아래 예제와 같이 AltibaseConnection.BeginTransaction() 메서드로 트랜잭션 객체를 얻는다.
+AltibaseTransaction 객체는 아래 예제와 같이 AltibaseConnection.BeginTransaction() 메소드로 트랜잭션 객체를 얻는다.
 
 이 방법은 로컬 트랜잭션으로만 사용할 수 있다.
 
@@ -3470,11 +3468,11 @@ sTrans.Commit();
 
 ##### CommitableTransaction 객체
 
-CommitableTransaction 객체는 트랜잭션에 암시적 또는 명시적으로 참여할 수 있다. Altibase ADO.NET에서 암시적인 방식으로 트랜잭션에 참여하려면 접속 문자열에 연결 설정 enlist를 설정하지 않거나 `enlist=true`라고 설정한다. 명시적인 참여는 접속 문자열에 `enlist=false`로 설정한다.
+CommitableTransaction 객체는 트랜잭션에 암시적 또는 명시적으로 참여할 수 있다. Altibase ADO.NET에서 암시적인 방식으로 트랜잭션에 참여하려면 접속 문자열에 연결 설정 `enlist`를 설정하지 않거나 `enlist=true`라고 설정한다. 명시적인 참여는 접속 문자열에 `enlist=false`로 설정한다.
 
 ##### 분산 트랜잭션
 
-Altibase ADO.NET은 AltibaseConnection.EnlistDistributedTransaction 메서드로 명시적으로 분산 트랜잭션에 참여할 수 있으나 .NET Core 3.1에서 분산 트랜잭션을 지원하지 않으므로 Altibase ADO.NET도 로컬 트랜잭션만 지원한다. 
+Altibase ADO.NET은 AltibaseConnection.EnlistDistributedTransaction 메소드로 명시적으로 분산 트랜잭션에 참여할 수 있으나 .NET Core 3.1에서 분산 트랜잭션을 지원하지 않으므로 Altibase ADO.NET도 로컬 트랜잭션만 지원한다. 
 
 
 
@@ -3494,7 +3492,7 @@ Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배�
 
 3️⃣ AltibaseCommand 클래스의 ArrayBindCount 값을 설정한다.
 
-예) 한 번에 100개씩 입력하려면 ArrayBindCount = 100; 
+예) 한 번에 100개씩 입력하려면 `ArrayBindCount = 100; `
 
 4️⃣ 질의문을 실행한다.
 
@@ -3522,7 +3520,7 @@ Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배�
 
 #### 데이터베이스 스키마 정보 검색
 
-GetSchema() 메서드로 MetadataCollections, DataSourceInformation, DataTypes, Restrictions, ReservedWords와 같은 공통 스키마 외에 Altibase의 메타 테이블을 조회할 수 있다.
+GetSchema() 메소드로 MetadataCollections, DataSourceInformation, DataTypes, Restrictions, ReservedWords와 같은 공통 스키마 외에 Altibase의 메타 테이블을 조회할 수 있다.
 
 | 스키마               | 메타 테이블              | 설명                                                         |
 | :------------------- | :----------------------- | :----------------------------------------------------------- |
@@ -3542,8 +3540,8 @@ GetSchema() 메서드로 MetadataCollections, DataSourceInformation, DataTypes, 
 
 Altibase에서 지원하는 데이터베이스 스키마와 관련 메타 테이블에 관한 설명은 아래 매뉴얼을 참고한다.
 
-- [Altibase 7.1 Administrator's Manual - 5.데이터베이스-객체-및-권한](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Administrator's%20Manual.md#5%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EB%B0%8F-%EA%B6%8C%ED%95%9C)
-- [Altibase 7.1 General Reference-2.The Data Dictionary.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md)
+- [Altibase 7.1 Administrator's Manual - 5.데이터베이스 객체 및 권한](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Administrator's%20Manual.md#5%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EB%B0%8F-%EA%B6%8C%ED%95%9C)
+- [Altibase 7.1 General Reference-2.The Data Dictionary](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-2.The%20Data%20Dictionary.md)
 
 
 
@@ -3555,7 +3553,7 @@ Altibase ADO.NET에서 구현한 ADO.NET API 중 대표적인 클래스와 제�
 
 ##### 연결 및 질의 실행, 결과 검색
 
-Altibase ADO.NET은 Altibase 서버로의 연결 및 질의을 실행하고 결과를 검색하는 기능을 제공한다. 이 기능들은 아래 4개의 클래스에 기반하고 있다. 각 클래스들의 하위 메서드 기능은 마이크로소프트의 [.NET Core 3.1 API 문서](https://learn.microsoft.com/ko-kr/dotnet/api/?view=netcore-3.1)를 참고한다.
+Altibase ADO.NET은 Altibase 서버로의 연결 및 질의을 실행하고 결과를 검색하는 기능을 제공한다. 이 기능들은 아래 4개의 클래스에 기반하고 있다. 각 클래스들의 하위 메소드 기능은 마이크로소프트의 [.NET Core 3.1 API 문서](https://learn.microsoft.com/ko-kr/dotnet/api/?view=netcore-3.1)를 참고한다.
 
 | 클래스              | 설명                                                         |
 | :------------------ | :----------------------------------------------------------- |
@@ -3580,13 +3578,13 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 | ADO.NET API 클래스 | Altibase ADO.NET 클래스 | 구분   |                               |
 | :----------------- | :---------------------- | ------ | ----------------------------- |
-| Dbproviderfactory  | AltibaseFactory         | 메서드 | CreateCommandBuilder          |
-|                    |                         | 메서드 | CreateConnectionStringBuilder |
-| Dbdatareader       | AltibaseDataReader      | 메서드 | GetProviderSpecificFieldType  |
-|                    |                         | 메서드 | GetProviderSpecificValue      |
-|                    |                         | 메서드 | GetProviderSpecificValues     |
+| Dbproviderfactory  | AltibaseFactory         | 메소드 | CreateCommandBuilder          |
+|                    |                         | 메소드 | CreateConnectionStringBuilder |
+| Dbdatareader       | AltibaseDataReader      | 메소드 | GetProviderSpecificFieldType  |
+|                    |                         | 메소드 | GetProviderSpecificValue      |
+|                    |                         | 메소드 | GetProviderSpecificValues     |
 |                    |                         | 속성   | VisibleFieldCount             |
-| Dbdataadapter      | AltibaseDataAdapter     | 메서드 | GetBatchedRecordsAffected     |
+| Dbdataadapter      | AltibaseDataAdapter     | 메소드 | GetBatchedRecordsAffected     |
 
 ##### 지원 인터페이스의 제약 사항
 
@@ -3594,7 +3592,7 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
   
   Altibase는 컬럼 이름을 큰따옴표로 감싸지 않으면 대문자로 변환하므로, 테이블을 생성할 때 컬럼 이름에 큰따옴표를 사용하지 않았으면 대문자를 사용해야 올바른 값을 가져올 수 있다.
   
-- AltibaseDataReader.GetValue() 메서드는 숫자 데이터를 System.Decimal 형식으로 변환하다.
+- AltibaseDataReader.GetValue() 메소드는 숫자 데이터를 System.Decimal 형식으로 변환하다.
 
   이로 인해, GetValue()로 가져온 데이터가 NUMBER, NUMERIC, FLOAT, DECIMAL 데이터 타입이고 System.Decimal로 표현할 수 있는 범위를 넘어가면 데이터 손실이 발생할 수 있다. 
 
@@ -3606,26 +3604,26 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 | ADO.NET API 클래스  | Altibase ADO.NET 클래스      | 구분   | 구성 요소                                                    |                    |
 | --------------------- | :--------------------------- | :----- | :----------------------------------------------------------- | :----------------- |
-| DbConnection          | AltibaseConnection           | 메서드 | ChangeDatabase                                               |                    |
+| DbConnection          | AltibaseConnection           | 메소드 | ChangeDatabase                                               |                    |
 |                       |                              | 속성   | DataSource                                                   |                    |
 |                       |                              | 속성   | ServerVersion                                                |                    |
-| DbCommand             | AltibaseCommand              | 메서드 | Cancel                                                       |                    |
+| DbCommand             | AltibaseCommand              | 메소드 | Cancel                                                       |                    |
 |                       |                              | 속성   | CommandTimeout                                               |                    |
 |                       |                              | 속성   | CommandType                                                  |                    |
-| DbDataReader          | AltibaseDataReader           | 메서드 | GetData                                                      |                    |
-|                       |                              | 메서드 | GetDbDataReader                                              |                    |
+| DbDataReader          | AltibaseDataReader           | 메소드 | GetData                                                      |                    |
+|                       |                              | 메소드 | GetDbDataReader                                              |                    |
 |                       |                              | 속성   | Depth                                                        | 항상 0을 반환한다. |
 |                       |                              | 속성   | HasRows                                                      |                    |
-| DbDataAdapter         | AltibaseDataAdapter          | 메서드 | AddToBatch(IDbCommand command)                               |                    |
-|                       |                              | 메서드 | CrearBatch                                                   |                    |
-|                       |                              | 메서드 | ExecuteBatch                                                 |                    |
-|                       |                              | 메서드 | GetBatchedParameter                                          |                    |
-|                       |                              | 메서드 | InitializeBatching                                           |                    |
-|                       |                              | 메서드 | TerminateBatching                                            |                    |
+| DbDataAdapter         | AltibaseDataAdapter          | 메소드 | AddToBatch(IDbCommand command)                               |                    |
+|                       |                              | 메소드 | CrearBatch                                                   |                    |
+|                       |                              | 메소드 | ExecuteBatch                                                 |                    |
+|                       |                              | 메소드 | GetBatchedParameter                                          |                    |
+|                       |                              | 메소드 | InitializeBatching                                           |                    |
+|                       |                              | 메소드 | TerminateBatching                                            |                    |
 | DbDataSourceEnumerator                 |  | 클래스 |  |             |
-| DbProviderFactory     | AltibaseFactory              | 메서드 | CreateDataSourceEnumerator |                    |
-| DbParameter           | AltibaseParameter            | 메서드 | ResetDbType                                                  |                    |
-| DbParameterCollection | AltibaseParameterCollection  | 메서드 | AddRange                                                     |                    |
+| DbProviderFactory     | AltibaseFactory              | 메소드 | CreateDataSourceEnumerator |                    |
+| DbParameter           | AltibaseParameter            | 메소드 | ResetDbType                                                  |                    |
+| DbParameterCollection | AltibaseParameterCollection  | 메소드 | AddRange                                                     |                    |
 
 ### Altibase ADO.NET 데이터 타입
 
@@ -3665,7 +3663,7 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 #### DDL 과 DML 단순 예제
 
-AltibaseConnection 클래스를 사용하여 ALTIBASE HDB 에 접근하여 test_goods 테이블을 생성하고 데이터를 삽입한 후 검색한다.
+AltibaseConnection 클래스를 사용하여 ALTIBASE HDB 에 접근하여 *test_goods* 테이블을 생성하고 데이터를 삽입한 후 검색한다.
 
 ```c#
 using Altibase.Data.AltibaseClient;
@@ -3740,7 +3738,7 @@ B111100001 NT-H5000 AC0002   780   35800
 
 #### 벌크 복사 예제
 
-AltibaseBulkCopy 를 이용해서 bulkcopy_source 테이블에서 bulkcopy_destination 테이블로 데이터를 복사한다.
+AltibaseBulkCopy 를 이용해서 *bulkcopy_source* 테이블에서 *bulkcopy_destination* 테이블로 데이터를 복사한다.
 
 ```c#
 using System;
