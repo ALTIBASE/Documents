@@ -3516,21 +3516,21 @@ The following is a list of APIs that inherit the basic implementation from ADO.N
 |                   |                        | Property | VisibleFieldCount             |
 | DbDataAdapter     | AltibaseDataAdapter    | Method   | GetBatchedRecordsAffected     |
 
-##### Constraints for Supported Interfaces
+##### Considerations for Supported Interfaces
 
-- ColumnName 속성은 DataReader, CommandBuilder 등에서 대소문자를 구별한다. 
+- ColumnName is a case-sensitive attribute when it is used in DataReader, CommandBuilder, etc. 
   
-  Altibase는 컬럼 이름을 큰따옴표로 감싸지 않으면 대문자로 변환하므로, 테이블을 생성할 때 컬럼 이름에 큰따옴표를 사용하지 않았으면 대문자를 사용해야 올바른 값을 가져올 수 있다.
+  When creating a table, Altibase automatically converts column names that are not enclosed in double quotes("") to uppercase. If a column name was converted to uppercase during creation, users must use uppercase to obtain correct results.
   
-- AltibaseDataReader.GetValue() 메서드는 숫자 데이터를 System.Decimal 형식으로 변환하다.
+- AltibaseDataReader.GetValue() method converts numeric data to the System.Decimal data type.
 
-  이로 인해, GetValue()로 가져온 데이터가 NUMBER, NUMERIC, FLOAT, DECIMAL 데이터 타입이고 System.Decimal로 표현할 수 있는 범위를 넘어가면 데이터 손실이 발생할 수 있다. 
+  As a result, if the data retrieved by GetValue() is of type NUMBER, NUMERIC, FLOAT, or DECIMAL and exceeds the range that can be represented by System.Decimal, data loss may occur.
 
-- Altibase ADO.NET은 다중 질의문의 실행을 지원하지 않는다. 여러 개의 질의문을 한 번에 실행하려면 저장 프로시저를 사용해야 한다.
+- Altibase ADO.NET does not support the execution of multiple queries. To execute multiple queries at once, users should use stored procedures.
 
 #### Unsupported Interfaces
 
-아래 표는 Altibase ADO.NET에서 지원하지 않는 인터페이스 목록이다. 지원하지 않는 인터페이스를 사용하면 NotImplementedException에러가 발생한다.
+Below is a list of interfaces not supported by Altibase ADO.NET. Using unsupported interfaces will result in a NotImplementedException error.
 
 | ADO.NET API Class | Altibase ADO.NET Class | Category | Component                                          |                    |
 | --------------------- | :--------------------------- | :----- | :----------------------------------------------------------- | :----------------- |
@@ -3557,9 +3557,9 @@ The following is a list of APIs that inherit the basic implementation from ADO.N
 
 ### Altibase ADO.NET Data Types
 
-테이블 컬럼이나 파라미터의 데이터 타입을 선언하기 위해서 AltibaseDbType 클래스가 사용된다. 
+The AltibaseDbType class is used to declare the data types of table columns or parameters.
 
-아래 표에서 AltibaseDbType 클래스, Altibase 서버의 데이터 타입과 .NET Core 데이터 타입 간의 관계를 확인할 수 있다.
+Users can find the AltibaseDbType Class and Altibase server data types corresponding to the .NET Core data types from the table below:
 
 | AltibaseDbType Class | Altibase Data Type | .NET Core   |
 | :------------------- | :----------------- | :---------- |
@@ -3585,15 +3585,14 @@ The following is a list of APIs that inherit the basic implementation from ADO.N
 | VarBitArray          | VARBIT             | BitArray[]  |
 | VarChar              | VARCHAR            | String      |
 
-질의문에서 내셔널 캐릭터를 포함하는 상수 문자열을 사용하려면, 해당 문자열 바로 앞에 ‘N’을 붙이면 된다.
-
-
+> [!TIP]
+> To use constant strings containing national characters in queries, simply prefix the string with 'N'.
 
 ### Altibase ADO.NET Examples
 
 #### DDL and DML Statements
 
-AltibaseConnection 클래스를 사용하여 ALTIBASE HDB 에 접근하여 test_goods 테이블을 생성하고 데이터를 삽입한 후 검색한다.
+Access ALTIBASE HDB, create the *test_goods* table, insert data, and then perform SELECT using the AltiabseConnection class.
 
 ```c#
 using Altibase.Data.AltibaseClient;
@@ -3668,7 +3667,7 @@ B111100001 NT-H5000 AC0002   780   35800
 
 #### Bulk Copy
 
-AltibaseBulkCopy 를 이용해서 bulkcopy_source 테이블에서 bulkcopy_destination 테이블로 데이터를 복사한다.
+Copy data from the *bulkcopy_source* table to the *bulkcopy_destination* table using AltibaseBulkCopy.
 
 ```c#
 using System;
@@ -3745,7 +3744,7 @@ class Program
 
 #### Connection Pooling
 
-ADO.NET 에서 연결 풀링를 사용하는 예제는 다음과 같다.
+The example of using connection pooling in ADO.NET is as below.
 
 ```c#
 static void Main(string[] sArgs)
