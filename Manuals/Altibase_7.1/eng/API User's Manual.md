@@ -114,19 +114,19 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Restrictions and Cautions](#restrictions-and-cautions)
   - [How to Use](#how-to-use)
   - [Examples](#examples)
-- [3.XA Interface](#3-xa-interface)
+- [3.XA Interface](#3xa-interface)
   - [XA Interface Overview](#xa-interface-overview)
   - [The XA Interface](#the-xa-interface)
   - [Using XA](#using-xa)
   - [Limitations when using XA](#limitations-when-using-xa)
   - [JDBC Distributed Transactions](#jdbc-distributed-transactions)
   - [How to Solve Application Problems Using XA](#how-to-solve-application-problems-using-xa)
-- [4.iLoader API](#4-iloader-api)
+- [4.iLoader API](#4iloader-api)
   - [iLoader API Overview](#iloader-api-overview)
   - [Using the iLoader API](#using-the-iloader-api)
   - [iLoader API Data Structures](#iloader-api-data-structures)
   - [iLoader API](#iloader-api)
-- [5.CheckServer API](#5-checkserver-api)
+- [5.CheckServer API](#5checkserver-api)
   - [Overview of the CheckServer API](#overview-of-the-checkserver-api)
   - [Using the CheckServer API](#using-the-checkserver-api)
   - [CheckServer API Data Structure](#checkserver-api-data-structure)
@@ -639,7 +639,7 @@ $db->setAttribute(PDO::ATTR_AUTOCOMMIT, true);
 
 
 
-# 3. XA Interface
+# 3.XA Interface
 
 This chapter explains the general concept of distributed transactions, introduces the XA standard, and describes the XA interface.
 
@@ -1901,7 +1901,7 @@ FAEDFAED
 
 
 
-# 4. iLoader API
+# 4.iLoader API
 
 ## iLoader API Overview
 
@@ -2780,7 +2780,7 @@ altibase_iloader_datain(&handle,
 
 
 
-# 5. CheckServer API
+# 5.CheckServer API
 
 ## Overview of the CheckServer API
 
