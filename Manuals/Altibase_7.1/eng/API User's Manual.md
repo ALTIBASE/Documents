@@ -181,7 +181,7 @@ This manual is organized as follows:
     
 - Chapter 6: .NET Data Provider
 
-  This chapter introduces the <여기에 설명 넣기>
+  This chapter introduces Altibase ADO.NET, a driver that enables access to the Altibase server from .NET Core-based applications.
 
 ### Documentation Conventions
 
