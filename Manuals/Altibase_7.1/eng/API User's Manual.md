@@ -3349,11 +3349,9 @@ When a connection is first opened, a connection pool is created based on a match
 
 ##### Connection Allocation and Addition
 
-When a connection request is received, the pool checks the matching connection pool for an available connection. If no matching pool is found, a new one is created. Connections can be created up to the value set by the `max pool size` property. 
+When a connection request is received, the pool checks the matching connection pool for an available connection. If no matching pool is found, a new one is created. Connections can be created up to the value set by the `max pool size` property. When the number of created connections exceeds the `max pool size`, this operation waits until a connection removed from the connection pool occurs due to exceeding the connection property `connection life time`.
 
-연결은 연결 속성 max pool size의 값만큼 생성할 수 있으며, 이 값을 초과하면 연결 속성 connection life time 값을 초과하는 연결이 발생할 때까지 대기한다.
-
-Connections that encounter exceptions are automatically removed, and explicitly closing a connection does not remove it but returns the connection to the connection pool.
+Connections that encounter exceptions are automatically removed, and explicitly closing a connection does not remove connections but returns the connections to the connection pool.
 
 ##### Connection Removal
 

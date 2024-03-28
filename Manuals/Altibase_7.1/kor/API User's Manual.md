@@ -3423,7 +3423,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 
 연결을 요청받으면 연결 문자열과 일치하는 연결 풀을 확인하여 연결을 할당하거나, 일치하는 연결 풀이 없으면 연결 풀을 생성하여 연결한다. 
 
-연결은 연결 속성 `max pool size`의 값만큼 생성할 수 있으며, 이 값을 초과하면 연결 속성 `connection life time` 값을 초과하는 연결이 발생할 때까지 대기한다.
+연결은 연결 속성 `max pool size`의 값만큼 생성할 수 있다. 생성된 연결이 이 값을 초과하는 경우, 이 동작은 연결 속성 `connection life time` 값을 초과하여 제거되는 연결이 발생할 때까지 대기한다. @리뷰
 
 예외가 발생한 연결은 자동으로 제거되며, 명시적으로 연결을 닫으면 연결이 제거되는 것이 아니라 연결 풀로 회수된다.
 
@@ -3437,7 +3437,7 @@ AltibaseConnection 클래스에서 풀을 지우는 메소드는 ClearPool과 Cl
 
 ##### 제약 사항
 
-연결은 Altibase 서버 프로퍼티 [MAX_CLIENT ](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#max_client)이상 생성할 수 없으므로, 연결 속성 `max pool size` 및 `min pool size` 설정 시 MAX_CLIENT를 고려해야 한다.
+연결은 Altibase 서버 프로퍼티 [MAX_CLIENT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#max_client)이상 생성할 수 없으므로, 연결 속성 `max pool size` 및 `min pool size` 설정 시 MAX_CLIENT를 고려해야 한다.
 
 
 
