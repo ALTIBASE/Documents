@@ -365,7 +365,7 @@ OpenSSL 툴킷은 Altibase에서 SSL/TLS 프로토콜을 이용한 SSL 통신을
 
 ##### ODBC, **ADO.NET**
 
-ODBC, ADO.NET에서 SSL 통신을 사용하기 위해서 반드시 OpenSSL 툴킷이 설치되어야 한다.
+ODBC와 ADO.NET에서 SSL 통신을 사용하기 위해서 반드시 OpenSSL 툴킷이 설치되어야 한다.
 
 ##### JDBC
 
@@ -674,16 +674,12 @@ $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
 -srcstoretype pkcs12
 ```
 
-#### ODBC 환경 설정
+#### ODBC 환경 설정 @리뷰
 
 -   Step 1: OpenSSL 라이브러리 확인
-
 -   Step 2: 클라이언트 인증서 준비
-
 -   Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정
-
--   Step 4: Altibase 환경 변수 설정
-
+-   Step 4: Altibase 환경 변수 설정 (FIPS모듈을 사용할 경우)
 -   Step 5: 클라이언트 프로그램 작성
 
 ##### Step 1: OpenSSL 라이브러리 확인 
@@ -747,7 +743,7 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf/altibase.pro
 
 ##### Step 4: Altibase 환경 변수 설정 (FIPS모듈을 사용할 경우)
 
-FIPS 모듈을 사용하기 위해서는 클라이언트의 환경변수에 ALTIBASE_SSL_LOAD_CONFIG 프로퍼티를 1로 설정해야 한다. FIPS모듈을 사용하지 않을 경우, 이 스텝은 건너뛸 수 있다.
+FIPS 모듈을 사용하기 위해서는 클라이언트의 환경변수에 ALTIBASE_SSL_LOAD_CONFIG 프로퍼티를 1로 설정해야 한다. FIPS모듈을 사용하지 않을 경우 이 과정은 생략할 수 있다. 자세한 내용은 [OpenSSL FIPS 모듈 사용하기](#OpenSSL-FIPS-모듈-사용하기)를 참고한다.
 
 | 이름                     | 설명                                                         | 기본값 |
 | ------------------------ | ------------------------------------------------------------ | ------ |
@@ -760,11 +756,11 @@ Altibase는 SSL을 사용하는 샘플 프로그램을 제공한다. 해당 파�
 
 #### OpenSSL FIPS 모듈 사용하기
 
-FIPS 140 검증은 암호화 모듈의 보안과 신뢰성을 검증하는 프로그램으로, 검증을 통과한 모듈은 미국 연방 정부와 이와 관련된 기관에서 사용될 수 있다. Altibase에서 OpenSSL의 FIPS 모듈을 사용하려면 다음의 순서로 설정할 수 있다.
+FIPS 140 검증은 암호화 모듈의 보안과 신뢰성을 검증하는 프로그램으로, 검증을 통과한 모듈은 미국 연방 정부와 이와 관련된 기관에서 사용될 수 있다. Altibase에서 OpenSSL의 FIPS 모듈을 사용하려면 다음의 순서로 설정을 변경하여야 한다.
 
 1. OpenSSL configuration 파일에서 FIPS 모듈을 사용하도록 설정한다. (http://www.openssl.org/ 참조)
 2. Altibase 서버의  SSL_LOAD_CONFIG 프로퍼티를 1로 설정한다.
-3. CLI 응용 프로그램도 FIPS 모듈을 사용하도록 하려면 환경 변수 ALTIBASE_SSL_LOAD_CONFIG를 1로 설정한다.
+3. ODBC 및 CLI 응용 프로그램의 환경 변수 ALTIBASE_SSL_LOAD_CONFIG를 1로 설정한다.
 
 #### ADO.NET 환경 설정
 
