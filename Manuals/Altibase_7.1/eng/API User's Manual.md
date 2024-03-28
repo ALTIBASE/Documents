@@ -3394,7 +3394,7 @@ sTrans.Commit();
 
 ##### CommitableTransaction Object
 
-The CommitableTransaction object can participate in transactions implicitly or explicitly. In Altibase ADO.NET, to participate implicitly in transactions, either do not set the enlist connection property in the connection string or set it to `enlist=true`. For explicit participation, set the enlist connection property to `enlist=false` in the connection string.
+The CommitableTransaction object can participate in transactions implicitly or explicitly. In Altibase ADO.NET, to participate implicitly in transactions, either do not set the `enlist` connection property in the connection string or set it to `enlist=true`. For explicit participation, set the `enlist` connection property to `enlist=false` in the connection string.
 
 ##### Distributed Transaction
 
@@ -3408,7 +3408,7 @@ Altibase ADO.NET supports "Array Binding", which means that the parameter bindin
 
 The steps of array binding are as follows:
 
-1️⃣ 바인드하려는 변수들을 모두 배열로 잡는다. 
+1️⃣ 바인드하려는 변수들을 모두 배열로 잡는다. @국문리뷰에 따라 수정
 
 The size of the array must be greater than or equal to the value of the `ArrayBindCount` property of the AltibaseCommand class.
 
@@ -3512,7 +3512,7 @@ The following is a list of APIs that inherit the basic implementation from ADO.N
 |                   |                        | Property | VisibleFieldCount             |
 | DbDataAdapter     | AltibaseDataAdapter    | Method   | GetBatchedRecordsAffected     |
 
-##### Considerations for Supported Interfaces
+##### Cautions for Supported Interfaces
 
 - ColumnName is a case-sensitive attribute when it is used in DataReader, CommandBuilder, etc. 
   
@@ -3538,7 +3538,7 @@ Below is a list of interfaces not supported by Altibase ADO.NET. Using unsupport
 |                       |                              | Property | CommandType                                                  |                    |
 | DbDataReader          | AltibaseDataReader           | Method | GetData                                                      |                    |
 |                       |                              | Method | GetDbDataReader                                              |                    |
-|                       |                              | Property | Depth                                                        | 항상 0을 반환한다. |
+|  |                              | Property | Depth                                                        | Always it returns 0 |
 |                       |                              | Property | HasRows                                                      |                    |
 | DbDataAdapter         | AltibaseDataAdapter          | Method | AddToBatch(IDbCommand command)                               |                    |
 |                       |                              | Method | CrearBatch                                                   |                    |
