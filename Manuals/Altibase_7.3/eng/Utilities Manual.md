@@ -2460,11 +2460,16 @@ $ altimon.sh stop
 
 altiMon uses PICL library written in C language in order to collect information on operating system. The PICL library is available on the operation systems describe in the chart below. 
 
-| OS    | CPU          | Version                                 | PICL Library                |
-| ----- | ------------ | --------------------------------------- | --------------------------- |
-| AIX   | ppc64        | OS Version 5.3, 6.1, 7.1                | aix-ppc64-5.so              |
-| HP-UX | ia64         | IA64                                    | hpux-ia64-11.sl             |
-| LINUX | X86_64 ppc64 | OS Version 2 ~ 4<br> glibc 2.5 or later | linux-x64.so linux-ppc64.so |
+| OS                           | CPU                     | PICL Library    |
+| :--------------------------- | :---------------------- | :-------------- |
+| **AIX**                      |                         |                 |
+| AIX 5.3   AIX 6.1   AIX 7.1  | PowerPC                 | aix-ppc64-5.so  |
+| **HP-UX**                    |                         |                 |
+| HP-UX  11.31                 | Itanium (IA-64)         | hpux-ia64-11.sl |
+| **Linux**                    |                         |                 |
+| Red Hat Enterprise Linux 6.0 | x86-64                  | linux-x64.so    |
+| Red Hat Enterprise Linux 6.5 | PowerPC                 | linux-ppc64.so  |
+| Red Hat Enterprise Linux 7.2 | PowerPC (Little Endian) | linux-ppc64.so  |
 
 it can also be used after checking whether the PICL for the lower version works on the OS version that is not supported.
 
