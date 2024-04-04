@@ -475,7 +475,7 @@ Suppose that proc1 contains the commands “Insert Into t1 values (3)” and “
 
 ####  Limitations
 
-COMMIT and ROLLBACK commands can be executed while the cursor is OPEN. However, the user should note that if ROLLBACK is executed while the cursor is OPEN and not yet COMMITTED, the cursor will close.
+COMMIT and ROLLBACK commands can be executed while the cursor is OPEN.
 
 Stored functions that are called from within SELECT statements cannot contain INSERT, UPDATE, or DELETE statements.
 
