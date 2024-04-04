@@ -3431,7 +3431,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 
 ##### 연결 풀 지우기
 
-AltibaseConnection 클래스에서 풀을 지우는 메서드는 ClearPool과 ClearAllPools이 있다. ClearPool 메서드는 지정된 연결 풀을 지우며, ClearAllPools 메서드는 모든 연결 풀을 지운다.
+AltibaseConnection 클래스에서 풀을 지우는 메소드는 ClearPool과 ClearAllPools이 있다. ClearPool 메소드는 지정된 연결 풀을 지우며, ClearAllPools 메소드는 모든 연결 풀을 지운다.
 
 ##### 제약 사항
 
@@ -3445,7 +3445,7 @@ Altibase ADO.NET에서 트랜잭션 처리는 AltibaseTransaction 객체를 사�
 
 ##### AltibaseTransaction 객체
 
-AltibaseTransaction 객체는 아래 예제와 같이 AltibaseConnection.BeginTransaction() 메서드로 트랜잭션 객체를 얻는다.
+AltibaseTransaction 객체는 아래 예제와 같이 AltibaseConnection.BeginTransaction() 메소드로 트랜잭션 객체를 얻는다.
 
 이 방법은 로컬 트랜잭션으로만 사용할 수 있다.
 
@@ -3470,7 +3470,7 @@ CommitableTransaction 객체는 트랜잭션에 암시적 또는 명시적으로
 
 ##### 분산 트랜잭션
 
-Altibase ADO.NET은 AltibaseConnection.EnlistDistributedTransaction 메서드로 명시적으로 분산 트랜잭션에 참여할 수 있으나 .NET Core 3.1에서 분산 트랜잭션을 지원하지 않으므로 Altibase ADO.NET도 로컬 트랜잭션만 지원한다. 
+Altibase ADO.NET은 AltibaseConnection.EnlistDistributedTransaction 메소드로 명시적으로 분산 트랜잭션에 참여할 수 있으나 .NET Core 3.1에서 분산 트랜잭션을 지원하지 않으므로 Altibase ADO.NET도 로컬 트랜잭션만 지원한다. 
 
 
 
@@ -3518,7 +3518,7 @@ Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배�
 
 #### 데이터베이스 스키마 정보 검색
 
-GetSchema() 메서드로 MetadataCollections, DataSourceInformation, DataTypes, Restrictions, ReservedWords와 같은 공통 스키마 외에 Altibase의 메타 테이블을 조회할 수 있다.
+GetSchema() 메소드로 MetadataCollections, DataSourceInformation, DataTypes, Restrictions, ReservedWords와 같은 공통 스키마 외에 Altibase의 메타 테이블을 조회할 수 있다.
 
 | 스키마              | 메타 테이블              | 설명                                                         |
 | :------------------ | :----------------------- | :----------------------------------------------------------- |
@@ -3551,7 +3551,7 @@ Altibase ADO.NET에서 구현한 ADO.NET API 중 대표적인 클래스와 제�
 
 ##### 연결 및 질의 실행, 결과 검색
 
-Altibase ADO.NET은 Altibase 서버로의 연결 및 질의을 실행하고 결과를 검색하는 기능을 제공한다. 이 기능들은 아래 4개의 클래스에 기반하고 있다. 각 클래스들의 하위 메서드 기능은 마이크로소프트의 [.NET Core 3.1 API 문서](https://learn.microsoft.com/ko-kr/dotnet/api/?view=netcore-3.1)를 참고한다.
+Altibase ADO.NET은 Altibase 서버로의 연결 및 질의을 실행하고 결과를 검색하는 기능을 제공한다. 이 기능들은 아래 4개의 클래스에 기반하고 있다. 각 클래스들의 하위 메소드 기능은 마이크로소프트의 [.NET Core 3.1 API 문서](https://learn.microsoft.com/ko-kr/dotnet/api/?view=netcore-3.1)를 참고한다.
 
 | 클래스              | 설명                                                         |
 | :------------------ | :----------------------------------------------------------- |
@@ -3576,13 +3576,13 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 | ADO.NET API 클래스 | Altibase ADO.NET 클래스 | 구분   |                               |
 | :----------------- | :---------------------- | ------ | ----------------------------- |
-| Dbproviderfactory  | AltibaseFactory         | 메서드 | CreateCommandBuilder          |
-|                    |                         | 메서드 | CreateConnectionStringBuilder |
-| Dbdatareader       | AltibaseDataReader      | 메서드 | GetProviderSpecificFieldType  |
-|                    |                         | 메서드 | GetProviderSpecificValue      |
-|                    |                         | 메서드 | GetProviderSpecificValues     |
+| Dbproviderfactory  | AltibaseFactory         | 메소드 | CreateCommandBuilder          |
+|                    |                         | 메소드 | CreateConnectionStringBuilder |
+| Dbdatareader       | AltibaseDataReader      | 메소드 | GetProviderSpecificFieldType  |
+|                    |                         | 메소드 | GetProviderSpecificValue      |
+|                    |                         | 메소드 | GetProviderSpecificValues     |
 |                    |                         | 속성   | VisibleFieldCount             |
-| Dbdataadapter      | AltibaseDataAdapter     | 메서드 | GetBatchedRecordsAffected     |
+| Dbdataadapter      | AltibaseDataAdapter     | 메소드 | GetBatchedRecordsAffected     |
 
 ##### 지원 인터페이스의 제약 사항
 
@@ -3590,7 +3590,7 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
   
   Altibase는 컬럼 이름을 큰따옴표로 감싸지 않으면 대문자로 변환하므로, 테이블을 생성할 때 컬럼 이름에 큰따옴표를 사용하지 않았으면 대문자를 사용해야 올바른 값을 가져올 수 있다.
   
-- AltibaseDataReader.GetValue() 메서드는 숫자 데이터를 System.Decimal 형식으로 변환하다.
+- AltibaseDataReader.GetValue() 메소드는 숫자 데이터를 System.Decimal 형식으로 변환하다.
 
   이로 인해, GetValue()로 가져온 데이터가 NUMBER, NUMERIC, FLOAT, DECIMAL 데이터 타입이고 System.Decimal로 표현할 수 있는 범위를 넘어가면 데이터 손실이 발생할 수 있다. 
 
@@ -3602,26 +3602,26 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 | ADO.NET API 클래스  | Altibase ADO.NET 클래스      | 구분   | 구성 요소                                                    |                    |
 | --------------------- | :--------------------------- | :----- | :----------------------------------------------------------- | :----------------- |
-| DbConnection          | AltibaseConnection           | 메서드 | ChangeDatabase                                               |                    |
+| DbConnection          | AltibaseConnection           | 메소드 | ChangeDatabase                                               |                    |
 |                       |                              | 속성   | DataSource                                                   |                    |
 |                       |                              | 속성   | ServerVersion                                                |                    |
-| DbCommand             | AltibaseCommand              | 메서드 | Cancel                                                       |                    |
+| DbCommand             | AltibaseCommand              | 메소드 | Cancel                                                       |                    |
 |                       |                              | 속성   | CommandTimeout                                               |                    |
 |                       |                              | 속성   | CommandType                                                  |                    |
-| DbDataReader          | AltibaseDataReader           | 메서드 | GetData                                                      |                    |
-|                       |                              | 메서드 | GetDbDataReader                                              |                    |
+| DbDataReader          | AltibaseDataReader           | 메소드 | GetData                                                      |                    |
+|                       |                              | 메소드 | GetDbDataReader                                              |                    |
 |                       |                              | 속성   | Depth                                                        | 항상 0을 반환한다. |
 |                       |                              | 속성   | HasRows                                                      |                    |
-| DbDataAdapter         | AltibaseDataAdapter          | 메서드 | AddToBatch(IDbCommand command)                               |                    |
-|                       |                              | 메서드 | CrearBatch                                                   |                    |
-|                       |                              | 메서드 | ExecuteBatch                                                 |                    |
-|                       |                              | 메서드 | GetBatchedParameter                                          |                    |
-|                       |                              | 메서드 | InitializeBatching                                           |                    |
-|                       |                              | 메서드 | TerminateBatching                                            |                    |
+| DbDataAdapter         | AltibaseDataAdapter          | 메소드 | AddToBatch(IDbCommand command)                               |                    |
+|                       |                              | 메소드 | CrearBatch                                                   |                    |
+|                       |                              | 메소드 | ExecuteBatch                                                 |                    |
+|                       |                              | 메소드 | GetBatchedParameter                                          |                    |
+|                       |                              | 메소드 | InitializeBatching                                           |                    |
+|                       |                              | 메소드 | TerminateBatching                                            |                    |
 | DbDataSourceEnumerator                 |  | 클래스 |  |             |
-| DbProviderFactory     | AltibaseFactory              | 메서드 | CreateDataSourceEnumerator |                    |
-| DbParameter           | AltibaseParameter            | 메서드 | ResetDbType                                                  |                    |
-| DbParameterCollection | AltibaseParameterCollection  | 메서드 | AddRange                                                     |                    |
+| DbProviderFactory     | AltibaseFactory              | 메소드 | CreateDataSourceEnumerator |                    |
+| DbParameter           | AltibaseParameter            | 메소드 | ResetDbType                                                  |                    |
+| DbParameterCollection | AltibaseParameterCollection  | 메소드 | AddRange                                                     |                    |
 
 ### Altibase ADO.NET 데이터 타입
 
