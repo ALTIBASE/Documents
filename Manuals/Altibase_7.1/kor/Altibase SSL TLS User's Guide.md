@@ -731,7 +731,7 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf에 있다.
 | SSL_CERT   | 클라이언트의 인증서 파일 경로를 지정한다.<br/>예) SSL_CERT=/cert/client-cert.pem |                  |        |
 | SSL_KEY    | 클라이언트의 개인 키(private key)가 저장된 파일 경로를 지정한다.<br/>예) SSL_KEY=/cert/client-key.pem |                  |        |
 | SSL_VERIFY | Altibase 서버의 인증서를 검증할지 여부를 설정한다. 만약 검증에 실패하면 SSL Handshake 는 실패하고, SSL 통신은 더 이상 진행되지 않는다.<br/>0(OFF): 서버의 인증서를 검증하지 않는다.<br/>1(ON): 서버의 인증서를 검증한다.<br/>예) SSL_VERIFY=0 | 0: OFF<br/>1: ON | 0(OFF) |
-| SSL_CIPHER | 이 프로퍼티는 클라이언트가 서버와 협의하여 사용할 수 있는 암호 알고리즘들이다. 암호 알고리즘은 사용자의 보안 정책에 따라 하나 또는 그 이상의 암호를 사용할 수 있다. 한 개 이상의 암호를 사용할 경우 콜론(:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은 [OpenSSL]( http://www.openssl.org/)에서 확인하거나  ''\$ openssl ciphers" 명령어를 사용하여 확인할 수 있다.<br/>예) SSL_CIPHER=EDH-DSS-DES-CBC-SHA:DES-CBC-SHA |                  |        |
+| SSL_CIPHER | 이 프로퍼티는 클라이언트가 서버와 협의하여 사용할 수 있는 암호 알고리즘들이다. 암호 알고리즘은 사용자의 보안 정책에 따라 하나 또는 그 이상의 암호를 사용할 수 있다. 한 개 이상의 암호를 사용할 경우 콜론(:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은 [OpenSSL]( http://www.openssl.org/)에서 확인하거나  "\$ openssl ciphers" 명령어를 사용하여 확인할 수 있다.<br/>예) SSL_CIPHER=EDH-DSS-DES-CBC-SHA:DES-CBC-SHA |                  |        |
 
 다음은 서버의 SSL 프로퍼티와 ODBC/CLI 프로퍼티를 비교한 표이다.
 
