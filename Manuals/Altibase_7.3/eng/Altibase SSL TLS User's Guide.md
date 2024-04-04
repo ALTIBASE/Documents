@@ -109,7 +109,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Secure Communication in Altibase](#secure-communication-in-altibase)
 - [2. Installing and Starting SSL in Altibase](#2-installing-and-starting-ssl-in-altibase)
   - [Software Requirements](#software-requirements)
-  - [Configuring the Environment for SSL](#configuring-the-environment-for-ssl)
+  - [Configuring the Environment for SSL Usage](#configuring-the-environment-for-ssl-usage)
 - [3. Managing SSL Connections](#3-managing-ssl-connections)
   - [Managing SSL Connections](#managing-ssl-connections)
 - [Appendix A: SSL Sample](#appendix-a-ssl-sample)
@@ -271,9 +271,9 @@ To use SSL/TLS in Altibase, the OpenSSL toolkit is required. This toolkit was de
 
 #### Client
 
-##### ODBC
+##### ODBC, CLI, ADO.NET
 
-The OpenSSL toolkit has to be installed in order to use the SSL communication with ODBC.
+The OpenSSL toolkit has to be installed in order to use the SSL communication with ODBC, CLI or ADO.NET.
 
 ##### JDBC
 
@@ -287,28 +287,30 @@ To conveniently implement the client Java application through SSL, it is recomme
     % java -Djdk.tls.client.protocols="TLSv1.3"
   ```
 
-### Configuring the Environment for SSL
+### Configuring the Environment for SSL Usage
 
 This section discusses how to configure the environment for Altibase SSL.
 
--   Configure SSL on the Server
+-   [Configure SSL on the Server](#Configure-SSL-on-the-Server)
 
--   Configure the Environment for SSL
+-   [Configure SSL for JDBC](#Configure-SSL-for-JDBC)
 
--   Configure SSL for ODBC
+-   [Configure SSL for ODBC/CLI](#Configure-SSL-for-ODBCCLI)
+
+-   [Configure SSL for ADO.NET](#Configure-SSL-for-ADONET)
 
 #### Configure SSL on the Server
 
--   Step 1: Confirm the Installation of OpenSSL and its Library
+-   Step 1: Confirm the Installation of OpenSSL and its library
 -   Step 2: Set Server Properties to Connect over SSL
 -   Step 3: Specify SSL Client Authentication
 -   Step 4: Set Server Certificate, Private Key, and Certificate Authority
 -   Step 5: Start the Server
 
 ##### Step 1: Confirm the Installation of OpenSSL and its Library
-It is recommended to install the OpenSSL toolkit before installing SSL-enabled Altibase. Otherwise, if an Altibase function is used and the OpenSSL is not installed, Altibase reports that it is unable to find the OpenSSL library.
+It is recommended to install the OpenSSL toolkit before installing SSL-enabled Altibase. If an Altibase function is used and the OpenSSL is not installed, Altibase reports that it is unable to find the OpenSSL library.
 
-Check if that OpenSSL is installed on the server and verify that the version is as shown below.
+Check if OpenSSL is installed on the server and verify that the version is as shown below.
 
 ```
 $ openssl version
@@ -499,24 +501,24 @@ Altibase provides JDBC for SSL connection to use SSL within the database. JDBC p
 
 ###### JDBC Properties for SSL Connections
 
-| Name             | Description                                                  | Range            | Default Value                                                |
-| ---------------- | ------------------------------------------------------------ | ---------------- | ------------------------------------------------------------ |
-| ssl_enable       | Specifies whether or not to connect to the database over SSL connection. An SSL connection is created if this value is true; a TCP connection is created if this value is false. | [true \| false ] | false                                                        |
-| port             | Specifies the SSL port number on the target server. The priority for an SSL port number is: 1) if ssn_enable is true and a value has been specified, this value is applied first. 2) if ssn_enable is true and this value is omitted, the ALTIBASE_SSL_PORT_NO environment variable is applied. 3) if ssn_enable is true and both this value and the ALTIBASE_SSL_PORT_NO environment variable are omitted, the default value (20300) is applied. | 0 \~ 65535       | ssl_enable(false): 20300 ssl_enable(ture): 20443             |
-| ciphersuite_list | This is a list of available ciphers. Each name is separated by a colon (e.g., SSL_RSA_WITH_RC4_128_MD5:SSL _RSA_WITH_RC4_128_SHA). If JRE does not support the named algorithm, an IllegalArgumentException with the "Unsupported ciphersuite" message is thrown. | String           | [All cipher suite lists supported by JRE](http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html) |
-| ssl_protocols    | This is a list of protocols used for SSL communication on the server. Users can set several protocols using commas(e.g., TLSv1.2,TLSv1.3). | String           | [All SSL/TLS protocols supported by JRE](http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html)) |
+| Name             | Description                                                  | Range          | Default Value                                                |
+| ---------------- | ------------------------------------------------------------ | -------------- | ------------------------------------------------------------ |
+| ssl_enable       | Specifies whether or not to connect to the database over SSL connection. An SSL connection is created if this value is true; a TCP connection is created if this value is false. | true<br/>false | false                                                        |
+| port             | Specifies the SSL port number on the target server. The priority for an SSL port number is: 1) if ssn_enable is true and a value has been specified, this value is applied first. 2) if ssn_enable is true and this value is omitted, the ALTIBASE_SSL_PORT_NO environment variable is applied. 3) if ssn_enable is true and both this value and the ALTIBASE_SSL_PORT_NO environment variable are omitted, the default value (20300) is applied. | 0 \~ 65535     | ssl_enable(false): 20300<br/>ssl_enable(true): 20443         |
+| ciphersuite_list | This is a list of available ciphers. Each name is separated by a colon (e.g., SSL_RSA_WITH_RC4_128_MD5:SSL _RSA_WITH_RC4_128_SHA). If JRE does not support the named algorithm, an IllegalArgumentException with the "Unsupported ciphersuite" message is thrown. | String         | [All cipher suite lists supported by JRE](http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html) |
+| ssl_protocols    | This is a list of protocols used for SSL communication on the server. Users can set several protocols using commas(e.g., TLSv1.2,TLSv1.3). | String         | [All SSL/TLS protocols supported by JRE](http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html) |
 
 ###### JDBC Properties for Authentication
 
-| Name                      | Description                                                  | Range                      | Default Value |
-| ------------------------- | ------------------------------------------------------------ | -------------------------- | ------------- |
-| verify_server_certificate | Specifies whether or not to authenticate the target server's CA certificate. To use SSL exception authentication, set as false and the client application will not authenticate the server's CA certificate. In this case, it is unnecessary to import the server's private CA certificate for authentication. | [ true \| false ]          | true          |
-| keystore_url              | Specifies the path to the keystore (a container for its own private key and the certificates with their corresponding public keys). | String                     | N/A           |
-| keystore_type             | Specifies the keystore type for keystore_url. Java Key Store (JKS) is the most common type in Java. | [ JKS, JCEKS, PKCS12, etc] | JKS           |
-| keystore_password         | Specifies the password for keystore_url.                     | String                     | N/A           |
-| truststore_url            | Specifies the path to the truststore (a keystore containing certificates that belong to the communication partners). | String                     | N/A           |
-| truststore_type           | Specifies the truststore type at truststore_url above. Java Key Store (JKS) is the most common type in Java. | [JKS, JCEKS, PKCS12, etc]  | JKS           |
-| truststore_password       | Specifies the password to truststore_url above.              | String                     | N/A           |
+| Name                      | Description                                                  | Range                   | Default Value |
+| ------------------------- | ------------------------------------------------------------ | ----------------------- | ------------- |
+| verify_server_certificate | Specifies whether or not to authenticate the target server's CA certificate. To use SSL exception authentication, set as false and the client application will not authenticate the server's CA certificate. In this case, it is unnecessary to import the server's private CA certificate for authentication. | true<br/>false          | true          |
+| keystore_url              | Specifies the path to the keystore (a container for its own private key and the certificates with their corresponding public keys). | String                  |               |
+| keystore_type             | Specifies the keystore type for keystore_url. Java Key Store (JKS) is the most common type in Java. | JKS, JCEKS, PKCS12, etc | JKS           |
+| keystore_password         | Specifies the password for keystore_url.                     | String                  |               |
+| truststore_url            | Specifies the path to the truststore (a keystore containing certificates that belong to the communication partners). | String                  |               |
+| truststore_type           | Specifies the truststore type at truststore_url above. Java Key Store (JKS) is the most common type in Java. | JKS, JCEKS, PKCS12, etc |               |
+| truststore_password       | Specifies the password to truststore_url above.              | String                  |               |
 
 ##### Step 4: Set Altibase Environment Variables
 
@@ -524,9 +526,9 @@ Altibase sets the port number for SSL communication, and this step can be omitte
 
 If the port property has not been set for JDBC, the value specified for ALTIBASE_SSL_PORT_NO will be used as the port number. If ALTIBASE_SSL_PORT_NO is omitted, the default value for the port property is used. 
 
-| Name                 | Description                                         | Value                | Default Value |
-| -------------------- | --------------------------------------------------- | -------------------- | ------------- |
-| ALTIBASE_SSL_PORT_NO | Specifies the SSL port number on the target server. | Range: 1024 \~ 65535 | N/A           |
+| Name                 | Description                                         | Range         | Default Value |
+| -------------------- | --------------------------------------------------- | ------------- | ------------- |
+| ALTIBASE_SSL_PORT_NO | Specifies the SSL port number on the target server. | 1024 \~ 65535 |               |
 
 ##### Considerations When Using SSL with JDBC
 
@@ -541,7 +543,7 @@ $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
 -srcstoretype pkcs12
 ```
 
-#### Configure SSL for ODBC
+#### Configure SSL for ODBC/CLI
 
 -   Step 1: Verify the OpenSSL Library
 
@@ -549,13 +551,13 @@ $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
 
 -   Step 3:  Set ODBC/CLI Properties for SSL
 
--   Step 4: Set the Altibase Environment Variables
+-   Step 4: Set the Altibase Environment Variables (in case of using FIPS module)
 
 -   Step 5: Write a Client Program
 
 ##### Step 1: Verify the OpenSSL Library
 
-You need the OpenSSL library to use SSL in ODBC. ODBC reads the OpenSSL library and calls the necessary functions while connecting to the server. Therefore, you should verify that the OpenSSL library has been installed properly, before writing a client application. Where the library is installed can differ among operating systems.
+You need the OpenSSL library to use SSL in ODBC or CLI. ODBC and CLI read the OpenSSL library and calls the necessary functions while connecting to the server. Therefore, you should verify that the OpenSSL library has been installed properly, before writing a client application. Where the library is installed can differ among operating systems.
 
 -   Verify the library installation
 
@@ -572,22 +574,22 @@ $ openssl version
 
 ##### Step 2: Prepare the Client’s Certificate
 
-Prepare the client’s certificate and secret key in a pem format file for mutual authentication of the server and client. The location of these files should be accessible by a client using ODBC.
+Prepare the client’s certificate and secret key in a PEM format file for mutual authentication of the server and client. The location of these files should be accessible by a client using ODBC or CLI.
 
 ##### Step 3: Set ODBC/CLI Properties for SSL
 
-You need to set SSL properties appropriately, before writing a client program using SSL. The client can specify the following properties as a connection string when connecting to the server. Refer to the sample program for usage.
+You need to set SSL properties appropriately, before writing a client program using SSL. The client can specify the following properties as a connection string when connecting to the server.
 
 SSL connection properties are located in $ALTIBASE_HOME/conf/altibase.properties. 
 
-| Name       | Description                                                  | Range        | Default Value |
-| ---------- | ------------------------------------------------------------ | ------------ | ------------- |
-| SSL_CA     | Specifies the file path to store CA certificates to certify the ownership of received certificates. CA certificates can exist in a user-specific file path or a X.509 structured directory. <br/>Ex)SSL_CA= /cert/ ca-cert.pem. | None         | NULL          |
-| SSL_CAPATH | Specifies CAPATH in a CA directory format. <br/>Ex) SSL_CAPATH=/etc/ssl/certs | None         | NULL          |
-| SSL_CERT   | Sets the Altibase certificate path. </br>Ex)SSL_CERT=/cert/client-cert.pe m | None         | NULL          |
-| SSL_KEY    | Sets the server private (secret) key path. <br/>Ex) SSL_KEY=/cert/client-key.pem | None         | NULL          |
-| SSL_VERIFY | Sets whether or not to authenticate the server certificate. An SSL handshake fails if authentication fails, and it becomes impossible to communicate over SSL. <br/>0 : (OFF) Does not authenticate the server certificate <br/>1: (ON) Authenticates the server certificate <br/>Ex) SSL_VERIFY=0 | 0: OFF 1: ON | 0 (off)       |
-| SSL_CIPHER | A cipher algorithms available for the server and client to use and negotiate with. Depending on your security policy, you can specify one or more cipher names and separate them by colons(:). You can check the list at OpenSSL (http://www.openssl.org/) or execute the following command in the shell environment. $ openssl ciphers <br/>Ex)SSL_CIPHER=EDH-DSS-DESCBC-SHA:DES-CBC-SHA | None         | NULL          |
+| Name       | Description                                                  | Range             | Default Value |
+| ---------- | ------------------------------------------------------------ | ----------------- | ------------- |
+| SSL_CA     | Specifies the file path to store CA certificates to certify the ownership of received certificates. CA certificates can exist in a user-specific file path or a X.509 structured directory. <br/>Ex)SSL_CA= /cert/ ca-cert.pem. |                   |               |
+| SSL_CAPATH | Specifies CAPATH in a CA directory format. <br/>Ex) SSL_CAPATH=/etc/ssl/certs |                   |               |
+| SSL_CERT   | Sets the Altibase certificate path. </br>Ex)SSL_CERT=/cert/client-cert.pe m |                   |               |
+| SSL_KEY    | Sets the server private (secret) key path. <br/>Ex) SSL_KEY=/cert/client-key.pem |                   |               |
+| SSL_VERIFY | Sets whether or not to authenticate the server certificate. An SSL handshake fails if authentication fails, and it becomes impossible to communicate over SSL. <br/>0 : (OFF) Does not authenticate the server certificate <br/>1: (ON) Authenticates the server certificate <br/>Ex) SSL_VERIFY=0 | 0: OFF<br/> 1: ON | 0 (OFF)       |
+| SSL_CIPHER | A cipher algorithms available for the server and client to use and negotiate with. Depending on your security policy, you can specify one or more cipher names and separate them by colons(:). You can check the list at OpenSSL (http://www.openssl.org/) or execute command "$ openssl ciphers " in the shell environment. <br/>Ex)SSL_CIPHER=EDH-DSS-DESCBC-SHA:DES-CBC-SHA |                   |               |
 
 The following is a table comparing the server SSL properties and ODBC/CLI properties.
 
@@ -607,9 +609,9 @@ The following is a table comparing the server SSL properties and ODBC/CLI proper
 
 
 
-##### Step 4: Set the Altibase Environment Variables(in case of using FIPS module)
+##### Step 4: Set the Altibase Environment Variables (in case of using FIPS module)
 
-To use FIPS module, users have to set the ALTIBASE_SSL_LOAD_CONFIG property in client environment variables to 1. Users who do not use FIPS module is able to skip this step.
+To use FIPS module, users have to set the ALTIBASE_SSL_LOAD_CONFIG property in client environment variables to 1. Users who do not use FIPS module is able to skip this step. For more detailed information, please refer to [How to Use OpenSSL FIPS Module](#How-to-Use-OpenSSL-FIPS-Module).
 
 | Name                     | Description                                                  | Default Value |
 | ------------------------ | ------------------------------------------------------------ | ------------- |
@@ -625,13 +627,45 @@ Write a program to use SSL connection in the client application. You can find a 
 
 #### How to Use OpenSSL FIPS Module
 
-FIPS 140 is a program that verifies the security and reliability of encryption modules, and modules that have passed verification can be used by the U.S. federal government and related agencies. To use OpenSSL's FIPS module in Altibase, users can set it up in the following order.
+FIPS 140 is a program that verifies the security and reliability of encryption modules, and modules that have passed verification can be used by the U.S. federal government and related agencies. To use OpenSSL's FIPS module in Altibase, users can set it up as below.
 
-1. Enable the FIPS module in the OpenSSL configuration file (see http://www.openssl.org/ )
+1. Enable the FIPS module in the OpenSSL configuration file (see http://www.openssl.org/).
 2. Set the SSL_LOAD_CONFIG property of the Altibase server to 1.
-3. Set the environment variable ALTIBASE_SSL_LOAD_CONFIG to 1 to allow the CLI application to use the FIPS module also.
+3. Set the ODBC/CLI environment variable ALTIBASE_SSL_LOAD_CONFIG to 1.
 
+####  Configure SSL for ADO.NET
 
+- Step 1: Verify the OpenSSL Library
+- Step 2: Prepare the Client’s Certificate
+- Step 3: Set .NET Connection Properties for SSL 
+- Step 4: Write a Client Program
+
+##### Step 1: Verify the OpenSSL Library
+
+This step is same as [Step 1 of ODBC/CLI Environment Configuration](#Step-1-Verify-the-OpenSSL-Library).
+
+##### Step 2: Prepare the Client’s Certificate
+
+This step is same as [Step 2 of ODBC/CLI Environment Configuration](#Step-2-Prepare-the-Clients-Certificate).
+
+##### Step 3: Set .NET Connection Properties for SSL
+
+When connecting to the server using SSL communication, users can specify the following properties in the connection string:
+
+| Name       | Description                                                  | Range                   | Default Value |
+| :--------- | :----------------------------------------------------------- | :---------------------- | :------------ |
+| conn type  | Determine whether to connect to the server using SSL communication. If this value is set to "ssl", the connection is established using SSL communication. | ssl                     |               |
+| port       | Specify the value of SSL_PORT_NO, which is the port number of the target server to connect to. | 0 ~ 65535               |               |
+| ssl ca     | Refer to SSL_CA from [ODBC/CLI Environment Configuration > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). |                         |               |
+| ssl capath | Refer to SSL_CAPATH from [ODBC/CLI Environment Configuration > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). |                         |               |
+| ssl cert   | Refer to SSL_CERT from [ODBC/CLI Environment Configuration > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). |                         |               |
+| ssl key    | Refer to SSL_KEY from [ODBC/CLI Environment Configuration > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL) |                         |               |
+| ssl verify | Refer to SSL_VERIFY from [ODBC/CLI Environment Configuration > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). | false: OFF<br/>true: ON | false         |
+| ssl cipher | Refer to SSL_CIPHER from [ODBC/CLI Environment Configuration > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). |                         |               |
+
+##### Step 4: Write a Client Program
+
+To enable SSL communication in the client application, follow the instructions provided in the [Sample Using SSL Connection in ADO.NET](#Sample-Using-SSL-Connection-in-ADONET) section in "Appendix A: SSL Sample".
 
 
 
@@ -912,3 +946,11 @@ class SslSimpleSQL
 }
 ```
 
+### Sample Using SSL Connection in ADO.NET
+
+```
+string ConnectionString = "Server=127.0.0.1;Port=20443;User=user;Password=pwd;conn type=ssl;ssl ca=/altibase_home/sample/CERT/ca-cert.pem;ssl cert=/altibase_home/sample/CERT/client-cert.pem;ssl key=/altibase_home/sample/CERT/client-key.pem";
+
+AltibaseConnection conn = new AltibaseConnection(ConnectionString);
+conn.Open();
+```

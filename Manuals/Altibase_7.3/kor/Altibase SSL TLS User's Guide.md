@@ -363,9 +363,9 @@ OpenSSL 툴킷은 Altibase에서 SSL/TLS 프로토콜을 이용한 SSL 통신을
 
 #### 클라이언트(Client)
 
-##### ODBC, **ADO.NET**
+##### ODBC, CLI,**ADO.NET**
 
-ODBC와 ADO.NET에서 SSL 통신을 사용하기 위해서 반드시 OpenSSL 툴킷이 설치되어야 한다.
+ODBC, CLI 그리고 ADO.NET에서 SSL 통신을 사용하기 위해서는 반드시 OpenSSL 툴킷이 설치되어야 한다.
 
 ##### JDBC
 
@@ -388,7 +388,7 @@ SSL을 통하여 클라이언트 자바 애플리케이션을 자유롭게 실�
 
 -   [JDBC에서 SSL 사용을 위한 환경 설정](#JDBC-환경-설정)
 
--    [ODBC에서 SSL 사용을 위한 환경 설정](#ODBC-환경-설정)
+-    [ODBC/CLI에서 SSL 사용을 위한 환경 설정](#ODBCCLI-환경-설정)
 
 -   [ADO.NET 에서 SSL 사용을 위한 환경 설정](#ADONET-환경-설정)
 
@@ -639,7 +639,7 @@ Altibase는 SSL을 사용하기 위해 SSL 연결을 위한 JDBC를 제공한다
 
 | 이름                      | 설명                                                         | 값의 범위             | 기본값 |
 | ------------------------- | ------------------------------------------------------------ | --------------------- | ------ |
-| verify_server_certificate | 대상 서버의 CA 인증서를 인증할지 여부를 설정한다. 이 값을 FALSE로 설정하면, 클라이언트의 애플리케이션은 서버의 CA 인증서를 인증하지 않고, SSL exception이 발생한다. 그러나 서버의 개인인증서를 가져올 필요는 없다. | true<br/>  false      | true   |
+| verify_server_certificate | 대상 서버의 CA 인증서를 인증할지 여부를 설정한다. 이 값을 FALSE로 설정하면, 클라이언트의 애플리케이션은 서버의 CA 인증서를 인증하지 않고, SSL exception이 발생한다. 그러나 서버의 개인인증서를 가져올 필요는 없다. | true<br/>false        | true   |
 | keystore_url              | KeyStore의 경로를 지정한다. KeyStore는 개인 인증서와 공개 인증서를 가지고 있다. | String                |        |
 | keystore_type             | keystore_url의 keystore 타입을 설정한다. Java는 기본적으로 Java Key Store(JKS) 타입으로 처리된다. | JKS, JCEKS, PKCS12 등 | JKS    |
 | keystore_password         | keystore_url에 비밀번호를 지정한다.                          | String                |        |
@@ -674,18 +674,18 @@ $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
 -srcstoretype pkcs12
 ```
 
-#### ODBC 환경 설정 @리뷰
+#### ODBC/CLI 환경 설정
 
 -   Step 1: OpenSSL 라이브러리 확인
 -   Step 2: 클라이언트 인증서 준비
 -   Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정
--   Step 4: Altibase 환경 변수 설정 (FIPS모듈을 사용할 경우)
+-   Step 4: Altibase 환경 변수 설정 (FIPS 모듈을 사용할 경우)
 -   Step 5: 클라이언트 프로그램 작성
 
 ##### Step 1: OpenSSL 라이브러리 확인 
 
-ODBC에서 SSL 통신을 사용하기 위해 OpenSSL 라이브러리가 필요하다. ODBC는 서버와
-연결하면서, OpenSSL 라이브러리를 읽어 필요한 함수들을 호출한다.
+ODBC와 CLI에서 SSL 통신을 사용하기 위해 OpenSSL 라이브러리가 필요하다. ODBC와 CLI는 서버와
+연결하면서 OpenSSL 라이브러리를 읽어 필요한 함수들을 호출한다.
 
 따라서 클라이언트 애플리케이션을 작성하기 전에 OpenSSL 라이브러리가 제대로
 설치되었는지 확인해야 한다. 라이브러리가 설치되는 위치는 운영시스템에 따라
@@ -707,7 +707,7 @@ $ openssl version
 ##### Step 2: 클라이언트 인증서 준비 
 
 서버와 클라이언트의 상호 인증을 위해 PEM 형태로 된 클라이언트의 인증서와
-개인키를 준비한다. 해당 파일들은 ODBC를 이용하는 클라이언트가 접근할 수 있는
+개인키를 준비한다. 해당 파일들은 ODBC나 CLI를 이용하는 클라이언트가 접근할 수 있는
 위치에 있어야 한다.
 
 ##### Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정
@@ -725,7 +725,7 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf/altibase.pro
 | SSL_VERIFY | Altibase 서버의 인증서를 검증할지 여부를 설정한다. 만약 검증에 실패하면 SSL Handshake 는 실패하고, SSL 통신은 더 이상 진행되지 않는다. 예) SSL_VERIFY=0<br/>0(OFF): 서버의 인증서를 검증하지 않는다. 1(ON): 서버의 인증서를 검증한다. | 0: OFF<br/>1: ON | 0 (OFF) |
 | SSL_CIPHER | 이 프로퍼티는 클라이언트가 서버와 협의하여 사용할 수 있는 암호 알고리즘들이다. 암호 알고리즘은 사용자의 보안 정책에 따라 하나 또는 그 이상의 암호를 사용할 수 있다. 한 개 이상의 암호를 사용할 경우 콜론(:)으로 구분한다. 사용자가 사용할 수 있는 암호 목록은 OpenSSL( http://www.openssl.org/ )에서 확인하거나  ''\$ openssl ciphers" 명령어를 사용하여 확인할 수 있다. 예) SSL_CIPHER=EDH-DSS-DES-CBC-SHA:DES-CBC-SHA |                  |         |
 
-다음은 서버의 SSL 프로퍼티와 ODBC/CLI용 프로퍼티를 비교한 표이다.
+다음은 서버의 SSL 프로퍼티와 ODBC/CLI 프로퍼티를 비교한 표이다.
 
 | 이름                      | 서버 (altibase.properties) | ODBC/CLI                                                     |
 | ------------------------- | -------------------------- | ------------------------------------------------------------ |
@@ -741,9 +741,9 @@ SSL 접속을 위한 관련 프로퍼티들은 \$ALTIBASE_HOME/conf/altibase.pro
 | SSL_CIPHER                | X                          | O                                                            |
 | SSL_VERIFY                | X                          | O                                                            |
 
-##### Step 4: Altibase 환경 변수 설정 (FIPS모듈을 사용할 경우)
+##### Step 4: Altibase 환경 변수 설정 (FIPS 모듈을 사용할 경우)
 
-FIPS 모듈을 사용하기 위해서는 클라이언트의 환경변수에 ALTIBASE_SSL_LOAD_CONFIG 프로퍼티를 1로 설정해야 한다. FIPS모듈을 사용하지 않을 경우 이 과정은 생략할 수 있다. 자세한 내용은 [OpenSSL FIPS 모듈 사용하기](#OpenSSL-FIPS-모듈-사용하기)를 참고한다.
+FIPS 모듈을 사용하기 위해서는 클라이언트의 환경변수에 ALTIBASE_SSL_LOAD_CONFIG 프로퍼티를 1로 설정해야 한다. FIPS 모듈을 사용하지 않을 경우 이 과정은 생략할 수 있다. 자세한 내용은 [OpenSSL FIPS 모듈 사용하기](#OpenSSL-FIPS-모듈-사용하기)를 참고한다.
 
 | 이름                     | 설명                                                         | 기본값 |
 | ------------------------ | ------------------------------------------------------------ | ------ |
@@ -771,11 +771,11 @@ FIPS 140 검증은 암호화 모듈의 보안과 신뢰성을 검증하는 프�
 
 ##### Step 1: OpenSSL 라이브러리 확인
 
-[ODBC 환경 설정의 Step 1](#Step-1-OpenSSL-라이브러리-확인)과 동일하다.
+[ODBC/CLI 환경 설정의 Step 1](#Step-1-OpenSSL-라이브러리-확인)과 동일하다.
 
 ##### Step 2: 클라이언트 인증서 준비
 
-[ODBC 환경 설정의 Step 2](#Step-2-클라이언트-인증서-준비)와 동일하다.
+[ODBC/CLI 환경 설정의 Step 2](#Step-2-클라이언트-인증서-준비)와 동일하다.
 
 ##### Step 3: SSL을 위한 .NET 연결 속성 정보 설정
 
@@ -785,12 +785,12 @@ SSL 통신을 사용하여 서버에 접속할 때, 다음의 프로퍼티들을
 | ---------- | ------------------------------------------------------------ | ------------------- | ------ |
 | conn type  | 서버에 SSL 통신을 사용해서 접속할지 여부를 설정한다. 이 값이 ssl 일 경우 SSL 통신으로 서버에 접속한다. | ssl                 |        |
 | port       | 접속할 대상 서버의 포트 번호인 SSL_PORT_NO의 값을 지정한다.  | 0 ~ 65535           |        |
-| ssl ca     | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CA 참조 |                     |        |
-| ssl capath | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CAPATH 참조 |                     |        |
-| ssl cert   | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CERT 참조 |                     |        |
-| ssl key    | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_KEY 참조 |                     |        |
-| ssl verify | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_VERIFY 참조 | false: OFF true: ON | false  |
-| ssl cipher | [ODBC 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CIPHER 참조 |                     |        |
+| ssl ca     | [ODBC/CLI 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CA 참조 |                     |        |
+| ssl capath | [ODBC/CLI 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CAPATH 참조 |                     |        |
+| ssl cert   | [ODBC/CLI 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CERT 참조 |                     |        |
+| ssl key    | [ODBC/CLI 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_KEY 참조 |                     |        |
+| ssl verify | [ODBC/CLI 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_VERIFY 참조 | false: OFF true: ON | false  |
+| ssl cipher | [ODBC/CLI 환경 설정 > Step 3: SSL을 위한 ODBC/CLI 프로퍼티 설정](#Step-3-SSL을-위한-ODBCCLI-프로퍼티-설정)에서 SSL_CIPHER 참조 |                     |        |
 
 ##### Step 4: 클라이언트 프로그램 작성
 
