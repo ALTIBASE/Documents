@@ -3539,12 +3539,12 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 
 | Interface name                                          | Specification Version | **Supported** | Details                                                      | Exceptions                                                   |
 | :------------------------------------------------------ | --------------------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| createBlob()                                            | 4.0                   | O             | Does not support creating LOB object in Connection phase     |                                                              |
-| createClob()                                            | 4.0                   | O             | Does not support creating LOB object in Connection phase     |                                                              |
+| createBlob()                                            | 4.0                   | O             | Does not support creating LOB object in Connection phase<br/>국문: long 데이터형은 지원하지 않음 |                                                              |
+| createClob()                                            | 4.0                   | O             | Does not support creating LOB object in Connection phase<br/>국문: long 데이터형은 지원하지 않음 |                                                              |
 | createNClob()                                           | 4.0                   | X             | Does not support multinational language for CLOB object      | SQLFeatureNotSupported error occurred                        |
 | createSQLXML()                                          | 4.0                   | X             | Does not support SQLXML type                                 | SQLFeatureNotSupported error occurred                        |
 | isValid(int  timeout)                                   | 4.0                   | O             |                                                              |                                                              |
-| setClientInfo(String  name, String value)               | 4.0                   | O             | Altibase JDBC supports ApplicationName only among client attributes |                                                              |
+| setClientInfo(String  name, String value)               | 4.0                   | O             | Supports ApplicationName only among client attributes        |                                                              |
 | setClientInfo(Properties  properties)                   | 4.0                   | O             | Supports ApplicationName only                                |                                                              |
 | getClientInfo(String  name)                             | 4.0                   | O             | Supports ApplicationName only                                |                                                              |
 | getClientInfo()                                         | 4.0                   | O             | Supports ApplicationName only                                |                                                              |
@@ -3560,12 +3560,12 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 
 | Interface name                | Specification Version | Supported | Details | Exceptions |
 | ----------------------------- | --------------------- | --------- | ------- | ---------- |
-| unwrap(Class iface)           | 4.0                   | O         |         |            |
+| unwrap(Class\<T> iface)       | 4.0                   | O         |         |            |
 | isWrapperFor(Class<?>  iface) | 4.0                   | O         |         |            |
 
  List of classes implementing java.sql.Wrapper interface in Altibase JDBC driver
 
-- Altibase42Connection
+- Altibase42Connection 국문 AltiabseConnection
 - AltibaseStatement
 - AltibaseResultSet
 - AltibaseResultSetMetaData
@@ -3732,7 +3732,7 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 
 | Interface name                                               | Specification Version | Supported | Details                       | Exceptions                             |
 | ------------------------------------------------------------ | --------------------- | --------- | ----------------------------- | -------------------------------------- |
-| getRowIdLifetime()                                           | 4.0                   | X         | Does  not support RowId       | SQLFeatureNotSupported  error occurred |
+| getRowIdLifetime()                                           | 4.0                   | X         | Does not support RowId        | SQLFeatureNotSupported  error occurred |
 | getSchemas(String  catalog, String schemaPattern)            | 4.0                   | O         |                               |                                        |
 | supportsStoredFunctionsUsingCallSyntax()                     | 4.0                   | X         | Returns false                 |                                        |
 | autoCommitFailureClosesAllResultSets()                       | 4.0                   | X         | Returns false                 |                                        |
