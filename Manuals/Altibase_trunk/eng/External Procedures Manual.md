@@ -813,7 +813,7 @@ DROP LIBRARY lib1;
 
 **call_spec ::=**
 
-![](media/ExternalProcedure/callspec.gif)
+![](media/ExternalProcedure/callSpec.gif)
 
 **parameter_list ::=**
 
@@ -950,7 +950,7 @@ DROP PROCEDURE proc1;
 
 **call_spec ::=**
 
-![](media/ExternalProcedure/callspec.gif)
+![](media/ExternalProcedure/callSpec.gif)
 
 **parameter_list ::=**
 
