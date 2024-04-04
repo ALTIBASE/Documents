@@ -544,7 +544,7 @@ $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
 
 ##### Step 1: Verify the OpenSSL Library
 
-You need the OpenSSL library to use SSL in ODBC or CLI. ODBC and CLI read the OpenSSL library and calls the necessary functions while connecting to the server. Therefore, you should verify that the OpenSSL library has been installed properly, before writing a client application. Where the library is installed can differ among operating systems.
+ODBC and CLI read the OpenSSL library and calls the necessary functions while connecting to the server. Therefore, you should verify that the OpenSSL library has been installed properly, before writing a client application. Where the library is installed can differ among operating systems.
 
 -   Verify the library installation
 
@@ -571,12 +571,12 @@ SSL connection properties are located in $ALTIBASE_HOME/conf.
 
 | Name       | Description                                                  | Range            | Default Value |
 | ---------- | ------------------------------------------------------------ | ---------------- | ------------- |
-| SSL_CA     | Specifies the file path to store CA certificates to certify the ownership of received certificates. CA certificates can exist in a user-specific file path or a X.509 structured directory.<br/>Ex)SSL_CA= /cert/ ca-cert.pem. |                  |               |
-| SSL_CAPATH | Specifies CAPATH in a CA directory format. <br/>Ex) SSL_CAPATH=/etc/ssl/certs |                  |               |
-| SSL_CERT   | Sets the Altibase certificate path. </br>Ex)SSL_CERT=/cert/client-cert.pe m |                  |               |
+| SSL_CA     | Specifies the file path to store CA certificates to certify the ownership of received certificates. CA certificates can exist in a user-specific file path or a X.509 structured directory.<br/>Ex) SSL_CA= /cert/ ca-cert.pem. |                  |               |
+| SSL_CAPATH | Specifies CAPATH in a CA directory format.<br/>Ex) SSL_CAPATH=/etc/ssl/certs |                  |               |
+| SSL_CERT   | Sets the Altibase certificate path.</br>Ex)SSL_CERT=/cert/client-cert.pem |                  |               |
 | SSL_KEY    | Sets the server private (secret) key path. <br/>Ex) SSL_KEY=/cert/client-key.pem |                  |               |
-| SSL_VERIFY | Sets whether or not to authenticate the server certificate. An SSL handshake fails if authentication fails, and it becomes impossible to communicate over SSL. <br/>Ex) SSL_VERIFY=0<br/>0(OFF): Does not authenticate the server certificate <br/>1(ON): Authenticates the server certificate | 0: OFF<br/>1: ON | 0 (FF)        |
-| SSL_CIPHER | A cipher algorithms available for the server and client to use and negotiate with. Depending on your security policy, you can specify one or more cipher names and separate them by colons(:). You can check the list at OpenSSL (http://www.openssl.org/) or execute command "$ openssl ciphers " in the shell environment. <br/>Ex)SSL_CIPHER=EDH-DSS-DESCBC-SHA:DES-CBC-SHA |                  |               |
+| SSL_VERIFY | Sets whether or not to authenticate the server certificate. An SSL handshake fails if authentication fails, and it becomes impossible to communicate over SSL. <br/>0(OFF): Does not authenticate the server certificate <br/>1(ON): Authenticates the server certificate<br/>Ex) SSL_VERIFY=0 | 0: OFF<br/>1: ON | 0(OFF)        |
+| SSL_CIPHER | A cipher algorithms available for the server and client to use and negotiate with. Depending on your security policy, you can specify one or more cipher names and separate them by colons(:). You can check the list at [OpenSSL](http://www.openssl.org/) or execute command "$ openssl ciphers" in the shell environment.<br/>Ex) SSL_CIPHER=EDH-DSS-DES-CBC-SHA:DES-CBC-SHA |                  |               |
 
 The following is a table comparing the server SSL properties and ODBC/CLI properties.
 
@@ -607,26 +607,26 @@ Write a program to use SSL connection in the client application. You can find a 
 
 ##### Step 1: Verify the OpenSSL Library
 
-This step is same as [Step 1 of ODBC/CLI Environment Configuration](#Step-1-Verify-the-OpenSSL-Library).
+This step is same as [Step 1 of Configure SSL for ODBC/CLI](#Step-1-Verify-the-OpenSSL-Library).
 
 ##### Step 2: Prepare the Client’s Certificate
 
-This step is same as [Step 2 of ODBC/CLI Environment Configuration](#Step-2-Prepare-the-Clients-Certificate).
+This step is same as [Step 2 of Configure SSL for ODBC/CLI](#Step-2-Prepare-the-Clients-Certificate).
 
 ##### Step 3: Set .NET Connection Properties for SSL
 
 When connecting to the server using SSL communication, users can specify the following properties in the connection string:
 
-| Name       | Description                                                  | Range                   | Default Value |
-| :--------- | :----------------------------------------------------------- | :---------------------- | :------------ |
-| conn type  | Determine whether to connect to the server using SSL communication. If this value is set to "ssl", the connection is established using SSL communication. | ssl                     |               |
-| port       | Specify the value of SSL_PORT_NO, which is the port number of the target server to connect to. | 0 ~ 65535               |               |
-| ssl ca     | Refer to SSL_CA from [ODBC/CLI Environment Configuration > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). |                         |               |
-| ssl capath | Refer to SSL_CAPATH from [ODBC/CLI Environment Configuration > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). |                         |               |
-| ssl cert   | Refer to SSL_CERT from [ODBC/CLI Environment Configuration > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). |                         |               |
-| ssl key    | Refer to SSL_KEY from [ODBC/CLI Environment Configuration > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL) |                         |               |
-| ssl verify | Refer to SSL_VERIFY from [ODBC/CLI Environment Configuration > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). | false: OFF<br/>true: ON | false         |
-| ssl cipher | Refer to SSL_CIPHER from [ODBC/CLI Environment Configuration > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). |                         |               |
+| Name       | Description                                                  | Range                    | Default Value |
+| :--------- | :----------------------------------------------------------- | :----------------------- | :------------ |
+| conn type  | Determine whether to connect to the server using SSL communication. If this value is set to "ssl", the connection is established using SSL communication. | ssl                      |               |
+| port       | Specify the value of SSL_PORT_NO, which is the port number of the target server to connect to. | 0 ~ 65535                |               |
+| ssl ca     | Refer to SSL_CA from [Configure SSL for ODBC/CLI > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). |                          |               |
+| ssl capath | Refer to SSL_CAPATH from [Configure SSL for ODBC/CLI > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). |                          |               |
+| ssl cert   | Refer to SSL_CERT from [Configure SSL for ODBC/CLI > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). |                          |               |
+| ssl key    | Refer to SSL_KEY from [Configure SSL for ODBC/CLI > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL) |                          |               |
+| ssl verify | Refer to SSL_VERIFY from [Configure SSL for ODBC/CLI > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). | false:  OFF<br/>true: ON | false         |
+| ssl cipher | Refer to SSL_CIPHER from [Configure SSL for ODBC/CLI > Step 3: Set ODBC/CLI Properties for SSL](#Step-3-Set-ODBCCLI-Properties-for-SSL). |                          |               |
 
 ##### Step 4: Write a Client Program
 
