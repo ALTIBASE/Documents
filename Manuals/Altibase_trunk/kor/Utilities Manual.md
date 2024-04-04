@@ -500,7 +500,6 @@ aexport에 의해 생성된 모든 파일은 텍스트 파일이기 때문에 �
     ALL_OBJECT_CONSTRAINS.sql 파일은 모든 인덱스, 외래키, 트리거와 이중화 객체를
     생성하는 SQL 스크립트를 포함한다. 또한, ALL_OBJECT_CONSTRATINS.sql을
     실행하는 run_is_con.sh 쉘 스크립트 파일이 생성된다.
-    
 
 ## 사전 설정
 
