@@ -3228,8 +3228,8 @@ This section describes additional connection properties that can be used in the 
 - Description : 
   This indicates the data source name. The used value will be changed by the following conditions:
   - If the value of the connection property `server` exists, this setting will be ignored.
-  - If the value of the connection property `server` does not exist and the original ODBC data which has the same value as the data source exists, the DSN(data source name) of the original ODBC data will be used.
-  - If both the value of the connection property `server` and the original ODBC data which has the same value as the data source do not exist, this will use the server's IP or hostname.
+  - If the value of the connection property `server` does not exist and the original ODBC data which has the same value as the `data source` exists, the DSN(data source name) of the original ODBC data will be used.
+  - If both the value of the connection property `server` and the original ODBC data which has the same value as the `data source` do not exist, this will use the server's IP or hostname.
 
 ###### encoding
 
@@ -3448,21 +3448,21 @@ Array binding supports only input parameters. Output or bidirectional 공용 par
 
 GetSchema() method allows querying Altibase's meta tables in addition to common schemas such as MetadataCollections, DataSourceInformation, DataTypes, Restrictions, and ReservedWords.
 
-| Schema               | Meta Table               | Description                                                  |
-| :------------------- | :----------------------- | :----------------------------------------------------------- |
-| Users                | SYS_USERS_               | This table contains information about users.                 |
-| Tables               | SYS_TABLES_              | This table contains information about all kinds of tables.   |
-| Views                | SYS_VIEWS_               | This table contains information about views.                 |
-| Sequences            | V$SEQ                    | This performance view contains information about sequences.  |
-| Synonyms             | SYS_SYNONYMS_            | This table contains information about synonyms.              |
-| Indexes              | SYS_INDICES_             | This table contains information about indexes.               |
-| Columns              | SYS_COLUMNS_             | This table contains information about columns.               |
-| Constraints          | SYS_CONSTRAINTS_         | This table contains information about constraints.           |
-| Procedures           | SYS_PROCEDURES_          | This table contains information about stored procedures and functions. |
-| ProcedurePa rameters | SYS_PROC_PARAS_          | This table contains information about the parameters for stored procedures and functions. |
-| IndexColumns         | SYS_INDEX_COLUMNS_       | This table contains information about index key columns.     |
-| ConstraintColumns    | SYS_CONSTRAINT_ COLUMNS_ | This table contains information about columns having constraints. |
-| Triggers             | SYS_TRIGGERS_            | This table contains information about triggers.              |
+| Schema              | Meta Table               | Description                                                  |
+| :------------------ | :----------------------- | :----------------------------------------------------------- |
+| Users               | SYS_USERS_               | This table contains information about users.                 |
+| Tables              | SYS_TABLES_              | This table contains information about all kinds of tables.   |
+| Views               | SYS_VIEWS_               | This table contains information about views.                 |
+| Sequences           | V$SEQ                    | This performance view contains information about sequences.  |
+| Synonyms            | SYS_SYNONYMS_            | This table contains information about synonyms.              |
+| Indexes             | SYS_INDICES_             | This table contains information about indexes.               |
+| Columns             | SYS_COLUMNS_             | This table contains information about columns.               |
+| Constraints         | SYS_CONSTRAINTS_         | This table contains information about constraints.           |
+| Procedures          | SYS_PROCEDURES_          | This table contains information about stored procedures and functions. |
+| ProcedureParameters | SYS_PROC_PARAS_          | This table contains information about the parameters for stored procedures and functions. |
+| IndexColumns        | SYS_INDEX_COLUMNS_       | This table contains information about index key columns.     |
+| ConstraintColumns   | SYS_CONSTRAINT_ COLUMNS_ | This table contains information about columns having constraints. |
+| Triggers            | SYS_TRIGGERS_            | This table contains information about triggers.              |
 
 Please refer to the following manuals for more information about database schemas and related meta tables that Altibase supports.
 

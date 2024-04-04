@@ -3220,14 +3220,16 @@ IDE(Integrated Development Environment) 환경에서 Altibase ADO.NET을 등록�
 
 1️⃣ 새 프로젝트를 생성한다. @리뷰
 
-<div align="left">
-    <img src="media/API/adonet1.png">
-</div>
+![](media/API/adonet1.png)
+
+
+
 2️⃣ NuGet 패키지 관리자 창에서 패키지 소스 nuget.org를 선택하고 Altibase.Data.AltibaseClient를 검색하여 설치한다.
 
-<div align="left">
-    <img src="media/API/adonet2.png">
-</div>
+![](media/API/adonet2.png)
+
+
+
 
 #### Altibase ADO.NET 사용 선언
 
@@ -3261,7 +3263,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : Altibase 서버에 연결된 이후에 설정한 속성의 영향 범위에 따라 시스템과 세션으로 구분한다.
   - 시스템 : 설정한 속성이 다른 세션에 영향을 준다.
   - 세션 : 설정한 속성은 해당 세션에만 영향을 준다.
-  - N/A : 이 속성은 Altibase 서버에 연결하는 과정에서만 영향을 받는다.
+  - N/A : 이 속성은 Altibase 서버에 연결하는 과정에만 영향을 준다.
 - 설명: 연결 속성에 대한 설명
 
 ###### application name
@@ -3299,9 +3301,9 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 필수 여부 : 선택
 - 설정 범위 : N/A
 - 설명 : 데이터 소스의 이름을 나타내며 아래의 조건에 따라 사용되는 값이 달라진다.
-  - 연결 속성 server의 값이 존재하면, data source의 값은 무시된다.
-  - 연결 속성 server의 값이 없고 data source의 값과 같은 ODBC 데이터 원본이 있으면 ODBC 데이터 원본의 DSN(data source name)이 사용된다.
-  - 연결 속성 server의 값이 없고 data souce의 값과 같은 ODBC 데이터 원본이 없으면 서버의 IP 또는 호스트 이름을 사용한다.
+  - 연결 속성 `server`의 값이 존재하면, `data source`의 값은 무시된다.
+  - 연결 속성 `server`의 값이 없고 `data source`의 값과 같은 ODBC 데이터 원본이 있으면 ODBC 데이터 원본의 DSN(data source name)이 사용된다.
+  - 연결 속성 `server`의 값이 없고 `data source`의 값과 같은 ODBC 데이터 원본이 없으면 서버의 IP 또는 호스트 이름을 사용한다.
 
 ###### encoding
 
@@ -3381,7 +3383,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 값의 범위 : [true | false]
 - 필수 여부 : 선택
 - 설정 범위 : N/A
-- 설명 : 연결 속성 server에 호스트명을 입력하면, 이 속성 값에 따라 호스트명을 IPv4 주소 또는 IPv6주소로 변환한다. true는 호스트명을 IPv6주소로 변환하고 false는 호스트명을 IPv4주소로 변환하다.
+- 설명 : 연결 속성 `server`에 호스트명을 입력하면, 이 속성 값에 따라 호스트명을 IPv4 주소 또는 IPv6주소로 변환한다. true는 호스트명을 IPv6주소로 변환하고 false는 호스트명을 IPv4주소로 변환하다.
 
 ###### server
 
@@ -3522,21 +3524,21 @@ Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배�
 
 GetSchema() 메소드로 MetadataCollections, DataSourceInformation, DataTypes, Restrictions, ReservedWords와 같은 공통 스키마 외에 Altibase의 메타 테이블을 조회할 수 있다.
 
-| 스키마               | 메타 테이블              | 설명                                                         |
-| :------------------- | :----------------------- | :----------------------------------------------------------- |
-| Users                | SYS_USERS_               | 데이터베이스 사용자 정보를 저장하는 메타 테이블              |
-| Tables               | SYS_TABLES_              | 테이블 정보를 저장하는 메타 테이블                           |
-| Views                | SYS_VIEWS_               | 뷰 정보를 저장하는 메타 테이블                               |
-| Sequences            | V$SEQ                    | 시퀀스 정보를 저장하는 성능 뷰                               |
-| Synonyms             | SYS_SYNONYMS_            | 시노님 정보를 저장하는 메타 테이블                           |
-| Indexes              | SYS_INDICES_             | 인덱스 정보를 기록하고 있는 메타 테이블                      |
-| Columns              | SYS_COLUMNS_             | 칼럼 정보를 저장하는 메타 테이블                             |
-| Constraints          | SYS_CONSTRAINTS_         | 제약 조건 정보를 저장하는 메타 테이블                        |
-| Procedures           | SYS_PROCEDURES_          | 저장 프로시저 및 함수 정보를 저장하는 메타 테이블            |
-| ProcedurePa rameters | SYS_PROC_PARAS_          | 저장 프로시저 및 함수의 파라미터 정보를 저장하는 메타 테이블 |
-| IndexColumns         | SYS_INDEX_COLUMNS_       | 인덱스 칼럼 정보를 저장하는 메타 테이블                      |
-| ConstraintColumns    | SYS_CONSTRAINT_ COLUMNS_ | 제약 조건 칼럼 정보를 저장하는 메타 테이블                   |
-| Triggers             | SYS_TRIGGERS_            | 트리거 정보를 저장하는 메타 테이블                           |
+| 스키마              | 메타 테이블              | 설명                                                         |
+| :------------------ | :----------------------- | :----------------------------------------------------------- |
+| Users               | SYS_USERS_               | 데이터베이스 사용자 정보를 저장하는 메타 테이블              |
+| Tables              | SYS_TABLES_              | 테이블 정보를 저장하는 메타 테이블                           |
+| Views               | SYS_VIEWS_               | 뷰 정보를 저장하는 메타 테이블                               |
+| Sequences           | V$SEQ                    | 시퀀스 정보를 저장하는 성능 뷰                               |
+| Synonyms            | SYS_SYNONYMS_            | 시노님 정보를 저장하는 메타 테이블                           |
+| Indexes             | SYS_INDICES_             | 인덱스 정보를 기록하고 있는 메타 테이블                      |
+| Columns             | SYS_COLUMNS_             | 칼럼 정보를 저장하는 메타 테이블                             |
+| Constraints         | SYS_CONSTRAINTS_         | 제약 조건 정보를 저장하는 메타 테이블                        |
+| Procedures          | SYS_PROCEDURES_          | 저장 프로시저 및 함수 정보를 저장하는 메타 테이블            |
+| ProcedureParameters | SYS_PROC_PARAS_          | 저장 프로시저 및 함수의 파라미터 정보를 저장하는 메타 테이블 |
+| IndexColumns        | SYS_INDEX_COLUMNS_       | 인덱스 칼럼 정보를 저장하는 메타 테이블                      |
+| ConstraintColumns   | SYS_CONSTRAINT_ COLUMNS_ | 제약 조건 칼럼 정보를 저장하는 메타 테이블                   |
+| Triggers            | SYS_TRIGGERS_            | 트리거 정보를 저장하는 메타 테이블                           |
 
 Altibase에서 지원하는 데이터베이스 스키마와 관련 메타 테이블에 관한 설명은 아래 매뉴얼을 참고한다.
 

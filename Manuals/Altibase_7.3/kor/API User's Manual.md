@@ -3258,7 +3258,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
   Altibase 서버에 연결된 이후에 설정한 속성의 영향 범위에 따라 시스템과 세션으로 구분한다.
   - 시스템 : 설정한 속성이 다른 세션에 영향을 준다.
   - 세션 : 설정한 속성은 해당 세션에만 영향을 준다.
-  - N/A : 이 속성은 Altibase 서버에 연결하는 과정에서만 영향을 받는다.
+  - N/A : 이 속성은 Altibase 서버에 연결하는 과정에만 영향을 준다.
 - 설명: 연결 속성에 대한 설명
 
 ###### application name
@@ -3297,9 +3297,9 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : N/A
 - 설명 : 
   데이터 소스의 이름을 나타내며 아래의 조건에 따라 사용되는 값이 달라진다.
-  - 연결 속성 server의 값이 존재하면, data source의 값은 무시된다.
-  - 연결 속성 server의 값이 없고 data source의 값과 같은 ODBC 데이터 원본이 있으면 ODBC 데이터 원본의 DSN(data source name)이 사용된다.
-  - 연결 속성 server의 값이 없고 data souce의 값과 같은 ODBC 데이터 원본이 없으면 서버의 IP 또는 호스트 이름을 사용한다.
+  - 연결 속성 `server`의 값이 존재하면, `data source`의 값은 무시된다.
+  - 연결 속성 `server`의 값이 없고 `data source`의 값과 같은 ODBC 데이터 원본이 있으면 ODBC 데이터 원본의 DSN(data source name)이 사용된다.
+  - 연결 속성 `server`의 값이 없고 `data source`의 값과 같은 ODBC 데이터 원본이 없으면 서버의 IP 또는 호스트 이름을 사용한다.
 
 ###### encoding
 
@@ -3379,7 +3379,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 값의 범위 : [true | false]
 - 필수 여부 : 선택
 - 설정 범위 : N/A
-- 설명 : 연결 속성 server에 호스트명을 입력하면, 이 속성 값에 따라 호스트명을 IPv4 주소 또는 IPv6주소로 변환한다. true는 호스트명을 IPv6주소로 변환하고 false는 호스트명을 IPv4주소로 변환하다.
+- 설명 : 연결 속성 `server`에 호스트명을 입력하면, 이 속성 값에 따라 호스트명을 IPv4 주소 또는 IPv6주소로 변환한다. true는 호스트명을 IPv6주소로 변환하고 false는 호스트명을 IPv4주소로 변환하다.
 
 ###### server
 
@@ -3415,19 +3415,19 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 
 ##### 연결 풀 만들기
 
-연결이 처음 열리면 연결 풀과 연결 문자열(Connection String)을 연결하는 일치 알고리즘에 따라 연결 풀이 생성된다. 연결이 열릴 때 연결 문자열이 기존 연결 풀과 정확하게 일치하지 않으면 새로운 연결 풀이 생성된다. 연결 문자열의 연결 속성이나 대소문자 및 공백에 차이가 있어도 다른 풀로 인식한다. 연결 문자열에 연결 속성 min pool size를 0이 아닌 값으로 설정하면 해당 값만큼 연결 풀이 자동으로 생성된다. 이 연결 속성을 설정하지 않았다면 기본값이 0이므로 자동 생성되는 연결은 없다.
+연결이 처음 열리면 연결 풀과 연결 문자열(Connection String)을 연결하는 일치 알고리즘에 따라 연결 풀이 생성된다. 연결이 열릴 때 연결 문자열이 기존 연결 풀과 정확하게 일치하지 않으면 새로운 연결 풀이 생성된다. 연결 문자열의 연결 속성이나 대소문자 및 공백에 차이가 있어도 다른 풀로 인식한다. 연결 문자열에 연결 속성 `min pool size`를 0이 아닌 값으로 설정하면 해당 값만큼 연결 풀이 자동으로 생성된다. 이 연결 속성을 설정하지 않았다면 기본값이 0이므로 자동 생성되는 연결은 없다.
 
 ##### 연결 할당 및 추가
 
 연결을 요청받으면 연결 문자열과 일치하는 연결 풀을 확인하여 연결을 할당하거나, 일치하는 연결 풀이 없으면 연결 풀을 생성하여 연결한다. 
 
-연결은 연결 속성 max pool size의 값만큼 생성할 수 있으며, 이 값을 초과하면 연결 속성 connection life time 값을 초과하는 연결이 발생할 때까지 대기한다.
+연결은 연결 속성 `max pool size`의 값만큼 생성할 수 있으며, 이 값을 초과하면 연결 속성 `connection life time` 값을 초과하는 연결이 발생할 때까지 대기한다.
 
 예외가 발생한 연결은 자동으로 제거되며, 명시적으로 연결을 닫으면 연결이 제거되는 것이 아니라 연결 풀로 회수된다.
 
 ##### 연결 제거
 
-응용 프로그램에서 명시적으로 연결을 닫거나 제거하지 않으면 연결 풀러는 정기적으로 연결 풀을 검사하여 연결을 제거한다. 연결은 연결 속성 connection life time에서 설정한 시간 동안 사용되지 않을 경우 제거되며, min pool size 의 값만큼 최소한의 연결을 남겨두고 회수된다. 그리고 예외가 발생한 연결도 제거된다. 
+응용 프로그램에서 명시적으로 연결을 닫거나 제거하지 않으면 연결 풀러는 정기적으로 연결 풀을 검사하여 연결을 제거한다. 연결은 연결 속성 `connection life time`에서 설정한 시간 동안 사용되지 않을 경우 제거되며, `min pool size`의 값만큼 최소한의 연결을 남겨두고 회수된다. 그리고 예외가 발생한 연결도 제거된다. 
 
 ##### 연결 풀 지우기
 
@@ -3435,7 +3435,7 @@ AltibaseConnection 클래스에서 풀을 지우는 메서드는 ClearPool과 Cl
 
 ##### 제약 사항
 
-연결은 Altibase 서버 프로퍼티 [MAX_CLIENT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#max_client)이상 생성할 수 없으므로, 연결 속성 max pool size 및 min pool size 설정 시 MAX_CLIENT를 고려해야 한다.
+연결은 Altibase 서버 프로퍼티 [MAX_CLIENT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#max_client)이상 생성할 수 없으므로, 연결 속성 `max pool size` 및 `min pool size` 설정 시 MAX_CLIENT를 고려해야 한다.
 
 
 
@@ -3466,7 +3466,7 @@ sTrans.Commit();
 
 ##### CommitableTransaction 객체
 
-CommitableTransaction 객체는 트랜잭션에 암시적 또는 명시적으로 참여할 수 있다. Altibase ADO.NET에서 암시적인 방식으로 트랜잭션에 참여하려면 접속 문자열에 연결 설정 enlist를 설정하지 않거나 `enlist=true`라고 설정한다. 명시적인 참여는 접속 문자열에 `enlist=false`로 설정한다.
+CommitableTransaction 객체는 트랜잭션에 암시적 또는 명시적으로 참여할 수 있다. Altibase ADO.NET에서 암시적인 방식으로 트랜잭션에 참여하려면 접속 문자열에 연결 설정 `enlist`를 설정하지 않거나 `enlist=true`라고 설정한다. 명시적인 참여는 접속 문자열에 `enlist=false`로 설정한다.
 
 ##### 분산 트랜잭션
 
@@ -3520,21 +3520,21 @@ Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배�
 
 GetSchema() 메서드로 MetadataCollections, DataSourceInformation, DataTypes, Restrictions, ReservedWords와 같은 공통 스키마 외에 Altibase의 메타 테이블을 조회할 수 있다.
 
-| 스키마               | 메타 테이블              | 설명                                                         |
-| :------------------- | :----------------------- | :----------------------------------------------------------- |
-| Users                | SYS_USERS_               | 데이터베이스 사용자 정보를 저장하는 메타 테이블              |
-| Tables               | SYS_TABLES_              | 테이블 정보를 저장하는 메타 테이블                           |
-| Views                | SYS_VIEWS_               | 뷰 정보를 저장하는 메타 테이블                               |
-| Sequences            | V$SEQ                    | 시퀀스 정보를 저장하는 성능 뷰                               |
-| Synonyms             | SYS_SYNONYMS_            | 시노님 정보를 저장하는 메타 테이블                           |
-| Indexes              | SYS_INDICES_             | 인덱스 정보를 기록하고 있는 메타 테이블                      |
-| Columns              | SYS_COLUMNS_             | 컬럼 정보를 저장하는 메타 테이블                             |
-| Constraints          | SYS_CONSTRAINTS_         | 제약 조건 정보를 저장하는 메타 테이블                        |
-| Procedures           | SYS_PROCEDURES_          | 저장 프로시저 및 함수 정보를 저장하는 메타 테이블            |
-| ProcedurePa rameters | SYS_PROC_PARAS_          | 저장 프로시저 및 함수의 파라미터 정보를 저장하는 메타 테이블 |
-| IndexColumns         | SYS_INDEX_COLUMNS_       | 인덱스 컬럼 정보를 저장하는 메타 테이블                      |
-| ConstraintColumns    | SYS_CONSTRAINT_ COLUMNS_ | 제약 조건 컬럼 정보를 저장하는 메타 테이블                   |
-| Triggers             | SYS_TRIGGERS_            | 트리거 정보를 저장하는 메타 테이블                           |
+| 스키마              | 메타 테이블              | 설명                                                         |
+| :------------------ | :----------------------- | :----------------------------------------------------------- |
+| Users               | SYS_USERS_               | 데이터베이스 사용자 정보를 저장하는 메타 테이블              |
+| Tables              | SYS_TABLES_              | 테이블 정보를 저장하는 메타 테이블                           |
+| Views               | SYS_VIEWS_               | 뷰 정보를 저장하는 메타 테이블                               |
+| Sequences           | V$SEQ                    | 시퀀스 정보를 저장하는 성능 뷰                               |
+| Synonyms            | SYS_SYNONYMS_            | 시노님 정보를 저장하는 메타 테이블                           |
+| Indexes             | SYS_INDICES_             | 인덱스 정보를 기록하고 있는 메타 테이블                      |
+| Columns             | SYS_COLUMNS_             | 컬럼 정보를 저장하는 메타 테이블                             |
+| Constraints         | SYS_CONSTRAINTS_         | 제약 조건 정보를 저장하는 메타 테이블                        |
+| Procedures          | SYS_PROCEDURES_          | 저장 프로시저 및 함수 정보를 저장하는 메타 테이블            |
+| ProcedureParameters | SYS_PROC_PARAS_          | 저장 프로시저 및 함수의 파라미터 정보를 저장하는 메타 테이블 |
+| IndexColumns        | SYS_INDEX_COLUMNS_       | 인덱스 컬럼 정보를 저장하는 메타 테이블                      |
+| ConstraintColumns   | SYS_CONSTRAINT_ COLUMNS_ | 제약 조건 컬럼 정보를 저장하는 메타 테이블                   |
+| Triggers            | SYS_TRIGGERS_            | 트리거 정보를 저장하는 메타 테이블                           |
 
 Altibase에서 지원하는 데이터베이스 스키마와 관련 메타 테이블에 관한 설명은 아래 매뉴얼을 참고한다.
 
