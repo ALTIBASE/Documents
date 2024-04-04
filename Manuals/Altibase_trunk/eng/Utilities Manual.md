@@ -424,7 +424,6 @@ $ aexport -s localhost -u sys -p manager
 > For more detailed information about DBMS_METADATA package, please refer to [***Stored Procedures Manual*** - DBMS_METADATA](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Stored%20Procedures%20Manual.md#dbms_metadata).
 
 
-
 #### Setting aexport
 
 aexport requires the following information to connect to a server:
