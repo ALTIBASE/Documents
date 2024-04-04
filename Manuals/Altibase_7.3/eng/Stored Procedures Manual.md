@@ -11632,7 +11632,7 @@ DBMS_METADATA.SET_TRANSFORM_PARAM (
 
 | Object Type                    | Name               | Description                                                  | Default |
 | ------------------------------ | ------------------ | ------------------------------------------------------------ | ------- |
-| 모든 객체                      | SQLTERMINATOR      | Specifies whether to append an SQL terminator to the DDL statement. <br /> T: appends an SQL terminator <br/> F: does not append an SQL terminator | F       |
+| ALL                            | SQLTERMINATOR      | Specifies whether to append an SQL terminator to the DDL statement. <br /> T: appends an SQL terminator <br/> F: does not append an SQL terminator | F       |
 | TABLE<br/>INDEX<br/>CONSTRAINT | SEGMENT_ATTRIBUTES | Specifies whether segment attributes (physical attributes, storage clause, tablespace, logging) are included. <br /> T: With <br/> F: Without | T       |
 |                                | STORAGE            | pecifies whether or not to include.<br />T: With<br/>F: Without | T       |
 |                                | TABLESPACE         | Specifies whether the storage clause is included. <br /> T: With <br/> F: Without | T       |
