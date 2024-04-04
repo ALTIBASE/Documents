@@ -296,9 +296,9 @@ The Agent Process is a process separately created by the Altibase server to load
 
 When the stored procedure that registered an external procedure is invoked in the client session, the Altibase server starts the Agent Process for external procedures. And when the execution of external procedures is complete, the Altibase server stands by for a while and, if no other external procedure is being executed, terminates the Agent Process. 
 
-Because the Agent Process is subordinate to the service session of the Altibase server, a number of n Agent Processes are created when external procedures are invoked in a number of n client sessions. Also, the Agent Process created by a session also terminates when the session does.
+The Agent Process is subordinate to the service session of Altibase Server. If external procedures are called in multiple sessions, a corresponding number of Agent Processes will be generated, and when the sessions are terminated, the associated Agent Processes will also be terminated.
 
-
+But in the internal mode of external procedures, no agent process is created.
 
 
 
@@ -690,21 +690,31 @@ char* str_uppercase_return(char *str1, long long str1_len, char * str2)
 
 ### Related Meta Tables and Performance Views
 
-Information on external library objects that have been created and are currently existent in the database can be obtained from the meta table below.
+Related meta table
 
--   SYS_LIBRARIES\_
+- SYS_LIBRARIES_
 
-Information on Agent Processes that have been created for the execution of external procedures and are currently existent can be obtained from the performance view below.
+  This is the meta table that contains information about external library objects.
 
--   V\$EXTPROC_AGENT
+Related performance views
+
+- V$EXTPROC_AGENT
+
+  This view shows information about the Agent Process created for the execution of external procedures
+
+- V$LIBRARY
+
+  This view shows information on the dynamic libraries loaded directly within the database.
+
+- V$PROCINFO
+
+  This view shows the current external procedure mode of the database.
 
 For more detailed information on each meta table and performance view, please refer to *General Reference.*
 
-
-
 ### Related Properties
 
-The following are properties related to agent operations for external procedures.
+The following are properties related to agent operations for external procedures. Internal mode, which does not create agent processes, is not affected.
 
 -   EXTPROC_AGENT_CONNECT_TIMEOUT
 
@@ -715,8 +725,6 @@ The following are properties related to agent operations for external procedures
 -   EXTPROC_AGENT_SOCKET_FILEPATH
 
 For more detailed information on each property, please refer to *General Reference*.
-
-
 
 
 
@@ -805,7 +813,7 @@ DROP LIBRARY lib1;
 
 **call_spec ::=**
 
-![](media/ExternalProcedure/image036.gif)
+![](media/ExternalProcedure/callspec.gif)
 
 **parameter_list ::=**
 
@@ -825,7 +833,7 @@ This specifies the name of the external procedure object.
 
 ##### argument_list
 
-The argument can be omitted; on specification, the name, data type and input/output of the argument must be defined. Valid input/output types must be one of the following; on omission, IN is the default value.
+The argument can be omitted; on specification, the name, data type, and input/output of the argument must be defined. Valid input/output types must be one of the following; on omission, IN is the default value.
 
 -   IN: The input argument which receives an input value when a procedure is called. 
 -   OUT: The argument which returns the output value after executing the procedure. 
@@ -835,9 +843,11 @@ When the external procedure is being executed, the value is passed to the proced
 
 ##### call_spec
 
-This specifies the names of user-defined functions, library objects and parameters. The order in which user-defined functions and library objects are specified is irrelevant, however, they must be specified only once. If INTERNAL is specified, it operates in the internal mode in which the server directly loads and executes the dynamic library without connecting with the agent process. If EXTERNAL is specified or omitted, it operates in external mode to connect with the agent process.
+This specifies the names of user-defined functions and library objects, parameters, and the mode of external procedures. If users do not specify EXTERNAL or INTERNAL in this clause, it operates in an external mode.
 
-##### fun_name
+> The order of specifying names for user-defined functions and the library objects is arbitrary, but each should be specified only once.
+
+##### func_name
 
 This specifies the name of the user-defined function corresponding to the external procedure.
 
@@ -940,7 +950,7 @@ DROP PROCEDURE proc1;
 
 **call_spec ::=**
 
-![](media/ExternalProcedure/image047.gif)
+![](media/ExternalProcedure/callspec.gif)
 
 **parameter_list ::=**
 
@@ -954,7 +964,7 @@ DROP PROCEDURE proc1;
 
 This creates a new external function or changes a previously existing external function into a new external function.
 
-##### func_name
+##### function_name
 
 This specifies the name of the external function object.
 
@@ -964,9 +974,11 @@ Please refer to the section of the CREATE PROCEDURE statement.
 
 ##### call_spec
 
-This specifies the names of user-defined functions, library objects and parameters and return values. The order in which user-defined functions and library objects are specified is irrelevant, however, they must be specified only once.
+This specifies the names of user-defined functions and library objects, parameters, and the mode of external procedures. If users do not specify EXTERNAL or INTERNAL in this clause, it operates in an external mode.
 
-##### fun_name
+> The order of specifying names for user-defined functions and the library objects is arbitrary, but each should be specified only once.
+
+##### func_name
 
 This specifies the name of the user-defined function corresponding to the given external procedure. 
 

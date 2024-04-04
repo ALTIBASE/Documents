@@ -710,8 +710,6 @@ Related performance views
 
   This view shows the current external procedure mode of the database.
 
-
-
 For more detailed information on each meta table and performance view, please refer to *General Reference.*
 
 ### Related Properties
@@ -727,8 +725,6 @@ The following are properties related to agent operations for external procedures
 -   EXTPROC_AGENT_SOCKET_FILEPATH
 
 For more detailed information on each property, please refer to *General Reference*.
-
-
 
 
 
