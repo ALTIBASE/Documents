@@ -3214,14 +3214,16 @@ IDE(Integrated Development Environment) 환경에서 Altibase ADO.NET을 등록�
 
 1️⃣ 새 프로젝트를 생성한다.
 
-<div align="left">
-    <img src="media/API/adonet1.png">
-</div>
+![](media/API/adonet1.png)
+
+
+
 2️⃣ Nuget 패키지 관리자 창에서 패키지 소스 nuget.org를 선택하고 Altibase.Data.AltibaseClient를 검색하여 설치한다.
 
-<div align="left">
-    <img src="media/API/adonet2.png">
-</div>
+![](media/API/adonet2.png)
+
+
+
 
 #### Altibase ADO.NET 사용 선언
 
@@ -3536,8 +3538,8 @@ GetSchema() 메서드로 MetadataCollections, DataSourceInformation, DataTypes, 
 
 Altibase에서 지원하는 데이터베이스 스키마와 관련 메타 테이블에 관한 설명은 아래 매뉴얼을 참고한다.
 
-- [Altibase 7.3 Administrator's Manual - 5.데이터베이스-객체-및-권한](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Administrator's%20Manual.md#5%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EB%B0%8F-%EA%B6%8C%ED%95%9C)
-- [Altibase 7.3 General Reference-2.The Data Dictionary.md](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md)
+- [Altibase 7.3 Administrator's Manual - 5.데이터베이스 객체 및 권한](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Administrator's%20Manual.md#5%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9D%EC%B2%B4-%EB%B0%8F-%EA%B6%8C%ED%95%9C)
+- [Altibase 7.3 General Reference - 2.The Data Dictionary](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md)
 
 
 
