@@ -962,9 +962,14 @@ export ALTIBASE_UT_FILE_PERMISSION=600
 ISQL_FILE_PERMISSION, AEXPORT_FILE_PERMISSION, 또는 ILO_FILE_PERMISSION이 설정된 경우, 
 ALTIBASE_UT_FILE_PERMISSION 환경 변수 보다 우선 처리된다.
 
-예)export ALTIBASE_UT_FILE_PERMISSION=660; export ISQL_FILE_PERMISSION=600;
-iSQL에서 생성되는 파일의 권한은 ISQL_FILE_PERMISSION=600이 우선처리되어 user:rw,  group:--,  other:--으로 설정된다.
- aexport, iloader가 생성하는 파일의 권한은  ALTIBASE_UT_FILE_PERMISSION=660에 따라 user:rw,  group:rw,  other:--으로 설정된다.
+예)
+
+```
+export ALTIBASE_UT_FILE_PERMISSION=660;
+export ISQL_FILE_PERMISSION=600;
+```
+
+위와 같이 ALTIBASE_UT_FILE_PERMISSION 값이 660, ISQL_FILE_PERMISSION 값이 600으로 설정된 환경에서 iSQL에서 생성되는 파일의 권한은 ISQL_FILE_PERMISSION의 값이 우선적으로 적용된어 user:rw, group:--, other:--으로 설정된다. 이 때, aexport, iloader가 생성하는 파일의 권한은 여전히 ALTIBASE_UT_FILE_PERMISSION=660에 따라 user:rw, group:rw, other:--으로 설정되는 것에 유의한다.
 
 #### ISQL_FILE_PERMISSION
 
@@ -975,11 +980,11 @@ export ISQL_FILE_PERMISSION=600
 
 #### ISQL_SECURE_LOGIN_MSG
 
-보안을 강화하기 위해 iSQL에 잘못된 사용자 아이디 또는 암호로 접속을 시도할때, 상세한 접속 실패 이유를 표시하지 않도록 설정하는 환경변수이다. 
+보안을 강화하기 위해 iSQL에 잘못된 사용자 아이디 또는 암호로 접속을 시도할때, 상세한 접속 실패 이유를 표시하지 않도록 설정하는 환경변수이다. 값을 설정하지 않으면 0으로 설정된다.
 
 * 1로 설정하면 사용자 아이디 또는 암호가 틀린경우, "Invalid UserID or Password" 라는 에러메시지가 출력된다.
 
-* 0으로 설정하거나 환경변수를 설정하지 않으면, 기존과 동일하게 명확한 접속 실패 이유가 출력된다.
+* 0으로 설정하거나 환경 변수를 설정하지 않으면, 기존과 동일하게 명확한 접속 실패 이유가 출력된다.
 
 * 환경 변수 설정의 예
 
