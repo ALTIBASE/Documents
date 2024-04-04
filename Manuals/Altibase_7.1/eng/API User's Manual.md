@@ -3363,7 +3363,7 @@ The AltibaseConnection class provides methods for clearing pools: ClearPool and 
 
 ##### Constraints
 
-The number of created connections cannot exceed the Altibase server property [MAX_CLIENT](#https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#max_client), so when configuring the `max pool size` and `min pool size` properties, MAX_CLIENT should be taken into account.
+The number of created connections cannot exceed the Altibase server property [MAX_CLIENT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#max_client), so when configuring the `max pool size` and `min pool size` properties, MAX_CLIENT should be taken into account.
 
 
 
