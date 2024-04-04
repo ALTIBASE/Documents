@@ -52,7 +52,6 @@ Altibase® Application Development
 </div>
 
 
-
 <br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
@@ -98,33 +97,38 @@ Telephone : +82-2-2082-1000
 Fax       : +82-2-2082-1099
 Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
-
-
 <br>
 
-# Table Of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+# Table of Contents
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
-- [1.SQuirreL SQL Client](#1squirrel-sql-client)
+- [1.DBeaver](#1dbeaver)
+  - [Overview](#overview)
+  - [System Requirements](#system-requirements)
+  - [Installing and Uninstalling DBeaver](#installing-and-uninstalling-dbeaver)
+  - [Altibase Database System Connection](#altibase-database-system-connection)
+  - [FAQ](#faq)
+- [2.SQuirreL SQL Client](#2squirrel-sql-client)
   - [Installing Altibase Plugin for SQuirreL SQL Client](#installing-altibase-plugin-for-squirrel-sql-client)
   - [Installing and Removing Altibase Plugin](#installing-and-removing-altibase-plugin)
   - [Features of Altibase Plugin](#features-of-altibase-plugin)
   - [Installing SQuirreL SQL Client](#installing-squirrel-sql-client)
   - [Altibase JDBC Driver Registration](#altibase-jdbc-driver-registration)
   - [Integration with Altibase](#integration-with-altibase)
-  - [FAQ](#faq)
-- [2.Hibernate](#2hibernate)
+  - [FAQ](#faq-2)
+- [3.Hibernate](#3hibernate)
   - [Hibernate](#hibernate)
-- [3.OpenLDAP](#3openldap)
+- [4.OpenLDAP](#4openldap)
   - [Introduction to OpenLDAP](#introduction-to-openldap)
   - [Meta Data Configuration](#meta-data-configuration)
   - [Configuration](#configuration)
   - [Examples](#examples)
 
-
-
-<br>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 Preface
 ====
@@ -143,24 +147,28 @@ This manual has been prepared for the following users of Altibase:
 - Application developers
 - Technical Supporters
 
-It is recommended for those reading this manual possess the following background knowledge:
+It is recommended that those reading this manual possess the following background knowledge:
 
-- Basic knowledge in the use of computers, operating systems, and operating system utilities
-- Experience in using relational database and an understanding of database concepts
+- Basic knowledge of the use of computers, operating systems, and operating system utilities
+- Experience in using relational databases and an understanding of database concepts
 - Computer programming experience
 - Experience in database server management, operating system management, or network administration
-- Knowledge related to the storage, management and processing of data in distributed environments
+- Knowledge related to the storage, management, and processing of data in distributed environments
 
 #### Organization
 
 This manual is organized as follows:
 
-- Chapter 1:  SQuirreL SQL Client  
+- Chapter 1: DBeaver
+
+  This chapter describes the overview of DBeaver, how to install and uninstall the DBeaver, and how to connect it with the Altibase database system.
+
+- Chapter 2:  SQuirreL SQL Client  
   This chapter describes how to install SQuirreL SQL Client and Altibase Plugin for SQuirreL SQL and integrate with Altibase via Altibase JDBC.
 
-- Chapter 2: Hibernate
+- Chapter 3: Hibernate
 
-- Chapter 3: OpenLDAP  
+- Chapter 4: OpenLDAP  
   This chapter describes how to integrate openLDAP and Altibase.
 
 #### Documentation Conventions
@@ -202,9 +210,9 @@ For more detailed information, please refer to the following documents.
 
 - Error Message Reference
 
-#### Altibase Welcomes Your Comments and Feedbacks
+#### Altibase Welcomes Your Comments and Feedback
 
-Please let us know what you like or dislike about our manuals. To help us with better future versions of our manuals, please tell us if there is any corrections or classifications that you would find useful.
+Please let us know what you like or dislike about our manuals. To help us with better future versions of our manuals, please tell us if there are any corrections or classifications that you would find useful.
 
 Include the following information:
 
@@ -214,12 +222,398 @@ Include the following information:
 
 If you need immediate assistance regarding any errors, omissions, and other technical issues, please contact [Altibase's Support Portal](http://support.altibase.com/en/).
 
-Thank you. We always welcome your feedbacks and suggestions.
+Thank you. We always welcome your feedback and suggestions.
 
 <br>
 
-1.SQuirreL SQL Client
+# 1.DBeaver
+
+This chapter introduces the DBeaver overview, system requirements, installation and uninstallation methods, and how to connect to the Altibase database system.
+
+### Overview
+
+DBeaver Community is a free database tool provided by DBeaver Corp. It enables connection to over 80 different database systems, offering functionalities such as data manipulation, database object management, SQL editor, SQL Plan viewer, session monitoring for database connections, etc.
+
+The DBeaver package provided by Altibase provides the connection to Altibase and the diverse range of functionalities mentioned earlier, in addition to other compatible database systems.
+
+For detailed information on DBeaver, refer to https://github.com/dbeaver/dbeaver/wiki.
+
+### System Requirements
+
+#### Software Requirements
+
+##### DBeaver Version
+
+DBeaver versions compatible with Altibase Server are as follows:
+
+* DBeaver 23.3.3 and higher
+
+##### Altibase Server Version
+
+Altibase server versions compatible with the DBeaver are as follows:
+
+- Altibase 7.1.0 and higher
+
+### Installing and Uninstalling DBeaver
+
+Users can download the DBeaver installation file from https://dbeaver.io/download/. For detailed information about installation and uninstallation, refer to https://github.com/dbeaver/dbeaver/wiki/Installation.
+
+### Altibase Database System Connection
+
+#### 1. Connect to New Database
+
+Click [ Database ] → [ New Database Connection ]![connect1_eng](media/DBeaver/connect1_eng.png)
+
+#### 2. Select Altibase Database
+
+Select Altibase in ALL or SQL tab, and click the [ Next > ].![connect2_eng](media/DBeaver/connect2_eng.png)
+
+#### 3. Set the Altibase Connection Information
+
+Configure Altibase connection settings. Host IP address, Port Number, Database/Schema, Username, and Password are required. Click the [ Finish ] after configuration.
+
+![connect3_eng](media/DBeaver/connect3_eng.png)
+
+Now users can find the Altibase database set above on the Database Navigator tab as follows:
+
+ ![auto1_eng](media/DBeaver/auto1_eng.png)
+
+#### 4. Download JDBC Driver Files
+
+To connect the Altibase database, Altibase JDBC driver file is required. If users can access the internet, please refer to  '4.1 Download JDBC Driver Files'.  If users can not access the internet or want to register JDBC driver files manually, please refer to '4.2 Register JDBC Driver Manually'.
+
+##### 4.1 Download JDBC Driver Files
+
+Double click the Altibase connection information(mydb) on the Database Navigator tab. Then the 'Driver settings' window pops up to download Altibase JDBC driver files. Select a Altibase JDBC driver file and click [ Download ].
+
+![](media/DBeaver/dbeaver_jdbcdownload.png)
+
+The database connection is processed after downloading. This only needs to be done the first connection.
+
+##### 4.2 Register JDBC Driver Manually
+
+Users can manually register Altibase JDBC driver files. To do this, click on the [ Driver Settings ] located at the bottom of the 'Connect to a database' window.
+
+![connect4_eng](media/DBeaver/connect4_eng.png)
+
+Click [ Add File ] on the Libraries tab.
+
+![connect5_eng](media/DBeaver/connect5_eng.png)
+
+Select the Altibase JDBC driver file.
+
+Click [ Classpath ].
+
+![connect6_eng](media/DBeaver/connect6_eng.png)
+
+Add the location of the JDBC driver file to be used in Global libraries and click [ Apply and Close ].
+
+![connect7_eng](media/DBeaver/connect7_eng.png)
+
+After all settings, click [ OK ] .
+
+Click [ Finish ] to complete the configuration.
+
+#### 5. Complete Database Connection
+
+Users can review the list of registered database connection information on the Database Navigator tab.
+
+Double-clicking on the database connection information in the list attempts to establish a connection.  A green check mark next to the icon signifies a successful connection has been established.
+
+![connect9_eng](media/DBeaver/connect9_eng.png)
+
+If needed, users can rename the database connection information to the desired name.
+
+![connect10_eng](media/DBeaver/connect10_eng.png)
+
+
+### FAQ
+
+#### Unable to Retrieve LOB Type Data.
+
+DBeaver is configured with Auto-Commit as the default setting. To retrieve Altibase LOB type data, users need to change the commit mode from Auto-Commit to Manual Commit.
+
+There are three methods to change the commit mode:
+
+1. Click on the ▼ in the toolbar to switch to Manual Commit mode.
+
+   ![commit1](media/DBeaver/commit1.png)
+
+| Button Icon                           | Commit Mode   |
+| ------------------------------------- | ------------- |
+| ![button1](media/DBeaver/button1.png) | Auto-Commit   |
+| ![button2](media/DBeaver/button2.png) | Manual Commit |
+
+2. Select "Manual Commit" from the list of commit modes.
+
+   ![commit2](media/DBeaver/commit2.png)
+
+3. Deselect the "Auto-commit" default setting option in the menu and reconnect to the database.
+
+   [ Window ] → [ Preferences ]
+
+   ![commit3](media/DBeaver/commit3.png)
+
+Click [ Connections ] → [ Connection Types ]
+
+Uncheck the "Auto-commit by default" check box, then click [ Apply and Close].
+
+Reconnect to the database.
+
+   ![commit4](media/DBeaver/commit4.png)
+
+> [!NOTE] 
+>
+> In Manual Commit mode, users must explicitly commit or roll back when modifying tables.
+>
+> ![commit5](media/DBeaver/commit5.png)
+
+Reference: https://dbeaver.com/docs/dbeaver/Auto-and-Manual-Commit-Modes/
+
+#### The SYSTEM_ schema is not visible.
+
+DBeaver, by default, does not display system objects. To view the SYSTEM_ schema, users need to set the "Show system objects" option.
+
+Click on [ Connection View ] → [ Show system objects ] option.
+
+![sysschema1](media/DBeaver/sysschema1.png)
+
+After reconnecting to the database, users will be able to see the tables and views in the SYSTEM_ schema.
+
+![sysschema2](media/DBeaver/sysschema2.png)
+
+![sysschema3](media/DBeaver/sysschema3.png)
+
+####  The DDL output for the object is not accurate.
+
+To retrieve the accurate DDL statements of Altibase objects, it is essential to install the DBMS_METADATA package by SYS user.
+
+To install the DBMS_METADATA package, connect to Altibase using the SYS account and execute the following statement:
+
+```
+$ cd $ALTIBASE_HOME
+$ is -f ./packages/dbms_metadata.sql
+$ is -f ./packages/dbms_metadata.plb
+```
+
+Example)
+
+The following is an example syntax for creating the queue object Q1.
+
+   ```
+CREATE QUEUE q1(40) MAXROWS 100000;
+   ```
+
+After executing the above statement and attempting to retrieve the DDL for the Q1 object in DBeaver, the wrong output may be displayed as follows. 
+
+![ddl1](media/DBeaver/ddl1.png)
+
+Install the DBMS_METADATA package:
+
+```
+$ cd $ALTIBASE_HOME
+$ is -f ./packages/dbms_metadata.sql
+$ is -f ./packages/dbms_metadata.plb
+```
+
+After installation, reconnect to the target Altibase in DBeaver. Users can retrieve accurate DDL statements for the Q1.
+
+![ddl2](media/DBeaver/ddl2.png)
+
+#### Where can I find the query execution plan for my queries? 
+
+The query execution plan can be viewed by entering a query in the SQL script window and then clicking on the "Explain Execution Plan" icon.
+
+Click on [ SQL Editor ] of the connected database → [ New SQL script ] 
+
+![excplan1](media/DBeaver/excplan1.png)
+
+In the SQL Script window, users can enter a query and then click on the "Explain Execution Plan" icon to view the query execution plan.
+
+![excplan2](media/DBeaver/excplan2.png)
+
+The default option value for the query execution plan is "Explain Plan Only."
+
+#### I want to execute the query execution plan with EXPLAIN_PLAN = ON.
+
+In the DBeaver Altibase Plugin, users can specify whether to use the Explain plan ONLY or ON for each connection. The default value is ONLY.
+
+There is two methods to change the Explain plan setting:
+
+1. Change the connected database configuration.
+
+   Click on the connected database.
+
+   ![explain1](media/DBeaver/explain1.png)
+
+   Navigate to [ File ] → [  Properties ]
+
+   ![explain2](media/DBeaver/explain2.png)
+
+   Click on [ Altibase settings ] → Check "Datasource settings" → Click on "Explain Plan = ON" 
+
+   ![explain3](media/DBeaver/explain3.png)
+
+2. Call Preferences from the script panel.
+
+   Click the Preferences button beside the SQL script panel.
+
+   ![explain4](media/DBeaver/explain4.png)
+
+   Click on [ Altibase settings ] → Check "Datasource settings" → Click on "Explain Plan = ON" 
+
+   ![explain5](media/DBeaver/explain5.png)
+
+#### I want to see the server output (PSM PRINTLN output).
+
+To view the server output, users need to enable the "Enable DBMS Output" option for the connected database.
+
+Click on the connected database.
+
+![println1](media/DBeaver/println1.png)
+
+Navigate to [ File ] → [ Properties ]
+
+![println2](media/DBeaver/println2.png)
+
+Click on [ Altibase settings ] →  Check "Datasource settings" → Check the "Enable DBMS Output"
+
+![println3](media/DBeaver/println3.png)
+
+In the SQL script window of the database connection for which users changed the settings, click the "Show server output" button. After that, when users execute the SQL statement, the server output will be displayed in the Output tab.
+
+
+
+![println4](media/DBeaver/println4.png)
+
+#### Microseconds in DATE type are not visible.
+
+DBeaver's timestamp output format is 'yyyy-MM-dd HH:mm:ss.SSS', displaying milliseconds (3 decimal places) in contrast to Altibase's DATE type, which can represent microseconds (6 decimal places).
+
+The query results for DATE type data under the default settings of DBeaver are as follows.
+
+![datetype1](media/DBeaver/datetype1.png)
+
+To display the DATE type in microseconds, users need to change DBeaver's data type settings. The location for changing the settings is as follows.
+
+Navigate to [ Windows ] → [ Preference ]
+
+![datetype2](media/DBeaver/datetype2.png)
+
+Navigate to [ Editors ] → [ Data Editor ] → [ Data Formats ] → Click on "Datasource settings"
+
+![datetype3](media/DBeaver/datetype3.png)
+
+Select the database connection and click [ Select ].
+
+![datetype4](media/DBeaver/datetype4.png)
+
+There are two methods to change the settings to view DATE type up to microseconds.
+
+1. Change the data type Value Settings:
+
+   Navigate to [ Datasource settings ]→ [ Format ], set the Type to Timestamp, change the Value to 'yyyy-MM-dd HH:mm.ss.SSSSSS', and then click [ Apply and Close ].
+
+   ![datetype5](media/DBeaver/datetype5.png)
+
+   When querying DATE type data, it displays a fixed six digits after the decimal point, including zero, as shown below.
+
+   ![datetype6](media/DBeaver/datetype6.png)
+
+2. Set the Data formats "Disable date/time formatting" option
+
+   Click on [ Datasource settings ] → [ Settings ], check the "Disable date/time formatting" checkbox, then click on [ Apply and Close ].
+
+   ![datetype7](media/DBeaver/datetype7.png)
+
+   When querying DATE type data, it displays valid fixed six digits after the decimal point as shown below.
+
+   ![datetype8](media/DBeaver/datetype8.png)
+
+Reference: https://dbeaver.com/docs/dbeaver/Managing-Data-Formats/
+
+#### "Invalid data type length" error message is displayed when modifying CHAR type.
+
+DBeaver Data Editor defaults to executing INSERT statements when modifying data. Before saving the changes made with the Data Editor, ensure that the modified data does not exceed the column size.
+
+![chartype1](media/DBeaver/chartype1.png)
+
+#### I want to see Binary Data type as Hex.
+
+DBeaver's default setting displays binary data as a String type. To view binary data as Hex, users need to change the setting.
+
+![binarytype1](media/DBeaver/binarytype1.png)
+
+Click on database connection.
+
+![binarytype2](media/DBeaver/binarytype2.png)
+
+Navigate to [ File ] → [ Properties ]
+
+![binarytype3](media/DBeaver/binarytype3.png)
+
+Navigate to [ Editors ] → [ Data Editor ] → [ Binary data ]
+
+Change the Binary data formatter setting to Hex, then click on [ Apply and Close ].
+
+![binarytype4](media/DBeaver/binarytype4.png)
+
+Press the [ Refresh ] button at the bottom of the table, then the binary type data will be displayed in Hex format.
+
+![binarytype5](media/DBeaver/binarytype5.png)
+
+Reference: https://dbeaver.com/docs/dbeaver/Data-View-and-Format/
+
+#### Unable to Modify Binary Type Data in DBeaver Data Editor
+
+To modify binary type data in DBeaver, users need to enter the data to be modified in the "Value" field of the Data Editor. Data directly entered into the cell of the grid is converted to the binary value and stored.
+
+![binarytype6](media/DBeaver/binarytype6.png)
+
+#### How does DBeaver handle BIT, VARBIT, and NIBBLE of Binary Data Types? 
+
+In DBeaver, binary data is processed on a byte-unit basis. For binary data types such as BIT, VARBIT, and NIBBLE, which can be smaller than a byte, DBeaver handles them as numeric or character types inevitably.
+
+#### How to completely delete DBeaver Settings and reinstall?
+
+If users want to completely reset previous DBeaver settings and reinstall it, users need to completely remove the DBeaver application and user data before reinstalling.
+
+Check the default DBeaver workspace folder location based on the operating system and remove all DBeaver data:
+
+| OS      | Default location of DBeaver workspace                        |
+| ------- | ------------------------------------------------------------ |
+| Windows | `%APPDATE$\DBeaverData`                                      |
+| MacOS   | `~/Library/DBeaverData/`                                     |
+| Linux   | `$XDG_DATA_HOME/DBeaverData/` ($XDG_DATA_HOME=`~/.local/share` if not set) |
+
+Reference: https://dbeaver.com/docs/dbeaver/Workspace-Location/
+
+#### In SQL Editor, I would like to set Auto commit off as default.
+
+"Auto-commit" setting of DBeaver is on as default.
+
+If users want to set "Auto commit" to off as default, please follow the below steps:
+
+1. Right-click on the connection → [ Edit Connection ] or press the F4  to open the Configuration window.
+
+   ![defaultAutoCommitOff1](media/DBeaver/defaultAutoCommitOff1.png)
+
+2. Navigate to [ Connection settings ] → [ Initialization ] → [ Connection ] → Uncheck "Auto-commit" 
+
+
+![defaultAutoCommitOff2](media/DBeaver/defaultAutoCommitOff2.png)
+
+
+
+If users want to temporarily change the auto-commit mode, press the transaction button, as shown in the capture below.
+
+![defaultAutoCommitOff3](media/DBeaver/defaultAutoCommitOff3.png)
+
+
+
+2.SQuirreL SQL Client
 =======================
+
 
 This chapter describes how to install SQuirreL SQL Client and Altibase Plugin for SQuirreL SQL and integrate with Altibase via Altibase JDBC.
 
@@ -313,7 +707,7 @@ This chapter describes how to install SQuirreL SQL Client.
 
 1. Double-click "squirrel-sql.bat" in the directory where SQuirreL SQL Client is installed to run the program. 
 
-2. Click Driver -> New Driver to register the Altibase JDBC driver. If the Drivers menu is inactive, click Windows -> View Drivers to activate it. 
+2. Click Driver → New Driver to register the Altibase JDBC driver. If the Drivers menu is inactive, click Windows → View Drivers to activate it. 
 
 3. Enter the following in the Driver section of the Add Driver window.
    
@@ -334,7 +728,7 @@ After selecting the file, press the "List Drivers" button, and check if "Altibas
 
 #### Database Connection Information Registration
 
-1. Click Aliases -> New Alias in the main menu to register the database information to be accessed. If the Aliases menu is disabled, click Windows -> View Aliases to activate it. 
+1. Click Aliases → New Alias in the main menu to register the database information to be accessed. If the Aliases menu is disabled, click Windows → View Aliases to activate it. 
 
 2. Enter the information below:
    
@@ -354,7 +748,7 @@ After selecting the file, press the "List Drivers" button, and check if "Altibas
 
 #### Using Database
 
-1. Click Aliases -> Connect in the main menu to open the connection window.
+1. Click Aliases → Connect in the main menu to open the connection window.
 
 ![](media/3rdPartyConnector/3843e6b7c58b308e9dd87c8530ef0ac0.jpg)
 
@@ -399,12 +793,12 @@ In the SQuirreL SQL client, LOB data can be retrieved in the SQL tab or the Obje
 The following setting is required to display LOB data in the SQL tab or the Objects tab.
 
 1. Change the Data Type Controls setting.<br>
-   In 'File -> Global Preferences -> Data Type Controls tab', check the "Read contents when table is first loaded" option of BLOB or CLOB 
+   In 'File → Global Preferences → Data Type Controls tab', check the "Read contents when table is first loaded" option of BLOB or CLOB 
 
 ![](media/3rdPartyConnector/squirrel_lob_view.jpg)
 
 2. Change the autocommit mode to false in the session properties.<br>
-   In Altibase HDB, transactions must be managed explicitly for LOB data. To apply this, uncheck the "Auto Commit SQL" checkbox in File -> New Session Properties -> SQL tab.
+   In Altibase HDB, transactions must be managed explicitly for LOB data. To apply this, uncheck the "Auto Commit SQL" checkbox in File → New Session Properties → SQL tab.
 
 ![](media/3rdPartyConnector/squirrel_lob_autocommit.jpg)
 
@@ -415,7 +809,7 @@ The following setting is required to display LOB data in the SQL tab or the Obje
    - Altibase 7.2.0.0.2 or higher
 
 2. Add getcolumns_return_jdbctype=true to the JDBC connection properties.<br>
-   It can be changed in Drivers -> Add Driver to designate a new driver, or Aliases -> Modify the selected Alias to add or change existing connection information.
+   It can be changed in Drivers → Add Driver to designate a new driver, or Aliases → Modify the selected Alias to add or change existing connection information.
 
 ![](media/3rdPartyConnector/squirrel_lob_add_driver.jpg)
 
@@ -423,8 +817,10 @@ The following setting is required to display LOB data in the SQL tab or the Obje
 
 <br>
 
-2.Hibernate
+
+3.Hibernate
 =========
+
 
 ### Hibernate
 
@@ -440,8 +836,10 @@ Please refer to [AltibaseDialect Porting Method](https://github.com/ALTIBASE/hib
 
 <br>
 
-3.OpenLDAP
+
+4.OpenLDAP
 ========
+
 
 This chapter describes how to integrate openLDAP with Altibase.
 
