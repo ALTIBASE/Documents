@@ -969,6 +969,14 @@ Chapter 3.</p>
 | Setting Range | N/A                                                          |
 | Description   | Specifies whether to include stored procedures in the result DatabaseMetaData.getProcedures() and DatabaseMetaData.getProcedureColumns() methods return. When this value is set to true, it includes stored procedures. When this value is set to false, stored procedures are not included. Hence, DatabaseMetaData.getFunctions() and DatabaseMetaData.getFunctionColumns() have to be used separately to retrieve the stored procedures information. |
 
+@리뷰 국문과 내용은 일치하지만 7.3 Release Note의 내용과 함수 설명이 조금 달라서 내용 확인 한번만 해주세요. 
+
+국문 매뉴얼 현재 내용은 "DatabaseMetaData.getProcedures(), DatabaseMetaData.getProcedureColumns() 메소드 반환 결과에 저장 함수의 포함 여부를 설정한다.true는 저장 함수를 포함한다. false는 저장 함수를 포함하지 않는다. 저장 함수 정보를 얻으려면 DatabaseMetaData.getFunctions()와 DatabaseMetaData.getFunctionColumns()를 사용해야 한다."
+
+릴리즈 노트에 해당 속성 설명은 "DatabaseMetaData.getProcedures(), getProcedureColumns()의 결과에 function 결과를 포함할지 설정한다. JDBC API Specification 4.2 표준은 function 정보를 제외하지만 Altibase JDBC 4.2는 클라이언트 하위 호환성을 위해 하위 버전과 같게 유지한다. 표준에 따라 function정보를 제외하려면 속성값을 false로 설정한다."
+
+인데 두 설명이 같은 내용인가요?
+
 ##### getcolumns_return_jdbctype
 
 | Default Value | false                                                        |
@@ -3539,7 +3547,7 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 
 | Interface name                                          | Specification Version | **Supported** | Details                                                      | Exceptions                                                   |
 | :------------------------------------------------------ | --------------------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| createBlob()                                            | 4.0                   | O             | Does not support creating LOB object in Connection phase<br/>국문: long 데이터형은 지원하지 않음 |                                                              |
+| createBlob()                                            | 4.0                   | O             | Does not support creating LOB object in Connection phase<br/>@리뷰 국문: long 데이터형은 지원하지 않음 |                                                              |
 | createClob()                                            | 4.0                   | O             | Does not support creating LOB object in Connection phase<br/>국문: long 데이터형은 지원하지 않음 |                                                              |
 | createNClob()                                           | 4.0                   | X             | Does not support multinational language for CLOB object      | SQLFeatureNotSupported error occurred                        |
 | createSQLXML()                                          | 4.0                   | X             | Does not support SQLXML type                                 | SQLFeatureNotSupported error occurred                        |
@@ -3565,7 +3573,7 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 
  List of classes implementing java.sql.Wrapper interface in Altibase JDBC driver
 
-- Altibase42Connection 국문 AltiabseConnection
+- Altibase42Connection @리뷰 국문 AltiabseConnection
 - AltibaseStatement
 - AltibaseResultSet
 - AltibaseResultSetMetaData
