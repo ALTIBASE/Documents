@@ -3547,8 +3547,8 @@ The following table lists the types of SQLSTATE which can occur in the Altibase 
 
 | Interface name                                          | Specification Version | **Supported** | Details                                                      | Exceptions                                                   |
 | :------------------------------------------------------ | --------------------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| createBlob()                                            | 4.0                   | O             | Does not support creating LOB object in Connection phase<br/>@리뷰 국문: long 데이터형은 지원하지 않음 |                                                              |
-| createClob()                                            | 4.0                   | O             | Does not support creating LOB object in Connection phase<br/>국문: long 데이터형은 지원하지 않음 |                                                              |
+| createBlob()                                            | 4.0                   | O             | Does not support long data type                              |                                                              |
+| createClob()                                            | 4.0                   | O             | Does not support long data type                              |                                                              |
 | createNClob()                                           | 4.0                   | X             | Does not support multinational language for CLOB object      | SQLFeatureNotSupported error occurred                        |
 | createSQLXML()                                          | 4.0                   | X             | Does not support SQLXML type                                 | SQLFeatureNotSupported error occurred                        |
 | isValid(int  timeout)                                   | 4.0                   | O             |                                                              |                                                              |
