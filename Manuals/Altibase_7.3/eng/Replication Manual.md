@@ -1086,17 +1086,18 @@ Create success.
 
 ### Starting, Stopping and Modifying Replication using “ALTER REPLICATION”
 
+이중화를 시작하는 방법은 START, QUICKSTART, SYNC 의 3가지 방법이 있다. SYNC에 대한 설명은 [이중화 동기화](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Replication Manual.md#이중화-동기화sync)를 참고한다.
+
+변경 가능한 이중화 속성은 아래와 같다.
+
+- 이중화 테이블 및 파티션의 삭제
+- 이중화 테이블 및 파티션의 추가
+- 이중화 정보 리셋
+- PROPAGABLE LOGGING 기능의 활성화 여부
+
 #### Syntax
 
 ```
-ALTER REPLICATION replication_name 
-SYNC [PARALLEL parallel_factor] 
-[TABLE user_name.table_name [PARTITION partition_name], … , user_name.table_name [PARTITION partition_name]];
-
-ALTER REPLICATION replication_name 
-SYNC ONLY [PARALLEL parallel_factor] 
-[TABLE user_name.table_name [PARTITION partition_name], … , user_name.table_name [PARTITION partition_name]];
-
 ALTER REPLICATION replication_name START [RETRY];
 
 ALTER REPLICATION replication_name QUICKSTART [RETRY];
@@ -1112,6 +1113,8 @@ ALTER REPLICATION replication_name ADD TABLE
 FROM user_name.table_name [PARTITION partition_name] TO user_name.table_name [PARTITION partition_name]
 
 ALTER REPLICATION replication_name FLUSH [ALL] [WAIT timeout_sec];
+
+ALTER REPLICATION replication_name SET PROPAGABLE LOGGING [ENABLE|DISABLE];
 ```
 
 #### Prerequisites
@@ -1120,156 +1123,264 @@ Only the SYS user can execute replication-related statements.
 
 #### Description
 
--   SYNC  
-    After all of the records in the table to be replicated have been transmitted from the local server to the remote server, replication starts from the current position in the log. In order to prevent another transaction from changing data in the table on which synchronization is to be performed right at the time of determination of the log from which replication will start after synchronization, the Replication Sender Thread obtains an S Lock on the table on which synchronization is to be performed for a short time before synchronization. Therefore, if a synchronization attempt is made while another transaction is updating data in the table to be synchronized, the Replication Sender Thread will wait for the amount of time specified in the REPLICATION_SYNC_LOCK_TIMEOUT property, and will then start replication at the time at which the change transaction ends. If the change transaction is not completed within the amount of time specified in the REPLICATION_SYNC_LOCK_TIMEOUT property, synchronization will fail. If, during synchronization, records on the local server are found to have the same primary key values as records on the remote server, any conflicts are eliminated according to the rules for conflict resolution.
-    
--   TABLE  
-    This specifies the table that is the target for SYNC replication.
+- START  
 
--   PARTITION  
-    This specifies the partition that is the target for SYNC replication. 
+  Replication will start from the time point of the most recent replication.
 
--   PARALLEL  
-    *Parallel_factor* may be omitted, in which case a value of 1 is used by default. The maximum possible value of *parallel_factor* is the number of CPUs * 2. If it is set higher than this number, the maximum number of threads that can be created is still equal to the number of CPUs * 2. If it is set to 0 or a negative number, an error message results. 
-    
--   SYNC ONLY  
-    All records in replication target tables are sent from the local server to the remote server. (In this case the Sender thread is not created.) If the same records exist on both the local server and the remote server, sources of conflict are eliminated according to the rules for conflict resolution. 
-    
-    Because only a single thread is responsible for handling SYNC or SYNC ONLY on disk tables, when some of the tables on which SYNC replication is to be performed are disk tables, setting *parallel_factor* higher than the number of disk tables confers a performance advantage. 
-    
--   START  
-    Replication will start from the time point of the most recent replication.
+- QUICKSTART  
 
--   QUICKSTART  
-    Replication will start from the current position in the log.
+  Replication will start from the current position in the log.
 
--   START/QUICKSTART RETRY  
-    When starting or quickstarting replication with the RETRY option, even if handshaking fails, a Sender Thread is created on the local server. Afterwards, once handshaking between the local server and the remote server is successful, replication starts. 
-    
-    iSQL shows a success message even if the first handshake attempt fails. Therefore, the user must check the result of execution of this command by checking the trace logs or the V$REPSENDER performance view. 
-    
-    When starting replication without the RETRY option, if the first handshake attempt fails, an error is raised and execution is stopped.
-    
--   STOP  
-    This stops replication. If a SYNC task is stopped, the transmission of all data to be replicated to the remote server cannot be guaranteed. If a SYNC replication that is underway is stopped, in order to perform SYNC again, all records must be deleted from all replication target tables, and then the SYNC is performed again.
-    
--   RESET  
-    This command resets replication information (such as the restart SN (Sequence Number)). It can only be executed while replication is stopped, and can be used instead of executing DROP REPLICATION followed by CREATE REPLICATION.
-    
--   DROP TABLE  
-    This command excludes a table or a partition from a replication object. It can only be executed while replication is stopped. Because regular DDL statements cannot be executed on replication target tables, after a table is excluded from a replication object, DDL statements can be executed on the table or a partition. 
-    
--   ADD TABLE  
-    This command adds a table or a partition to a replication object. It can only be executed while replication is stopped.
-    
--   FLUSH  
-    The current session waits for the number of seconds specified by *timeout_sec* so that the replication Sender thread can send logs up to the log at the time at which the FLUSH statement is executed to the other server. If used together with the ALL keyword, the current session waits until the most recent log, rather than the log at the time at which the FLUSH statement is executed, is sent to the other server
+- START/QUICKSTART RETRY  
+
+  When starting or quickstarting replication with the RETRY option, even if handshaking fails, a Sender Thread is created on the local server. Afterwards, once handshaking between the local server and the remote server is successful, replication starts. 
+
+  iSQL shows a success message even if the first handshake attempt fails. Therefore, the user must check the result of execution of this command by checking the trace logs or the V$REPSENDER performance view. 
+
+  When starting replication without the RETRY option, if the first handshake attempt fails, an error is raised and execution is stopped.
+
+- STOP  
+
+  This stops replication.
+
+- RESET  
+
+  This command resets replication information (such as the restart SN (Sequence Number)). It can only be executed while replication is stopped, and can be used instead of executing DROP REPLICATION followed by CREATE REPLICATION.
+
+- DROP TABLE  
+
+  This command excludes a table or a partition from a replication object. It can only be executed while replication is stopped. Because regular DDL statements cannot be executed on replication target tables, after a table is excluded from a replication object, DDL statements can be executed on the table or a partition. 
+
+- ADD TABLE  
+
+  This command adds a table or a partition to a replication object.
+
+- FLUSH  
+
+  The current session waits for the number of seconds specified by *timeout_sec* so that the replication Sender thread can send logs up to the log at the time at which the FLUSH statement is executed to the other server. If used together with the ALL keyword, the current session waits until the most recent log, rather than the log at the time at which the FLUSH statement is executed, is sent to the other server.
+
+- SET PROPAGABLE LOGGING [ENALBE|DISABLE]
+  ENABLE: 이중화 수신자가 전송받은 로그를 복제하기 위해 로그를 기록한다.
+  DISABLE: 이중화 수신자가 전송받은 로그에 대해서는 로그를 기록하지 않는다.
 
 #### Error Codes
 
-Please refer to the *Error Message Reference*.
+Please refer to the [RP Error Code](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Error%20Message%20Reference.md#4rp-error-code) section of the *Error Message Reference*.
 
 #### Example
 
-Assuming that the name of a replication is rep1, replication can be started in one of the following three ways:
+Assuming that the name of a replication is *rep1*, replication can be started in one of the following three ways:
 
 -   Replication is started after the data on the local server are transferred to the remote server.
 
-```
-iSQL> ALTER REPLICATION rep1 SYNC;
-Alter success. 
-```
+  ```
+  iSQL> ALTER REPLICATION rep1 SYNC;
+  Alter success. 
+  ```
 
 -   Replication is started from the time point at which the replication rep1 was most recently executed.
 
-```
-iSQL> ALTER REPLICATION rep1 START;
-Alter success.
-```
+  ```
+  iSQL> ALTER REPLICATION rep1 START;
+  Alter success.
+  ```
 
 -   Replication is started from the current time point.
 
-```
-iSQL> ALTER REPLICATION rep1 QUICKSTART;
-Alter success.
-```
+  ```
+  iSQL> ALTER REPLICATION rep1 QUICKSTART;
+  Alter success.
+  ```
+  
+  - Use the following commands to check the status of replication after it has started.
+  
+    Executing on a local server
+  
+    ```
+    iSQL> SELECT rep_name, status, net_error_flag, sender_ip, sender_port,
+                 peer_ip, peer_port 
+          FROM V$REPSENDER;
+    REP_NAME                                  STATUS               
+    ------------------------------------------------------------------
+    NET_ERROR_FLAG       
+    -----------------------
+    SENDER_IP                                                         SENDER_PORT
+    ---------------------------------------------------------------------------
+    PEER_IP                                                           PEER_PORT   
+    ---------------------------------------------------------------------------
+    REP1                                      1                    
+    0                    
+    192.168.1.33                                                      11477       
+    192.168.1.34                                                      21300       
+    1 row selected.
+    ```
+  
+    Executing on a remote server
+  
+    ```
+    iSQL> SELECT rep_name, my_ip, my_port, peer_ip, peer_port 
+          FROM V$REPRECEIVER;
+    REP_NAME                                  
+    --------------------------------------------
+    MY_IP                                                             MY_PORT     
+    ---------------------------------------------------------------------------
+    PEER_IP                                                             PEER_PORT   
+    ---------------------------------------------------------------------------
+    REP1                                      
+    192.168.1.33                                                      21300       
+    192.168.1.34                                                      7988        
+    1 row selected.
+    ```
 
-Use the following commands to check the status of replication after it has started.
+-   Stop replication.
 
-(Executing on a local server)
+  ```
+  iSQL> ALTER REPLICATION rep1 STOP;
+  Alter success.
+  ```
 
-```
-iSQL> SELECT rep_name, status, net_error_flag, sender_ip, sender_port,
-             peer_ip, peer_port 
-      FROM V$REPSENDER;
-REP_NAME                                  STATUS               
-------------------------------------------------------------------
-NET_ERROR_FLAG       
------------------------
-SENDER_IP                                                         SENDER_PORT
----------------------------------------------------------------------------
-PEER_IP                                                           PEER_PORT   
----------------------------------------------------------------------------
-REP1                                      1                    
-0                    
-192.168.1.33                                                      11477       
-192.168.1.34                                                      21300       
-1 row selected.
-```
+-   Drop a table *sys.employees* from a replication object.
 
-(Executing on a remote server)
+  ```
+  iSQL> ALTER REPLICATION rep1 STOP;
+  Alter success.
+  iSQL> ALTER REPLICATION rep1 DROP TABLE FROM sys.employees TO sys.employees;
+  Alter success.
+  ```
 
-```
-iSQL> SELECT rep_name, my_ip, my_port, peer_ip, peer_port 
-      FROM V$REPRECEIVER;
-REP_NAME                                  
---------------------------------------------
-MY_IP                                                             MY_PORT     
----------------------------------------------------------------------------
-PEER_IP                                                           PEER_PORT   
----------------------------------------------------------------------------
-REP1                                      
-192.168.1.33                                                      21300       
-192.168.1.34                                                      7988        
-1 row selected.
-```
+-   Add a table *sys.employees* to a replication object.
 
--   Assuming that the name of a replication is *rep1*, use the following command to stop replication.
-
-```
-iSQL> ALTER REPLICATION rep1 STOP;
-Alter success.
-```
-
--   • Assuming that the name of a replication is *rep1*, use the following commands to drop a table from a replication object.
-
-```
-iSQL> ALTER REPLICATION rep1 STOP;
-Alter success.
-iSQL> ALTER REPLICATION rep1 DROP TABLE FROM sys.employees TO sys.employees;
-Alter success.
-```
-
--   Assuming that the name of a replication is *rep1*, use the following commands to add a table to a replication object.
-
-```
-iSQL> ALTER REPLICATION rep1 STOP;
-Alter success.
-iSQL> ALTER REPLICATION rep1 ADD TABLE FROM sys.employees TO sys.employees;
-Alter success.
-```
+  ```
+  iSQL> ALTER REPLICATION rep1 STOP;
+  Alter success.
+  iSQL> ALTER REPLICATION rep1 ADD TABLE FROM sys.employees TO sys.employees;
+  Alter success.
+  ```
 
 -   If it is desired to check the cumulative time that each Sender replication object has spent waiting for WAIT_NEW_LOG events, execute the following query. This example assumes that the TIMER_THREAD_RESOLUTION property has been set to 1,000,000 microseconds.
 
-```
-select rep_name, avg(WAIT_NEW_LOG)/1000000 from x$repsender_statistics where wait_new_log > 0 group by rep_name order by rep_name;
-```
+  ```
+  select rep_name, avg(WAIT_NEW_LOG)/1000000 from x$repsender_statistics where wait_new_log > 0 group by rep_name order by rep_name;
+  ```
 
 -   If it is desired to check the cumulative time that each Receiver replication object has spent waiting for INSERT_ROW events, execute the following query. This example assumes that the TIMER_THREAD_RESOLUTION property has been set to 1,000,000 microseconds
 
+  ```
+  select rep_name, avg(INSERT_ROW)/1000000 from x$repreceiver_statistics where recv_xlog > 0 group by rep_name order by rep_name;
+  ```
+
+- 이중화 수신자가 받은 로그를 다시 복제하기 위해 Propagable Logging 기능을 활성화하여 로그를 기록한다.
+
+  ```
+  iSQL> ALTER REPLICATION rep1 SET PROPAGABLE LOGGING ENABLE;
+  Alter success.
+
+### 이중화 동기화(SYNC)
+
+동기화는 지역 서버의 이중화 대상 테이블의 모든 데이터를 원격 서버의 대응하는 테이블의 데이터와 일치시키기 위해 수행하는 작업이다. Altibase의 동기화 기능을 이용하면, 원격 서버로의 데이터 동기화 완료 후 현재 로그부터 이중화가 시작된다. 만약, 데이터의 동기화만 진행하고 더이상 이중화를 이용하지 않을 경우는 SYNC ONLY를 이용한다.
+
+Altibase의 동기화 기능은 특정 테이블 또는 파티션을 선택하여 동기화를 수행할 수 있으며, 병렬 동기화도 지원한다.
+
+#### 구문
+
 ```
-select rep_name, avg(INSERT_ROW)/1000000 from x$repreceiver_statistics where recv_xlog > 0 group by rep_name order by rep_name;
+ALTER REPLICATION replication_name 
+SYNC [PARALLEL parallel_factor] 
+[TABLE user_name.table_name [PARTITION partition_name], … , user_name.table_name [PARTITION partition_name]];
+
+ALTER REPLICATION replication_name 
+SYNC ONLY [PARALLEL parallel_factor] 
+[TABLE user_name.table_name [PARTITION partition_name], … , user_name.table_name [PARTITION partition_name]];
 ```
+
+#### Prerequisites
+
+Only the SYS user can execute replication-related statements.
+
+#### Description
+
+- SYNC  
+  After all of the records in the table to be replicated have been transmitted from the local server to the remote server, replication starts from the current position in the log. In order to prevent another transaction from changing data in the table on which synchronization is to be performed right at the time of determination of the log from which replication will start after synchronization, the Replication Sender Thread obtains an S Lock on the table on which synchronization is to be performed for a short time before synchronization. Therefore, if a synchronization attempt is made while another transaction is updating data in the table to be synchronized, the Replication Sender Thread will wait for the amount of time specified in the REPLICATION_SYNC_LOCK_TIMEOUT property, and will then start replication at the time at which the change transaction ends. If the change transaction is not completed within the amount of time specified in the REPLICATION_SYNC_LOCK_TIMEOUT property, synchronization will fail. If, during synchronization, records on the local server are found to have the same primary key values as records on the remote server, any conflicts are eliminated according to the rules for conflict resolution.
+
+- TABLE  
+  This specifies the table that is the target for SYNC replication.
+
+- PARTITION  
+  This specifies the partition that is the target for SYNC replication. 
+
+- PARALLEL  
+  *Parallel_factor* may be omitted, in which case a value of 1 is used by default. The maximum possible value of *parallel_factor* is the number of CPUs * 2. If it is set higher than this number, the maximum number of threads that can be created is still equal to the number of CPUs * 2. If it is set to 0 or a negative number, an error message results. 
+
+- SYNC ONLY  
+  All records in replication target tables are sent from the local server to the remote server. (In this case the Sender thread is not created.) If the same records exist on both the local server and the remote server, sources of conflict are eliminated according to the rules for conflict resolution. 
+
+Because only a single thread is responsible for handling SYNC or SYNC ONLY on disk tables, when some of the tables on which SYNC replication is to be performed are disk tables, setting *parallel_factor* higher than the number of disk tables confers a performance advantage. 
+
+#### 예제
+
+- 지역 서버의 데이터를 원격 서버로 전송하여 동기화를 수행하고 이중화를 시작한다.
+
+  ```
+  iSQL> ALTER REPLICATION rep1 SYNC;
+  Alter success.
+  ```
+
+- 특정 파티션의 동기화를 수행하고 이중화를 시작한다.
+
+  ```
+  iSQL> ALTER REPLICATION rep1 SYNC TABLE sys.t1 PARTITION p1;
+  Alter success.
+  ```
+
+- 4개의 쓰레드를 이용하여 병렬로 동기화를 수행한다.
+
+  ```
+  iSQL> ALTER REPLICATION rep1 SYNC PARALLEL 4;
+  Alter success.
+  ```
+
+
+#### 예외상황
+
+- 동기화(SYNC) 작업중 이중화가 중단되는 경우
+
+  동기화(SYNC) 작업중에 이중화를 중지하면 이중화할 데이터가 모두 원격 서버로 전송되었다는 것을 보장할 수 없다. 만약 동기화(SYNC) 중에 이중화를 중지한 경우, 다시 동기화(SYNC) 하기 위해서는 원격 서버의 이중화 대상 테이블의 모든 레코드를 삭제한 후 동기화(SYNC)를 다시 수행해야 한다.
+
+- REPLICATION_SYNC_LOCK_TIMEOUT
+
+  동기화 후에 이중화가 시작될 로그를 결정하는 순간에 다른 트랜잭션이 동기화 대상 테이블의 데이터를 변경하는 것을 막기 위해서, 이중화 송신 쓰레드는 동기화를 시작하기 전에 일시적으로 동기화 테이블에 대한 공유 잠금(S Lock)을 획득한다. 따라서, 다른 트랜잭션이 동기화 대상 테이블에 변경을 하고 있을 때 SYNC를 시도하면, 이중화 송신 쓰레드는 REPLICATION_SYNC_LOCK_TIMEOUT 프로퍼티에 설정된 시간만큼 대기하다가 변경 트랜잭션이 끝나는 시점에 동기화를 시작한다. 변경 트랜잭션이 REPLICATION_SYNC_LOCK_TIMEOUT 프로퍼티에 설정된 시간 내에 완료되지 않으면 동기화는 실패한다.
+
+- 레코드의 충돌
+
+  동기화 과정에서 원격 서버에 지역 서버의 레코드와 충돌이 발생하는 레코드가 있으면, 동기화가 실패한다.
+
+  이 경우 원격 서버의 데이터를 삭제한 후(TRUNCATE 수행), 다시 동기화(SYNC)를 수행할 것을 권장한다.
+
+  만약, 원격 서버의 데이터를 삭제하지 않고 동기화를 하려는 경우, REPLICATION_SYNC_TUPLE_COUNT를 1로 설정하고 Altibase의 [충돌 해결 방법](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Replication Manual.md#충돌-해결-1)을 확인하여 원하는 정책으로 설정하고 동기화를 수행한다. 그러나 REPLICATION_SYNC_TUPLE_COUNT 를 1로 설정하면, 동기화 성능저하가 있을수 있으므로 주의한다.
+
+  > 주의
+  >
+  > REPLICATION_SYNC_TUPLE_COUNT를 1로 설정하는 경우, 충돌 해결 정책에 따라서 동작한다. 충돌 해결 정책에서 기존의 데이터를 유지하도록 설정한 경우, 충돌이 발생한 레코드가 변경되지 않으므로 지역 서버의 데이터와 원격 서버의 데이터가 불일치 할 수 있으므로 주의 한다.
+  >
+  > 데이터의 불일치는 altiComp 유틸리티를 이용하여 해결 할 수 있다.
+
+  - 충돌 해결 정책에 따른 동작
+
+    동기화의 경우 Insert 충돌만 발생한다. 자세한 설명은 *2.이중화 관리-충돌 해결* 의 3가지 scheme를 참고한다.
+
+    - User-Oriented Scheme
+
+      REPLICATION_INSERT_REPLACE 프로퍼티를 1로 설정하면, 충돌이 발생한 데이터를 삭제한 다음 삽입하여 충돌을 해결한다.
+
+      REPLICATION_INSERT_REPLACE 프로퍼티의 기본값은 0으로 현재 설정을 유지하는 경우, 충돌 발생 시 충돌 오류 메시지가 출력된다.
+
+    - Master/Slave Scheme
+
+      Master/Slave 설정이되어 있는 경우 동기화 수행 시 발생한 충돌은 *2.이중화 관리-충돌해결 의 Master/Slave 이중화 처리 방식*을 참고한다.
+
+    - Timestamp-based Scheme
+
+      REPLICATION_TIMESTAMP_RESOLUTION 프로퍼티를 1로 설정한 경우, *2.이중화 관리-충돌해결 의Timestamp-based 이중화 처리 방식*을 참고한다.
 
 ### DROP REPLICATION 
 
