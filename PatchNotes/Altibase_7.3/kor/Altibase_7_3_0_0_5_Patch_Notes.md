@@ -165,8 +165,7 @@ Fixed Bugs
 -   **module** : sm
 -   **Category** : Fatal
 -   **재현 빈도** : Unknown
--   **설명** : 1. Disk Page Recovery 또는 Service 중에 손상된 페이지(Corrupted Page)에 접근할 수 있어, 이를 회피하도록 수정하였습니다. 
-2. 서비스중에 손상된 Disk Index Page 가 발견되는 경우, 해당 페이지는 inconsistent flag 설정하고, 해당 인덱스는 inconsistent index 로 설정하도록 수정하였습니다.
+-   **설명** : Disk Page Recovery 또는 Service 중에 손상된 페이지(Corrupted Page)에 접근할 수 있어, 이를 회피하도록 수정하였습니다. 또한, 서비스중에 손상된 Disk Index Page 가 발견되는 경우 해당 페이지는 inconsistent flag 설정하고, 해당 인덱스는 inconsistent index 로 설정하도록 수정하였습니다.
 -   **재현 방법**
 
     -   **재현 절차**
