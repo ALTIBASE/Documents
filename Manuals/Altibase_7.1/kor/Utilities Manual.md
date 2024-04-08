@@ -1839,8 +1839,7 @@ aku를 실행하면 aku 설정 파일을 가장 먼저 읽어 Altibase 데이터
 #***************************************************************** 
 
 # Copyright 처음 소스 코드 파일을 작성한 연도, Altibase Corp or its subsidiaries.
-리뷰: https://haksung.gitbook.io/oss/research/license/copyright-statements 참고
-우리 자회사 있는지...?
+리뷰@
 # All rights reserved.
 # Property File for Altibase AKU Utility
 #*****************************************************************
@@ -1882,65 +1881,60 @@ SYS.T1, SYS.T2, SYS.T3
 
 각 프로퍼티에 대해 살펴보자.
 
-| 카테고리                 | 프로퍼티 이름                        |  기본값   | 설명                                                         |
-| ------------------------ | :----------------------------------- | :-------: | :----------------------------------------------------------- |
-| 쿠버네티스 설정 프로퍼티 | AKU_STS_NAME                         |           | 쿠버네티스 오브젝트 명세에 정의한 스테이트풀셋 이름          |
-|                          | AKU_SVC_NAME                         |           | 쿠버네티스 오브젝트 명세에 정의한 네트워크 서비스를 제공하는 서비스 이름 |
-|                          | AKU_SERVER_COUNT                     |     4     | aku 유틸리티로 동기화할 수 있는 Altibase 서버의  최대 개수. 쿠버네티스에서 스케일 업할 수 있는 파드 수를 의미하기도 한다.<br/>1부터 4까지 설정할 수 있다. |
-| 공통 프로퍼티            | AKU_SYS_PASSWORD                     |           | 데이터베이스 SYS 사용자 패스워드                             |
-|                          | AKU_PORT_NO                          |   20300   | Altibase 서버의 서비스 포트.<br/>설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
-|                          | AKU_REPLICATION_PORT_NO              |   20301   | Altibase 이중화 포트.<br/>설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
-|                          | AKU_QUERY_TIMEOUT                    |   3600    | Altibase 서버 프로퍼티 QUERY_TIMEOUT를 의미한다. aku에서 수행한 쿼리의 수행 시간이 이 값을 초과하면 해당 동작은 취소된다. |
-|                          | AKU_QUERY_RETRY_COUNT                |     5     | Altibase 서버에서 쿼리 수행 실패 시 이 값의 횟수만큼 재시도한다. 재시도 시, `AKU_QUERY_RETRY_DELAY_MESC` 값 만큼 대기 후 시도한다.<br/>0이면 재시도를 수행하지 않는다. |
-|                          | AKU_QUERY_RETRY_DELAY_MSEC           | 1000 (ms) | Altibase 서버에서 쿼리 수행 실패 시 이 값의 시간만큼 대기 후 재시도한다.<br/>0이면 대기 없이 바로 재시도를 수행한다. |
-| aku 실행/종료 프로퍼티   | AKU_ADDRESS_CHECK_COUNT              |    30     | aku -p start 명령 수행 시 이 값의 횟수만큼 local ip 접속을 시도한다.<br/>쿠버네티스 서비스에 생성하고 있는 파드의 local dns가 엔드포인트에 등록될 때까지 대기하며 재접속을 시도한다. |
-|                          | AKU_FLUSH_AT_START                   |     1     | aku -p start 명령 수행 시 이중화 갭을 제거할 것인지 설정한다.<br/>1이면 FLUSH 명령으로 이중화 갭을 제거하고, 0이면 제거하지 않고 시작한다. |
-|                          | AKU_FLUSH_TIMEOUT_AT_START           |    300    | FLUSH WAIT 명령의 *wait_time*을 설정한다. `AKU_FLUSH_AT_START`가 1일 때, 이 값이 0이면 FLUSH ALL을 수행하고 1 이상이면 FLUSH WAIT *wait_time*을 수행한다. |
-|                          | AKU_DELAY_START_COMPLETE_TIME        |  0(sec)   | 슬레이브 파드(Slave Pod)가 생성될 때, aku - p start 성공 후 지정 시간만큼 대기하는 기능이다. <br />이 설정은 aku -p start로 스케일 업하는 과정에서 내부적으로 데이터 동기화가 완료된 후 `ADMIN_MODE` 프로퍼티를 0으로 변경하는 작업을 수행하기 전에 대기하는 시간을 설정한다. ??? |
-|                          | AKU_FLUSH_AT_END                     |     1     | 슬레이브 파드에서 aku -p end 명령 수행 시 이중화 갭을 제거할 것인지 설정한다.<br/>1이면 이중화 FLUSH ALL 명령으로 이중화 갭을 제거하고 0이면 제거하지 않는다. |
-|                          | AKU_REPLICATION_RESET_AT_END         |     1     | 슬레이브 파드(Slave Pod) 에서 aku -p end 명령 수행 시 RESET 명령으로 이중화 정보를 초기화할 것인지 설정한다.<br/>1이면 이중화 정보를 초기화하며, 0이면 초기화하지 않는다. |
-| 이중화 프로퍼티          | REPLICATIONS/REPLICATION_NAME_PREFIX |           | aku가 생성하는 Altibase 이중화 객체 이름의 접두사로, 최대 길이는 37바이트이다.<br/>Altibase 이중화 객체 이름 생성에 관한 규칙은 [이중화 객체 이름 생성 규칙](#Altibase-이중화-객체-이름-생성-규칙) 절을 참고한다. |
-|                          | REPLICATIONS/SYNC_PARALLEL_COUNT     |     1     | 이중화 SYNC 수행 시 송신/수신 쓰레드의 수.<br/>1부터 100까지 설정할 수 있다. |
+| 카테고리                       | 프로퍼티 이름                        |  기본값   | 설명                                                         |
+| ------------------------------ | :----------------------------------- | :-------: | :----------------------------------------------------------- |
+| 쿠버네티스 설정 프로퍼티 리뷰@ | AKU_STS_NAME                         |           | 쿠버네티스 오브젝트 명세에 정의한 스테이트풀셋 이름          |
+|                                | AKU_SVC_NAME                         |           | 쿠버네티스 오브젝트 명세에 정의한 네트워크 서비스를 제공하는 서비스 이름 |
+|                                | AKU_SERVER_COUNT                     |     4     | aku 유틸리티로 동기화할 수 있는 Altibase 서버의  최대 개수. 쿠버네티스에서 스케일 업할 수 있는 파드 수를 의미하기도 한다.<br/>1부터 4까지 설정할 수 있다. |
+| 공통 프로퍼티                  | AKU_SYS_PASSWORD                     |           | 데이터베이스 SYS 사용자 패스워드                             |
+|                                | AKU_PORT_NO                          |   20300   | Altibase 서버의 서비스 포트.<br/>설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
+|                                | AKU_REPLICATION_PORT_NO              |   20301   | Altibase 이중화 포트.<br/>설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
+|                                | AKU_QUERY_TIMEOUT                    |   3600    | Altibase 서버 프로퍼티 QUERY_TIMEOUT를 의미한다. aku에서 수행한 쿼리의 수행 시간이 이 값을 초과하면 해당 동작은 취소된다. |
+|                                | AKU_QUERY_RETRY_COUNT                |     5     | Altibase 서버에서 쿼리 수행 실패 시 이 값의 횟수만큼 재시도한다. 재시도 시, AKU_QUERY_RETRY_DELAY_MESC 값 만큼 대기 후 시도한다.<br/>0이면 재시도를 수행하지 않는다. |
+|                                | AKU_QUERY_RETRY_DELAY_MSEC           | 1000 (ms) | Altibase 서버에서 쿼리 수행 실패 시 이 값의 시간만큼 대기 후 재시도한다.<br/>0이면 대기 없이 바로 재시도를 수행한다. |
+| aku 실행/종료 프로퍼티         | AKU_ADDRESS_CHECK_COUNT              |    30     | aku -p start 명령 수행 시 이 값의 횟수만큼 local ip 접속을 시도한다.<br/>쿠버네티스 서비스에 생성하고 있는 파드의 local dns가 엔드포인트에 등록될 때까지 대기하며 재접속을 시도한다. |
+|                                | AKU_FLUSH_AT_START                   |     1     | aku -p start 명령 수행 시 이중화 갭을 제거할 것인지 설정한다.<br/>1이면 FLUSH 명령으로 이중화 갭을 제거하고, 0이면 제거하지 않고 시작한다. |
+|                                | AKU_FLUSH_TIMEOUT_AT_START           |    300    | FLUSH WAIT 명령의 *wait_time*을 설정한다. AKU_FLUSH_AT_START가 1일 때, 이 값이 0이면 FLUSH ALL을 수행하고 1 이상이면 FLUSH WAIT *wait_time*을 수행한다. |
+|                                | AKU_DELAY_START_COMPLETE_TIME        |  0(sec)   | 슬레이브 파드(Slave Pod)가 생성될 때, aku - p start 성공 후 지정 시간만큼 대기하는 기능이다. <br />이 설정은 aku -p start로 스케일 업하는 과정에서 내부적으로 데이터 동기화가 완료된 후 ADMIN_MODE 프로퍼티를 0으로 변경하는 작업을 수행하기 전에 대기하는 시간을 설정한다. <br/>리뷰@ |
+|                                | AKU_FLUSH_AT_END                     |     1     | 슬레이브 파드에서 aku -p end 명령 수행 시 이중화 갭을 제거할 것인지 설정한다.<br/>1이면 이중화 FLUSH ALL 명령으로 이중화 갭을 제거하고 0이면 제거하지 않는다. |
+|                                | AKU_REPLICATION_RESET_AT_END         |     1     | 슬레이브 파드(Slave Pod) 에서 aku -p end 명령 수행 시 RESET 명령으로 이중화 정보를 초기화할 것인지 설정한다.<br/>1이면 이중화 정보를 초기화하며, 0이면 초기화하지 않는다. |
+| 이중화 프로퍼티                | REPLICATIONS/REPLICATION_NAME_PREFIX |           | aku가 생성하는 Altibase 이중화 객체 이름의 접두사로, 최대 길이는 37바이트이다.<br/>Altibase 이중화 객체 이름 생성에 관한 규칙은 [이중화 객체 이름 생성 규칙](#Altibase-이중화-객체-이름-생성-규칙)을 참고한다. 리뷰@ |
+|                                | REPLICATIONS/SYNC_PARALLEL_COUNT     |     1     | 이중화 SYNC 수행 시 송신/수신 쓰레드의 수.<br/>1부터 100까지 설정할 수 있다. |
 
-#### Altibase 이중화 객체 이름 생성 규칙
-
-aku에서 생성하는 Altibase 이중화 객체 이름 생성 규칙은 다음과 같다.
-
-*REPLICATION_NAME_PREFIX*_\[*파드 번호*]\[*파드 번호*\]
-
-- REPLICATION_NAME_PREFIX: REPLICATIONS/REPLICATION_NAME_PREFIX 프로퍼티에서 설정한 문자열
-- 파드 번호: 쿠버네티스 스테이트풀셋이 생성하는 파드의 이름에서 *pod_name*\_ 뒤에 위치한 숫자이며 각 파드들은 순차적으로 생성된 고유한 순번을 가진다. Altibase 이중화 객체 이름에는 이중화 쌍이 되는 두 파드 번호가 포함되며, 작은 값이 앞에 위치한다.
-
-예시) AKU_SERVER_COUNT = 4, REPLICATION_NAME_PREFIX = AKU_REP 로 설정된 경우 각 파드에서 생성되는 이중화 객체 이름
-
-| 파드 번호    | 이중화 객체 이름 | 설명                                                         |
-| :----------- | :--------------- | :----------------------------------------------------------- |
-| *pod_name*-0 | AKU_REP_01       | *pod_name*-0과 *pod_name*-1의 이중화 객체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
-|              | AKU_REP_02       | *pod_name*-0과 *pod_name*-2의 이중화 객체                    |
-|              | AKU_REP_03       | *pod_name*-0과 *pod_name*-3의 이중화 객체                    |
-| *pod_name*-1 | AKU_REP_01       | *pod_name*-0과 *pod_name*-1의 이중화 객체                    |
-|              | AKU_REP_12       | *pod_name*-1과 *pod_name*-2의 이중화 객체                    |
-|              | AKU_REP_13       | *pod_name*-1과 *pod_name*-3의 이중화 객체                    |
-| *pod_name*-2 | AKU_REP_02       | *pod_name*-0과 *pod_name*-2의 이중화 객체                    |
-|              | AKU_REP_12       | *pod_name*-1과 *pod_name*-2의 이중화 객체                    |
-|              | AKU_REP_23       | *pod_name*-2와 *pod_name*-3의 이중화 객체                    |
-| *pod_name*-3 | AKU_REP_03       | *pod_name*-0과 *pod_name*-3의 이중화 객체                    |
-|              | AKU_REP_13       | *pod_name*-1과 *pod_name*-3의 이중화 객체                    |
-|              | AKU_REP_23       | *pod_name*-2와 *pod_name*-3의 이중화 객체                    |
-
-> [!Caution]
+> [!Note] 
 >
-> aku가 생성하는 Altibase 이중화 객체의 이름은 사용자가 임의로 생성,삭제 및 수정하지 않는다.
-
-
+> **Altibase 이중화 객체 이름 생성 규칙**
+>
+> aku에서 생성하는 Altibase 이중화 객체 이름 생성 규칙은 다음과 같다.
+>
+> *REPLICATION_NAME_PREFIX*_\[*파드 번호*]\[*파드 번호*\]
+>
+> - REPLICATION_NAME_PREFIX: REPLICATIONS/REPLICATION_NAME_PREFIX 프로퍼티에서 설정한 문자열
+> - 파드 번호: 쿠버네티스 스테이트풀셋이 생성하는 파드의 이름에서 *pod_name*\_ 뒤에 위치한 숫자이며 각 파드들은 순차적으로 생성된 고유한 순번을 가진다. Altibase 이중화 객체 이름에는 이중화 쌍이 되는 두 파드 번호가 포함되며, 작은 값이 앞에 위치한다.
+>
+> 예시) AKU_SERVER_COUNT = 4, REPLICATION_NAME_PREFIX = AKU_REP 로 설정된 경우 각 파드에서 생성되는 이중화 객체 이름
+> | 파드 번호    | 이중화 객체 이름 | 설명                                                         |
+> | :----------- | :--------------- | :----------------------------------------------------------- |
+> | *pod_name*-0 | AKU_REP_01       | *pod_name*-0과 *pod_name*-1의 이중화 객체&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+> |              | AKU_REP_02       | *pod_name*-0과 *pod_name*-2의 이중화 객체                    |
+> |              | AKU_REP_03       | *pod_name*-0과 *pod_name*-3의 이중화 객체                    |
+> | *pod_name*-1 | AKU_REP_01       | *pod_name*-0과 *pod_name*-1의 이중화 객체                    |
+> |              | AKU_REP_12       | *pod_name*-1과 *pod_name*-2의 이중화 객체                    |
+> |              | AKU_REP_13       | *pod_name*-1과 *pod_name*-3의 이중화 객체                    |
+> | *pod_name*-2 | AKU_REP_02       | *pod_name*-0과 *pod_name*-2의 이중화 객체                    |
+> |              | AKU_REP_12       | *pod_name*-1과 *pod_name*-2의 이중화 객체                    |
+> |              | AKU_REP_23       | *pod_name*-2와 *pod_name*-3의 이중화 객체                    |
+> | *pod_name*-3 | AKU_REP_03       | *pod_name*-0과 *pod_name*-3의 이중화 객체                    |
+> |              | AKU_REP_13       | *pod_name*-1과 *pod_name*-3의 이중화 객체                    |
+> |              | AKU_REP_23       | *pod_name*-2와 *pod_name*-3의 이중화 객체                    |
+>
+> ⚠️ aku가 생성하는 Altibase 이중화 객체의 이름은 사용자가 임의로 생성,삭제 및 수정하지 않는다.
 
 #### Altibase 이중화 테이블 설정 방법
 
-이중화 정보를 입력하는 부분에 [사용자 이름].[테이블 이름] 의 형식으로 설정한다.
+사용자는 aku 설정 파일에 이중화에서 관리할 테이블을 지정할 수 있다. 이를 위해, 이중화 관련 프로퍼티 설정 구문에 [사용자 이름].[테이블 이름] 형식으로 테이블 정보를 추가해야 한다. @리뷰
 
-테이블을 여러개의 이중화로 분리해서 관리하고 싶은 경우에는 다음과 같은 형식으로 설정한다. 
-
-예시) *T1*~*T9* 테이블을 이중화 3개로 분리하여 관리하도록 설정한다.
+다음은  *T1*~*T9* 테이블을 이중화 3개로 분리하여 관리하도록 설정하는 예시이다.
 
 ```bash
 #=================================================================
@@ -2021,18 +2015,12 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
   ![](media/Utilities/aku_p_start_master_pod bug-50832.png)
 
-
   1️⃣ aku.conf 파일을 읽는다.
-
   2️⃣ /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 'aku -p start' 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, 'aku -p start' 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다.
-
-  3️⃣ 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 처음 생성된 파드이기 때문에 다른 파드와의 연결은 실패하고, 이는 정상적인 동작이다.
-
-  4️⃣  Altibase 이중화 객체를 생성한다. 만약, 같은 이름의 이중화 객체가 존재한다면 이중화 생성 단계는 생략한다. 
-
-  5️⃣ pod_name-0 에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 pod_name-0 과 관련된 이중화를 시작한다. 일반적인 경우 처음 생성된 파드이기 때문에 접속된 파드가 없어, 이 동작은 수행되지 않는다.
-
-  6️⃣/tmp 디렉토리에 aku_start_completed 파일을 생성한다.
+  3️⃣ 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 처음 생성된 파드이기 때문에 다른 파드와의 연결은 실패한다. 이는 정상적인 동작이니 무시해도 된다.
+  4️⃣ Altibase 이중화 객체를 생성한다. 만약, 같은 이름의 이중화 객체가 존재한다면 이중화 생성 단계는 생략한다. 
+  5️⃣ pod_name-0 에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 pod_name-0과 관련된 이중화를 시작한다. 일반적인 경우 처음 생성된 파드이기 때문에 접속된 파드가 없어, 이 동작은 수행되지 않는다.
+  6️⃣ /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
 
 - ***스케일 업(Scale up)***
 
@@ -2050,46 +2038,42 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
   2️⃣ /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 'aku -p start' 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, 'aku -p start' 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다.
   3️⃣ 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 *pod_name*-0과의 접속만 성공하고 pod_name-2, pod_name-3은 생성되지 않았기 때문에 접속에 실패한다.
   4️⃣ Altibase 이중화 객체를 생성한다. pod_name -1이 다시 시작된 파드라면, 같은 이름의 이중화 객체가 존재할 수 있으며 이 단계는 생략된다.
-  5️⃣ pod_name -1의 이중화 대상 테이블을 대상으로 TRUNCATE를 수행한다.
-  6️⃣ pod_name -0에게 이중화 SYNC를 요청한다.
-  7️⃣ pod_name -0에서 pod_name -1로 이중화 SYNC를 수행하고 이중화를 시작한다.
-  8️⃣ *pod_name*-1 에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 *pod_name*-1 과 관련된 이중화를 시작한다. 일반적인 경우 *pod_name*-0과 관련한 이중화(AKU_REP_01)만 *pod_name* -0 및 *pod_name* -1  파드에서 시작된다.
-  9️⃣ pod_name -1의 Altibase 서버 프로퍼티 ADMIN_MODE를 0으로 설정하여 데이터베이스 사용자의 접속을 허용한다.
+  5️⃣ pod_name-1의 이중화 대상 테이블을 대상으로 TRUNCATE를 수행한다.
+  6️⃣ pod_name-0에게 이중화 SYNC를 요청한다.
+  7️⃣ pod_name-0에서 pod_name -1로 이중화 SYNC를 수행하고 이중화를 시작한다.
+  8️⃣ pod_name-1에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 pod_name-1과 관련된 이중화를 시작한다. 일반적인 경우 pod_name-0과 관련한 이중화(AKU_REP_01)만 pod_name-0 및 pod_name-1  파드에서 시작된다.
+  9️⃣ pod_name-1의 Altibase 서버 프로퍼티 ADMIN_MODE를 0으로 설정하여 데이터베이스 사용자의 접속을 허용한다.
   🔟 /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
   
-  
-  
->  **이중화 정보가 초기화되지 않은 슬레이브 파드를 다시 시작할 때 (AKU_FLUSH_AT_START = 1, 기본 동작)** 
-  
-파드가 비정상적으로 종료되거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 종료하면, 이중화 정보가 초기화 되지 않는다. 이중화 정보를 초기화 하지 않으면 Altibase에 이전의 이중화 정보가 남아 있어, 파드를 다시 시작할 때 다른 노드로 부터 데이터를 동기화하는 작업(이중화 대상 테이블의 TRUNCATE, 이중화 SYNC 수행)을 수행하지 않는다. 다른 노드로부터 데이터 동기화는 하지 않지만, 자기 노드에서 다른 노드로의 데이터 동기화(FLUSH)는 수행한다. 아래는 이러한 경우, pod_name-1에서 `aku -p start`를 수행할 때의 aku 동작을 설명한다.
-  
-참고로, 이중화 정보가 초기화 되지 않으면 이중화 관련 메타 테이블에 이중화 재시작 지점(XSN)이 -1이 아닌 값을 갖는데, 아래 주의사항 6을 참고한다.
-  
-![](media/Utilities/aku_p_start_aku_flush_at_start_1 bug-50832.png)
-  
-1️⃣  aku.conf 파일을 읽는다.
-   2️⃣ /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 'aku -p start' 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, 'aku -p start' 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다. 
+  > **이중화 정보가 초기화되지 않은 슬레이브 파드를 다시 시작할 때 (AKU_FLUSH_AT_START = 1, 기본 동작)** 
+
+  파드가 비정상적으로 종료되거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 종료하면 이중화 정보가 초기화 되지 않는다. 이중화 정보를 초기화 하지 않으면 Altibase에 이전의 이중화 정보가 남아 있어 파드를 다시 시작할 때 다른 노드로 부터 데이터를 동기화하는 작업(이중화 대상 테이블의 TRUNCATE, 이중화 SYNC 수행)을 수행하지 않는다. 다른 노드로부터 데이터 동기화는 하지 않지만, 자기 노드에서 다른 노드로의 데이터 동기화(FLUSH)는 수행한다. 아래는 이러한 경우, pod_name-1에서 `aku -p start`를 수행할 때의 aku 동작을 설명한다.
+
+  참고로, 이중화 정보가 초기화 되지 않으면 이중화 관련 메타 테이블에 이중화 재시작 지점(XSN)이 -1이 아닌 값을 갖는다. 보다 자세한 내용은 주의사항 6을 참고한다.
+
+  ![](media/Utilities/aku_p_start_aku_flush_at_start_1 bug-50832.png)
+
+  1️⃣  aku.conf 파일을 읽는다.
+  2️⃣ /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 'aku -p start' 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, 'aku -p start' 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다. 
   3️⃣ 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 *pod_name*-0과의 접속만 성공한다. 
   4️⃣ *pod_name*-1 에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 *pod_name*-1 과 관련된 이중화를 시작한다. 일반적인 경우 *pod_name*-0과 관련한 이중화(AKU_REP_01)만 *pod_name* -0 및 *pod_name* -1  파드에서 시작된다.
-5️⃣ *pod_name*-1 에서 접속에 성공한 모든 파드와 관련된 이중화에 대해 ALTER REPLICATION ~ FLUSH ALL을 수행한다. 이 명령은 *pod_name* -1에서 다른 파드로 동기화하지 못한 데이터를 전송한다.  
+  5️⃣ *pod_name*-1 에서 접속에 성공한 모든 파드와 관련된 이중화에 대해 ALTER REPLICATION ~ FLUSH ALL을 수행한다. 이 명령은 *pod_name* -1에서 다른 파드로 동기화하지 못한 데이터를 전송한다. 
   6️⃣ 접속된 다른 파드에서도 *pod_name*-1 과 관련된 이중화에 대해 ALTER REPLICATION ~ FLUSH ALL을 수행하여 동기화되지 못한 데이터를 전송한다. 만약 aku 설정 파일에 AKU_FLUSH_TIMEOUT_AT_START 프로퍼티의 값이 0이 아니라면, ALTER_REPLICATION ~ FLUSH WAIT *wait_time*을 수행하여 *pod_name*-1로 동기화되지 못한 데이터를 전송한다. 
-7️⃣ pod_name -1의 Altibase 서버 프로퍼티 ADMIN_MODE를 0으로 설정하여 데이터베이스 사용자의 접속을 허용한다.
-8️⃣ /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
+  7️⃣ pod_name -1의 Altibase 서버 프로퍼티 ADMIN_MODE를 0으로 설정하여 데이터베이스 사용자의 접속을 허용한다.
+  8️⃣ /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
 
+  > **이중화 정보가 초기화되지 않은 슬레이브 파드를 다시 시작할 때 (AKU_FLUSH_AT_START = 0 일 때) **
 
+  비정상적으로 종료되었거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 종료한 슬레이브 파드를 다시 시작할 때, AKU_FLUSH_AT_START 프로퍼티를 0으로 설정했다면 아래와 같이 동작한다.
 
-> 이중화 정보가 초기화되지 않은 슬레이브 파드를 다시 시작할 때 (AKU_FLUSH_AT_START = 0 일 때) 
+  ![](media/Utilities/aku_p_start_aku_flush_at_start_0 bug-50832.png)
 
-비정상적으로 종료되었거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 종료한 슬레이브 파드를 다시 시작할 때, AKU_FLUSH_AT_START 프로퍼티를 0으로 설정했다면 아래와 같이 동작한다.
-  
-![](media/Utilities/aku_p_start_aku_flush_at_start_0 bug-50832.png)
-
-1️⃣  aku.conf 파일을 읽는다.
-2️⃣ /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 'aku -p start' 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, 'aku -p start' 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다. 
-3️⃣ 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 *pod_name*-0과의 접속만 성공한다.
-4️⃣ *pod_name*-1 에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 *pod_name*-1 과 관련된 이중화를 시작한다.  일반적인 경우 *pod_name*-0과 관련한 이중화(AKU_REP_01)만 *pod_name*-0 및 *pod_name*-1 파드에서 시작된다. 
-5️⃣ *pod_name*-1 의 Altibase 서버 프로퍼티 ADMIN_MODE를 0으로 설정하여 데이터베이스 사용자의 접속을 허용한다. 
-5️⃣ /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
+  1️⃣  aku.conf 파일을 읽는다.
+  2️⃣ /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 'aku -p start' 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, 'aku -p start' 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다. 
+  3️⃣ 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 *pod_name*-0과의 접속만 성공한다.
+  4️⃣ *pod_name*-1 에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 *pod_name*-1 과 관련된 이중화를 시작한다.  일반적인 경우 *pod_name*-0과 관련한 이중화(AKU_REP_01)만 *pod_name*-0 및 *pod_name*-1 파드에서 시작된다. 
+  5️⃣ *pod_name*-1 의 Altibase 서버 프로퍼티 ADMIN_MODE를 0으로 설정하여 데이터베이스 사용자의 접속을 허용한다. 
+  6️⃣ /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
 
   
 
@@ -2100,13 +2084,9 @@ Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파�
 ![](media/Utilities/aku_p_end bug-50832.png)
 
 1️⃣ 해당 파드와 이중화로 연결된 모든 파드에 접속을 시도한다. 해당 번호보다 높은 번호의 파드는 일반적인 경우 이미 삭제된 상태이기 때문에 접속이 실패할 수 있다. 이는 정상적인 동작이다.
-
 2️⃣ 해당 파드의 이중화 객체에 ALTER REPLICATION replication_name FLUSH ALL 명령을 수행하여 변경 로그를 모두 전송한다. aku 설정 파일에서 AKU_FLUSH_AT_END 프로퍼티의 값이 0이라면 이 단계는 수행되지 않는다.
-
 3️⃣ 해당 파드의 이중화 객체와 관련한 모든 파드에 ALTER REPLICATION replication_name STOP 수행을 요청한다.
-
 4️⃣ 해당 파드의 이중화 객체와 관련한 모든 파드에 ALTER REPLICATION replication_name RESET 수행을 요청한다. aku 설정 파일에서 AKU_REPLICATION_RESET_AT_END 프로퍼티의 값이 0이라면 이 단계는 수행되지 않는다.
-
 5️⃣ /tmp 디렉토리에서 aku_start_completed 파일을 삭제한다.
 
 #### **clean**
@@ -2119,9 +2099,9 @@ Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파�
 
 ### 1) aku 설정 파일 작성 시
 
-aku 프로퍼티 중 기본값이 없는 프로퍼티를 aku.conf에 명시하지 않으면 `Property [property_name] should be specified by configuration.` 에러가 발생한다.
+aku 프로퍼티 중 기본값이 없는 프로퍼티는 반드시 명시해야 한다. 명시하지 않을 경우, "Property [property_name] should be specified by configuration." 에러가 발생한다.
 
-
+aku 설정 파일에 주석을 입력해야 할 경우 "#" 기호를 사용한다. 다만, '#' 뒤에 아무 내용이 없을 시에는 구문 오류가 발생한다.@리뷰
 
 ### 2) aku -p start 명령 수행 시
 
