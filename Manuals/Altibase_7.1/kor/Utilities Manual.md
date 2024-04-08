@@ -1903,7 +1903,7 @@ SYS.T1, SYS.T2, SYS.T3
 
 > [!Note] 
 >
-> **Altibase 이중화 객체 이름 생성 규칙**
+> **Altibase 이중화 객체 이름 생성 규칙**<a name=Altibase 이중화 객체 이름 생성 규칙></a>
 >
 > aku에서 생성하는 Altibase 이중화 객체 이름 생성 규칙은 다음과 같다.
 >
