@@ -6996,7 +6996,7 @@ Unsigned Integer
 
 ##### Default Value
 
-100
+10
 
 ##### Attributes
 
@@ -10238,7 +10238,7 @@ Unsigned Integer
 
 ##### Default Value
 
-100
+10
 
 ##### Attributes
 
