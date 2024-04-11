@@ -1881,25 +1881,25 @@ SYS.T1, SYS.T2, SYS.T3
 
 각 프로퍼티에 대해 살펴보자.
 
-| 카테고리                       | 프로퍼티 이름                        |  기본값   | 설명                                                         |
-| ------------------------------ | :----------------------------------- | :-------: | :----------------------------------------------------------- |
-| 쿠버네티스 설정 프로퍼티 리뷰@ | AKU_STS_NAME                         |           | 쿠버네티스 오브젝트 명세에 정의한 스테이트풀셋 이름          |
-|                                | AKU_SVC_NAME                         |           | 쿠버네티스 오브젝트 명세에 정의한 네트워크 서비스를 제공하는 서비스 이름 |
-|                                | AKU_SERVER_COUNT                     |     4     | aku 유틸리티로 동기화할 수 있는 Altibase 서버의  최대 개수. 쿠버네티스에서 스케일 업할 수 있는 파드 수를 의미하기도 한다.<br/>1부터 4까지 설정할 수 있다. |
-| 공통 프로퍼티                  | AKU_SYS_PASSWORD                     |           | 데이터베이스 SYS 사용자 패스워드                             |
-|                                | AKU_PORT_NO                          |   20300   | Altibase 서버의 서비스 포트.<br/>설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
-|                                | AKU_REPLICATION_PORT_NO              |   20301   | Altibase 이중화 포트.<br/>설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
-|                                | AKU_QUERY_TIMEOUT                    |   3600    | Altibase 서버 프로퍼티 QUERY_TIMEOUT를 의미한다. aku에서 수행한 쿼리의 수행 시간이 이 값을 초과하면 해당 동작은 취소된다. |
-|                                | AKU_QUERY_RETRY_COUNT                |     5     | Altibase 서버에서 쿼리 수행 실패 시 이 값의 횟수만큼 재시도한다. 재시도 시, AKU_QUERY_RETRY_DELAY_MESC 값 만큼 대기 후 시도한다.<br/>0이면 재시도를 수행하지 않는다. |
-|                                | AKU_QUERY_RETRY_DELAY_MSEC           | 1000 (ms) | Altibase 서버에서 쿼리 수행 실패 시 이 값의 시간만큼 대기 후 재시도한다.<br/>0이면 대기 없이 바로 재시도를 수행한다. |
-| aku 실행/종료 프로퍼티         | AKU_ADDRESS_CHECK_COUNT              |    30     | `aku -p start` 명령 수행 시 이 값의 횟수만큼 local ip 접속을 시도한다.<br/>쿠버네티스 서비스에 생성하고 있는 파드의 local dns가 엔드포인트에 등록될 때까지 대기하며 재접속을 시도한다. |
-|                                | AKU_FLUSH_AT_START                   |     1     | `aku -p start` 명령 수행 시 이중화 갭을 제거할 것인지 설정한다.<br/>1이면 FLUSH 명령으로 이중화 갭을 제거하고, 0이면 제거하지 않고 시작한다. |
-|                                | AKU_FLUSH_TIMEOUT_AT_START           |    300    | FLUSH WAIT 명령의 *wait_time*을 설정한다. AKU_FLUSH_AT_START가 1일 때, 이 값이 0이면 FLUSH ALL을 수행하고 1 이상이면 FLUSH WAIT *wait_time*을 수행한다. |
-|                                | AKU_DELAY_START_COMPLETE_TIME        |  0(sec)   | 슬레이브 파드(Slave Pod)가 생성될 때, aku - p start 성공 후 지정 시간만큼 대기하는 기능이다. <br />이 설정은 `aku -p start`로 스케일 업하는 과정에서 내부적으로 데이터 동기화가 완료된 후 ADMIN_MODE 프로퍼티를 0으로 변경하는 작업을 수행하기 전에 대기하는 시간을 설정한다. <br/>리뷰@ |
-|                                | AKU_FLUSH_AT_END                     |     1     | 슬레이브 파드에서 aku -p end 명령 수행 시 이중화 갭을 제거할 것인지 설정한다.<br/>1이면 이중화 FLUSH ALL 명령으로 이중화 갭을 제거하고 0이면 제거하지 않는다. |
-|                                | AKU_REPLICATION_RESET_AT_END         |     1     | 슬레이브 파드(Slave Pod) 에서 aku -p end 명령 수행 시 RESET 명령으로 이중화 정보를 초기화할 것인지 설정한다.<br/>1이면 이중화 정보를 초기화하며, 0이면 초기화하지 않는다. |
-| 이중화 프로퍼티                | REPLICATIONS/REPLICATION_NAME_PREFIX |           | aku가 생성하는 Altibase 이중화 객체 이름의 접두사로, 최대 길이는 37바이트이다.<br/>[Altibase 이중화 객체 이름 생성 규칙](#replication-object-name)을 참고한다. 리뷰@ |
-|                                | REPLICATIONS/SYNC_PARALLEL_COUNT     |     1     | 이중화 SYNC 수행 시 송신/수신 쓰레드의 수.<br/>1부터 100까지 설정할 수 있다. |
+| 카테고리                 | 프로퍼티 이름                        |  기본값   | 설명                                                         |
+| ------------------------ | :----------------------------------- | :-------: | :----------------------------------------------------------- |
+| 쿠버네티스 설정 프로퍼티 | AKU_STS_NAME                         |           | 쿠버네티스 오브젝트 명세에 정의한 스테이트풀셋 이름          |
+|                          | AKU_SVC_NAME                         |           | 쿠버네티스 오브젝트 명세에 정의한 네트워크 서비스를 제공하는 서비스 이름 |
+|                          | AKU_SERVER_COUNT                     |     4     | aku 유틸리티로 동기화할 수 있는 Altibase 서버의  최대 개수. 쿠버네티스에서 스케일 업할 수 있는 파드 수를 의미하기도 한다.<br/>1부터 4까지 설정할 수 있다. |
+| 공통 프로퍼티            | AKU_SYS_PASSWORD                     |           | 데이터베이스 SYS 사용자 패스워드                             |
+|                          | AKU_PORT_NO                          |   20300   | Altibase 서버의 서비스 포트.<br/>설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
+|                          | AKU_REPLICATION_PORT_NO              |   20301   | Altibase 이중화 포트.<br/>설정할 수 있는 값의 범위는 1024 ~ 65535이다. |
+|                          | AKU_QUERY_TIMEOUT                    |   3600    | Altibase 서버 프로퍼티 QUERY_TIMEOUT를 의미한다. aku에서 수행한 쿼리의 수행 시간이 이 값을 초과하면 해당 동작은 취소된다. |
+|                          | AKU_QUERY_RETRY_COUNT                |     5     | Altibase 서버에서 쿼리 수행 실패 시 이 값의 횟수만큼 재시도한다. 재시도 시, AKU_QUERY_RETRY_DELAY_MESC 값 만큼 대기 후 시도한다.<br/>0이면 재시도를 수행하지 않는다. |
+|                          | AKU_QUERY_RETRY_DELAY_MSEC           | 1000 (ms) | Altibase 서버에서 쿼리 수행 실패 시 이 값의 시간만큼 대기 후 재시도한다.<br/>0이면 대기 없이 바로 재시도를 수행한다. |
+| aku start/end 프로퍼티   | AKU_ADDRESS_CHECK_COUNT              |    30     | `aku -p start` 명령 수행 시 이 값의 횟수만큼 local ip 접속을 시도한다.<br/>쿠버네티스 서비스에 생성하고 있는 파드의 local dns가 엔드포인트에 등록될 때까지 대기하며 재접속을 시도한다. |
+|                          | AKU_FLUSH_AT_START                   |     1     | `aku -p start` 명령 수행 시 이중화 갭을 제거할 것인지 설정한다.<br/>1이면 FLUSH 명령으로 이중화 갭을 제거하고, 0이면 제거하지 않고 시작한다. |
+|                          | AKU_FLUSH_TIMEOUT_AT_START           |    300    | FLUSH WAIT 명령의 *wait_time*을 설정한다. AKU_FLUSH_AT_START가 1일 때, 이 값이 0이면 FLUSH ALL을 수행하고 1 이상이면 FLUSH WAIT *wait_time*을 수행한다. |
+|                          | AKU_DELAY_START_COMPLETE_TIME        |  0(sec)   | 슬레이브 파드(Slave Pod) 생성 단계에서 내부적으로 데이터 동기화가 완료된 후 ADMIN_MODE 프로퍼티를 0으로 변경하기 전에 대기하는 시간을 설정한다. 리뷰@ |
+|                          | AKU_FLUSH_AT_END                     |     1     | 슬레이브 파드에서 `aku -p end` 명령 수행 시 이중화 갭을 제거할 것인지 설정한다.<br/>1이면 이중화 FLUSH ALL 명령으로 이중화 갭을 제거하고 0이면 제거하지 않는다. |
+|                          | AKU_REPLICATION_RESET_AT_END         |     1     | 슬레이브 파드(Slave Pod) 에서 aku -p end 명령 수행 시 RESET 명령으로 이중화 정보를 초기화할 것인지 설정한다.<br/>1이면 이중화 정보를 초기화하며, 0이면 초기화하지 않는다. |
+| 이중화 프로퍼티          | REPLICATIONS/REPLICATION_NAME_PREFIX |           | aku가 생성하는 Altibase 이중화 객체 이름의 접두사로, 최대 길이는 37바이트이다.<br/>[Altibase 이중화 객체 이름 생성 규칙](#replication-object-name)을 참고한다. 리뷰@ |
+|                          | REPLICATIONS/SYNC_PARALLEL_COUNT     |     1     | 이중화 SYNC 수행 시 송신/수신 쓰레드의 수.<br/>1부터 100까지 설정할 수 있다. |
 
 <a name="replication-object-name"></a>
 > [!Note] 
@@ -1929,7 +1929,7 @@ SYS.T1, SYS.T2, SYS.T3
 > |              | AKU_REP_13       | *pod_name*-1과 *pod_name*-3의 이중화 객체                    |
 > |              | AKU_REP_23       | *pod_name*-2와 *pod_name*-3의 이중화 객체                    |
 >
-> ⚠️ aku가 생성하는 Altibase 이중화 객체의 이름은 사용자가 임의로 생성,삭제 및 수정하지 않는다.
+> ⚠️ aku가 생성하는 Altibase 이중화 객체의 이름을 사용자가 임의로 생성,삭제 및 수정할 경우 비정상적인 결과가 발생할 수 있다.
 
 #### Altibase 이중화 테이블 설정 방법
 
@@ -2102,7 +2102,7 @@ Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파�
 
 - aku 프로퍼티 중 기본값이 없는 프로퍼티는 반드시 명시해야 한다. 명시하지 않을 경우, "Property [property_name] should be specified by configuration." 에러가 발생한다.
 
-- aku 설정 파일에 주석을 입력해야 할 경우 "#" 기호를 사용한다. 다만, '#' 뒤에 아무 내용이 없을 시에는 구문 오류가 발생한다.@리뷰
+- aku 설정 파일에 주석을 입력해야 할 경우 '#' 기호를 사용한다. 다만, '#' 뒤에 아무 내용이 없을 시에는 구문 오류가 발생한다.@리뷰
 
 ### 2) aku -p start 명령 수행 시
 
@@ -2119,7 +2119,7 @@ aku는 마스터 파드가 정상적인 상황에서 동작하도록 설계되�
 1. 마스터 파드 장애 시 데이터 정합성을 수동으로 맞춰야 한다. 마스터 파드의 테이블을 TRUNCATE 후 슬레이브 파드에서 이중화 SYNC를 수행하여 데이터를 동기화하여 정합성을 맞춘다.
 2. 모든 파드에서 마스터 파드와 관련된 이중화를 모두 시작한 뒤 `aku -p start`를 수행하여 이중화 갭을 제거하고 서비스를 시작할 수 있도록 한다.
 
-예) 1,2,3번 파드가 시작되어 있는 경우, 0~3번 파드에서 각각 아래 명령을 수행하여 이중화를 시작한다.
+예) REPLICATION_NAME_PREFIX = AKU_REP로 설정된 0~3번 파드가 시작되어 있는 경우 모든 파드에서 아래의 명령을 수행하여 이중화를 시작한다. 
 
 ```sql
 ALTER REPLICATION AKU_REP_01 START;
@@ -2146,7 +2146,7 @@ ALTER REPLICATION replication_name STOP;
 ALTER REPLICATION replication_name RESET;
 ~~~
 
-*pod_name-0*과 *pod_name-1*을 운영하던 중에 *pod_name-1*이 `aku -p end` 명령을 정상적으로 수행되지 못하고 종료되었다고 가정해 보자. 이 때 *pod_name-0*에서 SYSTEM_.SYS_REPLICATIONS\_의 XSN을 조회하면 *pod_name-0*과 *pod_name-1*의 이중화 객체인 AKU_REP_01의 XSN 값이 -1이 아닌 다른 값으로 출력된다. 이는 이중화 정보가 초기화되지 않은 것을 의미한다.
+*pod_name-0*과 *pod_name-1*을 운영하던 중에 *pod_name-1*에서 `aku -p end` 명령이 정상적으로 수행되지 못하고 종료되었다고 가정해 보자. 이 때 *pod_name-0*에서 SYSTEM_.SYS_REPLICATIONS\_의 XSN을 조회하면 *pod_name-0*과 *pod_name-1*의 이중화 객체인 AKU_REP_01의 XSN 값이 -1이 아닌 다른 값으로 출력된다. 이는 이중화 정보가 초기화되지 않은 것을 의미한다.
 
 ~~~sql
 iSQL> SELECT REPLICATION_NAME, XSN FROM SYSTEM_.SYS_REPLICATIONS_;
@@ -2212,7 +2212,7 @@ aku 유틸리티를 안정적으로 사용하기 위해 쿠버네티스 환경 �
 
 ~~~bash
 $ aku -i
-  #########################
+ #########################
  [ Server ]
   Server ID        : 0
   Host             : AKUHOST-0.altibase-svc
@@ -2268,7 +2268,7 @@ AKU run successfully.
 
 ~~~bash
 # aku.conf를 읽어 이중화 객체를 생성한다. 
-# START option 은 aku -p start 를 사용함을 의미한다.
+# START option은 aku -p start 를 사용함을 의미한다.
 AKU started with START option.
 
 # MASTER Pod는 첫 번째 파드를 의미한다. 
@@ -2297,17 +2297,17 @@ AKU run successfully.
 
 ~~~bash
 # aku.conf를 읽어 이중화 객체를 생성한다. 
-# START option 은 aku -p start 를 사용함을 의미한다.
+# START option은 aku -p start 를 사용함을 의미한다.
  AKU started with START option.
 
-# SLAVE Pod 는 첫 번째 파드가 아닌 다른 파드를 의미한다. 
+# SLAVE Pod는 첫 번째 파드가 아닌 다른 파드를 의미한다. 
 [AKU][2024/03/18 14:01:59.604647][140678415444224] [INFO][akuRunStart:903][-][-] Start as SLAVE Pod.
 
 # SYNC 시 레코드 충돌 방지를 위해 대상 테이블의 레코드를 모두 삭제한다.
 [AKU][2024/03/18 14:02:01.005068][140678415444224] [INFO][akuRunStart:959][-][-] Truncate tables for replications.
 [AKU][2024/03/18 14:02:01.025100][140678415444224] [INFO][akuRunStart:964][-][-] Table truncation has ended.
 
-# MASTER Server는 첫 번째 파드(pod_name-0)의 Altibase 서버를 말하며 해당 서버의 데이터를 나의 파드로 동기화하였다.
+# MASTER Server는 첫 번째 파드(pod_name-0)의 Altibase 서버를 말하며 해당 서버의 데이터를 로컬 파드로 동기화한다.
 [AKU][2024/03/18 14:02:01.025877][140678415444224] [INFO][akuRunStart:975][-][-] Sync tables from MASTER Server.
 [AKU][2024/03/18 14:02:05.045135][140678415444224] [INFO][akuRunStart:980][-][-] Replication sync has ended.
 
@@ -2329,6 +2329,27 @@ AKU started with END option.
 [AKU][2024/03/18 14:02:52.014300][139626938108160] [INFO][akuRunEnd:1119][-][-] Replication reset has ended.
 AKU run successfully.
 ~~~
+
+출력 결과를 살펴보자.
+
+```bash
+# aku.conf를 읽어 이중화를 중지하고 초기화한다. 
+# END option은 aku -p end 를 사용함을 의미한다.
+AKU started with END option.
+	
+# SLAVE Pod는 첫 번째 파드가 아닌 다른 파드를 의미한다. 
+[AKU][2024/03/18 14:02:49.246961][139626938108160] [INFO][akuRunEnd:1090][-][-] Start as SLAVE Pod.
+	
+# 전달되지 않은 변경사항을 다른 파드로 FLUSH 한다.
+[AKU][2024/03/18 14:02:49.247094][139626938108160] [INFO][akuRunEnd:1095][-][-] Flush replications.
+[AKU][2024/03/18 14:02:49.247731][139626938108160] [INFO][akuRunEnd:1100][-][-] Replication flush has ended.
+	
+# 로컬 파드의 AKU 에서 생성한 이중화 객체를 모두 초기화한다.
+[AKU][2024/03/18 14:02:52.001848][139626938108160] [INFO][akuRunEnd:1114][-][-] Reset replications.
+[AKU][2024/03/18 14:02:52.014300][139626938108160] [INFO][akuRunEnd:1119][-][-] Replication reset has ended.
+```
+
+
 
 # 4.altiMon
 
