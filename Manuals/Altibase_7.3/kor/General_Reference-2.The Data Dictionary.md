@@ -7320,7 +7320,7 @@ Prepare-Execute할 때 한번 Prepare된 statement는 구문분석 (Parsing), �
 
 - DISABLE: 인덱스가 DISABLE 되어 인덱스를 사용할수 없는 상태
 
-- TBS_OFFLINE: 인덱스 혹은 테이블이 저장되어 있는 테이블스페이스가 OFFLINE되어, 인덱스를 사용할수 없는 상태
+- TBS_OFFLINE: 인덱스 혹은 테이블이 저장되어 있는 테이블스페이스가 OFFLINE되어 인덱스를 사용할 수 없는 상태
 
 - NOT_REBUILD: 인덱스가 재구축되지 않은 상태 
 
