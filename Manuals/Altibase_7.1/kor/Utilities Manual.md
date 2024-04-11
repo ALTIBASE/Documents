@@ -2012,7 +2012,7 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
 - ***첫 번째 파드 생성 시***
 
-  ''첫 번째 파드''는 쿠버네티스 스테이트플셋에서 생성한 첫 번째 파드(*pod_name-0*)를 말한다. aku에서는 마스터 파드(Master Pod)라고 부르며 여기서 수행한 aku를 'MASTER AKU'라고 부른다. Altibase 이중화 객체는 모든 파드에 생성해야 하므로 스테이트풀셋에서 *pod_name-0*을 생성할 때도 ``aku -p start`` 명령을 수행해야 한다. 
+  ''첫 번째 파드''는 쿠버네티스 스테이트풀셋에서 생성한 첫 번째 파드(*pod_name-0*)를 말한다. aku에서는 마스터 파드(Master Pod)라고 부르며 여기서 수행한 aku를 'MASTER AKU'라고 부른다. Altibase 이중화 객체는 모든 파드에 생성해야 하므로 스테이트풀셋에서 *pod_name-0*을 생성할 때도 ``aku -p start`` 명령을 수행해야 한다. 
 
   ![](media/Utilities/aku_p_start_master_pod bug-50832.png)
 
