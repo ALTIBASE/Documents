@@ -2269,7 +2269,6 @@ AKU run successfully.
 ~~~bash
 # aku.conf를 읽어 이중화 객체를 생성한다. 
 # START option 은 aku -p start 를 사용함을 의미한다.
-
 AKU started with START option.
 
 # MASTER Pod는 첫 번째 파드를 의미한다. 
