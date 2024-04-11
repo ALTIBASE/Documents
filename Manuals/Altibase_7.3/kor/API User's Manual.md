@@ -195,6 +195,11 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     
 -   제 5 장 CheckServer API  
     이 장은 Altibase 서버가 비정상 종료했는지를 감시하는 응용프로그램을 작성하기 위해 사용하는 인터페이스인 Altibase CheckServer API를 소개한다.
+    
+-   제 6장 .NET Data Provider
+    
+    이 장은 .NET Core 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버인 Altibase .NET Data Provider을 소개한다.
+    
 
 ### 문서화 규칙
 
@@ -475,7 +480,7 @@ extension=pdo_altibase.so
 1.  pdo_altibase의 커밋모드 기본값은 서버의 설정과 무관하며 항상 autocommit이다. 다시 말해, 서버 기본값을 non-autocommit으로 설정하더라도 pdo_altibase의 커밋모드는 기본값인 autocommit이다.
 2.  pdo 객체를 닫을 때, commit, rollback을 명시적으로 지정하지 않으면 해당 작업은 rollback된다.
 3.  empty string('')을 알티베이스 DB의 숫자형데이터 타입들에 bind시에, native 타입(double, real, bigint, integer, smallint)과 non-native타입(numeric, decimal, number, float) 모두에 대하여 NULL로 입력된다.
-4.  쿼리내에 "날짜타입값 - ?" 형태를 포함하고, "?"에 숫자값을 bind하여 사용시에는 "ERR-21038 : Literals in the input do not match the format string." 에러가 발생합니다. 이때, 날짜타입값이라함은 날짜타입컬럼 및 날짜타입반환함수를 포함합니다. 이러한 에러가 발생하는 이유는 pdo_altibase가 숫자값 bind시에 내부적으로 문자열로 처리하는데, Altibase 쿼리처리기가 날짜타입값에 대한 문자열 빼기연산을 하는 경우에 문자열을 날짜타입으로 변환하려고 하기 때문입니다. 이 경우에는 "?"을 "to_number(?)" 등으로 "?"을 문자열이 아닌 다른 의도하는 데이타타입을 갖도록 명시적으로 변경하여 사용하면 됩니다.
+4.  쿼리내에 "날짜타입값 - ?" 형태를 포함하고, "?"에 숫자값을 bind하여 사용시에는 "ERR-21038 : Literals in the input do not match the format string." 에러가 발생합니다. 이때, 날짜타입값이라함은 날짜타입칼럼 및 날짜타입반환함수를 포함합니다. 이러한 에러가 발생하는 이유는 pdo_altibase가 숫자값 bind시에 내부적으로 문자열로 처리하는데, Altibase 쿼리처리기가 날짜타입값에 대한 문자열 빼기연산을 하는 경우에 문자열을 날짜타입으로 변환하려고 하기 때문입니다. 이 경우에는 "?"을 "to_number(?)" 등으로 "?"을 문자열이 아닌 다른 의도하는 데이타타입을 갖도록 명시적으로 변경하여 사용하면 됩니다.
 
 <br/>
 
@@ -525,7 +530,7 @@ $stmt->execute();
 
 
 
-### 컬럼 바인딩
+### 칼럼 바인딩
 
 pdo_altibase는 bindColumn()의 type 및 maxlen을 지정해도 동작에 영향을 끼치지 않는다. SQL data type에 따라 바이너리 또는 문자열로 값을 가져오며, 이후 처리는 PDO 동작에 따른다.
 
@@ -3141,7 +3146,7 @@ Altibase ADO.NET은 마이크로소프트의 ADO.NET API를 Altibase에서 사�
   Altibase ADO.NET은 CLI 라이브러리로 Altibase 서버에 접속한다. 아래 CLI 라이브러리는 Altibase ADO.NET Nuget 패키지에 포함되어 있다.
   - Linux x86-64  : libdotnet_sl.so
   - Windows x64 : dotnet_sl.dll
-- Altibase 7.1.0.8.3 이상
+- Altibase 7.3.0.0.5 이상
 - .NET Core 3.1
 
 #### 지원 OS
@@ -3161,7 +3166,7 @@ Altibase ADO.NET Nuget 패키지에 원하는 OS의 CLI 라이브러리가 포�
 
 #### Altibase ADO.NET 다운로드
 
-[Nuget 사이트](https://www.nuget.org/packages/Altibase.Data.AltibaseClient)를 통해 Altibase.Data.AltibaseClient.nupkg를 제공한다.
+[NuGet 사이트](https://www.nuget.org/packages/Altibase.Data.AltibaseClient)를 통해 Altibase.Data.AltibaseClient.nupkg를 제공한다.
 
 
 
@@ -3218,7 +3223,7 @@ IDE(Integrated Development Environment) 환경에서 Altibase ADO.NET을 등록�
 
 
 
-2️⃣ Nuget 패키지 관리자 창에서 패키지 소스 nuget.org를 선택하고 Altibase.Data.AltibaseClient를 검색하여 설치한다.
+2️⃣ NuGet 패키지 관리자 창에서 패키지 소스 nuget.org를 선택하고 Altibase.Data.AltibaseClient를 검색하여 설치한다.
 
 ![](media/API/adonet2.png)
 
@@ -3267,7 +3272,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 값의 범위 : 임의의 문자열
 - 필수 여부 : 선택
 - 설정 범위 : 세션
-- 설명 : 세션의 애플리케이션 정보를 나타낸다. V$SESSION의 CLIENT_APP_INFO 컬럼에 출력되는 값이다.
+- 설명 : 세션의 애플리케이션 정보를 나타낸다. V$SESSION의 CLIENT_APP_INFO 칼럼에 출력되는 값이다.
 
 ###### connection life time
 
@@ -3323,7 +3328,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
 - 필수 여부 : 선택
 - 설정 범위 : N/A
-- 설명 : 특정 연결 문자열에 대해 연결 풀에서 허용된 최대 연결 수.
+- 설명 : 특정 연결 문자열에 대해 연결 풀에서 허용된 최대 연결 수를 설정한다.
 
 ###### min pool size 
 
@@ -3331,7 +3336,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
 - 필수 여부 : 선택
 - 설정 범위 : N/A
-- 설명 : 특정 연결 문자열에 대해 연결 풀에서 허용된 최소 연결 수. 연결 풀이 최초 생성될 때 이 설정 값만큼 연결이 생성된다. 
+- 설명 : 특정 연결 문자열에 대해 연결 풀에서 허용된 최소 연결 수를 설정한다. 연결 풀이 최초 생성될 때 이 설정 값만큼 연결이 생성된다. 
 
 ###### nchar literal replace
 
@@ -3379,7 +3384,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 값의 범위 : [true | false]
 - 필수 여부 : 선택
 - 설정 범위 : N/A
-- 설명 : 연결 속성 `server`에 호스트명을 입력하면, 이 속성 값에 따라 호스트명을 IPv4 주소 또는 IPv6주소로 변환한다. true는 호스트명을 IPv6주소로 변환하고 false는 호스트명을 IPv4주소로 변환하다.
+- 설명 : 연결 속성 `server`에 호스트명을 입력하면, 이 속성 값에 따라 호스트명을 IPv4 주소 또는 IPv6 주소로 변환한다. true는 호스트명을 IPv6 주소로 변환하고 false는 호스트명을 IPv4 주소로 변환하다.
 
 ###### server
 
@@ -3395,7 +3400,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 값의 범위 :  [0 ~ 2<sup>31</sup>(2147483648)]
 - 필수 여부 : 선택
 - 설정 범위 : 세션
-- 설명 : 변경 연산(UPDATE, INSERT, DELETE)을 수행하는 트랜잭션의 수행 시간을 제한한다. 단위는 초(sec)이다. 0은 변경 트랜잭션의 수행 시간을 제한하지 않고, 0이 아니면 변경 트랜잭션의 수행 시간이 설정값을 초과하면 세션 연결을 해제하고 트랜잭션을 철회한다.
+- 설명 : 변경 연산(UPDATE, INSERT, DELETE)을 수행하는 트랜잭션의 수행 시간을 제한한다. 단위는 초(sec)이다. 0은 변경 트랜잭션의 수행 시간을 제한하지 않는다. 0이 아닐 경우, 변경 트랜잭션의 수행 시간이 설정값을 초과하면 세션 연결을 해제하고 트랜잭션을 철회한다.
 
 ###### user id 또는 uid
 
@@ -3421,7 +3426,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 
 연결을 요청받으면 연결 문자열과 일치하는 연결 풀을 확인하여 연결을 할당하거나, 일치하는 연결 풀이 없으면 연결 풀을 생성하여 연결한다. 
 
-연결은 연결 속성 `max pool size`의 값만큼 생성할 수 있으며, 이 값을 초과하면 연결 속성 `connection life time` 값을 초과하는 연결이 발생할 때까지 대기한다.
+연결은 연결 속성 `max pool size`의 값만큼 생성할 수 있다. 생성된 연결이 이 값을 초과하는 경우, 연결 속성 `connection life time` 값을 초과하여 제거되는 연결이 발생할 때까지 대기한다.
 
 예외가 발생한 연결은 자동으로 제거되며, 명시적으로 연결을 닫으면 연결이 제거되는 것이 아니라 연결 풀로 회수된다.
 
@@ -3480,17 +3485,17 @@ Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배�
 
 배열 바인딩 순서는 다음과 같다.
 
-1️⃣ 바인드하려는 변수들을 모두 배열로 잡는다. 
+1️⃣ 바인드하려는 변수들을 모두 배열로 선언한다. 
 
 배열 크기는 AltibaseCommand 클래스의 ArrayBindCount 값보다 크거나 같아야 한다.
 
 2️⃣ 배열 변수들을 파라미터에 바인드한다. 
 
-바인드하는 컬럼이 CHAR, VARCHAR, BLOB 타입이면, AltibaseParameter 클래스의 ArrayBindSize를 배열 요소 중 가장 큰 것과 같은 크기로 설정해야 한다.
+바인드하는 칼럼이 CHAR, VARCHAR, BLOB 타입이면, AltibaseParameter 클래스의 ArrayBindSize를 배열 요소 중 가장 큰 것과 같은 크기로 설정해야 한다.
 
 3️⃣ AltibaseCommand 클래스의 ArrayBindCount 값을 설정한다.
 
-예) 한 번에 100개씩 입력하려면 ArrayBindCount = 100; 
+예) 한 번에 100개씩 입력하려면 `ArrayBindCount = 100;` 
 
 4️⃣ 질의문을 실행한다.
 
@@ -3528,12 +3533,12 @@ GetSchema() 메소드로 MetadataCollections, DataSourceInformation, DataTypes, 
 | Sequences           | V$SEQ                    | 시퀀스 정보를 저장하는 성능 뷰                               |
 | Synonyms            | SYS_SYNONYMS_            | 시노님 정보를 저장하는 메타 테이블                           |
 | Indexes             | SYS_INDICES_             | 인덱스 정보를 기록하고 있는 메타 테이블                      |
-| Columns             | SYS_COLUMNS_             | 컬럼 정보를 저장하는 메타 테이블                             |
+| Columns             | SYS_COLUMNS_             | 칼럼 정보를 저장하는 메타 테이블                             |
 | Constraints         | SYS_CONSTRAINTS_         | 제약 조건 정보를 저장하는 메타 테이블                        |
 | Procedures          | SYS_PROCEDURES_          | 저장 프로시저 및 함수 정보를 저장하는 메타 테이블            |
 | ProcedureParameters | SYS_PROC_PARAS_          | 저장 프로시저 및 함수의 파라미터 정보를 저장하는 메타 테이블 |
-| IndexColumns        | SYS_INDEX_COLUMNS_       | 인덱스 컬럼 정보를 저장하는 메타 테이블                      |
-| ConstraintColumns   | SYS_CONSTRAINT_ COLUMNS_ | 제약 조건 컬럼 정보를 저장하는 메타 테이블                   |
+| IndexColumns        | SYS_INDEX_COLUMNS_       | 인덱스 칼럼 정보를 저장하는 메타 테이블                      |
+| ConstraintColumns   | SYS_CONSTRAINT_ COLUMNS_ | 제약 조건 칼럼 정보를 저장하는 메타 테이블                   |
 | Triggers            | SYS_TRIGGERS_            | 트리거 정보를 저장하는 메타 테이블                           |
 
 Altibase에서 지원하는 데이터베이스 스키마와 관련 메타 테이블에 관한 설명은 아래 매뉴얼을 참고한다.
@@ -3584,11 +3589,11 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 |                    |                         | 속성   | VisibleFieldCount             |
 | Dbdataadapter      | AltibaseDataAdapter     | 메소드 | GetBatchedRecordsAffected     |
 
-##### 지원 인터페이스의 제약 사항
+##### 지원 인터페이스의 주의 사항
 
-- ColumnName 속성은 DataReader, CommandBuilder 등에서 대소문자를 구별한다. 
+- ADO.NET에서는 칼럼 이름의 대소문자를 구별한다.
   
-  Altibase는 컬럼 이름을 큰따옴표로 감싸지 않으면 대문자로 변환하므로, 테이블을 생성할 때 컬럼 이름에 큰따옴표를 사용하지 않았으면 대문자를 사용해야 올바른 값을 가져올 수 있다.
+  Altibase는 테이블을 생성할 때 칼럼 이름을 큰따옴표("")로 감싸지 않으면 전부 대문자로 변환하는 것에 유의한다. 인터페이스를 사용할 때 칼럼 이름의 대소문자를 올바르게 입력해야 정확한 값을 가져올 수 있다. 
   
 - AltibaseDataReader.GetValue() 메소드는 숫자 데이터를 System.Decimal 형식으로 변환하다.
 
@@ -3625,9 +3630,9 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 ### Altibase ADO.NET 데이터 타입
 
-테이블 컬럼이나 파라미터의 데이터 타입을 선언하기 위해서 AltibaseDbType 클래스가 사용된다. 
+테이블 칼럼이나 파라미터의 데이터 타입을 선언하기 위해서 AltibaseDbType 클래스가 사용된다. 
 
-아래 표에서 AltibaseDbType 클래스, Altibase 서버의 데이터 타입과 .NET Core 데이터 타입 간의 관계를 확인할 수 있다.
+아래 표에서 AltibaseDbType 클래스, Altibase 서버의 데이터 타입과 호환되는 .NET Core 데이터 타입을 확인할 수 있다.
 
 | AltibaseDbType 클래스 | Altibase의 데이터 타입 | .NET Core   |
 | :-------------------- | :--------------------- | :---------- |
@@ -3653,13 +3658,15 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 | VarBitArray           | VARBIT                 | BitArray[]  |
 | VarChar               | VARCHAR                | String      |
 
-질의문에서 내셔널 캐릭터를 포함하는 상수 문자열을 사용하려면, 해당 문자열 바로 앞에 ‘N’을 붙이면 된다.
+> [!TIP] 
+>
+> 질의문에서 내셔널 캐릭터를 포함하는 상수 문자열을 사용하려면, 해당 문자열 바로 앞에 ‘N’을 붙이면 된다.
 
 
 
 ### Altibase ADO.NET 예제
 
-#### DDL 과 DML 단순 예제
+#### DDL과 DML 단순 예제
 
 AltibaseConnection 클래스를 사용하여 ALTIBASE HDB 에 접근하여 test_goods 테이블을 생성하고 데이터를 삽입한 후 검색한다.
 
@@ -3736,7 +3743,7 @@ B111100001 NT-H5000 AC0002   780   35800
 
 #### 벌크 복사 예제
 
-AltibaseBulkCopy 를 이용해서 bulkcopy_source 테이블에서 bulkcopy_destination 테이블로 데이터를 복사한다.
+AltibaseBulkCopy를 이용해서 *bulkcopy_source* 테이블에서 *bulkcopy_destination* 테이블로 데이터를 복사한다.
 
 ```c#
 using System;
@@ -3813,7 +3820,7 @@ class Program
 
 #### 연결 풀링 예제
 
-ADO.NET 에서 연결 풀링를 사용하는 예제는 다음과 같다.
+ADO.NET에서 연결 풀링를 사용하는 예제는 다음과 같다.
 
 ```c#
 static void Main(string[] sArgs)

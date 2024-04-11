@@ -3459,7 +3459,7 @@ When performing array binding, the following points should be noted:
 
 ##### Constraints
 
-Array binding supports only input parameters. Output or bidirectional 공용 parameters are not supported.
+Array binding supports only input parameters. Output or input/output parameters are not supported.
 
 
 

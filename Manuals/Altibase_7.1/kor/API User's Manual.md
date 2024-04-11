@@ -195,9 +195,9 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 -   제 5 장 CheckServer API  
     이 장은 Altibase 서버가 비정상 종료했는지를 감시하는 응용프로그램을 작성하기 위해 사용하는 인터페이스인 Altibase CheckServer API를 소개한다.
     
-- 제 6장 .NET Data Provider @리뷰
+- 제 6장 .NET Data Provider
 
-  이 장은 .NET Core 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버인 Altibase ADO.NET을 소개한다.
+  이 장은 .NET Core 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버인 Altibase .NET Data Provider을 소개한다.
 
 ### 문서화 규칙
 
@@ -3134,7 +3134,7 @@ altibase_check_server의 예제를 참고한다.
 
 #### 개요
 
-Altibase ADO.NET은 .NET Core 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버이다.
+Altibase ADO.NET은 .NET Core 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버이다. @리뷰
 
 Altibase ADO.NET은 마이크로소프트의 ADO.NET API를 Altibase에서 사용할 수 있도록 구현한 것이다. .NET Core 개발자는 ADO.NET을 이용하여 DBMS와 같은 데이터 소스에 접근하여 명령을 수행하고 데이터를 조회하며, 결과를 가공하여 다시 데이터 소스에 반영할 수 있다. 
 
@@ -3377,13 +3377,13 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : N/A
 - 설명 : Altibase 서버의 서비스 포트 번호를 입력한다.
 
-###### prefer ipv6 
+###### prefer ipv6
 
 - 기본값 :  false
 - 값의 범위 : [true | false]
 - 필수 여부 : 선택
 - 설정 범위 : N/A
-- 설명 : 연결 속성 `server`에 호스트명을 입력하면, 이 속성 값에 따라 호스트명을 IPv4 주소 또는 IPv6주소로 변환한다. true는 호스트명을 IPv6주소로 변환하고 false는 호스트명을 IPv4주소로 변환하다.
+- 설명 : 연결 속성 `server`에 호스트명을 입력하면, 이 속성 값에 따라 호스트명을 IPv4 주소 또는 IPv6 주소로 변환한다. true는 호스트명을 IPv6 주소로 변환하고 false는 호스트명을 IPv4 주소로 변환하다.
 
 ###### server
 
@@ -3425,7 +3425,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 
 연결을 요청받으면 연결 문자열과 일치하는 연결 풀을 확인하여 연결을 할당하거나, 일치하는 연결 풀이 없으면 연결 풀을 생성하여 연결한다. 
 
-연결은 연결 속성 `max pool size`의 값만큼 생성할 수 있다. 생성된 연결이 이 값을 초과하는 경우, 이 동작은 연결 속성 `connection life time` 값을 초과하여 제거되는 연결이 발생할 때까지 대기한다. @리뷰
+연결은 연결 속성 `max pool size`의 값만큼 생성할 수 있다. 생성된 연결이 이 값을 초과하는 경우, 연결 속성 `connection life time` 값을 초과하여 제거되는 연결이 발생할 때까지 대기한다.
 
 예외가 발생한 연결은 자동으로 제거되며, 명시적으로 연결을 닫으면 연결이 제거되는 것이 아니라 연결 풀로 회수된다.
 
@@ -3484,7 +3484,7 @@ Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배�
 
 배열 바인딩 순서는 다음과 같다.
 
-1️⃣ 바인드하려는 변수들을 모두 배열로 잡는다. @리뷰
+1️⃣ 바인드하려는 변수들을 모두 배열로 선언한다. 
 
 배열 크기는 AltibaseCommand 클래스의 ArrayBindCount 값보다 크거나 같아야 한다.
 
@@ -3588,9 +3588,9 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 |                    |                         | 속성   | VisibleFieldCount             |
 | Dbdataadapter      | AltibaseDataAdapter     | 메소드 | GetBatchedRecordsAffected     |
 
-##### 지원 인터페이스의 제약 사항 @리뷰
+##### 지원 인터페이스의 주의 사항 
 
-- ColumnName 속성은 DataReader, CommandBuilder 등에서 대소문자를 구별한다. @리뷰
+- ADO.NET에서는 칼럼 이름의 대소문자를 구별한다.
   
   Altibase는 테이블을 생성할 때 칼럼 이름을 큰따옴표("")로 감싸지 않으면 전부 대문자로 변환하는 것에 유의한다. 인터페이스를 사용할 때 칼럼 이름의 대소문자를 올바르게 입력해야 정확한 값을 가져올 수 있다. 
   
@@ -3631,7 +3631,7 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 테이블 칼럼이나 파라미터의 데이터 타입을 선언하기 위해서 AltibaseDbType 클래스가 사용된다. 
 
-아래 표에서 AltibaseDbType 클래스, Altibase 서버의 데이터 타입과 호환되는 .NET Core 데이터 타입을 확인할 수 있다.@리뷰
+아래 표에서 AltibaseDbType 클래스, Altibase 서버의 데이터 타입과 호환되는 .NET Core 데이터 타입을 확인할 수 있다.
 
 | AltibaseDbType 클래스 | Altibase의 데이터 타입 | .NET Core   |
 | :-------------------- | :--------------------- | :---------- |
