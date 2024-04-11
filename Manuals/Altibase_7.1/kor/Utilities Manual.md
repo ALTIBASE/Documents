@@ -1810,6 +1810,8 @@ aku(Altibase Kubernetes Utility)는 쿠버네티스의 스테이트풀셋(Statef
 
 기존 파드의 Altibase 서버와 동일한 데이터를 가진 파드를 생성한다.
 
+가장 처음 생성된 파드를 aku에서는 마스터 파드(Master Pod)라고 부르며, 추가로 스케일 업하여 생성된 파드는 슬레이브 파드(Slave Pod)로 부른다.
+
 #### 스케일 다운
 
 파드를 종료할 때 Altibase 서버의 이중화 정보를 초기화한다. 
@@ -1895,9 +1897,9 @@ REPLICATIONS = (
 | aku start/end 프로퍼티   | AKU_ADDRESS_CHECK_COUNT              |    30     | `aku -p start` 명령 수행 시 이 값의 횟수만큼 로컬 IP 접속을 시도한다.<br/>쿠버네티스 서비스에 생성하고 있는 파드의 로컬 DNS가 엔드 포인트에 등록될 때까지 대기하며 재접속을 시도한다.@리뷰 |
 |                          | AKU_FLUSH_AT_START                   |     1     | `aku -p start` 명령 수행 시 이중화 갭을 제거할 것인지 설정한다.<br/>1이면 FLUSH 명령으로 이중화 갭을 제거하고, 0이면 제거하지 않고 시작한다. |
 |                          | AKU_FLUSH_TIMEOUT_AT_START           |    300    | FLUSH WAIT 명령의 *wait_time*을 설정한다. 이 값이 0이면 FLUSH ALL을 수행하고 1 이상이면 FLUSH WAIT *wait_time*을 수행한다.<br>이 설정은 AKU_FLUSH_AT_START설정값이 1일 때만 유효하다. |
-|                          | AKU_DELAY_START_COMPLETE_TIME        |  0(sec)   | 슬레이브 파드(Slave Pod) 생성 단계에서 내부적으로 데이터 동기화가 완료된 후 ADMIN_MODE 프로퍼티를 0으로 변경하기 전에 대기하는 시간을 설정한다. 리뷰@ |
+|                          | AKU_DELAY_START_COMPLETE_TIME        |  0(sec)   | 슬레이브 파드 생성 단계에서 내부적으로 데이터 동기화가 완료된 후 ADMIN_MODE 프로퍼티를 0으로 변경하기 전에 대기하는 시간을 설정한다. 리뷰@ |
 |                          | AKU_FLUSH_AT_END                     |     1     | 슬레이브 파드에서 `aku -p end` 명령 수행 시 이중화 갭을 제거할 것인지 설정한다.<br/>1이면 이중화 FLUSH ALL 명령으로 이중화 갭을 제거하고 0이면 제거하지 않는다. |
-|                          | AKU_REPLICATION_RESET_AT_END         |     1     | 슬레이브 파드(Slave Pod) 에서 `aku -p end` 명령 수행 시 RESET 명령으로 이중화 정보를 초기화할 것인지 설정한다.<br/>1이면 이중화 정보를 초기화하며, 0이면 초기화하지 않는다. |
+|                          | AKU_REPLICATION_RESET_AT_END         |     1     | 슬레이브 파드에서 `aku -p end` 명령 수행 시 RESET 명령으로 이중화 정보를 초기화할 것인지 설정한다.<br/>1이면 이중화 정보를 초기화하며, 0이면 초기화하지 않는다. |
 | 이중화 프로퍼티          | REPLICATIONS/REPLICATION_NAME_PREFIX |           | aku가 생성하는 Altibase 이중화 객체 이름의 접두사로, 최대 길이는 37바이트이다.<br/>[Altibase 이중화 객체 이름 생성 규칙](#replication-object-name)을 참고한다. 리뷰@ |
 |                          | REPLICATIONS/SYNC_PARALLEL_COUNT     |     1     | 이중화 SYNC 수행 시 송신/수신 쓰레드의 수.<br/>1부터 100까지 설정할 수 있다. |
 
@@ -2010,9 +2012,9 @@ aku 설정 파일의 내용을 출력한다. 파일에 문법(syntax) 오류가 
 
 Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을 수행한다. 파드를 시작할 때 이용한다. start 명령의 상세 동작을 살펴보자.
 
-- ***첫 번째 파드 생성 시***
+- **마스터 파드(*pod_name*-0) 생성하기**
 
-  ''첫 번째 파드''는 쿠버네티스 스테이트풀셋에서 생성한 첫 번째 파드(*pod_name*-0)를 말한다. aku에서는 마스터 파드(Master Pod)라고 부르며 여기서 수행한 aku를 'MASTER AKU'라고 부른다. Altibase 이중화 객체는 모든 파드에 생성해야 하므로 스테이트풀셋에서 *pod_name*-0을 생성할 때도 ``aku -p start`` 명령을 수행해야 한다. 
+  Altibase 이중화 객체는 모든 파드에 생성해야 하므로 스테이트풀셋에서 *pod_name*-0을 생성할 때도 ``aku -p start`` 명령을 수행해야 한다. 
 
   ![](media/Utilities/aku_p_start_master_pod_bug-50832.png)
 
@@ -2023,13 +2025,13 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
   5️⃣ *pod_name*-0 에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 *pod_name*-0과 관련된 이중화를 시작한다. 일반적인 경우 처음 생성된 파드이기 때문에 접속된 파드가 없어, 이 동작은 수행되지 않는다.
   6️⃣ /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
 
-- ***스케일 업(Scale up)***
+- **스케일 업(Scale up)** 
 
-  스테이트풀셋에서 스케일 업을 하면 파드가 생성된다. aku에서는 슬레이브 파드(Slave Pod)라 하며 여기서 수행한 aku를 'SLAVE AKU'라 부른다. 하나의 파드는 생성과 종료를 반복할 수 있는데, 파드가 처음 생성될 때와 종료 후 다시 시작될 때 `aku -p start` 동작이 다르다. 
+  마스터 파드가 생성된 상태에서 스케일 업을 하면 슬레이브 파드가 생성된다. 하나의 파드는 생성과 종료를 반복할 수 있는데, 파드가 처음 생성될 때와 종료 후 다시 시작될 때 `aku -p start` 동작이 다르다. 
 
   > **슬레이브 파드를 처음 생성하거나, 다시 시작할 때 (AKU_REPLICATION_RESET_AT_END = 1, 기본 동작)**
 
-  슬레이브 파드를 처음 생성하거나, 종료된 슬레이브 파드를 다시 시작하면서  `aku -p start`를 수행할 때의 aku 동작을 설명한다.
+  슬레이브 파드를 처음 생성하거나, 종료된 슬레이브 파드를 다시 시작하는 경우  `aku -p start` 명령이 aku에서 동작하는 과정을 설명한다.
 
   아래는 *pod_name*-1에서 수행한 예이다.
 
@@ -2048,7 +2050,7 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
   
   > **이중화 정보가 초기화되지 않은 슬레이브 파드를 다시 시작할 때 (AKU_FLUSH_AT_START = 1, 기본 동작)** 
 
-  파드가 비정상적으로 종료되거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 종료하면 이중화 정보가 초기화 되지 않는다. 이중화 정보를 초기화 하지 않으면 Altibase에 이전의 이중화 정보가 남아 있어 파드를 다시 시작할 때 다른 노드로부터 데이터를 동기화하는 작업(이중화 대상 테이블의 TRUNCATE, 이중화 SYNC 수행)을 수행하지 않는다. 다른 노드로부터 데이터 동기화는 하지 않지만, 자기 노드에서 다른 노드로의 데이터 동기화(FLUSH)는 수행한다. 아래는 이러한 경우, *pod_name*-1에서 `aku -p start`를 수행할 때의 aku 동작을 설명한다.
+  파드가 비정상적으로 종료되거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 종료하면 이중화 정보가 초기화 되지 않는다. 이중화 정보를 초기화 하지 않으면 Altibase에 이전의 이중화 정보가 남아 있어 파드를 다시 시작할 때 다른 노드로부터 데이터를 동기화(이중화 대상 테이블의 TRUNCATE 후 이중화 SYNC 수행)하지 않고, 자기 노드에서 다른 노드로의 데이터 동기화(FLUSH)만 수행한다. 아래는 이러한 경우, *pod_name*-1에서 `aku -p start`를 수행할 때의 aku 동작을 설명한다.
 
   참고로, 이중화 정보가 초기화 되지 않으면 이중화 관련 메타 테이블에 이중화 재시작 지점(XSN)이 -1이 아닌 값을 갖는다. 보다 자세한 내용은 [주의사항 6번](#cautions6)을 참고한다.
 
@@ -2280,7 +2282,7 @@ AKU run successfully.
 
 ### 예시 3
 
-4번째 파드(*pod_name-3*)에서 `aku -p start` 명령을 수행한 예시이다. Master Pod는 스테이트풀셋에서 생성한 첫 번째 파드를 의미한다.
+네 번째 파드(*pod_name-3*)에서 `aku -p start` 명령을 수행한 예시이다. Master Pod는 스테이트풀셋에서 생성한 첫 번째 파드를 의미한다.
 
 ~~~bash
 $ aku -p start
@@ -2317,7 +2319,7 @@ AKU run successfully.
 
 ### 예시 4
 
-4번째 파드에서 AKU_REPLICATION_RESET_AT_END 프로퍼티를 1으로 설정하고 `aku -p end` 명령을 수행할 때의 출력 결과이다. 이중화 FLUSH 및 RESET 명령이 수행된 것을 볼 수 있다
+네 번째 파드에서 AKU_REPLICATION_RESET_AT_END 프로퍼티를 1으로 설정하고 `aku -p end` 명령을 수행할 때의 출력 결과이다. 이중화 FLUSH 및 RESET 명령이 수행된 것을 볼 수 있다
 
 ~~~bash
 $ aku -p end
