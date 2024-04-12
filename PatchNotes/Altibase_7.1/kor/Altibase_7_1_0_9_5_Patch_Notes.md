@@ -219,22 +219,16 @@ Fixed Bugs
 ### BUG-50817<a name=bug-50817></a> DISK TABLE, DISK INDEX AGING 수행 시, 테이블에 X Lock(Exclusive Lock) 잡던 것을 IX Lock(Intent Exclusive Lock)으로 변경합니다.
 
 -   **module** : sm
-
 -   **Category** : Other
-
 -   **재현 빈도** : Always
-
--   **설명** : DISK TABLE, DISK INDEX AGING 구문 수행 시, 테이블에 X Lock(Exclusive Lock) 잡던 것을 IX Lock(Intent Exclusive Lock)으로 변경합니다. 이제 AGING을 수행하여 디스크 테이블 또는 디스크 인덱스의 페이지 사용량과 디스크 페이지의 단편화율을 조회할 때, X Lock으로 인해 조회가 실패하는 문제가 해결되었습니다.
-    
+-   **설명** : DISK TABLE, DISK INDEX AGING 구문 수행 시, 테이블에 X Lock(Exclusive Lock) 잡던 것을 IX Lock(Intent Exclusive Lock)으로 변경합니다. 페이지 정보를 갱신하기 위해 디스크 테이블 또는 디스크 인덱스에 AGING을 수행할 때, X Lock으로 인해 트랜잭션을 대기하다가 timeout이 발생하는 문제가 해결되었습니다.
 -   **재현 방법**
     -   **재현 절차**
     
     -   **수행 결과**
     
     -   **예상 결과**
-    
 -   **Workaround**
-
 -   **변경사항**
 
     -   Performance view
