@@ -15,11 +15,11 @@
   - [BUG-50783 프로시저 실행 중 Table에 DDL 수행시, Invalid use of host variables error 가 발생하는 문제를 수정합니다.](#bug-50783)
   - [BUG-50791 TO_CHAR 함수를 ALIAS로 조건절에 사용시 뷰에 대한 조건절 Pushdown 이 2번 이상 발생할 경우, 비정상 종료되는 문제를 수정합니다.](#bug-50791)
   - [BUG-50844 ADO.net의 AltibaseBulkCopy 사용 후 메모리 사용량이 급증하는 문제를 수정합니다.](#bug-50844)
-  - [Changes](#changes)
-    - [Version Info](#version-info)
-    - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
-    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+- [Changes](#changes)
+  - [Version Info](#version-info)
+  - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
+  - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+  - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
