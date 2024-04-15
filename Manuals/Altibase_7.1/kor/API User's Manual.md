@@ -136,8 +136,14 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [CheckServer API 사용](#checkserver-api-사용)
   - [CheckServer API 데이터 구조체](#checkserver-api-데이터-구조체)
   - [CheckServer API](#checkserver-api)
-- [6..NET Data Provider](#6net-data-provider)
-  - [Altibase ADO.NET](#altibase-adonet)
+- [6.Altibase ADO.NET](#6altibase-adonet)
+  - [Altibase ADO.NET 개요](#Altibase-ADONET-개요)
+  - [Altibase ADO.NET 사용](#Altibase-ADONET-사용)
+  - [Altibase ADO.NET API](#Altibase-ADONET-API)
+  - [Altibase ADO.NET 데이터 타입](#Altibase-ADONET-데이터-타입)
+  - [Altibase ADO.NET 예제](#Altibase-ADONET-예제)
+
+
 
 <br>
 
@@ -195,9 +201,9 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 -   제 5 장 CheckServer API  
     이 장은 Altibase 서버가 비정상 종료했는지를 감시하는 응용프로그램을 작성하기 위해 사용하는 인터페이스인 Altibase CheckServer API를 소개한다.
     
-- 제 6장 .NET Data Provider
+- 제 6장 Altibase ADO.NET
 
-  이 장은 .NET Core 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버인 Altibase .NET Data Provider을 소개한다.
+  이 장은 .NET Core 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버인 Altibase ADO.NET의 사용 방법과 Altibase ADO.NET으로 사용할 수 있는 ADO.NET API를 소개한다.
 
 ### 문서화 규칙
 
@@ -3126,22 +3132,18 @@ altibase_check_server의 예제를 참고한다.
 
 <br/>
 
-# 6..NET Data Provider
+# 6.Altibase ADO.NET
 
-## Altibase ADO.NET
+## Altibase ADO.NET 개요
 
-### Altibase ADO.NET 소개
-
-#### 개요
-
-Altibase ADO.NET은 .NET Core 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버이다. @리뷰
+Altibase ADO.NET은 .NET Core 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버이다.
 
 Altibase ADO.NET은 마이크로소프트의 ADO.NET API를 Altibase에서 사용할 수 있도록 구현한 것이다. .NET Core 개발자는 ADO.NET을 이용하여 DBMS와 같은 데이터 소스에 접근하여 명령을 수행하고 데이터를 조회하며, 결과를 가공하여 다시 데이터 소스에 반영할 수 있다. 
 
 
 마이크로소프트의 ADO.NET에 관한 보다 자세한 내용은 마이크로소프트의 [.NET 문서](https://learn.microsoft.com/ko-kr/dotnet/)를 참고한다.
 
-#### 요구사항
+### 요구사항
 - Altibase CLI 라이브러리
   
   Altibase ADO.NET은 CLI 라이브러리로 Altibase 서버에 접속한다. 아래 CLI 라이브러리는 Altibase ADO.NET NuGet 패키지에 포함되어 있다.
@@ -3150,7 +3152,7 @@ Altibase ADO.NET은 마이크로소프트의 ADO.NET API를 Altibase에서 사�
 - Altibase 7.1.0.8.3 이상
 - .NET Core 3.1
 
-#### 지원 OS
+### 지원 OS
 
 Altibase ADO.NET이 지원하는 OS는 .NET Core 3.1의 지원 OS중에서 Altibase 7.1 클라이언트가 지원하는 OS이다.
 
@@ -3161,17 +3163,17 @@ Altibase ADO.NET NuGet 패키지에 원하는 OS의 CLI 라이브러리가 포�
 
 
 
-###  Altibase ADO.NET 사용
+##  Altibase ADO.NET 사용
 
 .NET Core 개발자가  Altibase ADO.NET을 사용하여 개발할 때 알아야 할 사용 방법에 대해 설명한다.
 
-#### Altibase ADO.NET 다운로드
+### Altibase ADO.NET 다운로드
 
 [NuGet 사이트](https://www.nuget.org/packages/Altibase.Data.AltibaseClient)를 통해 Altibase.Data.AltibaseClient.nupkg를 제공한다.
 
 
 
-#### .NET Core 응용 프로그램 컴파일
+### .NET Core 응용 프로그램 컴파일
 
 Altibase ADO.NET을 사용한 애플리케이션은 아래 2가지 방법으로 컴파일할 수 있다.
 
@@ -3218,7 +3220,7 @@ Altibase ADO.NET을 사용한 애플리케이션은 아래 2가지 방법으로 
 
 IDE(Integrated Development Environment) 환경에서 Altibase ADO.NET을 등록하는 방법이다. 아래는 MS Visual Studio에서 수행한 예이다.
 
-1️⃣ 새 프로젝트를 생성한다. @리뷰
+1️⃣ 새 프로젝트를 생성한다.
 
 ![](media/API/adonet1.png)
 
@@ -3231,7 +3233,7 @@ IDE(Integrated Development Environment) 환경에서 Altibase ADO.NET을 등록�
 
 
 
-#### Altibase ADO.NET 사용 선언
+### Altibase ADO.NET 사용 선언
 
 .NET Core 기반의 애플리케이션에서 Altibase ADO.NET의 클래스들을 사용하려면, 먼저 아래와 같이 선언해야 한다.
 
@@ -3241,11 +3243,11 @@ using Altibase.Data.AltibaseClient;
 
 
 
-#### 연결 설정
+### 연결 설정
 
 이 절에서는 .NET Core 응용 프로그램에서 Altibase 서버에 접속하는 방법을 설명한다. 
 
-##### 연결 문자열 (Connection String)
+#### 연결 문자열 (Connection String)
 
 Altibase 서버에 접속하기 위한 연결 문자열의 형태는 다음과 같다. 
 
@@ -3253,7 +3255,7 @@ Altibase 서버에 접속하기 위한 연결 문자열의 형태는 다음과 �
 Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=value;...
 ~~~
 
-##### 연결 속성 정보
+#### 연결 속성 정보
 
 위의 기본 연결 속성 외에 연결 문자열에서 사용할 수 있는 연결 속성을 설명한다. 각 연결 속성의 설명은 아래의 형식으로 작성되어 있다.
 
@@ -3266,7 +3268,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
   - N/A : 이 속성은 Altibase 서버에 연결하는 과정에만 영향을 준다.
 - 설명: 연결 속성에 대한 설명
 
-###### application name
+##### application name
 
 - 기본값 : .NET Altibase Data Provider
 - 값의 범위 : 임의의 문자열
@@ -3274,7 +3276,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : 세션
 - 설명 : 세션의 애플리케이션 정보를 나타낸다. V$SESSION의 CLIENT_APP_INFO 칼럼에 출력되는 값이다.
 
-###### connection life time
+##### connection life time
 
 - 기본값 : 0
 - 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
@@ -3284,7 +3286,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
   연결을 사용하지 않을 때 연결 풀에서 제거할 것인지 설정한다. 단위는 초(sec)이다. 
   0은 연결을 제거하지 않고 0이 아니면 설정 값 동안 연결을 사용하지 않으면 연결 풀에서 연결을 제거한다.
 
-###### connection timeout
+##### connection timeout
 
 - 기본값 : 15
 - 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
@@ -3294,7 +3296,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
   Altibase 서버에 대한 연결을 대기하는 시간으로, 단위는 초(sec)이다. 
   0은 연결될 때까지 무한정 기다리고 0이 아닌 값은 설정 값 동안 연결되지 않으면 연결이 실패한다.
 
-###### data source
+##### data source
 
 - 기본값 : 설명 참고
 - 값의 범위 : 임의의 문자열
@@ -3305,7 +3307,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
   - 연결 속성 `server`의 값이 없고 `data source`의 값과 같은 ODBC 데이터 원본이 있으면 ODBC 데이터 원본의 DSN(data source name)이 사용된다.
   - 연결 속성 `server`의 값이 없고 `data source`의 값과 같은 ODBC 데이터 원본이 없으면 서버의 IP 또는 호스트 이름을 사용한다.
 
-###### encoding
+##### encoding
 
 - 기본값 : 없음
 - 값의 범위 :  [Altibase에서 지원하는 문자 집합](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Getting%20Started%20Guide.md#%EC%A7%80%EC%9B%90%ED%95%98%EB%8A%94-%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%85%8B)
@@ -3313,7 +3315,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : 세션
 - 설명 : 클라이언트의 문자 집합을 설정한다.
 
-###### enlist 
+##### enlist 
 
 - 기본값 :  true
 - 값의 범위 : [true | false]
@@ -3321,7 +3323,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : 세션
 - 설명 : 암시적 트랜잭션 처리 여부를 설정한다. true는 암시적인 방식으로 false는 명시적인 방식으로 트랜잭션에 참여한다.
 
-###### max pool size
+##### max pool size
 
 - 기본값 : 100
 - 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
@@ -3329,7 +3331,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : N/A
 - 설명 : 특정 연결 문자열에 대해 연결 풀에서 허용된 최대 연결 수를 설정한다.
 
-###### min pool size 
+##### min pool size 
 
 - 기본값 : 0
 - 값의 범위 : [0 ~ 2<sup>31</sup>(2147483648)]
@@ -3337,7 +3339,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : N/A
 - 설명 : 특정 연결 문자열에 대해 연결 풀에서 허용된 최소 연결 수를 설정한다. 연결 풀이 최초 생성될 때 이 설정 값만큼 연결이 생성된다. 
 
-###### nchar literal replace
+##### nchar literal replace
 
 - 기본값 : false
 - 값의 범위 : [true | false]
@@ -3345,7 +3347,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : 세션
 - 설명 : 질의문에서 내셔널 캐릭터셋을 가지는 상수 문자열의 사용 여부를 결정한다. true는 내셔널 캐릭터셋을 가지는 상수 문자열을 사용하고 false는 사용하지 않는다.
 
-###### password
+##### password
 
 - 기본값 : 없음
 - 값의 범위 : 데이터베이스 사용자 비밀번호
@@ -3353,7 +3355,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : N/A
 - 설명 : Altibase 서버에 접속할 데이터베이스 사용자의 비밀번호를 입력한다.
 
-###### persist security info 
+##### persist security info 
 
 - 기본값 :  false
 - 값의 범위 : [true | false]
@@ -3361,7 +3363,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : N/A
 - 설명 : 연결 정보에서 문자열을 가져올 때 비밀번호를 포함할지 설정한다. true는 비밀번호를 포함하고 false는 포함하지 않는다.
 
-###### pooling
+##### pooling
 
 - 기본값 :  true
 - 값의 범위 : [true | false]
@@ -3369,7 +3371,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : N/A
 - 설명 : 연결 풀링을 사용할 것인지 설정한다. true는 연결 풀링을 사용하고 false는 사용하지 않는다.
 
-###### port 
+##### port 
 
 - 기본값 :  20300
 - 값의 범위 : [0~65535]
@@ -3377,7 +3379,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : N/A
 - 설명 : Altibase 서버의 서비스 포트 번호를 입력한다.
 
-###### prefer ipv6
+##### prefer ipv6
 
 - 기본값 :  false
 - 값의 범위 : [true | false]
@@ -3385,7 +3387,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : N/A
 - 설명 : 연결 속성 `server`에 호스트명을 입력하면, 이 속성 값에 따라 호스트명을 IPv4 주소 또는 IPv6 주소로 변환한다. true는 호스트명을 IPv6 주소로 변환하고 false는 호스트명을 IPv4 주소로 변환하다.
 
-###### server
+##### server
 
 - 기본값 :  localhost
 - 값의 범위 : 임의의 문자열
@@ -3393,7 +3395,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : N/A
 - 설명 : Altibase 서버의 IP 주소 또는 호스트명을 입력한다.
 
-###### transaction timeout
+##### transaction timeout
 
 - 기본값 : 서버의 설정값
 - 값의 범위 :  [0 ~ 2<sup>31</sup>(2147483648)]
@@ -3401,7 +3403,7 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 - 설정 범위 : 세션
 - 설명 : 변경 연산(UPDATE, INSERT, DELETE)을 수행하는 트랜잭션의 수행 시간을 제한한다. 단위는 초(sec)이다. 0은 변경 트랜잭션의 수행 시간을 제한하지 않는다. 0이 아닐 경우, 변경 트랜잭션의 수행 시간이 설정값을 초과하면 세션 연결을 해제하고 트랜잭션을 철회한다.
 
-###### user id 또는 uid
+##### user id 또는 uid
 
 - 기본값 :  
 - 값의 범위 : 임의의 문자열
@@ -3411,17 +3413,17 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 
 
 
-#### 연결 풀링
+### 연결 풀링
 
 애플리케이션이 데이터베이스 서버에 연결하는 과정은 여러 단계를 거치므로 시간이 많이 걸리며, 같은 과정을 여러 번 진행할 수 있다. ADO.NET에서는 연결하고 닫히는 횟수를 최소화하기 위해 연결 풀링(Connection Pooling)을 제공한다.
 
 연결 풀링은 연결에 필요한 소유권을 유지한다. 이를 위해 풀러는 연결 요청을 받으면 연결 풀에서 사용 가능한 연결이 있는지 확인하고 연결을 할당하거나 새로운 연결을 연결 풀에 생성해서 할당한다. 연결이 닫힐 때에도 연결을 바로 해제하지 않고 연결 풀에 반환한다.
 
-##### 연결 풀 만들기
+#### 연결 풀 만들기
 
 연결이 처음 열리면 연결 풀과 연결 문자열(Connection String)을 연결하는 일치 알고리즘에 따라 연결 풀이 생성된다. 연결이 열릴 때 연결 문자열이 기존 연결 풀과 정확하게 일치하지 않으면 새로운 연결 풀이 생성된다. 연결 문자열의 연결 속성이나 대소문자 및 공백에 차이가 있어도 다른 풀로 인식한다. 연결 문자열에 연결 속성 `min pool size`를 0이 아닌 값으로 설정하면 해당 값만큼 연결 풀이 자동으로 생성된다. 이 연결 속성을 설정하지 않았다면 기본값이 0이므로 자동 생성되는 연결은 없다.
 
-##### 연결 할당 및 추가
+#### 연결 할당 및 추가
 
 연결을 요청받으면 연결 문자열과 일치하는 연결 풀을 확인하여 연결을 할당하거나, 일치하는 연결 풀이 없으면 연결 풀을 생성하여 연결한다. 
 
@@ -3429,25 +3431,25 @@ Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=valu
 
 예외가 발생한 연결은 자동으로 제거되며, 명시적으로 연결을 닫으면 연결이 제거되는 것이 아니라 연결 풀로 회수된다.
 
-##### 연결 제거
+#### 연결 제거
 
 응용 프로그램에서 명시적으로 연결을 닫거나 제거하지 않으면 연결 풀러는 정기적으로 연결 풀을 검사하여 연결을 제거한다. 연결은 연결 속성 `connection life time`에서 설정한 시간 동안 사용되지 않을 경우 제거되며, `min pool size` 의 값만큼 최소한의 연결을 남겨두고 회수된다. 그리고 예외가 발생한 연결도 제거된다. 
 
-##### 연결 풀 지우기
+#### 연결 풀 지우기
 
 AltibaseConnection 클래스에서 풀을 지우는 메소드는 ClearPool과 ClearAllPools이 있다. ClearPool 메소드는 지정된 연결 풀을 지우며, ClearAllPools 메소드는 모든 연결 풀을 지운다.
 
-##### 제약 사항
+#### 제약 사항
 
 연결은 Altibase 서버 프로퍼티 [MAX_CLIENT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#max_client)이상 생성할 수 없으므로, 연결 속성 `max pool size` 및 `min pool size` 설정 시 MAX_CLIENT를 고려해야 한다.
 
 
 
-#### 트랜잭션 처리
+### 트랜잭션 처리
 
 Altibase ADO.NET에서 트랜잭션 처리는 AltibaseTransaction 객체를 사용하거나 CommittableTransaction 객체를 쓰는 방법이 있다.
 
-##### AltibaseTransaction 객체
+#### AltibaseTransaction 객체
 
 AltibaseTransaction 객체는 아래 예제와 같이 AltibaseConnection.BeginTransaction() 메소드로 트랜잭션 객체를 얻는다.
 
@@ -3468,17 +3470,15 @@ AltibaseCommand sCmd = sConn.CreateCommand();
 sTrans.Commit();
 ~~~
 
-##### CommitableTransaction 객체
+#### CommitableTransaction 객체
 
 CommitableTransaction 객체는 트랜잭션에 암시적 또는 명시적으로 참여할 수 있다. Altibase ADO.NET에서 암시적인 방식으로 트랜잭션에 참여하려면 접속 문자열에 연결 설정 `enlist`를 설정하지 않거나 `enlist=true`라고 설정한다. 명시적인 참여는 접속 문자열에 `enlist=false`로 설정한다.
 
-##### 분산 트랜잭션
+#### 분산 트랜잭션
 
 Altibase ADO.NET은 AltibaseConnection.EnlistDistributedTransaction 메소드로 명시적으로 분산 트랜잭션에 참여할 수 있으나 .NET Core 3.1에서 분산 트랜잭션을 지원하지 않으므로 Altibase ADO.NET도 로컬 트랜잭션만 지원한다. 
 
-
-
-#### 배열 바인딩
+### 배열 바인딩
 
 Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배열 형태의 데이터에 대하여 파라미터 바인딩이 가능하다는 것을 의미하며 일반적인 바인딩보다 적은 네트워크 비용으로 여러 개의 열을 처리하므로 속도 향상을 기대할 수 있다.
 
@@ -3498,7 +3498,7 @@ Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배�
 
 4️⃣ 질의문을 실행한다.
 
-##### 주의 사항
+#### 주의 사항
 
 배열 바인딩할 때 다음 사항을 주의해야 한다.
 
@@ -3514,13 +3514,13 @@ Altibase ADO.NET은 배열 바인딩(Array Binding)을 지원한다. 이는 배�
     ~~~
 - CLOB, BYTE, NIBBLE, BIT, VARBIT, GEOMETRY 타입의 배열 바인딩은 지원하지 않는다.
 
-##### 제약 사항
+#### 제약 사항
 
 입력(Input) 파라미터만 배열 바인딩을 지원한다. 출력(Output)이나 입출력 공용 파라미터의 배열 바인딩은 지원하지 않는다.
 
 
 
-#### 데이터베이스 스키마 정보 검색
+### 데이터베이스 스키마 정보 검색
 
 GetSchema() 메소드로 MetadataCollections, DataSourceInformation, DataTypes, Restrictions, ReservedWords와 같은 공통 스키마 외에 Altibase의 메타 테이블을 조회할 수 있다.
 
@@ -3547,13 +3547,13 @@ Altibase에서 지원하는 데이터베이스 스키마와 관련 메타 테이
 
 
 
-### Altibase ADO.NET 인터페이스
+## Altibase ADO.NET API
 
 Altibase ADO.NET에서 구현한 ADO.NET API 중 대표적인 클래스와 제약 사항 그리고 지원하지 않는 API를 설명한다.
 
-#### 지원 인터페이스
+### 지원 인터페이스
 
-##### 연결 및 질의 실행, 결과 검색
+#### 연결 및 질의 실행, 결과 검색
 
 Altibase ADO.NET은 Altibase 서버로의 연결 및 질의을 실행하고 결과를 검색하는 기능을 제공한다. 이 기능들은 아래 4개의 클래스에 기반하고 있다. 각 클래스들의 하위 메소드 기능은 마이크로소프트의 [.NET Core 3.1 API 문서](https://learn.microsoft.com/ko-kr/dotnet/api/?view=netcore-3.1)를 참고한다.
 
@@ -3564,7 +3564,7 @@ Altibase ADO.NET은 Altibase 서버로의 연결 및 질의을 실행하고 결�
 | AltibaseDataReader  | Altibase 서버에서 명령을 수행한 결과를 가져와 출력할 수 있다. |
 | AltibaseDataAdapter | DataSet에 데이터를 채우고 데이터베이스에 저장된 데이터를 갱신할 수 있다. |
 
-##### 예외 및 트랜잭션 처리
+#### 예외 및 트랜잭션 처리
 
 Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션 처리 등을 위해 다음 클래스들을 제공한다.
 
@@ -3574,7 +3574,7 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 | AltibaseParameter   | SQL 명령 및 저장 프로시저에 대한 입력, 출력 파라미터를 정의한다. |
 | AltibaseTransaction | 데이터베이스에서 트랜잭션 관련 명령을 수행할 수 있다.        |
 
-##### 기본 구현
+#### 기본 구현
 
 다음은 ADO.NET 클래스 중 기본 구현을 그대로 상속받은 API 목록이다. 
 
@@ -3588,7 +3588,7 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 |                    |                         | 속성   | VisibleFieldCount             |
 | Dbdataadapter      | AltibaseDataAdapter     | 메소드 | GetBatchedRecordsAffected     |
 
-##### 지원 인터페이스의 주의 사항 
+#### 지원 인터페이스의 주의 사항 
 
 - ADO.NET에서는 칼럼 이름의 대소문자를 구별한다.
   
@@ -3600,7 +3600,7 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 - Altibase ADO.NET은 다중 질의문의 실행을 지원하지 않는다. 여러 개의 질의문을 한 번에 실행하려면 저장 프로시저를 사용해야 한다.
 
-#### 지원하지 않는 인터페이스
+### 지원하지 않는 인터페이스
 
 아래 표는 Altibase ADO.NET에서 지원하지 않는 인터페이스 목록이다. 지원하지 않는 인터페이스를 사용하면 NotImplementedException에러가 발생한다.
 
@@ -3627,7 +3627,9 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 | DbParameter           | AltibaseParameter            | 메소드 | ResetDbType                                                  |                    |
 | DbParameterCollection | AltibaseParameterCollection  | 메소드 | AddRange                                                     |                    |
 
-### Altibase ADO.NET 데이터 타입
+
+
+## Altibase ADO.NET 데이터 타입
 
 테이블 칼럼이나 파라미터의 데이터 타입을 선언하기 위해서 AltibaseDbType 클래스가 사용된다. 
 
@@ -3663,9 +3665,9 @@ Altibase ADO.NET은 예외 처리 및 저장 프로시저 실행과 트랜잭션
 
 
 
-### Altibase ADO.NET 예제
+## Altibase ADO.NET 예제
 
-#### DDL과 DML 단순 예제
+### DDL과 DML 단순 예제
 
 AltibaseConnection 클래스를 사용하여 ALTIBASE HDB 에 접근하여 *test_goods* 테이블을 생성하고 데이터를 삽입한 후 검색한다.
 
@@ -3740,7 +3742,7 @@ A111100002 IM-310   DD0001   100   98000
 B111100001 NT-H5000 AC0002   780   35800
 ```
 
-#### 벌크 복사 예제
+### 벌크 복사 예제
 
 AltibaseBulkCopy를 이용해서 *bulkcopy_source* 테이블에서 *bulkcopy_destination* 테이블로 데이터를 복사한다.
 
@@ -3817,7 +3819,7 @@ class Program
 }
 ```
 
-#### 연결 풀링 예제
+### 연결 풀링 예제
 
 ADO.NET에서 연결 풀링를 사용하는 예제는 다음과 같다.
 
@@ -3851,7 +3853,7 @@ static void Main(string[] sArgs)
 }
 ```
 
-#### 배열 바인딩 예제
+### 배열 바인딩 예제
 
 ~~~c#
 using System;
