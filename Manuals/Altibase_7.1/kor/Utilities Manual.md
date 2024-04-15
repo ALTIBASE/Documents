@@ -1897,7 +1897,7 @@ REPLICATIONS = (
 | aku start/end 프로퍼티   | AKU_ADDRESS_CHECK_COUNT              |    30     | `aku -p start` 명령 수행 시 이 값의 횟수만큼 로컬 IP 접속을 시도한다.<br/>쿠버네티스 서비스에 생성하고 있는 파드의 로컬 DNS가 엔드 포인트에 등록될 때까지 대기하며 재접속을 시도한다.@리뷰 |
 |                          | AKU_FLUSH_AT_START                   |     1     | `aku -p start` 명령 수행 시 이중화 갭을 제거할 것인지 설정한다.<br/>1이면 FLUSH 명령으로 이중화 갭을 제거하고, 0이면 제거하지 않고 시작한다. |
 |                          | AKU_FLUSH_TIMEOUT_AT_START           |    300    | FLUSH WAIT 명령의 *wait_time*을 설정한다. 이 값이 0이면 FLUSH ALL을 수행하고 1 이상이면 FLUSH WAIT *wait_time*을 수행한다.<br>이 설정은 AKU_FLUSH_AT_START설정값이 1일 때만 유효하다. |
-|                          | AKU_DELAY_START_COMPLETE_TIME        |  0(sec)   | 슬레이브 파드 생성 단계에서 내부적으로 데이터 동기화가 완료된 후 ADMIN_MODE 프로퍼티를 0으로 변경하기 전에 대기하는 시간을 설정한다. 리뷰@ |
+|                          | AKU_DELAY_START_COMPLETE_TIME        |  0(sec)   | 슬레이브 파드에서 `aku -p start` 명령 수행 시 내부적으로 데이터 동기화가 완료된 후 ADMIN_MODE 프로퍼티를 0으로 변경하기 전에 대기하는 시간을 설정한다. 리뷰@ |
 |                          | AKU_FLUSH_AT_END                     |     1     | 슬레이브 파드에서 `aku -p end` 명령 수행 시 이중화 갭을 제거할 것인지 설정한다.<br/>1이면 이중화 FLUSH ALL 명령으로 이중화 갭을 제거하고 0이면 제거하지 않는다. |
 |                          | AKU_REPLICATION_RESET_AT_END         |     1     | 슬레이브 파드에서 `aku -p end` 명령 수행 시 RESET 명령으로 이중화 정보를 초기화할 것인지 설정한다.<br/>1이면 이중화 정보를 초기화하며, 0이면 초기화하지 않는다. |
 | 이중화 프로퍼티          | REPLICATIONS/REPLICATION_NAME_PREFIX |           | aku가 생성하는 Altibase 이중화 객체 이름의 접두사로, 최대 길이는 37바이트이다.<br/>[Altibase 이중화 객체 이름 생성 규칙](#replication-object-name)을 참고한다. 리뷰@ |
