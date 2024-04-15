@@ -2257,7 +2257,7 @@ $ aku -i
 
 ### 예시 2
 
-첫 번째 파드(*pod_name-0*)에서 `aku -p start`를 수행한 예시이다.
+마스터 파드(*pod_name-0*)에서 `aku -p start`를 수행한 예시이다.
 
 ~~~bash
 $ aku -p start
