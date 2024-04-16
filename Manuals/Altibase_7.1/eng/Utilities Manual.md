@@ -114,25 +114,10 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Synchronization (SYNC) Function](#synchronization-sync-function)
 - [3. aku](#3-aku)
   - [Introducing aku](#introducing-aku)
-    - [Overview](#overview)
-    - [Component](#component)
   - [Setup to run aku](#setup-to-run-aku)
-    - [Prerequisite](#prerequisite)
-    - [Altibase Environment Variable and Properties](#altibase-environment-variable-and-properties)
-    - [aku Properties](#aku-properties)
   - [Execution of aku](#execution-of-aku)
-    - [Syntax](#syntax)
-    - [Parameters](#parameters)
-    - [Execution process of aku](#execution-process-of-aku)
   - [Cautions](#cautions)
-    - [aku.conf](#akuconf)
-    - [Storage corruption in Master Pod](#storage-corruption-in-master-pod)
-    - [If the situation in which Pod was force terminated before `aku -p end` command completed, continues for a long time](#if-the-situation-in-which-pod-was-force-terminated-before-aku--p-end-command-completed-continues-for-a-long-time)
-  - [Example](#example)
-    - [aku -i](#aku--i)
-    - [aku -p start on a Master Pod](#aku--p-start-on-a-master-pod)
-    - [aku -p start on the 4th Pod](#aku--p-start-on-the-4th-pod)
-    - [aku -p end on the 4th Pod](#aku--p-end-on-the-4th-pod)
+  - [Examples](#examples)
 - [4. Other Utilities](#4-other-utilities)
   - [altiAudit](#altiaudit)
   - [altibase](#altibase)
@@ -2090,7 +2075,25 @@ This command deletes all Altibase replication objects on the pods and the "aku_s
 
 Data corruption due to storage corruption in Master Pod is not guaranteed.
 
-### 3) If the situation in which Pod was force terminated before `aku -p end` command completed or terminated with the property AKU_REPLICATION_RESET_AT_END set to 0, continues for a long time
+### 3) If the Master Pod is malfunctioning and execute `aku -p start` command
+
+aku is designed to operate with the assumption that the master pod is functioning normally. Therefore, if a failure occurs in the master pod, users should take appropriate actions as follows.
+
+1. In the event of a failure in the master pod, users must manually reconcile data integrity. Execute TRUNCATE the tables in the master pod and then perform replication SYNC on the slave pods to ensure data integrity.
+
+2. After starting all the replication related to the master pod on every pod, users can remove the replication gap and start the service by executing `aku -p start` on the master pod.
+
+For example, if pods 0 to 3 are started with REPLICATION_NAME_PREFIX set to AKU_REP, users should initiate replication by executing the following command on each pod:
+
+```sql
+ALTER REPLICATION AKU_REP_01 START;
+ALTER REPLICATION AKU_REP_02 START;
+ALTER REPLICATION AKU_REP_03 START;
+```
+
+
+
+### 4) If the situation in which Pod was force terminated before `aku -p end` command completed or terminated with the property AKU_REPLICATION_RESET_AT_END set to 0, continues for a long time
 
 If the situation in which a Pod was force-terminated before the `aku -p end` command completed or terminated with the property AKU_REPLICATION_RESET_AT_END set to 0 continues for a long time, there is a possibility of uninitialized replication information remaining in the terminated Pod as well as in other Pods. When this happens, the other Pods do not delete the online log files that are required for replication to the terminated Pod. If the online log file accumulates a lot, it can lead to disk space exhaustion and result in Altibase server not being able to operate normally. To prevent this situation, if you notice that there are long periods of time in which a Pod was terminated before the `aku -p end` command completed, you should stop replication and initialize the replication information. Refer to the commands below. 
 
@@ -2256,7 +2259,7 @@ AKU run successfully.
 
 ### aku -p end on the 4th Pod
 
-This is an output of `aku -p end` command with the property AKU_REPLICATION_RESET_AT_END set to 1 on the 4th Pod (*pod_name*-3). You can see that the commands for stopping and resetting replication have been performed to all replication objects that are connected to 4th Pod.
+This is an output of `aku -p end` command with the property AKU_REPLICATION_RESET_AT_END set to 1 on the 4th Pod (*pod_name*-3). You can see that replication FLUSH and RESET commands are executed.
 
 ~~~bash
 $ aku -p end
