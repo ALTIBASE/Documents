@@ -121,9 +121,9 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [비교(DIFF) 기능](#비교diff-기능)
   - [일치(SYNC) 기능](#일치sync-기능)
 - [3.aku](#3aku)
-  - [개요](#개요-1)
+  - [개요](#개요-2)
   - [구성 요소](#구성-요소)
-  - [구문](#구문-1)
+  - [구문](#구문-2)
   - [파라미터](#파라미터-1)
   - [주의사항](#주의사항)
   - [제약사항](#제약사항)
@@ -2019,17 +2019,12 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
   ![](media/Utilities/aku_p_start_master_pod-bug-50832.png)
 
-  1. aku.conf 파일을 읽는다.
-  
-  2. /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 `aku -p start` 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, `aku -p start` 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다.
-  
-  3. 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 처음 생성된 파드이기 때문에 다른 파드와의 연결은 실패한다. 이는 정상적인 동작이니 무시해도 된다.
-  
-  4. Altibase 이중화 객체를 생성한다. 만약, 같은 이름의 이중화 객체가 존재한다면 이중화 생성 단계는 생략한다. 
-  
-  5. *pod_name*-0 에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 *pod_name*-0과 관련된 이중화를 시작한다. 일반적인 경우 처음 생성된 파드이기 때문에 접속된 파드가 없어, 이 동작은 수행되지 않는다.
-  
-  6. /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
+  ① aku.conf 파일을 읽는다.
+  ② /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 `aku -p start` 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, `aku -p start` 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다.
+  ③ 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 처음 생성된 파드이기 때문에 다른 파드와의 연결은 실패한다. 이는 정상적인 동작이니 무시해도 된다.
+  ④ Altibase 이중화 객체를 생성한다. 만약, 같은 이름의 이중화 객체가 존재한다면 이중화 생성 단계는 생략한다. 
+  ⑤ *pod_name*-0 에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 *pod_name*-0과 관련된 이중화를 시작한다. 일반적인 경우 처음 생성된 파드이기 때문에 접속된 파드가 없어, 이 동작은 수행되지 않는다.
+  ⑥ /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
 
 - **스케일 업(Scale up)** 
 
@@ -2043,25 +2038,16 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
   ![](media/Utilities/aku_p_start_slave_pod-bug-50832.png)
   
-  1. aku.conf 파일을 읽는다.
-  
-  2. /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 `aku -p start` 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, `aku -p start` 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다.
-  
-  3. 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 *pod_name*-0과의 접속만 성공하고 *pod_name*-2, *pod_name*-3은 생성되지 않았기 때문에 접속에 실패한다.
-  
-  4. Altibase 이중화 객체를 생성한다. *pod_name*-1이 다시 시작된 파드라면, 같은 이름의 이중화 객체가 존재할 수 있으며 이 단계는 생략된다.
-  
-  5. *pod_name*-1의 이중화 대상 테이블을 대상으로 TRUNCATE를 수행한다.
-  
-  6. *pod_name*-0에게 이중화 SYNC를 요청한다.
-  
-  7. *pod_name*-0에서 *pod_name*-1로 이중화 SYNC를 수행하고 이중화를 시작한다.
-  
-  8. *pod_name*-1에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 *pod_name*-1과 관련된 이중화를 시작한다. 일반적인 경우 *pod_name*-0과 관련한 이중화(AKU_REP_01)만 *pod_name*-0 및 *pod_name*-1 파드에서 시작된다.
-  
-  9. *pod_name*-1의 Altibase 서버 프로퍼티 ADMIN_MODE를 0으로 설정하여 데이터베이스 사용자의 접속을 허용한다.
-  
-  10. /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
+  ① aku.conf 파일을 읽는다.
+  ② /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 `aku -p start` 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, `aku -p start` 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다.
+  ③ 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 *pod_name*-0과의 접속만 성공하고 *pod_name*-2, *pod_name*-3은 생성되지 않았기 때문에 접속에 실패한다.
+  ④ Altibase 이중화 객체를 생성한다. *pod_name*-1이 다시 시작된 파드라면, 같은 이름의 이중화 객체가 존재할 수 있으며 이 단계는 생략된다.
+  ⑤ *pod_name*-1의 이중화 대상 테이블을 대상으로 TRUNCATE를 수행한다.
+  ⑥ *pod_name*-0에게 이중화 SYNC를 요청한다.
+  ⑦ *pod_name*-0에서 *pod_name*-1로 이중화 SYNC를 수행하고 이중화를 시작한다.
+  ⑧ *pod_name*-1에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 *pod_name*-1과 관련된 이중화를 시작한다. 일반적인 경우 *pod_name*-0과 관련한 이중화(AKU_REP_01)만 *pod_name*-0 및 *pod_name*-1 파드에서 시작된다.
+  ⑨ *pod_name*-1의 Altibase 서버 프로퍼티 ADMIN_MODE를 0으로 설정하여 데이터베이스 사용자의 접속을 허용한다.
+  ⑩ /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
   
   > **이중화 정보가 초기화되지 않은 슬레이브 파드를 다시 시작할 때 (AKU_FLUSH_AT_START = 1, 기본 동작)** 
 
@@ -2071,21 +2057,14 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
   ![](media/Utilities/aku_p_start_aku_flush_at_start_1-bug-50832.png)
 
-  1. aku.conf 파일을 읽는다.
-  
-  2. /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 `aku -p start` 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, `aku -p start` 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다. 
-  
-  3. 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 *pod_name*-0과의 접속만 성공한다. 
-  
-  4. *pod_name*-1에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 *pod_name*-1과 관련된 이중화를 시작한다. 일반적인 경우 *pod_name*-0과 관련한 이중화(AKU_REP_01)만 *pod_name*-0 및 *pod_name*-1 파드에서 시작된다.
-  
-  5. *pod_name*-1에서 접속에 성공한 모든 파드와 관련된 이중화에 대해 ALTER REPLICATION ~ FLUSH ALL을 수행한다. 이 명령은 *pod_name*-1에서 다른 파드로 동기화하지 못한 데이터를 전송한다. 
-  
-  6. 접속된 다른 파드에서도 *pod_name*-1과 관련된 이중화에 대해 ALTER REPLICATION ~ FLUSH ALL을 수행하여 동기화되지 못한 데이터를 전송한다. 만약 aku 설정 파일에 AKU_FLUSH_TIMEOUT_AT_START 프로퍼티의 값이 0이 아니라면, ALTER_REPLICATION ~ FLUSH WAIT *wait_time*을 수행하여 *pod_name*-1로 동기화되지 못한 데이터를 전송한다. 
-  
-  7. *pod_name*-1의 Altibase 서버 프로퍼티 ADMIN_MODE를 0으로 설정하여 데이터베이스 사용자의 접속을 허용한다.
-  
-  8. /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
+  ① aku.conf 파일을 읽는다.
+  ② /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 `aku -p start` 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, `aku -p start` 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다. 
+  ③ 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 *pod_name*-0과의 접속만 성공한다. 
+  ④ *pod_name*-1에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 *pod_name*-1과 관련된 이중화를 시작한다. 일반적인 경우 *pod_name*-0과 관련한 이중화(AKU_REP_01)만 *pod_name*-0 및 *pod_name*-1 파드에서 시작된다.
+  ⑤ *pod_name*-1에서 접속에 성공한 모든 파드와 관련된 이중화에 대해 ALTER REPLICATION ~ FLUSH ALL을 수행한다. 이 명령은 *pod_name*-1에서 다른 파드로 동기화하지 못한 데이터를 전송한다. 
+  ⑥ 접속된 다른 파드에서도 *pod_name*-1과 관련된 이중화에 대해 ALTER REPLICATION ~ FLUSH ALL을 수행하여 동기화되지 못한 데이터를 전송한다. 만약 aku 설정 파일에 AKU_FLUSH_TIMEOUT_AT_START 프로퍼티의 값이 0이 아니라면, ALTER_REPLICATION ~ FLUSH WAIT *wait_time*을 수행하여 *pod_name*-1로 동기화되지 못한 데이터를 전송한다. 
+  ⑦ *pod_name*-1의 Altibase 서버 프로퍼티 ADMIN_MODE를 0으로 설정하여 데이터베이스 사용자의 접속을 허용한다.
+  ⑧ /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
 
   > **이중화 정보가 초기화되지 않은 슬레이브 파드를 다시 시작할 때 (AKU_FLUSH_AT_START = 0 일 때) **
 
@@ -2093,17 +2072,12 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
   ![](media/Utilities/aku_p_start_aku_flush_at_start_0-bug-50832.png)
 
-  1. aku.conf 파일을 읽는다.
-  
-  2. /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 `aku -p start` 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, `aku -p start` 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다. 
-  
-  3. 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 *pod_name*-0과의 접속만 성공한다.
-  
-  4. *pod_name*-1에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 *pod_name*-1과 관련된 이중화를 시작한다.  일반적인 경우 *pod_name*-0과 관련한 이중화(AKU_REP_01)만 *pod_name*-0 및 *pod_name*-1 파드에서 시작된다. 
-  
-  5. *pod_name*-1의 Altibase 서버 프로퍼티 ADMIN_MODE를 0으로 설정하여 데이터베이스 사용자의 접속을 허용한다. 
-  
-  6. /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
+  ① aku.conf 파일을 읽는다.
+  ② /tmp 디렉토리에 aku_start_completed 파일이 있는지 확인한다. 일반적인 경우 기존에 `aku -p start` 명령이 실행되지 않았으므로 이 파일은 존재하지 않는다. 만약 존재할 경우, `aku -p start` 명령을 중복으로 실행한 것으로 판단하여 오류 메시지를 출력하고 종료한다. 
+  ③ 이중화 대상 서버인 모든 파드에 접속을 시도한다. 일반적인 경우 *pod_name*-0과의 접속만 성공한다.
+  ④ *pod_name*-1에서 접속에 성공한 모든 파드와 관련된 이중화를 시작하고, 접속된 다른 파드에서 *pod_name*-1과 관련된 이중화를 시작한다.  일반적인 경우 *pod_name*-0과 관련한 이중화(AKU_REP_01)만 *pod_name*-0 및 *pod_name*-1 파드에서 시작된다. 
+  ⑤ *pod_name*-1의 Altibase 서버 프로퍼티 ADMIN_MODE를 0으로 설정하여 데이터베이스 사용자의 접속을 허용한다. 
+  ⑥ /tmp 디렉토리에 aku_start_completed 파일을 생성한다.
 
   
 
@@ -2113,17 +2087,12 @@ Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파�
 
 ![](media/Utilities/aku_p_end-bug-50832.png)
 
-1. aku.conf 파일을 읽는다.
-
-2. 해당 파드와 이중화로 연결된 모든 파드에 접속을 시도한다. 해당 번호보다 높은 번호의 파드는 일반적인 경우 이미 삭제된 상태이기 때문에 접속이 실패할 수 있다. 이는 정상적인 동작이다.
-
-3. 해당 파드의 이중화 객체에 ALTER REPLICATION replication_name FLUSH ALL 명령을 수행하여 변경 로그를 모두 전송한다. aku 설정 파일에서 AKU_FLUSH_AT_END 프로퍼티의 값이 0이라면 이 단계는 수행되지 않는다.
-
-4. 해당 파드의 이중화 객체와 관련한 모든 파드에 ALTER REPLICATION replication_name STOP 수행을 요청한다.
-
-5. 해당 파드의 이중화 객체와 관련한 모든 파드에 ALTER REPLICATION replication_name RESET 수행을 요청한다. aku 설정 파일에서 AKU_REPLICATION_RESET_AT_END 프로퍼티의 값이 0이라면 이 단계는 수행되지 않는다.
-
-6. /tmp 디렉토리에서 aku_start_completed 파일을 삭제한다.
+① aku.conf 파일을 읽는다.
+② 해당 파드와 이중화로 연결된 모든 파드에 접속을 시도한다. 해당 번호보다 높은 번호의 파드는 일반적인 경우 이미 삭제된 상태이기 때문에 접속이 실패할 수 있다. 이는 정상적인 동작이다.
+③ 해당 파드의 이중화 객체에 ALTER REPLICATION replication_name FLUSH ALL 명령을 수행하여 변경 로그를 모두 전송한다. aku 설정 파일에서 AKU_FLUSH_AT_END 프로퍼티의 값이 0이라면 이 단계는 수행되지 않는다.
+④ 해당 파드의 이중화 객체와 관련한 모든 파드에 ALTER REPLICATION replication_name STOP 수행을 요청한다.
+⑤ 해당 파드의 이중화 객체와 관련한 모든 파드에 ALTER REPLICATION replication_name RESET 수행을 요청한다. aku 설정 파일에서 AKU_REPLICATION_RESET_AT_END 프로퍼티의 값이 0이라면 이 단계는 수행되지 않는다.
+⑥ /tmp 디렉토리에서 aku_start_completed 파일을 삭제한다.
 
 #### **clean**
 
