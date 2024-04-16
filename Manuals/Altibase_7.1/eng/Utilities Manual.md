@@ -115,7 +115,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 - [3. aku](#3-aku)
   - [Introducing aku](#introducing-aku)
   - [Setup to run aku](#setup-to-run-aku)
-  - [Execution of aku](#execution-of-aku)
+  - [Usage of aku](#Usage-of-aku)
   - [Cautions](#cautions)
   - [Examples](#examples)
 - [4. Other Utilities](#4-other-utilities)
@@ -1938,22 +1938,21 @@ The following shows the detailed behavior of  `aku -p start` command.
 
 Since Altibase replication objects need to be created on all Pods, you should execute `aku -p start` command even if creating *pod_name*-0 in a StatefulSet.
 
-The followings explain the detailed behavior of  `aku -p start` command during creating *pod_name*-0 in a StatefulSet.
+The following explains the detailed behavior of  `aku -p start` command while creating *pod_name*-0 in a StatefulSet.
 
 ![](media/Utilities/aku_p_start_master_pod_bug-50832_en.png)
 
+1. Read "aku.conf" file.
 
-  1️⃣ Reads "aku.conf" file.
+2. Verify if the aku_started_completed file exists in /tmp directory. In the usual case, if the `aku -p start` command has not been executed previously, this file does not exist. If it exists, an error message is displayed and aku terminates the process because it is considered a duplicate execution of the `aku -p start` command.
 
-  2️⃣ Verify if the aku_started_completed file exists in /tmp directory. In the usual case, if the `aku -p start` command has not been executed previously, this file does not exist. If it exists, an error message is displayed and aku terminates the process because it is considered a duplicate execution of the `aku -p start` command.
+3. Connect to all pods that are the target servers for replication. Typically, as this is an initially created pod, connection attempts to other pods fail. This is the expected behavior.
 
-  3️⃣ Connect to all pods that are the target servers for replication. Typically, as this is an initially created pod, connection attempts to other pods fail, which is normal in this step. 
+4. Create the Altibase replication objects. If a replication object with the same name already exists, the replication creation step will be skipped.
 
-  4️⃣ Create the Altibase replication objects. If a replication object with the same name already exists, the replication creation step will be skipped.
+5. Start replication associated with all pods that successfully connect from *pod_name*-0, and start replication associated with *pod_name*-0 from other connected pods. Typically, as this is the initially created pod, there are no connected pods, so this action is not performed.
 
-  5️⃣ Start replication associated with all pods that successfully connect from *pod_name*-0, and start replication associated with *pod_name*-0 from other connected pods. Typically, as this is the initially created pod, there are no connected pods, so this action is not performed.
-
-  6️⃣ Creates a file named "aku_start_completed" in /tmp/ directory.
+6. Create a file named "aku_start_completed" in /tmp directory.
 
 ##### **Scale up**
 
@@ -1961,29 +1960,29 @@ When scaling up in a StatefulSet, a Slave Pod is created. A Pod can be created a
 
 > **When creating a Slave Pod for the first time, or restart (Default behavior, AKU_REPLICATION_RESET_AT_END =1)**
 
-The following explains the detailed processes of  `aku -p start` command on *pod_name*-1 when the Slave Pod is created for the first time and is restarted normally. 
+The following explains the detailed behavior of  `aku -p start` command on *pod_name*-1 when the Slave Pod is created for the first time and is restarted normally. 
 
 ![](media/Utilities/aku_p_start_slave_pod_bug-50832_en.png)
 
-1️⃣ Read "aku.conf" file.
+1. Read "aku.conf" file.
 
-2️⃣  Verify if the aku_started_completed file exists in /tmp directory. In the usual case, if the `aku -p start` command has not been executed previously, this file does not exist. If it exists, an error message is displayed and aku terminates the process because it is considered a duplicate execution of the `aku -p start` command.
+2. Verify if the aku_started_completed file exists in /tmp directory. In the usual case, if the `aku -p start` command has not been executed previously, this file does not exist. If it exists, an error message is displayed and aku terminates the process because it is considered a duplicate execution of the `aku -p start` command.
 
-3️⃣ Connect to all pods that are the target servers for replication. Typically, only the connection with *pod_name*-0 succeeds, and the connection to *pod_name*-2 or *pod_name*-3 fails because those pods are not created yet. 
+3. Connect to all pods that are the target servers for replication. Typically, only the connection with *pod_name*-0 succeeds, and the connection to *pod_name*-2 or *pod_name*-3 fails because those pods are not created yet. 
 
-4️⃣ Create the Altibase replication objects. If *pod_name*-1 is restarted pod, the replication object with the same name may exist and this step will be skipped.
+4. Create the Altibase replication objects. If *pod_name*-1 is restarted pod, the replication object with the same name may exist and this step will be skipped.
 
-5️⃣ Execute 'TRUNCATE table' on the replication target table in *pod_name*-1. 
+5. Execute 'TRUNCATE table' on the replication target table in *pod_name*-1. 
 
-6️⃣ Request *pod_name*-0(Master Pod) to perform replication synchronization. 
+6. Request *pod_name*-0(Master Pod) to perform replication synchronization. 
 
-7️⃣ Perform replication synchronization from *pod_name*-0 to *pod_name*-1 and starts the replication.
+7. Perform replication synchronization from *pod_name*-0 to *pod_name*-1 and starts the replication.
 
-8️⃣ Start replication associated with all pods that successfully connect from *pod_name*-1, and start replication associated with *pod_name*-1 from other connected pods. Typically, only AKU_REP_01, the replication related to *pod_name*-0, starts on *pod_name*-0 and *pod_name*-1. 
+8. Start replication associated with all pods that successfully connect from *pod_name*-1, and start replication associated with *pod_name*-1 from other connected pods. Typically, only AKU_REP_01, the replication related to *pod_name*-0, starts on *pod_name*-0 and *pod_name*-1. 
 
-9️⃣ Set the Altibase server property ADMIN_MODE to 0 on *pod_name*-1 to allow to access for database user. 
+9. Set the Altibase server property ADMIN_MODE to 0 on *pod_name*-1 to allow to access for database user. 
 
-🔟 Create a file named "aku_start_completed" in /tmp/ directory.
+10. Create a file named "aku_start_completed" in /tmp directory.
 
 ##### Restarting Slave Pods that Haven't Reset the Replication Information
 
@@ -1998,45 +1997,45 @@ If a Pod is abnormally terminated or terminated with the AKU_REPLICATION_RESET_A
 
 In this case, if the AKU_FLUSH_AT_START property sets to 1, data synchronization from itself to other nodes will be performed.
 
-Note that if the replication information is not reset and remains, the XSN of the replication object has a value other than -1. Refer to the Cautions- 3). 
+Note that if the replication information is not reset and remains, the XSN of the replication object has a value other than -1. Refer to the Cautions-4). 
 
 ![](media/Utilities/aku_p_start_aku_flush_at_start_1_bug-50832_en.png)
 
-1️⃣ Read "aku.conf" file.
+1. Read "aku.conf" file.
 
-2️⃣ Verify if the aku_started_completed file exists in /tmp directory. In the usual case, if the `aku -p start` command has not been executed previously, this file does not exist. If it exists, an error message is displayed and aku terminates the process because it is considered a duplicate execution of the `aku -p start` command.
+2. Verify if the aku_started_completed file exists in /tmp directory. In the usual case, if the `aku -p start` command has not been executed previously, this file does not exist. If it exists, an error message is displayed and aku terminates the process because it is considered a duplicate execution of the `aku -p start` command.
 
-3️⃣ Connect to all pods that are the target servers for replication. Typically, only the connection with *pod_name*-0 succeeds.
+3. Connect to all pods that are the target servers for replication. Typically, only the connection with *pod_name*-0 succeeds.
 
-4️⃣ Start replication associated with all pods that successfully connect from *pod_name*-1, and start replication associated with *pod_name*-1 from other connected pods. Typically, only AKU_REP_01, the replication related to *pod_name*-0, starts on *pod_name*-0 and *pod_name*-1.
+4. Start replication associated with all pods that successfully connect from *pod_name*-1, and start replication associated with *pod_name*-1 from other connected pods. Typically, only AKU_REP_01, the replication related to *pod_name*-0, starts on *pod_name*-0 and *pod_name*-1.
 
-5️⃣ Execute ALTER REPLICATION ~ FLUSH ALL command to the replications associated with all pods that successfully connect from *pod_name*-1. This command sends all unsynced data to other pods from *pod_name*-1.
+5. Execute ALTER REPLICATION ~ FLUSH ALL command to the replications associated with all pods that successfully connect from *pod_name*-1. This command sends all unsynchronized data to other pods from *pod_name*-1.
 
-6️⃣ On other connected pods, execute ALTER REPLICATION ~ FLUSH ALL command to replications related to *pod_name*-1 to send unsynced data. If AKU_FLUSH_TIMEOUT_AT_START is not set to 0, execute ALTER_REPLICATION ~ FLUSH WAIT *wait_time*. 
+6. On other connected pods, execute ALTER REPLICATION ~ FLUSH ALL command to replications related to *pod_name*-1 to send unsynchronized data. If AKU_FLUSH_TIMEOUT_AT_START is not set to 0, execute ALTER_REPLICATION ~ FLUSH WAIT *wait_time*. 
 
-7️⃣ Sets the Altibase server property ADMIN_MODE to 0 on *pod_name*-1 to allow to access for database user. 
+7. Set the Altibase server property ADMIN_MODE to 0 on *pod_name*-1 to allow to access for database user. 
 
-8️⃣ Creates a file named "aku_start_completed" in /tmp/ directory.
+8. Create a file named "aku_start_completed" in /tmp directory.
 
 
 
 > **Case of restarting  a Slave Pod that hasn't reset the replication information (AKU_FLUSH_AT_START = 0)** 
 
-The following explanation describes the behavior of aku when executing `aku -p start` on a Slave Pod that hasn't reset the replication information, with the property AKU_FLUSH_AT_START set to 0.
+The following explanation describes the behavior of aku when executing `aku -p start` on a Slave Pod that has not reset the replication information, with the property AKU_FLUSH_AT_START set to 0.
 
 ![](media/Utilities/aku_p_start_aku_flush_at_start_0_bug-50832_en.png)
 
-1️⃣ Read "aku.conf" file.
+1. Read "aku.conf" file.
 
-2️⃣ Verify if the aku_started_completed file exists in /tmp directory. In the usual case, if the `aku -p start` command has not been executed previously, this file does not exist. If it exists, an error message is displayed and aku terminates the process because it is considered a duplicate execution of the `aku -p start` command.
+2. Verify if the aku_started_completed file exists in /tmp directory. In the usual case, if the `aku -p start` command has not been executed previously, this file does not exist. If it exists, an error message is displayed and aku terminates the process because it is considered a duplicate execution of the `aku -p start` command.
 
-3️⃣ Connect to all pods that are the target servers for replication. Typically, only the connection with *pod_name*-0 succeeds.
+3. Connect to all pods that are the target servers for replication. Typically, only the connection with *pod_name*-0 succeeds.
 
-4️⃣ Start replication associated with all pods that successfully connect from *pod_name*-1, and start replication associated with *pod_name*-1 from other connected pods. Typically, only AKU_REP_01, the replication related to *pod_name*-0, starts on *pod_name*-0 and *pod_name*-1.
+4. Start replication associated with all pods that successfully connect from *pod_name*-1, and start replication associated with *pod_name*-1 from other connected pods. Typically, only AKU_REP_01, the replication related to *pod_name*-0, starts on *pod_name*-0 and *pod_name*-1.
 
-5️⃣  Sets the Altibase server property ADMIN_MODE to 0 on *pod_name*-1 to allow to access for database user. 
+5. Set the Altibase server property ADMIN_MODE to 0 on *pod_name*-1 to allow to access for database user. 
 
-6️⃣ Creates a file named "aku_start_completed" in /tmp/ directory.
+6. Create a file named "aku_start_completed" in /tmp directory.
 
 
 
@@ -2046,17 +2045,19 @@ The command should be used when terminating Pods. It performs to stop Altibase r
 
 ![](media/Utilities/aku_p_end_bug-50832_en.png)
 
-1️⃣ Connect to all Pods, which are connected with the current Pod. Since Pods are terminated sequentially, connection errors can occur when attempting to connect to already deleted Pods. This is an expected result.
+1. Read "aku.conf" file.
 
-2️⃣ Sends the replication change logs to the replication objects of current Pod by executing 'ALTER REPLICATION *replication_name* FLUSH ALL'. If the AKU_FLUSH_TIMEOUT_AT_START property is set to 0, this step is skipped.
+2. Connect to all Pods, which are connected with the current Pod. Since Pods are terminated sequentially, connection errors can occur when attempting to connect to already deleted Pods. This is the expected behavior.
 
-3️⃣ Requests to perform "ALTER REPLICATION *replication_name* STOP" on all Pods related to current Pod.
+3. Send the replication change logs to the replication objects of current Pod by executing 'ALTER REPLICATION *replication_name* FLUSH ALL'. If the AKU_FLUSH_TIMEOUT_AT_START property is set to 0, this step is skipped.
 
-4️⃣ Requests to perform "ALTER REPLICATION *replication_name* RESET" on all Pods related to current Pod. If the AKU_REPLICATION_RESET_AT_END property is set to 0, this step is skipped.
+4. Request to perform "ALTER REPLICATION *replication_name* STOP" on all Pods related to current Pod.
 
-> ⚠️ `aku -p end` command should be performed before stopping the Altibase server.
+5. Request to perform "ALTER REPLICATION *replication_name* RESET" on all Pods related to current Pod. If the AKU_REPLICATION_RESET_AT_END property is set to 0, this step is skipped.
 
-5️⃣ Deletes the "aku_start_completed" file in the tmp directory.
+   > ⚠️ `aku -p end` command should be performed before stopping the Altibase server.
+
+6. Delete the "aku_start_completed" file in the /tmp directory.
 
 #### **aku -p clean**
 
