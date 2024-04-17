@@ -796,7 +796,7 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     
 -   ILOADER_OUT  
     ILOADER_OUT = *run_il_out.sh*  
-    원 데이터베이스에서 데이터를 추출하기 위해 생성되는 쉘 스크립트 파일명을 설정한다. OPERATION 프로퍼티를 OUT으로 설정할 경우에 사용된다.
+    원본 데이터베이스에서 데이터를 추출하기 위해 생성되는 쉘 스크립트 파일명을 설정한다. OPERATION 프로퍼티를 OUT으로 설정할 경우에 사용된다.
     
 -   ILOADER_IN  
     ILOADER_IN = *run_il_in.sh*  
@@ -848,11 +848,11 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     > 주의: 프로퍼티 파일 내에서 \# 문자를 구분자로 사용할 경우, \# 이하를 주석으로 처리하기 때문에, \#는 구분자로 사용할 수 없다.
     
 -   ILOADER_PARTITION  
-    이 프로퍼티는 파티션 생성을 위한 SQL 스크립트와 쉘 스크립트를 만들 것인지를
-    결정한다.  
-    ILOADER\_ PARTITION = ON/OFF  
-    이 값이 ON일 경우, 파티션들의 데이터를 추출하는 스크립트, 파티션드 테이블과 그 테이블의 파티션들을 생성하는 스크립트, 그리고 각 파티션으로 데이터를 입력하는 스크립트를 생성한다. 즉, 원본 데이터베이스의 테이블 파티션의 데이터를 대상 데이터베이스의 상응하는 파티션드 테이블의 파티션에 입력하게 된다.  
-    이 값이 OFF일 경우, 원본 데이터베이스에서 파티션드 테이블이라 하더라도 대상 데이터베이스에 non-partitioned 테이블을 생성하는 스크립트를 작성하고, 원본 데이터베이스의 파티션드 테이블의 모든 파티션의 데이터를 대상 데이터베이스의 non-partitioned 테이블에 입력한다.  
+    이 프로퍼티는 원본 데이터베이스에 파티션 테이블이 있을 경우, 파티션 별로 iLoader 스크립트 구문을 생성할 것인지를 결정한다.  
+    ILOADER\_PARTITION = ON/OFF  
+    
+    이 값이 ON일 경우, run_il_out.sh가 생성될 때 각 파티션마다 form 파일과 데이터를 추출하는 구문이 생성된다. run_il_in.sh에도 파티션 별로 데이터를 로드하는 구문이 생성된다. 
+    이 값이 OFF일 경우, 파티션드 테이블도 넌파티션드 테이블과 동일하게 하나의 데이터 파일을 이용하여 추출·입력하는 스크립트를 생성한다.
     ILOADER 관련 프로퍼티에 대한 더 자세한 설명은 *iLoader User’s Manual* 을 참고하기 바란다.
     
 -   ILOADER_ERRORS  
