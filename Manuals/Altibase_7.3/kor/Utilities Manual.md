@@ -824,7 +824,7 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     
 -   ILOADER_OUT  
     ILOADER_OUT = *run_il_out.sh*  
-    원 데이터베이스에서 데이터를 추출하기 위해 생성되는 쉘 스크립트 파일명을 설정한다. OPERATION 프로퍼티를 OUT으로 설정할 경우에 사용된다.
+    원본 데이터베이스에서 데이터를 추출하기 위해 생성되는 쉘 스크립트 파일명을 설정한다. OPERATION 프로퍼티를 OUT으로 설정할 경우에 사용된다.
     
 -   ILOADER_IN  
     ILOADER_IN = *run_il_in.sh*  
