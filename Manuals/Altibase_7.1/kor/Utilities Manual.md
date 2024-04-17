@@ -852,7 +852,7 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     ILOADER\_PARTITION = ON/OFF  
     
     이 값이 ON일 경우, run_il_out.sh에 각 파티션마다 form 파일과 데이터를 추출하는 스크립트가 생성된다. run_il_in.sh에도 파티션 별로 데이터를 로드하는 스크립트가 생성된다. 
-    이 값이 OFF일 경우, 파티션드 테이블도 넌파티션드 테이블과 동일하게 하나의 데이터 파일을 이용하여 추출·입력하는 스크립트를 생성한다.
+    이 값이 OFF일 경우, 파티션드 테이블을 처리하는 스크립트도 넌파티션드 테이블과 동일하게 하나의 데이터 파일을 이용하여 추출·입력하도록 생성된다.
     ILOADER 관련 프로퍼티에 대한 더 자세한 설명은 *iLoader User’s Manual* 을 참고하기 바란다.
     
 -   ILOADER_ERRORS  
