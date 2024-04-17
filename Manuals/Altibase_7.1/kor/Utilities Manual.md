@@ -848,7 +848,7 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
     > 주의: 프로퍼티 파일 내에서 \# 문자를 구분자로 사용할 경우, \# 이하를 주석으로 처리하기 때문에, \#는 구분자로 사용할 수 없다.
     
 -   ILOADER_PARTITION  
-    이 프로퍼티는 원본 데이터베이스에 파티션 테이블이 있을 경우, 파티션 별로 iLoader 스크립트 구문을 생성할 것인지를 결정한다.  
+    이 프로퍼티는 원본 데이터베이스에 파티션 테이블이 있을 경우, iLoader 스크립트를 파티션 별로 생성할 것인지 결정한다.  
     ILOADER\_PARTITION = ON/OFF  
     
     이 값이 ON일 경우, run_il_out.sh에 각 파티션마다 form 파일과 데이터를 추출하는 스크립트가 생성된다. run_il_in.sh에도 파티션 별로 데이터를 로드하는 스크립트가 생성된다. 
