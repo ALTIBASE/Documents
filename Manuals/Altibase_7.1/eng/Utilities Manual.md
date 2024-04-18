@@ -1841,6 +1841,8 @@ To ensure stable usage of aku in a Kubernetes environment, the following conditi
 
 Users can specify the tables to be managed in replication in the aku configuration file. To specify replication tables, users need to add table information to the replication property section in the format [user name].[table name].
 
+Each replication table is separated by a comma, and more than one replication table can be written on a single line.
+
 Here's an example of configuring tables *T1* to *T9* to be split and managed across three replications.
 
 ```bash
@@ -2069,7 +2071,7 @@ This command deletes all Altibase replication objects on the pods and the "aku_s
 
 ### 1) aku.conf
 
-* Every aku property which does not have its default value must be specified. If not, the "Property [property_name] should be specified by configuration." error occurs.
+* Every aku property which does not have its default value must be specified. If not, the "Property [*property_name*] should be specified by configuration." error occurs.
 * Use # symbol to write a comment in the "aku.conf" file. Note that if there is no letter after # symbol, it causes the syntax error.
 
 ### 2) Storage corruption in Master Pod
@@ -2217,7 +2219,7 @@ AKU started with START option.
 # MASTER Pod indicates the first pod. 
 [AKU][2024/03/18 12:34:58.136944][140708807235840] [INFO][akuRunStart:828][-][-] Start as MASTER Pod.
 
-# After the remaining procedures are successfully completed, aku terminates. 
+# After all procedures are successfully completed, aku is terminated. 
 AKU run successfully.
 ~~~
 
@@ -2254,7 +2256,7 @@ The Description of the output is as below.
 [AKU][2024/03/18 14:02:01.025877][140678415444224] [INFO][akuRunStart:975][-][-] Sync tables from MASTER Server.
 [AKU][2024/03/18 14:02:05.045135][140678415444224] [INFO][akuRunStart:980][-][-] Replication sync has ended.
 
-# After the remaining procedures are successfully completed, aku terminates.
+# After all procedures are successfully completed, aku is terminated. 
 AKU run successfully.
 ~~~
 
@@ -2290,6 +2292,9 @@ AKU started with END option.
 # Reset all replication objects created on the aku of the local pod.
 [AKU][2024/03/18 14:02:52.001848][139626938108160] [INFO][akuRunEnd:1114][-][-] Reset replications.
 [AKU][2024/03/18 14:02:52.014300][139626938108160] [INFO][akuRunEnd:1119][-][-] Replication reset has ended.
+
+# After all procedures are successfully completed, aku is terminated. 
+AKU run successfully.
 ```
 
 
