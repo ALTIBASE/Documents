@@ -183,7 +183,7 @@ This manual is organized as follows:
 -   Chapter 5: CheckServer API  
     This chapter introduces the Altibase CheckServer API, which is an application programming interface for creating applications that use function calls to monitor whether the Altibase server has terminated abnormally.
     
-- Chapter 6: .NET Data Provider
+- Chapter 6: Altibase ADO.NET
 
   This chapter introduces Altibase ADO.NET, a driver that enables access to the Altibase server from .NET Core-based application, and ADO.NET APIs implemented in Altibase ADO.NET.
 

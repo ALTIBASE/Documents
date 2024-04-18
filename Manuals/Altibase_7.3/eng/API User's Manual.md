@@ -131,8 +131,13 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Using the CheckServer API](#using-the-checkserver-api)
   - [CheckServer API Data Structure](#checkserver-api-data-structure)
   - [CheckServer API](#checkserver-api)
-- [6..NET Data Provider](#6net-data-provider)
-    - [Altibase ADO.NET](#altibase-adonet)
+- [6.Altibase ADO.NET](#6altibase-adonet)
+  - [Altibase ADO.NET Overview](#altibase-adonet-overview)
+  - [Using the Altibase ADO.NET](#Using-the-Altibase-ADONET)
+  - [Altibase ADO.NET API](#Altibase-ADONET-API)
+  - [Altibase ADO.NET Data Types](#Altibase-ADONET-Data-Types)
+  - [Altibase ADO.NET Examples](#Altibase-ADONET-Examples)
+  
 
 
 
@@ -179,9 +184,9 @@ This manual is organized as follows:
 -   Chapter 5: The CheckServer API  
     This chapter introduces the Altibase CheckServer API, which is an application programming interface for creating applications that use function calls to monitor whether the Altibase server has terminated abnormally.
     
-- Chapter 6: .NET Data Provider
+- Chapter 6: Altibase ADO.NET
 
-  This chapter introduces Altibase ADO.NET, a driver that enables access to the Altibase server from .NET Core-based applications.
+  This chapter introduces Altibase ADO.NET, a driver that enables access to the Altibase server from .NET Core-based application, and ADO.NET APIs implemented in Altibase ADO.NET.
 
 ### Documentation Conventions
 
@@ -3060,20 +3065,16 @@ Refer to altibase_check_server.
 
 
 
-# 6..NET Data Provider
+# 6.Altibase ADO.NET
 
-## Altibase ADO.NET
-
-### Altibase ADO.NET Introduction
-
-#### Overview
+## Altibase ADO.NET Overview
 
 Altibase ADO.NET is a driver that enables access to the Altibase server from applications based on .NET core. With this driver, users can use Microsoft's ADO.NET API with Altibase. .NET Core developers can utilize ADO.NET to access data sources such as DBMS, execute commands, retrieve data, manipulate results, and reflect the results to the data sources again.
 
 
 For more detailed information about Microsoft's ADO.NET, please refer to [.NET documentation](https://learn.microsoft.com/en-us/dotnet/).
 
-#### Requirements
+### Requirements
 
 - Altibase CLI Library
 
@@ -3082,11 +3083,11 @@ For more detailed information about Microsoft's ADO.NET, please refer to [.NET d
   - Linux x86-64  : libdotnet_sl.so
   - Windows x64 : dotnet_sl.dll
 
-- Altibase 7.1.0.8.3 and above
+- Altibase 7.3.0.0.5 and above
 
 - .NET Core 3.1
 
-#### Supported OS
+### Supported OS
 
 Altibase ADO.NET supports operating systems that are supported by both Altibase 7.1 clients and .NET Core 3.1.
 
@@ -3097,15 +3098,15 @@ If Altibase ADO.NET NuGet package does not include the CLI library for the desir
 
 
 
-###  How to Use Altibase ADO.NET 
+##  How to Use Altibase ADO.NET 
 
 This section describes how to Altibase ADO.NET for NET Core developers.
 
-#### Download Altibase ADO.NET
+### Download Altibase ADO.NET
 
 Users can download Altibase.Data.AltibaseClient.nupkg [here](https://www.nuget.org/packages/Altibase.Data.AltibaseClient).
 
-#### Compile .NET Core Application Program
+### Compile .NET Core Application Program
 
 There are two methods to compile the application program with Altibase ADO.NET.
 
@@ -3163,7 +3164,7 @@ This is how to register Altibase ADO.NET with IDE(Integrated Development Environ
 
 
 
-#### Declare Using Altibase ADO.NET
+### Declare Using Altibase ADO.NET
 
 To use Altibase ADO.NET classes in the .NET Core-based application, users need to declare as follows:
 
@@ -3173,11 +3174,11 @@ using Altibase.Data.AltibaseClient;
 
 
 
-#### Connection Setting
+### Connection Setting
 
 This section describes how to connect to the Altibase server from the .NET core application program.
 
-##### Using the Connection URL
+#### Using the Connection URL
 
 The connection string to access the Altibase server is as follows: 
 
@@ -3185,7 +3186,7 @@ The connection string to access the Altibase server is as follows:
 Server=127.0.0.1;PORT=20300;User=sys;Password=manager;connection_properties=value;...
 ~~~
 
-##### Setting Connection Properties
+#### Setting Connection Properties
 
 This section describes additional connection properties that can be used in the connection string besides the default connection properties mentioned above. The following items are included in the description of each property:
 
@@ -3199,7 +3200,7 @@ This section describes additional connection properties that can be used in the 
   - N/A : This property setting only affects the process of connecting to the Altibase server.
 - Description: The description of the property.
 
-###### application name
+##### application name
 
 - Default Value : .NET Altibase Data Provider
 - Range : A random string
@@ -3207,7 +3208,7 @@ This section describes additional connection properties that can be used in the 
 - Setting Range : Session
 - Description : This indicates the information of the application of the session. This value can be outputted CLIENT_APP_INFO column of V$SESSION.
 
-###### connection life time
+##### connection life time
 
 - Default Value : 0
 - Range : [0 ~ 2<sup>31</sup>(2147483648)]
@@ -3217,7 +3218,7 @@ This section describes additional connection properties that can be used in the 
   This setting determines whether to remove the connection from the connection pool if it has not been used for the specified amount of time. The unit for this property is seconds (sec). 
   If the value of this property is set to 0, the connection will not be removed. If it is not 0, the connection will be removed from the connection pool if it remains unused for the specified value.
 
-###### connection timeout
+##### connection timeout
 
 - Default Value : 15
 
@@ -3232,7 +3233,7 @@ This section describes additional connection properties that can be used in the 
   This sets the wait time for connecting to the Altibase server. The unit for this property is seconds (sec).
   A value of 0 means waiting indefinitely until the connection is established, while a non-zero value indicates that the connection attempt will fail if it is not established within the specified value.
 
-###### data source
+##### data source
 
 - Default Value : See description
 - Range : A random string
@@ -3244,7 +3245,7 @@ This section describes additional connection properties that can be used in the 
   - If the value of the connection property `server` does not exist and the original ODBC data which has the same value as the data source exists, the DSN(data source name) of the original ODBC data will be used.
   - If both the value of the connection property `server` and the original ODBC data which has the same value as the data source do not exist, this will use the server's IP or hostname.
 
-###### encoding
+##### encoding
 
 - Default Value : N/A
 - Range :  [Supported Database Character Sets](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Getting%20Started%20Guide.md#supported-database-character-sets)
@@ -3252,7 +3253,7 @@ This section describes additional connection properties that can be used in the 
 - Setting Range : Session
 - Description : This configures the character sets of the client.
 
-###### enlist 
+##### enlist 
 
 - Default Value :  true
 - Range : [true | false]
@@ -3260,7 +3261,7 @@ This section describes additional connection properties that can be used in the 
 - Setting Range : Session
 - Description : This property configures implicit transaction handling. When set to true, transactions participate implicitly. When set to false, transactions participate explicitly.
 
-###### max pool size
+##### max pool size
 
 - Default Value : 100
 - Range : [0 ~ 2<sup>31</sup>(2147483648)]
@@ -3268,7 +3269,7 @@ This section describes additional connection properties that can be used in the 
 - Setting Range : N/A
 - Description : This property sets the maximum number of connections in the connection pool for a specific connection string.
 
-###### min pool size 
+##### min pool size 
 
 - Default Value : 0
 - Range : [0 ~ 2<sup>31</sup>(2147483648)]
@@ -3276,7 +3277,7 @@ This section describes additional connection properties that can be used in the 
 - Setting Range : N/A
 - Description : This property sets the minimum number of connections in the connection pool for a specific connection string. When the connection pool is initially created, this setting determines the number of connections that are generated. 
 
-###### nchar literal replace
+##### nchar literal replace
 
 - Default Value : false
 - Range : [true | false]
@@ -3284,7 +3285,7 @@ This section describes additional connection properties that can be used in the 
 - Setting Range : Session
 - Description : This setting determines whether constant strings with national character sets are used in queries. "true" indicates that constant strings with national character sets are used, while "false" indicates that they are not used.
 
-###### password
+##### password
 
 - Default Value : N/A
 - Range : Database user password
@@ -3292,7 +3293,7 @@ This section describes additional connection properties that can be used in the 
 - Setting Range : N/A
 - Description : This property holds the password associated with the database user connecting to the Altibase server.
 
-###### persist security info 
+##### persist security info 
 
 - Default Value :  false
 - Range : [true | false]
@@ -3300,7 +3301,7 @@ This section describes additional connection properties that can be used in the 
 - Setting Range : N/A
 - Description : This setting determines whether to include the password when retrieving strings from the connection information. "true" includes the password, while "false" does not.
 
-###### pooling
+##### pooling
 
 - Default Value :  true
 - Range : [true | false]
@@ -3308,7 +3309,7 @@ This section describes additional connection properties that can be used in the 
 - Setting Range : N/A
 - Description : This setting determines whether to enable connection pooling or not. "true" uses the connection pooling, while "false" does not.
 
-###### port 
+##### port 
 
 - Default Value :  20300
 - Range : [0~65535]
@@ -3316,7 +3317,7 @@ This section describes additional connection properties that can be used in the 
 - Setting Range : N/A
 - Description : This property holds the service port number of the Altibase server.
 
-###### prefer ipv6 
+##### prefer ipv6 
 
 - Default Value :  false
 - Range : [true | false]
@@ -3324,7 +3325,7 @@ This section describes additional connection properties that can be used in the 
 - Setting Range : N/A
 - Description : When users enter the hostname into the connection property `server`, the hostname will be converted into IPv4 or IPv6 address following this value. If this value is set to "true", the hostname will be converted into IPv6 address. If this value is set to "false", the hostname will be converted into IPv4 address.
 
-###### server
+##### server
 
 - Default Value :  localhost
 - Range : A random string
@@ -3332,7 +3333,7 @@ This section describes additional connection properties that can be used in the 
 - Setting Range : N/A
 - Description : This property holds the IP address or the hostname of the Altibase server.
 
-###### transaction timeout
+##### transaction timeout
 
 - Default Value : Setting value of the server
 - Range :  [0 ~ 2<sup>31</sup>(2147483648)]
@@ -3340,7 +3341,7 @@ This section describes additional connection properties that can be used in the 
 - Setting Range : Session
 - Description : This setting limits the execution time of transactions performing change operations (UPDATE, INSERT, DELETE). The unit is in seconds (sec). A value of 0 means there is no limit on the execution time of change transactions. If the execution time of a change transaction exceeds the configured value (which is not 0), the session connection is terminated, and the transaction is rolled back.
 
-###### user id *or* uid
+##### user id *or* uid
 
 - Default Value :  N/A
 - Range : A random string
@@ -3350,41 +3351,41 @@ This section describes additional connection properties that can be used in the 
 
 
 
-#### Connection Pooling
+### Connection Pooling
 
 The process of an application connecting to a database server involves multiple steps and can take a considerable amount of time, potentially being repeated many times. To minimize the number of connections opened and closed, ADO.NET provides connection pooling.
 
 Connection pooling maintains ownership of connections. When a connection request is received, the pool checks if an available connection exists and either assigns it or creates a new connection in the connection pool for allocation. When a connection is closed, it is returned to the connection pool rather than being immediately released.
 
-##### Creating Connection Pools
+#### Creating Connection Pools
 
 When a connection is first opened, a connection pool is created based on a matching algorithm that matches the connection string to the existing connection pools. If the connection string does not exactly match an existing connection pool, a new connection pool is created. Differences in connection properties of the connection string, including case and whitespace, result in different pools being recognized. If the connection string does not set the `min pool size` property to a non-zero value, no automatic connection pools are created (the default is 0).
 
-##### Connection Allocation and Addition
+#### Connection Allocation and Addition
 
 When a connection request is received, the pool checks the matching connection pool for an available connection. If no matching pool is found, a new one is created. Connections can be created up to the value set by the `max pool size` property. When the number of created connections exceeds the `max pool size`, this operation waits until a connection removed from the connection pool occurs due to exceeding the connection property `connection life time`.
 
 Connections that encounter exceptions are automatically removed, and explicitly closing a connection does not remove connections but returns the connections to the connection pool.
 
-##### Connection Removal
+#### Connection Removal
 
 If connections are not explicitly closed or removed by the application, the connection pooler periodically inspects the pools and removes connections not used within the specified time set by the `connection life time` property, maintaining at least the minimum number of connections set by the `min pool size` property. Exception-handling connections are also removed.
 
-##### Clearing Connection Pools
+#### Clearing Connection Pools
 
 The AltibaseConnection class provides methods for clearing pools: ClearPool and ClearAllPools. ClearPool removes a specified connection pool, while ClearAllPools removes all connection pools.
 
-##### Constraints
+#### Constraints
 
 The number of created connections cannot exceed the Altibase server property [MAX_CLIENT](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#max_client), so when configuring the `max pool size` and `min pool size` properties, MAX_CLIENT should be taken into account.
 
 
 
-#### Transaction Processing
+### Transaction Processing
 
 In Altibase ADO.NET, a transaction is processed by using AltibaseTransaction object or CommittableTransaction object.
 
-##### AltibaseTransaction Object
+#### AltibaseTransaction Object
 
 AltibaseTransaction gains the transaction object through AltibaseConnection.BeginTransaction() method as below.
 
@@ -3405,23 +3406,23 @@ AltibaseCommand sCmd = sConn.CreateCommand();
 sTrans.Commit();
 ~~~
 
-##### CommitableTransaction Object
+#### CommitableTransaction Object
 
 The CommitableTransaction object can participate in transactions implicitly or explicitly. In Altibase ADO.NET, to participate implicitly in transactions, either do not set the `enlist` connection property in the connection string or set it to `enlist=true`. For explicit participation, set the `enlist` connection property to `enlist=false` in the connection string.
 
-##### Distributed Transaction
+#### Distributed Transaction
 
 Altibase ADO.NET allows explicit participation in distributed transactions through the AltibaseConnection.EnlistDistributedTransaction method. However, since distributed transactions are not supported in .NET Core 3.1, Altibase ADO.NET only supports local transactions.
 
 
 
-#### Array Binding
+### Array Binding
 
 Altibase ADO.NET supports "Array Binding", which means that the parameter binding for data in array format is possible. This allows processing multiple rows with fewer network costs compared to regular binding, resulting in improved performance.
 
 The steps of array binding are as follows:
 
-1️⃣ 바인드하려는 변수들을 모두 배열로 잡는다. @국문리뷰에 따라 수정
+1️⃣ Declare all the variables desired to bind as an array.
 
 The size of the array must be greater than or equal to the value of the `ArrayBindCount` property of the AltibaseCommand class.
 
@@ -3435,7 +3436,7 @@ Example) To input 100 elements at once, set `ArrayBindCount = 100;`
 
 4️⃣ Execute the query.
 
-##### Cautions
+#### Cautions
 
 When performing array binding, the following points should be noted:
 
@@ -3457,13 +3458,13 @@ When performing array binding, the following points should be noted:
 
 - For CLOB, BYTE, NIBBLE, BIT, VARBIT, and GEOMETRY types, array binding is not supported.
 
-##### Constraints
+#### Constraints
 
 Array binding supports only input parameters. Output or input/output parameters are not supported.
 
 
 
-#### Database Schema Information Search
+### Database Schema Information Search
 
 GetSchema() method allows querying Altibase's meta tables in addition to common schemas such as MetadataCollections, DataSourceInformation, DataTypes, Restrictions, and ReservedWords.
 
@@ -3490,13 +3491,13 @@ Please refer to the following manuals for more information about database schema
 
 
 
-### Altibase ADO.NET Interface
+## Altibase ADO.NET Interface
 
 This section describes the prominent classes implemented within Altibase ADO.NET's API, along with their constraints and unsupported APIs.
 
-#### Supported Interfaces
+### Supported Interfaces
 
-##### Establish Connection, Execute Query, and Retrieve Result
+#### Establish Connection, Execute Query, and Retrieve Result
 
 Altibase ADO.NET provides functionalities for establishing connections to Altibase servers, executing queries, and retrieving results. These functionalities are based on the following four classes. The sub-method functionalities of each class can be referred to in Microsoft's [.NET Core 3.1 API documentation](https://learn.microsoft.com/en-us/dotnet/api/?view=netcore-3.1).
 
@@ -3507,7 +3508,7 @@ Altibase ADO.NET provides functionalities for establishing connections to Altiba
 | AltibaseDataReader  | Retrieve and output the results of commands executed on the Altibase server. |
 | AltibaseDataAdapter | Fill a DataSet with data and update the data stored in the database. |
 
-##### Handling Exceptions and Executing Transactions
+#### Handling Exceptions and Executing Transactions
 
 Altibase ADO.NET provides the following classes to handle exceptions, execute stored procedures, and process transactions, etc.
 
@@ -3517,7 +3518,7 @@ Altibase ADO.NET provides the following classes to handle exceptions, execute st
 | AltibaseParameter   | Define the input/output parameters of SQL commands or stored procedures. |
 | AltibaseTransaction | Perform transaction-related commands in the database.        |
 
-##### Basic Implementation
+#### Basic Implementation
 
 The following is a list of APIs that inherit the basic implementation from ADO.NET classes.
 
@@ -3531,7 +3532,7 @@ The following is a list of APIs that inherit the basic implementation from ADO.N
 |                   |                        | Property | VisibleFieldCount             |
 | DbDataAdapter     | AltibaseDataAdapter    | Method   | GetBatchedRecordsAffected     |
 
-##### Cautions for Supported Interfaces
+#### Cautions for Supported Interfaces
 
 - ColumnName is a case-sensitive attribute when it is used in DataReader, CommandBuilder, etc. 
 
@@ -3543,7 +3544,7 @@ The following is a list of APIs that inherit the basic implementation from ADO.N
 
 - Altibase ADO.NET does not support the execution of multiple queries. To execute multiple queries at once, users should use stored procedures.
 
-#### Unsupported Interfaces
+### Unsupported Interfaces
 
 Below is a list of interfaces not supported by Altibase ADO.NET. Using unsupported interfaces will result in a NotImplementedException error.
 
@@ -3570,7 +3571,7 @@ Below is a list of interfaces not supported by Altibase ADO.NET. Using unsupport
 | DbParameter            | AltibaseParameter           | Method   | ResetDbType                    |                     |
 | DbParameterCollection  | AltibaseParameterCollection | Method   | AddRange                       |                     |
 
-### Altibase ADO.NET Data Types
+## Altibase ADO.NET Data Types
 
 The AltibaseDbType class is used to declare the data types of table columns or parameters.
 
@@ -3603,9 +3604,9 @@ Users can find the AltibaseDbType Class and Altibase server data types correspon
 > [!TIP] 
 > To use constant strings containing national characters in queries, simply prefix the string with 'N'.
 
-### Altibase ADO.NET Examples
+## Altibase ADO.NET Examples
 
-#### DDL and DML Statements
+### DDL and DML Statements
 
 Access ALTIBASE HDB, create the *test_goods* table, insert data, and then perform SELECT using the AltiabseConnection class.
 
@@ -3680,7 +3681,7 @@ A111100002 IM-310   DD0001   100   98000
 B111100001 NT-H5000 AC0002   780   35800
 ```
 
-#### Bulk Copy
+### Bulk Copy
 
 Copy data from the *bulkcopy_source* table to the *bulkcopy_destination* table using AltibaseBulkCopy.
 
@@ -3757,7 +3758,7 @@ class Program
 }
 ```
 
-#### Connection Pooling
+### Connection Pooling
 
 The example of using connection pooling in ADO.NET is as below.
 
@@ -3791,7 +3792,7 @@ static void Main(string[] sArgs)
 }
 ```
 
-#### Array Binding
+### Array Binding
 
 ~~~c#
 using System;
