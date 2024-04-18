@@ -155,7 +155,7 @@ This manual is organized as follows:
     This chapter describes the software requirements and installation method for using SSL in Altibase.
     
 -   Chapter 3: Managing SSL Connections  
-    This chapter describes the management methods, such as monitoring when using the SSL function, and enhancing communication security for users.
+    This chapter describes the management methods, such as monitoring when using SSL function, and enhancing communication security for users.
     
 -   Appendix A: Altibase SSL Sample
 

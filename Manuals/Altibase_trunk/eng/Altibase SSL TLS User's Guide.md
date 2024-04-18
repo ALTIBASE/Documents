@@ -153,7 +153,7 @@ This manual is organized as follows:
     This chapter describes the software requirements and installation method for using SSL in Altibase.
     
 -   Chapter 3: Managing SSL Connections  
-    This chapter describes the management methods, such as monitoring when using the SSL function, and enhancing communication security for users.
+    This chapter describes the management methods, such as monitoring when using SSL function, and enhancing communication security for users.
     
 -   Appendix A: Altibase SSL Sample
 
@@ -583,7 +583,7 @@ SSL connection properties are located in $ALTIBASE_HOME/conf/altibase.properties
 | ---------- | ------------------------------------------------------------ | ----------------- | ------------- |
 | SSL_CA     | Specifies the file path to store CA certificates to certify the ownership of received certificates. CA certificates can exist in a user-specific file path or a X.509 structured directory. <br/>Ex) SSL_CA= /cert/ ca-cert.pem. |                   |               |
 | SSL_CAPATH | Specifies CAPATH in a CA directory format. <br/>Ex) SSL_CAPATH=/etc/ssl/certs |                   |               |
-| SSL_CERT   | Sets the Altibase certificate path. </br>Ex)SSL_CERT=/cert/client-cert.pe m |                   |               |
+| SSL_CERT   | Sets the Altibase certificate path. </br>Ex) SSL_CERT=/cert/client-cert.pem |                   |               |
 | SSL_KEY    | Sets the server private (secret) key path. <br/>Ex) SSL_KEY=/cert/client-key.pem |                   |               |
 | SSL_VERIFY | Sets whether or not to authenticate the server certificate. An SSL handshake fails if authentication fails, and it becomes impossible to communicate over SSL. <br/>0 : (OFF) Does not authenticate the server certificate <br/>1: (ON) Authenticates the server certificate <br/>Ex) SSL_VERIFY=0 | 0: OFF<br/> 1: ON | 0(OFF)        |
 | SSL_CIPHER | A cipher algorithms available for the server and client to use and negotiate with. Depending on your security policy, you can specify one or more cipher names and separate them by colons(:). You can check the list at [OpenSSL](http://www.openssl.org/) or execute command "$ openssl ciphers" in the shell environment.<br/>Ex) SSL_CIPHER=EDH-DSS-DES-CBC-SHA:DES-CBC-SHA |                   |               |
