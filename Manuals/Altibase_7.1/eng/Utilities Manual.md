@@ -1867,7 +1867,9 @@ REPLICATIONS = (
     REPLICATION_NAME_PREFIX = AKU_REP3
     SYNC_PARALLEL_COUNT     = 1
     (
-        SYS.T7, SYS.T8, SYS.T9
+        SYS.T7,
+        SYS.T8,
+        SYS.T9
     )
 )
 ```

@@ -124,7 +124,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [개요](#개요-2)
   - [구성 요소](#구성-요소)
   - [구문](#구문-2)
-  - [파라미터](#파라미터-1)
+  - [파라미터](#파라미터-2)
   - [주의사항](#주의사항)
   - [제약사항](#제약사항)
   - [사용 예](#사용-예)
@@ -1964,7 +1964,9 @@ REPLICATIONS = (
     REPLICATION_NAME_PREFIX = AKU_REP3
     SYNC_PARALLEL_COUNT     = 1
     (
-        SYS.T7, SYS.T8, SYS.T9
+        SYS.T7,
+        SYS.T8,
+        SYS.T9
     )
 )
 ```
