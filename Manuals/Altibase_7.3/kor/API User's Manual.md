@@ -3548,7 +3548,7 @@ Altibase에서 지원하는 데이터베이스 스키마와 관련 메타 테이
 
 
 
-## Altibase ADO.NET 인터페이스
+## Altibase ADO.NET API
 
 Altibase ADO.NET에서 구현한 ADO.NET API 중 대표적인 클래스와 제약 사항 그리고 지원하지 않는 API를 설명한다.
 
