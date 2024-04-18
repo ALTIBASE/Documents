@@ -1938,7 +1938,9 @@ REPLICATIONS = (
 
 사용자는 aku 설정 파일에 이중화에서 관리할 테이블을 지정할 수 있다. 이중화 테이블을 지정하려면 이중화 관련 프로퍼티 설정 구문에 [사용자 이름].[테이블 이름] 형식으로 테이블 정보를 추가해야 한다.
 
-다음은  *T1*~*T9* 테이블을 이중화 3개로 분리하여 관리하도록 설정하는 예시이다.
+각 이중화 테이블은 쉼표로 구분되며, 한 줄에 하나 이상의 이중화 테이블을 입력할 수 있다.
+
+다음은  *T1*~*T9* 테이블을 이중화 3개로 분리하여 관리하도록 설정하는 예시이다. 
 
 ```bash
 #=================================================================
@@ -2135,7 +2137,7 @@ Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파�
 
 ### 1) aku 설정 파일 작성 시
 
-- aku 프로퍼티 중 기본값이 없는 프로퍼티는 반드시 명시해야 한다. 명시하지 않을 경우, "Property [property_name] should be specified by configuration." 에러가 발생한다.
+- aku 프로퍼티 중 기본값이 없는 프로퍼티는 반드시 명시해야 한다. 명시하지 않을 경우, "Property [*property_name*] should be specified by configuration." 에러가 발생한다.
 
 - aku 설정 파일에 주석을 입력해야 할 경우 '#' 기호를 사용한다. 다만, '#' 뒤에 아무 내용이 없다면 구문 오류가 발생한다.
 
@@ -2190,7 +2192,7 @@ REPLICATION_NAME                XSN
 AKU_REP_03                      -1
 AKU_REP_02                      -1
 AKU_REP_01                      859070110
-No rows selected.
+3 rows selected.
 ~~~
 
 *pod_name*-0에서 AKU_REP_01을 중지하고 이중화 객체를 생성한 시점으로 초기화한다. 
@@ -2212,7 +2214,7 @@ REPLICATION_NAME                XSN
 AKU_REP_03                      -1
 AKU_REP_02                      -1
 AKU_REP_01                      -1
-No rows selected.
+3 rows selected.
 ~~~
 
 <br/>
@@ -2309,7 +2311,7 @@ AKU started with START option.
 # MASTER Pod는 첫 번째 파드를 의미한다. 
 [AKU][2024/03/18 12:34:58.136944][140708807235840] [INFO][akuRunStart:828][-][-] Start as MASTER Pod.
 
-# 정상적으로 나머지 절차가 수행된 뒤 aku가 종료된다. 
+# 정상적으로 모든 절차가 수행된 뒤 aku가 종료된다. 
 AKU run successfully.
 ~~~
 
@@ -2346,7 +2348,7 @@ AKU run successfully.
 [AKU][2024/03/18 14:02:01.025877][140678415444224] [INFO][akuRunStart:975][-][-] Sync tables from MASTER Server.
 [AKU][2024/03/18 14:02:05.045135][140678415444224] [INFO][akuRunStart:980][-][-] Replication sync has ended.
 
-# 정상적으로 나머지 절차가 수행된 뒤 aku가 종료된다. 
+# 정상적으로 모든 절차가 수행된 뒤 aku가 종료된다. 
 AKU run successfully. 
 ~~~
 
@@ -2382,6 +2384,9 @@ AKU started with END option.
 # 로컬 파드의 AKU 에서 생성한 이중화 객체를 모두 초기화한다.
 [AKU][2024/03/18 14:02:52.001848][139626938108160] [INFO][akuRunEnd:1114][-][-] Reset replications.
 [AKU][2024/03/18 14:02:52.014300][139626938108160] [INFO][akuRunEnd:1119][-][-] Replication reset has ended.
+
+# 정상적으로 모든 절차가 수행된 뒤 aku가 종료된다. 
+AKU run successfully. 
 ```
 
 
