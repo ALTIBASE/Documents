@@ -5790,28 +5790,29 @@ This is the maximum number of extents in a table segment.
 
 This view displays information about the header of a disk BTREE index.
 
-| Column name                | Type      | Description                                                  |
-| -------------------------- | --------- | ------------------------------------------------------------ |
-| INDEX_NAME                 | CHAR(128) | The index name                                               |
-| INDEX_ID                   | INTEGER   | The index identifier                                         |
-| INDEX_TBS_ID               | INTEGER   | The tablespace in which the index is saved                   |
-| TABLE_TBS_ID               | INTEGER   | The tablespace in which the table is saved                   |
-| IS_UNIQUE                  | CHAR(1)   | Whether an index is a unique key index                       |
-| COLLENINFO_LIST            | CHAR(64)  | A list of the sizes of the values in the index               |
-| IS_CONSISTENT              | CHAR(1)   | Whether an index is consistent                               |
-| IS_CREATED_WITH_LOGGING    | CHAR(1)   | Whether the LOGGING option was specified at the time the index was created |
-| IS_CREATED_WITH_FORCE      | CHAR(1)   | Whether the NOLOGGING FORCE or NOLOGGING NOFORCE option was specified at the time the index was created |
-| COMPLETION_LSN_LFG_ID      | INTEGER   | The log group identifier when the index was created          |
-| COMPLETION_LSN_FILE_NO     | INTEGER   | The log file number when the index was created               |
-| COMPLETION_LSN_FILE_OFFSET | INTEGER   | The log file offset when the index was created               |
-| INIT_TRANS                 | SMALLINT  | The initial number of transactions that can be simultaneously processed in a single index node |
-| MAX_TRANS                  | SMALLINT  | The maximum number of transactions that can be simultaneously processed in a single index node |
-| FREE_NODE_HEAD             | INTEGER   | The ID of the first page in a free node                      |
-| FREE_NODE_CNT              | BIGINT    | The number of pages in a free node list                      |
-| INITEXTENTS                | INTEGER   | The initial number of extents when the index was created.    |
-| NEXTEXTENTS                | INTEGER   | The number of extents to be allocated when the index is increased in size |
-| MINEXTENTS                 | INTEGER   | The minimum number of extents in the index segment           |
-| MAXEXTENTS                 | INTEGER   | The maximum number of extents in the index segment           |
+| Column name                | Type        | Description                                                  |
+| -------------------------- | ----------- | ------------------------------------------------------------ |
+| INDEX_NAME                 | CHAR(128)   | The index name                                               |
+| INDEX_ID                   | INTEGER     | The index identifier                                         |
+| INDEX_STATUS               | VARCHAR(11) | The Index build status                                       |
+| INDEX_TBS_ID               | INTEGER     | The tablespace in which the index is saved                   |
+| TABLE_TBS_ID               | INTEGER     | The tablespace in which the table is saved                   |
+| IS_UNIQUE                  | CHAR(1)     | Whether an index is a unique key index                       |
+| COLLENINFO_LIST            | CHAR(64)    | A list of the sizes of the values in the index               |
+| IS_CONSISTENT              | CHAR(1)     | Whether an index is consistent                               |
+| IS_CREATED_WITH_LOGGING    | CHAR(1)     | Whether the LOGGING option was specified at the time the index was created |
+| IS_CREATED_WITH_FORCE      | CHAR(1)     | Whether the NOLOGGING FORCE or NOLOGGING NOFORCE option was specified at the time the index was created |
+| COMPLETION_LSN_LFG_ID      | INTEGER     | The log group identifier when the index was created          |
+| COMPLETION_LSN_FILE_NO     | INTEGER     | The log file number when the index was created               |
+| COMPLETION_LSN_FILE_OFFSET | INTEGER     | The log file offset when the index was created               |
+| INIT_TRANS                 | SMALLINT    | The initial number of transactions that can be simultaneously processed in a single index node |
+| MAX_TRANS                  | SMALLINT    | The maximum number of transactions that can be simultaneously processed in a single index node |
+| FREE_NODE_HEAD             | INTEGER     | The ID of the first page in a free node                      |
+| FREE_NODE_CNT              | BIGINT      | The number of pages in a free node list                      |
+| INITEXTENTS                | INTEGER     | The initial number of extents when the index was created.    |
+| NEXTEXTENTS                | INTEGER     | The number of extents to be allocated when the index is increased in size |
+| MINEXTENTS                 | INTEGER     | The minimum number of extents in the index segment           |
+| MAXEXTENTS                 | INTEGER     | The maximum number of extents in the index segment           |
 
 #### Column Information
 
@@ -5822,6 +5823,16 @@ This is the name of the index.
 ##### INDEX_ID
 
 This displays the identifier, unique in the system, of the index. 
+
+##### INDEX_STATUS
+
+This displays the status of the index. This takes one of the following values.
+
+- ENABLE: The index is in a normal and usable state.
+- DISABLE: The index is DISABLED and cannot be used.
+- TBS_OFFLINE: The index unusable because the tablespace where the index or table is stored is offline .
+- NOT_BUILD:  The index has not been rebuilt.
+- UNKNOWN: Abnormal situation.
 
 ##### INDEX_TBS_ID
 
@@ -7082,8 +7093,10 @@ This view shows information about a memory BTREE header.
 | ------------------ | ------------ | ------------------------------------------------------------ |
 | INDEX_NAME         | VARCHAR(128) | The name of the index                                        |
 | INDEX_ID           | INTEGER      | The index identifier                                         |
+| INDEX_STATUS       | VARCHAR(11)  | The index build status                                       |
 | INDEX_TBS_ID       | INTEGER      | The tablespace in which the index is stored                  |
 | TABLE_TBS_ID       | INTEGER      | The tablespace in which the associated table is stored       |
+| IS_CONSISTENT      | CHAR(1)      | Whether an index is consistent                               |
 | IS_UNIQUE          | CHAR(1)      | Whether an index is a unique key index                       |
 | IS_NOT_NULL        | CHAR(1)      | Whether NULL values are allowed                              |
 | USED_NODE_COUNT    | INTEGER      | The number of nodes that are being used by an index          |
@@ -7100,6 +7113,16 @@ This is the name of the index.
 
 This is a unique identifier for the index in the system. 
 
+##### INDEX_STATUS
+
+This displays the status of the index. This takes one of the following values.
+
+- ENABLE: The index is in a normal and usable state.
+- DISABLE: The index is DISABLED and cannot be used.
+- TBS_OFFLINE: The index unusable because the tablespace where the index or table is stored is offline .
+- NOT_BUILD:  The index has not been rebuilt.
+- UNKNOWN: Abnormal situation.
+
 ##### INDEX_TBS_ID
 
 This is the identifier of the tablespace in which the index is stored. 
@@ -7107,6 +7130,10 @@ This is the identifier of the tablespace in which the index is stored.
 ##### TABLE_TBS_ID
 
 This is the identifier of the tablespace containing the table that is related to the index.
+
+##### IS_CONSISTENT
+
+This indicates whether the index is consistent. It is usually set to ‘T’, and to 'F' to indicate that the index is improperly configured.
 
 ##### IS_UNIQUE
 
