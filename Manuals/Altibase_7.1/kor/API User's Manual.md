@@ -509,9 +509,9 @@ PDO::getAttribute(), PDO::setAttribute() 함수에서 사용할 수 있는 속�
 
 | 속성 ID                       | 설명                                                         |
 | ----------------------------- | ------------------------------------------------------------ |
-| PDO::ALTIBASE_DATE_FORMAT     | DATE를 표현하는데 사용할 포맷.   사용예제, DATE 포맷 변경 참고. |
-| PDO::ALTIBASE_EXPLAIN_PL AN   | 수행 계획을 얻을지 여부와 그 방식.   PDO::ALTIBASE_EXPLAIN_PLAN_OFF : 수행 계획을 얻지 않는다.   <br />PDO::ALTIBASE_EXPLAIN_PLAN_ON : Prepare 및 Execution 후 결정된 수행 계획을 얻는다.   <br />PDO::ALTIBASE_EXPLAIN_PLAN_ONLY :  Prepare 후 Execution 전에 결정된 수행 계획을 얻는다.   <br />자세한 내용은 사용 예제>   수행계획 확인   을 참고하라. |
-| PDO::ALTIBASE_DEFER_PROTOCOLS | Prepare,   execute를 반복하여 호출하는 구조로 작성된 프로그램의 성능 향상을 위한 프로토콜 최적화 여부를 설정한다.   <br />이 속성을 사용하기 위해서는, 하나의 커넥션 객체를 여러 쓰레드에서 공유해서 사용하지 않아야 한다.   <br />또한 성능을 위해서는   prepare를 한번만 호출한 후, execute를 반복 호출하는 구조로 프로그램을   작성해야 한다.   <br />0 : 프로토콜   최적화하지 않음 (default)   <br />1 : execute   관련 프로토콜 최적화   <br />2 :   execute, close 관련 프로토콜 최적화  <br /><br /> ex>   $db->setAttribute(PDO::ALTIBASE_DEFER_PROTOCOLS, 1); |
+| PDO::ALTIBASE_DATE_FORMAT     | DATE를 표현하는데 사용할 포맷. 사용예제, DATE 포맷 변경 참고. |
+| PDO::ALTIBASE_EXPLAIN_PL AN   | 수행 계획을 얻을지 여부와 그 방식.<br/>PDO::ALTIBASE_EXPLAIN_PLAN_OFF : 수행 계획을 얻지 않는다.   <br />PDO::ALTIBASE_EXPLAIN_PLAN_ON : Prepare 및 Execution 후 결정된 수행 계획을 얻는다.   <br />PDO::ALTIBASE_EXPLAIN_PLAN_ONLY : Prepare 후 Execution 전에 결정된 수행 계획을 얻는다.   <br />자세한 내용은 사용 예제> 수행계획 확인을 참고하라. |
+| PDO::ALTIBASE_DEFER_PROTOCOLS | Prepare, execute를 반복하여 호출하는 구조로 작성된 프로그램의 성능 향상을 위한 프로토콜 최적화 여부를 설정한다.   <br />이 속성을 사용하기 위해서는, 하나의 커넥션 객체를 여러 쓰레드에서 공유해서 사용하지 않아야 한다.   <br />또한 성능을 위해서는   prepare를 한번만 호출한 후, execute를 반복 호출하는 구조로 프로그램을 작성해야 한다.   <br />0 : 프로토콜 최적화하지 않음 (default)   <br />1 : execute 관련 프로토콜 최적화   <br />2 : execute, close 관련 프로토콜 최적화  <br /><br /> ex>   $db->setAttribute(PDO::ALTIBASE_DEFER_PROTOCOLS, 1); |
 
 ### 파라미터 바인딩
 
@@ -1962,8 +1962,7 @@ FAEDFAED
 
 ## iLoader API 개요
 
-Altibase iLoader API는 Altibase 데이터베이스의 데이터를 다운로드 또는 업드로하는 함수들로 구성되어 있으며, 이를 사용해서 응용프로그램을 개발할 수 있다. 데이터는 테이블 단위로 다운로드하거나 업로드 할 수 있다. iLoader API는 iLoader 유틸리티와 같은 기능을 제공한다. 이 툴에 대한 자세한 설명은 *iLoader User’s Manual* 을
-참고한다.
+Altibase iLoader API는 Altibase 데이터베이스의 데이터를 다운로드 또는 업드로하는 함수들로 구성되어 있으며, 이를 사용해서 응용프로그램을 개발할 수 있다. 데이터는 테이블 단위로 다운로드하거나 업로드 할 수 있다. iLoader API는 iLoader 유틸리티와 같은 기능을 제공한다. 이 툴에 대한 자세한 설명은 *iLoader User’s Manual* 을 참고한다.
 
 다음의 표에 iLoader API의 함수를 정리하였다.
 
@@ -2077,11 +2076,11 @@ iLoader API 는 iLoader 의 진행 상태를 로깅하는 데 사용하도록 �
   | tableName      | 업로드 또는 다운로드 중인 테이블의 이름                      |
   | totalCount     | 업로드 또는 다운로드를 시도한 행의 총 개수                   |
   | loadCount      | 업로드 또는 다운로드에 성공한 행의 총 개수                   |
-  | errorCount     | 오류 발생으로 인해 업로드 또는 다운로드를 하지 못한 행의 총 개수.   오류가 발생했을 때, 이 값은 현재 오류는 포함하지 않는다. 즉, 이 값은 현재 오류 이전에 발생했던 모든 오류의 개수이다. |
-  | record         | 오류 발생 시, 이는 업로드 또는 다운로드를 하지 못한 레코드의   위치를 알려준다 |
-  | recordData     | 오류 발생 시, 이는 업로드 또는 다운로드를 하지 못한 레코드의   칼럼 데이터를 나타낸다. |
-  | recordColCount | 오류 발생 시, 이는 업로드 또는 다운로드를 하지 못한 레코드의   칼럼 개수를 알려준다. |
-  | errorMgr       | 오류 발생 시, 이는 오류에 대한 정보를 담고 있는 에러 구조체를   가리킨다. |
+  | errorCount     | 오류 발생으로 인해 업로드 또는 다운로드를 하지 못한 행의 총 개수. 오류가 발생했을 때, 이 값은 현재 오류는 포함하지 않는다. 즉, 이 값은 현재 오류 이전에 발생했던 모든 오류의 개수이다. |
+  | record         | 오류 발생 시, 이는 업로드 또는 다운로드를 하지 못한 레코드의 위치를 알려준다 |
+  | recordData     | 오류 발생 시, 이는 업로드 또는 다운로드를 하지 못한 레코드의 칼럼 데이터를 나타낸다. |
+  | recordColCount | 오류 발생 시, 이는 업로드 또는 다운로드를 하지 못한 레코드의 칼럼 개수를 알려준다. |
+  | errorMgr       | 오류 발생 시, 이는 오류에 대한 정보를 담고 있는 에러 구조체를 가리킨다. |
 
 
 - ALTIBASE_ILOADER_STATIC_LOG  
@@ -2103,7 +2102,7 @@ iLoader API 는 iLoader 의 진행 상태를 로깅하는 데 사용하도록 �
   | ---------- | ------------------------------------------------------------ |
   | tableName  | 업로드 또는 다운로드 중인 테이블의 이름                      |
   | startTime  | 업로드 또는 다운로드 작업을 시작한 시각                      |
-  | totalCount | 업로드할 행의 총 개수. 이 멤버는 데이터 다운로드시에는 사용되지   않는다. |
+  | totalCount | 업로드할 행의 총 개수. 이 멤버는 데이터 다운로드시에는 사용되지 않는다. |
   | loadCount  | 업로드 또는 다운로드에 성공한 행의 총 개수                   |
   | errorCount | 오류 발생으로 인해 업로드 또는 다운로드를 하지 못한 행의 총 개수 |
   
@@ -2163,14 +2162,14 @@ iLoader API 는 iLoader 의 진행 상태를 로깅하는 데 사용하도록 �
 
 | 멤버             | 설명                                                         |
 | ---------------- | ------------------------------------------------------------ |
-| version          | 이 값은 altibase_iloader_option_init() 함수의 version 인자와 같은 값이어야 한다. |
+| version          | 이 값은 altibase_iloader_options_init() 함수의 version 인자와 같은 값이어야 한다. |
 | tableOwner       | 테이블 소유자의 이름을 지정하는데 사용된다.                  |
-| loadModeType     | ILO_APPEND: iLoader의 –mode 옵션에 쓸 수 있는 값 중   APPEND 와 동일하다.   ILO_REPLACE: iLoader의 –mode 옵션에 쓸 수 있는 값 중   REPLACE 와 동일하다.   ILO_TRUNCATE: iLoader의 –mode 옵션에 쓸 수 있는 값 중   TRUNCATE 와 동일하다.   기본값은 ILO_APPEND이다. |
-| atomic           | Atomic Array INSERT를 사용할 것인지를 지정하는데   사용된다. ILO_TRUE 또는 ILO_FALSE 중의   하나일 수 있다.   기본값은 ILO_FALSE이다. |
-| directLog        | Direct-path INSERT를 사용할 것인지를 지정하는데 사용된다. 이 값이 ILO_DIRECT_NONE이면, Direct-Path INSERT는 사용되지 않는다. 이 값이 ILO_DIRECT_LOG이면, 로깅 모드로 Direct-Path INSERT를 실행한다. 이 값이 ILO_DIRECT_NOLOG이면, 노로깅 모드로 Direct-Path INSERT를 실행한다.   기본값은 ILO_DIRECT_NONE이다. |
-| dataFileNum      | 이 구조체의 dataFile 멤버에 몇 개의 데이터파일이 지정되는지   그 개수를 명시하는데 사용된다. |
-| getTotalRowCount | 데이터 파일 내의 행의 총 개수를 구해서 데이터 업로드시에   ALTIBASE_ILOADER_STATISTIC_LOG 구조체의 totalCount 멤버에   이 값을 설정할 것인지를 지정한다.   ILO_TRUE 또는   ILO_FALSE 중의 하나일 수 있다.   기본값은 ILO_FALSE이다. |
-| setRowFrequency  | 여기에 명시한 개수만큼의 행이 업로드 또는 다운로드 될 때마다 사용자 콜백 함수가 호출된다.   기본값은 0이다. 이   값이 0이면, 콜백 함수는 호출되지 않는다. |
+| loadModeType     | ILO_APPEND: iLoader의 –mode 옵션에 쓸 수 있는 값 중 APPEND 와 동일하다.<br/>ILO_REPLACE: iLoader의 –mode 옵션에 쓸 수 있는 값 중 REPLACE 와 동일하다.<br/>ILO_TRUNCATE: iLoader의 –mode 옵션에 쓸 수 있는 값 중 TRUNCATE 와 동일하다.<br/>기본값은 ILO_APPEND이다. |
+| atomic           | Atomic Array INSERT를 사용할 것인지를 지정하는데 사용된다.<br/> ILO_TRUE 또는 ILO_FALSE 중의 하나일 수 있다. 기본값은 ILO_FALSE이다. |
+| directLog        | Direct-path INSERT를 사용할 것인지를 지정하는데 사용된다.<br/>이 값이 ILO_DIRECT_NONE이면, Direct-Path INSERT는 사용되지 않는다.<br/>이 값이 ILO_DIRECT_LOG이면, 로깅 모드로 Direct-Path INSERT를 실행한다.<br/>이 값이 ILO_DIRECT_NOLOG이면, 노로깅 모드로 Direct-Path INSERT를 실행한다.<br/>기본값은 ILO_DIRECT_NONE이다. |
+| dataFileNum      | 이 구조체의 dataFile 멤버에 몇 개의 데이터파일이 지정되는지 그 개수를 명시하는데 사용된다. |
+| getTotalRowCount | 데이터 파일 내의 행의 총 개수를 구해서 데이터 업로드시에 ALTIBASE_ILOADER_STATISTIC_LOG 구조체의 totalCount 멤버에 이 값을 설정할 것인지를 지정한다.<br/>ILO_TRUE 또는 ILO_FALSE 중의 하나일 수 있다. 기본값은 ILO_FALSE이다. |
+| setRowFrequency  | 여기에 명시한 개수만큼의 행이 업로드 또는 다운로드 될 때마다 사용자 콜백 함수가 호출된다. 기본값은 0이다. 이 값이 0이면, 콜백 함수는 호출되지 않는다. |
 
 
 
