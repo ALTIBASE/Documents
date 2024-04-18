@@ -152,8 +152,8 @@ This manual is organized as follows:
 -   Chapter 2: Installing and Starting SSL in Altibase  
     This chapter describes the software requirements and installation method for using SSL in Altibase.
     
--   Chapter 3: Managing SSQL Connections  
-    This chapter describes the management methods, such as monitoring when using the SSL function, and enhancing communication security for users.
+-   Chapter 3: Managing SSL Connections  
+    This chapter describes the management methods, such as monitoring when using SSL function, and enhancing communication security for users.
     
 -   Appendix A: Altibase SSL Sample
 
@@ -255,7 +255,7 @@ The following list of features are the SSL characterstics when using Altibase wi
 
 # 2. Installing and Starting SSL in Altibase
 
-This chapter explains how to install SSL and the required software.
+This chapter explains how to use SSL and the required software.
 
 ### Software Requirements
 
@@ -274,11 +274,11 @@ The user can use the OPENSSL_NO_HEARTBEATS option to check whether or not it is 
 
 ##### ODBC, CLI, ADO.NET
 
-The OpenSSL toolkit has to be installed in order to use the SSL communication with ODBC, CLI or ADO.NET.
+The OpenSSL toolkit has to be installed in order to use SSL communication with ODBC, CLI or ADO.NET.
 
 ##### JDBC
 
-It is recommended to use Java Runtime Environment 1.6 (JRE1.6) or above to conveniently implement the client Java application through the SSL. JRE 1.6 or above is recommended for a following reason (JRE 1.5 is also available for use, but not recommended):
+It is recommended to use Java Runtime Environment 1.6 (JRE1.6) or above to conveniently implement the client Java application through SSL. JRE 1.6 or above is recommended for a following reason (JRE 1.5 is also available for use, but not recommended):
 
 -   Only JRE 1.6 or above supports importing the client’s certificate into the keystore (Note that importing the certificate is not always required.).
 
@@ -492,7 +492,7 @@ Altibase provides JDBC for SSL connection to use SSL within the database. JDBC p
 | Name             | Description                                                  | Range          | Default Value                                                |
 | ---------------- | ------------------------------------------------------------ | -------------- | ------------------------------------------------------------ |
 | ssl_enable       | Specifies whether or not to connect to the database over SSL connection. An SSL connection is created if this value is true; a TCP connection is created if this value is false. | true<br/>false | false                                                        |
-| port             | Specifies the SSL port number on the target server. The priority for an SSL port number is: 1) if ssn_enable is true and a value has been specified, this value is applied first. 2) if ssn_enable is true and this value is omitted, the ALTIBASE_SSL_PORT_NO environment variable is applied. 3) if ssn_enable is true and both this value and the ALTIBASE_SSL_PORT_NO environment variable are omitted, the default value (20300) is applied. | 0 \~ 65535     | ssl_enable(false): 20300<br/>ssl_enable(true): 20443         |
+| port             | Specifies the SSL port number on the target server. The priority for the SSL port number is: 1) if ssl_enable is true and a value has been specified, this value is applied first. 2) if ssl_enable is true and this value is omitted, the ALTIBASE_SSL_PORT_NO environment variable is applied. 3) if ssl_enable is true and both this value and the ALTIBASE_SSL_PORT_NO environment variable are omitted, the default value (20300) is applied. | 0 \~ 65535     | ssl_enable(false): 20300<br/>ssl_enable(true): 20443         |
 | ciphersuite_list | This is a list of available ciphers. Each name is separated by a colon (e.g., SSL_RSA_WITH_RC4_128_MD5:SSL _RSA_WITH_RC4_128_SHA). If JRE does not support the named algorithm, an IllegalArgumentException with the "Unsupported ciphersuite" message is thrown. | String         | [All cipher suite lists supported by JRE](http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html) |
 
 ###### JDBC Properties for Authentication
@@ -544,7 +544,7 @@ $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
 
 ##### Step 1: Verify the OpenSSL Library
 
-ODBC and CLI read the OpenSSL library and calls the necessary functions while connecting to the server. Therefore, you should verify that the OpenSSL library has been installed properly, before writing a client application. Where the library is installed can differ among operating systems.
+ODBC and CLI read the OpenSSL library and call the necessary functions while connecting to the server using SSL communication. Therefore, you should verify that the OpenSSL library has been installed properly, before writing a client application. Where the library is installed can differ among operating systems.
 
 -   Verify the library installation
 
@@ -573,7 +573,7 @@ SSL connection properties are located in $ALTIBASE_HOME/conf.
 | ---------- | ------------------------------------------------------------ | ---------------- | ------------- |
 | SSL_CA     | Specifies the file path to store CA certificates to certify the ownership of received certificates. CA certificates can exist in a user-specific file path or a X.509 structured directory.<br/>Ex) SSL_CA= /cert/ ca-cert.pem. |                  |               |
 | SSL_CAPATH | Specifies CAPATH in a CA directory format.<br/>Ex) SSL_CAPATH=/etc/ssl/certs |                  |               |
-| SSL_CERT   | Sets the Altibase certificate path.</br>Ex)SSL_CERT=/cert/client-cert.pem |                  |               |
+| SSL_CERT   | Sets the Altibase certificate path.</br>Ex) SSL_CERT=/cert/client-cert.pem |                  |               |
 | SSL_KEY    | Sets the server private (secret) key path. <br/>Ex) SSL_KEY=/cert/client-key.pem |                  |               |
 | SSL_VERIFY | Sets whether or not to authenticate the server certificate. An SSL handshake fails if authentication fails, and it becomes impossible to communicate over SSL. <br/>0(OFF): Does not authenticate the server certificate <br/>1(ON): Authenticates the server certificate<br/>Ex) SSL_VERIFY=0 | 0: OFF<br/>1: ON | 0(OFF)        |
 | SSL_CIPHER | A cipher algorithms available for the server and client to use and negotiate with. Depending on your security policy, you can specify one or more cipher names and separate them by colons(:). You can check the list at [OpenSSL](http://www.openssl.org/) or execute command "$ openssl ciphers" in the shell environment.<br/>Ex) SSL_CIPHER=EDH-DSS-DES-CBC-SHA:DES-CBC-SHA |                  |               |
@@ -642,7 +642,7 @@ This section describes how to enhance security using the SSL exclusive connectio
 
 -    Limit TCP Connections
 
--   Monitor and Manage SSl Connections
+-   Monitor and Manage SSL Connections
 
 #### Limit TCP Connections
 

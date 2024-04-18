@@ -152,7 +152,7 @@ This manual is organized as follows:
 -   Chapter 2: Installing and Starting SSL in Altibase  
     This chapter describes the software requirements and installation method for using SSL in Altibase.
     
--   Chapter 3: Managing SSQL Connections  
+-   Chapter 3: Managing SSL Connections  
     This chapter describes the management methods, such as monitoring when using the SSL function, and enhancing communication security for users.
     
 -   Appendix A: Altibase SSL Sample
@@ -276,7 +276,7 @@ To use SSL/TLS in Altibase, the OpenSSL toolkit is required. This toolkit was de
 
 ##### ODBC, CLI, ADO.NET
 
-The OpenSSL toolkit has to be installed in order to use the SSL communication with ODBC, CLI or ADO.NET.
+The OpenSSL toolkit has to be installed in order to use SSL communication with ODBC, CLI or ADO.NET.
 
 ##### JDBC
 
@@ -505,7 +505,7 @@ Altibase provides JDBC for SSL connection to use SSL within the database. JDBC p
 | Name             | Description                                                  | Range          | Default Value                                                |
 | ---------------- | ------------------------------------------------------------ | -------------- | ------------------------------------------------------------ |
 | ssl_enable       | Specifies whether or not to connect to the database over SSL connection. An SSL connection is created if this value is true; a TCP connection is created if this value is false. | true<br/>false | false                                                        |
-| port             | Specifies the SSL port number on the target server. The priority for an SSL port number is: 1) if ssn_enable is true and a value has been specified, this value is applied first. 2) if ssn_enable is true and this value is omitted, the ALTIBASE_SSL_PORT_NO environment variable is applied. 3) if ssn_enable is true and both this value and the ALTIBASE_SSL_PORT_NO environment variable are omitted, the default value (20300) is applied. | 0 \~ 65535     | ssl_enable(false): 20300 ssl_enable(true): 20443             |
+| port             | Specifies the SSL port number on the target server. The priority for the SSL port number is: 1) if ssl_enable is true and a value has been specified, this value is applied first. 2) if ssl_enable is true and this value is omitted, the ALTIBASE_SSL_PORT_NO environment variable is applied. 3) if ssl_enable is true and both this value and the ALTIBASE_SSL_PORT_NO environment variable are omitted, the default value (20300) is applied. | 0 \~ 65535     | ssl_enable(false): 20300 ssl_enable(true): 20443             |
 | ciphersuite_list | This is a list of available ciphers. Each name is separated by a colon (e.g., SSL_RSA_WITH_RC4_128_MD5:SSL _RSA_WITH_RC4_128_SHA). If JRE does not support the named algorithm, an IllegalArgumentException with the "Unsupported ciphersuite" message is thrown. | String         | [All cipher suite lists supported by JRE](http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html) |
 | ssl_protocols    | This is a list of protocols used for SSL communication on the server. Users can set several protocols using commas(e.g., TLSv1.2,TLSv1.3). | String         | [All SSL/TLS protocols supported by JRE](http://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html) |
 
@@ -554,7 +554,7 @@ $keytool -importkeystore -srckeystore pkcs_file.p12 -destkeystore keystore.jks
 
 ##### Step 1: Verify the OpenSSL Library
 
-ODBC and CLI read the OpenSSL library and calls the necessary functions while connecting to the server. Therefore, you should verify that the OpenSSL library has been installed properly, before writing a client application. Where the library is installed can differ among operating systems.
+ODBC and CLI read the OpenSSL library and call the necessary functions while connecting to the server using SSL communication. Therefore, you should verify that the OpenSSL library has been installed properly, before writing a client application. Where the library is installed can differ among operating systems.
 
 -   Verify the library installation
 
@@ -669,7 +669,7 @@ This section describes how to enhance security using the SSL exclusive connectio
 
 -    Limit TCP Connections
 
--   Monitor and Manage SSl Connections
+-   Monitor and Manage SSL Connections
 
 #### Limit TCP Connections
 
