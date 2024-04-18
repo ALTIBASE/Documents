@@ -101,7 +101,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 <br>
 
-# Table Of Contents
+# Table of Contents
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
@@ -3098,7 +3098,7 @@ If Altibase ADO.NET NuGet package does not include the CLI library for the desir
 
 
 
-##  How to Use Altibase ADO.NET 
+##  Using the Altibase ADO.NET
 
 This section describes how to Altibase ADO.NET for NET Core developers.
 
@@ -3193,8 +3193,7 @@ This section describes additional connection properties that can be used in the 
 - Default Value : The value used by default, if no other value is specified
 - Range : The value available for specification
 - Mandatory : Whether or not the property must be specified
-- Setting Range : 
-  The Setting Range is classified into System, Session, and N/A based on the scope of the property set after connecting to the Altibase server.
+- Setting Range : The Setting Range is classified into System, Session, and N/A based on the scope of the property set after connecting to the Altibase server.
   - System : This property setting can affects other sessions.
   - Session : This property setting affects only the session itself.
   - N/A : This property setting only affects the process of connecting to the Altibase server.
@@ -3214,8 +3213,7 @@ This section describes additional connection properties that can be used in the 
 - Range : [0 ~ 2<sup>31</sup>(2147483648)]
 - Mandatory : No
 - Setting Range : Session
-- Description : 
-  This setting determines whether to remove the connection from the connection pool if it has not been used for the specified amount of time. The unit for this property is seconds (sec). 
+- Description : This setting determines whether to remove the connection from the connection pool if it has not been used for the specified amount of time. The unit for this property is seconds (sec). 
   If the value of this property is set to 0, the connection will not be removed. If it is not 0, the connection will be removed from the connection pool if it remains unused for the specified value.
 
 ##### connection timeout
@@ -3228,10 +3226,8 @@ This section describes additional connection properties that can be used in the 
 
 - Setting Range : N/A
 
-- Description : 
+- Description : This sets the wait time for connecting to the Altibase server. The unit for this property is seconds (sec). A value of 0 means waiting indefinitely until the connection is established, while a non-zero value indicates that the connection attempt will fail if it is not established within the specified value.
 
-  This sets the wait time for connecting to the Altibase server. The unit for this property is seconds (sec).
-  A value of 0 means waiting indefinitely until the connection is established, while a non-zero value indicates that the connection attempt will fail if it is not established within the specified value.
 
 ##### data source
 
@@ -3239,11 +3235,10 @@ This section describes additional connection properties that can be used in the 
 - Range : A random string
 - Mandatory : No
 - Setting Range : N/A
-- Description : 
-  This indicates the data source name. The used value will be changed by the following conditions:
+- Description : This indicates the data source name. The used value will be changed by the following conditions:
   - If the value of the connection property `server` exists, this setting will be ignored.
-  - If the value of the connection property `server` does not exist and the original ODBC data which has the same value as the data source exists, the DSN(data source name) of the original ODBC data will be used.
-  - If both the value of the connection property `server` and the original ODBC data which has the same value as the data source do not exist, this will use the server's IP or hostname.
+  - If the value of the connection property `server` does not exist and the original ODBC data which has the same value as the `data source` exists, the DSN(data source name) of the original ODBC data will be used.
+  - If both the value of the connection property `server` and the original ODBC data which has the same value as the `data source` do not exist, this will use the server's IP or hostname.
 
 ##### encoding
 
@@ -3491,7 +3486,7 @@ Please refer to the following manuals for more information about database schema
 
 
 
-## Altibase ADO.NET Interface
+## Altibase ADO.NET API
 
 This section describes the prominent classes implemented within Altibase ADO.NET's API, along with their constraints and unsupported APIs.
 
