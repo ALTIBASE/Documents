@@ -109,33 +109,33 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 # 목차
 
-- [서문](#%EC%84%9C%EB%AC%B8)
-  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+- [서문](#서문)
+  - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
 - [1.PHP Interface](#1php-interface)
-  - [Altibase PHP 모듈 참고 사항](#altibase-php-%EB%AA%A8%EB%93%88-%EC%B0%B8%EA%B3%A0-%EC%82%AC%ED%95%AD)
-  - [PHP 연동을 위한 ODBC 매니저 설치](#php-%EC%97%B0%EB%8F%99%EC%9D%84-%EC%9C%84%ED%95%9C-odbc-%EB%A7%A4%EB%8B%88%EC%A0%80-%EC%84%A4%EC%B9%98)
-  - [ODBC 연결을 위한 PHP 함수](#odbc-%EC%97%B0%EA%B2%B0%EC%9D%84-%EC%9C%84%ED%95%9C-php-%ED%95%A8%EC%88%98)
-- [2.PDO 드라이버](#2pdo-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84)
-  - [설치 및 설정](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95)
-  - [제약 및 주의사항](#%EC%A0%9C%EC%95%BD-%EB%B0%8F-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
-  - [사용 방법](#%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-  - [사용 예제](#%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C)
+  - [Altibase PHP 모듈 참고 사항](#altibase-php-모듈-참고-사항)
+  - [PHP 연동을 위한 ODBC 매니저 설치](#php-연동을-위한-odbc-매니저-설치)
+  - [ODBC 연결을 위한 PHP 함수](#odbc-연결을-위한-php-함수)
+- [2.PDO 드라이버](#2pdo-드라이버)
+  - [설치 및 설정](#설치-및-설정)
+  - [제약 및 주의사항](#제약-및-주의사항)
+  - [사용 방법](#사용-방법)
+  - [사용 예제](#사용-예제)
 - [3.XA Interface](#3xa-interface)
-  - [XA 개요](#xa-%EA%B0%9C%EC%9A%94)
-  - [XA 인터페이스](#xa-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
-  - [XA 사용](#xa-%EC%82%AC%EC%9A%A9)
-  - [XA 사용시 제약사항](#xa-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%A0%9C%EC%95%BD%EC%82%AC%ED%95%AD)
-  - [JDBC 분산 트랜잭션](#jdbc-%EB%B6%84%EC%82%B0-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98)
-  - [XA를 사용한 애플리케이션의 문제 해결](#xa%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98%EC%9D%98-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0)
+  - [XA 개요](#xa-개요)
+  - [XA 인터페이스](#xa-인터페이스)
+  - [XA 사용](#xa-사용)
+  - [XA 사용시 제약사항](#xa-사용시-제약사항)
+  - [JDBC 분산 트랜잭션](#jdbc-분산-트랜잭션)
+  - [XA를 사용한 애플리케이션의 문제 해결](#xa를-사용한-애플리케이션의-문제-해결)
 - [4.iLoader API](#4iloader-api)
-  - [iLoader API 개요](#iloader-api-%EA%B0%9C%EC%9A%94)
-  - [iLoader API 사용](#iloader-api-%EC%82%AC%EC%9A%A9)
-  - [iLoader API 데이타 구조체](#iloader-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
+  - [iLoader API 개요](#iloader-api-개요)
+  - [iLoader API 사용](#iloader-api-사용)
+  - [iLoader API 데이터 구조체](#iloader-api-데이터-구조체)
   - [iLoader API](#iloader-api)
 - [5.CheckServer API](#5checkserver-api)
-  - [CheckServer API 개요](#checkserver-api-%EA%B0%9C%EC%9A%94)
-  - [CheckServer API 사용](#checkserver-api-%EC%82%AC%EC%9A%A9)
-  - [CheckServer API 데이타 구조체](#checkserver-api-%EB%8D%B0%EC%9D%B4%ED%83%80-%EA%B5%AC%EC%A1%B0%EC%B2%B4)
+  - [CheckServer API 개요](#checkserver-api-개요)
+  - [CheckServer API 사용](#checkserver-api-사용)
+  - [CheckServer API 데이터 구조체](#checkserver-api-데이터-구조체)
   - [CheckServer API](#checkserver-api)
 - [6.Altibase ADO.NET](#6altibase-adonet)
     - [Altibase ADO.NET 개요](#Altibase-ADONET-개요)
@@ -157,11 +157,11 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 이 매뉴얼은 다음과 같은 Altibase 사용자를 대상으로 작성되었다.
 
--   데이타베이스 관리자
+-   데이터베이스 관리자
 
 -   성능 관리자
 
--   데이타베이스 사용자
+-   데이터베이스 사용자
 
 -   응용 프로그램 개발자
 
@@ -171,15 +171,15 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 -   컴퓨터, 운영 체제 및 운영 체제 유틸리티 운용에 필요한 기본 지식
 
--   관계형 데이타베이스 사용 경험 또는 데이타베이스 개념에 대한 이해
+-   관계형 데이터베이스 사용 경험 또는 데이터베이스 개념에 대한 이해
 
 -   컴퓨터 프로그래밍 경험
 
--   데이타베이스 서버 관리, 운영 체제 관리 또는 네트워크 관리 경험
+-   데이터베이스 서버 관리, 운영 체제 관리 또는 네트워크 관리 경험
 
 ### 소프트웨어 환경
 
-이 매뉴얼은 데이타베이스 서버로 Altibase 버전 7.3을 사용한다는 가정 하에 작성되었다.
+이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.3을 사용한다는 가정 하에 작성되었다.
 
 ### 이 매뉴얼의 구성
 
@@ -195,7 +195,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     이 장은 XA 표준을 소개하고, 분산 트랜잭션의 기본 개념과 XA 인터페이스를 설명한다. 그리고 ODBC, Embedded SQL, JDBC 프로그램에서 글로벌 트랜잭션을 사용하여 Altibase에 접근하는 방법에 대해 설명한다.
     
 -   제 4 장 iLoader API  
-    이 장은 Altibase 서버로부터 데이타를 다운로드 또는 서버로 데이타를 업로드하는 응용프로그램을 작성할 수 있는 인터페이스인 Altibase iLoader API를 소개한다.
+    이 장은 Altibase 서버로부터 데이터를 다운로드 또는 서버로 데이터를 업로드하는 응용프로그램을 작성할 수 있는 인터페이스인 Altibase iLoader API를 소개한다.
     
 -   제 5 장 CheckServer API  
     이 장은 Altibase 서버가 비정상 종료했는지를 감시하는 응용프로그램을 작성하기 위해 사용하는 인터페이스인 Altibase CheckServer API를 소개한다.
@@ -297,7 +297,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 ## Altibase PHP 모듈 참고 사항
 
--   PHP에서 지원하는 데이타 타입은 다음과 같다.  
+-   PHP에서 지원하는 데이터 타입은 다음과 같다.  
     resource, int, bool, double, float, string, array, HashTable
 -   Altibase 서버의 포트 번호와 Altibase에서 제공한 샘플 프로그램의 db.php에서 포트 번호를 맞춰야 한다.
 
@@ -484,7 +484,7 @@ extension=pdo_altibase.so
 1.  pdo_altibase의 커밋모드 기본값은 서버의 설정과 무관하며 항상 autocommit이다. 다시 말해, 서버 기본값을 non-autocommit으로 설정하더라도 pdo_altibase의 커밋모드는 기본값인 autocommit이다.
 2.  pdo 객체를 닫을 때, commit, rollback을 명시적으로 지정하지 않으면 해당 작업은 rollback된다.
 3.  empty string('')을 알티베이스 DB의 숫자형데이터 타입들에 bind시에, native 타입(double, real, bigint, integer, smallint)과 non-native타입(numeric, decimal, number, float) 모두에 대하여 NULL로 입력된다.
-4.  쿼리내에 "날짜타입값 - ?" 형태를 포함하고, "?"에 숫자값을 bind하여 사용시에는 "ERR-21038 : Literals in the input do not match the format string." 에러가 발생합니다. 이때, 날짜타입값이라함은 날짜타입칼럼 및 날짜타입반환함수를 포함합니다. 이러한 에러가 발생하는 이유는 pdo_altibase가 숫자값 bind시에 내부적으로 문자열로 처리하는데, Altibase 쿼리처리기가 날짜타입값에 대한 문자열 빼기연산을 하는 경우에 문자열을 날짜타입으로 변환하려고 하기 때문입니다. 이 경우에는 "?"을 "to_number(?)" 등으로 "?"을 문자열이 아닌 다른 의도하는 데이타타입을 갖도록 명시적으로 변경하여 사용하면 됩니다.
+4.  쿼리내에 "날짜타입값 - ?" 형태를 포함하고, "?"에 숫자값을 bind하여 사용시에는 "ERR-21038 : Literals in the input do not match the format string." 에러가 발생합니다. 이때, 날짜타입값이라함은 날짜타입칼럼 및 날짜타입반환함수를 포함합니다. 이러한 에러가 발생하는 이유는 pdo_altibase가 숫자값 bind시에 내부적으로 문자열로 처리하는데, Altibase 쿼리처리기가 날짜타입값에 대한 문자열 빼기연산을 하는 경우에 문자열을 날짜타입으로 변환하려고 하기 때문입니다. 이 경우에는 "?"을 "to_number(?)" 등으로 "?"을 문자열이 아닌 다른 의도하는 데이터타입을 갖도록 명시적으로 변경하여 사용하면 됩니다.
 
 <br/>
 
@@ -676,10 +676,10 @@ ODBC, Embedded SQL, JDBC 프로그램에서 글로벌 트랜잭션을 사용하�
 
 XA 구조는 X/Open에서 정한 분산 트랜잭션 (또는 글로벌 트랜잭션) 처리를 위한 표준 모델이다.
 
-분산 트랜잭션이란 2개 또는 그 이상의 네트워크 상에서의 데이타베이스 시스템 간의 트랜잭션으로서 글로벌 트랜잭션 (Global Transaction)이라고도 한다. 데이타베이스 시스템은 트랜잭션의 자원 역할을 하고, 트랜잭션 매니져 (Transaction Manager, TM)는 이러한 자원에 관련된 모든 동작에 대하여 트랜잭션을 생성하고 관리한다. 즉
-다수의 데이타베이스 서버들이 제공하는 자원을 분산 애플리케이션이 공유할 수 있도록 해주거나 또는 글로벌 트랜잭션으로 처리할 수 있도록 한다.
+분산 트랜잭션이란 2개 또는 그 이상의 네트워크 상에서의 데이터베이스 시스템 간의 트랜잭션으로서 글로벌 트랜잭션 (Global Transaction)이라고도 한다. 데이터베이스 시스템은 트랜잭션의 자원 역할을 하고, 트랜잭션 매니져 (Transaction Manager, TM)는 이러한 자원에 관련된 모든 동작에 대하여 트랜잭션을 생성하고 관리한다. 즉
+다수의 데이터베이스 서버들이 제공하는 자원을 분산 애플리케이션이 공유할 수 있도록 해주거나 또는 글로벌 트랜잭션으로 처리할 수 있도록 한다.
 
-XA는 하나 이상의 데이타베이스에서 트랜잭션을 처리하는 애플리케이션에 유용한 구조이다.
+XA는 하나 이상의 데이터베이스에서 트랜잭션을 처리하는 애플리케이션에 유용한 구조이다.
 
 ### XA 관련 용어
 
@@ -697,7 +697,7 @@ XA는 하나 이상의 데이타베이스에서 트랜잭션을 처리하는 애
     RM 즉 DBMS에 prepare 된 후 커밋 또는 롤백 메시지를 받기 전까지의 트랜잭션 브랜치을 의미한다. 또는 Pending 트랜잭션이라고도 한다.
 
 -   리소스 매니저(Resource Manager, RM)  
-    리소스 매니저는 XA 트랜잭션에 의해 접근되는 자원을 관리한다. 예를 들어 관계형 데이타베이스, 트랜잭션 큐, 또는 파일 시스템 등이 있을 수 있다.
+    리소스 매니저는 XA 트랜잭션에 의해 접근되는 자원을 관리한다. 예를 들어 관계형 데이터베이스, 트랜잭션 큐, 또는 파일 시스템 등이 있을 수 있다.
 
 -   트랜잭션 브랜치 (Transaction Branch)  
     이는 하위 트랜잭션으로 글로벌 트랜잭션의 일부이다. 이는 글로벌 트랜잭션에 참여하는 RM들 중 하나에서 실행된다. 하나의 트랜잭션 브랜치는 하나의 XID (XA의 트랜잭션 아이디)와 일대일로 대응한다.
@@ -725,7 +725,7 @@ XA는 하나 이상의 데이타베이스에서 트랜잭션을 처리하는 애
 
 [그림 3‑1] XA 구조
 
-AP가 TX 인터페이스를 사용하여 TM에게 분산 트랜잭션이 시작됐다고 알리면, TM은 어떤 RM (데이타베이스 시스템)이 분산 트랜잭션의 대상인지 확인한다. TM은 내부적으로 RM에서 수행할 트랜잭션 브랜치를 위한 XID를 생성하여 XA인터페이스를 호출하여 RM에게 XID를 전달한다.
+AP가 TX 인터페이스를 사용하여 TM에게 분산 트랜잭션이 시작됐다고 알리면, TM은 어떤 RM (데이터베이스 시스템)이 분산 트랜잭션의 대상인지 확인한다. TM은 내부적으로 RM에서 수행할 트랜잭션 브랜치를 위한 XID를 생성하여 XA인터페이스를 호출하여 RM에게 XID를 전달한다.
 
 각각의 RM (DB 노드)은 전송된 XID에 대응하는 트랜잭션 브랜치를 처리하기 시작한다. 그리고 TM으로부터 그 트랜잭션의 종료 요청이 올 때까지는 AP로부터 요청된 작업을 그 XID에 해당하는 글로벌 트랜잭션내의 작업으로 인지하고 트랜잭션 브랜치에서 작업을 진행한다.
 
@@ -735,7 +735,7 @@ AP가 TX 인터페이스를 사용하여 TM에게 분산 트랜잭션이 시작�
 
 Altibase XA Interface는 2단계 커밋(2-Phase Commit, 2PC)을 따른다. 2PC는 Prepare 단계와 Commit 단계로 구성된다.
 
-1단계인 Prepare에서 TM은 분산 트랜잭션에 참여하는 모든 데이타베이스 노드들 즉 RM에게 커밋의 가능성을 확인한다. RM은 커밋이 가능하다면 Prepare 상태를 TM에게 전달한다. 그러나 가능하지 않다면 RM은 이를 롤백시키기 위한 상태 값을 반환한다.
+1단계인 Prepare에서 TM은 분산 트랜잭션에 참여하는 모든 데이터베이스 노드들 즉 RM에게 커밋의 가능성을 확인한다. RM은 커밋이 가능하다면 Prepare 상태를 TM에게 전달한다. 그러나 가능하지 않다면 RM은 이를 롤백시키기 위한 상태 값을 반환한다.
 
 2단계인 Commit에서 TM은 Prepare의 상태를 전달받을 때까지 대기한다. 그리고 Prepare가 정상적으로 진행되었다면, 모든 RM에게 커밋 명령을 보낸다. 그러나 하나의 RM이라도 Prepare가 되지 않았다면, 롤백 명령을 보낸다.
 
@@ -916,7 +916,7 @@ int xa_prepare(XID *xid, int rmid, long flags);
 다음의 값이 리턴될 수 있다.
 
 -   XA_RDONLY  
-    트랜잭션이 RM (DBMS)의 어떤 데이타도 변경하지 않았을 경우에 반환된다. RM 에서 수행된 트랜잭션은 커밋이나 롤백이 필요하지 않다.
+    트랜잭션이 RM (DBMS)의 어떤 데이터도 변경하지 않았을 경우에 반환된다. RM 에서 수행된 트랜잭션은 커밋이나 롤백이 필요하지 않다.
     
 -   XA_OK  
     정상적으로 수행되었을 경우에 이 값을 반환한다.
@@ -1406,7 +1406,7 @@ public interface XAConnection extends PooledConnection
 	}
 ```
 
-XAConnection의 인스턴스는 데이타베이스와 물리적으로 연결하고 있다. 또한 XAConnection 인스턴스를 통해 분산 트랜잭션을 관리하는데 사용되는 XAResource를 얻을 수 있다.
+XAConnection의 인스턴스는 데이터베이스와 물리적으로 연결하고 있다. 또한 XAConnection 인스턴스를 통해 분산 트랜잭션을 관리하는데 사용되는 XAResource를 얻을 수 있다.
 
 Altibase JDBC driver에서는 Altibase.jdbc.driver.ABPooledConnection 클래스의 인스턴스가 실질적인 XAConnection 타입의 인스턴스가 된다.
 
@@ -1418,10 +1418,10 @@ ABPooledConnection 클래스의 getXAResource 메소드는 AltibaseXAResource �
 
 [그림 3‑5] ABPooledConnection 클래스
 
-getConnection 메소드를 통해 반환되는 ABConnection 인스턴스는 데이타베이스와의 물리적인 연결에 대한 임시 핸들이고, 이 Connection은 글로벌 트랜잭션에 참여되기까지는 일반적인 Connection처럼 동작한다. 글로벌 트랜잭션에 참여되는 순간에 auto-commit 상태는 false가 되며, 글로벌 트랜잭션이 끝난 후에 auto-commit 상태는 글로벌 트랜잭션이 시작되기 이전 상태로 돌아간다.
+getConnection 메소드를 통해 반환되는 ABConnection 인스턴스는 데이터베이스와의 물리적인 연결에 대한 임시 핸들이고, 이 Connection은 글로벌 트랜잭션에 참여되기까지는 일반적인 Connection처럼 동작한다. 글로벌 트랜잭션에 참여되는 순간에 auto-commit 상태는 false가 되며, 글로벌 트랜잭션이 끝난 후에 auto-commit 상태는 글로벌 트랜잭션이 시작되기 이전 상태로 돌아간다.
 
 XAConnection의 getConnection 메소드가 호출될 때마다 새로운 Connection 인스턴스를 반환하는데, 동일한 XAConnection 인스턴스에 의해 반환되어 이전에 존재하던 Connection 인스턴스는 close 된다. 그럼에도 불구하고, 새로운 Connection이 오픈되기 전에 이전의 Connection은 명시적으로 close하기를 권장한다. XAConnection
-인스턴스의 close 메소드가 호출되면 데이타베이스로의 물리적인 연결이 끊어진다.
+인스턴스의 close 메소드가 호출되면 데이터베이스로의 물리적인 연결이 끊어진다.
 
 #### XAResource Interface
 
@@ -1504,7 +1504,7 @@ XA 관련 메소드는 에러가 발생할 때, ABXAException을 throw한다. AB
    Services-\>JDBC-\>Data Sources에서 Configure a new JDBC Data Source를 선택한다.  
    Name과 JNDI Name을 입력하고 “Honor Global Transactions”에 체크한다.  
    다음 페이지에서 PoolName에 앞서 만든 Pool의 이름을 입력한다. (weblogic 8.1)
-   ([그림 6-7] 데이타 소스 생성 참조)  
+   ([그림 6-7] 데이터 소스 생성 참조)  
 
    > Note: weblogic8.1 이전 버전에서는 Services-\>JDBC-\>XA Data Sources에서 새로운 DataSource를 생성한다.
 
@@ -1512,7 +1512,7 @@ XA 관련 메소드는 에러가 발생할 때, ABXAException을 throw한다. AB
     <img src="media/API/image23.jpeg">
 </div>
 
-[그림 3‑8] 데이타 소스 생성
+[그림 3‑8] 데이터 소스 생성
 
 #### Weblogic 애플리케이션 예제 
 
@@ -1547,13 +1547,13 @@ DataSource xads1 = (DataSource)ctx.lookup("altiTXDS");
 
 #### JEUS에서 XA 설정
 
-제우스에서 JDBC 데이타 소스를 생성하기 위한 기본 설정을 한다.
+제우스에서 JDBC 데이터 소스를 생성하기 위한 기본 설정을 한다.
 
-1.  JEUS 매니저 리소스-\>JDBC에서 새 JDBC 데이타 소스 생성을 선택한다.
+1.  JEUS 매니저 리소스-\>JDBC에서 새 JDBC 데이터 소스 생성을 선택한다.
 
 2.  기본 설정 창이 나타나면 다음의 정보를 입력한다.  
     DBMS : Other  
-    가능한 데이타 소스들 : Other DataSource  
+    가능한 데이터 소스들 : Other DataSource  
     Data Source Class Name: Altibase.jdbc.driver.AltibaseXADataSource  
     Data Source Type : XADataSource
 
@@ -1563,7 +1563,7 @@ DataSource xads1 = (DataSource)ctx.lookup("altiTXDS");
     <img src="media/API/854d2590732a990a589c46dde6517ed7.png">
 </div>
 
-[그림 3‑9] 제우스에서 데이타 소스 설정하기
+[그림 3‑9] 제우스에서 데이터 소스 설정하기
 
 #### JEUS애플리케이션 예제
 
@@ -1888,7 +1888,7 @@ ulxXaOpen은 모듈 이름, XAER_RMERR은 XA spec.의 에러, [ERR-4102E]는 Alt
 
 TM은 in-doubt 또는 pending 트랜잭션이 발생할 경우 일반적으로 문제 상황을 인식하고, in-doubt 트랜잭션을 자동으로 복구하는 기능을 제공한다. 그러나 해당 RM은 복구되어 자동으로 커밋 명령을 받을 때 까지 prepare 된 자원에 대해 lock을 걸은 상태로 기다린다.
 
-하지만 다른 트랜잭션이 in-doubt 트랜잭션이 lock을 건 데이타를 요구하거나, 적정 시간 동안 문제가 해결되지 않을 때에는 DBA가 임의로 트랜잭션을 처리할 수 있어야 한다.
+하지만 다른 트랜잭션이 in-doubt 트랜잭션이 lock을 건 데이터를 요구하거나, 적정 시간 동안 문제가 해결되지 않을 때에는 DBA가 임의로 트랜잭션을 처리할 수 있어야 한다.
 
 Altibase는 in-doubt 트랜잭션을 처리하기 위해 in-doubt 트랜잭션의 상태를 검색할 수 있는 V\$DBA_2PC_PENDING 성능 뷰를 제공한다. 이에 대한 자세한 설명은 *General Reference*를 참조하기 바란다.
 
@@ -1967,20 +1967,20 @@ FAEDFAED
 
 ## iLoader API 개요
 
-Altibase iLoader API는 Altibase 데이타베이스의 데이타를 다운로드 또는 업드로하는 함수들로 구성되어 있으며, 이를 사용해서 응용프로그램을 개발할 수 있다. 데이타는 테이블 단위로 다운로드하거나 업로드 할 수 있다. iLoader API는 iLoader 유틸리티와 같은 기능을 제공한다. 이 툴에 대한 자세한 설명은 *iLoader User’s Manual* 을
+Altibase iLoader API는 Altibase 데이터베이스의 데이터를 다운로드 또는 업드로하는 함수들로 구성되어 있으며, 이를 사용해서 응용프로그램을 개발할 수 있다. 데이터는 테이블 단위로 다운로드하거나 업로드 할 수 있다. iLoader API는 iLoader 유틸리티와 같은 기능을 제공한다. 이 툴에 대한 자세한 설명은 *iLoader User’s Manual* 을
 참고한다.
 
 다음의 표에 iLoader API의 함수를 정리하였다.
 
-| 함수 이름                     | 설명                                                              |
-|-------------------------------|-------------------------------------------------------------------|
-| altibase_iloader_init         | iLoader 핸들을 할당한다                                           |
-| altibase_iloader_final        | 핸들과 관련된 모든 자원과 핸들을 해제한다                         |
-| altibase_iloader_options_init | 옵션 구조체를 기본값으로 초기화한다                               |
-| altibase_iloader_formout      | 테이블 포맷 파일 (FORM 파일)을 생성한다                           |
-| altibase_iloader_dataout      | 데이타베이스의 테이블로부터 데이타를 다운로드해서 파일에 저장한다 |
-| altibase_iloader_datain       | 테이블로 데이타를 업로드한다                                      |
-| CallbackFunctionName          | 사용자 정의 콜백 함수                                             |
+| 함수 이름                     | 설명                                                         |
+| ----------------------------- | ------------------------------------------------------------ |
+| altibase_iloader_init         | iLoader 핸들을 할당한다                                      |
+| altibase_iloader_final        | 핸들과 관련된 모든 자원과 핸들을 해제한다                    |
+| altibase_iloader_options_init | 옵션 구조체를 기본값으로 초기화한다                          |
+| altibase_iloader_formout      | 테이블 포맷 파일 (FORM 파일)을 생성한다                      |
+| altibase_iloader_dataout      | 데이터베이스의 테이블로부터 데이터를 다운로드해서 파일에 저장한다 |
+| altibase_iloader_datain       | 테이블로 데이터를 업로드한다                                 |
+| CallbackFunctionName          | 사용자 정의 콜백 함수                                        |
 
 ## iLoader API 사용
 
@@ -2008,12 +2008,12 @@ iLoader API를 사용해서 작성한 샘플 응용 프로그램은 \$ALTIBASE_H
 
 <br/>
 
-## iLoader API 데이타 구조체
+## iLoader API 데이터 구조체
 
-이 절은 iLoader API로 응용프로그램 작성시 사용해야 할 C 데이타 타입을 설명한다.
-이들 데이타 타입은 위의 절에서 언급한 헤더파일에 정의되어 있다.
+이 절은 iLoader API로 응용프로그램 작성시 사용해야 할 C 데이터 타입을 설명한다.
+이들 데이터 타입은 위의 절에서 언급한 헤더파일에 정의되어 있다.
 
-데이타 타입은 다음과 같다.
+데이터 타입은 다음과 같다.
 
 -   iLoader 핸들
 -   에러 구조체
@@ -2026,7 +2026,7 @@ iLoader API를 사용해서 작성한 샘플 응용 프로그램은 \$ALTIBASE_H
 iLoader 핸들은 iLoader API 라이브러리 내에 정의된 자료형을 참조한다. 이 자료형은 iLoader API를 사용하는 응용프로그램의 동작과 관련된 정보를 저장하고 있다.
 
 -   ALTIBASE_ILOADER_HANDLE  
-    iLoader 핸들. 이는 데이타 다운로드, 업로드 및 FORM 파일 생성시에 주로 사용된다.  
+    iLoader 핸들. 이는 데이터 다운로드, 업로드 및 FORM 파일 생성시에 주로 사용된다.  
     iLoader 핸들은 altibase_iloader_init() 으로 할당하고, altibase_iloader_final()로 해제할 수 있다.
 
 ### 에러 구조체
@@ -2077,7 +2077,7 @@ iLoader API 는 iLoader 의 진행 상태를 로깅하는 데 사용하도록 �
   | loadCount      | 업로드 또는 다운로드에 성공한 행의 총 개수                   |
   | errorCount     | 오류 발생으로 인해 업로드 또는 다운로드를 하지 못한 행의 총 개수.   오류가 발생했을 때, 이 값은 현재 오류는 포함하지 않는다. 즉, 이 값은 현재 오류 이전에 발생했던 모든 오류의 개수이다. |
   | record         | 오류 발생 시, 이는 업로드 또는 다운로드를 하지 못한 레코드의   위치를 알려준다 |
-  | recordData     | 오류 발생 시, 이는 업로드 또는 다운로드를 하지 못한 레코드의   칼럼 데이타를 나타낸다. |
+  | recordData     | 오류 발생 시, 이는 업로드 또는 다운로드를 하지 못한 레코드의   칼럼 데이터를 나타낸다. |
   | recordColCount | 오류 발생 시, 이는 업로드 또는 다운로드를 하지 못한 레코드의   칼럼 개수를 알려준다. |
   | errorMgr       | 오류 발생 시, 이는 오류에 대한 정보를 담고 있는 에러 구조체를   가리킨다. |
 
@@ -2101,7 +2101,7 @@ iLoader API 는 iLoader 의 진행 상태를 로깅하는 데 사용하도록 �
   | ---------- | ------------------------------------------------------------ |
   | tableName  | 업로드 또는 다운로드 중인 테이블의 이름                      |
   | startTime  | 업로드 또는 다운로드 작업을 시작한 시각                      |
-  | totalCount | 업로드할 행의 총 개수. 이 멤버는 데이타 다운로드시에는 사용되지   않는다. |
+  | totalCount | 업로드할 행의 총 개수. 이 멤버는 데이터 다운로드시에는 사용되지   않는다. |
   | loadCount  | 업로드 또는 다운로드에 성공한 행의 총 개수                   |
   | errorCount | 오류 발생으로 인해 업로드 또는 다운로드를 하지 못한 행의 총 개수 |
 
@@ -2165,8 +2165,8 @@ iLoader API 는 iLoader 의 진행 상태를 로깅하는 데 사용하도록 �
 | loadModeType     | ILO_APPEND: iLoader의 –mode 옵션에 쓸 수 있는 값 중   APPEND 와 동일하다.   ILO_REPLACE: iLoader의 –mode 옵션에 쓸 수 있는 값 중   REPLACE 와 동일하다.   ILO_TRUNCATE: iLoader의 –mode 옵션에 쓸 수 있는 값 중   TRUNCATE 와 동일하다.   기본값은 ILO_APPEND이다. |
 | atomic           | Atomic Array INSERT를 사용할 것인지를 지정하는데   사용된다. ILO_TRUE 또는 ILO_FALSE 중의   하나일 수 있다.   기본값은 ILO_FALSE이다. |
 | directLog        | Direct-path INSERT를 사용할 것인지를 지정하는데 사용된다. 이 값이 ILO_DIRECT_NONE이면, Direct-Path INSERT는 사용되지 않는다. 이 값이 ILO_DIRECT_LOG이면, 로깅 모드로 Direct-Path INSERT를 실행한다. 이 값이 ILO_DIRECT_NOLOG이면, 노로깅 모드로 Direct-Path INSERT를 실행한다.   기본값은 ILO_DIRECT_NONE이다. |
-| dataFileNum      | 이 구조체의 dataFile 멤버에 몇 개의 데이타파일이 지정되는지   그 개수를 명시하는데 사용된다. |
-| getTotalRowCount | 데이타 파일 내의 행의 총 개수를 구해서 데이타 업로드시에   ALTIBASE_ILOADER_STATISTIC_LOG 구조체의 totalCount 멤버에   이 값을 설정할 것인지를 지정한다.   ILO_TRUE 또는   ILO_FALSE 중의 하나일 수 있다.   기본값은 ILO_FALSE이다. |
+| dataFileNum      | 이 구조체의 dataFile 멤버에 몇 개의 데이터파일이 지정되는지   그 개수를 명시하는데 사용된다. |
+| getTotalRowCount | 데이터 파일 내의 행의 총 개수를 구해서 데이터 업로드시에   ALTIBASE_ILOADER_STATISTIC_LOG 구조체의 totalCount 멤버에   이 값을 설정할 것인지를 지정한다.   ILO_TRUE 또는   ILO_FALSE 중의 하나일 수 있다.   기본값은 ILO_FALSE이다. |
 | setRowFrequency  | 여기에 명시한 개수만큼의 행이 업로드 또는 다운로드 될 때마다 사용자 콜백 함수가 호출된다.   기본값은 0이다. 이   값이 0이면, 콜백 함수는 호출되지 않는다. |
 
 
@@ -2227,7 +2227,7 @@ typedef enum
 
 ### altibase_iloader_datain
 
-이 함수는 데이타를 데이타베이스 테이블로 업로드하는데 사용된다.
+이 함수는 데이터를 데이터베이스 테이블로 업로드하는데 사용된다.
 
 #### 구문
 
@@ -2264,7 +2264,7 @@ altibase_iloader_datain()이 ALTIBASE_ILO_ERROR 또는 ALTIBASE_ILO_WARNING을 �
 
 #### 설명
 
-altibase_iloader_datain() 은 파일의 데이타를 데이타베이스 테이블로 업로드하는 데 사용된다.
+altibase_iloader_datain() 은 파일의 데이터를 데이터베이스 테이블로 업로드하는 데 사용된다.
 
 version 인자의 값은 ALTIBASE_ILOADER_V1 이어야 한다.
 
@@ -2282,9 +2282,9 @@ altibase_iloader_final
 
 #### 예제
 
-다음의 예제는 데이타 업로드 시에 포맷 파일과 데이타 파일을 어떻게 명시하는지를 보여준다. 직접 iLoader 유틸리티를 사용하는 것과 응용프로그램 내에서 iLoader API를 사용하는 것 모두 아래에 예를 들었다.
+다음의 예제는 데이터 업로드 시에 포맷 파일과 데이터 파일을 어떻게 명시하는지를 보여준다. 직접 iLoader 유틸리티를 사용하는 것과 응용프로그램 내에서 iLoader API를 사용하는 것 모두 아래에 예를 들었다.
 
--   iLoader 유틸리티를 사용해서 데이타 업로드
+-   iLoader 유틸리티를 사용해서 데이터 업로드
 
 ```
 iloader in -s 127.0.0.1 -u sys -p manager -f t1.fmt -d t1.dat
@@ -2292,7 +2292,7 @@ iloader in -s 127.0.0.1 -u sys -p manager -f t1.fmt -d t1.dat
 
 
 
--   응용 프로그램 내에서 iLoader API를 사용해서 데이타 업로드
+-   응용 프로그램 내에서 iLoader API를 사용해서 데이터 업로드
 
 ```
 int main()
@@ -2349,7 +2349,7 @@ int main()
 
 ### altibase_iloader_dataout
 
-이 함수는 데이타베이스 테이블에서 데이타를 다운로드하여 파일에 그 데이타를 저장하는데 사용된다.
+이 함수는 데이터베이스 테이블에서 데이터를 다운로드하여 파일에 그 데이터를 저장하는데 사용된다.
 
 #### 구문
 
@@ -2384,7 +2384,7 @@ altibase_iloader_dataout()이 ALTIBASE_ILO_ERROR 을 반환할 때, 에러에 �
 
 #### 설명
 
-altibase_iloader\_ dataout() 은 데이타베이스 테이블에서 데이타를 다운로드하여 파일에 그 데이타를 저장하는데 사용된다.
+altibase_iloader\_ dataout() 은 데이터베이스 테이블에서 데이터를 다운로드하여 파일에 그 데이터를 저장하는데 사용된다.
 
 version 인자의 값은 ALTIBASE_ILOADER_V1 이어야 한다.
 
@@ -2402,9 +2402,9 @@ altibase_iloader_final
 
 #### 예제
 
-다음의 예제는 데이타 다운로드 시에 포맷 파일과 데이타 파일을 어떻게 명시하는지를 보여준다. 직접 iLoader 유틸리티를 사용하는 것과 응용프로그램 내에서 iLoader API를 사용하는 것 모두 아래에 예를 들었다.
+다음의 예제는 데이터 다운로드 시에 포맷 파일과 데이터 파일을 어떻게 명시하는지를 보여준다. 직접 iLoader 유틸리티를 사용하는 것과 응용프로그램 내에서 iLoader API를 사용하는 것 모두 아래에 예를 들었다.
 
--   iLoader 유틸리티를 사용해서 데이타 다운로드
+-   iLoader 유틸리티를 사용해서 데이터 다운로드
 
 ```
 iloader out -s 127.0.0.1 -u sys -p manager -f t1.fmt -d t1.dat
@@ -2412,7 +2412,7 @@ iloader out -s 127.0.0.1 -u sys -p manager -f t1.fmt -d t1.dat
 
 
 
--   응용 프로그램 내에서 iLoader API를 사용해서 데이타 다운로드
+-   응용 프로그램 내에서 iLoader API를 사용해서 데이터 다운로드
 
 ```
 int main()
@@ -2532,7 +2532,7 @@ altibase_iloader_formout()이 ALTIBASE_ILO_ERROR 을 반환할 때, 에러에 �
 
 #### 설명
 
-altibase_iloader_formout()은 데이타베이스 테이블의 정의를 담고 있는 포맷 파일 (즉, FORM 파일)을 생성하는데 사용된다.
+altibase_iloader_formout()은 데이터베이스 테이블의 정의를 담고 있는 포맷 파일 (즉, FORM 파일)을 생성하는데 사용된다.
 
 이 함수는 altibase_iloader_init() 과 altibase_iloader_options_init() 이 호출된 후에 호출해야 한다.
 
@@ -2630,7 +2630,7 @@ int altibase_iloader_init (ALTIBASE_ILOADER_HANDLE * handle );
 
 | 인자   | 입출력 | 설명                                                         |
 | ------ | ------ | ------------------------------------------------------------ |
-| handle | 출력   | 새로 할당된 데이타 구조체에 대한 핸들이 반환될 버퍼를 가리키는 포인터 |
+| handle | 출력   | 새로 할당된 데이터 구조체에 대한 핸들이 반환될 버퍼를 가리키는 포인터 |
 
 #### 결과값
 
@@ -2638,7 +2638,7 @@ ALTIBASE_ILO_SUCCESS 또는 ALTIBASE_ILO_ERROR
 
 #### 설명
 
-altibase_iloader_init()은 테이블 포맷 파일 생성, 데이타 다운로드 또는 데이타 업로드시에 사용되는 핸들을 할당한다.
+altibase_iloader_init()은 테이블 포맷 파일 생성, 데이터 다운로드 또는 데이터 업로드시에 사용되는 핸들을 할당한다.
 
 하나의 핸들은 한 프로세스 내의 여러 쓰레드에서 공유할 수 없다.
 
@@ -2899,9 +2899,9 @@ CheckServer API를 사용해서 작성한 샘플 응용 프로그램은 \$ALTIBA
 
 <br/>
 
-## CheckServer API 데이타 구조체
+## CheckServer API 데이터 구조체
 
-이 절은 CheckServer API로 응용프로그램 작성시 사용해야 할 C 데이타 타입을 설명한다. 이들 데이타 타입은 위의 절에서 언급한 헤더파일에 정의되어 있다.
+이 절은 CheckServer API로 응용프로그램 작성시 사용해야 할 C 데이터 타입을 설명한다. 이들 데이터 타입은 위의 절에서 언급한 헤더파일에 정의되어 있다.
 
 ### CheckServer 핸들
 
@@ -3065,10 +3065,10 @@ char * home_dir );
 
 #### 인자
 
-| 인자     | 입출력 | 설명                                                                  |
-|----------|--------|-----------------------------------------------------------------------|
-| handle   | 출력   | 새로 할당된 데이타 구조체에 대한 핸들이 반환될 버퍼를 가리키는 포인터 |
-| home_dir | 입력   | \$ALTIBASE_HOME 디렉터리를 지정해야 한다                              |
+| 인자     | 입출력 | 설명                                                         |
+| -------- | ------ | ------------------------------------------------------------ |
+| handle   | 출력   | 새로 할당된 데이터 구조체에 대한 핸들이 반환될 버퍼를 가리키는 포인터 |
+| home_dir | 입력   | \$ALTIBASE_HOME 디렉터리를 지정해야 한다                     |
 
 #### 결과값
 
