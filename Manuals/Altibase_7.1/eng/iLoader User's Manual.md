@@ -443,7 +443,7 @@ iLoader is run with the following options. Where applicable, default values are 
 | in \| out \| formout \| structout \| help | Sets the direction in which to copy data (it is essential that only one is set)<br/> • in: Copy from a file to a database table. <br/>• out: Copy from a database table to a file. <br/>• formout: Make a table format file (FORM file). <br/>• structout: Performs a function similar to that of formout. Used to create a structure matching that of a given table. (Used when creating a client application.) <br/>• help: Explain how to use help. |
 | \-T *table_name*                          | The name of the table to be copied. If you use double quotation marks to enclose this, this is case-sensitive when you execute iLoader in interactive mode. Since the table name is already written in the FORM file, this option is ignored when uploading or downloading data. |
 | \-d *datafile(datafiles)*                 | The full path of the data file used when copying data from the database to the file or from the file to the database. Not used with formout. A maximum of 32 filenames can be entered. A consecutive series of files can be specified and used only when uploading data. When multiple files are specified using the -d option, they are uploaded in the order that the filenames are entered. Moreover, when this option is used together with the parallel option during a download operation, at least as many files as the number specified in the parallel option are created. |
-| \-rule csv                                | This specifies the format of the data file as csv. This option cannot be used in conjunction with the -t or -e options. Otherwise, an error will be raised. If none of the -t, -r, -e or -rule csv options are set, csv is used by default. |
+| \-rule csv                                | This applies [CSV format rules](#rule-csv) to the data to be uploaded or downloaded. These options cannot be used together with delimiter-related options such as -f, -t, -r, and -e. |
 | \-f *formatfile*                          | The full path of formatfile, created by a previous call to iLoader. |
 | \-F *firstrow*                            | The line number of the first row to be copied (default is 1). This option is meaningful only when uploading data. |
 | \-L *lastrow*                             | The line number of the last row to be copied (default is the line number of the last row). This option is meaningful only when uploading data. |
@@ -486,6 +486,19 @@ ISQL_CONNECTION : TCP
 -   All of the options described above are case-sensitive except for -S, -U, and -P. 
 -   The -in | -out | -formout option must be entered before any of the other command options. 
 -   For more detailed information about SSL connection, please refer to Chapter 2. Connecting and Disconnecting in the *iSQL User’s Manual.* 
+
+> [!note]
+>
+> **CSV Format Rules and -rule csv Option**<a name="rule-csv"></a>
+>
+> iLoader processes data according to the CSV (comma-separated values) format rules when the delimiter option is not specified. The CSV format is a text-based data format where fields or columns are separated by commas and rows are separated by line breaks. Data formatted according to CSV format rules undergoes the following transformation:
+>
+> ```
+> Before: John 027551234 Seoul
+> After: "John",027551234,"Seoul"
+> ```
+>
+> Following CSV format rules, data is correctly formatted even if it contains commas or double quotation marks. Therefore, users do not need to consider the content of the data. However, it's important to note that when using the **-rule csv option, the options to specify delimiters manually (-f, -t, -r, and -e) cannot be used.**
 
 ##### Limitations of Options
 
