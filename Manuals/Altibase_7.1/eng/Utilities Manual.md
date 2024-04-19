@@ -1944,7 +1944,7 @@ Since Altibase replication objects need to be created on all Pods, you should ex
 
 The following explains the detailed behavior of  `aku -p start` command while creating *pod_name*-0 in a StatefulSet.
 
-![](media/Utilities/aku_p_start_master_pod_bug-50832_en.png)
+![](media/Utilities/aku_p_start_master_pod.png)
 
 ① Read "aku.conf" file.
 
@@ -1966,7 +1966,7 @@ When scaling up in a StatefulSet, a Slave Pod is created. A Pod can be created a
 
 The following explains the detailed behavior of  `aku -p start` command on *pod_name*-1 when the Slave Pod is created for the first time and is restarted normally. 
 
-![](media/Utilities/aku_p_start_slave_pod_bug-50832_en.png)
+![](media/Utilities/aku_p_start_slave_pod.png)
 
 ① Read "aku.conf" file.
 
@@ -2003,7 +2003,7 @@ In this case, if the AKU_FLUSH_AT_START property sets to 1, data synchronization
 
 Note that if the replication information is not reset and remains, the XSN of the replication object has a value other than -1. Refer to the Cautions-4). 
 
-![](media/Utilities/aku_p_start_aku_flush_at_start_1_bug-50832_en.png)
+![](media/Utilities/aku_p_start_aku_flush_at_start_1.png)
 
 ① Read "aku.conf" file.
 
@@ -2027,7 +2027,7 @@ Note that if the replication information is not reset and remains, the XSN of th
 
 The following explanation describes the behavior of aku when executing `aku -p start` on a Slave Pod that has not reset the replication information, with the property AKU_FLUSH_AT_START set to 0.
 
-![](media/Utilities/aku_p_start_aku_flush_at_start_0_bug-50832_en.png)
+![](media/Utilities/aku_p_start_aku_flush_at_start_0.png)
 
 ① Read "aku.conf" file.
 
@@ -2047,7 +2047,7 @@ The following explanation describes the behavior of aku when executing `aku -p s
 
 The command should be used when terminating Pods. It performs to stop Altibase replication and reset the replication information. 
 
-![](media/Utilities/aku_p_end_bug-50832_en.png)
+![](media/Utilities/aku_p_end.png)
 
 ① Read "aku.conf" file.
 

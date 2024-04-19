@@ -2021,7 +2021,7 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
   Altibase 이중화 객체는 모든 파드에 생성해야 하므로 스테이트풀셋에서 *pod_name*-0을 생성할 때도 `aku -p start` 명령을 수행해야 한다. 
 
-  ![](media/Utilities/aku_p_start_master_pod-bug-50832.png)
+  ![](media/Utilities/aku_p_start_master_pod.png)
 
   ① aku.conf 파일을 읽는다.
 
@@ -2045,7 +2045,7 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
   아래는 *pod_name*-1에서 수행한 예이다.
 
-  ![](media/Utilities/aku_p_start_slave_pod-bug-50832.png)
+  ![](media/Utilities/aku_p_start_slave_pod.png)
   
   ① aku.conf 파일을 읽는다.
   
@@ -2073,7 +2073,7 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
   
   참고로, 이중화 정보가 초기화 되지 않으면 이중화 관련 메타 테이블에 이중화 재시작 지점(XSN)이 -1이 아닌 값을 갖는다. 보다 자세한 내용은 [주의사항 6번](#cautions6)을 참고한다.
   
-  ![](media/Utilities/aku_p_start_aku_flush_at_start_1-bug-50832.png)
+  ![](media/Utilities/aku_p_start_aku_flush_at_start_1.png)
 
   ① aku.conf 파일을 읽는다.
 
@@ -2095,7 +2095,7 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
   
   비정상적으로 종료되었거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 종료한 슬레이브 파드를 다시 시작할 때, AKU_FLUSH_AT_START 프로퍼티를 0으로 설정했다면 아래와 같이 동작한다.
   
-  ![](media/Utilities/aku_p_start_aku_flush_at_start_0-bug-50832.png)
+  ![](media/Utilities/aku_p_start_aku_flush_at_start_0.png)
   
   ① aku.conf 파일을 읽는다.
   
@@ -2115,7 +2115,7 @@ Altibase 이중화 객체를 생성하고 데이터를 동기화하는 작업을
 
 Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파드를 종료할 때 이용한다.
 
-![](media/Utilities/aku_p_end-bug-50832.png)
+![](media/Utilities/aku_p_end.png)
 
 ① aku.conf 파일을 읽는다.
 
