@@ -2151,20 +2151,125 @@ Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파�
 
 - 하나의 파드에서 `aku -p start` 명령을 완료한 후 순차적으로 다음 파드를 생성해야 한다. 동시에 여러 파드에서 `aku -p start`를 수행하는 경우 aku가 정상적으로 동작하지 않을 수 있다. 이를 위해 startup probe를 설정해야 하며, aku_start_completed 파일의 존재 여부로 확인한다. 또한 publishNotReadyAddresses를 true로 설정해야한다. startup probe, publishNotReadyAddresses에 대한 자세한 내용은 쿠버네티스 공식 문서를 참고한다.
 
-### 3) 마스터 파드에서 장애가 발생한 경우 aku -p start 명령 수행 시
+### 3) 마스터 파드에서 이중화 객체 정보가 없어 aku -p start 명령이 실패한 경우
 
-aku는 마스터 파드가 정상적인 상황에서 동작하도록 설계되었으므로, 마스터 파드에서 장애가 발생한 경우 사용자가 적절한 조치를 취해야 한다.
+마스터 파드에서  `aku -p start`  명령을 수행할 경우, 마스터 파드가 관리하는 이중화 객체 정보가 반드시 존재해야 수행이 성공한다. 만약 이중화 객체 정보를 초기화했거나 이중화 객체를 삭제하여 이중화 객체 정보가 없고 슬레이브 파드가 동작 중이라면, `aku -p start` 명령 수행에 실패한다.
 
-1. 마스터 파드 장애 시 데이터 정합성을 수동으로 맞춰야 한다. 마스터 파드의 테이블을 TRUNCATE 후 슬레이브 파드에서 이중화 SYNC를 수행하여 데이터를 동기화하여 정합성을 맞춘다.
-2. 모든 파드에서 마스터 파드와 관련된 이중화를 모두 시작한 뒤, 마스터 파드에서  `aku -p start`를 수행하여 이중화 갭을 제거하고 서비스를 시작한다.
+이런 마스터 파드 장애 상황에서는 다음과 같이 마스터 파드를 복구해야 한다.
 
-예) REPLICATION_NAME_PREFIX = AKU_REP로 설정된 0~3번 파드가 시작되어 있는 경우 모든 파드에서 아래의 명령을 수행하여 이중화를 시작한다. 
+1. 슬레이브 파드로부터 마스터 파드로의 동기화를 수행하여 데이터 정합성을 맞춘다.
+2. 마스터 파드에서 이중화를 시작한다.
+3.  `aku -p start` 명령을 다시 수행한다.
+
+각 복구 단계의 자세한 내용은 아래의 마스터 파드 장애 복구 예시를 참고한다.
+
+**마스터 파드 장애 복구 예시**
+
+다음과 같이 aku 프로퍼티를 설정한 마스터 파드가 있다고 가정한다.
+
+- AKU_SERVER_COUNT = 4
+
+- REPLICATION_NAME_PREFIX = AKU_REP
+
+이 마스터 파드에서 관리하는 이중화 대상 테이블은 *T1*, *T2*, 그리고 *T3*이며, 슬레이브 파드 *pod_name*-1가 시작한 상태이다. 이 때 이중화 객체 정보가 소실된 마스터 파드 *pod_name*-0에서 `aku -p start` 명령을 수행하면 다음과 같이 실패한다.
+
+```bash
+$ aku -p start
+AKU started with START option.
+[AKU][2024/04/19 19:21:31.012670][140276343642368] [INFO][akuRunStart:828][-][-] Start as MASTER Pod.
+[AKU][2024/04/19 19:21:31.012991][140276343642368] [ERROR][akuRunStart:1030][-][-] The MASTER server is detected to have failed. Check and perform a manual recovery.
+AKU failed to run.
+```
+
+또한, 이 경우 마스터 파드에서 이중화 객체의 XSN을 조회하면 그 값이 아래와 같이 -1인 것을 확인할 수 있다.
 
 ```sql
-ALTER REPLICATION AKU_REP_01 START;
-ALTER REPLICATION AKU_REP_02 START;
-ALTER REPLICATION AKU_REP_03 START;
+iSQL> SELECT REPLICATION_NAME, XSN FROM SYSTEM_.SYS_REPLICATIONS_;
+REPLICATION_NAME                XSN                  
+--------------------------------------------------------
+AKU_REP_03                      -1
+AKU_REP_02                      -1
+AKU_REP_01                      -1
+3 rows selected.
 ```
+
+> [!note] 
+>
+> XSN은 송·수신 쓰레드를 통해 원격 서버와 지역 서버에 이중화 정보를 전달하는 XLog의 식별 번호이다. 이중화를 초기화 하면 이 값은 -1이 된다.
+
+이 때 아래의 복구 절차를 순차적으로 수행하여 마스터 파드의 장애를 해결할 수 있다.
+
+1. 슬레이브 파드로부터 마스터 파드로의 동기화를 수행하여 데이터 정합성을 맞춘다.
+
+   1. 마스터 파드에서 이중화 대상 테이블 레코드를 삭제한다.
+
+      데이터 동기화 시 충돌이 발생하는 것을 방지하기 위해 마스터 파드에서 관리하는 이중화 대상 테이블을 TRUNCATE 한다. TRUNCATE 명령을 수행하기 위해서는 Altibase 서버 프로퍼티REPLICATION_DDL_ENABLE를 1로 설정해야 한다.
+
+      ```sql
+      # REPLICATION_DDL_ENABLE 프로퍼티 설정을 1로 변경한다.
+      iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+      Alter success.
+      
+      # 이중화 대상 테이블의 레코드를 TRUNCATE 한다.
+      iSQL> TRUNCATE TABLE T1;
+      Truncate success.
+      iSQL> TRUNCATE TABLE T2;
+      Truncate success.
+      iSQL> TRUNCATE TABLE T3;
+      Truncate success.
+      
+      # REPLICATION_DDL_ENABLE 프로퍼티 설정을 0으로 원복한다.
+      iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+      Alter success.
+      ```
+
+   2. 슬레이브 파드에서 데이터 동기화를 수행한다.
+
+      데이터를 동기화하기 전에, XSN 값을 초기화 한 후 데이터 동기화를 수행한다. 동기화가 완료되면 이중화가 자동으로 시작된다.
+
+      ```sql
+      # 슬레이브 파드에서 이중화를 중지한다.(이중화가 시작되지 않은 경우 생략할 수 있다.)
+      iSQL> ALTER REPLICATION AKU_REP_01 STOP;
+      Alter success.
+      
+      # 슬레이브 파드의 이중화를 초기화한다.
+      iSQL> ALTER REPLICATION AKU_REP_01 RESET;
+      Alter success.
+      
+      # 이중화 SYNC를 수행하여 슬레이브 파드와 마스터 파드의 데이터 정합성을 맞춘다.
+      iSQL> ALTER REPLICATION AKU_REP_01 SYNC;
+      Alter success.
+      ```
+
+2. 마스터 파드에서 이중화를 시작한다.
+
+   마스터 파드에서 이중화를 시작하여 소실되었던 이중화 객체 정보의 복구를 완료한다. 
+
+   ```sql
+   iSQL> ALTER REPLICATION AKU_REP_01 START;
+   Alter success.
+   ```
+
+3.  `aku -p start` 명령을 다시 수행한다.
+
+   복구가 완료된 마스터 파드는 슬레이브 파드와 동일한 데이터를 갖고 있고, 마스터 파드와 슬레이브 파드 사이의 이중화 객체인 AKU_REP_01의 XSN 값도 갱신된다. 이 상태에서 `aku -p start` 명령을 다시 수행하면 정상적으로 처리된다.
+
+   ```bash
+   # aku.conf를 읽어 이중화 객체를 생성한다. 
+   $ aku -p start
+   # START option은 aku -p start 를 사용함을 의미한다. 
+   AKU started with START option.
+   [AKU][2024/04/19 19:21:01.011887][139922191153408] [INFO][akuRunStart:828][-][-] Start as MASTER Pod.
+   
+   # 마스터 파드와 슬레이브 파드의 이중화 갭을 제거한다.
+   [AKU][2024/04/19 19:21:09.057372][139922191153408] [INFO][akuRunStart:891][-][-] Flush replications.
+   [AKU][2024/04/19 19:21:09.086363][139922191153408] [INFO][akuRunStart:896][-][-] Replication flush has ended.
+   
+   # 정상적으로 모든 절차가 수행된 뒤 aku가 종료된다. 
+   AKU run successfully.
+   ```
+
+   
 
 ### 4) aku -p end 명령 수행 시
 
