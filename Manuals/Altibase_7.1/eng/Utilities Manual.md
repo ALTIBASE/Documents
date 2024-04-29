@@ -1703,7 +1703,7 @@ aku.conf is the configuration file for aku. When executing aku, it reads aku.con
 
 The aku.conf.sample file is as follows:
 
-⚠️ Lines after # symbol are commented out.
+⚠️ Line after # symbol is commented out.
 
 ```bash
 # aku.conf.sample
@@ -2078,25 +2078,133 @@ This command deletes all Altibase replication objects on the pods and the "aku_s
 
 ### 2) Storage corruption in Master Pod
 
-Data corruption due to storage corruption in Master Pod is not guaranteed.
+aku does not recover data corruption due to storage corruption in Master Pod.
 
-### 3) If the Master Pod is malfunctioning and execute `aku -p start` command
+### 3) In case `aku -p start` command fails due to a master pod failure
 
-aku is designed to operate with the assumption that the master pod is functioning normally. Therefore, if a failure occurs in the master pod, users should take appropriate actions as follows.
+Master pod failure refers to a scenario where the `aku -p start` command fails on the master pod under the following circumstances:
 
-1. In the event of a failure in the master pod, users must manually reconcile data integrity. Execute TRUNCATE the tables in the master pod and then perform replication SYNC on the slave pods to ensure data integrity.
+- One or more slave pods are running.
+- Some or all of the replication object information between the running slave pod(s) and the master pod is lost.
 
-2. After starting all the replication related to the master pod on every pod, users can remove the replication gap and start the service by executing `aku -p start` on the master pod.
+When a master pod failure occurs, the following steps should be taken to recover the master pod:
 
-For example, if pods 0 to 3 are started with REPLICATION_NAME_PREFIX set to AKU_REP, users should initiate replication by executing the following command on each pod:
+1. Synchronize data from slave pods to the master pod to ensure data consistency.
+2. Start replication on the master pod.
+3. Retry the command `aku -p start`.
 
-```sql
-ALTER REPLICATION AKU_REP_01 START;
-ALTER REPLICATION AKU_REP_02 START;
-ALTER REPLICATION AKU_REP_03 START;
+Refer to the example below for detailed steps of master pod failure recovery.
+
+**Example of Master Pod Failure Recovery**
+
+Assuming a failure occurs in the master pod named *pod_name*-0 in the following environment:
+
+- Configuration of the aku property in the master pod:
+  - AKU_SERVER_COUNT = 4
+  - REPLICATION_NAME_PREFIX = AKU_REP
+- Configuration of Altibase server properties in the master pod:
+  - ADMIN_MODE = 1
+- Slave pod *pod_name*-1 is running.
+- Replication targets tables are *T1*, *T2*, and *T3*.
+- Information of replication object AKU_REP_01 (the replication between the master pod and slave pod *pod_name*-1) in the master pod is lost.
+
+The master pod failure situation can be identified through the following log:
+
+```bash
+$ aku -p start
+AKU started with START option.
+[AKU][2024/04/19 19:21:31.012670][140276343642368] [INFO][akuRunStart:828][-][-] Start as MASTER Pod.
+[AKU][2024/04/19 19:21:31.012991][140276343642368] [ERROR][akuRunStart:1030][-][-] The MASTER server is detected to have failed. Check and perform a manual recovery.
+AKU failed to run.
 ```
 
+At this point, when querying the XSN of the replication is lost in the master pod, the value is output as -1:
 
+```sql
+iSQL> SELECT REPLICATION_NAME, XSN FROM SYSTEM_.SYS_REPLICATIONS_;
+REPLICATION_NAME                XSN                  
+--------------------------------------------------------
+AKU_REP_01                      -1
+1 rows selected.
+```
+
+> [!note]
+>
+> XSN is the identification number of XLog, which delivers replication information between remote servers and local servers through sender and receiver threads. When initializing replication objects, this value becomes -1.
+
+The following recovery procedures can be sequentially performed to resolve the failure of the master pod:
+
+1. Synchronize data from slave pods to the master pod to ensure data consistency.
+
+   1. Delete records of replication target tables on the master pod.
+
+      To prevent conflicts during data synchronization, TRUNCATE the replication target tables managed by the master pod. To execute the TRUNCATE command, the Altibase server property REPLICATION_DDL_ENABLE must be set to 1.
+
+      ```sql
+      # Change the REPLICATION_DDL_ENABLE property to 1.
+      iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+      Alter success.
+      
+      # TRUNCATE records of replication target tables.
+      iSQL> TRUNCATE TABLE T1;
+      Truncate success.
+      iSQL> TRUNCATE TABLE T2;
+      Truncate success.
+      iSQL> TRUNCATE TABLE T3;
+      Truncate success.
+      
+      # Restore the REPLICATION_DDL_ENABLE property to 0.
+      iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+      Alter success.
+      ```
+
+   2. Perform data synchronization on the slave pod.
+
+      Before synchronizing data, RESET the XSN value to initialize it. Once synchronization is complete, replication will automatically start.
+
+      ```sql
+      # Stop replication on the slave pod (can be omitted if replication has not started).
+      iSQL> ALTER REPLICATION AKU_REP_01 STOP;
+      Alter success.
+      
+      # Reset the replication object between the master pod and the slave pod.
+      iSQL> ALTER REPLICATION AKU_REP_01 RESET;
+      Alter success.
+      
+      # Perform replication SYNC to synchronize data consistency between the slave pod and the master pod.
+      iSQL> ALTER REPLICATION AKU_REP_01 SYNC;
+      Alter success.
+      ```
+
+2. Start replication on the master pod.
+
+   Start replication on the master pod to complete the recovery of lost replication object information.
+
+   ```sql
+   iSQL> ALTER REPLICATION AKU_REP_01 START;
+   Alter success.
+   ```
+
+3. Retry the `aku -p start` command.
+
+   Once recovery is completed, the master pod will have the same data as the slave pod, and the XSN value of the replication object AKU_REP_01 will be updated. Now, when the `aku -p start` command is retried, it will be processed successfully.
+
+   ```bash
+   # Read aku.conf and create replication objects. 
+   $ aku -p start
+   # START option means that aku -p start is executed.
+   AKU started with START option.
+   [AKU][2024/04/19 19:21:01.011887][139922191153408] [INFO][akuRunStart:828][-][-] Start as MASTER Pod.
+   
+   # Remove replication gap between the master pod and the slave pod.
+   [AKU][2024/04/19 19:21:09.057372][139922191153408] [INFO][akuRunStart:891][-][-] Flush replications.
+   [AKU][2024/04/19 19:21:09.086363][139922191153408] [INFO][akuRunStart:896][-][-] Replication flush has ended.
+   
+   # After all procedures are successfully completed, aku is terminated. 
+   AKU run successfully.
+   ```
+
+   
 
 ### 4) If the situation in which Pod was force terminated before `aku -p end` command completed or terminated with the property AKU_REPLICATION_RESET_AT_END set to 0, continues for a long time
 
