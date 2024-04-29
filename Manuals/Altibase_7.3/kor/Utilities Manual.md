@@ -2238,11 +2238,11 @@ AKU_REP_01                      -1
       # 슬레이브 파드에서 이중화를 중지한다.(이중화가 시작되지 않은 경우 생략할 수 있다.)
       iSQL> ALTER REPLICATION AKU_REP_01 STOP;
       Alter success.
-   
+      
       # 슬레이브 파드에서 마스터 파드와의 이중화 객체를 초기화한다.
       iSQL> ALTER REPLICATION AKU_REP_01 RESET;
       Alter success.
-   
+      
       # 이중화 SYNC를 수행하여 슬레이브 파드와 마스터 파드의 데이터 정합성을 맞춘다.
       iSQL> ALTER REPLICATION AKU_REP_01 SYNC;
       Alter success.
@@ -2286,7 +2286,7 @@ AKU_REP_01                      -1
 
 이중화 정보가 초기화되지 않고 남아 있을 수 있다. 이 경우 해당 파드가 다시 시작할 때 이중화 객체 생성과 이중화 대상 테이블을 TRUNCATE 하는 작업이 생략되고 이전에 생성한 이중화가 자동으로 시작된다. AKU_REPLICATION_RESET_AT_END 프로퍼티를 1으로 설정하고 `aku -p end` 명령이 정상적으로 수행될 때의 출력 결과는 [예시 4](#예시-4)를 확인해 보자.
 
-### ### 7) aku -p end 명령이 완료되기 전에 파드가 종료되었거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 파드를 종료한 상태가 장기간 지속된다면<a name="cautions7"></a>
+### 7) aku -p end 명령이 완료되기 전에 파드가 종료되었거나 AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 파드를 종료한 상태가 장기간 지속된다면<a name="cautions7"></a>
 
 종료된 파드뿐 아니라 다른 파드에도 이중화 정보가 초기화되지 않고 남아 있을 수 있다. 이 경우 다른 파드는 종료된 파드로 이중화 하기 위해 이중화에 필요한 온라인 로그 파일을 삭제하지 않는다. 온라인 로그 파일이 쌓이면 디스크 풀 발생으로 Altibase 서버가 정상적으로 운영되지 못할 수 있다. 따라서 이런 상황을 방지하기 위해  `aku -p end` 명령이 완전히 완료되기 전에 파드가 종료되었거나, AKU_REPLICATION_RESET_AT_END 프로퍼티를 0으로 설정하고 파드를 종료한 상태가 장기간 지속되고 있다면 이중화를 중지하고 이중화 초기화 작업을 진행해야 한다. 
 
