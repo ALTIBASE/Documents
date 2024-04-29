@@ -2151,7 +2151,7 @@ Altibase 이중화를 중지하고 초기화하는 작업을 수행한다. 파�
 
 - `aku -p start` 명령은 Altibase 서버가 정상적으로 시작된 후 수행해야 한다. 
 
-- Altibase의 프로퍼티 중 ADMIN_MODE와 REMOTE_SYSDBA를 모두 1로 설정한 후 서버를 기동해야 한다.
+- Altibase의 프로퍼티 중 ADMIN_MODE와 REMOTE_SYSDBA_ENABLE를 모두 1로 설정한 후 서버를 기동해야 한다.
 
 - 하나의 파드에서 `aku -p start` 명령을 완료한 후 순차적으로 다음 파드를 생성해야 한다. 동시에 여러 파드에서 `aku -p start`를 수행하는 경우 aku가 정상적으로 동작하지 않을 수 있다. 이를 위해 startup probe를 설정해야 하며, aku_start_completed 파일의 존재 여부로 확인한다. 또한 publishNotReadyAddresses를 true로 설정해야한다. startup probe, publishNotReadyAddresses에 대한 자세한 내용은 쿠버네티스 공식 문서를 참고한다.
 
