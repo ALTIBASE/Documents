@@ -2001,7 +2001,7 @@ If a Pod is abnormally terminated or terminated with the AKU_REPLICATION_RESET_A
 
 In this case, if the AKU_FLUSH_AT_START property sets to 1, data synchronization from itself to other nodes will be performed.
 
-Note that if the replication information is not reset and remains, the XSN of the replication object has a value other than -1. Refer to the Cautions-4). 
+Note that if the replication information is not reset and remains, the XSN of the replication object has a value other than -1. Refer to the [Cautions 4](#cautions4). 
 
 ![](media/Utilities/aku_p_start_aku_flush_at_start_1.png)
 
@@ -2206,7 +2206,7 @@ The following recovery procedures can be sequentially performed to resolve the f
 
    
 
-### 4) If the situation in which Pod was force terminated before `aku -p end` command completed or terminated with the property AKU_REPLICATION_RESET_AT_END set to 0, continues for a long time
+### 4) If the situation in which Pod was force terminated before `aku -p end` command completed or terminated with the property AKU_REPLICATION_RESET_AT_END set to 0, continues for a long time<a name="cautions4"></a>
 
 If the situation in which a Pod was force-terminated before the `aku -p end` command completed or terminated with the property AKU_REPLICATION_RESET_AT_END set to 0 continues for a long time, there is a possibility of uninitialized replication information remaining in the terminated Pod as well as in other Pods. When this happens, the other Pods do not delete the online log files that are required for replication to the terminated Pod. If the online log file accumulates a lot, it can lead to disk space exhaustion and result in Altibase server not being able to operate normally. To prevent this situation, if you notice that there are long periods of time in which a Pod was terminated before the `aku -p end` command completed, you should stop replication and initialize the replication information. Refer to the commands below. 
 
