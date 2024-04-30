@@ -2085,7 +2085,7 @@ aku does not recover data corruption due to storage corruption in Master Pod.
 Master pod failure refers to a scenario where the `aku -p start` command fails on the master pod under the following circumstances:
 
 - One or more slave pods are running.
-- Some or all of the replication object information between the running slave pod(s) and the master pod is lost.
+- In the master pod, some or all of the replication object information between the running slave pod(s) and the master pod is lost.
 
 When a master pod failure occurs, the following steps should be taken to recover the master pod:
 
@@ -2224,7 +2224,7 @@ REPLICATION_NAME                XSN
 AKU_REP_03                      -1
 AKU_REP_02                      -1
 AKU_REP_01                      859070110
-No rows selected.
+3 rows selected.
 ~~~
 
 Execute the statements for stopping and resetting replication of the object(AKU_REP_01) on *pod_name*-0.
@@ -2246,7 +2246,7 @@ REPLICATION_NAME                XSN
 AKU_REP_03                      -1
 AKU_REP_02                      -1
 AKU_REP_01                      -1
-No rows selected.
+3 rows selected.
 ~~~
 
 <br/>

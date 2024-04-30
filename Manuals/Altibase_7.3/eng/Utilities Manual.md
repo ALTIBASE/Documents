@@ -1788,7 +1788,7 @@ To ensure stable usage of aku in a Kubernetes environment, the following conditi
 
 * It should be used only in **StatefulSets** among Kubernetes workload.
 * The **Pod management policy should be OrderedReady**. OrderedReady is the default policy for StatefulSets.
-* The maximum number of scalable replicas is **up to 4**.
+* The maximum number of scalable replicas is **up to 6.**
 * **Altibase server and aku** should be executed within the same container.
 * `aku -p start` command should be performed after Altibase server has started successfully.
 * aku may not work normally when you execute `aku -p start` on multiple pods at the same time. To prevent this, it is required to configure the **Startup Probe** in Kubernetes.
@@ -2103,7 +2103,7 @@ aku does not recover data corruption due to storage corruption in Master Pod.
 Master pod failure refers to a scenario where the `aku -p start` command fails on the master pod under the following circumstances:
 
 - One or more slave pods are running.
-- Some or all of the replication object information between the running slave pod(s) and the master pod is lost.
+- In the master pod, some or all of the replication object information between the running slave pod(s) and the master pod is lost.
 
 When a master pod failure occurs, the following steps should be taken to recover the master pod:
 
@@ -2183,11 +2183,11 @@ AKU_REP_01                      -1
       # Stop replication on the slave pod (can be omitted if replication has not started).
       iSQL> ALTER REPLICATION AKU_REP_01 STOP;
       Alter success.
-   
+      
       # Reset the replication object between the master pod and the slave pod.
       iSQL> ALTER REPLICATION AKU_REP_01 RESET;
       Alter success.
-   
+      
       # Perform replication SYNC to synchronize data consistency between the slave pod and the master pod.
       iSQL> ALTER REPLICATION AKU_REP_01 SYNC;
       Alter success.
