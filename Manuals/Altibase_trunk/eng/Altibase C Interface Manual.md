@@ -606,7 +606,7 @@ This can be defined as a 32-bit integer or a 64-bit integer. This works similarl
 
 This is a macro used to indicate that the data is a null terminated string. When input binding a string, the user can set the data length to this value instead of the actual length.
 
-When input binding binary data, do not set the data length to ALTIBASE_NTS.
+If ALTIBASE_NTS is set to data length when input binding non-string binary data, the value of [buffer_length](#struct-ALTIBASEBIND) is used as the data length.
 
 ##### enum ALTIBASE_BIND_TYPE
 
