@@ -144,7 +144,6 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 - [6.이중화 롤(ROLE)](#6-이중화-롤role)
   - [Log Analyzer 롤](#log-analyzer-롤)
   - [전파(Propagation)](#전파propagation)
-
 - [A.부록: FAQ](#a부록-faq)
   - [Replication FAQ](#replication-faq)
 
@@ -195,6 +194,12 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 -   제 4장 Fail-Over  
     이 장은 Altibase Fail-Over 기능과 그 사용 방법에 대해 설명한다.
 
+-   제 5장 시퀀스 이중화
+    이 장은 Altibase에서 지원하는 시퀀스 이중화를 위한 조건 및 방법을 설명한다.
+    
+-   제 6장 이중화 롤(ROLE)
+    이 장은 이중화에 롤(ROLE)을 부여하여 특별한 기능을 하도록 시스템을 구성하는 방법을 설명한다.
+    
 -   A. 부록 FAQ  
     이 장은 Altibase 이중화 구동 관련, 프로퍼티 관련 등 사용자들이 자주하는 질문을 모은 것이다.
 
@@ -2101,13 +2106,13 @@ CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING...;
 
 ##### 설명
 
-이중화 메타 정보와 SN 정보를 파일로 남겨서 장애 발생시 Standby 서버에서  미전송 로그를 읽어 올때 필요한 메타 정보를 파일로 남기는 옵션이다. 파일 경로는 로그 파일 경로의 ala_meta_files 폴더 안에 생성 된다.
+이 옵션은 장애 발생시 Standby 서버에서 미전송 로그를 읽어올 때 필요한 이중화 메타 정보와 SN 정보를 파일로 남기는 옵션이다. 파일은 로그 파일 경로의 ala_meta_files 폴더 안에 생성된다.
 
 자세한 설명은 *Adapter for JDBC User’s Manual, Adapter for Oracle User’s Manual*을 참고한다.
 
 ##### 제약사항
 
--   ANALYSIS로 이중화를 생성할때만 사용할 수 있다.
+-   Log Analyzer 롤로 이중화를 생성할때만 사용할 수 있다. 자세한 사항은 [6장 이중화 롤](#6-이중화-롤role)을 참고한다.
 
 ### 다중 IP 네트워크 환경에서의 이중화 
 
