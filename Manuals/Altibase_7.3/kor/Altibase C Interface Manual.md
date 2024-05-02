@@ -709,7 +709,7 @@ VARBIT, GEOMETRY 타입의 칼럼 값은 바이너리로 표현되며, 그 외�
 이는 데이터가 널로 끝나는 문자열임을 나타내기 위해 사용되는 매크로이다. 문자열을
 입력 바인딩할 때, 데이터 길이를 실제 길이 대신에 이 값으로 설정할 수 있다.
 
-문자형이 아닌 바이너리형 데이터를 입력 바인딩할 때 데이터 길이(length)를 ALTIBASE_NTS로 설정하면, [버퍼 길이(buffer_length)](#struct-ALTIBASEBIND)에 설정한 값이 데이터의 길이로 사용된다.
+문자형이 아닌 바이너리형 데이터를 입력 바인딩할 때 데이터 길이(length)를 ALTIBASE_NTS로 설정하면, [버퍼 길이(buffer_length)](#struct-ALTIBASE_BIND)에 설정한 값이 데이터의 길이로 사용된다.
 
 ##### enum ALTIBASE_BIND_TYPE
 
