@@ -172,6 +172,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [SQLTables](#sqltables)
   - [SQLTransact](#sqltransact)
 - [3. LOB Interface](#3-lob-interface)
+  - [How to Process LOB Data](#How-to-Process-LOB-Data)
   - [LOB data types](#lob-data-types)
   - [LOB Function Overview](#lob-function-overview)
   - [SQLBindFileToCol](#sqlbindfiletocol)
@@ -181,6 +182,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [SQLPutLob](#sqlputlob)
   - [SQLTrimLob](#sqltrimlob)
   - [SQLFreeLob](#sqlfreelob)
+
 - [4. Using Cursors](#4-using-cursors)
   - [Cursor Characteristics](#cursor-characteristics)
   - [Implicit Cursor Conversionse](#implicit-cursor-conversionse)
@@ -2840,22 +2842,8 @@ SQLRETURN  SQLEndTran (
 	SQLSMALLINT 	type );
 ```
 
+#### Arguments
 
-
-#### <pre>
-Altibase Application Development Database Link User’s Manual
-Release 7.1
-Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
-This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
-software is prohibited.<br>
-All trademarks, registered or otherwise, are the property of their respective owners.<br>
-<b>Altibase Corp</b>
-10F, Daerung PostTower II,
-306, Digital-ro, Guro-gu, Seoul 08378, Korea
-Telephone : +82-2-2082-1000 
-Fax       : +82-2-2082-1099
-Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
-Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 | Data Type   | Argument   | In/Output | Description                                                  |
 | ----------- | ---------- | --------- | ------------------------------------------------------------ |
 | SQLSMALLINT | handleType | Input     | Handle type identifier. it should be eitherSQL_HANDLE_ENV or SQL_HANDLE_DBC.<br/> |
@@ -6280,36 +6268,36 @@ SQLTransact(SQL_NULL_HENV, dbc, SQL_COMMIT);
 
 # 3. LOB Interface
 
-This chapter describes functions and data types that can be used for handling LOB data.
+This chapter describes how CLI processes LOB data, and functions and data types that can be used for handling LOB data.
 
-### LOB 데이터 처리 방식
+### How to Process LOB Data
 
-Altibase는 CLI에서 LOB데이터를 처리하기위해 LOB 위치 입력기(LOB Locator)를 이용한다. LOB 데이터에 대응되는 고유값으로 Altibase 서버의 내부 자료구조이다. LOB 데이터를 연산하기 위해서는 먼저 LOB Locator를 획득해야 하며, 이를 통해 LOB 데이터를 읽거나 쓸 수 있다. LOB Locator는 MVCC와 관련하여 특정 시점의 LOB 데이터를 가리키기 때문에, LOB Locator를 발생시킨 트랜잭션과 생명주기를 같이하며, 그 트랜잭션에 종속된다.
+Altibase uses a LOB Locator in the CLI to handle LOB data processing. The LOB Locator is an internal data structure of the Altibase server corresponding to a unique value for LOB data. To perform operations on LOB data, the LOB Locator should be obtained first, which allows users to read from or write to the LOB data. Since the LOB Locator points to LOB data at a specific point in time with respect to MVCC, it is bound to the transaction that generated it and shares its lifecycle.
 
-#### 자동 커밋 모드 해제
+#### Disabling Auto-Commit Mode
 
-LOB 위치 입력기는 트랜잭션에 종속적이기 때문에 **CLI에서 LOB 위치 입력기를 이용하여 LOB 데이터를 처리하려면 반드시 자동 커밋 모드를 해제해야 한다.**
+Because LOB Locators are transaction-bound, **when using LOB Locators in the CLI to handle LOB data, it is essential to disable auto-commit mode.**
 
-자동 커밋 모드를 해제하면 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 하나의 트랜잭션에서 개별 작업이 되어 LOB 위치 입력기를 공유할 수 있다. 반면, 자동 커밋 모드에서는 각각의 개별 트랜잭션으로 동작하기 때문에 두 트랜잭션 간에 LOB 위치 입력기를 공유할 수 없다.
+Disabling auto-commit mode allows CLI functions for obtaining LOB Locators and for reading and writing LOB data to operate as individual tasks within a single transaction, enabling sharing of the LOB Locator. Conversely, in auto-commit mode, each CLI function operates within its own individual transaction, preventing sharing of the LOB Locator between two transactions.
 
-> **LOB 위치 입력기를 이용한 트랜잭션 커밋 시 주의사항**
+> **Considerations When Committing Transactions Using LOB Locators**
 
-1. 자동 커밋 해제 모드에서 LOB 데이터를 읽고 쓰는 CLI 함수 수행 중 예상치 못한 에러가 발생하면, 내부적으로 초기화된 데이터가 남아 있을 수 있어 **반드시 트랜잭션을 롤백해야 한다.**
-2. NOT NULL 제약이 있는 LOB 타입 컬럼에 NULL 값을 INSERT 혹은 UPDATE 수행하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생한다. 이 경우 초기화된 데이터가 남아 있어 **반드시 트랜잭션을 롤백해야 한다.**
+1. In NON-AUTOCOMMIT mode, if an unexpected error occurs during CLI functions for reading from or writing to LOB data, it is essential to **rollback the transaction** to ensure that internally initialized data is cleared.
+2. Attempting to INSERT or UPDATE the NULL value into a LOB type column with NOT NULL constraint will result in the error message [Unable to insert (or update) NULL into NOT NULL column.]. In this case, it is essential to **rollback the transaction** as internally initialized data may persist.
 
-#### LOB 위치 입력기 얻기
+#### Obtaining LOB Locator
 
-LOB 위치 입력기는 아래의 CLI 함수들을 실행할 때 얻는다.
+LOB Locator is obtained when executing the following CLI functions:
 
 - SQLBindCol / SQLFetch
 
 - SQLBindParameter / SQLExecute
 
-  > ⚠️ SQLExecute 함수는 INSERT와 UPDATE 문을 실행할 때 LOB 데이터를 널로 초기화한다.
+  > ⚠️ The SQLExecute function initializes LOB data to null when executing INSERT and UPDATE statements.
 
-#### LOB 데이터 읽고 쓰기
+#### Reading and Writing LOB Data
 
-LOB 위치 입력기를 얻은 후에 이것을 이용하여 LOB 데이터를 읽거나 쓸 수 있다. 관련 CLI 함수는 아래와 같다.
+After obtaining a LOB Locator, users can use it to read from or write to LOB data. The relevant CLI functions are as follows:
 
 - SQLBindFileToParam
 - SQLGetLob
@@ -6317,22 +6305,22 @@ LOB 위치 입력기를 얻은 후에 이것을 이용하여 LOB 데이터를 �
 - SQLPutLob
 - SQLTrimLob
 
-#### LOB 데이터의 조회(SELECT)
+#### Retrieving LOB Data (SELECT)
 
-LOB 데이터를 SELECT 할때, 내부적으로는 LOB Locator를 얻어와서 처리되기 때문에 연관된 트랜잭션이 열린 상태가 된다. 따라서 사용자는 명시적으로 commit 또는 rollback과 같은 트랜잭션 종료 작업을 추가로 해주어야 한다.
+When performing SELECT LOB data, it is internally processed by obtaining a LOB Locator, resulting in an open transaction. Therefore, the user must explicitly perform transaction-ending operations such as COMMIT or ROLLBACK.
 
 > [!Caution] 
 >
-> 만약, 사용자가 명시적으로 commit 또는 rollback 과 같은 트랜잭션 종료 작업을 하지 않으면, 데이터베이스의 메모리 사용량이 증가할 수 있다.
+> If the user does not perform explicit transaction-ending operations such as COMMIT or ROLLBACK, database memory usage may increase.
 
-#### 자원 해제하기
+#### Releasing Resources
 
-LOB 데이터와 관련한 작업이 완료된 경우, 관련된 자원을 해제해주어야 한다. 관련 CLI 함수는 아래와 같다.
+Once LOB data-related operations are complete, the associated resources must be released. The relevant CLI functions are as follows:
 
-- [SQLFreeLob](https://github.com/ALTIBASE/Documents/blob/8b65902599c5168fc2650bae077001ca57e04326/Manuals/Altibase_7.1/kor/CLI User's Manual.md#sqlfreelob)
-- [SQLEndTran](https://github.com/ALTIBASE/Documents/blob/8b65902599c5168fc2650bae077001ca57e04326/Manuals/Altibase_7.1/kor/CLI User's Manual.md#sqlendtran)
+- [SQLFreeLob](#sqlfreelob)
+- [SQLEndTran](#sqlendtran)
 
-SQLFreeLob 함수는 Lob Locator와 관련된 자원을 해제할 뿐, 트랜잭션을 종료하지는 않는다.
+> The SQLFreeLob function releases resources related to the LOB Locator without ending the transaction.
 
 ### LOB data types
 
@@ -6347,24 +6335,22 @@ The following table shows SQL data type identifiers that support LOB:
 
 The following table shows C data type identifiers that support LOB. It lists C data type of ODBC for each identifier and their definition.
 
-| C Type Identifier  | ODBC C Type | C Type Definition |
-| ------------------ | ----------- | ----------------- |
-| SQL_C_BLOB_LOCATOR | SQLUBIGINT  | unsigned \_int64  |
-| SQL_C_CLOB_LOCATOR | SQLUBIGINT  | unsigned \_int64  |
+Use SQL_C_CHAR for CLOB data and SQL_C_BINARY for BLOB data to bind user variables. 
+
+To obtain a LOB locator, bind SQL_C_CLOB_LOCATOR or SQL_C_BLOB_LOCATOR appropriately based on the LOB column type.
+
+| C Type Identifier  | Altibase Data Type | ODBC C Type | C Type Definition |
+| ------------------ | ------------------ | ----------- | ----------------- |
+| SQL_C_BINARY       | BLOB               | SQLCHAR *   | unsigned char *   |
+| SQL_C_CHAR         | CLOB               | SQLSCHAR *  | char *            |
+| SQL_C_BLOB_LOCATOR |                    | SQLUBIGINT  | unsigned \_int64  |
+| SQL_C_CLOB_LOCATOR |                    | SQLUBIGINT  | unsigned \_int64  |
 
 [Table 3‑2] Identifier for LOB-supported C data types
 
-The name of a 64-bit integer type may vary depending on platform. The _int64 shown in the above table is the name of a 64-bit integer that is used in several platforms. 
+> SQL_C_BLOB and SQL_C_CLOB are not supported as a C type identifier.
 
-Use SQL_C_CHAR for CLOB data and SQL_C_BINARY for BLOB data to bind user variables. 
-
-To obtain a LOB locator, bind SQL_C_CLOB_LOCATOR or SQL_C_BLOB_LOCATOR appropriately based on the LOB column type. A LOB locator in this context, – a LOB location input scheme – is a handle that is used during LOB data operation like a file pointer in an operating system. 
-
-The LOB location input scheme for Read can be obtained after SELECT LOB column name FROM table where… and select are executed. The LOB location input scheme for Write can be obtained after SELECT LOB column name FROM table where… FOR UPDATE are executed. 
-
-Since a LOB location input scheme refers to LOB data at a certain point in relation to MVCC, it has the same life cycle with the transaction that has created itself. Therefore, to perform LOB operation with a LOB location input scheme, a connection should be always established in Non-Autocommit Mode. 
-
-Care must be taken as there is no LOB type of a user variable such as SQL_C_BLOB or SQL_C_CLOB. 
+> The name of a 64-bit integer type may vary depending on platform. The _int64 shown in the above table is the name of a 64-bit integer that is used in several platforms. 
 
 ### LOB Function Overview
 
@@ -6395,7 +6381,9 @@ The functions that are available for manipulating LOB data are as follows:
 
 Among the above functions, the functions #1 through #6 are special functions that are provided by Altibase for LOB manipulation, and they are not ODBC standard functions.
 
-ODBC standard functions such as #7 and #8 can be used to access LOB data whether the database column type is LOB or not. However, when only a standard function is used, the functions for partial update and partial retrieve are not available. If a user wants to do programming with ODBC Driver Manager, he should add the following entry to the odbc.ini file:
+ODBC standard functions such as #7 and #8 can be used to access LOB data whether the database column type is LOB or not. However, when only a standard function is used, the functions for partial update and partial retrieve are not available. 
+
+If a user wants to do programming with ODBC Driver Manager, he should add the following entry to the odbc.ini file:
 
 ```
 LongDataCompat = yes
