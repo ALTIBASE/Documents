@@ -1222,7 +1222,7 @@ This sets the MI policy used to resolve MXSO inconsistencies. Specifies whether 
 
 This property and DELETE_IN_SLAVE cannot both be set to “ON” simultaneously.
 
-##### DELTE_IN_SLAVE
+##### DELETE_IN_SLAVE
 
 Sets the SD policy used to resolve MXSO inconsistencies. Specifies whether to delete the record in question from the Slave DB. The property value is set to “ON” to specify that the record is to be deleted, and “OFF” to specify that it is not to be deleted. 
 

@@ -1321,7 +1321,7 @@ MXSO 불일치에 대한 MI정책을 지정. 해당 레코드의 Master DB에 �
 
 DELETE_IN_SLAVE 프로퍼티 값과 동시에 “ON”을 가질 수 없다.
 
-##### DELTE_IN_SLAVE
+##### DELETE_IN_SLAVE
 
 MXSO 불일치에 대한 SD정책을 지정. 해당 레코드의 Slave DB에서 삭제(delete) 여부를 결정. 프로퍼티 값은 “ON”, “OFF”를 가질 수 있으며, “ON”이면 삭제하고, “OFF”이면 삭제하지 않는다.
 
