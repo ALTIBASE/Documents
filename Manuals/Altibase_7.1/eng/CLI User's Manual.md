@@ -245,7 +245,6 @@ This manual is organized as follows:
     This chapter describes the functions and data types necessary for using LOB data.
 
 -   Chapter 4: Using Cursors
-    
     This chapter introduces how to use cursors that the Altibase CLI driver provides.
     
 -   Appendix A. Sample Codes  
