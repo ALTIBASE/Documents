@@ -6274,13 +6274,13 @@ This chapter describes how CLI processes LOB data, and functions and data types 
 
 ### How to Process LOB Data
 
-Altibase uses a **LOB Locator** in the CLI to handle LOB data processing. The LOB Locator is an internal data structure of the Altibase server corresponding to a unique value for LOB data and allows users to read from or write to the LOB data. Therefore, the LOB Locator should be obtained first to process LOB data. Since the LOB Locator points to LOB data at a specific point in time with respect to MVCC, the LOB Locator is bound to the transaction that generated it and shares its lifecycle.
+Altibase uses a **LOB Locator** in the CLI to handle LOB data processing. The LOB Locator is an internal data structure of the Altibase server corresponding to a unique value for LOB data and allows users to read or write LOB data. Therefore, the LOB Locator should be obtained first to process LOB data. Since the LOB Locator points to LOB data at a specific point in time with respect to MVCC, the LOB Locator is bound to the transaction that generated it and shares its lifecycle.
 
-#### Disabling Auto-Commit Mode
+#### NON-AUTOCOMMIT Mode
 
-Because LOB Locators are transaction-bound, **when using LOB Locators in the CLI to handle LOB data, it is essential to disable auto-commit mode.**
+Because LOB Locators are transaction-bound, **when using LOB Locators in the CLI to handle LOB data, it is essential to disable auto-commit mode,i.e., NON-AUTOCOMMIT mode.**
 
-Disabling auto-commit mode allows CLI functions for obtaining LOB Locators and for reading and writing LOB data to operate as individual tasks within a single transaction, enabling sharing of the LOB Locator. Conversely, in auto-commit mode, each CLI function operates within its transaction, preventing the sharing of the LOB Locator between two transactions.
+NON-AUTOCOMMIT mode allows CLI functions for obtaining LOB Locators and for reading and writing LOB data to operate as individual tasks within a single transaction, enabling sharing of the LOB Locator. Conversely, in auto-commit mode, each CLI function operates within its transaction, preventing the sharing of the LOB Locator between two transactions.
 
 > **Considerations When Committing Transactions Using LOB Locators**
 
@@ -6299,7 +6299,7 @@ LOB Locator is obtained when executing the following CLI functions:
 
 #### Reading and Writing LOB Data
 
-After obtaining a LOB Locator, users can use it to read from or write to LOB data. The relevant CLI functions are as follows:
+After obtaining a LOB Locator, users can use it to read or write LOB data. The relevant CLI functions are as follows:
 
 - SQLBindFileToParam
 - SQLGetLob
@@ -6313,7 +6313,7 @@ When performing SELECT LOB data, it is internally processed by obtaining a LOB L
 
 > [!Caution] 
 >
-> If the user does not perform explicit transaction-ending operations such as COMMIT or ROLLBACK, database memory usage may increase.
+> If users do not perform explicit transaction-ending operation such as COMMIT or ROLLBACK, database memory usage may increase.
 
 #### Releasing Resources
 
