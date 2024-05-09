@@ -182,7 +182,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [SQLPutLob](#sqlputlob)
   - [SQLTrimLob](#sqltrimlob)
   - [SQLFreeLob](#sqlfreelob)
-
 - [4. Using Cursors](#4-using-cursors)
   - [Cursor Characteristics](#cursor-characteristics)
   - [Implicit Cursor Conversionse](#implicit-cursor-conversionse)
