@@ -244,6 +244,10 @@ This manual is organized as follows:
 -   Chapter 3: LOB Interface  
     This chapter describes the functions and data types necessary for using LOB data.
 
+-   Chapter 4: Using Cursors
+    
+    This chapter introduces how to use cursors that the Altibase CLI driver provides.
+    
 -   Appendix A. Sample Codes  
     This appendix shows all the sample codes used in this document.
 
@@ -6272,13 +6276,13 @@ This chapter describes how CLI processes LOB data, and functions and data types 
 
 ### How to Process LOB Data
 
-Altibase uses a LOB Locator in the CLI to handle LOB data processing. The LOB Locator is an internal data structure of the Altibase server corresponding to a unique value for LOB data. To perform operations on LOB data, the LOB Locator should be obtained first, which allows users to read from or write to the LOB data. Since the LOB Locator points to LOB data at a specific point in time with respect to MVCC, it is bound to the transaction that generated it and shares its lifecycle.
+Altibase uses a **LOB Locator** in the CLI to handle LOB data processing. The LOB Locator is an internal data structure of the Altibase server corresponding to a unique value for LOB data and allows users to read from or write to the LOB data. Therefore, the LOB Locator should be obtained first to process LOB data. Since the LOB Locator points to LOB data at a specific point in time with respect to MVCC, the LOB Locator is bound to the transaction that generated it and shares its lifecycle.
 
 #### Disabling Auto-Commit Mode
 
 Because LOB Locators are transaction-bound, **when using LOB Locators in the CLI to handle LOB data, it is essential to disable auto-commit mode.**
 
-Disabling auto-commit mode allows CLI functions for obtaining LOB Locators and for reading and writing LOB data to operate as individual tasks within a single transaction, enabling sharing of the LOB Locator. Conversely, in auto-commit mode, each CLI function operates within its own individual transaction, preventing sharing of the LOB Locator between two transactions.
+Disabling auto-commit mode allows CLI functions for obtaining LOB Locators and for reading and writing LOB data to operate as individual tasks within a single transaction, enabling sharing of the LOB Locator. Conversely, in auto-commit mode, each CLI function operates within its transaction, preventing the sharing of the LOB Locator between two transactions.
 
 > **Considerations When Committing Transactions Using LOB Locators**
 
@@ -6320,18 +6324,22 @@ Once LOB data-related operations are complete, the associated resources must be 
 - [SQLFreeLob](#sqlfreelob)
 - [SQLEndTran](#sqlendtran)
 
-> The SQLFreeLob function releases resources related to the LOB Locator without ending the transaction.
+> The SQLFreeLob function only releases resources related to the LOB Locator and does not end the transaction.
 
 ### LOB data types
 
+#### SQL Data Type
+
 The following table shows SQL data type identifiers that support LOB:
 
-| SQL Type Identifier | Data Type | Description                                           |
-| ------------------- | --------- | ----------------------------------------------------- |
-| SQL_BLOB            | BLOB      | BLOB is a binary data type with a variable length.    |
-| SQL_CLOB            | CLOB      | CLOB is a character data type with a variable length. |
+| SQL Type Identifier | Altibase Data Type | Description                                           |
+| ------------------- | ------------------ | ----------------------------------------------------- |
+| SQL_BLOB            | BLOB               | BLOB is a binary data type with a variable length.    |
+| SQL_CLOB            | CLOB               | CLOB is a character data type with a variable length. |
 
 [Table 3‑1] Identifier of the SQL data type
+
+#### C Data Type
 
 The following table shows C data type identifiers that support LOB. It lists C data type of ODBC for each identifier and their definition.
 
