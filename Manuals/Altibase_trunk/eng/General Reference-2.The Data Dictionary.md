@@ -8436,7 +8436,7 @@ This is the name of the replication object on the local server.
 
 This is a flag indicating the replication startup options on the local server. It can have the following values:
 
--   : 0
+-   NORMAL: 0
 
 -   QUICK: 1
 
