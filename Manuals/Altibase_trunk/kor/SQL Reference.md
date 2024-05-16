@@ -10267,6 +10267,10 @@ SYS 사용자와 DROP ANY DIRECTORY 시스템 권한을 가진 사용자만이 �
 디렉토리를 제거하는 구문이다. 단, 실제 파일 시스템상의 디렉토리가 삭제되지는
 않고 데이터베이스내의 디렉토리 객체만 삭제된다.
 
+*IF EXISTS*
+
+*IF EXISTS*를 지정하면 *directory_name*에 명시된 디렉토리가 존재하는 경우 제거한다.
+
 *directory_name*
 
 제거할 디렉토리 이름을 명시한다.
@@ -10298,6 +10302,10 @@ INDEX 시스템 권한을 가진 사용자만이 인덱스를 삭제할 수 있�
 #### 설명
 
 데이터베이스에서 인덱스를 제거하는 구문이다.
+
+*IF EXISTS*
+
+*IF EXISTS*를 지정하면 *index_name*에 명시된 인덱스가 존재하는 경우 제거한다.
 
 *user_name*
 
@@ -10369,6 +10377,10 @@ SYS 사용자, 테이블 소유자, DROP ANY TABLE 시스템 권한을 가진 �
 테이블, 큐 테이블의 인덱스, 및 큐 테이블의 MSGID값을 생성하는데 사용되었던
 시퀀스도 삭제된다.
 
+*IF EXISTS*
+
+*IF EXISTS*를 지정하면 *queue_name*에 명시된 큐가 존재하는 경우 제거한다.
+
 #### 예제
 
 \<질의\> Q1이라는 이름을 가지는 메시지 큐와 부속 객체들을 모두 삭제하라.
@@ -10394,6 +10406,10 @@ SYS 사용자만이 이중화 객체를 삭제할 수 있다.
 #### 설명
 
 이중화 객체를 제거하는 SQL 문이다.
+
+*IF EXISTS*
+
+*IF EXISTS*를 지정하면 *replication_name*에 명시된 이중화 객체가 존재하는 경우 제거한다.
 
 *replication_name*
 
@@ -10464,6 +10480,10 @@ SYS 사용자, 시퀀스의 소유자, DROP ANY SEQUENCE 시스템 권한을 가
 
 명시된 시퀀스를 삭제하는 구문이다.
 
+*IF EXISTS*
+
+*IF EXISTS*를 지정하면 *seq_name*에 명시된 시퀀스가 존재하는 경우 제거한다.
+
 *user_name*
 
 제거될 시퀀스의 소유자 이름을 명시한다. 생략하면 Altibase는 현재 세션에 연결된
@@ -10510,6 +10530,10 @@ PUBLIC 시노님을 삭제하기 위해서는 PUBLIC을 명시해야 한다. PUB
 않으면 명시한 이름의 PRIVATE 시노님이 삭제될 것이다.
 
 PUBLIC을 명시한 경우 user_name은 명시할 수 없다.
+
+*IF EXISTS*
+
+*IF EXISTS*를 지정하면 *synonym_name*에 명시된 시노님이 존재하는 경우 제거한다.
 
 *user_name*
 
@@ -10559,6 +10583,10 @@ SYS 사용자, 테이블의 소유자, DROP ANY TABLE 시스템 권한을 가진
 값을 1로 설정한다. 같은 이름의 테이블이 여러 번 DROP될 수 있으며, 휴지통의
 크기를 넘을 수는 없다.
 
+*IF EXIST*
+
+*IF EXISTS*를 지정하면 *table_name*에 명시된 테이블이 존재하는 경우 제거한다.
+
 *user_name*
 
 제거될 테이블의 소유자 이름을 명시한다. 생략하면 Altibase는 현재 세션에 연결된
@@ -10600,6 +10628,10 @@ SYS 사용자와 DROP TABLESPACE 시스템 권한을 가진 사용자만이 테�
 #### 설명
 
 데이터베이스에서 테이블스페이스를 제거하는 구문이다.
+
+*IF EXISTS*
+
+*IF EXISTS*를 지정하면 *tblspace_name*에 명시된 테이블스페이스가 존재하는 경우 제거한다.
 
 *tblspace_name*
 
@@ -10701,6 +10733,10 @@ SYS 사용자, 트리거의 소유자, DROP ANY TRIGGER 시스템 권한을 가�
 
 데이터베이스에서 명시된 트리거를 제거하는 구문이다.
 
+*IF EXISTS*
+
+*IF EXISTS*를 지정하면 *trigger_name*에 명시된 트리거가 존재하는 경우 제거한다.
+
 *user_name*
 
 제거될 트리거의 소유자 이름을 명시한다. 생략하면 Altibase는 현재 사용자의 스키마
@@ -10736,6 +10772,10 @@ SYS 사용자와 DROP USER 시스템 권한을 가진 사용자만이 사용자�
 #### 설명
 
 데이터베이스에서 명시된 사용자를 제거하는 구문이다.
+
+*IF EXISTS*
+
+*IF EXISTS*를 지정하면 *user_name*에 명시된 사용자가 존재하는 경우 제거한다.
 
 *user_name*
 
@@ -10786,6 +10826,10 @@ SYS 사용자, 뷰의 소유자, DROP ANY VIEW 시스템 권한을 가진 사용
 
 데이터베이스에서 명시된 뷰를 제거하는 구문이다.
 
+*IF EXISTS*
+
+*IF EXISTS*를 지정하면 *view_name*에 명시된 뷰가 존재하는 경우 제거한다.
+
 *user_name*
 
 제거될 뷰의 소유자 이름을 명시한다. 생략하면 Altibase는 현재 사용자의 스키마
@@ -10827,6 +10871,10 @@ Drop success.
 #### 설명
 
 지정한 materialized view를 데이터베이스에서 제거하는 구문이다.
+
+*IF EXISTS*
+
+*IF EXISTS*를 지정하면 *mview_name*에 명시된 materialized view가 존재하는 경우 제거한다.
 
 *user_name*
 

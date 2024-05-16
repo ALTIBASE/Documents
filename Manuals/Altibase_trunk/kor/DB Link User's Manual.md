@@ -1207,6 +1207,10 @@ SYS 사용자이거나 DROP DATABASE LINK 시스템 권한을 가진 사용자�
 
 데이터베이스 링크 객체를 삭제한다.
 
+##### IF EXISTS
+
+*IF EXISTS*를 지정하면 *dblink_name*에 명시된 데이터베이스 링크 객체가 존재하는 경우 제거한다.
+
 ##### dblink_name
 
 제거할 데이터베이스 링크 객체의 이름을 명시한다.
