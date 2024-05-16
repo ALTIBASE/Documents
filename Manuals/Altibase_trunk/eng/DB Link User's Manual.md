@@ -1076,6 +1076,10 @@ Only the SYS user or the user granted the DROP DATABASE LINK system privilege ca
 
 Drops a database link object.
 
+##### IF EXISTS
+
+IF EXISTS specifies to drop the database link object *dblink_name* if it exists.
+
 ##### dblink_name
 
 Specifies the name of the database link object to be removed.

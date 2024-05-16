@@ -8872,6 +8872,10 @@ Only the SYS user and users to whom the DROP ANY DIRECTORY system privilege has 
 
 This statement is used to remove a directory. Note that only the reference to the directory in the database is removed; the actual directory is not removed from the file system.
 
+*IF EXISTS*
+
+IF EXISTS specifies to drop the directory *directory_name* if it exists.
+
 *directory_name*
 
 This is used to specify the name of the directory to drop.
@@ -8900,6 +8904,10 @@ Only the SYS user, the owner of the schema containing the index, users having th
 #### Description
 
 This statement is used to remove an index from the database.
+
+*IF EXISTS*
+
+IF EXISTS specifies to drop the index *index_name* if it exists.
 
 *user_name*
 
@@ -8967,6 +8975,10 @@ Only the SYS user, the owner of the schema containing the queue, and users havin
 
 This statement is used to delete the specified queue. The queue table, the index for the queue table and the sequence used to generate MSGID values in the queue table are deleted along with the queue. 
 
+*IF EXISTS*
+
+IF EXISTS specifies to drop the queue *queue_name* if it exists.
+
 #### Example
 
 \<Query\> Delete the message queue Q1 and its associated objects.
@@ -8992,6 +9004,10 @@ Only the SYS user can execute replication-related statements.
 #### Description
 
 This statement is used to drop a replication.
+
+*IF EXISTS*
+
+IF EXISTS specifies to drop the replication object *replication_name* if it exists.
 
 *replication_name*
 
@@ -9058,6 +9074,10 @@ Only the SYS user, the owner of the schema containing the sequence, and users wi
 
 This statement is used to remove a sequence from the database. 
 
+*IF EXISTS*
+
+IF EXISTS specifies to drop the sequence *seq_name* if it exists.
+
 *user_name*
 
 This is used to specify the name of the owner of the sequence to be dropped. If omitted, Altibase will assume that the sequence belongs to the schema of the user connected via the current session.
@@ -9100,6 +9120,10 @@ This statement is used to remove a synonym from the database.
 To remove a public synonym, use the PUBLIC keyword, If the PUBLIC keyword is not used, a PRIVATE synonym having the specified name will be removed.
 
 When the PUBLIC keyword is used, user_name cannot be specified.
+
+*IF EXISTS*
+
+IF EXISTS specifies to drop the synonym *synonym_name* if it exists.
 
 *user_name*
 
@@ -9145,6 +9169,10 @@ This statement is used to remove a table and all of its data from a database.
 
 Set the value of the RECYCLEBIN_ENABLE property to 1 to move a table to the recycle bin, instead of dropping it directly from the database. Tables of the same name can be dropped multiple times; only as many tables as the recycle bin can contain can be moved to the recycle bin. 
 
+*IF EXISTS*
+
+IF EXISTS specifies to drop the table *table_name* if it exists.
+
 *user_name*
 
 This is used to specify the name of the owner of the table to be dropped. If omitted, Altibase will assume that the table belongs to the schema of the user connected via the current session.
@@ -9183,6 +9211,10 @@ Only the SYS user and users with the DROP TABLESPACE system privilege can execut
 #### Description
 
 This statement is used to remove a tablespace from the database. 
+
+*IF EXISTS*
+
+IF EXISTS specifies to drop the tablespace *tblspace_name* if it exists.
 
 *tblspace_name*
 
@@ -9268,6 +9300,10 @@ Only the SYS user, the owner of the schema containing the trigger, and users wit
 
 This statement is used to drop the specified trigger from the database.
 
+*IF EXISTS*
+
+IF EXISTS specifies to drop the trigger *trigger_name* if it exists.
+
 *user_name*
 
 This is used to specify the name of the owner of the trigger to be dropped. If omitted, Altibase will assume that the trigger belongs to the schema of the user connected via the current session.
@@ -9302,6 +9338,10 @@ Only the SYS user and users with the DROP USER system privilege can execute the 
 #### Description
 
 This statement is used to drop the specified user from the database.
+
+*IF EXISTS*
+
+IF EXISTS specifies to drop the user *user_name* if it exists.
 
 *user_name*
 
@@ -9347,6 +9387,10 @@ Only the SYS user, the owner of the schema containing the view, and users with t
 
 This statement is used to drop the specified view from the database.
 
+*IF EXISTS*
+
+IF EXISTS specifies to drop the view *view_name* if it exists.
+
 *user_name*
 
 This is used to specify the name of the owner of the view to be dropped. If omitted, Altibase will assume that the view belongs to the schema of the user connected via the current session.
@@ -9387,6 +9431,10 @@ Only the following users can delete the materialized view using this statement:
 #### Description
 
 This statement deletes the specified materialized view from the database.
+
+*IF EXISTS*
+
+IF EXISTS specifies to drop the materialized view *mview_name* if it exists.
 
 *user_name*
 

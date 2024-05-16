@@ -1186,6 +1186,10 @@ Note that this statement will execute successfully even if there are other store
 
 When a stored procedure or stored function attempts to call a stored procedure or stored function that has already been dropped, an error is returned.
 
+##### IF EXISTS
+
+IF EXISTS specifies to drop the stored procedure *procedure_name* if it exists.
+
 #### Example
 
 ```
@@ -1667,6 +1671,10 @@ This statement removes a stored function from the database.
 Note that this statement will execute successfully even if there are other stored procedures or stored functions that reference the stored function to be dropped.
 
 When a stored procedure or stored function attempts to call a stored procedure or stored function that has already been dropped, an error is returned.
+
+##### IF EXISTS
+
+IF EXISTS specifies to drop the stored function *function_name* if it exists.
 
 #### Example
 
@@ -6147,6 +6155,10 @@ Only the SYS user, the owner of the typeset to be dropped, and users having the 
 
 This statement is used to remove the specified typeset. Once the typeset has been removed, any stored procedures that use the typeset will be invalid.
 
+##### IF EXISTS
+
+IF EXISTS specifies to drop the typeset *typeset_name* if it exists.
+
 ##### user_name
 
 This is used to specify the name of the owner of the typeset to be removed. If it is omitted, Altibase will assume that the typeset to be removed is in the schema of the user who is connected via the current session.
@@ -7651,6 +7663,10 @@ Alter success.
 #### Purpose
 
 This statement drops the package. This statement can selectively drop only the package body or the whole package.
+
+##### IF EXISTS
+
+IF EXISTS specifies to drop the package *package_name* if the package body or the whole package exists.
 
 #### Examples
 

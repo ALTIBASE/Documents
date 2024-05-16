@@ -789,6 +789,10 @@ This drops the external library object in the database.
 
 Even if an external procedure, which is included in the library object to be dropped, is being executed, the given library object is dropped. Only the library object is dropped from the database, however, and the related dynamic library file is left intact.
 
+##### IF EXISTS
+
+IF EXISTS specifies to drop the library object *library_name* if it exists.
+
 #### Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 DROP LIBRARY lib1;
