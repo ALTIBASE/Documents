@@ -1066,7 +1066,7 @@ USING Altibase;
 
 **drop_database_link ::=**
 
-![](media/DBLink/drop_dblink.gif)
+![](media/DBLink/drop_dblink.png)
 
 #### Prerequisites 
 

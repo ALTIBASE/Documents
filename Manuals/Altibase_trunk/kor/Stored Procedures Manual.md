@@ -1312,7 +1312,7 @@ T1.I1       T1.I2       T1.I3
 
 #### 구문
 
-![drop_procedure](media/StoredProcedure/drop_procedure.gif)
+![drop_procedure](media/StoredProcedure/drop_procedure.png)
 
 #### 기능
 
@@ -1812,7 +1812,7 @@ ALTER FUNCTION get_dept_name COMPILE;
 
 #### 구문
 
-![drop_function_statement](media/StoredProcedure/drop_function_statement.gif)
+![drop_function_statement](media/StoredProcedure/drop_function.png)
 
 #### 기능
 
@@ -6907,7 +6907,7 @@ Execute success.
 
 #### 구문
 
-![drop_typeset](media/StoredProcedure/drop_typeset.gif)
+![drop_typeset](media/StoredProcedure/drop_typeset.png)
 
 #### 전제 조건
 
@@ -8582,7 +8582,7 @@ Alter success.
 
 ##### drop_package ::=
 
-![drop_package](media/StoredProcedure/drop_package.gif)
+![drop_package](media/StoredProcedure/drop_package.png)
 
 #### 기능
 

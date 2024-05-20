@@ -1176,7 +1176,7 @@ T1.I1       T1.I2       T1.I3
 
 #### Syntax
 
-![drop_procedure](media/StoredProcedure/drop_procedure.gif)
+![drop_procedure](media/StoredProcedure/drop_procedure.png)
 
 #### Purpose
 
@@ -1662,7 +1662,7 @@ ALTER FUNCTION get_dept_name COMPILE;
 
 #### Syntax
 
-![drop_function_statement](media/StoredProcedure/drop_function_statement.gif)
+![drop_function_statement](media/StoredProcedure/drop_function.png)
 
 #### Purpose
 
@@ -6145,7 +6145,7 @@ Execute success.
 
 #### Syntax
 
-![drop_typeset](media/StoredProcedure/drop_typeset.gif)
+![drop_typeset](media/StoredProcedure/drop_typeset.png)
 
 #### Prerequisites
 
@@ -7658,7 +7658,7 @@ Alter success.
 
 ##### drop_package ::=
 
-![drop_package](media/StoredProcedure/drop_package.gif)
+![drop_package](media/StoredProcedure/drop_package.png)
 
 #### Purpose
 

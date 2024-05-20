@@ -781,7 +781,7 @@ ALTER LIBRARY lib1 COMPILE;
 
 #### Syntax
 
-![](media/ExternalProcedure/image028.gif)
+![](media/ExternalProcedure/drop_library.png)
 
 #### Description
 

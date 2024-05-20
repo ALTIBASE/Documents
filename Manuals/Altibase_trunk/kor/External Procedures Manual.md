@@ -923,7 +923,7 @@ ALTER LIBRARY lib1 COMPILE;
 
 #### 구문
 
-![](media/ExternalProcedure/image028.gif)
+![](media/ExternalProcedure/drop_library.png)
 
 #### 설명
 

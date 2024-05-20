@@ -10255,7 +10255,7 @@ Drop success.
 
 **drop_directory ::=**
 
-![drop_directory_image160](media/SQL/drop_directory_image160.gif)
+![drop_directory_image160](media/SQL/drop_directory.png)
 
 #### 전제 조건
 
@@ -10292,7 +10292,7 @@ Drop success.
 
 **drop_index ::=**
 
-![drop_index_image161](media/SQL/drop_index_image161.gif)
+![drop_index_image161](media/SQL/drop_index.png)
 
 #### 전제 조건
 
@@ -10364,7 +10364,7 @@ Drop success.
 
 **drop_queue ::=**
 
-![drop_queue_image162](media/SQL/drop_queue_image162.gif)
+![drop_queue_image162](media/SQL/drop_queue.png)
 
 #### 전제 조건
 
@@ -10397,7 +10397,7 @@ iSQL> DROP QUEUE Q1;
 
 **drop_replication ::=**
 
-![drop_replication_image163](media/SQL/drop_replication_image163.gif)
+![drop_replication_image163](media/SQL/drop_replication.png)
 
 #### 전제 조건
 
@@ -10469,7 +10469,7 @@ Drop success.
 
 **drop_sequence ::=**
 
-![drop_sequence_image164](media/SQL/drop_sequence_image164.gif)
+![drop_sequence_image164](media/SQL/drop_sequence.png)
 
 #### 전제 조건
 
@@ -10510,7 +10510,7 @@ Drop success.
 
 **drop_synonym ::=**
 
-![drop_synonym](media/SQL/drop_synonym.gif)
+![drop_synonym](media/SQL/drop_synonym.png)
 
 #### 전제 조건
 
@@ -10568,7 +10568,7 @@ Drop success.
 
 **drop_table ::=**
 
-![](media/SQL/3b6b6558264ad2e958e72fe192ae417a.png)
+![](media/SQL/drop_table.png)
 
 #### 전제 조건
 
@@ -10618,7 +10618,7 @@ Drop success.
 
 **drop_tablespace ::=**
 
-![drop_tablespace_image167](media/SQL/drop_tablespace_image167.gif)
+![drop_tablespace_image167](media/SQL/drop_tablespace.png)
 
 #### 전제 조건
 
@@ -10722,7 +10722,7 @@ Drop success.
 
 **drop_trigger ::=**
 
-![drop_trigger_image168](media/SQL/drop_trigger_image168.gif)
+![drop_trigger_image168](media/SQL/drop_trigger.png)
 
 #### 전제 조건
 
@@ -10763,7 +10763,7 @@ Drop success.
 
 **drop_user ::=**
 
-![drop_user_image169](media/SQL/drop_user_image169.gif)
+![drop_user_image169](media/SQL/drop_user.png)
 
 #### 전제 조건
 
@@ -10815,7 +10815,7 @@ Drop success.
 
 **drop_view ::=**
 
-![drop_view_image170](media/SQL/drop_view_image170.gif)
+![drop_view_image170](media/SQL/drop_view.png)
 
 #### 전제 조건
 
@@ -10856,7 +10856,7 @@ Drop success.
 
 **drop_mview ::=**
 
-![drop_mview](media/SQL/drop_mview.gif)
+![drop_mview](media/SQL/drop_mview.png)
 
 #### 전제 조건
 
