@@ -781,6 +781,8 @@ ALTER LIBRARY lib1 COMPILE;
 
 #### Syntax
 
+**drop_library_statement ::=**
+
 ![](media/ExternalProcedure/drop_library.png)
 
 #### Description

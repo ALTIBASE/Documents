@@ -923,6 +923,8 @@ ALTER LIBRARY lib1 COMPILE;
 
 #### 구문
 
+**drop_library_statement ::=**
+
 ![](media/ExternalProcedure/drop_library.png)
 
 #### 설명
