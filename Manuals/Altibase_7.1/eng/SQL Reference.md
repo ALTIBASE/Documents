@@ -7480,7 +7480,7 @@ iSQL> CREATE TABLE inventory(
   \<Query\> Create an id(INTEGER) column in the tab1 table with the UNIQUE constraint and create a direct key index on it.
   
 ```
-  iSQL> CREATE TABLE tab1 (id UNIQUE DIRECTKEY );
+  iSQL> CREATE TABLE tab1 (id INTEGER UNIQUE DIRECTKEY );
   Create success.
 ```
 
