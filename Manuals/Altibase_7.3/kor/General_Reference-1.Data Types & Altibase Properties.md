@@ -12284,30 +12284,6 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
-#### REPLICATION_META_ITEM_COUNT_DIFF_ENABLE
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-0
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 1]
-
-##### 설명
-
-Lazy 모드로 이중화 수행 과정에서 SPLIT PARTITION과 MERGE PARTITION, DROP PARTITION을  수행하여 Active 서버와 Standby 서버의 이중화 테이블 파티션 메타 아이템 개수가 다른 경우에 이중화를  START 할 수 있는 프로퍼티이다. 이 값을 1로 설정하면 이중화 테이블 파티션 메타 아이템 개수가 다른 경우에도 이중화를 START 할 수 있다.
-
-Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
 ### 네트워크 관련 프로퍼티
 
 #### IB_CONCHKSPIN
