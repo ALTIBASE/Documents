@@ -10583,7 +10583,7 @@ SYS 사용자, 테이블의 소유자, DROP ANY TABLE 시스템 권한을 가진
 값을 1로 설정한다. 같은 이름의 테이블이 여러 번 DROP될 수 있으며, 휴지통의
 크기를 넘을 수는 없다.
 
-*IF EXIST*
+*IF EXISTS*
 
 *IF EXISTS*를 지정하면 *table_name*에 명시된 테이블이 존재하는 경우 제거한다.
 
