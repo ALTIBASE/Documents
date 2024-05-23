@@ -793,7 +793,7 @@ Even if an external procedure, which is included in the library object to be dro
 
 ##### IF EXISTS
 
-If the IF EXISTS clause is used, the DROP statement runs without error even if the library object does not exist.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the external library object does not exist.
 
 #### Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
