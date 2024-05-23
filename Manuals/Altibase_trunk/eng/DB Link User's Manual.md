@@ -1078,7 +1078,7 @@ Drops a database link object.
 
 ##### IF EXISTS
 
-IF EXISTS specifies to drop the database link object *dblink_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the database link object does not exist.
 
 ##### dblink_name
 

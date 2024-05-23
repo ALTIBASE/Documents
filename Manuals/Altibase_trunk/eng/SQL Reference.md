@@ -8874,7 +8874,7 @@ This statement is used to remove a directory. Note that only the reference to th
 
 *IF EXISTS*
 
-IF EXISTS specifies to drop the directory *directory_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the directory does not exist.
 
 *directory_name*
 
@@ -8907,7 +8907,7 @@ This statement is used to remove an index from the database.
 
 *IF EXISTS*
 
-IF EXISTS specifies to drop the index *index_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the index does not exist.
 
 *user_name*
 
@@ -8977,7 +8977,7 @@ This statement is used to delete the specified queue. The queue table, the index
 
 *IF EXISTS*
 
-IF EXISTS specifies to drop the queue *queue_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the queue does not exist.
 
 #### Example
 
@@ -9007,7 +9007,7 @@ This statement is used to drop a replication.
 
 *IF EXISTS*
 
-IF EXISTS specifies to drop the replication object *replication_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the replication object does not exist.
 
 *replication_name*
 
@@ -9076,7 +9076,7 @@ This statement is used to remove a sequence from the database.
 
 *IF EXISTS*
 
-IF EXISTS specifies to drop the sequence *seq_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the sequence does not exist.
 
 *user_name*
 
@@ -9123,7 +9123,7 @@ When the PUBLIC keyword is used, user_name cannot be specified.
 
 *IF EXISTS*
 
-IF EXISTS specifies to drop the synonym *synonym_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the synonym does not exist.
 
 *user_name*
 
@@ -9171,7 +9171,7 @@ Set the value of the RECYCLEBIN_ENABLE property to 1 to move a table to the recy
 
 *IF EXISTS*
 
-IF EXISTS specifies to drop the table *table_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the table does not exist.
 
 *user_name*
 
@@ -9214,7 +9214,7 @@ This statement is used to remove a tablespace from the database.
 
 *IF EXISTS*
 
-IF EXISTS specifies to drop the tablespace *tblspace_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the tablespace does not exist.
 
 *tblspace_name*
 
@@ -9302,7 +9302,7 @@ This statement is used to drop the specified trigger from the database.
 
 *IF EXISTS*
 
-IF EXISTS specifies to drop the trigger *trigger_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the trigger does not exist.
 
 *user_name*
 
@@ -9341,7 +9341,7 @@ This statement is used to drop the specified user from the database.
 
 *IF EXISTS*
 
-IF EXISTS specifies to drop the user *user_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the user does not exist.
 
 *user_name*
 
@@ -9389,7 +9389,7 @@ This statement is used to drop the specified view from the database.
 
 *IF EXISTS*
 
-IF EXISTS specifies to drop the view *view_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the view does not exist.
 
 *user_name*
 
@@ -9434,7 +9434,7 @@ This statement deletes the specified materialized view from the database.
 
 *IF EXISTS*
 
-IF EXISTS specifies to drop the materialized view *mview_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the materialized view does not exist.
 
 *user_name*
 

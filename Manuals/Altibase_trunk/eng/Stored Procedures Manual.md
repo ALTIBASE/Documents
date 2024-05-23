@@ -1188,7 +1188,7 @@ When a stored procedure or stored function attempts to call a stored procedure o
 
 ##### IF EXISTS
 
-IF EXISTS specifies to drop the stored procedure *procedure_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the stored procedure does not exist.
 
 #### Example
 
@@ -1674,7 +1674,7 @@ When a stored procedure or stored function attempts to call a stored procedure o
 
 ##### IF EXISTS
 
-IF EXISTS specifies to drop the stored function *function_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the stored function does not exist.
 
 #### Example
 
@@ -6157,7 +6157,7 @@ This statement is used to remove the specified typeset. Once the typeset has bee
 
 ##### IF EXISTS
 
-IF EXISTS specifies to drop the typeset *typeset_name* if it exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the typeset does not exist.
 
 ##### user_name
 
@@ -7666,7 +7666,7 @@ This statement drops the package. This statement can selectively drop only the p
 
 ##### IF EXISTS
 
-IF EXISTS specifies to drop the package *package_name* if the package body or the whole package exists.
+If the IF EXISTS clause is used, the DROP statement runs without error even if the package body or the whole package does not exist.
 
 #### Examples
 
