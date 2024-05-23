@@ -781,13 +781,19 @@ ALTER LIBRARY lib1 COMPILE;
 
 #### Syntax
 
-![](media/ExternalProcedure/image028.gif)
+**drop_library_statement ::=**
+
+![](media/ExternalProcedure/drop_library.png)
 
 #### Description
 
 This drops the external library object in the database.
 
 Even if an external procedure, which is included in the library object to be dropped, is being executed, the given library object is dropped. Only the library object is dropped from the database, however, and the related dynamic library file is left intact.
+
+##### IF EXISTS
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the external library object does not exist.
 
 #### Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

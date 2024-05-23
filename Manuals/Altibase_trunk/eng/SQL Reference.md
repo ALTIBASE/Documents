@@ -8862,7 +8862,7 @@ For information on Database Link, please refer to the *Database Link User’s Ma
 
 **drop_directory ::=**
 
-![drop_directory_image160](media/SQL/drop_directory_image160.gif)
+![drop_directory_image160](media/SQL/drop_directory.png)
 
 #### Prerequisites
 
@@ -8871,6 +8871,10 @@ Only the SYS user and users to whom the DROP ANY DIRECTORY system privilege has 
 #### Description
 
 This statement is used to remove a directory. Note that only the reference to the directory in the database is removed; the actual directory is not removed from the file system.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the directory does not exist.
 
 *directory_name*
 
@@ -8891,7 +8895,7 @@ Drop success.
 
 **drop_index ::=**
 
-![drop_index_image161](media/SQL/drop_index_image161.gif)
+![drop_index_image161](media/SQL/drop_index.png)
 
 #### Prerequisites
 
@@ -8900,6 +8904,10 @@ Only the SYS user, the owner of the schema containing the index, users having th
 #### Description
 
 This statement is used to remove an index from the database.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the index does not exist.
 
 *user_name*
 
@@ -8957,7 +8965,7 @@ Drop success.
 
 **drop_queue ::=**
 
-![drop_queue_image162](media/SQL/drop_queue_image162.gif)
+![drop_queue_image162](media/SQL/drop_queue.png)
 
 #### Prerequisites
 
@@ -8966,6 +8974,10 @@ Only the SYS user, the owner of the schema containing the queue, and users havin
 #### Description
 
 This statement is used to delete the specified queue. The queue table, the index for the queue table and the sequence used to generate MSGID values in the queue table are deleted along with the queue. 
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the queue does not exist.
 
 #### Example
 
@@ -8983,7 +8995,7 @@ iSQL> DROP QUEUE Q1;
 
 **drop_replication ::=**
 
-![drop_replication_image163](media/SQL/drop_replication_image163.gif)
+![drop_replication_image163](media/SQL/drop_replication.png)
 
 #### Prerequisites
 
@@ -8992,6 +9004,10 @@ Only the SYS user can execute replication-related statements.
 #### Description
 
 This statement is used to drop a replication.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the replication object does not exist.
 
 *replication_name*
 
@@ -9048,7 +9064,7 @@ Drop success.
 
 **drop_sequence ::=**
 
-![drop_sequence_image164](media/SQL/drop_sequence_image164.gif)
+![drop_sequence_image164](media/SQL/drop_sequence.png)
 
 #### Prerequisites
 
@@ -9057,6 +9073,10 @@ Only the SYS user, the owner of the schema containing the sequence, and users wi
 #### Description
 
 This statement is used to remove a sequence from the database. 
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the sequence does not exist.
 
 *user_name*
 
@@ -9083,7 +9103,7 @@ Drop success.
 
 **drop_synonym ::=**
 
-![drop_synonym](media/SQL/drop_synonym.gif)
+![drop_synonym](media/SQL/drop_synonym.png)
 
 #### Prerequisites
 
@@ -9100,6 +9120,10 @@ This statement is used to remove a synonym from the database.
 To remove a public synonym, use the PUBLIC keyword, If the PUBLIC keyword is not used, a PRIVATE synonym having the specified name will be removed.
 
 When the PUBLIC keyword is used, user_name cannot be specified.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the synonym does not exist.
 
 *user_name*
 
@@ -9133,7 +9157,7 @@ Drop success.
 
 **drop_table ::=**
 
-![](media/SQL/3b6b6558264ad2e958e72fe192ae417a.png)
+![](media/SQL/drop_table.png)
 
 #### Prerequisites
 
@@ -9144,6 +9168,10 @@ Only the SYS user, the owner of the schema containing the table, and users with 
 This statement is used to remove a table and all of its data from a database.
 
 Set the value of the RECYCLEBIN_ENABLE property to 1 to move a table to the recycle bin, instead of dropping it directly from the database. Tables of the same name can be dropped multiple times; only as many tables as the recycle bin can contain can be moved to the recycle bin. 
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the table does not exist.
 
 *user_name*
 
@@ -9174,7 +9202,7 @@ Drop success.
 
 **drop_tablespace ::=**
 
-![drop_tablespace_image167](media/SQL/drop_tablespace_image167.gif)
+![drop_tablespace_image167](media/SQL/drop_tablespace.png)
 
 #### Prerequisites
 
@@ -9183,6 +9211,10 @@ Only the SYS user and users with the DROP TABLESPACE system privilege can execut
 #### Description
 
 This statement is used to remove a tablespace from the database. 
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the tablespace does not exist.
 
 *tblspace_name*
 
@@ -9258,7 +9290,7 @@ Drop success.
 
 **drop_trigger ::=**
 
-![drop_trigger_image168](media/SQL/drop_trigger_image168.gif)
+![drop_trigger_image168](media/SQL/drop_trigger.png)
 
 #### Prerequisites 
 
@@ -9267,6 +9299,10 @@ Only the SYS user, the owner of the schema containing the trigger, and users wit
 #### Description
 
 This statement is used to drop the specified trigger from the database.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the trigger does not exist.
 
 *user_name*
 
@@ -9293,7 +9329,7 @@ Drop success.
 
 **drop_user ::=**
 
-![drop_user_image169](media/SQL/drop_user_image169.gif)
+![drop_user_image169](media/SQL/drop_user.png)
 
 #### Prerequisites
 
@@ -9302,6 +9338,10 @@ Only the SYS user and users with the DROP USER system privilege can execute the 
 #### Description
 
 This statement is used to drop the specified user from the database.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the user does not exist.
 
 *user_name*
 
@@ -9337,7 +9377,7 @@ Drop success.
 
 **drop_view ::=**
 
-![drop_view_image170](media/SQL/drop_view_image170.gif)
+![drop_view_image170](media/SQL/drop_view.png)
 
 #### Prerequisites
 
@@ -9346,6 +9386,10 @@ Only the SYS user, the owner of the schema containing the view, and users with t
 #### Description
 
 This statement is used to drop the specified view from the database.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the view does not exist.
 
 *user_name*
 
@@ -9372,7 +9416,7 @@ Drop success.
 
 **drop_mview ::=**
 
-![drop_mview](media/SQL/drop_mview.gif)
+![drop_mview](media/SQL/drop_mview.png)
 
 #### Prerequisites
 
@@ -9387,6 +9431,10 @@ Only the following users can delete the materialized view using this statement:
 #### Description
 
 This statement deletes the specified materialized view from the database.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the materialized view does not exist.
 
 *user_name*
 
