@@ -10269,7 +10269,7 @@ SYS 사용자와 DROP ANY DIRECTORY 시스템 권한을 가진 사용자만이 �
 
 *IF EXISTS*
 
-*IF EXISTS*를 지정하면 *directory_name*에 명시된 디렉토리가 존재하는 경우 제거한다.
+IF EXISTS 절을 명시하면 디렉토리 객체가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *directory_name*
 
@@ -10305,7 +10305,7 @@ INDEX 시스템 권한을 가진 사용자만이 인덱스를 삭제할 수 있�
 
 *IF EXISTS*
 
-*IF EXISTS*를 지정하면 *index_name*에 명시된 인덱스가 존재하는 경우 제거한다.
+IF EXISTS 절을 명시하면 인덱스가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10379,7 +10379,7 @@ SYS 사용자, 테이블 소유자, DROP ANY TABLE 시스템 권한을 가진 �
 
 *IF EXISTS*
 
-*IF EXISTS*를 지정하면 *queue_name*에 명시된 큐가 존재하는 경우 제거한다.
+IF EXISTS 절을 명시하면 큐가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 #### 예제
 
@@ -10409,7 +10409,7 @@ SYS 사용자만이 이중화 객체를 삭제할 수 있다.
 
 *IF EXISTS*
 
-*IF EXISTS*를 지정하면 *replication_name*에 명시된 이중화 객체가 존재하는 경우 제거한다.
+IF EXISTS 절을 명시하면 이중화 객체가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *replication_name*
 
@@ -10482,7 +10482,7 @@ SYS 사용자, 시퀀스의 소유자, DROP ANY SEQUENCE 시스템 권한을 가
 
 *IF EXISTS*
 
-*IF EXISTS*를 지정하면 *seq_name*에 명시된 시퀀스가 존재하는 경우 제거한다.
+IF EXISTS 절을 명시하면 시퀀스가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10529,11 +10529,11 @@ SYS 사용자, 시노님의 소유자, DROP ANY SYNONYM 시스템 권한을 가�
 PUBLIC 시노님을 삭제하기 위해서는 PUBLIC을 명시해야 한다. PUBLIC을 명시하지
 않으면 명시한 이름의 PRIVATE 시노님이 삭제될 것이다.
 
-PUBLIC을 명시한 경우 user_name은 명시할 수 없다.
+PUBLIC을 명시한 경우 *user_name*은 명시할 수 없다.
 
 *IF EXISTS*
 
-*IF EXISTS*를 지정하면 *synonym_name*에 명시된 시노님이 존재하는 경우 제거한다.
+IF EXISTS 절을 명시하면 시노님이 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10585,7 +10585,7 @@ SYS 사용자, 테이블의 소유자, DROP ANY TABLE 시스템 권한을 가진
 
 *IF EXISTS*
 
-*IF EXISTS*를 지정하면 *table_name*에 명시된 테이블이 존재하는 경우 제거한다.
+IF EXISTS 절을 명시하면 테이블이 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10631,7 +10631,7 @@ SYS 사용자와 DROP TABLESPACE 시스템 권한을 가진 사용자만이 테�
 
 *IF EXISTS*
 
-*IF EXISTS*를 지정하면 *tblspace_name*에 명시된 테이블스페이스가 존재하는 경우 제거한다.
+IF EXISTS 절을 명시하면 테이블스페이스가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *tblspace_name*
 
@@ -10735,7 +10735,7 @@ SYS 사용자, 트리거의 소유자, DROP ANY TRIGGER 시스템 권한을 가�
 
 *IF EXISTS*
 
-*IF EXISTS*를 지정하면 *trigger_name*에 명시된 트리거가 존재하는 경우 제거한다.
+IF EXISTS 절을 명시하면 트리거가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10775,7 +10775,7 @@ SYS 사용자와 DROP USER 시스템 권한을 가진 사용자만이 사용자�
 
 *IF EXISTS*
 
-*IF EXISTS*를 지정하면 *user_name*에 명시된 사용자가 존재하는 경우 제거한다.
+IF EXISTS 절을 명시하면 사용자가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10828,7 +10828,7 @@ SYS 사용자, 뷰의 소유자, DROP ANY VIEW 시스템 권한을 가진 사용
 
 *IF EXISTS*
 
-*IF EXISTS*를 지정하면 *view_name*에 명시된 뷰가 존재하는 경우 제거한다.
+IF EXISTS 절을 명시하면 뷰가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10874,7 +10874,7 @@ Drop success.
 
 *IF EXISTS*
 
-*IF EXISTS*를 지정하면 *mview_name*에 명시된 materialized view가 존재하는 경우 제거한다.
+IF EXISTS 절을 명시하면 materialized view가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 

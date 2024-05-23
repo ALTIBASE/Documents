@@ -937,7 +937,7 @@ ALTER LIBRARY lib1 COMPILE;
 
 ##### IF EXISTS
 
-*IF EXISTS*를 지정하면 *library_name*에 명시된 라이브러리가 존재하는 경우 제거한다.
+IF EXISTS 절을 명시하면 라이브러리 객체가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 #### 예제
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

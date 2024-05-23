@@ -1209,7 +1209,7 @@ SYS 사용자이거나 DROP DATABASE LINK 시스템 권한을 가진 사용자�
 
 ##### IF EXISTS
 
- IF EXISTS 절을 명시하면 데이터베이스 링크 객체가 존재하지 않아도 DROP 문이 오류 없이 실행된다.
+ IF EXISTS 절을 명시하면 데이터베이스 링크 객체가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 ##### dblink_name
 
