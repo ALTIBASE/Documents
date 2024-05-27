@@ -4,7 +4,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [New Features](#new-features)
-    - [BUG-50868 AKU 다중 이중화 지원 및 기능 개선](#bug-50868%)
+    - [BUG-50868 AKU 다중 이중화 지원 및 기능 개선](#bug-50868)
     - [BUG-50873 aku -p clean 동작 개선](#bug-50873)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-50864 로그 파일의 크기가 비정상적으로 변경된 경우, 잘못된 에러 메세지가 출력됩니다.](#bug-50864)
