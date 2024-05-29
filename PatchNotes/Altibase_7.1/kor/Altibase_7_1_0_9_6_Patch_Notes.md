@@ -102,25 +102,14 @@ New Features
 
   -   ALTIBASE\_NLS\_USE 환경 변수를 이용하여 Altibase 서버의
       문자집합과 동일한 문자집합을 사용 가능하도록 개선되었습니다.
-      
-  - aku.conf 파일 내 주석을 허용하도록 개선되었습니다.
-
-  - AKU 실행 시, 단일 쓰레드에서 순차적으로 실행되던 작업들이 이제 멀티 쓰레드를 사용하여 병렬로 수행되므로 전체적인 수행시간이 감소되었습니다.
-
-  - AKU에서 이중화 생성할 때 REPLICATION_MAX_COUNT를 초과한 경우, 오류를 반환하도록 수정되었습니다.
-
+  -   aku.conf 파일 내 주석을 허용하도록 개선되었습니다.
+  -   AKU 실행 시, 단일 쓰레드에서 순차적으로 실행되던 작업들이 이제 멀티 쓰레드를 사용하여 병렬로 수행되므로 전체적인 수행시간이 감소되었습니다.
+  -   AKU에서 이중화 생성할 때 REPLICATION_MAX_COUNT를 초과한 경우, 오류를 반환하도록 수정되었습니다.
   -   쿼리 수행 실패 시 재시도는 1초 대기 후 1회만 재시도하였으나,
       AKU\_QUERY\_RETRY\_COUNT 및 AKU\_QUERY\_RETRY\_DELAY\_MSEC
       프로퍼티를 이용하여 설정 가능하도록 변경되었습니다.
-
-  - 마스터 파드의 장애로 `aku -p start` 명령 수행이 실패한 경우에 대한 조치 방법이 매뉴얼에 추가되었습니다. 자세한 내용은 ***Utilitis 매뉴얼** - 3.aku* 에서 [마스터 파드 장애로 aku -p start 명령 수행이 실패했을 때](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Utilities%20Manual.md#4-%EB%A7%88%EC%8A%A4%ED%84%B0-%ED%8C%8C%EB%93%9C-%EC%9E%A5%EC%95%A0%EB%A1%9C-aku--p-start-%EB%AA%85%EB%A0%B9-%EC%88%98%ED%96%89%EC%9D%B4-%EC%8B%A4%ED%8C%A8%ED%96%88%EC%9D%84-%EB%95%8C)를 참고하세요.
-
-  - 마스터 파드의 장애 복구 시에 마스터파드와 연결된 슬레이브 파드의 이중화 중 XSN이 -1인 것이 존재할 경우에 대한 예외처리가 추가되었습니다. 이 경우, 아래의 오류 메시지를 확인할 수 있습니다.
-
-    ```
-    The SLAVE server is detected to have failed. Check and perform a manual recovery.
-    ```
-
+  -   마스터 파드의 장애로 `aku -p start` 명령 수행이 실패한 경우에 대한 조치 방법이 매뉴얼에 추가되었습니다. 자세한 내용은 ***Utilitis 매뉴얼** - 3.aku* 에서 [마스터 파드 장애로 aku -p start 명령 수행이 실패했을 때](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Utilities%20Manual.md#4-%EB%A7%88%EC%8A%A4%ED%84%B0-%ED%8C%8C%EB%93%9C-%EC%9E%A5%EC%95%A0%EB%A1%9C-aku--p-start-%EB%AA%85%EB%A0%B9-%EC%88%98%ED%96%89%EC%9D%B4-%EC%8B%A4%ED%8C%A8%ED%96%88%EC%9D%84-%EB%95%8C)를 참고하세요.
+  
 - **재현 방법**
 
   -   **재현 절차**
