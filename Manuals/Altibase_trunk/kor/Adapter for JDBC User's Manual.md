@@ -1182,7 +1182,7 @@ Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장�
     오프라인 이중화 옵션을 사용하지 못하도록 설정한다. 이중화가 중지되어 있는
     상태에서만 이 구문을 수행할 수 있다.
 -   BUILD OFFLINE META
-    설정된 로그 파일 경로의 ala_meta_files 폴더에서 송신자 메타 파일과 재시작SN 파일을 읽어 
+    설정된 로그 파일 경로의 ala_meta_files 폴더에서 송신자 메타 파일과 재시작 SN 파일을 읽어 
     오프라인 이중화에 필요한 메타 정보를 구성한다.
 -   RESET OFFLINE META
     BUILD OFFLINE META로 구성된 메타 정보를 새로 구성하거나 더 이상 필요하지 않을때
