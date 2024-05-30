@@ -4424,6 +4424,12 @@ server.
 
 **Action:** Rollback the transaction and check the server environments including disk usage, etc.
 
+**0x111C1 ( 70081) smERR_ABORT_WrongLogFileSize The log file size has changed. : <0%s> (current file size:<1%u>, expected file size:<2%u>)**
+
+**Cause:** The log file size has changed abnormally, so that the file is invalid.
+
+**Action:** Check if the backed-up file for the log file exists and restore it. If it's not available, contact Altibase's Support Center (http://support.altibase.com).
+
 ### IGNORE
 
 **0x12007 ( 73735) smERR_IGNORE_SyncFail Failed to invoke the msync() system
