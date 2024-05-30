@@ -3807,7 +3807,9 @@ The column-chaining threshold is greater than the maximum size(=BlockSize/2)( Co
 **Action:** Rebuild this index. Or to rebuild all the indexes, delete INDEX_REBUILD_AT_STARTUP = 0 in altibase.properties and restart the Altibase server.
 
 **0x111C1 ( 70081) smERR_ABORT_WrongLogFileSize The log file size has changed. : <0%s> (current file size:<1%u>, expected file size:<2%u>)**
+
 **Cause:** The log file size has changed abnormally, so that the file is invalid.
+
 **Action:** Check if the backed-up file for the log file exists and restore it. If it's not available, contact Altibase's Support Center (http://support.altibase.com).
 
 ### IGNORE
