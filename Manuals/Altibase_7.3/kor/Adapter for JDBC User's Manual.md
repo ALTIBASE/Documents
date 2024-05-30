@@ -1184,7 +1184,7 @@ Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장�
     오프라인 이중화 옵션을 사용하지 못하도록 설정한다. 이중화가 중지되어 있는
     상태에서만 이 구문을 수행할 수 있다.
 -   BUILD OFFLINE META
-    설정된 로그 파일 경로의 ala_meta_files 폴더에서 메타 파일과 SN 파일을 읽어 
+    설정된 로그 파일 경로의 ala_meta_files 폴더에서 송신자 메타 파일과 재시작SN 파일을 읽어 
     오프라인 이중화에 필요한 메타 정보를 구성한다.
 -   RESET OFFLINE META
     BUILD OFFLINE META로 구성된 메타 정보를 새로 구성하거나 더 이상 필요하지 않을때
@@ -1199,11 +1199,11 @@ Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장�
 - 이중화 메타정보 파일 읽기, 쓰기 기능은 ALA만 사용 할수 있다.
 - Offline jdbcAdapter을 수행할 서버의 ALA 객체 이름은 Active 서버의 ALA 객체 이름과 동일해야 한다. 
 - 압축 테이블을 이중화 대상으로 가지는 ALA객체에 대해서는 Offline jdbcAdapter를 지원하지 않는다.
-- Offline jdbcAdapter가 디스크 이상으로 Active서버의 로그 파일과 메타 파일 경로에 접근하지 못할 
+- Offline jdbcAdapter가 디스크 이상으로 Active서버의 로그 파일과 송신자 메타 파일 경로에 접근하지 못할 
   경우에는 실패한다.
 - Active 서버와 Standby 서버의 로그 파일 크기는 동일해야 한다. 로그 파일 크기는 데이터베이스 생성 시에 
   정해지므로 오프라인 옵션을 사용하기 전에 이를 꼭 확인하여야 한다.
-- 로그 파일과 메타 파일을 사용자 임의로 변경(이름 변경, 다른 시스템에 로그 파일을 복제, 삭제)할 경우
+- 로그 파일과 송신자 메타 파일을 사용자 임의로 변경(이름 변경, 다른 시스템에 로그 파일을 복제, 삭제)할 경우
   비정상 종료와 같은 문제를 발생시킬 수 있다.
 - Standby 서버에 BUILD OFFLINE META 수행 후 재 구동할 경우 로그를 분석하는데 사용할 Remote Meta 정보가 사라지기 때문에 BUILD OFFLINE META를 다시 수행 해야 한다. 
 - META_LOGGING Option을 사용할 경우 ALA도 이중화와 동일하게 갭을 Archive 로그로 처리 하지 않는다.
