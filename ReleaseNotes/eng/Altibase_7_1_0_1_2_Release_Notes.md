@@ -180,7 +180,7 @@ The following date data types are supported by date funcitons such as ROUND (dat
 
 Replication is supported even if the column type, primary key, and NOT NULL constraints of the tables to be replicated on both servers are not the same.
 
-###### SQL APLLY MODE
+###### SQL APPLY MODE
 
 If the table schema information of the local server and the remote server is different, it provides a function to convert and reflect XLog to SQL on the remote server.
 
@@ -188,15 +188,15 @@ REPLICATION_SQL_APPLY_ENABLE was added, and it can be used by setting the REPLIC
 
 > Constraint:
 >
-> It operates in SQL reflection mode only in LAZY mode. If a security column exists in the table, it does not operate in SQL reflection mode.
+> It operates in SQL apply mode only in LAZY mode. If a security column exists in the table, it does not operate in SQL apply mode.
 
-###### Added Executale DDL statements to the Table to be Replicated
+###### Added Executable DDL statements to the Table to be Replicated
 
 By adding the REPLICATION_DDL_EN_ABLE_LEVEL property, DDL statement execution is allowed according to REPLICATION_DDL_ENABLE_LEVEL.
 
 > Constraints:
 >
-> DDL statements cannot be executed on a tabler where the replication recovery option is specified.
+> DDL statements cannot be executed on a table where the replication recovery option is specified.
 >
 > Also, DDL statement cannot be executed when replication is running in EAGER mode
 
