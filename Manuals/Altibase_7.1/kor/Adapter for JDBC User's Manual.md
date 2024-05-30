@@ -1169,16 +1169,16 @@ ALTER REPLICATION ala_replication_name START WITH OFFLINE;
 
 #### 설명
 
-jdbcAdapter를 이용하여 Alitbase에서 변경된 데이타를 Other DB에 적용하는 환경에서,
+jdbcAdapter를 이용하여 Altibase에서 변경된 데이타를 Other DB에 적용하는 환경에서,
 서비스를 제공하는 Altibase 서버에서 장애가 발생하면 Other DB에 적용하지 못한 로그를  전송할 수 없게 된다.
 이때 Altibase 서버에 META_LOGGING Option을 수행 중이고, Altibase 서버와 동일한 데이터베이스 구성을 가진
-Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장애가 발생한 Alitbase 서버의 로그 파일에 직접 접근하여
+Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장애가 발생한 Altibase 서버의 로그 파일에 직접 접근하여
 미전송 로그를 가져와서 Other DB에 반영할 수 있다.
 
 -   META_LOGGING
-    이중화 메타 정보와 SN 정보를 파일로 남겨서 장애 발생시 Standby 서버에서 
+    송신자 메타 정보와 재시작 SN 정보를 파일로 남겨서 장애 발생시 Standby 서버에서 
     미전송 로그를 읽어 올때 필요한 메타 정보를 구성할 수 있게 한다.
-    파일 경로는 로그 파일 경로의 ala_meta_files 폴더 안에 생성 된다.
+    파일은 로그 파일 경로의 ala_meta_files 폴더 안에 생성 된다.
 -   SET OFFLINE ENABLE WITH 'log_dir' 
     오프라인 이중화 옵션을 사용할 수 있도록 설정한다. 이중화가 중지되어 있는 상태에서만
     이 구문을 수행할 수 있다.
