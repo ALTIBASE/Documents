@@ -912,15 +912,15 @@ ALTER REPLICATION ala_replication_name START WITH OFFLINE;
 
 #### Description
 
-When data updated on Altibase are applied to another database using jdbcAdapter, logs unapplied to another database yet can not be sent if a failure occurs on the Altibase server providing the service. In this case, if the Altibase server is running with the META_LOGGING option and there is a Standby server with the same database structure as the Altibase server, the Offline option helps the Standby server access the unsent log files in the Altibase server where the failure occurs directly, and apply them to the other database.
+When data updated on Altibase are applied to other databases using the jdbcAdapter, logs unapplied to another database yet can not be sent if a failure occurs on the running Altibase server. In this case, if the Altibase server is running with the META_LOGGING option and there is a Standby server with the same database structure as the Altibase server, the Offline option helps the Standby server access the unsent log files in the Altibase server where the failure occurs directly, and apply them to the other databases.
 
 - META_LOGGING
 
-  This logs replication meta information and SN in the file. When a failure occurs, the file is used to configure the meta information necessary to read unapplied logs. The file path is created within the ala_meta_files folder in the log file path.
+  This logs the sender meta information and Restart SN in the file. When a failure occurs, the file is used to configure the meta information necessary to read unsent logs. The file is created within the ala_meta_files folder in the log file path.
 
 - SET OFFLINE ENABLE WITH 'log_dir' 
 
-  This enables to use of the offline replication option. This statement can only be executed when replication is stopped. It sets up the Standby server to access the log files directly by specifying the log file path of the failed Altibase server.
+  This enables to use of the offline replication option. This statement can only be executed when replication is stopped. It sets up the Standby server to access the log files directly by specifying the log file path of the Altibase server where the failure occurs.
 
 - SET OFFLINE DISABLE
 
@@ -928,7 +928,7 @@ When data updated on Altibase are applied to another database using jdbcAdapter,
 
 - BUILD OFFLINE META
 
-  This reads meta and SN files from the ala_meta_files folder in the specified log file path. This constructs the necessary meta information for offline replication.
+  This reads the sender meta and Restart SN files from the ala_meta_files folder in the specified log file path. This constructs the necessary meta information for the offline replication.
 
 - RESET OFFLINE META 
 
@@ -940,12 +940,12 @@ When data updated on Altibase are applied to another database using jdbcAdapter,
 
 #### Constraints
 
-- ALA can only use the read and write functions of the replication meta information file.
+- Reading and writing functions of the replication meta information file can be executed by ALA only.
 - The ALA object name for the server running the offline jdbcAdapter must be the same as the ALA object name for the Active server.
 - Offline jdbcAdapter does not support ALA objects with compressed tables as replication targets.
-- If the offline jdbcAdapter cannot access the log file and meta information file paths of the Active server due to disk issues, the operation fails.
+- If the offline jdbcAdapter cannot access the log file and the sender meta file paths of the Active server due to disk issues, the operation fails.
 - The log file size of the Active server and Standby server must be the same. The size is determined during the database creation, so it must be verified before using the offline option.
-- Changing log files and meta files arbitrarily (renaming, copying log files to another system, deleting) can lead to abnormal termination issues.
+- Changing log files and the sender meta files arbitrarily (renaming, copying log files to another system, deleting) can lead to abnormal termination issues.
 - If users restart the Standby server after performing BUILD OFFLINE META, the Remote Meta information used for analyzing logs disappears. Therefore, users need to execute BUILD OFFLINE META again.
 - When using the META_LOGGING Option, ALA also does not process the gap as the Archive logs, similar to replication.
 - If the SM version, OS, OS bit size (32 or 64), or log file size of the two database servers are different, starting Offline jdbcAdapter or creating an ALA object with the offline option fails.
