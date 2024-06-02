@@ -1991,13 +1991,13 @@ CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING...;
 
 ##### Description
 
-The meta logging option records the replication metadata and SN information into files used to read untransmitted logs from the Standby server during a failure. These files are created within the ala_meta_files folder located in the log file path.
+The meta logging option records the sender meta and Restart SN information into files created within the ala_meta_files folder in the log file path.
 
-For more detailed information, please refer to the *Adapter for JDBC User’s Manual,* and the *Adapter for Oracle User’s Manual*.
+This option can only be specified when replication is created with the Log Analyzer role.
 
-##### Restriction
+This option is used with the offline option of the Adapter for JDBC or the Adapter for Oracle.
 
--   The meta logging option can only be specified when replication is created with the Log Analyzer role. Please refer to [Chapter 6 ROLE](#6role).
+For more detailed information, please refer to the [*Adapter for JDBC User’s Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Adapter%20for%20JDBC%20User's%20Manual.md#offline-option), and the [*Adapter for Oracle User’s Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Adapter%20for%20Oracle%20User's%20Manual.md#offline-option).
 
 ### Replication in a Multiple IP Network Environment
 
