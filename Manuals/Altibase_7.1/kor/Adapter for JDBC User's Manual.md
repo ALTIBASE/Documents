@@ -1200,7 +1200,7 @@ Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장�
 
 #### 제약사항
 
-- 송신자 메타정보 파일 읽기, 쓰기 기능은 ALA만 사용 할수 있다.
+- 송신자 메타 정보 파일과 재시작 SN 파일의 읽기, 쓰기 기능은 ALA만 사용 할수 있다.
 - Offline jdbcAdapter을 수행할 서버의 ALA 객체 이름은 Active 서버의 ALA 객체 이름과 동일해야 한다. 
 - 압축 테이블을 이중화 대상으로 가지는 ALA객체에 대해서는 Offline jdbcAdapter를 지원하지 않는다.
 - Offline jdbcAdapter가 디스크 이상으로 Active서버의 로그 파일과 송신자 메타 파일 경로에 접근하지 못할 
