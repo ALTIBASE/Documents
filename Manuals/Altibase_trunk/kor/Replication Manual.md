@@ -576,7 +576,7 @@ Altibase에서 제공하는 이중화 부가 기능은 아래와 같다. 부가 
 
 ![](media/Replication/2-2.png)
 
-[그림 2‑2] 지역서버 장애 상황의 이중화
+[그림 2‑2] 지역 서버 장애 상황의 이중화
 
 ##### 서버 A의 비정상종료
 
@@ -596,7 +596,7 @@ Altibase에서 제공하는 이중화 부가 기능은 아래와 같다. 부가 
 
 ![](media/Replication/2-3.png)
 
-[그림 2‑3] 원격서버와 단절상황의 이중화
+[그림 2‑3] 원격 서버와 단절상황의 이중화
 
 ##### 지역 서버와 원격 서버의 통신 단절
 
@@ -980,6 +980,8 @@ Lazy 모드에서 병렬 이중화하는 방법은 [이중화 부가기능](#sql
 
 - 양쪽 서버에서 복제할 테이블의 칼럼 타입, NOT NULL, Check 제약조건, 유일 키 인덱스, 함수 기반 인덱스가 동일하지 않고, REPLICATION_SQL_APPLY_ENABLE가 1로 설정되어 있으면 SQL 반영 모드로 동작하여 성능이 저하될 수 있다.
 
+  > [!NOTE]
+  >
   > **SQL 반영 모드**
   >
   > SQL 반영 모드란 지역(local) 서버와 원격(remote) 서버의 메타 정보가 다를 때 원격 서버에 XLog를 SQL로 변환하여 반영하는 모드이다. 자세한 설명은 [SQL 반영 모드](#SQL-반영-모드) 절을 참고한다.
@@ -1044,7 +1046,9 @@ Eager 모드를 사용하기 위해 다음의 제약 조건을 따른다.
 
 #### 이중화에 영향을 주지 않는 DDL 문
 
-일반적으로 이중화 대상인 테이블은 데이터 정의어(DDL)를 수행할 경우 이중화에 영향을 준다. 그러나 아래의 DDL 문은 이중화와 상관없이 수행이 가능하다.
+?? 내용은 그대로 유지하되 문장 수정이 들어갔습니다.
+
+일반적으로 이중화 대상인 테이블은 DDL(데이터 정의어) 문을 수행할 경우 이중화에 영향을 준다. 그러나 아래의 DDL 문은 이중화와 상관없이 수행이 가능하다.
 
 -   ALTER INDEX REBUILD PARTITION
 
@@ -1056,9 +1060,15 @@ Eager 모드를 사용하기 위해 다음의 제약 조건을 따른다.
 
 -   DROP TRIGGER
 
-> ##### 주의사항
+> [!WARNING]
 >
-> 이중화 대상 테이블에 허용된 DDL문을 수행하는 경우, 해당 테이블은 잠금(LOCK) 상태가 된다. 이 때 송신 쓰레드가 이중화 로그를 전송할 경우, 수신 쓰레드는 잠금 상태의 대상 테이블에 로그를 반영할 수 없을 것이다.
+> 이중화 대상 테이블에 DDL 문을 수행하는 경우, 해당 테이블은 잠금(LOCK) 상태가 된다. 이 때 송신 쓰레드가 이중화 로그를 전송할 경우, 수신 쓰레드는 잠금 상태의 대상 테이블에 로그를 반영할 수 없는 것을 주의한다. ?? 해당 내용은 [이중화 대상 테이블에 DDL 실행](#이중화-대상-테이블에-DDL-실행) 장의 설명과 중복입니다. 삭제해도 무방할 것 같은데 리뷰 부탁드립니다.
+
+> [!Warning]
+>
+> 해당 DDL 문은 이중화 동기화(SYNC)와 같이 사용할 수 없다. ?? Nok 타임시트를 보고 제약 사항을 추가했습니다.
+
+
 
 ### 이중화 생성 (CREATE REPLICATION) 
 
@@ -1491,27 +1501,29 @@ iSQL> DROP REPLICATION rep1;
 [ERR-610FE : Replication has already started.]
 ```
 
-### 이중화 대상 테이블에 DDL 실행
+### 이중화 대상 테이블에 DDL 실행 
 
-Altibase는 이중화 관련 프로퍼티의 설정에 따라 수행 가능한 DDL 구문이 달라진다. 따라서, 사용자는 수행하고자 하는 DDL 구문에 어떤 프로퍼티 설정이 필요한 지 확인해야 한다.
+?? 이 장에 대한 설명을 추가함
 
-이중화 대상 테이블 DDL 관련 프로퍼티는 세 가지다.
+Altibase는 이중화 관련 프로퍼티의 설정에 따라 수행 가능한 DDL 문이 달라진다. 따라서, 사용자는 수행하고자 하는 DDL 문에 어떤 프로퍼티 설정이 필요한 지 확인해야 한다. 
 
-- REPLICATION_DDL_ENABLE: 이중화 대상 테이블에 DDL 구문을 허용할 것인지를 설정한다.
+다음은 수행할 수 있는 DDL 문을 설정하는 이중화 관련 프로퍼티이다.
 
-- REPLICATION_DDL_ENABLE_LEVEL: 이중화 대상 테이블에 사용할 수 있는 DDL 구문의 범위를 결정한다.
+- REPLICATION_DDL_ENABLE: 이중화 대상 테이블에 DDL 문을 허용할 것인지를 설정한다.
+
+- REPLICATION_DDL_ENABLE_LEVEL: 이중화 대상 테이블에 사용할 수 있는 DDL 문의 범위를 결정한다.
 
 - REPLICATION_SQL_APPLY_ENABLE: SQL 반영 모드 여부를 설정한다.
 
-수행할 수 있는 DDL 구문의 종류는 위의 세 프로퍼티 설정에 따라 아무 설정도 필요하지 않은 구문, REPLICATION_DDL_ENABLE만 1로 설정하여 수행할 수 있는 구문, 그리고 모든 프로퍼티를 1로 설정해야 수행할 수 있는 구문으로 나뉜다. 이 장에서는 각각의 경우 수행할 수 있는 DDL 구문과 제약 사항, 그리고 수행 순서를 예제를 통해 설명한다.
+수행할 수 있는 DDL 문의 종류는 위의 세 프로퍼티 설정에 따라 아무 설정도 필요하지 않은 구문, REPLICATION_DDL_ENABLE만 1로 설정하여 수행할 수 있는 구문, 그리고 모든 프로퍼티를 1로 설정해야 수행할 수 있는 구문으로 나뉜다. 이 장에서는 각각의 경우 수행할 수 있는 DDL 문과 제약 사항, 그리고 수행 순서를 예제를 통해 설명한다.
 
 > [!NOTE]
 >
-> **SQL 반영 모드**<a name="SQL-반영-모드"></a>
+> **SQL 반영 모드**<a name="SQL-반영-모드"></a> ?? SQL 반영 모드를 따로 절을 할애하지 않고 첨부 설명으로 바꿨습니다. 3장 이중화 사용 > 데이터 제약조건의 설명에 이 첨부 설명에 관한 링크를 추가했습니다.[보러가기](#데이터-제약조건)
 >
-> 지역 서버와 원격 서버의 메타 정보가 다를 때 XLog를 SQL로 변환하여 원격 서버에 반영하는 모드이다. REPLICATION_SQL_APPLY_ENABLE 프로퍼티를 1로 설정하여 사용할 수 있다.
+> 지역 서버와 원격 서버의 메타 정보가 다를 때 XLog를 SQL로 변환하여 원격 서버에 반영하는 모드이다. 원격 서버에 REPLICATION_SQL_APPLY_ENABLE 프로퍼티를 1로 설정하여 사용할 수 있다.
 >
-> SQL 반영 모드는 DDL 구문을 실행할 이중화 대상 테이블이 아래와 같은 상황일 때 필요하다.
+> SQL 반영 모드는 DDL 문을 실행할 이중화 대상 테이블이 아래와 같은 상황일 때 필요하다. ?? 기존의 조건 설명을 재구성했습니다. 내용 확인 부탁드립니다.
 >
 > - 칼럼 정보의 불일치: 데이터 타입, size, precision, scale이 다를 경우
 >
@@ -1528,72 +1540,95 @@ Altibase는 이중화 관련 프로퍼티의 설정에 따라 수행 가능한 D
 >
 > XLog를 SQL로 변환하여 반영하는 것은 복제 속도가 느려 성능 저하를 야기할 수 있다. 따라서 SQL 반영 모드는 필요에 따라 일시적으로만 사용하고, **사용 후 REPLICATION_SQL_APPLY_ENABLE 프로퍼티를 0으로 원복해야 한다.**
 
-#### 구문
+#### 구문 
 
-Altibase에서 이중화 대상 테이블에 대하여 다음의 세 가지 종류의 DDL을 지원한다. DDL 구문의 세부적인 제약 사항에 관해서는 [DDL 구문 별 제약사항](#DDL-구문-별-제약사항)을 참고한다.
+?? 이중화 생성 등의 절과 구성을 맞추기 위해 '이중화 PROPERY에 따른 DDL 실행'을 '구문' 절로 제목을 수정했습니다. 
 
-[표] 프로퍼티 설정 별 따른 수행 가능한 DDL 구문<a name="ddl-구문"></a>
+Altibase에서 이중화 대상 테이블에 대하여 다음의 세 가지 종류의 DDL을 지원한다. 각 DDL 문의 세부적인 제약 사항에 관해서는 [DDL 문 별 제약사항](#DDL-구문-별-제약사항)을 참고한다. 
 
-| 프로퍼티 설정                                                | 수행할 수 있는 DDL 구문                                      |
+?? 구문을 표로 제공하면 구분 별 프로퍼티 조건이 명확하게 보일 것 같아서 형식을 대폭 수정했습니다. 제약 사항에 관한 세부 내용은 전부 DDL 문 별 제약사항이란 항목으로 이동하고, 표 앞에 제약사항을 참고하란 설명을 넣었습니다.
+
+[표] 프로퍼티 설정 별 수행 가능한 DDL 문<a name="ddl-구문"></a>
+
+?? DDL 문의 순서를 문단 별 A-Z 순서로 정렬했습니다.(Merge, Split, Drop은 제외, 기존에 line break 2줄로 구별해놓은 블럭 안에서의 정렬입니다)
+
+| 프로퍼티 설정                                                | 수행할 수 있는 DDL 문                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 설정 없음                                                    | ALTER INDEX index_name AGING;<br>ALTER TABLE table_name COMPACT; |
-| REPLICATION_DDL_ENABLE = 1                                   | ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE ); <br/>ALTER TABLE table_name DROP COLUMN column_name; <br/>ALTER TABLE table_name ALTER COLUMN ( column_name SET DEFAULT );<br/>ALTER TABLE table_name ALTER COLUMN ( column_name DROP DEFAULT );<br/><br/>ALTER TABLE table_name ALTER TABLESPACE tablespace_name;<br/>ALTER TABLE table_name ALTER PARTITION partition_name TABLESPACE;<br/>ALTER TABLE table_name TRUNCATE PARTITION partition_name;<br/><br/>TRUNCATE TABLE table_name;<br/><br/>CREATE INDEX index_name ON table_name ( column_name );<br>DROP INDEX index_name; |
-| REPLICATION_DDL_ENABLE = 1<br>REPLICATION_DDL_ENABLE_LEVEL = 1<br>REPLICATION_SQL_APPLY_ENABLE = 1 | ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );<br/>ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );<br/>ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE LOCALUNIQUE );<br/>ALTER TABLE table_name ALTER COLUMN ( column_name NOT NULL );<br/>ALTER TABLE table_name ALTER COLUMN ( column_name NULL );<br/>ALTER TABLE table_name MODIFY COLUMN ( column_name DATA_TYPE );<br/>ALTER TABLE table_name MODIFY COLUMN ( column_name NULL );<br/>ALTER TABLE table_name MODIFY COLUMN ( column_name NOT NULL );<br/>ALTER TABLE table_name DROP COLUMN column_name;<br/><br>ALTER TABLE table_name SPLIT PARTITION .....;<br/>ALTER TABLE table_name MERGE PARTITIONS .....;<br/>ALTER TABLE table_name DROP PARTITION partition_name;<br/><br/>ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name );<br/>ALTER TABLE table_name ADD CONSTRAINT constraint_name LOCALUNIQUE ( column_name ) ;<br/>ALTER TABLE table_name ADD CONSTRAINT constraint_name CHECK ( check_condition );<br/>ALTER TABLE table_name RENAME CONSTRAINT constraint_name TO constraint_name;<br/>ALTER TABLE table_name DROP CONSTRAINT constraint_name;<br/><br/>CREATE UNIQUE INDEX index_name ON table_name ( column_name );<br/>CREATE INDEX index_name ON table_name ( expression );<br/>DROP INDEX index_name; |
+| 지역 서버<br>- REPLICATION_DDL_ENABLE = 1                    | ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE ); <br/>ALTER TABLE table_name ALTER COLUMN ( column_name SET DEFAULT );<br/>ALTER TABLE table_name ALTER COLUMN ( column_name DROP DEFAULT );<br/>ALTER TABLE table_name DROP COLUMN column_name; <br/><br/>ALTER TABLE table_name ALTER TABLESPACE tablespace_name;<br/>ALTER TABLE table_name ALTER PARTITION partition_name TABLESPACE;<br/>ALTER TABLE table_name TRUNCATE PARTITION partition_name;<br/><br/>TRUNCATE TABLE table_name;<br/><br/>CREATE INDEX index_name ON table_name ( column_name );<br>DROP INDEX index_name; |
+| 지역 서버<br>- REPLICATION_DDL_ENABLE = 1<br>- REPLICATION_DDL_ENABLE_LEVEL = 1<br>원격 서버<br>- REPLICATION_SQL_APPLY_ENABLE = 1 | ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );<br/>ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );<br/>ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE LOCALUNIQUE );<br/>ALTER TABLE table_name ALTER COLUMN ( column_name NOT NULL );<br/>ALTER TABLE table_name ALTER COLUMN ( column_name NULL );<br/>ALTER TABLE table_name DROP COLUMN column_name;<br/>ALTER TABLE table_name MODIFY COLUMN ( column_name DATA_TYPE );<br/>ALTER TABLE table_name MODIFY COLUMN ( column_name NULL );<br/>ALTER TABLE table_name MODIFY COLUMN ( column_name NOT NULL );<br/><br>ALTER TABLE table_name SPLIT PARTITION .....;<br/>ALTER TABLE table_name MERGE PARTITIONS .....;<br/>ALTER TABLE table_name DROP PARTITION partition_name;<br/><br/>ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name );<br/>ALTER TABLE table_name ADD CONSTRAINT constraint_name LOCALUNIQUE ( column_name ) ;<br/>ALTER TABLE table_name ADD CONSTRAINT constraint_name CHECK ( check_condition );<br/>ALTER TABLE table_name DROP CONSTRAINT constraint_name;<br/>ALTER TABLE table_name RENAME CONSTRAINT constraint_name TO constraint_name;<br/><br/>CREATE INDEX index_name ON table_name ( expression );<br/>CREATE UNIQUE INDEX index_name ON table_name ( column_name );<br/>DROP INDEX index_name; |
 
 #### 전제 조건
 
-- 수행하고자 하는 구문이 요구하는 프로퍼티 설정이 필요하다. 각 DDL 구문 별 프로퍼티 설정은 위의 표를 참고한다.
-- ALTER SESSION SET REPLICATION을 DEFAULT로 설정한다
+?? 다른 절과 구조를 맞추기 위해 전제 조건 항목을 추가하고, 기존의 설명 항목 중에서 공통적으로 해당하는 DDL 문 수행 전 단계의 조건을 포함시켰습니다.
+
+- 수행하고자 하는 구문이 요구하는 프로퍼티 설정이 필요하다. 각 DDL 문 별 프로퍼티 설정은 위의 표를 참고한다.
+
+- ALTER SESSION SET REPLICATION을 DEFAULT로 설정한다.
+
+  ?? "REPLICATION_DDL_ENABLE_LEVEL 프로퍼티를 1로 설정 후 사용할 수 있는 DDL 문인 경우, 원격 서버에 REPLICATION_SQL_APPLY_ENABLE 프로퍼티를 1로 설정한다." 라는 내용은 삭제하고, 위의 SQL 원격 서버 첨부 설명에 원격 서버에 설정한다는 내용을 추가했습니다. 또한, 표 안에서 프로퍼티를 적용해야 하는 서버를 명시했습니다.
 
 #### 설명
 
-이중화 대상 테이블에 DDL 구문을 수행할 때 사용한다. 이 구문을 수행할 때는 다음과 같은 사항을 주의해야 한다.
+?? 기존의 설명 항목에서 전제 조건으로 빠진 설명 이외의 설명입니다. 문장을 다듬었습니다. 내용 확인 부탁드립니다.
 
-- 운영 중인 서비스 중 데이터를 갱신(I/D/U)하는 서비스들은 지역 서버에서 수행되도록 사전 조치를 해야한다. 그렇지 않을 경우, 데이터 불일치가 발생할 수 있다.
-- 이중화 대상 테이블은 지역 서버와 원격 서버간의 이중화 갭을 확인해야 한다. 이중화 갭을 해소하기 위해 DDL을 수행하기 전에 이중화의 FLUSH ALL 옵션을 수행한다.
-- DDL문 실행 전 칼럼의 범위 보다 DDL문 실행 후 범위가 넓은 경우 원격 서버부터 DDL문을 실행 해야 하고, 반대의 경우 지역 서버부터 DDL문을 실행 해야 한다. 칼럼의 범위에 따른 DDL 구문 실행 순서에 관한 자세한 예시는 [예제 2](#예제-2-1)를 참조한다.
+이중화 대상 테이블에 DDL 문을 수행할 때 사용한다. 이 구문을 수행할 때는 다음과 같은 사항을 주의해야 한다.
 
-- 이중화 대상인 파티션을 SPLIT/MERGE/DROP 하려면 원격 서버에도 동일한 이름으로 파티션을 생성하거나 삭제해야 한다. 새로 생성/삭제된 파티션은 자동으로 이중화 대상 파티션으로 추가/제거된다.
-
-- REPLICATION_DDL_ENABLE_LEVEL 프로퍼티를 1로 설정 후 사용할 수 있는 DDL 구문의 경우, DDL 구문 실행한 후 이중화의 FLUSH 옵션을 수행하여야 한다. 또한, SQL 반영 모드로 동작하는 이중화가 없는지 확인하기 위해 V$REPRECEIVER 성능 뷰의 SQL_APPLY_TABLE_COUNT의 값이 0인지 조회해야 한다.
+- 운영 중인 서비스 중 데이터를 갱신(INSERT/DELETE/UPDATE)하는 서비스들은 지역 서버에서 수행되도록 사전 조치를 해야한다. 그렇지 않을 경우, 데이터 불일치가 발생할 수 있다.
+- 이중화 대상 테이블은 지역 서버와 원격 서버간의 이중화 갭을 확인해야 한다. 이중화 갭을 해소하기 위해 DDL 문을 수행하기 전에 이중화의 FLUSH ALL 옵션을 수행한다.
+- REPLICATION_DDL_ENABLE_LEVEL 프로퍼티를 1로 설정 후 사용할 수 있는 DDL 문의 경우, DDL 문 실행한 후 이중화의 FLUSH 옵션을 수행하여야 한다. 또한, SQL 반영 모드로 동작하는 이중화가 없는지 확인하기 위해 V$REPRECEIVER 성능 뷰의 SQL_APPLY_TABLE_COUNT의 값이 0인지 조회해야 한다.
+- DDL 문 실행 전 칼럼의 범위 보다 DDL 문 실행 후 범위가 넓은 경우 원격 서버부터 DDL 문을 실행 해야 하고, 반대의 경우 지역 서버부터 DDL 문을 실행 해야 한다. 칼럼의 범위에 따른 DDL 문 실행 순서에 관한 자세한 예시는 [예제 2](#예제-2-1)를 참조한다. ?? 칼럼의 범위를 설명하는 것이 애매하여 예제 2의 링크를 추가했습니다.
+- 이중화 대상인 파티션을 SPLIT/MERGE/DROP 하려면 원격 서버에도 동일한 이름으로 파티션을 생성하거나 삭제해야 한다. 새로 생성, 삭제된 파티션은 자동으로 이중화 대상 파티션으로 추가, 제거된다.
 
 #### 제약사항
 
+?? 제약 사항을 공통 제약 사항과 DDL 문 별 제약사항으로 나누어 재구성했습니다. 위의 구문 > 표 위의 설명에 링크된 DDL 문 별 제약사항이 이곳으로 이어집니다.
+
 ##### 공통 제약사항
 
-- 이중화 복구 옵션이 지정된 테이블에는 DDL 문을 실행할 수 없다. 이 경우에 DDL 문을 실행하고 싶다면, 이중화를 삭제한 후 DDL문을 수행하면 된다.
-
-- 이중화가 EAGER모드로 실행중일 때도 DDL문을 실행할 수 없다. 이 경우에는 이중화를 중지하고 DDL문을 수행한 후 이중화를 다시 시작해야 한다.
+- 이중화 복구 옵션이 지정된 테이블에는 DDL 문을 실행할 수 없다. 이 경우에 DDL 문을 실행하고 싶다면, 이중화를 삭제한 후 DDL 문을 수행하면 된다.
+- 이중화가 EAGER모드로 실행중일 때도 DDL 문을 실행할 수 없다. 이 경우에는 이중화를 중지하고 DDL 문을 수행한 후 이중화를 다시 시작해야 한다.
 - 매뉴얼의 처리 순서와 다르게 처리할 경우 데이터 불일치가 발생할 수 있다.
-- 이중화 대상 테이블에 허용된 DDL문을 수행하는 경우, 해당 테이블은 잠금(LOCK) 상태가 된다. 이 때 송신 쓰레드가 이중화 로그를 전송할 경우, 수신 쓰레드는 잠금 상태의 대상 테이블에 로그를 반영할 수 없다.
+- 이중화 대상 테이블에 허용된 DDL 문을 수행하는 경우, 해당 테이블은 잠금(LOCK) 상태가 된다. 이 때 송신 쓰레드가 이중화 로그를 전송할 경우, 수신 쓰레드는 잠금 상태의 대상 테이블에 로그를 반영할 수 없다.
 
-##### DDL 구문 별 제약사항
+##### DDL 문 별 제약사항
+
+?? 기존의 설명과 주석으로 들어가있던 내용을 구문 별로 통합한 후 재구성했습니다. 내용적으로 리뷰 부탁드립니다.
 
 - ALTER TABLE table_name ADD COLUMN
   - 외래 키를 추가할 수 없다.
   - 압축 칼럼을 추가할 수 없다.
-  - REPLICATION_DDL_ENABLE = 1만 설정한 경우, NOT NULL/유일 키/함수 기반 인덱스가 있는 칼럼은 추가할 수 없다.
+  - REPLICATION_DDL_ENABLE = 1만 설정한 경우, NOT NULL/유일 키/함수 기반 인덱스가 있는 칼럼은 추가할 수 없다. ?? Unique, Function-based 인덱스라는 용어를 Administrator's Manual의 설명에 맞춰 유일 키, 함수 기반 인덱스로 일괄 수정했습니다.
+  
 - ALTER TABLE table_name DROP COLUMN
   - 프라이머리 키를 삭제할 수 없다.
   - 압축 칼럼을 삭제할 수 없다.
   - REPLICATION_DDL_ENABLE = 1만 설정한 경우, NOT NULL/유일 키/함수 기반 인덱스가 있는 칼럼은 삭제할 수 없다.
+  
 - ALTER TABLE table_name [SPLIT | MERGE | DROP] PARTITION...
-  - 이중화가 구동 중에 수행할 수 없다.
+  - 이중화가 구동 중이면 수행할 수 없다.
+  
   - MERGE 대상이 되는 파티션은 모두 이중화 객체에 존재해야 한다.
+  
   - DROP PARTITION은 이중화 객체에 2개 이상의 파티션이나 테이블이 있어야 수행할 수 있다.
+  
   - 이중화 갭이 있는 상태에서 이중화 대상인 파티션에 DROP 수행하는 경우 해당 파티션의 이중화 갭은 포기하게 된다. 그러므로 반드시 이중화 FLUSH ALL을 수행하여 갭이 없는 상태에서 수행해야 한다.
+  
+    ?? 바로 위의 설명 항목에서 "이중화 대상 테이블은 지역 서버와 원격 서버간의 이중화 갭을 확인해야 한다. 이중화 갭을 해소하기 위해 DDL 문을 수행하기 전에 이중화의 FLUSH ALL 옵션을 수행한다."라는 내용이 있습니다. 내용 중복이라 삭제하는 것이 나아보이는데, 위의 설명과 다른 의미를 가지고 있는 것이나 파티션 대상 이중화만 이중화 갭을 포기하는 것이라면 다른 방향으로 수정해보겠습니다. 
+  
 - DROP INDEX index_name;
   - REPLICATION_DDL_ENABLE = 1만 설정한 경우 유일 키/함수 기반 인덱스는 삭제할 수 없다.
+  
 - TRUNCATE TABLE
   - 압축 칼럼을 포함한 테이블은 TRUNCATE 할 수 없다.
 
-#### 예제
+#### 예제 ?? 전체적인 구조만 바꾸었습니다.
 
 이중화 대상 테이블의 이름을 *t1*이라고 가정한다.
 
 ##### 예제 1
 
-다음은 REPLICATION_DDL_ENABLE = 1만 설정하여 사용할 수 있는 DDL 구문의 예제이다.
+다음은 REPLICATION_DDL_ENABLE = 1만 설정하여 사용할 수 있는 DDL 문의 예제이다.
 
 ###### *t1*에 *I3* 칼럼 추가
 
@@ -1621,7 +1656,9 @@ Altibase에서 이중화 대상 테이블에 대하여 다음의 세 가지 종�
 
 ##### 예제 2
 
-다음은 이중화 대상 테이블에 DDL 구문을 수행할 때와 관련된 프로퍼티를 전부 1로 설정하여 사용할 수 있는 DDL 구문의 예제이다.
+?? 설명의 "또한, SQL 반영 모드로 동작하는 이중화가 없는지 확인하기 위해 V$REPRECEIVER 성능 뷰의 SQL_APPLY_TABLE_COUNT의 값이 0인지 조회해야 한다."라는 항목이 있는 만큼 SQL_APPLY_TABLE_COUNT 값이 0이 아닐 경우에 어떻게 해야 하는지에 관한 안내 혹은 예제가 있었으면 좋겠습니다. 
+
+다음은 이중화 대상 테이블에 DDL 문을 수행할 때와 관련된 프로퍼티를 전부 1로 설정하여 사용할 수 있는 DDL 문의 예제이다.
 
 ###### *t1*의  칼럼 *C2*의 사이즈를 CHAR(5) 에서 CHAR(10)으로 변경 (현재 칼럼의 범위 보다 수정 후 범위가 넓은 경우)
 
@@ -1709,40 +1746,54 @@ Altibase에서 이중화 대상 테이블에 대하여 다음의 세 가지 종�
 
 #### DDL 복제
 
-Altibase의 이중화는 DDL 복제 기능을 제공한다. DDL 복제 기능을 이용하면, 하나의 노드에서만 DDL을 수행하여도 다른노드에 DDL이 자동으로 수행된다.
+Altibase의 이중화는 DDL 복제 기능을 제공한다. DDL 복제 기능을 이용하면, 하나의 노드에서만 DDL을 수행하여도 다른 노드에 DDL이 자동으로 수행된다.
 
-DDL 복제 실행은 지역서버와 원격 서버가 동기식으로 동작하므로 지역서버와 원격서버 중 하나라도 DDL 수행이 실패하면 해당 DDL은 실패하게 된다.
+DDL 복제는 지역 서버와 원격 서버가 동기식<sup>3</sup>으로 동작하므로 지역 서버와 원격 서버 중 하나라도 DDL 수행이 실패하면 해당 DDL은 실패하게 된다.
 
-DDL 복제 실행을 하기 위해서는 아래의 사전 작업과 프로퍼티 설정이 필요하다. 자세한 절차는 아래에서 설명한다.
+[<sup>3</sup>]동기식: 원격 서버에서 DDL 문 수행이 완료되어야 지역 서버에서도 수행이 완료된 것으로 처리하는 방식 ?? 동기식에 관한 용어 설명 주석을 추가했습니다.
+
+DDL 복제를 실행 하기 위해서는 아래의 사전 작업과 프로퍼티 설정이 필요하다. 자세한 절차는 아래에서 설명한다.
 
 ##### 전제 조건
 
+?? DDL 복제의 제약사항을 전제 조건과 제약 사항으로 나누었습니다.
+
 DDL 복제를 하기 위해서는 다음의 조건이 충족되어야 한다.
 
-- DDL 복제를 위해서는 지역서버, 원격서버의 이중화 프로토콜 버전이 완전히 같아야 한다.
-- DDL 복제를 위해서는 지역서버, 원격서버의 이중화가 모두 시작되어 있어야 한다.
-- DDL 복제를 수행하는 테이블(파티션)명과 유저명이 이중화 지역서버, 원격서버 모두 동일해야 한다.
+- 지역 서버, 원격 서버의 이중화 프로토콜 버전이 완전히 같아야 한다.
+- 지역 서버, 원격 서버의 이중화가 모두 시작되어 있어야 한다.
+- DDL 복제를 수행하는 테이블(파티션) 이름과 사용자 이름이 지역 서버와 원격 서버에서 모두 같아야 한다.
 - DDL 복제를 수행하는 테이블은 LAZY 모드 이중화에 포함된 테이블이어야 한다.
 
 ##### 제약사항
 
-- DDL 복제를 수행하는 테이블이 파티션드 테이블인 경우, 글로벌 논파티션드 인덱스가 있으면 DDL 복제를 실행할 수 없다.
+- 글로벌 논파티션드 인덱스를 포함한 파티션드 테이블은 DDL 복제를 실행할 수 없다.
 - Propagation 롤이 지정된 이중화에 포함된 테이블에는 DDL 복제를 실행할 수 없다.
-- 이중화 복구 옵션(RECOVERY)이 지정된 테이블에는 DDL 복제를 실행할 수 없다.
+- 이중화 부가기능 중 복구 옵션이 지정된 테이블에는 DDL 복제를 실행할 수 없다.
 
 ##### 수행 방법
 
-DDL을 수행할 서버는 지역서버로, DDL 복제가 자동으로 수행되는 서버는 원격서버로 칭한다.
+DDL 복제를 수행하는 절차는 다음과 같다.
+
+1. [사용자 환경에서의 사전 작업](#사용자-환경에서의-사전-작업)
+2. [사전 프로퍼티 설정 - 지역 서버](#사전-프로퍼티-설정---지역-서버)
+3. [사전 프로퍼티 설정 - 원격 서버](#사전-프로퍼티-설정---원격-서버)
+4. [DDL 문 수행](#ddl-구문-수행)
+5. [사후 프로퍼티 원복](#사후-프로퍼티-원복)
+
+이 절에서는 각 단계에 대한 상세한 수행 방법을 설명한다. 아래의 설명에서 사용된 *Replication_name#*은 DDL 문 수행 테이블을 포함한 이중화 객체의 이름이다. 
+
+?? 원격 서버와 지역 서버에 관한 설명은 위의 [이중화 관련 용어](#이중화-관련-용어)에 포함되어 있기 때문에 삭제했습니다. 저는 용어 설명을 보니 따로 설명할 필요가 없을 것 같아서 삭제했지만, 만약 여기서 쓰인 원격 서버/지역 서버의 의미가 다른 점이 있다면 다시 원복해야 합니다. 리뷰 부탁드립니다.
 
 ###### 사용자 환경에서의 사전 작업
 
-1. 운영중인 서비스 옮기기
+1. 운영중인 서비스 옮기기 ?? 기존의 사용자 환경에서의 사전 작업 항목의 주의와 설명이 내용이 중복되어 주의를 삭제하고 대신 기존의 설명을 굵은 글씨로 강조했습니다.
 
-   **운영 중인 서비스 중 데이터를 갱신(I/D/U)하는 서비스들은 지역서버에서만 수행되도록 사전 조치를 해야한다.** 그렇지 않을 경우, 데이터 불일치가 발생할 수 있다. 
+   **운영 중인 서비스 중 데이터를 갱신(INSERT/DELETE/UPDATE)하는 서비스들은 지역 서버에서만 수행되도록 사전 조치를 해야한다.** 그렇지 않을 경우, 데이터 불일치가 발생할 수 있다. 
 
-2. 원격서버의 이중화 갭 제거
+2. 원격 서버의 이중화 갭 제거
 
-   DDL구문을 수행할 테이블과 관련된 모든 이중화에 대해서 FLUSH를 수행한다.
+   DDL 문을 수행할 테이블을 포함한 모든 이중화 객체에 FLUSH를 수행한다.
 
    ```sql
    ALTER REPLICATION Replication_name1 FLUSH;
@@ -1750,34 +1801,38 @@ DDL을 수행할 서버는 지역서버로, DDL 복제가 자동으로 수행되
    ALTER REPLICATION Replication_name... FLUSH;
    ```
 
-###### 사전 프로퍼티 설정 - 지역서버
+###### 사전 프로퍼티 설정 - 지역 서버
 
-이중화 대상 테이블 DDL 관련 프로퍼티 설정은 SYS 사용자만 가능하다. [**프로퍼티 설정 별 따른 수행 가능한 DDL 구문**](#ddl-구문) 표를 참고하여, 지역서버에서 프로퍼티 설정 구문을 수행한다.
+[**프로퍼티 설정 별 수행 가능한 DDL 문**](#ddl-구문) 표를 참고하여, 지역 서버에서 프로퍼티 설정 구문을 수행한다.
+
+> [!TIP]
+>
+> DDL 문 관련 이중화 프로퍼티 설정은 SYS 사용자만 가능하다.  ?? 코드를 보면 테이블 오너(일반 사용자)도 가능한 거 아닌가 싶어서 질문 드립니다...
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;
 
---DDL을 수행할 TABLE의 사용자(Table Owner)로 접속하거나 SYS로 수행한다.
+//DDL 문을 수행할 TABLE의 사용자(Table Owner)로 접속하거나 SYS로 수행한다.
 ALTER SESSION SET REPLICATION_DDL_SYNC=1;
 ALTER SESSION SET REPLICATION=DEFAULT;
 ```
 
-###### 사전 프로퍼티 설정 - 원격서버
+###### 사전 프로퍼티 설정 - 원격 서버
 
-원격서버에서 아래의 프로퍼티 설정 구문을 수행한다. 만약, REPLICATION_DDL_ENABLE_LEVEL을 1로 설정했다면, REPLICATION_SQL_APPLY_ENABLE도 반드시 1로 설정해야 한다.
+원격 서버에서 아래의 프로퍼티 설정 구문을 수행한다.
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;
 ALTER SYSTEM SET REPLICATION_DDL_SYNC=1;
---REPLICATION_DDL_ENABLE_LEVEL가 0인경우, 아래 프로퍼티 설정은 생략해도 된다.
+//REPLICATION_DDL_ENABLE_LEVEL가 0인경우, 아래 프로퍼티 설정은 생략해도 된다.
 ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=1;
 ```
 
-###### DDL 구문 수행
+###### DDL 문 수행
 
-DDL 구문을 수행하기 전 **지역서버**에서 이중화 갭을 제거하기 위해서는 아래의 구문을 수행 후 DDL 구문을 수행해야 한다. 이 때, *Replication_name1, Replication_name2*는 DDL 구문 수행 테이블과 관련된 모든 이중화 객체를 말한다.
+DDL 문을 수행하기 전 **지역 서버**에서 이중화 갭을 제거하기 위해서는 아래의 구문을 수행 후 DDL 문을 수행해야 한다.
 
 ```sql
 ALTER REPLICATION Replication_name1 FLUSH;
@@ -1785,28 +1840,38 @@ ALTER REPLICATION Replication_name2 FLUSH;
 ALTER REPLICATION Replication_name... FLUSH;
 ```
 
-허용하는 DDL 구문은 [**"이중화 대상 테이블에 허용되는 DDL 구문"**](#허용되는-DDL-구문)를 참고 한다. //여기부터 수정
+FLUSH 수행 후 DDL 문을 수행하는 과정은 아래의 예제에서 확인할 수 있다. ?? 예제가 길고 2개라서 별도로 빼는 것이 나을 것 같습니다. 따라서 기존 구성을 유지하였습니다.
 
-허용하지 않는 DDL 구문은 다음과 같다.
+
+
+?? 아래 "허용하는 DDL 문은~ Note 확인할 수 있다"까지 기존의 매뉴얼에 있던 부분입니다. 저는 허용하는 DDL 조건이 ["프로퍼티 설정 별 수행 가능한 DDL 문"](#ddl-구문)과, 또  제약사항이 [DDL 문 별 제약사항](#DDL-문-별-제약사항)과 내용이 다르지 않다면 삭제하고 싶습니다.  DDL 복제 기능은 결국 이중화 대상 DDL 수행하는 것을 복제하는 기능일텐데 제약사항과 허용되는 DDL 조건이 같다면 이 내용이 따로 명시되지 않아도 될 것 같습니다. 삭제하고, 제약사항은 위의 내용을 참고하라, 정도로 안내하고 싶습니다. Note에 있는 갱신 제한 안내 또한 같은 의견입니다. **다만 4/23 회의에서 "DDL 복제 수행 시 원격 서버의 이중화 대상 테이블에도 LOCK이 잡혀 트랜잭션 접근이 제한된다는 내용 명시"를 하자는 의견이 있었는데** 제 제안과 대치되는 부분입니다. 어떤 방법이 좋을 지 의견 부탁드립니다.
+
+
+
+허용하는 DDL 문은 [**"프로퍼티 설정 별 수행 가능한 DDL 문"**](#ddl-구문)을 참고 한다. 
+
+허용하지 않는 DDL 문은 다음과 같다. 
 
 - 프라이머리 키를 삭제할 수 없다.
 - 외래키를 추가할 수 없다.
 - 압축칼럼을 추가/삭제할 수 없다.
 - 압축칼럼이 포함된 테이블에 대한 TRUNCATE는 수행할 수 없다.
 
->  **주의**
+> [!NOTE]
 >
->  DDL 복제가 진행되는 동안, DDL을 수행하는 테이블의 갱신은 일시적으로 제한 될 수 있다. 이런 경우, DDL 수행이 완료된 후에 재 시도하면 정상적으로 완료된다.
+> DDL 복제가 진행되는 동안, DDL 문을 수행하는 테이블의 갱신은 일시적으로 제한된다. 이런 경우, DDL 문 수행이 완료된 후에 재시도하면 정상적으로 완료된다.
 >
->  예를 들어 테이블 T1에 DDL 복제가 진행되는 동안에 INSERT INTO t1 VALUES...와 같은 DML 구문을 실행하면, [ERR-313D6 : Unable to update table or partition T1] 의 에러를 확인할 수 있다.
+> 예를 들어 테이블 T1에 DDL 복제가 진행되는 동안에 INSERT INTO t1 VALUES...와 같은 DML 구문을 실행하면, [ERR-313D6 : Unable to update table or partition T1] 의 에러를 확인할 수 있다.
+
+
 
 ###### 사후 프로퍼티 원복
 
-DDL 구문 수행이 완료되고, 더이상 수행할 DDL 구문이 없는 경우 위에서 변경했던 프로퍼티 설정을 원복해야 한다. 이 때, 지역서버에서는 DDL 처리와 관련된 이중화 갭이 존재할 수 있다. 이를 해결하기 위해서는 반드시 FLUSH를 수행해야 한다. 
+모든 DDL 문이 수행된 후에는 변경했던 프로퍼티 설정을 원복해야 한다. 이 때 지역 서버에서는 DDL 문 처리와 관련된 이중화 갭이 존재할 수 있기 때문에 **반드시 FLUSH를 수행해야 한다.**
 
 - 지역 서버
 
-  - DDL 처리와 관련된 이중화 갭 제거를 위해, 아래와 같이 FLUSH 구문을 수행한다.
+  - DDL 문 처리와 관련된 이중화 갭 제거를 위해 아래와 같이 FLUSH 구문을 수행한다.
 
   ```sql
   ALTER REPLICATION Replication_name1 FLUSH;
@@ -1833,57 +1898,66 @@ DDL 구문 수행이 완료되고, 더이상 수행할 DDL 구문이 없는 경�
 
 ##### 예제
 
-1. 이중화 대상 테이블을 t1에 대하여 DDL 복제 실행
+###### 예제 1
 
-   - REPLICATION_DDL_ENABLE_LEVEL 설정 없이 사용할 수 있는 DDL 예제 - TRUNCATE TABLE
+이중화 대상 테이블 *t1*에 대하여 DDL 복제 실행
 
-     | Active1                                                      | Active2                                                      |
-     | :----------------------------------------------------------- | :----------------------------------------------------------- |
-     |                                                              | 서비스를 Active1으로 절체                                    |
-     | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1; <br/>ALTER SESSION SET REPLICATION_DDL_SYNC = 1; <br/>ALTER SESSION SET REPLICATION = DEFAULT; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1; <br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1; <br/>ALTER SESSION SET REPLICATION = DEFAULT; |
-     |                                                              | ALTER REPLICATION rep1 FLUSH;                                |
-     | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
-     | TRUNCATE TABLE user.t1;                                      |                                                              |
-     | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
-     | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; <br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; <br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0; |
+- REPLICATION_DDL_ENABLE = 1만 설정하여 수행할 수 있는 DDL 문
 
-   - REPLICATION_DDL_ENABLE_LEVEL = 1로 설정한 경우, 사용할 수 있는 DDL 예제 - ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL )
+  TRUNCATE TABLE 예제
 
-     | Active1                                                      | Active2                                                      |
-     | :----------------------------------------------------------- | :----------------------------------------------------------- |
-     |                                                              | 서비스를 Active1으로 절체                                    |
-     | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1; <br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1; <br/>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;<br/>ALTER SESSION SET REPLICATION = DEFAULT; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;<br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1; |
-     |                                                              | ALTER REPLICATION rep1 FLUSH;                                |
-     | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
-     | ALTER TABLE user.t1 ALTER COLUMN ( c1 NOT NULL );            |                                                              |
-     | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
-     | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;<br/>ALTER SESSION SET REPLICATION_DDL_SYNC = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;<br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; |
+  | Active1                                                      | Active2                                                      |
+  | :----------------------------------------------------------- | :----------------------------------------------------------- |
+  |                                                              | 서비스를 Active1으로 절체                                    |
+  | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1; <br/>ALTER SESSION SET REPLICATION_DDL_SYNC = 1; <br/>ALTER SESSION SET REPLICATION = DEFAULT; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1; <br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1; <br/>ALTER SESSION SET REPLICATION = DEFAULT; |
+  |                                                              | ALTER REPLICATION rep1 FLUSH;                                |
+  | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
+  | TRUNCATE TABLE user.t1;                                      |                                                              |
+  | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
+  | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; <br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; <br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0; |
 
-     
+- 수행할 수 있는 DDL 문을 설정하는 이중화 관련 프로퍼티를 전부 1로 설정한 경우 사용할 수 있는 DDL 문
 
-2. 삼중화 환경에서 DDL 복제 실행  - ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL )
+  ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL ) 예제
+  
+  | Active1                                                      | Active2                                                      |
+  | :----------------------------------------------------------- | :----------------------------------------------------------- |
+  |                                                              | 서비스를 Active1으로 절체                                    |
+  | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1; <br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1; <br/>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;<br/>ALTER SESSION SET REPLICATION = DEFAULT; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;<br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1; |
+  |                                                              | ALTER REPLICATION rep1 FLUSH;                                |
+  | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
+  | ALTER TABLE user.t1 ALTER COLUMN ( c1 NOT NULL );            |                                                              |
+  | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
+  | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;<br/>ALTER SESSION SET REPLICATION_DDL_SYNC = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;<br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; |
+  
 
-   예시에 쓰인 삼중화 관련 객체의 이름은 다음과 같다.
+###### 예제 2 
 
-   - t1: 삼중화 대상 테이블
+삼중화 환경에서 DDL 복제 실행
 
-   - c1: t1의 칼럼
+ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL ) 예제
 
-   - rep1: 지역서버와 원격서버1의 이중화 객체
+예제에 쓰인 삼중화 관련 객체의 이름은 다음과 같다.
 
-   - rep2: 지역서버와 원격서버2의 이중화 객체
+- t1: 삼중화 대상 테이블
 
-   - rep3: 원격서버1과 원격서버2의 이중화 객체
+- c1: t1의 칼럼
 
-   | Active1                                                      | Active2                                                      | Active3                                                      |
-   | :----------------------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-   |                                                              | 서비스를 Active1으로 절체                                    | 서비스를 Active1으로 절체                                    |
-   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;<br/>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;<br/>ALTER SESSION SET REPLICATION = DEFAULT; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1; <br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1; <br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1; |
-   |                                                              | ALTER REPLICATION rep1 FLUSH;<br/>ALTER REPLICATION rep3 FLUSH; | ALTER REPLICATION rep2 FLUSH;<br/>ALTER REPLICATION rep3 FLUSH; |
-   | ALTER REPLICATION rep1 FLUSH;<br/>ALTER REPLICATION rep2 FLUSH; |                                                              |                                                              |
-   | ALTER TABLE user.t1 ALTER COLUMN ( c1 NOT NULL );            |                                                              |                                                              |
-   | ALTER REPLICATION rep1 FLUSH;<br/>ALTER REPLICATION rep2 FLUSH; |                                                              |                                                              |
-   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;<br/>ALTER SESSION SET REPLICATION_DDL_SYNC = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;<br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;<br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; |
+- rep1: 지역 서버와 원격 서버1의 이중화 객체
+
+- rep2: 지역 서버와 원격 서버2의 이중화 객체
+
+- rep3: 원격 서버1과 원격 서버2의 이중화 객체
+
+| Active1                                                      | Active2                                                      | Active3                                                      |
+| :----------------------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+|                                                              | 서비스를 Active1으로 절체                                    | 서비스를 Active1으로 절체                                    |
+| ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;<br/>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;<br/>ALTER SESSION SET REPLICATION = DEFAULT; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1; <br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;<br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1; <br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1; |
+|                                                              | ALTER REPLICATION rep1 FLUSH;<br/>ALTER REPLICATION rep3 FLUSH; | ALTER REPLICATION rep2 FLUSH;<br/>ALTER REPLICATION rep3 FLUSH; |
+| ALTER REPLICATION rep1 FLUSH;<br/>ALTER REPLICATION rep2 FLUSH; |                                                              |                                                              |
+| ALTER TABLE user.t1 ALTER COLUMN ( c1 NOT NULL );            |                                                              |                                                              |
+| ALTER REPLICATION rep1 FLUSH;<br/>ALTER REPLICATION rep2 FLUSH; |                                                              |                                                              |
+| ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;<br/>ALTER SESSION SET REPLICATION_DDL_SYNC = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;<br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;<br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; |
 
 
 ### 이중화 부가기능
@@ -3857,7 +3931,7 @@ ALTER SEQUENCE user_name.seq_name DISABLE SYNC TABLE;
 
 이중화를 여러 노드를 거쳐서 전파하는 용도로 시스템을 구성하는 것을 말한다. 
 
-일반 이중화는 변경 사항을 서로 재 전송하지 않기 위해서 이중화 수신자가 수행한 트랜잭션은 재 전송하지 않도록 로그에 표시한다. 그러나 전파는 이중화 수신자가 수행한 트랜잭션도 다른 노드로 전파할 수 있다. 이중화 수신자가 전송받은 로그를 복제가능한 로그로 남기기 위해서는 Propagable logging 롤이 필요하다. 복제 가능한 로그를 다른 원격서버로 전송은 Propagation 롤을 가진 이중화에서 송신자가 수행한다. 
+일반 이중화는 변경 사항을 서로 재 전송하지 않기 위해서 이중화 수신자가 수행한 트랜잭션은 재 전송하지 않도록 로그에 표시한다. 그러나 전파는 이중화 수신자가 수행한 트랜잭션도 다른 노드로 전파할 수 있다. 이중화 수신자가 전송받은 로그를 복제가능한 로그로 남기기 위해서는 Propagable logging 롤이 필요하다. 복제 가능한 로그를 다른 원격 서버로 전송은 Propagation 롤을 가진 이중화에서 송신자가 수행한다. 
 
 #### PROPAGABLE LOGGING 롤
 
