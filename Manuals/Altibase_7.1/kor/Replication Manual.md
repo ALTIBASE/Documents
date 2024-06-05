@@ -194,10 +194,10 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 -   제 4장 Fail-Over  
     이 장은 Altibase Fail-Over 기능과 그 사용 방법에 대해 설명한다.
 
--   제 5장 시퀀스 이중화
+-   제 5장 시퀀스 이중화  
     이 장은 Altibase에서 지원하는 시퀀스 이중화를 위한 조건 및 방법을 설명한다.
     
--   제 6장 이중화 롤(ROLE)
+-   제 6장 이중화 롤(ROLE)  
     이 장은 이중화에 롤(ROLE)을 부여하여 특별한 기능을 하도록 시스템을 구성하는 방법을 설명한다.
     
 -   A. 부록 FAQ  
