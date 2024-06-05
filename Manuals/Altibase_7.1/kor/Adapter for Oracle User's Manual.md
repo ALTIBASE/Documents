@@ -1129,7 +1129,7 @@ Altibase Adapter for Oracle version 5.5.1.1.2
 
 #### 구문
 
-```
+```sql
 CREATE REPLICATION ala_replication_name FOR ANALYSIS OPTIONS META_LOGGING 
                    WITH 'remote_host_ip', remote_host_port_no 
                    FROM user_name.table_name TO user_name.table_name;                   
