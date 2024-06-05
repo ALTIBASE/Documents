@@ -535,12 +535,10 @@ Altibase에서 제공하는 이중화 부가 기능은 아래와 같다. 부가 
 -   이중화 트랜잭션 그룹 옵션  
     : 이중화 갭이 발생하였을 때 전송해야 할 복수의 트랜잭션들을 하나의 트랜잭션처럼 그룹화하여 수신 쓰레드에 로그를 전송하는 기능
     
-- 이중화 수신 전용 옵션
-
+- 이중화 수신 전용 옵션  
   : 이중화를 수신 전용 옵션으로 설정하는 기능.
   
-- 메타 로깅 옵션
-
+- 메타 로깅 옵션  
   : 송신자 메타 정보와 재시작 SN 정보를 파일로 저장하는 기능
 
 > #### 주의 사항
@@ -2230,7 +2228,7 @@ CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING...;
 
 메타 로깅 옵션은 송신자 메타 정보와 재시작 SN 정보를 로그 파일 경로의 ala_meta_files 폴더 안에 파일로 저장한다. 이 파일들은 Adapter for JDBC와 Adapter for Oracle 유틸리티의 오프라인 옵션이 동작할 때 필요하다.
 
-> **오프라인 옵션**
+> **Adapter for JDBC와 Adapter for Oracle의 오프라인 옵션**
 >
 > 오프라인 옵션은 Active 서버에서 장애가 발생한 경우 Standby 서버에서 미전송 로그를 읽어오는 기능이다. 이에 관한 자세한 설명은 [*Adapter for JDBC User’s Manual - 오프라인 옵션*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Adapter%20for%20JDBC%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option), [*Adapter for Oracle User’s Manual - 오프라인 옵션*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Adapter%20for%20Oracle%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)을 참고한다.
 

@@ -177,7 +177,14 @@ This manual has been organized as follows:
 -   Chapter 4: Fail-Over  
     This chapter explains the Fail-Over feature provided by Altibase and how to use it.
 
--   Appendix A. FAQ
+-   Chapter 5: Sequence Replication   
+    This chapter describes how to use the sequence replication that Altibase provides.
+    
+-   Chapter 6: ROLE   
+    This chapter explains how to configure the system to perform special functions by assigning ROLE to replication.
+    
+-   Appendix A. FAQ   
+    This chapter provides FAQs related to Altibase replication and replication properties.
 
 #### Documentation Conventions
 
@@ -263,9 +270,9 @@ This chapter covers the following subjects::
 
 -   Altibase Replication Concepts and Terminology
 -   Replication Function in Altibase
--   Choosing Replication Targers
+-   Choosing Replication Targets
 -   Replication mode
--   Replicaiton and Data Definition Language (DDL)
+-   Replication and Data Definition Language (DDL)
 -   Data Recovery Using Replication
 
 #### Concepts
@@ -478,7 +485,7 @@ When replication DDL, DML except SELECT cannot be performed while synchronizing 
 Altibase provides the following additional features. A detaield description of how to use the add-ons and limitations is given in the section on Extra Features.
 
 -   Recovery Option  
-    : If experiencing abnormal server termination during the replicaiton, data recovery option is available for preventing data inconsistency between servers by replications.
+    : If experiencing abnormal server termination during the replication, data recovery option is available for preventing data inconsistency between servers by replications.
     
 -   Offline Option  
     : If an error occurred in the active server with the Active-Standy replication environment, this function allows applying untransffered logs to the Standy Server with the offline option.
@@ -491,6 +498,9 @@ Altibase provides the following additional features. A detaield description of h
 
 -   Replication Transaction Grouping Option  
     : This option sends logs to a sender thread by grouping multiple transaction to a single transaction when replication gap occurs.
+    
+-   Meta Logging Option  
+    : This option records the sender meta and Restart SN information into files.
 
 > #### Considerations
 >
@@ -1727,6 +1737,8 @@ Altibase provides the following extra replication features:
 
 -   Replicated Transaction Grouping Option
 
+-   Meta Logging Option
+
 The status of replication option can be confirmed by the value of the OPTIONS column in SYS_REPLICATIONS_meta table. Please refer to the *General Reference* for in-deph information.
 
 #### Recovery Option
@@ -1863,7 +1875,7 @@ iSQL>ALTER REPLICATION REP1 START WITH OFFLINE;
 iSQL>ALTER REPLICATION REP1 SET OFFLINE DISABLE;
 ```
 
-#### Replicatoin Gapless Option 
+#### Replication Gapless Option 
 
 ##### Syntax
 
@@ -1965,6 +1977,27 @@ For more detailed information about properties, please refer to the *General Ref
 ##### Restriction
 
 -   The replication transaction grouping option can only be specified when replication is being performed in LAZY mode.
+
+#### Meta Logging Option
+
+##### Syntax
+
+```sql
+CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING...;
+```
+##### Description
+
+The meta logging option records the sender meta and Restart SN information into files created within the ala_meta_files folder in the log file path. These files are needed when the offline option of Adapter for JDBC and Adapter for Oracle utilities is executed.
+
+> **Offline Option of Adapter for JDBC and Adapter for Oracle** 
+>
+> The offline option helps the Standby server access the unsent log files in the Altibase server where the failure occurs directly, and apply them to the other databases. For more detailed information, please refer to the [*Adapter for JDBC User’s Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Adapter%20for%20JDBC%20User's%20Manual.md#offline-option), and the [*Adapter for Oracle User’s Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Adapter%20for%20Oracle%20User's%20Manual.md#offline-option).
+
+To specify this option, the replication object should be created with the Log Analyzer role.
+
+##### Restriction
+
+- This option can only be used in the Active-Standby environment.
 
 ### Replication in a Multiple IP Network Environment
 
