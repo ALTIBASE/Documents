@@ -2001,10 +2001,6 @@ The meta logging option records the sender meta and Restart SN information into 
 
 To specify this option, the replication object should be created with the Log Analyzer role.
 
-##### Restriction
-
-- This option can only be used in the Active-Standby environment.
-
 ### Replication in a Multiple IP Network Environment
 
 Replication is supported in a multiple IP network environment. In other words, it is possible to perform replication between two hosts having two or more physical network connections.

@@ -2234,12 +2234,6 @@ CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING...;
 
 이 옵션을 사용하기 위해선 Log Analyzer 롤로 이중화 객체를 생성해야 한다.
 
-
-##### 제약 사항
-
-
--   Active-Standby 이중화 환경에서만 사용할 수 있다.
-
 ### 다중 IP 네트워크 환경에서의 이중화 
 
 다중 IP 네트워크 환경에서의 이중화가 지원된다. 즉, 물리적인 두 개 이상의 네트워크 라인을 가진 두 호스트간의 이중화를 수행할 수 있다.
