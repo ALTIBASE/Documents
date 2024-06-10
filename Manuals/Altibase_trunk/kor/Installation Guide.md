@@ -136,7 +136,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [Altibase 제품 삭제](#altibase-제품-삭제)
   - [메타 다운그레이드(Meta Downgrade)](#메타-다운그레이드meta-downgrade)
 
-- [4.패키지 인스톨러를 이용한 제품 패치](#4패키지-인스톨러를-이용한-제품 패치)
+- [4.패키지 인스톨러를 이용한 제품 패치](#4패키지-인스톨러를-이용한-제품-패치)
 
   - [패치란?](#패치란)
   - [Altibase 서버 제품 패치](#altibase-서버-제품-패치)
