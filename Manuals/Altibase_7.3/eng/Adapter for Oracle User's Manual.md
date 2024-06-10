@@ -1083,19 +1083,19 @@ ALTER REPLICATION ala_replication_name START WITH OFFLINE;
 
 #### Description
 
-When data updated on Altibase are applied to the Oracle database using OraAdapter, logs unapplied to another database yet can not be sent if a failure occurs on the running Altibase server. In this case, if the Altibase server is running with the META_LOGGING option and there is a Standby server with the same database structure as the Altibase server, the Offline option helps the Standby server access the unsent log files in the Altibase server where the failure occurs directly, and apply them to the Oracle database.
+Using the OraAdapter to apply changed data from the Altibase server to the Oracle database, it is impossible to send logs that were not applied to the other database if a failure occurs on the running Altibase server. In this case, if the Altibase server is running with the META_LOGGING option and there is a Standby server with the same database structure as the Altibase server, the Offline option helps the Standby server access the unsent log files in the Altibase server where the failure occurs directly, and apply them to the Oracle database.
 
 - META_LOGGING
 
-  This logs the sender meta information and Restart SN in the file. When a failure occurs, the file is used to configure the meta information necessary to read unsent logs. The file is created within the ala_meta_files folder in the log file path.
+  This logs the sender meta and Restart SN information in files. When a failure occurs, the files are used to configure the meta information necessary to read unsent logs. The files ares created within the ala_meta_files folder in the log file path.
 
 - SET OFFLINE ENABLE WITH 'log_dir' 
 
-  This enables to use of the offline replication option. This statement can only be executed when replication is stopped. It sets up the Standby server to access the log files directly by specifying the log file path of the Altibase server where the failure occurs.
+  This enables the use of the offline replication option. This statement can only be executed when replication is stopped. It sets up the Standby server to access the log files directly by specifying the log file path of the Altibase server where the failure occurs.
 
 - SET OFFLINE DISABLE
 
-  This disables to use of the offline replication option. This statement can only be executed when replication is stopped.
+  This disables the use of the offline replication option. This statement can only be executed when replication is stopped.
 
 - BUILD OFFLINE META
 
@@ -1111,7 +1111,7 @@ When data updated on Altibase are applied to the Oracle database using OraAdapte
 
 #### Constraints
 
-- Reading and writing functions of the replication meta information file can be executed by ALA only.
+- Reading and writing functions of the sender meta or Restart SN file can be executed by ALA only.
 - The ALA object name for the server running the offline oraAdapter must be the same as the ALA object name for the Active server.
 - Offline oraAdapter does not support ALA objects with compressed tables as replication targets.
 - If the offline oraAdapter cannot access the log file and the sender meta file paths of the Active server due to disk issues, the operation fails.
