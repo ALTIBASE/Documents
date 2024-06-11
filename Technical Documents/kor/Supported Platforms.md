@@ -40,9 +40,9 @@ Altibase 버전 별 지원 OS 및 호환성 테스트를 완료한 OS 버전 정
 
 > [!NOTE]
 >
-> **Red Hat Enterprise Linux, CentOS, Oracle Linux 그리고 Rocky Linux는 호환성을 보장하는 버전이 같습니다.** 예를 들어, Red Hat Enterprise Linux 8.4에서 호환성 테스트를 통과했다면 Red Hat Enterprise Linux 8.4, Oracle Linux 8.4, Rocky Linux 8.4 모두 호환성을 보장합니다.
+> **Red Hat Enterprise Linux, CentOS, Oracle Linux 그리고 Rocky Linux는 호환성을 보장하는 버전이 같습니다.** Red Hat Enterprise Linux 8.4에서 호환성 테스트를 통과했다면 Oracle Linux 8.4, Rocky Linux 8.4 모두 호환성을 보장합니다.
 >
-> 또한, Linux x86-64 플랫폼에서 Red Hat Enterprise Linux, CentOS, Oracle Linux, Rocky Linux는 메이저 버전이 같은 경우, 마이너 버전은 상관없이 호환성을 보장합니다. 아래 표에서 명시되지 않은 특정 마이너 버전에 대해 Altibase의 호환성 테스트 결과가 필요하다면 [Altibase 고객 지원 센터](http://support.altibase.com/kr/)로 문의하시기 바랍니다.
+> **Red Hat Enterprise Linux, CentOS, Oracle Linux, Rocky Linux는 메이저 버전이 같으면 마이너 버전에 상관없이 호환성을 보장합니다.** 아래 표에서 명시되지 않은 특정 마이너 버전에 대해 Altibase의 호환성 테스트 결과가 필요하다면 [Altibase 고객 지원 센터](http://support.altibase.com/kr/)로 문의하시기 바랍니다.
 
 <br/>
 
@@ -52,7 +52,7 @@ Altibase 버전 별 지원 OS 및 호환성 테스트를 완료한 OS 버전 정
 
 >  Altibase 서버/클라이언트 모두 64-bit 만 지원합니다.<br>
 >
->  Microsoft Windows 는 지원하지 않습니다. Windows용 클라이언트가 필요한 경우, Altibase 7.1의 클라이언트를 사용할 수 있습니다.
+>  Microsoft Windows 는 Altibase 클라이언트만 지원합니다.
 
 > Altibase 7.3 패치 버전을 명시하지 않은 경우 Altibase 7.3 모든 버전에서 지원함을 의미합니다.
 
@@ -62,7 +62,7 @@ Altibase 버전 별 지원 OS 및 호환성 테스트를 완료한 OS 버전 정
 | Altibase 7.3                                                 | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항        |
 | :----------------------------------------------------------- | :-----------: | :-----------------: | :------------------------- |
 | **AIX on IBM Power Systems**                                 |               |                     |                            |
-| AIX 6.1 TL3 <br />AIX 6.1 TL9                                |       ●       |          ●          |                            |
+| AIX 6.1 TL9                                                  |       ●       |          ●          |                            |
 | AIX 7.1<br/>AIX 7.2                                          |     **○**     |        **○**        |                            |
 | **HP-UX Itanium (IA-64)**                                    |               |                     |                            |
 | HP-UX 11.31                                                  |       ●       |          ●          |                            |
