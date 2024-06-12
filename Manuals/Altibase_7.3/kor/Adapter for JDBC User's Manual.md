@@ -1171,34 +1171,28 @@ jdbcAdapter를 이용하여 Altibase에서 변경된 데이터를 Other DB에 �
 Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장애가 발생한 Altibase 서버의 로그 파일에 직접 접근하여
 미전송 로그를 가져와서 Other DB에 반영할 수 있다.
 
--   META_LOGGING
-    
+-   META_LOGGING  
     송신자 메타 정보와 재시작 SN 정보를 파일로 남겨서 장애 발생시 Standby 서버에서 미전송 로그를 읽어 올때 필요한 메타 정보를 구성할 수 있게 한다. 파일은 로그 파일 경로의 ala_meta_files 폴더 안에 생성 된다.
     
--   SET OFFLINE ENABLE WITH 'log_dir' 
-    
+-   SET OFFLINE ENABLE WITH 'log_dir'   
     오프라인 이중화 옵션을 사용할 수 있도록 설정한다. 이중화가 중지되어 있는 상태에서만
     이 구문을 수행할 수 있다.
     장애가 발생한 Altibase 서버의 로그 파일 경로를 설정하여 Standby 서버가 직접 로그 파일에
     접근하도록 한다.
     
--   SET OFFLINE DISABLE 
-    
+-   SET OFFLINE DISABLE   
     오프라인 이중화 옵션을 사용하지 못하도록 설정한다. 이중화가 중지되어 있는
     상태에서만 이 구문을 수행할 수 있다.
     
--   BUILD OFFLINE META
-    
+-   BUILD OFFLINE META  
     설정된 로그 파일 경로의 ala_meta_files 폴더에서 송신자 메타 파일과 재시작 SN 파일을 읽어 
     오프라인 이중화에 필요한 메타 정보를 구성한다.
     
--   RESET OFFLINE META
-    
+-   RESET OFFLINE META  
     BUILD OFFLINE META로 구성된 메타 정보를 새로 구성하거나 더 이상 필요하지 않을때
     초기화 한다.
     
--   START WITH OFFLINE 
-    
+-   START WITH OFFLINE   
     설정된 오프라인 경로를 이용하여 이중화를 수행한다. 오프라인 이중화는 일회성
     작업으로써, 미전송된 로그를 모두 반영한 후 바로 종료된다. 
     오프라인 이중화가 종료된 후에는 다시 이중화를 시작할 수 있다.
