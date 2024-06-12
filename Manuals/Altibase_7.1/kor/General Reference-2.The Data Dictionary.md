@@ -2659,7 +2659,7 @@ SYS_TABLES_
 | PARALLEL_APPLIER_COUNT   | INTEGER     | 병렬 적용자(Applier)의 수                                    |
 | REMOTE_XSN               | BIGINT      | 원격 서버에서 가장 최근에 처리한 SN                          |
 | APPLIER_INIT_BUFFER_SIZE | BIGINT      | applier buffer 의 초기 사이즈                                |
-| PEER_REPLICATION_NAME    | VARCHAR(40) | 로컬 이중화한 원격 이중화 이름                               |
+| PEER_REPLICATION_NAME    | VARCHAR(40) | 내부 용도                               |
 | REMOTE_LAST_DDL_XSN      | BIGINT      | 원격 서버에서 가장 최근에 처리한 DDL SN                      |
 
 [<sup>13</sup>] SN(Sequence Number): 로그 레코드의 식별 번호
@@ -2736,6 +2736,7 @@ Log Analyzer 전용 이중화에 대한 자세한 내용은 Log Analyzer User's 
 - 4(00000100): 이중화 갭 해소 옵션 사용
 - 8(00001000): 병렬 적용자 옵션 사용
 - 16(00010000): 이중화 트랜잭션 그룹 옵션 사용
+- 32(00100000): 내부 용도
 - 64(01000000): 메타 로깅 옵션 사용
 
 ##### INVALID_RECOVERY
@@ -2774,10 +2775,6 @@ Log Analyzer 전용 이중화에 대한 자세한 내용은 Log Analyzer User's 
 ```
 
 만약 병렬 적용자 큐의 수가 프로퍼티 REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE 값보다 작다면 병렬 적용자 큐의 수는 프로퍼티 REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE에 지정된 값으로 설정된다.
-
-##### PEER_REPLICATION_NAME
-
-로컬 이중화 옵션을 사용했을 때 원격 이중화의 이름이다.
 
 ##### REMOTE_LAST_DDL_XSN
 

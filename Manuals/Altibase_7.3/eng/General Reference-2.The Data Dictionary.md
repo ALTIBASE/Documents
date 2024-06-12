@@ -2715,6 +2715,7 @@ This flag indicates whether to use the recovery and offline options, which are e
 - 4(00000100): Use the gapless option 
 - 8(00001000): Use the parallel applier option 
 - 16(00010000): Use the replication transaction grouping option
+- 32(00100000): For internal use
 - 64(01000000): Use the meta logging option
 
 ##### INVALID_RECOVERY
