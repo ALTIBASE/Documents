@@ -135,11 +135,9 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [PDO - Callback](#pdo---callback)
 - [5. Sequence Replication](#5sequence-replication)
   - [Sequence Replication](#sequence-replication)
-
 - [6. ROLE](#6role)
   - [Log Analyzer Role](#log-analyzer-role)
   - [Propagation](#propagation)
-
 - [Appendix A. FAQ](#appendix-a-faq)
   - [Replication FAQ](#replication-faq)
 
@@ -3524,7 +3522,7 @@ After executing a query dropping a replication (DROP REPLICATION) or excluding a
 ALTER SEQUENCE user_name.seq_name DISABLE SYNC TABLE; 
 ```
 
-> #### Note*:
+> #### Note:
 >
 > -   It is recommended to perform sequence replication in the active-standby environment. The sequence value can be duplicated due to the replication gap between servers if it is performed in the active-active environment.
 > -   The larger the size of the sequence cache, the faster the sequence creation. The cache size should be modified in advance since it cannot be modified after the table the for sequence replication is created.

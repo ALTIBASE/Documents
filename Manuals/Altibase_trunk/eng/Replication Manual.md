@@ -135,11 +135,9 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [PDO - Callback](#pdo---callback)
 - [5. Sequence Replication](#5sequence-replication)
   - [Sequence Replication](#sequence-replication)
-
 - [6. ROLE](#6role)
   - [Log Analyzer Role](#log-analyzer-role)
   - [Propagation](#propagation)
-
 - [Appendix A. FAQ](#appendix-a-faq)
   - [Replication FAQ](#replication-faq)
 
