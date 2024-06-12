@@ -186,8 +186,8 @@ This manual has been organized as follows:
 -   Chapter 6: ROLE  
     This chapter explains how to configure the system to perform special functions by assigning ROLE to replication.
     
-- Appendix A. FAQ  
-  This chapter provides FAQs related to Altibase replication and replication properties.
+-   Appendix A. FAQ  
+    This chapter provides FAQs related to Altibase replication and replication properties.
 
 #### Documentation Conventions
 
