@@ -4097,6 +4097,106 @@ DataFileDescSlot ID           [ 1, 2 ]
 
 
 
+## dumpdwf
+
+### 개요
+
+dumpdwf는 더블 라이트(Double Write) 파일의 메타, 헤더 정보 또는 기록된 페이지의 페이지 번호를 출력한다.
+
+```
+dumpdwf {-f double_write_file_name} {-p} {-s}
+```
+
+### 구문
+
+TODO 이미지 추가
+
+### 파라미터
+
+| 파라미터 | 설명                                                         |
+| -------- | ------------------------------------------------------------ |
+| \-f      | 정보를 얻고 싶은 더블 라이트 파일의 이름으로 이 옵션은 반드시 입력해야 한다. 생략하면 dumpdwf는 에러 메시지를 출력하고 종료한다. |
+| \-p      | 더블 라이트 파일에 기록된 페이지의 페이지 번호를 출력한다.   |
+| \-s      | 정보를 출력하지 않고 오류 메세지만 출력한다.                 |
+
+### 설명
+
+더블 라이트 파일의 메타, 헤더 정보 또는 기록된 페이지의 페이지 번호를 출력한다.
+
+### 사용예
+
+쉘 프롬프트 상에서 다음과 같이 수행한다.
+
+```
+$ dumpdwf -f SYS_DOUBLE_WRITE
+$ dumpdwf -f SYS_DOUBLE_WRITE -p
+```
+
+
+
+### 출력 항목
+
+다음은 dumpdwf의 출력 예이다.
+
+```
+[DOUBLE WRITE META]
+  Version                   1 
+  FileSize          524361728 
+  MaxPageCount          16000 
+  PageListPerUnit        8192 
+  PIDListPageCount          2 
+  FootPrint        :
+616c7469 62617365 20646f75 626c6520 77726974 65206669 6c65206d 65746100 ; altibase double write file meta.
+
+[DOUBLE WRITE HEADER]
+  KeyLSN                    0.6159017    
+  NextRedoLSN               0.6487449    
+  RedoLSN                   0.6158960    
+  PageCount                 1 
+  FileInfo         
+    SpaceID                 0 
+    PingPongNum             1 
+    FileNum                 0 
+  Status           WRITTEN
+
+[DOUBLE WRITE PAGE INFO]
+  [     1] PID: 127
+```
+
+출력 내용 중, 필드들은 다음과 같은 의미를 갖는다.
+
+##### [DOUBLE WRITE META]
+
+| 필드 이름        | 설명                                                    |
+| ---------------- | ------------------------------------------------------- |
+| Version          | 더블 라이트 파일의 버전.                                |
+| FileSize         | 더블 라이트 파일의 크기.                                |
+| MaxPageCount     | 더블 라이트 파일에 기록될 수 있는 페이지의 최대 개수.   |
+| PageListPerUnit  | 페이지 번호 저장을 위한 단위 크기당 페이지 번호의 개수. |
+| PIDListPageCount | 페이지 번호 저장을 위한 단위 크기의 개수.               |
+| FootPrint        | 더블 라이트 파일 구분을 위한 임의의 변수.               |
+
+##### [DOUBLE WRITE HEADER]
+
+| 필드 이름    | 설명                                                         |
+| ------------ | ------------------------------------------------------------ |
+| KeyLSN       | 더블 라이트 시점을 확인하기 위한 LSN으로 더블 라이트 시점의 마지막 Checkpoint End 로그가 기록된 LSN을 기록한다. KeyLSN 과 마지막 Checkpoint End LSN 이 동일하지 않은 경우 더블 라이트 리커버리는 수행되지 않는다. |
+| NextRedoLSN  | 체크포인트 이미지에 더티 페이지가 모두 기록되었을 때의 Redo LSN. |
+| RedoLSN      | 체크포인트 이미지에 더티 페이지를 기록하기 전의 Redo LSN. Redo LSN 과 체크포인트 이미지 헤더의 Redo LSN 이 동일하지 않은 경우 더블 라이트 리커버리는 수행되지 않는다. |
+| PageCount    | 더블 라이트 파일에 기록되어 있는 더티 페이지의 개수.         |
+| **FileInfo** | 더블 라이트가 수행된 체크포인트 이미지 파일에 대한 정보.     |
+| SpaceID      | 더블 라이트가 수행된 체크포인트 이미지 파일의 테이블스페이스 번호. |
+| PingPongNum  | 더블 라이트가 수행된 체크포인트 이미지 파일의 핑퐁 체크포인트 번호. |
+| FileNum      | 더블 라이트가 수행된 체크포인트 이미지 파일의 파일 번호.     |
+| Status       | 더블 라이트 파일의 상태로 WRITTEN 인 경우 더블 라이트 리커버리가 필요하다. EMPTY 인 경우 더티 페이지가 기록되어 있지 않은 상태이므로 더블 라이트 리커버리는 필요하지 않다. |
+
+##### [DOUBLE WRITE PAGE INFO]
+
+| 필드 이름 | 설명                                                     |
+| --------- | -------------------------------------------------------- |
+| [번호]    | 출력 순서를 나타내는 번호이다.                           |
+| PID: 번호 | 더블 라이트 파일에 기록된 더티 페이지의 페이지 번호이다. |
+
 ## dumpla
 
 ### 개요

@@ -2738,6 +2738,16 @@ change_tracking_clause
 BEGIN SNAPSHOT을 할 때의 시점을 기준 SNAPSHOT SCN으로 설정하고, 설정된 SCN을
 기준으로 iLoader를 사용하여 데이터를 EXPORT한다.
 
+*checkpoint_scale_clauses*
+
+CONTROL 단계에서 핑퐁 체크포인트 이미지 파일을 관리하는 방식을 변경한다.
+
+checkpoint scale pair 는 1묶음(pair)의 체크포인트 이미지 파일을 유지한다.
+
+checkpoint scale single 은 1개의 체크포인트 이미지 파일을 유지한다.
+
+checkpoint scale 을 변경하는 경우 핑퐁 체크포인트 이미지 파일을 1묶음에서 1개의 파일로 일부 삭제하거나 반대의 경우 복사 생성될 수 있다.
+
 #### 예제
 
 \<질의\> 데이터베이스 mydb를 구동하여 정상 서비스를 제공하도록 한다.
@@ -5766,6 +5776,16 @@ Altibase 백업과 복구에 대한 자세한 정보는 *Administrator’s Manua
 - 지정 가능한 내셔널 캐릭터 셋  
   UTF8  
   UTF16
+
+*checkpoint_scale_clauses*
+
+핑퐁 체크포인트 이미지 파일을 관리하는 방식을 지정한다.
+
+Checkpoint Scale PAIR 방식은 1묶음(pair)의 체크포인트 이미지 파일을 유지한다.
+
+Checkpoint Scale SINGLE 방식은 1개의 체크포인트 이미지 파일을 유지한다.
+
+지정하지 않을 경우 Checkpoint Scale PAIR 방식이 사용된다.
 
 #### 예제
 

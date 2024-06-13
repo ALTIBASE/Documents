@@ -4502,6 +4502,7 @@ iSQL> SELECT * FROM V$TAB;
 | V\$MEM_BTREE_NODEPOOL                 | 메모리 BTREE 인덱스를 위한 노드 풀 정보                      |
 | V\$MEM_RTREE_HEADER                   | 메모리 RTREE 인덱스의 헤더 정보                              |
 | V\$MEM_RTREE_NODEPOOL                 | 메모리 RTREE 인덱스를 위한 노드 풀 정보                      |
+| V$MEM_STABLE                          | 핑퐁 체크포인트 이미지 파일의 안정적인(stable) 파일 정보     |
 | V\$MEM_TABLESPACES                    | 메모리에 생성된 테이블스페이스 정보                          |
 | V\$MEM_TABLESPACE_CHECKPOINT_PATHS    | 체크포인트 발생시 반영되는 DB 파일의 위치 정보               |
 | V\$MEM_TABLESPACE_STATUS_DESC         | 메모리 테이블스페이스의 상태 정보                            |
@@ -6962,20 +6963,21 @@ RESET_LSN중 로그파일 안의 오프셋 부분을 나타낸다.
 
 로그 앵커 정보를 보여준다.
 
-| Column name               | Type        | Description                                                           |
-|---------------------------|-------------|-----------------------------------------------------------------------|
-| BEGIN_CHKPT_LFGID         | INTEGER     | 사용하지 않음(0)                                                      |
-| BEGIN_CHKPT_FILE_NO       | INTEGER     | 가장 최근 수행된 체크포인트의 체크포인트 시작 로그의 로그 파일 번호   |
-| BEGIN_CHKPT_FILE_OFFSET   | INTEGER     | 가장 최근 수행된 체크포인트의 체크포인트 시작 로그의 로그 오프셋      |
-| END_CHKPT_LFGID           | INTEGER     | 사용하지 않음(0)                                                      |
-| END_CHKPT_FILE_NO         | INTEGER     | 가장 최근 수행된 체크포인트의 체크포인트 종료 로그의 로그 파일 번호   |
-| END_CHKPT_FILE_OFFSET     | INTEGER     | 가장 최근 수행된 체크포인트의 체크포인트 종료 로그의 로그 오프셋      |
-| SERVER_STATUS             | VARCHAR(15) | 서버의 상태를 나타낸다.                                               |
-| ARCHIVELOG_MODE           | VARCHAR(12) | 데이터베이스의 아카이브 로그 모드 여부                                |
-| TRANSACTION_SEGMENT_COUNT | INTEGER     | 언두 테이블스페이스에 생성할 트랜잭션 세그먼트의 개수                 |
-| OLDEST_LFGID              | INTEGER     | 사용하지 않음(0)                                                      |
-| OLDEST_LOGFILE_NO         | INTEGER     | 재구동 복구 시에 디스크 관련 리두가 시작되는 로그 파일 번호           |
+| Column name               | Type        | Description                                                  |
+| ------------------------- | ----------- | ------------------------------------------------------------ |
+| BEGIN_CHKPT_LFGID         | INTEGER     | 사용하지 않음(0)                                             |
+| BEGIN_CHKPT_FILE_NO       | INTEGER     | 가장 최근 수행된 체크포인트의 체크포인트 시작 로그의 로그 파일 번호 |
+| BEGIN_CHKPT_FILE_OFFSET   | INTEGER     | 가장 최근 수행된 체크포인트의 체크포인트 시작 로그의 로그 오프셋 |
+| END_CHKPT_LFGID           | INTEGER     | 사용하지 않음(0)                                             |
+| END_CHKPT_FILE_NO         | INTEGER     | 가장 최근 수행된 체크포인트의 체크포인트 종료 로그의 로그 파일 번호 |
+| END_CHKPT_FILE_OFFSET     | INTEGER     | 가장 최근 수행된 체크포인트의 체크포인트 종료 로그의 로그 오프셋 |
+| SERVER_STATUS             | VARCHAR(15) | 서버의 상태를 나타낸다.                                      |
+| ARCHIVELOG_MODE           | VARCHAR(12) | 데이터베이스의 아카이브 로그 모드 여부                       |
+| TRANSACTION_SEGMENT_COUNT | INTEGER     | 언두 테이블스페이스에 생성할 트랜잭션 세그먼트의 개수        |
+| OLDEST_LFGID              | INTEGER     | 사용하지 않음(0)                                             |
+| OLDEST_LOGFILE_NO         | INTEGER     | 재구동 복구 시에 디스크 관련 리두가 시작되는 로그 파일 번호  |
 | OLDEST_LOGFILE_OFFSET     | INTEGER     | 재구동 복구 시에 디스크 관련 리두가 시작되는 로그 파일 오프셋(offset) |
+| CHECKPOINT_SCALE          | VARCHAR(12) | 메모리 데이터베이스의 Checkpoint 수행 방식                   |
 
 #### 칼럼 정보
 
@@ -6992,8 +6994,14 @@ RESET_LSN중 로그파일 안의 오프셋 부분을 나타낸다.
 데이터베이스의 아카이브 로그 모드 여부를 나타낸다.
 
 -   ARCHIVE: 이 모드에서는 미디어 복구 수행에 사용하기 위해 불필요한 로그 파일이 별도의 디렉터리에 저장된다.
-    
 -   NOARCHIVE: 이 모드에서는 불필요한 로그 파일이 삭제된다.
+
+##### CHECKPOINT_SCALE
+
+메모리 데이터베이스의 핑퐁 체크포인트 수행 방식을 나타낸다.
+
+* PAIR: 두 개의 체크포인트 이미지 파일을 유지하는 방식이다.
+* SINGLE: 하나의 체크포인트 이미지 파일을 유지하는 방식이다.
 
 ### V\$LOCK_WAIT
 
@@ -7507,6 +7515,31 @@ RTREE 인덱스에 할당된 노드의 총 수를 나타낸다.
 
 RTREE 인덱스에서 사용되었던 노드가 삭제 대기중인 노드 수를 나타낸다.
 
+### V\$MEM_STABLE
+
+핑퐁 체크포인트 이미지 파일의 안정적인(stable) 파일 정보를 보여준다.
+
+Checkpoint Scale PAIR 방식인 경우 CURRENT_DB 값은 테이블스페이스 단위로 동일하기 때문에 FILE_NUM 값이 0번에 해당하는 레코드만 출력한다.
+
+Checkpoint Scale SINGLE 방식인 경우 CURRENT_DB 값은 체크포인트 이미지 파일 단위로 다르기 때문에 모든 체크포인트 이미지 파일에 대한 레코드가 출력된다.
+
+| SPACE_ID    | INTEGER      | 테이블스페이스 식별자                               |
+| ----------- | ------------ | --------------------------------------------------- |
+| SPACE_NAME  | VARCHAR(512) | 테이블스페이스 이름                                 |
+| FILE_NUM    | INTEGER      | 체크포인트 이미지 파일의 번호                       |
+| CURRENT_DB  | INTEGER      | 안정적인(stable) 체크포인트 이미지 파일의 핑퐁 번호 |
+| Column name | Type         | Description                                         |
+
+#### 칼럼 정보
+
+##### FILE_NUM
+
+체크포인트 이미지 파일의 번호를 나타낸다.
+
+##### CURRENT_DB
+
+안정적인(stable) 체크포인트 이미지 파일의 핑퐁 번호를 나타낸다.
+
 ### V\$MEM_TABLESPACES
 
 메모리에 생성된 테이블스페이스 정보를 보여준다.
@@ -7595,7 +7628,9 @@ Altibase는 핑퐁 체크포인트 방식을 사용하기 때문에 각 데이�
 
 ##### CURRENT_DB
 
-체크포인트 시 더티 페이지 (Dirty Page, 변경된 페이지)가 내려가는 데이터베이스 이미지 파일 그룹으로 0 혹은 1 값을 가진다.
+Checkpoint Scale PAIR 방식을 사용하는 경우 마지막 체크포인트 시 더티 페이지 (Dirty Page, 변경된 페이지)가 기록된 안정적인(Stable) 체크포인트 이미지 파일 그룹의 핑퐁 번호(0 혹은 1) 값을 나타낸다.
+
+Checkpoint Scale SINGLE 방식을 사용하는 경우 -1 값으로 표현되며, V$MEM_STABLE 테이블을 이용해 확인해야 한다.
 
 ##### HIGH_LIMIT_PAGE
 

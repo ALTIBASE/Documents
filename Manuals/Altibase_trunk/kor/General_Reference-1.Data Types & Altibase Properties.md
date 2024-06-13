@@ -3596,8 +3596,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>TRANSACTION_TABLE_SIZE</td>
   </tr>
   <tr>
-  <td rowspan="17">B</td>
-  <td rowspan="17">&nbsp;</td>
+  <td rowspan="18">B</td>
+  <td rowspan="18">&nbsp;</td>
   <td>ARCHIVE_DIR</td>
   <td rowspan="6">&nbsp;</td>
   </tr>
@@ -3653,6 +3653,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   </tr>
   <tr>
   <td>SNAPSHOT_DISK_UNDO_THRESHOLD</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CHECKPOINT_SCALE_SINGLE_DW_BUFFER_SIZE</td>
   <td>SYSTEM</td>
   </tr>
   <tr>
@@ -10825,6 +10829,30 @@ Unsigned Integer
 스냅샷 설정(BEGIN SNAPSHOT) 이후 디스크에서 사용할 수 있는 임계치(Threshold)를 설정하는 프로퍼티이다.
 
 현재까지 사용된 디스크 언두 테이블스페이스의 크기는 프로퍼티 SYS_UNDO_FILE_MAX_SIZE 에서 몇 퍼센트를 사용하는지 확인하고, 설정한 임계치를 초과하면 스냅샷(shapshot)은 자동으로 중지된다.
+
+#### CHECKPOINT_SCALE_SINGLE_DW_BUFFER_SIZE (단위: 바이트)
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+524288000 (500 MByte)
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[1 MByte, 2 Gbyte]
+
+##### 설명
+
+Checkpoint Scale SINGLE 방식 사용 시 Double Write File 의 크기이며 더티 페이지를 Double Write 하기 위한 버퍼의 크기이다.
+
+더티 페이지를 Double Write 하기 위한 버퍼가 부족하다면  Full Write 동작으로 일시적으로 전환하여 동작한다.
 
 ### 이중화 프로퍼티
 
