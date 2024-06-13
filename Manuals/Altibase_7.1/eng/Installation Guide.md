@@ -103,7 +103,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 # Table Of Contents
 
 - [Preface](#preface)
-- [About This Manual](#about-this-manual)
+  - [About This Manual](#about-this-manual)
 - [1. About the Altibase Package Installer](#1-about-the-altibase-package-installer)
   - [Altibase Home](#altibase-home)
   - [APatch Directory](#apatch-directory)
@@ -365,21 +365,23 @@ It is recommended to use a dedicated line when using the replication feature.
 
 ### Supported Platforms
 
->  *Altibase server/client only support 64-bit.*<br>*Microsoft Windows only supports Altibase client.*
+>  *Altibase server/client only support 64-bit.*
+>
+>  *Microsoft Windows only supports Altibase client.*
 >
 >  All versions of Altibase 7.1 support it unless the patch version is specified. 
 
 
-|                                                              | Altibase server <br /> | Altibase client <br /> | Software requirements                  |
+|                                                              | Altibase server | Altibase client | Software requirements                  |
 | ------------------------------------------------------------ | :-----------------: | :-----------------------: | :------------------------------------- |
 | **AIX on IBM Power Systems**                                 |                     |                           |                                        |
-| AIX 6.1 TL3 <br />AIX 6.1 TL9<br />                          |          ●          |             ●             |                                        |
-| AIX 7.1<br />AIX 7.2                                         |          ●          |             ●             | <br/>*- AIX 7.2 : Altibase 7.1.0.4.7 or later* |
+| AIX 6.1 TL3 <br />AIX 6.1 TL9                          |          ●          |             ●             |                                        |
+| AIX 7.1<br />AIX 7.2                                         |          ●          |             ●             | *- AIX 7.2 : Altibase 7.1.0.4.7 or later* |
 | **HP-UX Itanium (IA-64)**                                    |                     |                           |                                        |
 | HP-UX 11.31                                                  |          ●          |             ●             |                                        |
 | **Linux x86-64**                                             |                     |                           |                                        |
-| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7<br/> |          ●          |             ●             | *- GNU glibc 2.12 ~ 2.33*          |
-| Red Hat Enterprise Linux 8 [Note before installation](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 ~ 2.33*  <br />   |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 ~ 2.33*          |
+| Red Hat Enterprise Linux 8 [Note before installation](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 ~ 2.33*   |
 | **Linux on Power**                                           |                     |                           |                                        |
 | POWER7 Red Hat Enterprise Linux 6 |          ●          |             ●             | *- GNU glibc 2.12 ~ 2.33*           |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                        |

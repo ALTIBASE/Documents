@@ -122,6 +122,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [APatch 디렉터리](#apatch-디렉터리)
 - [2.패키지 인스톨러를 이용한 제품 설치](#2패키지-인스톨러를-이용한-제품-설치)
   - [시스템 요구사항](#시스템-요구사항)
+  - [지원 플랫폼](#지원-플랫폼)
   - [Altibase 패키지 인스톨러](#altibase-패키지-인스톨러)
   - [Altibase 제품 설치](#altibase-제품-설치)
   - [Altibase 클라이언트 제품 설치](#altibase-클라이언트-제품-설치)
@@ -136,6 +137,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [사용자 계정의 리소스 한계 값 확인](#사용자-계정의-리소스-한계-값-확인)
   - [OS별 커널 파라미터 설정](#os별-커널-파라미터-설정)
   - [THP 설정 확인 및 비활성화 방법](#thp-설정-확인-및-비활성화-방법)
+  - [Red Hat Enterprise Linux 8](#red-hat-enterprise-linux-8)
   - [디스크 구성 상태 확인](#디스크-구성-상태-확인)
   - [OS Patch](#os-patch)
 
@@ -385,6 +387,40 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 #### 네트워크
 
 이중화 기능 사용 시 전용선 사용을 권장한다.
+
+### 지원 플랫폼
+
+> *Altibase 서버/클라이언트 모두 64-bit 만 지원한다.*
+>
+> *Microsoft Windows 는 Altibase 클라이언트만 지원한다.*
+>
+> Altibase 7.x 패치 버전을 명시하지 않은 경우 Altibase 7.x 모든 버전에서 지원한다.
+
+|                                                              | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항                       |
+| ------------------------------------------------------------ | :-----------: | :-----------------: | :---------------------------------------- |
+| **AIX on IBM Power Systems**                                 |               |                     |                                           |
+| AIX 6.1 TL9                                                  |       ●       |          ●          |                                           |
+| **HP-UX Itanium (IA-64)**                                    |               |                     |                                           |
+| HP-UX 11.31                                                  |       ●       |          ●          |                                           |
+| **Linux x86-64**<sup>[배포판 버전](#footnote-linuxversion)</sup> |               |                     |                                           |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7    |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                 |
+| **Linux on Power**                                           |               |                     |                                           |
+| POWER7 Red Hat Enterprise Linux 6                            |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                 |
+| **Linux on Power** **(Little Endian)**                       |               |                     |                                           |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |       ●       |          ●          | *- GNU glibc 2.17 ~ 2.33*                 |
+| **Microsoft Windows (x64)**                                  |               |                     |                                           |
+| Microsoft Windows 2008<br>Microsoft Windows 10               |     **X**     |          ●          | [제약사항](#footnote-winclnt-limitations) |
+
+> **<a name="footnote-linuxversion">Linux 배포판 버전</a>**
+>
+> 호환성 테스트를 완료한 Red Hat Enterprise Linux 마이너 버전 정보와 Red Hat Enterprise Linux 이외에 호환성 테스트 된 Linux 배포판 목록은 [Altibase 버전 별 지원 플랫폼](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-73) 페이지를 참고한다. 
+
+> **<a name="footnote-winclnt-limitations">Altibase 7.x Windows 클라이언트 제약 사항</a>**
+>
+> 다음은 Altibase 7.x Windows 클라이언트에서 지원하지 않는 기능이다.
+>
+> - .NET Data Provider
+> - Altibase C Interface
 
 ### Altibase 패키지 인스톨러
 
@@ -1670,16 +1706,68 @@ THP 설정 확인 방법은 아래와 같다.
 Altibase의 운영을 위해서 THP 옵션을 never로 설정할 것을 권고한다.
 
 1. root 계정으로 /etc/grub.conf의 kernel boot 라인 끝에 transparent_hugepage=never를 아래처럼 추가한다.
-   
+
    ```
    .....
    kernel /vmlinuz-2.6.32-220.el6.x86_64 ro root=UUID=067b9803-90ca-4875-a018-ff043adde1ed rd_NO_LUKS LANG=ko_KR.UTF-8 rd_NO_MD quiet rhgb crashkernel=128M  KEYBOARDTYPE=pc KEYTABLE=us rd_NO_LVM rd_NO_DM transparent_hugepage=never
    ......
    ```
-   
+
 2. 시스템을 재시작한다.
 
 3. THP 옵션이 never 인지 확인한다.
+
+### Red Hat Enterprise Linux 8
+
+RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. Altibase 7.1.0.6.3 이상에서는 Altibase 패키지 인스톨러에서 $ALTIBASE_HOME/lib 디렉토리에 심볼릭 링크를 생성하므로 사용자가 생성할 필요 없다.
+libncurses.so.5, libtinfo.so.5 심볼릭 링크가 없는 경우 다음과 같은 방법으로 심볼릭 링크를 생성한다. 
+
+
+1. ncurses와 tinfo 라이브러리 파일을 확인한다.
+
+   ```bash
+   % ls -l /usr/lib64/| grep -e libncurses.so -e libtinfo.so
+   -rw-r--r--   1 root root       31 Jan 16  2019 libncurses.so
+   lrwxrwxrwx.  1 root root       17 Jan 16  2019 libncurses.so.6 -> libncurses.so.6.1*
+   -rwxr-xr-x.  1 root root   216912 Jan 16  2019 libncurses.so.6.1*                 # ncurses 라이브러리 파일
+   lrwxrwxrwx   1 root root       13 Jan 16  2019 libtinfo.so -> libtinfo.so.6*
+   lrwxrwxrwx.  1 root root       15 Jan 16  2019 libtinfo.so.6 -> libtinfo.so.6.1*
+   -rwxr-xr-x.  1 root root   208616 Jan 16  2019 libtinfo.so.6.1*                   # tinfo 라이브러리 파일
+   ```
+
+2. libncurses.so.5, libtinfo.so.5 파일이 없는 경우 $ALTIBASE_HOME/lib에 심볼릭 링크를 생성한다.
+
+   ```bash
+   % ln -s /usr/lib64/libncurses.so.6.1 $ALTIBASE_HOME/lib/libncurses.so.5
+   % ln -s /usr/lib64/libtinfo.so.6.1 $ALTIBASE_HOME/lib/libtinfo.so.5
+   ```
+
+3. 생성한 심볼릭 링크를 확인한다.
+
+   ```bash
+   % ls -l $ALTIBASE_HOME/lib | grep -e libncurses.so.5 -e libtinfo.so.5
+   lrwxrwxrwx   1 user user       17 May  7 16:44 libncurses.so.5 -> /usr/lib64/libncurses.so.6*
+   lrwxrwxrwx   1 user user       15 May  7 16:51 libtinfo.so.5 -> /usr/lib64/libtinfo.so.6*
+   ```
+
+
+
+- libncurses.so.5 파일이 없는 경우 iSQL 수행 시 아래와 같은 에러가 발생한다.
+
+  ```bash
+  % isql
+  isql: error while loading shared libraries: libtinfo.so.5: cannot open shared object file: No such file or directory
+  ```
+
+  ```bash
+  % server create utf8 utf8
+  /home/dev02/altibase_home/bin/isql: error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory
+  ```
+
+- RHEL 8 에서 ncurses (tinfo 포함) 라이브러리 버전이 6.1 로 변경되었다. Altibase 는 ncurses 5 버전 파일을 필요로 한다. 
+  ncurses 라이브러리는  ncurses 5 ~ ncurses 6.2 까지 소스 레벨의 호환성(API)와 바이너리 호환성 (ABI)를 동시에 보장한다. 
+
+  참고 : [Announcing ncurses 6.2 (invisible-island.net)](https://invisible-island.net/ncurses/announce.html#h2-release-notes)
 
 ### 디스크 구성 상태 확인
 
