@@ -366,14 +366,14 @@ It is recommended to use a dedicated line when using the replication feature.
 
 ### Supported Platforms
 
->  *Altibase server/client only support 64-bit.*
+>  *Both Altibase server and client only support 64-bit.*
 >
->  *Microsoft Windows only supports Altibase client.*
+>  *Microsoft Windows supports Altibase client only.*
 >
 >  All versions of Altibase 7.x support it unless the patch version is specified. 
 
 
-|                                                              | Altibase server |                      Altibase client                      | Software requirements     |
+|                                                              | Altibase Server |                      Altibase Client                      | Software Requirements     |
 | ------------------------------------------------------------ | :-------------: | :-------------------------------------------------------: | :------------------------ |
 | **AIX on IBM Power Systems**                                 |                 |                                                           |                           |
 | AIX 6.1 TL9                                                  |        ●        |                             ●                             |                           |
@@ -390,7 +390,7 @@ It is recommended to use a dedicated line when using the replication feature.
 
 > **<a name="footnote-linuxversion">Linux Distribution Version</a>**
 >
-> Please refer to  [Supported Platforms](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-73) to check the Red Hat Enterprise Linux minor versions tested for compatibility and other compatible Linux Distributions.
+> Please refer to  [Supported Platforms](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/eng/Supported%20Platforms.md#altibase-73) to check the Red Hat Enterprise Linux minor versions tested for compatibility and other compatible Linux Distributions.
 
 > **<a name="footnote-winclnt-limitations">Altibase 7.x Windows Client Restrictions</a>**
 >
