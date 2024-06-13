@@ -104,6 +104,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 # Table Of Contents
 
 - [Preface](#preface)
+  - [About This Manual](#about-this-manual)
 - [1. Introduction to Altibase Hadoop Connector](#1-introduction-to-altibase-hadoop-connector)
   - [Background Knowledge](#background-knowledge)
   - [What is the Altibase Hadoop Connector?](#what-is-the-altibase-hadoop-connector)
@@ -125,7 +126,9 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 Preface
 ====
 
-About This Manual This manual explains how to use the Altibase Hadoop Connector with Altibase and Hadoop.
+### About This Manual
+
+This manual explains how to use the Altibase Hadoop Connector with Altibase and Hadoop.
 
 #### Audience
 

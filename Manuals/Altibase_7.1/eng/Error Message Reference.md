@@ -105,10 +105,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
-  - [Audience](#audience)
-  - [Software Environment](#software-environment)
-  - [Organization](#organization)
-  - [Altibase Welcomes Your Opinions](#altibase-welcomes-your-opinions)
 - [1.ID Error Code](#1id-error-code)
   - [FATAL](#fatal)
   - [ABORT](#abort)
@@ -176,7 +172,7 @@ or the operating program is performed.
 
 Error messages may be changed without notice.
 
-### Audience
+#### Audience
 
 This manual has been prepared for the following Altibase users:
 
@@ -193,7 +189,12 @@ It is recommended for those reading this manual possess the following background
 -   Computer programming experience
 -   Experience in database server management, operating system management, or network administration
 
-### Organization
+#### Software Environment
+
+This manual has been prepared assuming that Altibase 7.1 is used as the database
+server.
+
+#### Organization
 
 This manual is organized as follows:
 

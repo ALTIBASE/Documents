@@ -105,7 +105,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
-
 - [1. The Data Dictionary](#1-the-data-dictionary)
   - [Meta Tables](#meta-tables)
   - [SYS_AUDIT\_](#sys_audit_)
