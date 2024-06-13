@@ -48,8 +48,9 @@ Altibase® Message
 
 
 
-![img](file:///C:/jin_altibase/%ED%8C%A8%EC%B9%98%EB%85%B8%ED%8A%B8_%EB%A7%A4%EB%89%B4%EC%96%BC/Documents/Manuals/Altibase_7.3/kor/media/common/e5cfb3761673686d093a3b00c062fe7a.png)
-
+<div align="left">
+    <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
+</div>
 
 
 <br><br><!-- PDF 변환을 위한 여백입니다. --> 
@@ -126,10 +127,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
-  - [Audience](#audience)
-  - [Software Environment](#software-environment)
-  - [Organization](#organization)
-  - [Altibase Welcomes Your Opinions](#altibase-welcomes-your-opinions)
 - [1.ID Error Code](#1id-error-code)
   - [FATAL](#fatal)
   - [ABORT](#abort)
@@ -195,7 +192,7 @@ This manual describes error codes and messages that are displayed when Altibase 
 
 Error messages may be changed without notice.
 
-### Audience
+#### Audience
 
 This manual has been prepared for the following Altibase users:
 
@@ -209,11 +206,11 @@ It is recommended that those reading this manual possess the following backgroun
 - experience in using relational databases and an understanding of database concepts
 - computer programming experience
 
-### Software Environment
+#### Software Environment
 
 This manual has been prepared assuming that Altibase 7.3 is used as the database server.
 
-### Organization
+#### Organization
 
 This manual has been organized as follows:
 
@@ -232,7 +229,7 @@ This manual has been organized as follows:
 - Chapter13: Log Analyzer Error Code
 - Chapter14: Regular Expression Error Code
 
-### Altibase Welcomes Your Opinions
+#### Altibase Welcomes Your Opinions
 
 Please feel free to send us your comments and suggestions regarding this manual. Your comments
 

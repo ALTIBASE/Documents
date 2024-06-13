@@ -116,39 +116,26 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [서문](#서문)
-
-- [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
-
+  - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
 - [1.Altibase 패키지 인스톨러](#1altibase-패키지-인스톨러)
-
   - [Altibase 홈](#altibase-홈)
   - [APatch 디렉터리](#apatch-디렉터리)
-
 - [2.패키지 인스톨러를 이용한 제품 설치](#2패키지-인스톨러를-이용한-제품-설치)
-
   - [시스템 요구사항](#시스템-요구사항)
-
   - [Altibase 패키지 인스톨러](#altibase-패키지-인스톨러)
   - [Altibase 제품 설치](#altibase-제품-설치)
   - [Altibase 클라이언트 제품 설치](#altibase-클라이언트-제품-설치)
-
 - [3.Altibase 제거 및 메타 다운그레이드](#3altibase-제거-및-메타-다운그레이드)
-
   - [Altibase 제품 삭제](#altibase-제품-삭제)
   - [메타 다운그레이드(Meta Downgrade)](#메타-다운그레이드meta-downgrade)
-
 - [4.패키지 인스톨러를 이용한 제품 패치](#4패키지-인스톨러를-이용한-제품-패치)
-
   - [패치란?](#패치란)
   - [Altibase 서버 제품 패치](#altibase-서버-제품-패치)
   - [Altibase 클라이언트 제품 패치](#altibase-클라이언트-제품-패치)
-
 - [A.부록: 설치 전 확인 사항](#a부록-설치-전-확인-사항)
-
   - [사용자 계정의 리소스 한계 값 확인](#사용자-계정의-리소스-한계-값-확인)
   - [OS별 커널 파라미터 설정](#os별-커널-파라미터-설정)
   - [THP 설정 확인 및 비활성화 방법](#thp-설정-확인-및-비활성화-방법)
-
   - [디스크 구성 상태 확인](#디스크-구성-상태-확인)
   - [OS Patch](#os-patch)
 

@@ -104,6 +104,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 # Table Of Contents
 
 - [Preface](#preface)
+  - [About This Manual](#about-this-manual)
 - [1. Introduction](#1-introduction)
   - [Adapter for Oracle](#adapter-for-oracle)
 - [2. Installation and Configuration](#2-installation-and-configuration)
@@ -128,26 +129,26 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 Preface
 ====
 
-- ### About This Manual
+### About This Manual
 
-  This manual explains the Adapter for Oracle utility, which applies data that has been changed in Altibase to an Oracle database.
+This manual explains the Adapter for Oracle utility, which applies data that has been changed in Altibase to an Oracle database.
 
-  #### Audience
+#### Audience
 
-  This manual has been prepared for the following Altibase users:
+This manual has been prepared for the following Altibase users:
 
-  -   Database administrators
-  -   Performance administrators
-  -   Database users
-  -   Application developers
-  -   Technical Supporters
+-   Database administrators
+-   Performance administrators
+-   Database users
+-   Application developers
+-   Technical Supporters
 
-  It is recommended for those reading this manual possess the following background knowledge:
+It is recommended for those reading this manual possess the following background knowledge:
 
-  -   Basic knowledge in the use of computers, operating systems, and operating system utilities
-  -   Experience in using relational database and an understanding of database concepts
-  -   Computer programming experience
-  -   Experience in database server management, operating system management, or network administration
+-   Basic knowledge in the use of computers, operating systems, and operating system utilities
+-   Experience in using relational database and an understanding of database concepts
+-   Computer programming experience
+-   Experience in database server management, operating system management, or network administration
 
 #### Organization
 

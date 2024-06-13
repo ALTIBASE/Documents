@@ -110,7 +110,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 # 목차
 
 - [서문](#%EC%84%9C%EB%AC%B8)
-- [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
 - [1.공간 데이터의 개요](#1%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%EA%B0%9C%EC%9A%94)
   - [Spatial의 개념](#spatial%EC%9D%98-%EA%B0%9C%EB%85%90)
   - [공간 데이터의 특징](#%EA%B3%B5%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%ED%8A%B9%EC%A7%95)

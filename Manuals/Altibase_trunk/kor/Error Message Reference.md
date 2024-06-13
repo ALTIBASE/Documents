@@ -116,10 +116,6 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
-  - [Audience](#audience)
-  - [Software Environment](#software-environment)
-  - [Organization](#organization)
-  - [Altibase Welcomes Your Opinions](#altibase-welcomes-your-opinions)
 - [1.ID Error Code](#1id-error-code)
   - [FATAL](#fatal)
   - [ABORT](#abort)
@@ -192,7 +188,7 @@ or the operating program is performed.
 
 Error messages may be changed without notice.
 
-### Audience
+#### Audience
 
 This manual has been prepared for the following Altibase users:
 
@@ -213,12 +209,12 @@ background knowledge:
 
 -   computer programming experience
 
-### Software Environment
+#### Software Environment
 
 This manual has been prepared assuming that Altibase 7.4 is used as the database
 server.
 
-### Organization
+#### Organization
 
 This manual has been organized as follows:
 
@@ -237,7 +233,7 @@ This manual has been organized as follows:
 -   Chapter13: Log Analyzer Error Code
 -   Chapter14: Regular Expression Error Code
 
-### Altibase Welcomes Your Opinions
+#### Altibase Welcomes Your Opinions
 
 Please feel free to send us your comments and suggestions regarding this manual.
 Your comments
