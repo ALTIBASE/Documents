@@ -374,20 +374,20 @@ It is recommended to use a dedicated line when using the replication feature.
 >  All versions of Altibase 7.3 support it unless the patch version is specified. 
 
 
-|                                                              | Altibase server | Altibase client | Software requirements                        |
-| ------------------------------------------------------------ | :-------------: | :-------------: | :------------------------------------------- |
-| **AIX on IBM Power Systems**                                 |                 |                 |                                              |
-| AIX 6.1 TL9                                                  |        ●        |        ●        |                                              |
-| **HP-UX Itanium (IA-64)**                                    |                 |                 |                                              |
-| HP-UX 11.31                                                  |        ●        |        ●        |                                              |
-| **Linux x86-64**<sup>[Distribution Version](#footnote-linuxversion)</sup> |                 |                 |                                              |
-| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7    |        ●        |        ●        | *- GNU glibc 2.12 ~ 2.33*                    |
-| **Linux on Power**                                           |                 |                 |                                              |
-| POWER7 Red Hat Enterprise Linux 6                            |        ●        |        ●        | *- GNU glibc 2.12 ~ 2.33*                    |
-| **Linux on Power** **(Little Endian)**                       |                 |                 |                                              |
-| POWER8(LE) Red Hat Enterprise Linux 7                        |        ●        |        ●        | *- GNU glibc 2.17 ~ 2.33*                    |
-| **Microsoft Windows (x64)**                                  |                 |                 |                                              |
-| Microsoft Windows 2008<br>Microsoft Windows 10               |      **X**      |        ●        | [Limitations](#footnote-winclnt-limitations) |
+|                                                              | Altibase server |                      Altibase client                      | Software requirements     |
+| ------------------------------------------------------------ | :-------------: | :-------------------------------------------------------: | :------------------------ |
+| **AIX on IBM Power Systems**                                 |                 |                                                           |                           |
+| AIX 6.1 TL9                                                  |        ●        |                             ●                             |                           |
+| **HP-UX Itanium (IA-64)**                                    |                 |                                                           |                           |
+| HP-UX 11.31                                                  |        ●        |                             ●                             |                           |
+| **Linux x86-64**<sup>[Distribution Version](#footnote-linuxversion)</sup> |                 |                                                           |                           |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7    |        ●        |                             ●                             | *- GNU glibc 2.12 ~ 2.33* |
+| **Linux on Power**                                           |                 |                                                           |                           |
+| POWER7 Red Hat Enterprise Linux 6                            |        ●        |                             ●                             | *- GNU glibc 2.12 ~ 2.33* |
+| **Linux on Power** **(Little Endian)**                       |                 |                                                           |                           |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |        ●        |                             ●                             | *- GNU glibc 2.17 ~ 2.33* |
+| **Microsoft Windows (x64)**                                  |                 |                                                           |                           |
+| Microsoft Windows 2008<br>Microsoft Windows 10               |      **X**      | ●<sup>[Restirctions](#footnote-winclnt-limitations)</sup> |                           |
 
 > **<a name="footnote-linuxversion">Linux Distribution Version</a>**
 >
@@ -399,7 +399,6 @@ It is recommended to use a dedicated line when using the replication feature.
 >
 > - .NET Data Provider
 > - Altibase C Interface
->
 
 ### Altibase Package Installer
 

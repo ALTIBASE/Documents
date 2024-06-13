@@ -391,22 +391,22 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 >  Altibase 7.1 패치 버전을 명시하지 않은 경우 Altibase 7.1 모든 버전에서 지원한다.
 
 
-|                                                              | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항                                          |
-| ------------------------------------------------------------ | :-----------: | :-----------------: | :----------------------------------------------------------- |
-| **AIX on IBM Power Systems**                                 |               |                     |                                                              |
-| AIX 6.1 TL3 <br />AIX 6.1 TL9                                |       ●       |          ●          |                                                              |
-| AIX 7.1<br />AIX 7.2                                         |       ●       |          ●          | *- AIX 7.2 경우 Altibase 7.1.0.4.7 이상*                     |
-| **HP-UX Itanium (IA-64)**                                    |               |                     |                                                              |
-| HP-UX 11.31                                                  |       ●       |          ●          |                                                              |
-| **Linux x86-64**<sup>[배포판 버전](#footnote-linuxversion)</sup> |               |                     |                                                              |
-| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7    |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                                    |
-| Red Hat Enterprise Linux 8<sup>[설치 전 확인](#footnote-rhel8)</sup> |               |                     | *- GNU glibc 2.12 ~ 2.33*  <br />                            |
-| **Linux on Power**                                           |               |                     |                                                              |
-| POWER7 Red Hat Enterprise Linux 6                            |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                                    |
-| **Linux on Power** **(Little Endian)**                       |               |                     |                                                              |
-| POWER8(LE) Red Hat Enterprise Linux 7                        |       ●       |          ●          | *- GNU glibc 2.17 ~ 2.33*<br />- *Altibase 7.1.0.3.6 이상*   |
-| **Microsoft Windows (x64)**                                  |               |                     |                                                              |
-| Microsoft Windows 2008                                       |     **X**     |          ●          | *- Altibase 클라이언트 7.1.0.4.5 이상*<sup>[제약사항](#footnote-winclnt-limitations)</sup> |
+|                                                              | Altibase 서버 |                  Altibase 클라이언트                  | 소프트웨어 요구사항                                        |
+| ------------------------------------------------------------ | :-----------: | :---------------------------------------------------: | :--------------------------------------------------------- |
+| **AIX on IBM Power Systems**                                 |               |                                                       |                                                            |
+| AIX 6.1 TL3 <br />AIX 6.1 TL9                                |       ●       |                           ●                           |                                                            |
+| AIX 7.1<br />AIX 7.2                                         |       ●       |                           ●                           | *- AIX 7.2 경우 Altibase 7.1.0.4.7 이상*                   |
+| **HP-UX Itanium (IA-64)**                                    |               |                                                       |                                                            |
+| HP-UX 11.31                                                  |       ●       |                           ●                           |                                                            |
+| **Linux x86-64**<sup>[배포판 버전](#footnote-linuxversion)</sup> |               |                                                       |                                                            |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7    |       ●       |                           ●                           | *- GNU glibc 2.12 ~ 2.33*                                  |
+| Red Hat Enterprise Linux 8<sup>[설치 전 확인](#footnote-rhel8)</sup> |               |                                                       | *- GNU glibc 2.12 ~ 2.33*  <br />                          |
+| **Linux on Power**                                           |               |                                                       |                                                            |
+| POWER7 Red Hat Enterprise Linux 6                            |       ●       |                           ●                           | *- GNU glibc 2.12 ~ 2.33*                                  |
+| **Linux on Power** **(Little Endian)**                       |               |                                                       |                                                            |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |       ●       |                           ●                           | *- GNU glibc 2.17 ~ 2.33*<br />- *Altibase 7.1.0.3.6 이상* |
+| **Microsoft Windows (x64)**                                  |               |                                                       |                                                            |
+| Microsoft Windows 2008                                       |     **X**     | ●<sup>[제약사항](#footnote-winclnt-limitations)</sup> | *- Altibase 클라이언트 7.1.0.4.5 이상*                     |
 
 > **<a name="footnote-linuxversion">Linux 배포판 버전</a>**
 >
@@ -422,7 +422,6 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 >
 > - .NET Data Provider
 > - Altibase C Interface
->
 
 > **<a name="32-bits-client">32비트 클라이언트</a>**
 >

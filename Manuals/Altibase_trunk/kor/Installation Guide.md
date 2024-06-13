@@ -396,20 +396,20 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 >
 > Altibase 7.x 패치 버전을 명시하지 않은 경우 Altibase 7.x 모든 버전에서 지원한다.
 
-|                                                              | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항                       |
-| ------------------------------------------------------------ | :-----------: | :-----------------: | :---------------------------------------- |
-| **AIX on IBM Power Systems**                                 |               |                     |                                           |
-| AIX 6.1 TL9                                                  |       ●       |          ●          |                                           |
-| **HP-UX Itanium (IA-64)**                                    |               |                     |                                           |
-| HP-UX 11.31                                                  |       ●       |          ●          |                                           |
-| **Linux x86-64**<sup>[배포판 버전](#footnote-linuxversion)</sup> |               |                     |                                           |
-| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7    |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                 |
-| **Linux on Power**                                           |               |                     |                                           |
-| POWER7 Red Hat Enterprise Linux 6                            |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*                 |
-| **Linux on Power** **(Little Endian)**                       |               |                     |                                           |
-| POWER8(LE) Red Hat Enterprise Linux 7                        |       ●       |          ●          | *- GNU glibc 2.17 ~ 2.33*                 |
-| **Microsoft Windows (x64)**                                  |               |                     |                                           |
-| Microsoft Windows 2008<br>Microsoft Windows 10               |     **X**     |          ●          | [제약사항](#footnote-winclnt-limitations) |
+|                                                              | Altibase 서버 |                  Altibase 클라이언트                  | 소프트웨어 요구사항       |
+| ------------------------------------------------------------ | :-----------: | :---------------------------------------------------: | :------------------------ |
+| **AIX on IBM Power Systems**                                 |               |                                                       |                           |
+| AIX 6.1 TL9                                                  |       ●       |                           ●                           |                           |
+| **HP-UX Itanium (IA-64)**                                    |               |                                                       |                           |
+| HP-UX 11.31                                                  |       ●       |                           ●                           |                           |
+| **Linux x86-64**<sup>[배포판 버전](#footnote-linuxversion)</sup> |               |                                                       |                           |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7    |       ●       |                           ●                           | *- GNU glibc 2.12 ~ 2.33* |
+| **Linux on Power**                                           |               |                                                       |                           |
+| POWER7 Red Hat Enterprise Linux 6                            |       ●       |                           ●                           | *- GNU glibc 2.12 ~ 2.33* |
+| **Linux on Power** **(Little Endian)**                       |               |                                                       |                           |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |       ●       |                           ●                           | *- GNU glibc 2.17 ~ 2.33* |
+| **Microsoft Windows (x64)**                                  |               |                                                       |                           |
+| Microsoft Windows 2008<br>Microsoft Windows 10               |     **X**     | ●<sup>[제약사항](#footnote-winclnt-limitations)</sup> |                           |
 
 > **<a name="footnote-linuxversion">Linux 배포판 버전</a>**
 >

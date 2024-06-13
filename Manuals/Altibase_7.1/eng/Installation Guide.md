@@ -365,7 +365,7 @@ It is recommended to use a dedicated line when using the replication feature.
 
 ### Supported Platforms
 
->  *Altibase server/client only support 64-bit.*
+>  *Altibase server/client only support 64-bit.*<sup>[32-bit Client](#32-bits-client)</sup>
 >
 >  *Microsoft Windows only supports Altibase client.*
 >
@@ -379,15 +379,19 @@ It is recommended to use a dedicated line when using the replication feature.
 | AIX 7.1<br />AIX 7.2                                         |          ●          |             ●             | *- AIX 7.2 : Altibase 7.1.0.4.7 or later* |
 | **HP-UX Itanium (IA-64)**                                    |                     |                           |                                        |
 | HP-UX 11.31                                                  |          ●          |             ●             |                                        |
-| **Linux x86-64**                                             |                     |                           |                                        |
+| **Linux x86-64**<sup>[Distribution Version](#footnote-linuxversion)</sup> |                     |                           |                                        |
 | Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 ~ 2.33*          |
-| Red Hat Enterprise Linux 8 [Note before installation](#footnote-rhel8)    |                     |                           | *- GNU glibc 2.12 ~ 2.33*   |
+| Red Hat Enterprise Linux 8<sup>[Note before installation](#footnote-rhel8)</sup> |                     |                           | *- GNU glibc 2.12 ~ 2.33*   |
 | **Linux on Power**                                           |                     |                           |                                        |
 | POWER7 Red Hat Enterprise Linux 6 |          ●          |             ●             | *- GNU glibc 2.12 ~ 2.33*           |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                        |
 | POWER8(LE) Red Hat Enterprise Linux 7                        |          ●          |             ●             | *- GNU glibc 2.17 ~ 2.33*<br />*- Altibase 7.1.0.3.6 or later* |
 | **Microsoft Windows (x64)**                                  |                     |                           |                                        |
-| Microsoft Windows 2008                                       |        **X**        |             ●             | *- Altibase client 7.1.0.4.5 or later* |
+| Microsoft Windows 2008                                       |        **X**        |             ●<sup>[Restrictions](#footnote-winclnt-limitations)</sup>             | *- Altibase client 7.1.0.4.5 or later* |
+
+> **<a name="footnote-linuxversion">Linux Distribution Version</a>**
+>
+> Please refer to  [Supported Platforms](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/kor/Supported%20Platforms.md#altibase-71) to check the Red Hat Enterprise Linux minor versions tested for compatibility and other compatible Linux Distributions.
 
 > **<a name="footnote-rhel8">Red Hat Enterprise Linux 8  </a>**
 >
@@ -399,7 +403,7 @@ It is recommended to use a dedicated line when using the replication feature.
 >
 > - .NET Data Provider
 > - Altibase C Interface
->
+
 > **<a name="32-bits-client">32-bit client</a>**
 >
 > In case 32-bit development environment is required in Windows environment, 32-bit Altibase 6.5.1 client can be used.
