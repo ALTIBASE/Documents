@@ -2423,7 +2423,7 @@ Two-pass sort 조인을 사용해서 명시된 테이블을 조인하도록 지�
 
 **alter_database :: =**
 
-![](media/SQL/97f0082b35f7c7b2023c79e718472981.png)
+![](media/SQL/alter_database.png)
 
 
 
@@ -2510,6 +2510,10 @@ Two-pass sort 조인을 사용해서 명시된 테이블을 조인하도록 지�
 **snapshot_clause ::=**
 
 ![](media/SQL/8df50a0b0a940bcf36d59c734118d74c.png)
+
+**checkpoint_scale_clause ::=**
+
+![](media/SQL/checkpoint_scale_clause.png)
 
 #### 전제 조건
 
@@ -2733,12 +2737,12 @@ change_tracking_clause
 
 증분 백업을 위한 페이지 변경 추적 기능의 활성화 또는 비활성화를 지정한다.
 
-*snapshot_clauses*
+*snapshot_clause*
 
 BEGIN SNAPSHOT을 할 때의 시점을 기준 SNAPSHOT SCN으로 설정하고, 설정된 SCN을
 기준으로 iLoader를 사용하여 데이터를 EXPORT한다.
 
-*checkpoint_scale_clauses*
+*checkpoint_scale_clause*
 
 CONTROL 단계에서 핑퐁 체크포인트 이미지 파일을 관리하는 방식을 변경한다.
 
@@ -5707,7 +5711,7 @@ Conjoin success.
 
 **create_database ::=**
 
-![create_database_image92](media/SQL/create_database_image92.gif)
+![create_database_image92](media/SQL/create_database.png)
 
 #### 전제 조건
 
@@ -5777,7 +5781,7 @@ Altibase 백업과 복구에 대한 자세한 정보는 *Administrator’s Manua
   UTF8  
   UTF16
 
-*checkpoint_scale_clauses*
+*checkpoint_scale_clause*
 
 핑퐁 체크포인트 이미지 파일을 관리하는 방식을 지정한다.
 
