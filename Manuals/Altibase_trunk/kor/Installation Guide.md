@@ -1719,8 +1719,7 @@ Altibase의 운영을 위해서 THP 옵션을 never로 설정할 것을 권고�
 
 ### Red Hat Enterprise Linux 8
 
-RHEL 8 의 경우 iSQL 및 iLoader 실행을 위해 libncurses.so.5, libtinfo.so.5 심볼릭 링크를 생성해야 한다. Altibase 7.1.0.6.3 이상에서는 Altibase 패키지 인스톨러에서 $ALTIBASE_HOME/lib 디렉토리에 심볼릭 링크를 생성하므로 사용자가 생성할 필요 없다.
-libncurses.so.5, libtinfo.so.5 심볼릭 링크가 없는 경우 다음과 같은 방법으로 심볼릭 링크를 생성한다. 
+클라이언트 툴인 iSQL과 iLoader를 실행하려면 ncurses (tinfo 포함) 5 버전 라이브러리가 필요하다. 그러나 RHEL 8에서 이 라이브러리의 버전이 6으로 변경되었다. 따라서 Altibase는 설치 과정에서 자동으로 $ALTIBASE_HOME/lib 디렉토리에 libncurses.so.5와 libtinfo.so.5 심볼릭 링크를 생성한다. 하지만 만약 이 심볼릭 링크가 생성되지 않거나 유실된 경우, 사용자가 아래 절차에 따라 수동으로 생성할 수 있다.
 
 
 1. ncurses와 tinfo 라이브러리 파일을 확인한다.
@@ -1764,7 +1763,7 @@ libncurses.so.5, libtinfo.so.5 심볼릭 링크가 없는 경우 다음과 같�
   /home/dev02/altibase_home/bin/isql: error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory
   ```
 
-- RHEL 8 에서 ncurses (tinfo 포함) 라이브러리 버전이 6.1 로 변경되었다. Altibase 는 ncurses 5 버전 파일을 필요로 한다. 
+- RHEL 8 에서 ncurses (tinfo 포함) 라이브러리 버전이 6.1 로 변경되었다.
   ncurses 라이브러리는  ncurses 5 ~ ncurses 6.2 까지 소스 레벨의 호환성(API)와 바이너리 호환성 (ABI)를 동시에 보장한다. 
 
   참고 : [Announcing ncurses 6.2 (invisible-island.net)](https://invisible-island.net/ncurses/announce.html#h2-release-notes)

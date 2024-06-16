@@ -1713,19 +1713,19 @@ For RHEL 8, libncurses.so.5 and libtinfo.so.5 must be created in order to execut
    -rwxr-xr-x.  1 root root   208616 Jan 16  2019 libtinfo.so.6.1*                   # tinfo library file
    ```
 
-2. If libncurses.so.5 and libtinfo.so.5 files do not exist, create symbolic links.
+2. If libncurses.so.5 and libtinfo.so.5 files do not exist, create symbolic links in the $ALTIBASE_HOME/lib.
 
    ```bash
-   % ln -s /usr/lib64/libncurses.so.6.1 /usr/lib64/libncurses.so.5
-   % ln -s /usr/lib64/libtinfo.so.6.1 /usr/lib64/libtinfo.so.5
+   % ln -s /usr/lib64/libncurses.so.6.1 $ALTIBASE_HOME/lib/libncurses.so.5
+   % ln -s /usr/lib64/libtinfo.so.6.1 $ALTIBASE_HOME/lib/libtinfo.so.5
    ```
 
 3. Check the created symbolic links.
 
    ```bash
-   % ls -l /usr/lib64/ | grep -e libncurses.so.5 -e libtinfo.so.5
-   lrwxrwxrwx   1 root root       17 May  7 16:44 libncurses.so.5 -> libncurses.so.6.1*
-   lrwxrwxrwx   1 root root       15 May  7 16:51 libtinfo.so.5 -> libtinfo.so.6.1*
+   % ls -l $ALTIBASE_HOME/lib | grep -e libncurses.so.5 -e libtinfo.so.5
+   lrwxrwxrwx   1 user user       17 May  7 16:44 libncurses.so.5 -> /usr/lib64/libncurses.so.6*
+   lrwxrwxrwx   1 user user       15 May  7 16:51 libtinfo.so.5 -> /usr/lib64/libtinfo.so.6*
    ```
 
 
