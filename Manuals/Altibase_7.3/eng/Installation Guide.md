@@ -387,7 +387,7 @@ It is recommended to use a dedicated line when using the replication feature.
 | **Linux on Power** **(Little Endian)**                       |                 |                                                           |                           |
 | POWER8(LE) Red Hat Enterprise Linux 7                        |        ●        |                             ●                             | *- GNU glibc 2.17 ~ 2.33* |
 | **Microsoft Windows (x64)**                                  |                 |                                                           |                           |
-| Microsoft Windows 2008<br>Microsoft Windows 10               |      **X**      | ●<sup>[Restirctions](#footnote-winclnt-limitations)</sup> |                           |
+| Microsoft Windows 2008<br>Microsoft Windows 10               |      **X**      | ●<sup>[Restrictions](#footnote-winclnt-limitations)</sup> |                           |
 
 > **<a name="footnote-linuxversion">Linux Distribution Version</a>**
 >
@@ -1720,7 +1720,6 @@ To run client tools such as iSQL and iLoader, the ncurses library (including tin
    lrwxrwxrwx   1 user user       17 May  7 16:44 libncurses.so.5 -> /usr/lib64/libncurses.so.6*
    lrwxrwxrwx   1 user user       15 May  7 16:51 libtinfo.so.5 -> /usr/lib64/libtinfo.so.6*
    ```
-
 
 - If libncurses.so.5 file does not exist, the following error occurs when iSQL is executed.
 
