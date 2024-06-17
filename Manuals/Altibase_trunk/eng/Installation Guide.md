@@ -110,6 +110,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [APatch Directory](#apatch-directory)
 - [2. Installing Products with the Altibase Package Installer](#2-installing-products-with-the-altibase-package-installer)
   - [System Requirements](#system-requirements)
+  - [Supported Platforms](#supported-platforms)
   - [Altibase Package Installer](#altibase-package-installer)
   - [Installing Altibase Products](#installing-altibase-products)
   - [Installing Altibase Client Products](#installing-altibase-client-products)
@@ -124,6 +125,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Setting User Resource Limit Values](#Setting-User-Resource-Limit-Values)
   - [Setting Kernel Parameters for Different Operating Systems (OS)](#Setting-Kernel-Parameters-for-Different-Operating-Systems-OS)
   - [Configuration of THP (Transparent Huge Pages)](#Configuration-of-THP-Transparent-Huge-Pages)
+  - [Red Hat Enterprise Linux 8](#red-hat-enterprise-linux-8)
   - [Checking DISK Configuration](#Checking-DISK-Configuration)
   - [OS Patch](#os-patch)
 
@@ -361,6 +363,41 @@ You should have at least 12GB of free disk space to smoothly run the database.
 #### Network
 
 It is recommended to use a dedicated line when using the replication feature.
+
+### Supported Platforms
+
+>  *Both Altibase server and client only support 64-bit.*
+>
+>  *Microsoft Windows supports Altibase client only.*
+>
+>  All versions of Altibase 7.x support it unless the patch version is specified. 
+
+
+|                                                              | Altibase Server |                      Altibase Client                      | Software Requirements     |
+| ------------------------------------------------------------ | :-------------: | :-------------------------------------------------------: | :------------------------ |
+| **AIX on IBM Power Systems**                                 |                 |                                                           |                           |
+| AIX 6.1 TL9                                                  |        ●        |                             ●                             |                           |
+| **HP-UX Itanium (IA-64)**                                    |                 |                                                           |                           |
+| HP-UX 11.31                                                  |        ●        |                             ●                             |                           |
+| **Linux x86-64**<sup>[Distribution Version](#footnote-linuxversion)</sup> |                 |                                                           |                           |
+| Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7    |        ●        |                             ●                             | *- GNU glibc 2.12 ~ 2.33* |
+| **Linux on Power**                                           |                 |                                                           |                           |
+| POWER7 Red Hat Enterprise Linux 6                            |        ●        |                             ●                             | *- GNU glibc 2.12 ~ 2.33* |
+| **Linux on Power** **(Little Endian)**                       |                 |                                                           |                           |
+| POWER8(LE) Red Hat Enterprise Linux 7                        |        ●        |                             ●                             | *- GNU glibc 2.17 ~ 2.33* |
+| **Microsoft Windows (x64)**                                  |                 |                                                           |                           |
+| Microsoft Windows 2008<br>Microsoft Windows 10               |      **X**      | ●<sup>[Restrictions](#footnote-winclnt-limitations)</sup> |                           |
+
+> **<a name="footnote-linuxversion">Linux Distribution Version</a>**
+>
+> Please refer to  [Supported Platforms](https://github.com/ALTIBASE/Documents/blob/master/Technical%20Documents/eng/Supported%20Platforms.md#altibase-73) to check the Red Hat Enterprise Linux minor versions tested for compatibility and other compatible Linux Distributions.
+
+> **<a name="footnote-winclnt-limitations">Altibase 7.x Windows Client Restrictions</a>**
+>
+> The following features are not supported by Altibase 7.x Windows Client.
+>
+> - .NET Data Provider
+> - Altibase C Interface
 
 ### Altibase Package Installer
 
@@ -1651,6 +1688,54 @@ It is advised to set the HTP option to never in order to run the Altibase operat
 2. Reboot the system.
 
 3. Confirm whether the THP option is never or not. 
+
+### Red Hat Enterprise Linux 8
+
+To run client tools such as iSQL and iLoader, the ncurses library (including tinfo) version 5 is required. However, in RHEL 8, the version of this library has been changed to 6. Therefore, during the installation, Altibase automatically creates symbolic links for libncurses.so.5 and libtinfo.so.5 in the $ALTIBASE_HOME/lib directory. If these symbolic links are not created or are lost, users can manually create them by following the procedure below.
+
+1. Check the ncurses and tinfo library files.
+
+   ```bash
+   % ls -l /usr/lib64/| grep -e libncurses.so -e libtinfo.so
+   -rw-r--r--   1 root root       31 Jan 16  2019 libncurses.so
+   lrwxrwxrwx.  1 root root       17 Jan 16  2019 libncurses.so.6 -> libncurses.so.6.1*
+   -rwxr-xr-x.  1 root root   216912 Jan 16  2019 libncurses.so.6.1*                 # ncurses library file
+   lrwxrwxrwx   1 root root       13 Jan 16  2019 libtinfo.so -> libtinfo.so.6*
+   lrwxrwxrwx.  1 root root       15 Jan 16  2019 libtinfo.so.6 -> libtinfo.so.6.1*
+   -rwxr-xr-x.  1 root root   208616 Jan 16  2019 libtinfo.so.6.1*                   # tinfo library file
+   ```
+
+2. If libncurses.so.5 and libtinfo.so.5 files do not exist, create symbolic links in the $ALTIBASE_HOME/lib.
+
+   ```bash
+   % ln -s /usr/lib64/libncurses.so.6.1 $ALTIBASE_HOME/lib/libncurses.so.5
+   % ln -s /usr/lib64/libtinfo.so.6.1 $ALTIBASE_HOME/lib/libtinfo.so.5
+   ```
+
+3. Check the created symbolic links.
+
+   ```bash
+   % ls -l $ALTIBASE_HOME/lib | grep -e libncurses.so.5 -e libtinfo.so.5
+   lrwxrwxrwx   1 user user       17 May  7 16:44 libncurses.so.5 -> /usr/lib64/libncurses.so.6*
+   lrwxrwxrwx   1 user user       15 May  7 16:51 libtinfo.so.5 -> /usr/lib64/libtinfo.so.6*
+   ```
+
+- If libncurses.so.5 file does not exist, the following error occurs when iSQL is executed.
+
+  ```bash
+  % isql
+  isql: error while loading shared libraries: libtinfo.so.5: cannot open shared object file: No such file or directory
+  ```
+
+  ```bash
+  % server create utf8 utf8
+  /home/dev02/altibase_home/bin/isql: error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory
+  ```
+
+- In RHEL 8, the ncurses (including tinfo) library version has been changed to 6.1.
+  The ncurses library guarantees both source-level compatibility (API) and binary compatibility (ABI) from ncurses 5 to ncurses 6.2. 
+
+  Reference : [Announcing ncurses 6.2 (invisible-island.net)](https://invisible-island.net/ncurses/announce.html#h2-release-notes)
 
 ### Checking Disk Configuration
 
