@@ -85,7 +85,7 @@ Altibase® Tools & Utilities
 <!-- PDF 변환을 위한 여백입니다. --> 
 
 <pre>
-Altibase Tool & Utilities Adapter for JDBC User’s Manual
+Altibase Tool & Utilities Adapter for Oracle User’s Manual
 Trunk
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
@@ -98,6 +98,7 @@ Telephone : +82-2-2082-1000
 Fax       : +82-2-2082-1099
 Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+
 
 <br>
 
@@ -990,23 +991,10 @@ To make oaUtility work properly, the user needs to check the following:
 oaUtility {start [ force ]}
 ```
 
-
-
 ##### Description
 
-<pre>
-Altibase Tool & Utilities Adapter for JDBC User’s Manual
-Trunk
-Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
-This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited.<br>
-All trademarks, registered or otherwise, are the property of their respective owners.<br>
-<b>Altibase Corp</b>
-10F, Daerung PostTower II,
-306, Digital-ro, Guro-gu, Seoul 08378, Korea
-Telephone : +82-2-2082-1000 
-Fax       : +82-2-2082-1099
-Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
-Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+This is used to start oraAdapter as a daemon. The force option starts the oraAdapter without checking for a primary key constraint in the replication target table.
+
 
 #### oaUtility stop
 
@@ -1015,8 +1003,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 ```
 oaUtility {stop}
 ```
-
-
 
 ##### Description
 
@@ -1030,8 +1016,6 @@ This is used to forcefully terminate the Adapter for Oracle process.
 oaUtility {status}
 ```
 
-
-
 ##### Description
 
 This is used to check whether oraAdapter is running.
@@ -1043,8 +1027,6 @@ This is used to check whether oraAdapter is running.
 ```
 oaUtility { check [ alive | constraints] }
 ```
-
-
 
 ##### Description
 
@@ -1183,7 +1165,7 @@ When using oraAdapter, DDL that is performing replication must be executed in th
 <tr>
 <th>No</th>
 <th>Active Server</th>
-<th>jdbcAdapter</th>
+<th>oraAdapter</th>
 <th>Standby Server</th>
 </tr>
 </thead>

@@ -85,7 +85,7 @@ Altibase® Tools & Utilities
 <!-- PDF 변환을 위한 여백입니다. --> 
 
 <pre>
-Altibase Tool & Utilities Adapter for JDBC User’s Manual
+Altibase Tool & Utilities Adapter for Oracle User’s Manual
 Release 7.3
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
@@ -1016,8 +1016,6 @@ This is used to forcefully terminate the Adapter for Oracle process.
 oaUtility {status}
 ```
 
-
-
 ##### Description
 
 This is used to check whether oraAdapter is running.
@@ -1029,8 +1027,6 @@ This is used to check whether oraAdapter is running.
 ```
 oaUtility { check [ alive | constraints] }
 ```
-
-
 
 ##### Description
 
@@ -1140,7 +1136,7 @@ This starts replication through the specified offline path. Offline replication 
 | 9. Configure the offline meta information               |                                                              | ALTER REPLICATION ALA BUILD OFFLINE META;                    |                                                        |
 | 10. Start offline replication                           |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
 | 11. The error occurs because of  DDL logs               |                                                              | [ERR-611B6 : Offline ALA Sender read DDL log.]               |                                                        |
-| 12.DDL on Oracle                                        |                                                              |                                                              | DDL                                                    |
+| 12. DDL on Oracle                                       |                                                              |                                                              | DDL                                                    |
 | 13. Restart oraAdatper on the Standby server            |                                                              | $oaUtility start                                             |                                                        |
 | 14. Restart offline replication                         |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
 
@@ -1169,7 +1165,7 @@ When using oraAdapter, DDL that is performing replication must be executed in th
 <tr>
 <th>No</th>
 <th>Active Server</th>
-<th>jdbcAdapter</th>
+<th>oraAdapter</th>
 <th>Standby Server</th>
 </tr>
 </thead>
@@ -1363,5 +1359,6 @@ When using oraAdapter, DDL that is performing replication must be executed in th
 </tr>
 </tbody>
 </table>
+
 
 
