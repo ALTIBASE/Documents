@@ -1749,8 +1749,6 @@ Altibase의 운영을 위해서 THP 옵션을 never로 설정할 것을 권고�
    lrwxrwxrwx   1 user user       15 May  7 16:51 libtinfo.so.5 -> /usr/lib64/libtinfo.so.6*
    ```
 
-
-
 - libncurses.so.5 파일이 없는 경우 iSQL 수행 시 아래와 같은 에러가 발생한다.
 
   ```bash

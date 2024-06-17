@@ -1720,8 +1720,6 @@ To run client tools such as iSQL and iLoader, the ncurses library (including tin
    lrwxrwxrwx   1 user user       15 May  7 16:51 libtinfo.so.5 -> /usr/lib64/libtinfo.so.6*
    ```
 
-
-
 - If libncurses.so.5 file does not exist, the following error occurs when iSQL is executed.
 
   ```bash
