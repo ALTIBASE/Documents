@@ -1699,7 +1699,7 @@ It is advised to set the HTP option to never in order to run the Altibase operat
 
 ### Red Hat Enterprise Linux 8
 
-For RHEL 8, libncurses.so.5 and libtinfo.so.5 must be created in order to execute iSQL and iLoader. In order to do this, the user needs root privileges.
+For RHEL 8, symbolic links for libncurses.so.5 and libtinfo.so.5 must be created to run iSQL and iLoader. Starting from Altibase 7.1.0.6.3, the Altibase package installer automatically creates these symbolic links in the $ALTIBASE_HOME/lib directory, so users do not need to create them manually. If the symbolic links for libncurses.so.5 and libtinfo.so.5 are missing, users can create them using the following procedure:
 
 1. Check the ncurses and tinfo library files.
 
@@ -1727,8 +1727,6 @@ For RHEL 8, libncurses.so.5 and libtinfo.so.5 must be created in order to execut
    lrwxrwxrwx   1 user user       17 May  7 16:44 libncurses.so.5 -> /usr/lib64/libncurses.so.6*
    lrwxrwxrwx   1 user user       15 May  7 16:51 libtinfo.so.5 -> /usr/lib64/libtinfo.so.6*
    ```
-
-
 
 - If libncurses.so.5 file does not exist, the following error occurs when iSQL is executed.
 
