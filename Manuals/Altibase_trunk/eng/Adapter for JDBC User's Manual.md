@@ -982,7 +982,7 @@ If environment variables or properties are modified after jdbcAdapter has been r
 
 #### What happens if data is not propery applied to Altibase DB?
 
-If jdbcAdapter fails to apply data to Altibase DB, only log messages are left and the next data is applied.The log messages are written to a trace log file located in $JDBC_ADAPTER_HOME/trc directory.
+If jdbcAdapter fails to apply data to Altibase DB, only log messages are left and the next data is applied. The log messages are written to a trace log file located in $JDBC_ADAPTER_HOME/trc directory.
 
 # Appendix B: DDL execution order when using the jdbcAdapter
 
