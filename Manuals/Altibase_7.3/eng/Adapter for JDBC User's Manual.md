@@ -3,7 +3,7 @@ Adapter for JDBC User’s Manual
 
 #### Altibase 7.3
 
-Alitbase® Tools & Utilities
+Altibase® Tools & Utilities
 
 <br><br><br><br><br><br>
 <!-- PDF 변환을 위한 여백입니다. --> 
@@ -897,7 +897,7 @@ Adapter for JDBC version 7.1.0.0.2
 
 #### Syntax
 
-```
+```sql
 CREATE REPLICATION ala_replication_name FOR ANALYSIS OPTIONS META_LOGGING 
                    WITH 'remote_host_ip', remote_host_port_no 
                    FROM user_name.table_name TO user_name.table_name;                   
@@ -915,28 +915,22 @@ ALTER REPLICATION ala_replication_name START WITH OFFLINE;
 Using the jdbcAdapter to apply changed data from the Altibase server to another database, it is impossible to send logs that were not applied to the other database if a failure occurs on the running Altibase server. In this case, if the Altibase server is running with the META_LOGGING option and there is a Standby server with the same database structure as the Altibase server, the Offline option helps the Standby server access the unsent log files in the Altibase server where the failure occurs directly, and apply them to the other databases.
 
 - META_LOGGING
-
   This logs the sender meta and Restart SN information in files. When a failure occurs, the files are used to configure the meta information necessary to read unsent logs. The files are created within the ala_meta_files folder in the log file path.
-
+  
 - SET OFFLINE ENABLE WITH 'log_dir' 
-
   This enables the use of the offline replication option. This statement can only be executed when replication is stopped. It sets up the Standby server to access the log files directly by specifying the log file path of the Altibase server where the failure occurs.
-
+  
 - SET OFFLINE DISABLE
-
   This disables the use of the offline replication option. This statement can only be executed when replication is stopped.
-
+  
 - BUILD OFFLINE META
-
   This reads the sender meta and Restart SN files from the ala_meta_files folder in the specified log file path. This constructs the necessary meta information for the offline replication.
-
+  
 - RESET OFFLINE META 
-
   This resets the meta information configured by BUILD OFFLINE META when it is no longer needed or configuring new meta information.
-
+  
 - START WITH OFFLINE
-
-  This starts replication through the specified offline path. Offline replication is a one-time operation, so it terminates right after applying all unsent logs. After the completion of offline replication, users can start replication again.
+This starts replication through the specified offline path. Offline replication is a one-time operation, so it terminates right after applying all unsent logs. After the completion of offline replication, users can start replication again.
 
 #### Constraints
 
