@@ -906,28 +906,26 @@ ALTER REPLICATION ala_replication_name RESET OFFLINE META;
 ALTER REPLICATION ala_replication_name START WITH OFFLINE;
 ```
 
-
-
 #### Description
 
 Using the jdbcAdapter to apply changed data from the Altibase server to another database, it is impossible to send logs that were not applied to the other database if a failure occurs on the running Altibase server. In this case, if the Altibase server is running with the META_LOGGING option and there is a Standby server with the same database structure as the Altibase server, the Offline option helps the Standby server access the unsent log files in the Altibase server where the failure occurs directly, and apply them to the other databases.
 
-- META_LOGGING
+- META_LOGGING  
   This logs the sender meta and Restart SN information in files. When a failure occurs, the files are used to configure the meta information necessary to read unsent logs. The files are created within the ala_meta_files folder in the log file path.
 
-- SET OFFLINE ENABLE WITH 'log_dir' 
+- SET OFFLINE ENABLE WITH 'log_dir'   
   This enables the use of the offline replication option. This statement can only be executed when replication is stopped. It sets up the Standby server to access the log files directly by specifying the log file path of the Altibase server where the failure occurs.
 
-- SET OFFLINE DISABLE
+- SET OFFLINE DISABLE  
   This disables the use of the offline replication option. This statement can only be executed when replication is stopped.
 
-- BUILD OFFLINE META
+- BUILD OFFLINE META  
   This reads the sender meta and Restart SN files from the ala_meta_files folder in the specified log file path. This constructs the necessary meta information for the offline replication.
 
-- RESET OFFLINE META 
+- RESET OFFLINE META   
   This resets the meta information configured by BUILD OFFLINE META when it is no longer needed or configuring new meta information.
 
-- START WITH OFFLINE
+- START WITH OFFLINE  
   This starts replication through the specified offline path. Offline replication is a one-time operation, so it terminates right after applying all unsent logs. After the completion of offline replication, users can start replication again.
 
 #### Constraints
