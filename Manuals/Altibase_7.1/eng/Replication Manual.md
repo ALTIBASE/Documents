@@ -122,7 +122,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Executing DDL Statements on Replication Target Tables](#executing-ddl-statements-on-replication-target-tables)
   - [Executing DDL Synchronization on Replication Target Tables](#executing-ddl-synchronization-on-replication-target-tables)
   - [SQL Apply Mode](#sql-apply-mode)
-  - [Extra Features](#extra-features)
+  - [Extra Features](#extra-features-1)
   - [Replication in a Multiple IP Network Environment](#replication-in-a-multiple-ip-network-environment)
   - [Replication Related Properties](#replication-related-properties)
 - [4. Fail-Over](#4-fail-over)
@@ -132,7 +132,11 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [SQLCLI](#sqlcli)
   - [Embedded SQL](#embedded-sql)
   - [PDO - Callback](#pdo---callback)
-- [5.Sequence Replication](#5sequence-replication)
+- [5. Sequence Replication](#5sequence-replication)
+  - [Sequence Replication](#Sequence-Replication)
+- [6. ROLE](#6role)
+  - [Log Analyzer Role](#log-analyzer-role)
+  - [Propagation](#propagation)
 - [Appendix A. FAQ](#appendix-a-faq)
   - [Replication FAQ](#replication-faq)
 
@@ -176,7 +180,14 @@ This manual has been organized as follows:
 -   Chapter 4: Fail-Over  
     This chapter explains the Fail-Over feature provided by Altibase and how to use it.
 
--   Appendix A. FAQ
+-   Chapter 5: Sequence Replication  
+    This chapter describes how to use the sequence replication that Altibase provides.
+    
+-   Chapter 6: ROLE  
+    This chapter explains how to configure the system to perform special functions by assigning ROLE to replication.
+    
+-   Appendix A. FAQ  
+    This chapter provides FAQs related to Altibase replication and replication properties.
 
 #### Documentation Conventions
 
@@ -262,9 +273,9 @@ This chapter covers the following subjects::
 
 -   Altibase Replication Concepts and Terminology
 -   Replication Function in Altibase
--   Choosing Replication Targers
+-   Choosing Replication Targets
 -   Replication mode
--   Replicaiton and Data Definition Language (DDL)
+-   Replication and Data Definition Language (DDL)
 -   Data Recovery Using Replication
 
 #### Concepts
@@ -477,7 +488,7 @@ When replication DDL, DML except SELECT cannot be performed while synchronizing 
 Altibase provides the following additional features. A detaield description of how to use the add-ons and limitations is given in the section on Extra Features.
 
 -   Recovery Option  
-    : If experiencing abnormal server termination during the replicaiton, data recovery option is available for preventing data inconsistency between servers by replications.
+    : If experiencing abnormal server termination during the replication, data recovery option is available for preventing data inconsistency between servers by replications.
     
 -   Offline Option  
     : If an error occurred in the active server with the Active-Standy replication environment, this function allows applying untransffered logs to the Standy Server with the offline option.
@@ -490,6 +501,9 @@ Altibase provides the following additional features. A detaield description of h
 
 -   Replication Transaction Grouping Option  
     : This option sends logs to a sender thread by grouping multiple transaction to a single transaction when replication gap occurs.
+    
+- Meta Logging Option  
+  : This option records the sender meta and Restart SN information into files.
 
 > #### Considerations
 >
@@ -498,8 +512,6 @@ Altibase provides the following additional features. A detaield description of h
 > When dropping a replication target item from a replication object, the item must be specified exactly as it was added. For example, even if every partition of a partitioned table is added as replication targets, it is impossible to specify a partitioned table and exclude it from being a replication target; however, it is possible to specify each partition separately for exclusion.
 
 # 2. Managing Replication
-
------------
 
 This chapter explains the replication steps and how to use Altibase replication functions for various faults and errors that can occur while performing replication.
 
@@ -1731,7 +1743,9 @@ Altibase provides the following extra replication features:
 
 -   Replicated Transaction Grouping Option
 
-The status of replication option can be confirmed by the value of the OPTIONS column in SYS_REPLICATIONS_meta table. Please refer to the *General Reference* for in-deph information.
+- Meta Logging Option
+
+The status of replication option can be confirmed by the value of the OPTIONS column in SYS_REPLICATIONS_meta table. Please refer to the *General Reference* for in-depth information.
 
 #### Recovery Option
 
@@ -1867,7 +1881,7 @@ iSQL>ALTER REPLICATION REP1 START WITH OFFLINE;
 iSQL>ALTER REPLICATION REP1 SET OFFLINE DISABLE;
 ```
 
-#### Replicatoin Gapless Option 
+#### Replication Gapless Option 
 
 ##### Syntax
 
@@ -1969,6 +1983,23 @@ For more detailed information about properties, please refer to the *General Ref
 ##### Restriction
 
 -   The replication transaction grouping option can only be specified when replication is being performed in LAZY mode.
+
+#### Meta Logging Option
+
+##### Syntax
+
+```sql
+CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING...;
+```
+
+##### Description
+
+The meta logging option records the sender meta and Restart SN information into files created within the ala_meta_files folder in the log file path. These files are needed when the offline option of Adapter for JDBC and Adapter for Oracle utilities is executed.
+
+> **Offline Option of Adapter for JDBC and Adapter for Oracle**
+> The offline option helps the Standby server access the unsent log files in the Altibase server where the failure occurs directly, and apply them to the other databases. For more detailed information, please refer to the [*Adapter for JDBC User’s Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Adapter%20for%20JDBC%20User's%20Manual.md#offline-option), and the [*Adapter for Oracle User’s Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Adapter%20for%20Oracle%20User's%20Manual.md#offline-option).
+
+To specify this option, the replication object should be created with the Log Analyzer role.
 
 ### Replication in a Multiple IP Network Environment
 
@@ -3379,7 +3410,9 @@ Altibase only supports replication of table objects by default. Thus, sequence r
 
 This chapter will cover the conditions and methods supporting the sequence replication.
 
-#### Sequence Replication Overview 
+### Sequence Replication
+
+#### Overview 
 
 Altibase sequence replication is a feature allowing the remote and local server to use an identical sequence even in the situation of fail-over. Thus, the same sequence and program sources can be used in an application.
 
@@ -3444,7 +3477,7 @@ After executing a query dropping a replication (DROP REPLICATION) or excluding a
 ALTER SEQUENCE user_name.seq_name DISABLE SYNC TABLE; 
 ```
 
-> #### Note*:
+> #### Note:
 >
 > -   It is recommended to perform sequence replication in the active-standby environment. The sequence value can be duplicated due to the replication gap between servers if it is performed in the active-active environment.
 > -   The larger the size of the sequence cache, the faster the sequence creation. The cache size should be modified in advance since it cannot be modified after the table the for sequence replication is created.
@@ -3477,6 +3510,42 @@ The following example verifies the status of replication server when fail-over o
 | Fail-Over Occurrence                                         |                                                              |
 |                                                              | iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1001<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ---------------------- <br/>1002<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1003<br/> 1 row selected. |
 | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ<br/> -------------------<br/> 2001<br/> 1 row selected. | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ <br/>---------------------- <br/>2001<br/> 1 row selected. |
+
+# 6.ROLE
+
+The role of replication is used to configure the system to perform special functions by assigning ROLE to replication.
+
+Information about the replication role can be found through the ROLE column value in the V$SYS_REPLICATIONS_ meta table. Replication without a role implies basic 1:1 bidirectional replication between Altibase servers, with a ROLE column value of 0.
+
+There are three types of replication roles: Log Analyzer, Propagable Logging, and Propagation. These roles can be specified when creating replication, and each has the following descriptions:
+
+### Log Analyzer Role
+
+To create replication as a Log Analyzer role, use the ANALYSIS keyword. The Log Analyzer role can be used together with the Propagation role. Please refer to the *Log Analyzer User’s Manual* For detailed information about the replication with Log Analyzer role.
+
+### Propagation
+
+Propagation refers to configuring the system to propagate replication through multiple nodes.
+
+While normal replication marks the transactions performed by the receiver in the logs to prevent retransmission between each other, propagation allows transactions performed by the receiver to be propagated to other nodes. To leave the logs received by the receiver as replicable logs, the Propagable Logging role is required. Sending the replicable logs to other remote servers is performed by the sender in the replication with the Propagation role.
+
+#### PROPAGABLE LOGGING Role
+
+Replication with the PROPAGABLE LOGGING role performs propagable logging, which means logging the transactions that the receiver performed for propagating those transactions to other nodes. In other words, Replication with this role allows the sender specified as PROPAGATION role in the future to read the logs and propagate them to other nodes.
+
+#### PROPAGATION Role
+
+The sender with the PROPAGATION role reads not only the replication target logs but also the logs generated by propagable logging, and sends them to other nodes.
+
+#### Cautions on Replication Propagation
+
+* It is recommended not to use it with the RECOVERY option.
+  * As the sender created with the PROPAGATION role propagates all logs propagable, the system design can become complex as it propagates the logs created by receivers with the RECOVERY option.
+* Replication propagation should be configured in one direction only.
+* Users should take care to avoid creating cycles in the propagation direction, as this can create a situation where changes in the logs are infinitely reapplied.
+* A receiver using PROPAGABLE LOGGING leaves additional information such as PK when logging. Therefore, the receiver with PROPAGABLE LOGGING may have lower transaction performance than those without PROPAGABLE LOGGING.
+
+
 
 # Appendix A. FAQ
 
@@ -3544,4 +3613,4 @@ Can I perform replication between memory and disk tables?
 
 ##### **Answer**
 
-Yes, it's possible.
+Yes, it's possible. 

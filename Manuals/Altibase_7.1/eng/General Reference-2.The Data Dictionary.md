@@ -2706,12 +2706,14 @@ For more detailed information, please refer to the *Log Analyzer User's Manual*.
 
 This flag indicates whether to use the recovery and offline options, which are extra replication features. The replication option types are as in the following. Each option is controlled by binary number and expressed as a decimal number. If more than two options are used, the sum of the binary numbers of each option is returned as decimal numbers.
 
-- 0(00000): Do not use the recovery or offline option
-- 1(00001): Use the recovery option 
-- 2(00010): Use the offline option 
-- 4(00100): Use the gapless option 
-- 8(01000): Use the parallel applier option 
-- 16(10000): Use the replication transaction grouping option
+- 0(00000000): Do not use the recovery or offline option
+- 1(00000001): Use the recovery option 
+- 2(00000010): Use the offline option 
+- 4(00000100): Use the gapless option 
+- 8(00001000): Use the parallel applier option 
+- 16(00010000): Use the replication transaction grouping option
+- 32(00100000): For internal use
+- 64(01000000): Use the meta logging option
 
 ##### INVALID_RECOVERY
 

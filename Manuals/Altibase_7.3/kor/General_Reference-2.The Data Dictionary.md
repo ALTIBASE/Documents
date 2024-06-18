@@ -2661,7 +2661,7 @@ SYS_TABLES_
 | PARALLEL_APPLIER_COUNT   | INTEGER     | 병렬 적용자(Applier)의 수                                    |
 | REMOTE_XSN               | BIGINT      | 원격 서버에서 가장 최근에 처리한 SN                          |
 | APPLIER_INIT_BUFFER_SIZE | BIGINT      | applier buffer 의 초기 사이즈                                |
-| PEER_REPLICATION_NAME    | VARCHAR(40) | 로컬 이중화한 원격 이중화 이름                               |
+| PEER_REPLICATION_NAME    | VARCHAR(40) | 내부 용도                               |
 | REMOTE_LAST_DDL_XSN      | BIGINT      | 원격 서버에서 가장 최근에 처리한 DDL SN                      |
 | CURRENT_READ_XLOGFILE_NO | INTEGER     | consistent replication의 receiver가 xlogfile에서 읽은 가장 마지막 file number와 offset |
 | CURRENT_READ_XLOGFILE_OFFSET | INTEGER | consistent replication의 receiver가 xlogfile에서 읽은 가장 마지막 file 내에서의 offset |
@@ -2734,13 +2734,14 @@ Log Analyzer 전용 이중화에 대한 자세한 내용은 Log Analyzer User's 
 
 이중화 부가 기능을 나타내는 플래그이다. 이중화 옵션의 종류는 아래와 같으며, 각 옵션을 설정시 이진수로 제어되며, 십진수로 변환되어 표시된다. 두 개 이상의 옵션을 사용할 경우 각각의 옵션에 해당하는 이진수 합이 십진수로 반환된다.
 
-- 0(000000): 이중화 옵션을 사용하지 않음
-- 1(000001): 복구 옵션 사용
-- 2(000010): 오프라인 옵션 사용
-- 4(000100): 이중화 갭 해소 옵션 사용
-- 8(001000): 병렬 적용자 옵션 사용
-- 16(010000):이중화 트랜잭션 그룹 옵션 사용
-- 32(100000):로컬 이중화 옵션 사용
+- 0(00000000): 이중화 옵션을 사용하지 않음
+- 1(00000001): 복구 옵션 사용
+- 2(00000010): 오프라인 옵션 사용
+- 4(00000100): 이중화 갭 해소 옵션 사용
+- 8(00001000): 병렬 적용자 옵션 사용
+- 16(00010000): 이중화 트랜잭션 그룹 옵션 사용
+- 32(00100000): 내부 용도
+- 64(01000000): 메타 로깅 옵션 사용
 
 ##### INVALID_RECOVERY
 
@@ -2778,10 +2779,6 @@ Log Analyzer 전용 이중화에 대한 자세한 내용은 Log Analyzer User's 
 ```
 
 만약 병렬 적용자 큐의 수가 프로퍼티 REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE 값보다 작다면 병렬 적용자 큐의 수는 프로퍼티 REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE에 지정된 값으로 설정된다.
-
-##### PEER_REPLICATION_NAME
-
-로컬 이중화 옵션을 사용했을 때 원격 이중화의 이름이다.
 
 ##### REMOTE_LAST_DDL_XSN
 
