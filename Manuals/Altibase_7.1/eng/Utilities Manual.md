@@ -1817,8 +1817,8 @@ To ensure stable usage of aku in a Kubernetes environment, the following conditi
 
 | Category                      | Property name                        | Default value | Description                                                  |
 | ----------------------------- | :----------------------------------- | :-----------: | :----------------------------------------------------------- |
-| Kubernetes Setting Properties | AKU_STS_NAME                         |               | The name of the StatefulSet defined in the Kubernetes object specification. |
-|                               | AKU_SVC_NAME                         |               | The Service name that provides the Network Service defined in the Kubernetes object specification. |
+| Kubernetes Setting Properties | AKU_STS_NAME                         |               | The name of the StatefulSet defined in the Kubernetes object specification.<br>It can be set up to 63 characters. |
+|                               | AKU_SVC_NAME                         |               | The Service name that provides the Network Service defined in the Kubernetes object specification.<br/>It can be set up to 63 characters. |
 |                               | AKU_SERVER_COUNT                     |       4       | The maximum number of Altibase servers that can be synchronized using aku. It also refers to the number of Pods that can be scaled up in Kubernetes. </br>It can be set from 1 to 4. |
 | Common Properties             | AKU_SYS_PASSWORD                     |               | Database SYS user password                                   |
 |                               | AKU_PORT_NO                          |     20300     | Altibase Server Port number.<br />It can be set from 1024 to 65535. |
