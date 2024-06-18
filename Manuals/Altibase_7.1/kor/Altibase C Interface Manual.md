@@ -174,6 +174,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [altibase_stmt_free_result()](#altibase_stmt_free_result)
   - [altibase_stmt_get_attr()](#altibase_stmt_get_attr)
   - [altibase_stmt_init()](#altibase_stmt_init)
+  - [altibase_stmt_next_result()](#altibase_stmt_next_result)
   - [altibase_stmt_num_rows()](#altibase_stmt_num_rows)
   - [altibase_stmt_param_count()](#altibase_stmt_param_count)
   - [altibase_stmt_prepare()](#altibase_stmt_prepare)
@@ -1818,8 +1819,6 @@ while (1)
 altibase_close(altibase);
 ```
 
-
-
 ### altibase_num_fields()
 
 결과 집합의 칼럼 수를 구하는 함수이다.
@@ -3316,23 +3315,23 @@ if (! ALTIBASE_SUCCEEDE(rc))
 
 #### 구문
 
-```
+```c
 int altibase_stmt_next_result ( ALTIBASE_STMT stmt );
 ```
 
 #### 인자
 
-| ALTIBASE_STMT | *stmt* | 입력    | 명령문 핸들 |
-| :------------ | :----- | :------ | :---------- |
 | 자료유형      | 인자   | 입/출력 | 설명        |
+| :------------ | :----- | :------ | :---------- |
+| ALTIBASE_STMT | *stmt* | 입력    | 명령문 핸들 |
 
 #### 반환값
 
-| ALTIBASE_SUCCESS | 다음 결과 집합이 존재함        |
+| 반환값           | 설명                           |
 | :--------------- | :----------------------------- |
+| ALTIBASE_SUCCESS | 다음 결과 집합이 존재함        |
 | ALTIBASE_NO_DATA | 다음 결과 집합이 존재하지 않음 |
 | ALTIBASE_ERROR   | 에러 발생                      |
-| 반환값           | 설명                           |
 
 #### 설명
 
@@ -3347,8 +3346,6 @@ int altibase_stmt_next_result ( ALTIBASE_STMT stmt );
 ```c
 
 ```
-
-
 
 ### altibase_stmt_num_rows()
 
