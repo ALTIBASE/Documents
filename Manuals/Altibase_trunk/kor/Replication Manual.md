@@ -110,28 +110,21 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 # 목차
 
 - [서문](#서문)
-  
   - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
 - [1.이중화 개요](#1이중화-개요)
-
   - [이중화 소개](#이중화-소개)
-
 - [2.이중화 관리](#2이중화-관리)
-
   - [이중화 순서](#이중화-순서)
   - [에러 발생과 해결](#에러-발생과-해결)
   - [충돌 해결](#충돌-해결)
   - [Eager 이중화 장애 복구 (Eager Replication Failback)](#eager-이중화-장애-복구-eager-replication-failback)
   - [병렬 이중화](#병렬-이중화)
   - [이중화 관련 성능 뷰](#이중화-관련-성능-뷰)
-
 - [3.이중화 사용](#3이중화-사용)
-
   - [이중화 제약조건](#이중화-제약조건)
   - [이중화 생성 (CREATE REPLICATION)](#이중화-생성-create-replication)
   - [이중화 시작, 종료와 변경 (ALTER REPLICATION)](#이중화-시작-종료와-변경-alter-replication)
   - [이중화 동기화(SYNC)](#이중화-동기화sync)
-
   - [이중화 삭제 (DROP REPLICATION)](#이중화-삭제-drop-replication)
   - [이중화 대상 테이블에 DDL 실행](#이중화-대상-테이블에-ddl-실행)
   - [이중화 대상 테이블에 DDL 복제 실행](#이중화-대상-테이블에-ddl-복제-실행)
@@ -139,27 +132,19 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [이중화 부가기능](#이중화-부가기능)
   - [다중 IP 네트워크 환경에서의 이중화](#다중-IP-네트워크-환경에서의-이중화)
   - [이중화 관련 프로퍼티](#이중화-관련-프로퍼티)
-
 - [4.Fail-Over](#4fail-over)
-
   - [Fail-Over 의 개요](#fail-over-의-개요)
   - [Fail-Over 사용 방법](#fail-over-사용-방법)
   - [JDBC에서 콜백 작성](#jdbc에서-콜백-작성)
   - [SQLCLI](#sqlcli)
   - [Embedded SQL](#embedded-sql)
   - [PDO에서 콜백 작성](#pdo에서-콜백-작성)
-
 - [5.시퀀스 이중화](#5시퀀스-이중화)
-
   - [시퀀스 이중화](#시퀀스-이중화)
-
 - [6.이중화 롤(ROLE)](#6-이중화-롤role)
-
   - [Log Analyzer 롤](#log-analyzer-롤)
   - [전파(Propagation)](#전파propagation)
-
 - [A.부록: FAQ](#a부록-faq)
-
   - [Replication FAQ](#replication-faq)
 
 <br>

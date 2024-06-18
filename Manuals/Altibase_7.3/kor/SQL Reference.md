@@ -8533,7 +8533,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
   인덱스로 설정한다.
 
   ```
-  iSQL> CREATE TABLE tab1 (id UNIQUE DIRECTKEY );
+  iSQL> CREATE TABLE tab1 (id INTEGER UNIQUE DIRECTKEY );
   Create success.
   ```
 
@@ -13769,7 +13769,7 @@ SELECT * FROM T1 WHERE i1 NOT IN ( SELECT i1 FROM T2 );
 ##### 예제
 
 위에서 설명한 각 조인의 실행 결과를 보여주기 위해 employee와 dept 테이블을
-생생한다.
+생성한다.
 
 ```
 CREATE TABLE employee(name VARCHAR(10), empid INTEGER, deptname VARCHAR(20));

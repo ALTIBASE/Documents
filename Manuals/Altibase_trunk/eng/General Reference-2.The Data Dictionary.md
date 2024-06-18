@@ -104,7 +104,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
-
 - [1. The Data Dictionary](#1-the-data-dictionary)
   - [Meta Tables](#meta-tables)
   - [SYS_AUDIT\_](#sys_audit_)
@@ -8438,7 +8437,7 @@ This is the name of the replication object on the local server.
 
 This is a flag indicating the replication startup options on the local server. It can have the following values:
 
--   : 0
+-   NORMAL: 0
 
 -   QUICK: 1
 

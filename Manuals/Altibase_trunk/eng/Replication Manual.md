@@ -121,7 +121,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [DROP REPLICATION](#drop-replication)
   - [Executing DDL Statements on Replication Target Tables](#executing-ddl-statements-on-replication-target-tables)
   - [Executing DDL Synchronization on Replication Target Tables](#executing-ddl-synchronization-on-replication-target-tables)
-  - [SQL Reflection Mode](#sql-reflection-mode)
+  - [SQL Apply Mode](#sql-apply-mode)
   - [Extra Features](#extra-features-1)
   - [Replication in a Multiple IP Network Environment](#replication-in-a-multiple-ip-network-environment)
   - [Replication Related Properties](#replication-related-properties)
@@ -941,7 +941,7 @@ There are several conditions apply when establishing replication. If these condi
 
 -   When an INSERT transaction is replicated, columns that are not replication targets will be filled with NULL values.
   
--   When configuring unique indexes and function-based indexes of a replicated column and a non-replicated column, it operates in the SQL reflection mode.
+-   When configuring unique indexes and function-based indexes of a replicated column and a non-replicated column, it operates in the SQL apply mode.
 
 #### Replication Constraints in EAGER Mode
 
@@ -959,7 +959,7 @@ The following constraints apply to replication in EAGER mode.
   
 -   Data can be lost if the server abnormally terminates before a committed XLog is applied on disk in EAGER mode. To prevent data loss, specify the recovery option or adjust the values for commit-related properties (COMMIT_WRITE_WAIT_MODE, REPLICATION_COMMIT_WRITE_WAIT_MODE, and REPLICATION_SYNC_LOG)
   
--   SQL reflection mode is not available for replication in the EAGER mode.
+-   SQL apply mode is not available for replication in the EAGER mode.
 
 #### Partitioned Table Constraints
 
@@ -1698,7 +1698,7 @@ When the execution of DDL statements is completed, and there are no more DDL sta
   iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
   ```
 
-### SQL Reflection Mode
+### SQL Apply Mode
 
 When the information of meta of local server and remote is different. Log can be converted to SQL and reflected on a remote server. When reflecting to a remote server in SQL mode, the following conditions are possible:
 
@@ -1719,9 +1719,9 @@ When the information of meta of local server and remote is different. Log can be
 
 #### Restriction
 
--   SQL reflection mode only works in LAZY mode
+-   SQL apply mode only works in LAZY mode
 
--   If there is a security column in the table, it will not operate SQL reflection mode.
+-   If there is a security column in the table, it will not operate SQL apply mode.
 
 > #### Note*:
 >

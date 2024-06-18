@@ -1066,7 +1066,7 @@ USING Altibase;
 
 **drop_database_link ::=**
 
-![](media/DBLink/drop_dblink.gif)
+![](media/DBLink/drop_dblink.png)
 
 #### Prerequisites 
 
@@ -1075,6 +1075,10 @@ Only the SYS user or the user granted the DROP DATABASE LINK system privilege ca
 #### Description
 
 Drops a database link object.
+
+##### IF EXISTS
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the database link object does not exist.
 
 ##### dblink_name
 

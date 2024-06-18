@@ -8533,7 +8533,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
   인덱스로 설정한다.
 
   ```
-  iSQL> CREATE TABLE tab1 (id UNIQUE DIRECTKEY );
+  iSQL> CREATE TABLE tab1 (id INTEGER UNIQUE DIRECTKEY );
   Create success.
   ```
 
@@ -10255,7 +10255,7 @@ Drop success.
 
 **drop_directory ::=**
 
-![drop_directory_image160](media/SQL/drop_directory_image160.gif)
+![drop_directory_image160](media/SQL/drop_directory.png)
 
 #### 전제 조건
 
@@ -10266,6 +10266,10 @@ SYS 사용자와 DROP ANY DIRECTORY 시스템 권한을 가진 사용자만이 �
 
 디렉토리를 제거하는 구문이다. 단, 실제 파일 시스템상의 디렉토리가 삭제되지는
 않고 데이터베이스내의 디렉토리 객체만 삭제된다.
+
+*IF EXISTS*
+
+IF EXISTS 절을 명시하면 디렉토리 객체가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *directory_name*
 
@@ -10288,7 +10292,7 @@ Drop success.
 
 **drop_index ::=**
 
-![drop_index_image161](media/SQL/drop_index_image161.gif)
+![drop_index_image161](media/SQL/drop_index.png)
 
 #### 전제 조건
 
@@ -10298,6 +10302,10 @@ INDEX 시스템 권한을 가진 사용자만이 인덱스를 삭제할 수 있�
 #### 설명
 
 데이터베이스에서 인덱스를 제거하는 구문이다.
+
+*IF EXISTS*
+
+IF EXISTS 절을 명시하면 인덱스가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10356,7 +10364,7 @@ Drop success.
 
 **drop_queue ::=**
 
-![drop_queue_image162](media/SQL/drop_queue_image162.gif)
+![drop_queue_image162](media/SQL/drop_queue.png)
 
 #### 전제 조건
 
@@ -10368,6 +10376,10 @@ SYS 사용자, 테이블 소유자, DROP ANY TABLE 시스템 권한을 가진 �
 지정한 이름의 큐을 삭제하는 구문이다. 큐를 삭제하면 큐와 함께 생성되었던 큐
 테이블, 큐 테이블의 인덱스, 및 큐 테이블의 MSGID값을 생성하는데 사용되었던
 시퀀스도 삭제된다.
+
+*IF EXISTS*
+
+IF EXISTS 절을 명시하면 큐가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 #### 예제
 
@@ -10385,7 +10397,7 @@ iSQL> DROP QUEUE Q1;
 
 **drop_replication ::=**
 
-![drop_replication_image163](media/SQL/drop_replication_image163.gif)
+![drop_replication_image163](media/SQL/drop_replication.png)
 
 #### 전제 조건
 
@@ -10394,6 +10406,10 @@ SYS 사용자만이 이중화 객체를 삭제할 수 있다.
 #### 설명
 
 이중화 객체를 제거하는 SQL 문이다.
+
+*IF EXISTS*
+
+IF EXISTS 절을 명시하면 이중화 객체가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *replication_name*
 
@@ -10453,7 +10469,7 @@ Drop success.
 
 **drop_sequence ::=**
 
-![drop_sequence_image164](media/SQL/drop_sequence_image164.gif)
+![drop_sequence_image164](media/SQL/drop_sequence.png)
 
 #### 전제 조건
 
@@ -10463,6 +10479,10 @@ SYS 사용자, 시퀀스의 소유자, DROP ANY SEQUENCE 시스템 권한을 가
 #### 설명
 
 명시된 시퀀스를 삭제하는 구문이다.
+
+*IF EXISTS*
+
+IF EXISTS 절을 명시하면 시퀀스가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10490,7 +10510,7 @@ Drop success.
 
 **drop_synonym ::=**
 
-![drop_synonym](media/SQL/drop_synonym.gif)
+![drop_synonym](media/SQL/drop_synonym.png)
 
 #### 전제 조건
 
@@ -10509,7 +10529,11 @@ SYS 사용자, 시노님의 소유자, DROP ANY SYNONYM 시스템 권한을 가�
 PUBLIC 시노님을 삭제하기 위해서는 PUBLIC을 명시해야 한다. PUBLIC을 명시하지
 않으면 명시한 이름의 PRIVATE 시노님이 삭제될 것이다.
 
-PUBLIC을 명시한 경우 user_name은 명시할 수 없다.
+PUBLIC을 명시한 경우 *user_name*은 명시할 수 없다.
+
+*IF EXISTS*
+
+IF EXISTS 절을 명시하면 시노님이 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10544,7 +10568,7 @@ Drop success.
 
 **drop_table ::=**
 
-![](media/SQL/3b6b6558264ad2e958e72fe192ae417a.png)
+![](media/SQL/drop_table.png)
 
 #### 전제 조건
 
@@ -10558,6 +10582,10 @@ SYS 사용자, 테이블의 소유자, DROP ANY TABLE 시스템 권한을 가진
 테이블을 바로 제거하지 않고, 휴지통으로 옮길 경우 RECYCLEBIN_ENABLE 프로퍼티의
 값을 1로 설정한다. 같은 이름의 테이블이 여러 번 DROP될 수 있으며, 휴지통의
 크기를 넘을 수는 없다.
+
+*IF EXISTS*
+
+IF EXISTS 절을 명시하면 테이블이 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10590,7 +10618,7 @@ Drop success.
 
 **drop_tablespace ::=**
 
-![drop_tablespace_image167](media/SQL/drop_tablespace_image167.gif)
+![drop_tablespace_image167](media/SQL/drop_tablespace.png)
 
 #### 전제 조건
 
@@ -10600,6 +10628,10 @@ SYS 사용자와 DROP TABLESPACE 시스템 권한을 가진 사용자만이 테�
 #### 설명
 
 데이터베이스에서 테이블스페이스를 제거하는 구문이다.
+
+*IF EXISTS*
+
+IF EXISTS 절을 명시하면 테이블스페이스가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *tblspace_name*
 
@@ -10690,7 +10722,7 @@ Drop success.
 
 **drop_trigger ::=**
 
-![drop_trigger_image168](media/SQL/drop_trigger_image168.gif)
+![drop_trigger_image168](media/SQL/drop_trigger.png)
 
 #### 전제 조건
 
@@ -10700,6 +10732,10 @@ SYS 사용자, 트리거의 소유자, DROP ANY TRIGGER 시스템 권한을 가�
 #### 설명
 
 데이터베이스에서 명시된 트리거를 제거하는 구문이다.
+
+*IF EXISTS*
+
+IF EXISTS 절을 명시하면 트리거가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10727,7 +10763,7 @@ Drop success.
 
 **drop_user ::=**
 
-![drop_user_image169](media/SQL/drop_user_image169.gif)
+![drop_user_image169](media/SQL/drop_user.png)
 
 #### 전제 조건
 
@@ -10736,6 +10772,10 @@ SYS 사용자와 DROP USER 시스템 권한을 가진 사용자만이 사용자�
 #### 설명
 
 데이터베이스에서 명시된 사용자를 제거하는 구문이다.
+
+*IF EXISTS*
+
+IF EXISTS 절을 명시하면 사용자가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10775,7 +10815,7 @@ Drop success.
 
 **drop_view ::=**
 
-![drop_view_image170](media/SQL/drop_view_image170.gif)
+![drop_view_image170](media/SQL/drop_view.png)
 
 #### 전제 조건
 
@@ -10785,6 +10825,10 @@ SYS 사용자, 뷰의 소유자, DROP ANY VIEW 시스템 권한을 가진 사용
 #### 설명
 
 데이터베이스에서 명시된 뷰를 제거하는 구문이다.
+
+*IF EXISTS*
+
+IF EXISTS 절을 명시하면 뷰가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -10812,7 +10856,7 @@ Drop success.
 
 **drop_mview ::=**
 
-![drop_mview](media/SQL/drop_mview.gif)
+![drop_mview](media/SQL/drop_mview.png)
 
 #### 전제 조건
 
@@ -10827,6 +10871,10 @@ Drop success.
 #### 설명
 
 지정한 materialized view를 데이터베이스에서 제거하는 구문이다.
+
+*IF EXISTS*
+
+IF EXISTS 절을 명시하면 materialized view가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 *user_name*
 
@@ -13757,7 +13805,7 @@ SELECT * FROM T1 WHERE i1 NOT IN ( SELECT i1 FROM T2 );
 ##### 예제
 
 위에서 설명한 각 조인의 실행 결과를 보여주기 위해 employee와 dept 테이블을
-생생한다.
+생성한다.
 
 ```
 CREATE TABLE employee(name VARCHAR(10), empid INTEGER, deptname VARCHAR(20));

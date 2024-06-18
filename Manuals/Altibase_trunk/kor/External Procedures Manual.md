@@ -923,7 +923,9 @@ ALTER LIBRARY lib1 COMPILE;
 
 #### 구문
 
-![](media/ExternalProcedure/image028.gif)
+**drop_library_statement ::=**
+
+![](media/ExternalProcedure/drop_library.png)
 
 #### 설명
 
@@ -932,6 +934,10 @@ ALTER LIBRARY lib1 COMPILE;
 삭제하려는 라이브러리 객체에 포함된 외부 프로시저가 실행 중이어도, 해당
 라이브러리 객체는 삭제된다. 단, 데이터베이스에서 라이브러리 객체만 삭제될 뿐,
 연관된 동적 라이브러리 파일이 삭제되지는 않는다.
+
+##### IF EXISTS
+
+IF EXISTS 절을 명시하면 라이브러리 객체가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 #### 예제
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
