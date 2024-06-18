@@ -1784,6 +1784,42 @@ altibase_free_result()로 그 결과 집합을 먼저 해제해야 한다.
 상황이 된다. 이는 altibase_store_result(), altibase_affected_rows() 등의 함수를
 호출할 수 있음을 의미한다.
 
+#### 예제
+
+```c
+#define QSTR "EXEC PROC_RESULTSET"
+ 
+ALTIBASE       altibase;
+ALTIBASE_RES   result;
+int            num_fields;
+int            rc;
+ 
+/* ... omit ... */
+ 
+rc = altibase_query(altibase, QSTR);
+/* ... check return value ... */
+ 
+/* process each statement result */
+while (1)
+{
+  result = altibase_use_result(altibase);
+  /* ... check return value ... */
+ 
+  num_fields = altibase_field_count(altibase);
+  process_result_set(result, num_fields );
+  altibase_free_result(result);
+ 
+  if ((rc = altibase_next_result(altibase)) == ALTIBASE_NO_DATA)
+    break;
+  /* ... check return value ... */
+ 
+} while (rc != ALTIBASE_NO_DATA);
+ 
+altibase_close(altibase);
+```
+
+
+
 ### altibase_num_fields()
 
 결과 집합의 칼럼 수를 구하는 함수이다.
@@ -3273,6 +3309,46 @@ if (! ALTIBASE_SUCCEEDE(rc))
     /* ... error handling ... */
 }
 ```
+
+### altibase_stmt_next_result()
+
+다음 결과 집합에 접근하기 위해 사용되는 함수이다.
+
+#### 구문
+
+```
+int altibase_stmt_next_result ( ALTIBASE_STMT stmt );
+```
+
+#### 인자
+
+| ALTIBASE_STMT | *stmt* | 입력    | 명령문 핸들 |
+| :------------ | :----- | :------ | :---------- |
+| 자료유형      | 인자   | 입/출력 | 설명        |
+
+#### 반환값
+
+| ALTIBASE_SUCCESS | 다음 결과 집합이 존재함        |
+| :--------------- | :----------------------------- |
+| ALTIBASE_NO_DATA | 다음 결과 집합이 존재하지 않음 |
+| ALTIBASE_ERROR   | 에러 발생                      |
+| 반환값           | 설명                           |
+
+#### 설명
+
+이 함수는 이전에 prepared statement를 사용하여 여러 결과 집합을 가져오는 명령을 수행한 경우, 다음 결과 집합에 접근하기 위해 사용된다.
+
+이전에 가져온 결과 집합이 있다면, altibase_stmt_next_result()를 호출하기 전에 altibase_stmt_free_result()로 그 결과 집합을 먼저 해제해야 한다.
+
+이 함수 수행 후에는 altibase_stmt_execute()를 사용해서 그 다음 구문을 수행한 것과 같은 상황이 된다. 이는 altibase_stmt_bind_result(), altibase_stmt_affected_rows() 등의 함수를 호출할 수 있음을 의미한다.
+
+#### 예제
+
+```c
+
+```
+
+
 
 ### altibase_stmt_num_rows()
 
