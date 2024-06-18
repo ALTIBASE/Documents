@@ -1237,7 +1237,7 @@ Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장�
 | 9. 오프라인 메타 정보 구성                          |                                                              | ALTER REPLICATION ALA BUILD OFFLINE META;                    |                                                        |
 | 10. 오프라인 이중화 시작                            |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
 | 11. DDL 로그로 인해 <br />오프라인 이중화 에러 발생 |                                                              | [ERR-611B6 : Offline ALA Sender read DDL log.]               |                                                        |
-| 12.Other DB에 DDL                                   |                                                              |                                                              | DDL                                                    |
+| 12. Other DB에 DDL                                  |                                                              |                                                              | DDL                                                    |
 | 13. Standby 서버 jdbcAdapter 재 시작                |                                                              | $oaUtility start                                             |                                                        |
 | 14. 오프라인 이중화 재 시작                         |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
 

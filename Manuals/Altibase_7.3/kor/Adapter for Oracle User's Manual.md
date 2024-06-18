@@ -1049,8 +1049,6 @@ oaUtility를 정상적으로 동작하게 하려면 아래의 사항들을 확�
 oaUtility {start [ force ]}
 ```
 
-
-
 ##### 설명
 
 oraAdapter를 데몬으로 실행한다.  force 옵션은 복제 대상 테이블에 프라이머리 키 제약 조건이 있는지 검사하지 않고 oraAdapter를 시작한다. 
@@ -1062,8 +1060,6 @@ oraAdapter를 데몬으로 실행한다.  force 옵션은 복제 대상 테이�
 ```
 oaUtility {stop}
 ```
-
-
 
 ##### 설명
 
@@ -1077,8 +1073,6 @@ oaUtility {stop}
 oaUtility {status}
 ```
 
-
-
 ##### 설명
 
 oraAdapter가 동작 중인지 확인한다.
@@ -1090,8 +1084,6 @@ oraAdapter가 동작 중인지 확인한다.
 ```
 oaUtility { check [ alive | constraints] }
 ```
-
-
 
 ##### 설명
 
@@ -1110,8 +1102,6 @@ oraAdapter는 아래의 커맨드 라인 옵션을 제공한다.
 ```
 oraAdapter [ -v | -version ]
 ```
-
-
 
 #### 설명
 
@@ -1229,7 +1219,7 @@ oraAdapter를 사용할 때 이중화를 수행중인 DDL은 아래의 순서대
 <tr>
 <th>No</th>
 <th>Active Server</th>
-<th>jdbcAdapter</th>
+<th>oraAdapter</th>
 <th>Standby Server</th>
 </tr>
 </thead>

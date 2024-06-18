@@ -122,7 +122,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Executing DDL Statements on Replication Target Tables](#executing-ddl-statements-on-replication-target-tables)
   - [Executing DDL Synchronization on Replication Target Tables](#executing-ddl-synchronization-on-replication-target-tables)
   - [SQL Reflection Mode](#sql-reflection-mode)
-  - [Extra Features](#extra-features)
+  - [Extra Features](#extra-features-1)
   - [Replication in a Multiple IP Network Environment](#replication-in-a-multiple-ip-network-environment)
   - [Replication Related Properties](#replication-related-properties)
 - [4. Fail-Over](#4-fail-over)
@@ -1743,7 +1743,7 @@ Altibase provides the following extra replication features:
 
 -   Meta Logging Option
 
-The status of replication option can be confirmed by the value of the OPTIONS column in SYS_REPLICATIONS_meta table. Please refer to the *General Reference* for in-deph information.
+The status of replication option can be confirmed by the value of the OPTIONS column in SYS_REPLICATIONS_meta table. Please refer to the *General Reference* for in-depth information.
 
 #### Recovery Option
 
