@@ -3315,7 +3315,7 @@ if (! ALTIBASE_SUCCEEDE(rc))
 
 #### 구문
 
-```c
+```
 int altibase_stmt_next_result ( ALTIBASE_STMT stmt );
 ```
 
@@ -3335,15 +3335,15 @@ int altibase_stmt_next_result ( ALTIBASE_STMT stmt );
 
 #### 설명
 
-이 함수는 이전에 prepared statement를 사용하여 여러 결과 집합을 가져오는 명령을 수행한 경우, 다음 결과 집합에 접근하기 위해 사용된다.
+이 함수는 이전에 준비된 문장(prepared statement)을 사용하여 여러 결과 집합을 가져오는 명령을 수행한 경우, 다음 결과 집합에 접근하기 위해 사용된다.
 
 이전에 가져온 결과 집합이 있다면, altibase_stmt_next_result()를 호출하기 전에 altibase_stmt_free_result()로 그 결과 집합을 먼저 해제해야 한다.
 
-이 함수 수행 후에는 altibase_stmt_execute()를 사용해서 그 다음 구문을 수행한 것과 같은 상황이 된다. 이는 altibase_stmt_bind_result(), altibase_stmt_affected_rows() 등의 함수를 호출할 수 있음을 의미한다.
+이 함수를 수행하면 altibase_stmt_execute()를 수행한 것과 같은 상태가 된다. 이는 altibase_stmt_bind_result(), altibase_stmt_affected_rows() 등의 함수를 호출할 수 있음을 의미한다.
 
 #### 예제
 
-```c
+```
 
 ```
 

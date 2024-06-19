@@ -165,6 +165,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [altibase_stmt_free_result()](#altibase_stmt_free_result)
   - [altibase_stmt_get_attr()](#altibase_stmt_get_attr)
   - [altibase_stmt_init()](#altibase_stmt_init)
+  - [altibase_stmt_next_result()](#altibase_stmt_next_result)
   - [altibase_stmt_num_rows()](#altibase_stmt_num_rows)
   - [altibase_stmt_param_count()](#altibase_stmt_param_count)
   - [altibase_stmt_prepare()](#altibase_stmt_prepare)
@@ -1544,6 +1545,40 @@ This function is used when executing multiple statements and then reading the ne
 
 After calling altibase_next_result(), the state of the connection is as if you had called altibase_query() for the next statement. This means that you can call altibase_store_result() and altibase_affected_rows().
 
+#### Example
+
+```c
+#define QSTR "EXEC PROC_RESULTSET"
+ 
+ALTIBASE       altibase;
+ALTIBASE_RES   result;
+int            num_fields;
+int            rc;
+ 
+/* ... omit ... */
+ 
+rc = altibase_query(altibase, QSTR);
+/* ... check return value ... */
+ 
+/* process each statement result */
+while (1)
+{
+  result = altibase_use_result(altibase);
+  /* ... check return value ... */
+ 
+  num_fields = altibase_field_count(altibase);
+  process_result_set(result, num_fields );
+  altibase_free_result(result);
+ 
+  if ((rc = altibase_next_result(altibase)) == ALTIBASE_NO_DATA)
+    break;
+  /* ... check return value ... */
+ 
+} while (rc != ALTIBASE_NO_DATA);
+ 
+altibase_close(altibase);
+```
+
 ### altibase_num_fields()
 
 altibase_num_fields() returns the number of columns in a result set.
@@ -2874,6 +2909,44 @@ if (! ALTIBASE_SUCCEEDE(rc))
 {
     /* ... error handling ... */
 }
+```
+
+### altibase_stmt_next_result()
+
+altibase_stmt_next_result() accesses the next result set.
+
+#### Syntax
+
+```
+int altibase_stmt_next_result ( ALTIBASE_STMT stmt );
+```
+
+#### Argument
+
+| Data Type     | Argument | In/Output | Description      |
+| :------------ | :------- | :-------- | :--------------- |
+| ALTIBASE_STMT | *stmt*   | Input     | Statement handle |
+
+#### Return Values
+
+| Return Value     | Description                                 |
+| :--------------- | :------------------------------------------ |
+| ALTIBASE_SUCCESS | Successful and there are more result sets   |
+| ALTIBASE_NO_DATA | Successful and there are no more result set |
+| ALTIBASE_ERROR   | An error occurred                           |
+
+#### Description
+
+This function is used to access the next result set when a command that returns multiple result sets has been executed using a prepared statement.
+
+If there is a previously retrieved result set, the result set must be freed using altibase_stmt_free_result() before calling altibase_stmt_next_result().
+
+Executing this function puts the statement in the same state as if altibase_stmt_execute() had been called. This means that functions such as altibase_stmt_bind_result() and altibase_stmt_affected_rows() can be invoked.
+
+#### Example
+
+```
+
 ```
 
 ### altibase_stmt_num_rows()
