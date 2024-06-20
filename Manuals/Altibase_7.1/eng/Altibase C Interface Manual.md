@@ -2939,9 +2939,9 @@ int altibase_stmt_next_result ( ALTIBASE_STMT stmt );
 
 This function is used to access the next result set when a command that returns multiple result sets has been executed using a prepared statement.
 
-If there is a previously retrieved result set, the result set must be freed using altibase_stmt_free_result() before calling altibase_stmt_next_result().
+Before each call to altibase_stmt_next_result(), the user must call altibase_stmt_free_result() for the current result if it produced a result set.
 
-Executing this function puts the statement in the same state as if altibase_stmt_execute() had been called. This means that functions such as altibase_stmt_bind_result() and altibase_stmt_affected_rows() can be invoked.
+After calling altibase_stmt_next_result(), the state of the connection is as if you had called altibase_stmt_execute() for the next statement. This means that you can call altibase_stmt_bind_result() and altibase_stmt_affected_rows().
 
 #### Example
 
