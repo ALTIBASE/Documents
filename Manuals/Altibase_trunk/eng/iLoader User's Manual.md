@@ -389,6 +389,7 @@ iloader [-h]
     [-port port_no] [-silent] [-nst] [-displayquery]
     [-NLS_USE nls_name]
     [-prefer_ipv6]
+    [-geom WKB]
     [-ssl_ca CA_file_path | -ssl_capath CA_dir_path]
     [-ssl_cert certificate_file_path]
     [-ssl_key key_file_path]
@@ -400,15 +401,18 @@ iloader [-h]
         [-t field_term] [-r row_term] [-mode mode_type]
         [-commit commit_unit] [-bad badfile]
         [-log logfile] [-e enclosing] [-array count]
-        [-replication {true | false}] [-split number]
+        [-replication true/false] [-split number]
         [-readsize size] [-errors count]
         [-lob lob_option_string] [-atomic]
-        [-parallel count] [-direct]
+        [-parallel count] [-direct [log|nolog]]
         [-rule csv]
         [-partition]
         [-dry-run]
         [-prefetch_rows]
-        [-async_prefetch off|on|auto]]
+        [-async_prefetch off|on|auto]
+        [-geom WKB]
+        [-lightmode]
+        [-verbose]]
 ```
 
 
@@ -459,6 +463,7 @@ iLoader is run with the following options. Where applicable, default values are 
 | \-split *n*                               | Specifies the number of records to copy to each file (only meaningful when used with the -out option). After the command is executed, multiple backup files, each storing a number of records equal to n and having the names datefile.dat0, datafile.dat1, etc... will have been created. |
 | \-errors *count*                          | This specifies the maximum number of allowable errors when iLoader is executed with the -in option. If the number of errors exceeds the number specified here, execution terminates. If this option is omitted, the default is 50. If this value is set to 0, execution continues regardless of the number of errors. The number of errors occurring during the uploading operation may exceed the number specified here. When this option is used in conjunction with the -parallel option, if the number of errors exceeds the specified value for one of multiple threads executing in parallel, all threads are terminated. |
 | \-partition                               | If the table specified using the -T option is a partitioned table, a number of FORM files equal to the number of partitions in the table will be generated. The name of each FORM file will have this structure: [formfile_name.partition_name]. If the specified table is not a partitioned table, one FORM file, named formfile_name, will be generated. |
+| -verbose                                  | This option records the column number where the error occurred in case of an upload error. However, it is not recorded if the column number cannot be determined.<br/>The column number is logged in the log file specified by the -log option. |
 
 -   If the -S, -U and -P command-line options are omitted, the user will be prompted to enter the values of these options manually at the time of execution.
 
@@ -1382,11 +1387,15 @@ Usage : { in | out | formout | structout | help }
         [-replication true/false] [-split number]
         [-readsize size] [-errors count]
         [-lob lob_option_string] [-atomic]
-        [-parallel count] [-direct]
+        [-parallel count] [-direct [log|nolog]]
         [-rule csv]
         [-partition]
         [-dry-run]
         [-prefetch_rows]
+        [-async_prefetch off|on|auto]
+        [-geom WKB]
+        [-lightmode]
+        [-verbose]
 iLoader> help help
 Ex) help [ in | out | formout | structout | exit | help ]
 
@@ -1412,6 +1421,12 @@ $ iloader help
                     [-port port_no] [-silent] [-nst] [-displayquery]
                     [-NLS_USE nls_name]
                     [-prefer_ipv6]
+                    [-geom WKB]
+                    [-ssl_ca CA_file_path | -ssl_capath CA_dir_path]
+                    [-ssl_cert certificate_file_path]
+                    [-ssl_key key_file_path]
+                    [-ssl_verify]
+                    [-ssl_cipher cipher_list]
                     [{ in | out | formout | structout | help }
                      [-d datafile or datafiles] [-f formatfile]
                      [-T table_name] [-F firstrow] [-L lastrow]
@@ -1421,11 +1436,15 @@ $ iloader help
                      [-replication true/false] [-split number]
                      [-readsize size] [-errors count]
                      [-lob lob_option_string] [-atomic]
-                     [-parallel count] [-direct]
+                     [-parallel count] [-direct [log|nolog]]
                      [-rule csv]
                      [-partition]
                      [-dry-run]
-                     [-prefetch_rows]]
+                     [-prefetch_rows]
+                     [-async_prefetch off|on|auto]
+                     [-geom WKB]
+                     [-lightmode]
+                     [-verbose]]
             -h            : This screen
             -s            : Specify server name to connect
             -u            : Specify user name to connect
@@ -1436,6 +1455,7 @@ $ iloader help
             -displayquery : display query string
             -NLS_USE      : Specify NLS
             -prefer_ipv6  : Prefer resolving server_name to IPv6 Address
+            -geom         : Specify geometry format such as WKB
             -ssl_ca       : The path to a CA certificate file
             -ssl_cpath    : The path to a directory that contains CA certificates
             -ssl_cert     : The path to the client certificate
