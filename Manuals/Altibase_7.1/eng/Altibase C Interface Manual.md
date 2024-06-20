@@ -1541,13 +1541,13 @@ int  altibase_next_result (
 
 #### Description
 
-This function is used when executing multiple statements and then reading the next statement result set. Before each call to altibase_next_result(), the user must call altibase_free_result() for the current statement if it is a statement that returned a result set. 
-
-After calling altibase_next_result(), the state of the connection is as if you had called altibase_query() for the next statement. This means that you can call altibase_store_result() and altibase_affected_rows().
+This function is used when users execute store procedures, which can return multiple result sets.
+Before each call to altibase_next_result(), users must call altibase_free_result() for the current statement if it is a statement that returned a result set. 
+After calling altibase_next_result(), the state of the connection is as if users had called altibase_query() for the next statement. This means that users can call altibase_store_result() and altibase_affected_rows().
 
 #### Example
 
-```c
+```
 #define QSTR "EXEC PROC_RESULTSET"
  
 ALTIBASE       altibase;
@@ -2939,14 +2939,42 @@ int altibase_stmt_next_result ( ALTIBASE_STMT stmt );
 
 This function is used to access the next result set when a command that returns multiple result sets has been executed using a prepared statement.
 
-Before each call to altibase_stmt_next_result(), the user must call altibase_stmt_free_result() for the current result if it produced a result set.
+Before each call to altibase_stmt_next_result(), users must call altibase_stmt_free_result() for the current result if it produced a result set.
 
-After calling altibase_stmt_next_result(), the state of the connection is as if you had called altibase_stmt_execute() for the next statement. This means that you can call altibase_stmt_bind_result() and altibase_stmt_affected_rows().
+After calling altibase_stmt_next_result(), the state of the connection is as if users had called altibase_stmt_execute() for the next statement. This means that users can call altibase_stmt_bind_result() and altibase_stmt_affected_rows().
 
 #### Example
 
 ```
-
+sRC = altibase_stmt_prepare(sStmt, "EXEC PROC_RESULTSET");
+/* ... omit ... */
+sRC = altibase_stmt_execute(sStmt);
+/* ... check return value ... */
+while (1)
+{
+    sFieldCount = altibase_stmt_field_count(sStmt);
+ 
+    sRC = altibase_stmt_bind_result(sStmt, bind);
+    /* ... check return value ... */
+ 
+    while ((sRC = altibase_stmt_fetch(sStmt)) != ALTIBASE_NO_DATA)
+    {
+        /* ... check return value ... */
+        for (i = 0; i < sFieldCount; i++)
+        {
+            /* ... omit ... */
+        }
+    }
+    sRC = altibase_stmt_free_result(sStmt);
+    /* ... check return value ... */
+    sRC = altibase_stmt_next_result(sStmt);
+     
+    if (sRC == ALTIBASE_NO_DATA)
+    {
+        break;
+    }
+    CDBC_TEST_RAISE(ALTIBASE_NOT_SUCCEEDED(sRC), stmt_error);
+}
 ```
 
 ### altibase_stmt_num_rows()
