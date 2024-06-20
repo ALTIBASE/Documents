@@ -1406,7 +1406,6 @@ $ iloader help
                      [-partition]
                      [-dry-run]
                      [-prefetch_rows]
-                     [-prefetch_rows]
                      [-async_prefetch off|on|auto]
                      [-geom WKB]
                      [-verbose]

@@ -1687,7 +1687,7 @@ $ iloader help
                      [-replication true/false] [-split number]
                      [-readsize size] [-errors count]
                      [-lob lob_option_string] [-atomic]
-                     [-parallel count] [-direct]
+                     [-parallel count] [-direct [log|nolog]]
                      [-rule csv]
                      [-partition]
                      [-dry-run]
