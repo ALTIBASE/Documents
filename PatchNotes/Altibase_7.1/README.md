@@ -1,6 +1,6 @@
 # Altibase 7.1 Patch Notes - Korean
 
-- #### Altibase 7.1.0.9.7 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/BUG-50959-Altibase-7.1.0.9.7-Patch-Notes/PatchNotes/Altibase_7.1/kor/Altibase_7_1_0_9_7_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/PDF/Altibase_7_1_0_9_7_Patch_Notes.pdf)
+- #### Altibase 7.1.0.9.7 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/Altibase_7_1_0_9_7_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/PDF/Altibase_7_1_0_9_7_Patch_Notes.pdf)
 
 - #### Altibase 7.1.0.9.6 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/Altibase_7_1_0_9_6_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/PDF/Altibase_7_1_0_9_6_Patch_Notes.pdf)
 
