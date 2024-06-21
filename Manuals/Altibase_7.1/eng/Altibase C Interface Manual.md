@@ -1516,7 +1516,7 @@ The results are aligned by using TABLE_TYPE, TABLE_CAT, TABLE_SCHEM and TABLE_NA
 
 ### altibase_next_result()
 
-altibase_next_result() moves the cursor position on the next statement result set to read.
+altibase_next_result() moves the cursor position on the next result set to read.
 
 #### Syntax
 
@@ -1575,7 +1575,7 @@ while (1)
     break;
   /* ... check return value ... */
  
-} while (rc != ALTIBASE_NO_DATA);
+}
  
 altibase_close(altibase);
 ```

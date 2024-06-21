@@ -1809,7 +1809,7 @@ while (1)
     break;
   /* ... check return value ... */
  
-} while (rc != ALTIBASE_NO_DATA);
+}
  
 altibase_close(altibase);
 ```
