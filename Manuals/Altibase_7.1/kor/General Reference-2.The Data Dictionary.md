@@ -2659,7 +2659,7 @@ SYS_TABLES_
 | PARALLEL_APPLIER_COUNT   | INTEGER     | 병렬 적용자(Applier)의 수                                    |
 | REMOTE_XSN               | BIGINT      | 원격 서버에서 가장 최근에 처리한 SN                          |
 | APPLIER_INIT_BUFFER_SIZE | BIGINT      | applier buffer 의 초기 사이즈                                |
-| PEER_REPLICATION_NAME    | VARCHAR(40) | 로컬 이중화한 원격 이중화 이름                               |
+| PEER_REPLICATION_NAME    | VARCHAR(40) | 내부 용도                               |
 | REMOTE_LAST_DDL_XSN      | BIGINT      | 원격 서버에서 가장 최근에 처리한 DDL SN                      |
 
 [<sup>13</sup>] SN(Sequence Number): 로그 레코드의 식별 번호
@@ -2735,9 +2735,9 @@ Log Analyzer 전용 이중화에 대한 자세한 내용은 Log Analyzer User's 
 - 2(00000010): 오프라인 옵션 사용
 - 4(00000100): 이중화 갭 해소 옵션 사용
 - 8(00001000): 병렬 적용자 옵션 사용
-- 16(00010000):이중화 트랜잭션 그룹 옵션 사용
-- 32(00100000):로컬 이중화 옵션 사용
-- 64(01000000):메타 로깅 옵션 사용
+- 16(00010000): 이중화 트랜잭션 그룹 옵션 사용
+- 32(00100000): 내부 용도
+- 64(01000000): 메타 로깅 옵션 사용
 
 ##### INVALID_RECOVERY
 
@@ -2775,10 +2775,6 @@ Log Analyzer 전용 이중화에 대한 자세한 내용은 Log Analyzer User's 
 ```
 
 만약 병렬 적용자 큐의 수가 프로퍼티 REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE 값보다 작다면 병렬 적용자 큐의 수는 프로퍼티 REPLICATION_RECEIVER_APPLIER_QUEUE_SIZE에 지정된 값으로 설정된다.
-
-##### PEER_REPLICATION_NAME
-
-로컬 이중화 옵션을 사용했을 때 원격 이중화의 이름이다.
 
 ##### REMOTE_LAST_DDL_XSN
 
@@ -5877,28 +5873,29 @@ SYS_TABLES\_ 설명의 해당하는 칼럼 정보를 참조한다.
 
 디스크 BTREE 인덱스의 헤더 정보를 보여준다.
 
-| Column name                | Type      | Description                                                  |
-| -------------------------- | --------- | ------------------------------------------------------------ |
-| INDEX_NAME                 | CHAR(128) | 인덱스 이름                                                  |
-| INDEX_ID                   | INTEGER   | 인덱스 식별자                                                |
-| INDEX_TBS_ID               | INTEGER   | 인덱스가 저장되어 있는 테이블스페이스 식별자                 |
-| TABLE_TBS_ID               | INTEGER   | 테이블이 저장되어 있는 테이블스페이스 식별자                 |
-| IS_UNIQUE                  | CHAR(1)   | 유일 키 인덱스인지 여부                                      |
-| COLLENINFO_LIST            | CHAR(64)  | 인덱스 값들의 사이즈 목록                                    |
-| IS_CONSISTENT              | CHAR(1)   | 인덱스의 일관성 여부                                         |
-| IS_CREATED_WITH_LOGGING    | CHAR(1)   | 인덱스 생성시 LOGGING 옵션 지정 여부                         |
-| IS_CREATED_WITH_FORCE      | CHAR(1)   | 인덱스 생성시 NOLOGGING FORCE또는 NOLOGGING NOFORCE 옵션 지정 여부 |
-| COMPLETION_LSN_LFG_ID      | INTEGER   | 사용하지 않음(0)                                             |
-| COMPLETION_LSN_FILE_NO     | INTEGER   | 인덱스 생성 시점의 로그 파일 번호                            |
-| COMPLETION_LSN_FILE_OFFSET | INTEGER   | 인덱스 생성 시점의 로그 파일 오프셋                          |
-| INIT_TRANS                 | SMALLINT  | 하나의 인덱스 노드에서 동시 처리 가능한 초기 트랜잭션 개수   |
-| MAX_TRANS                  | SMALLINT  | 하나의 인덱스 노드에서 동시 처리 가능한 최대 트랜잭션 개수   |
-| FREE_NODE_HEAD             | INTEGER   | 프리 노드의 첫번째 페이지의 ID                               |
-| FREE_NODE_CNT              | BIGINT    | 프리 노드 리스트 내의 페이지 개수                            |
-| INITEXTENTS                | INTEGER   | 인덱스 생성시 초기 익스텐트 개수                             |
-| NEXTEXTENTS                | INTEGER   | 인덱스 사이즈 확장시 할당할 익스텐트 개수                    |
-| MINEXTENTS                 | INTEGER   | 인덱스 세그먼트의 최소 익스텐트 개수                         |
-| MAXEXTENTS                 | INTEGER   | 인덱스 세그먼트의 최대 익스텐트 개수                         |
+| Column name                | Type        | Description                                                  |
+| -------------------------- | ----------- | ------------------------------------------------------------ |
+| INDEX_NAME                 | CHAR(128)   | 인덱스 이름                                                  |
+| INDEX_ID                   | INTEGER     | 인덱스 식별자                                                |
+| INDEX_STATUS               | VARCHAR(11) | 인덱스의 빌드 상태                                           |
+| INDEX_TBS_ID               | INTEGER     | 인덱스가 저장되어 있는 테이블스페이스 식별자                 |
+| TABLE_TBS_ID               | INTEGER     | 테이블이 저장되어 있는 테이블스페이스 식별자                 |
+| IS_UNIQUE                  | CHAR(1)     | 유일 키 인덱스인지 여부                                      |
+| COLLENINFO_LIST            | CHAR(64)    | 인덱스 값들의 사이즈 목록                                    |
+| IS_CONSISTENT              | CHAR(1)     | 인덱스의 일관성 여부                                         |
+| IS_CREATED_WITH_LOGGING    | CHAR(1)     | 인덱스 생성시 LOGGING 옵션 지정 여부                         |
+| IS_CREATED_WITH_FORCE      | CHAR(1)     | 인덱스 생성시 NOLOGGING FORCE또는 NOLOGGING NOFORCE 옵션 지정 여부 |
+| COMPLETION_LSN_LFG_ID      | INTEGER     | 사용하지 않음(0)                                             |
+| COMPLETION_LSN_FILE_NO     | INTEGER     | 인덱스 생성 시점의 로그 파일 번호                            |
+| COMPLETION_LSN_FILE_OFFSET | INTEGER     | 인덱스 생성 시점의 로그 파일 오프셋                          |
+| INIT_TRANS                 | SMALLINT    | 하나의 인덱스 노드에서 동시 처리 가능한 초기 트랜잭션 개수   |
+| MAX_TRANS                  | SMALLINT    | 하나의 인덱스 노드에서 동시 처리 가능한 최대 트랜잭션 개수   |
+| FREE_NODE_HEAD             | INTEGER     | 프리 노드의 첫번째 페이지의 ID                               |
+| FREE_NODE_CNT              | BIGINT      | 프리 노드 리스트 내의 페이지 개수                            |
+| INITEXTENTS                | INTEGER     | 인덱스 생성시 초기 익스텐트 개수                             |
+| NEXTEXTENTS                | INTEGER     | 인덱스 사이즈 확장시 할당할 익스텐트 개수                    |
+| MINEXTENTS                 | INTEGER     | 인덱스 세그먼트의 최소 익스텐트 개수                         |
+| MAXEXTENTS                 | INTEGER     | 인덱스 세그먼트의 최대 익스텐트 개수                         |
 
 #### 칼럼 정보
 
@@ -5909,6 +5906,20 @@ SYS_TABLES\_ 설명의 해당하는 칼럼 정보를 참조한다.
 ##### INDEX_ID
 
 해당 인덱스가 갖는 시스템 내에서 고유한 식별자이다.
+
+##### INDEX_STATUS
+
+인덱스의 빌드 상태를 출력한다. 아래의 값들 중 하나가 표시된다.
+
+- ENABLE: 인덱스를 정상적으로 사용 가능한 상태 
+
+- DISABLE: 인덱스가 DISABLE 되어 인덱스를 사용할수 없는 상태
+
+- TBS_OFFLINE: 인덱스 혹은 테이블이 저장되어 있는 테이블스페이스가 OFFLINE되어 인덱스를 사용할 수 없는 상태
+
+- NOT_REBUILD: 인덱스가 재구축되지 않은 상태 
+
+- UNKNOWN: 비정상적인 상황
 
 ##### INDEX_TBS_ID
 
@@ -7295,11 +7306,13 @@ Prepare-Execute할 때 한번 Prepare된 statement는 구문분석 (Parsing), �
 메모리 BTREE의 헤더 정보를 보여준다.
 
 | Column name        | Type         | Description                                  |
-|--------------------|--------------|----------------------------------------------|
+| ------------------ | ------------ | -------------------------------------------- |
 | INDEX_NAME         | VARCHAR(128) | 인덱스 이름                                  |
 | INDEX_ID           | INTEGER      | 인덱스 식별자                                |
+| INDEX_STATUS       | VARCHAR(11)  | 인덱스의 빌드 상태                           |
 | INDEX_TBS_ID       | INTEGER      | 인덱스가 저장되어 있는 테이블스페이스 식별자 |
 | TABLE_TBS_ID       | INTEGER      | 테이블이 저장되어 있는 테이블스페이스 식별자 |
+| IS_CONSISTENT      | CHAR(1)      | 인덱스의 일관성 여부                         |
 | IS_UNIQUE          | CHAR(1)      | 유일 키 인덱스 여부                          |
 | IS_NOT_NULL        | CHAR(1)      | 널 (NULL) 허용 여부                          |
 | USED_NODE_COUNT    | INTEGER      | 인덱스가 사용중인 노드의 개수                |
@@ -7316,6 +7329,20 @@ Prepare-Execute할 때 한번 Prepare된 statement는 구문분석 (Parsing), �
 
 해당 인덱스가 갖는 시스템 내에서 고유한 식별자이다.
 
+##### INDEX_STATUS
+
+인덱스의 빌드 상태를 출력한다. 아래의 값들 중 하나가 표시된다.
+
+- ENABLE: 인덱스를 정상적으로 사용 가능한 상태 
+
+- DISABLE: 인덱스가 DISABLE 되어 인덱스를 사용할수 없는 상태
+
+- TBS_OFFLINE: 인덱스 혹은 테이블이 저장되어 있는 테이블스페이스가 OFFLINE되어 인덱스를 사용할 수 없는 상태
+
+- NOT_REBUILD: 인덱스가 재구축되지 않은 상태 
+
+- UNKNOWN: 비정상적인 상황
+
 ##### INDEX_TBS_ID
 
 인덱스가 저장되어 있는 테이블스페이스 식별자이다.
@@ -7323,6 +7350,10 @@ Prepare-Execute할 때 한번 Prepare된 statement는 구문분석 (Parsing), �
 ##### TABLE_TBS_ID
 
 해당 인덱스가 생성된 테이블이 저장되어 있는 테이블스페이스 식별자이다.
+
+##### IS_CONSISTENT
+
+인덱스의 일관성 여부를 나타낸다. 일반적인 경우에는 ‘T’를 가지며, 인덱스가 비정상적으로 구성되어 있는 경우는 ‘F’를 갖는다.
 
 ##### IS_UNIQUE
 
@@ -8653,7 +8684,7 @@ Sender에게 ACK을 보내는 데 걸린 시간의 누적 값이다.
 
 지역서버의 이중화 구동시에 명시한 구동 옵션이다. 다음 값들을 가질 수 있다.
 
--   : 0
+-   NORMAL: 0
 
 -   QUICK: 1
 

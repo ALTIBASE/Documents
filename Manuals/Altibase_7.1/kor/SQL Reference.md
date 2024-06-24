@@ -1,5 +1,4 @@
-SQL Reference
-================
+# SQL Reference
 
 #### Altibase 7.1
 
@@ -45,11 +44,24 @@ Altibase® Application Development
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- PDF 변환을 위한 여백입니다. --> 
 
 <div align="left">
     <img src="media/common/e5cfb3761673686d093a3b00c062fe7a.png">
 </div>
+
 <br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
 
@@ -8441,7 +8453,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
   인덱스로 설정한다.
 
   ```
-  iSQL> CREATE TABLE tab1 (id UNIQUE DIRECTKEY );
+  iSQL> CREATE TABLE tab1 (id INTEGER UNIQUE DIRECTKEY );
   Create success.
   ```
 
@@ -12154,7 +12166,7 @@ COUNT
 1 row selected.
 ```
 
-##### Returing 절을 사용한 삭제
+##### Returning 절을 사용한 삭제
 
 \<질의\> 삭제된 행의 값을 출력 바인드 변수인 :v1, :v2로 반환하도록 한다.
 
@@ -12423,7 +12435,7 @@ FROM employees;
 
 
 
-##### Returing 절을 사용한 입력
+##### Returning 절을 사용한 입력
 
 \<질의\> 다음 예제는 입력된 행의 값을 출력 바인드 변수 :v1, :v2로 반환한다.
 
@@ -13664,7 +13676,7 @@ SELECT * FROM T1 WHERE i1 NOT IN ( SELECT i1 FROM T2 );
 ##### 예제
 
 위에서 설명한 각 조인의 실행 결과를 보여주기 위해 employee와 dept 테이블을
-생생한다.
+생성한다.
 
 ```
 CREATE TABLE employee(name VARCHAR(10), empid INTEGER, deptname VARCHAR(20));
@@ -15345,7 +15357,7 @@ Wei-Wei                0           manager
 
 
 
-##### Returing 절을 사용한 갱신
+##### Returning 절을 사용한 갱신
 
 \<질의\> 다음 예제는 갱신된 행의 값을 출력 바인드 변수 :v1, :v2로 반환한다.
 

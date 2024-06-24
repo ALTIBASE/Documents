@@ -336,15 +336,15 @@ This chapter introduces new features available for Altibase version 7.1.0.0.6.
 
 ### Improved Features
 
-#### Mitigation Replication Constraints and SQL Reflection Mode 
+#### Mitigation Replication Constraints and SQL Apply Mode 
 
 Replication is supported even if the column type, primary key, and NOT NULL constraint of the table to be replicated on both servers are not the same. 
 
-SQL Reflection Moe : When meta information of local server and remote server is different, this mode is converted to SQL and reflected to the remote server that receives XLog. When the value of the REPLICATION_SQL_APPLY_ENABLE property of the receiver is 1, in the LAZY mode, a table without a security column can be used as the SQL reflection mode.
+SQL Reflection Moe : When meta information of local server and remote server is different, this mode is converted to SQL and reflected to the remote server that receives XLog. When the value of the REPLICATION_SQL_APPLY_ENABLE property of the receiver is 1, in the LAZY mode, a table without a security column can be used as the SQL apply mode.
 
 Please refer to the manual below for more information.
 
--   *Replication \> Chapter 3. Using Replicaiton \> Replication Constraint, SQL Reflection Mode*
+-   *Replication \> Chapter 3. Using Replication \> Replication Constraint, SQL Apply Mode*
 
 -   *jdbcAdapter \> 3. Usage Instruction \> jdbcAdapter Constraints*
 

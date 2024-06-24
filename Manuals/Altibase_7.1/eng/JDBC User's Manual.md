@@ -1723,7 +1723,7 @@ The CTF feature can be used by adding the following properties to the Properties
 
 ```
 Properties sProps = new Properties();
-sProps.put("alternateservers", "database1:20300, database2:20300");
+sProps.put("alternateservers", "(database1:20300, database2:20300)");
 sProps.put("connectionretrycount", "5");
 sProps.put("connectionretrydelay", "2");
 sProps.put("sessionfailover", "off");

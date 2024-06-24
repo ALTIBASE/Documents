@@ -174,6 +174,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [altibase_stmt_free_result()](#altibase_stmt_free_result)
   - [altibase_stmt_get_attr()](#altibase_stmt_get_attr)
   - [altibase_stmt_init()](#altibase_stmt_init)
+  - [altibase_stmt_next_result()](#altibase_stmt_next_result)
   - [altibase_stmt_num_rows()](#altibase_stmt_num_rows)
   - [altibase_stmt_param_count()](#altibase_stmt_param_count)
   - [altibase_stmt_prepare()](#altibase_stmt_prepare)
@@ -713,8 +714,7 @@ VARBIT, GEOMETRY 타입의 칼럼 값은 바이너리로 표현되며, 그 외�
 이는 데이터가 널로 끝나는 문자열임을 나타내기 위해 사용되는 매크로이다. 문자열을
 입력 바인딩할 때, 데이터 길이를 실제 길이 대신에 이 값으로 설정할 수 있다.
 
-바이너리 데이터를 입력 바인딩 할 때는, 데이터 길이를 ALTIBASE_NTS로 설정하면
-안된다.
+문자형이 아닌 바이너리형 데이터를 입력 바인딩할 때 데이터 길이(length)를 ALTIBASE_NTS로 설정하면, [버퍼 길이(buffer_length)](#struct-ALTIBASE_BIND)에 설정한 값이 데이터의 길이로 사용된다.
 
 ##### enum ALTIBASE_BIND_TYPE
 
@@ -1775,15 +1775,44 @@ int  altibase_next_result (
 
 #### 설명
 
-이 함수는 이전에 여러 결과 집합을 가져오는 명령을 수행한 경우, 다음 결과 집합에
-접근하기 위해 사용된다.
+이 함수는 이전에 여러 결과 집합을 반환하는 저장 프로시저를 수행한 경우, 다음 결과 집합에 접근하기 위해 사용한다.
 
-이전에 가져온 결과 집합이 있다면, altibase_next_result()를 호출하기 전에
-altibase_free_result()로 그 결과 집합을 먼저 해제해야 한다.
+이전에 가져온 결과 집합이 있다면, altibase_next_result()를 호출하기 전에 altibase_free_result()로 그 결과 집합을 먼저 해제해야 한다.
 
-이 함수 수행 후에는 altibase_query()를 사용해서 그 다음 구문을 수행한 것과 같은
-상황이 된다. 이는 altibase_store_result(), altibase_affected_rows() 등의 함수를
-호출할 수 있음을 의미한다.
+이 함수를 수행하면 altibase_query()를 수행한 것과 같은 상태가 된다. 이는 altibase_store_result(), altibase_affected_rows() 등의 함수를 호출할 수 있음을 의미한다.
+
+#### 예제
+
+```
+#define QSTR "EXEC PROC_RESULTSET"
+ 
+ALTIBASE       altibase;
+ALTIBASE_RES   result;
+int            num_fields;
+int            rc;
+ 
+/* ... omit ... */
+ 
+rc = altibase_query(altibase, QSTR);
+/* ... check return value ... */
+ 
+while (1)
+{
+  result = altibase_use_result(altibase);
+  /* ... check return value ... */
+ 
+  num_fields = altibase_field_count(altibase);
+  process_result_set(result, num_fields );
+  altibase_free_result(result);
+ 
+  if ((rc = altibase_next_result(altibase)) == ALTIBASE_NO_DATA)
+    break;
+  /* ... check return value ... */
+ 
+}
+ 
+altibase_close(altibase);
+```
 
 ### altibase_num_fields()
 
@@ -3272,6 +3301,72 @@ rc = altibase_stmt_close(stmt);
 if (! ALTIBASE_SUCCEEDE(rc))
 {
     /* ... error handling ... */
+}
+```
+
+### altibase_stmt_next_result()
+
+다음 결과 집합에 접근하기 위해 사용되는 함수이다.
+
+#### 구문
+
+```
+int altibase_stmt_next_result ( ALTIBASE_STMT stmt );
+```
+
+#### 인자
+
+| 자료유형      | 인자   | 입/출력 | 설명        |
+| :------------ | :----- | :------ | :---------- |
+| ALTIBASE_STMT | *stmt* | 입력    | 명령문 핸들 |
+
+#### 반환값
+
+| 반환값           | 설명                           |
+| :--------------- | :----------------------------- |
+| ALTIBASE_SUCCESS | 다음 결과 집합이 존재함        |
+| ALTIBASE_NO_DATA | 다음 결과 집합이 존재하지 않음 |
+| ALTIBASE_ERROR   | 에러 발생                      |
+
+#### 설명
+
+이 함수는 이전에 준비된 문장(prepared statement)을 사용하여 여러 결과 집합을 가져오는 명령을 수행한 경우, 다음 결과 집합에 접근하기 위해 사용한다.
+
+이전에 가져온 결과 집합이 있다면, altibase_stmt_next_result()를 호출하기 전에 altibase_stmt_free_result()로 그 결과 집합을 먼저 해제해야 한다.
+
+이 함수를 수행하면 altibase_stmt_execute()를 수행한 것과 같은 상태가 된다. 이는 altibase_stmt_bind_result(), altibase_stmt_affected_rows() 등의 함수를 호출할 수 있음을 의미한다.
+
+#### 예제
+
+```
+sRC = altibase_stmt_prepare(sStmt, "EXEC PROC_RESULTSET");
+/* ... omit ... */
+sRC = altibase_stmt_execute(sStmt);
+/* ... check return value ... */
+while (1)
+{
+    sFieldCount = altibase_stmt_field_count(sStmt);
+ 
+    sRC = altibase_stmt_bind_result(sStmt, bind);
+    /* ... check return value ... */
+ 
+    while ((sRC = altibase_stmt_fetch(sStmt)) != ALTIBASE_NO_DATA)
+    {
+        /* ... check return value ... */
+        for (i = 0; i < sFieldCount; i++)
+        {
+            /* ... omit ... */
+        }
+    }
+    sRC = altibase_stmt_free_result(sStmt);
+    /* ... check return value ... */
+    sRC = altibase_stmt_next_result(sStmt);
+     
+    if (sRC == ALTIBASE_NO_DATA)
+    {
+        break;
+    }
+    CDBC_TEST_RAISE(ALTIBASE_NOT_SUCCEEDED(sRC), stmt_error);
 }
 ```
 

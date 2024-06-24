@@ -475,7 +475,7 @@ Suppose that proc1 contains the commands “Insert Into t1 values (3)” and “
 
 ####  Limitations
 
-COMMIT and ROLLBACK commands can be executed while the cursor is OPEN. However, the user should note that if ROLLBACK is executed while the cursor is OPEN and not yet COMMITTED, the cursor will close.
+COMMIT and ROLLBACK commands can be executed while the cursor is OPEN.
 
 Stored functions that are called from within SELECT statements cannot contain INSERT, UPDATE, or DELETE statements.
 
@@ -1176,7 +1176,7 @@ T1.I1       T1.I2       T1.I3
 
 #### Syntax
 
-![drop_procedure](media/StoredProcedure/drop_procedure.gif)
+![drop_procedure](media/StoredProcedure/drop_procedure.png)
 
 #### Purpose
 
@@ -1185,6 +1185,10 @@ This statement removes a stored procedure from the database.
 Note that this statement will execute successfully even if there are other stored procedures or stored functions that reference the procedure to be dropped.
 
 When a stored procedure or stored function attempts to call a stored procedure or stored function that has already been dropped, an error is returned.
+
+##### IF EXISTS
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the stored procedure does not exist.
 
 #### Example
 
@@ -1658,7 +1662,7 @@ ALTER FUNCTION get_dept_name COMPILE;
 
 #### Syntax
 
-![drop_function_statement](media/StoredProcedure/drop_function_statement.gif)
+![drop_function_statement](media/StoredProcedure/drop_function.png)
 
 #### Purpose
 
@@ -1667,6 +1671,10 @@ This statement removes a stored function from the database.
 Note that this statement will execute successfully even if there are other stored procedures or stored functions that reference the stored function to be dropped.
 
 When a stored procedure or stored function attempts to call a stored procedure or stored function that has already been dropped, an error is returned.
+
+##### IF EXISTS
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the stored function does not exist.
 
 #### Example
 
@@ -6137,7 +6145,7 @@ Execute success.
 
 #### Syntax
 
-![drop_typeset](media/StoredProcedure/drop_typeset.gif)
+![drop_typeset](media/StoredProcedure/drop_typeset.png)
 
 #### Prerequisites
 
@@ -6146,6 +6154,10 @@ Only the SYS user, the owner of the typeset to be dropped, and users having the 
 #### Description
 
 This statement is used to remove the specified typeset. Once the typeset has been removed, any stored procedures that use the typeset will be invalid.
+
+##### IF EXISTS
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the typeset does not exist.
 
 ##### user_name
 
@@ -7646,11 +7658,15 @@ Alter success.
 
 ##### drop_package ::=
 
-![drop_package](media/StoredProcedure/drop_package.gif)
+![drop_package](media/StoredProcedure/drop_package.png)
 
 #### Purpose
 
 This statement drops the package. This statement can selectively drop only the package body or the whole package.
+
+##### IF EXISTS
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the package body or the whole package does not exist.
 
 #### Examples
 
@@ -11644,7 +11660,7 @@ DBMS_METADATA.SET_TRANSFORM_PARAM (
 
 | Object Type                    | Name               | Description                                                  | Default |
 | ------------------------------ | ------------------ | ------------------------------------------------------------ | ------- |
-| 모든 객체                      | SQLTERMINATOR      | Specifies whether to append an SQL terminator to the DDL statement. <br /> T: appends an SQL terminator <br/> F: does not append an SQL terminator | F       |
+| ALL                            | SQLTERMINATOR      | Specifies whether to append an SQL terminator to the DDL statement. <br /> T: appends an SQL terminator <br/> F: does not append an SQL terminator | F       |
 | TABLE<br/>INDEX<br/>CONSTRAINT | SEGMENT_ATTRIBUTES | Specifies whether segment attributes (physical attributes, storage clause, tablespace, logging) are included. <br /> T: With <br/> F: Without | T       |
 |                                | STORAGE            | pecifies whether or not to include.<br />T: With<br/>F: Without | T       |
 |                                | TABLESPACE         | Specifies whether the storage clause is included. <br /> T: With <br/> F: Without | T       |

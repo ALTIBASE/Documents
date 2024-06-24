@@ -9732,7 +9732,7 @@ SQLLEN sClobLength;
 SQLCHAR *sQuery = (SQLCHAR *)”INSERT INTO T1 VALUES(?, ?)”;
 SQLPrepare(stmt, sQuery, SQL_NTS);
 
-SQLBindParameter(stmt, 1, SQL_C_BINARY, SQL_BLOB,0, 0, sBlobData, sizeof(sBlobData), sBlobLength);
+SQLBindParameter(stmt, 1, SQL_C_BINARY, SQL_BLOB,0, 0, sBlobData, sizeof(sBlobData), &sBlobLength);
 SQLBindParameter(stmt, 2, SQL_C_CHAR, SQL_CLOB,0, 0, sClobData, sizeof(sClobData), &sClobLength);
 sBlobLength = create_blob_data(sBlobData);
 sprintf((char *)sClobData, “this is clob data”);

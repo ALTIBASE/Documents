@@ -105,6 +105,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 # Table Of Contents
 
 - [Preface](#preface)
+  - [About This Manual](#about-this-manual)
 - [1. Introduction](#1-introduction)
   - [Hybrid DBMS Concept](#hybrid-dbms-concept)
   - [Altibase Features](#altibase-features)
@@ -198,19 +199,19 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 Preface
 ====
 
-- ### About This Manual
+### About This Manual
 
-  This manual explains the concepts, components, and basic use of Altibase.
+This manual explains the concepts, components, and basic use of Altibase.
 
-  #### Audience
+#### Audience
 
-  This manual has been prepared for the following Altibase users:
+This manual has been prepared for the following Altibase users:
 
-  - Database managers
-  - Performance managers
-  - Database users
-  - Application developers
-  - Technical support engineers
+- Database managers
+- Performance managers
+- Database users
+- Application developers
+- Technical support engineers
 
 It is recommended for those reading this manual possess the following background knowledge: 
 

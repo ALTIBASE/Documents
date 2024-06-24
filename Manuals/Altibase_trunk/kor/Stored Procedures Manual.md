@@ -1312,7 +1312,7 @@ T1.I1       T1.I2       T1.I3
 
 #### 구문
 
-![drop_procedure](media/StoredProcedure/drop_procedure.gif)
+![drop_procedure](media/StoredProcedure/drop_procedure.png)
 
 #### 기능
 
@@ -1322,6 +1322,10 @@ T1.I1       T1.I2       T1.I3
 프로시저는 삭제된다.
 
 삭제되고 없는 저장 프로시저나 함수가 호출될 때 Altibase는 오류 코드를 반환한다.
+
+##### IF EXISTS
+
+IF EXISTS 절을 명시하면 저장 프로시저가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 #### 예제
 
@@ -1808,7 +1812,7 @@ ALTER FUNCTION get_dept_name COMPILE;
 
 #### 구문
 
-![drop_function_statement](media/StoredProcedure/drop_function_statement.gif)
+![drop_function_statement](media/StoredProcedure/drop_function.png)
 
 #### 기능
 
@@ -1819,6 +1823,10 @@ ALTER FUNCTION get_dept_name COMPILE;
 
 이미 삭제된 저장 함수를 참조하고 있던 임의의 저장 프로시저 또는 저장 함수가
 실행될 때 Altibase는 오류를 출력한다.
+
+##### IF EXISTS
+
+IF EXISTS 절을 명시하면 저장 함수가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 #### 예제
 
@@ -6899,7 +6907,7 @@ Execute success.
 
 #### 구문
 
-![drop_typeset](media/StoredProcedure/drop_typeset.gif)
+![drop_typeset](media/StoredProcedure/drop_typeset.png)
 
 #### 전제 조건
 
@@ -6910,6 +6918,10 @@ SYS 사용자이거나 객체의 생성자 또는 DROP ANY PROCEDURE 시스템 �
 
 명시된 타입 세트를 제거한다. 제거된 타입 세트를 사용하던 저장 프로시저는
 유효하지 않은(Invalid) 상태가 된다.
+
+##### IF EXISTS
+
+IF EXISTS 절을 명시하면 타입 세트가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 ##### user_name
 
@@ -8570,12 +8582,16 @@ Alter success.
 
 ##### drop_package ::=
 
-![drop_package](media/StoredProcedure/drop_package.gif)
+![drop_package](media/StoredProcedure/drop_package.png)
 
 #### 기능
 
 패키지를 삭제하는 구문이다. 이 구문으로 패키지 바디만 선택적으로 삭제하거나
 패키지 전체를 삭제할 수 있다.
+
+##### IF EXISTS
+
+IF EXISTS 절을 명시하면 패키지 전체 또는 패키지 바디가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 #### 예제
 

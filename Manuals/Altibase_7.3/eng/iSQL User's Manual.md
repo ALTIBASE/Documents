@@ -128,7 +128,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Creating, Executing, and Dropping Stored Procedures](#creating-executing-and-dropping-stored-procedures)
   - [Creating, Executing ,and Dropping Functions](#creating-executing-and-dropping-functions)
   - [Convenient User Functions](#convenient-user-functions)
-  - [Using National Character Sets](#using-national-character-sets)d
+  - [Using National Character Sets](#using-national-character-sets)
 
 
 
@@ -346,7 +346,7 @@ isql
 - -S *server_name*
   This option specifies the name (or IP address) of a computer on which Altibase Server is running. 
   
-  If connection is attempted while the ISQL CONNECTION environment variable is set to IPC or UNIX, and the remote server is specified for this option, iSQL ignores the ISQL CONNECTION specification and connects to the remote server via TCP, and outputs a warning message that the ISQL CONNECTION specification has been ignored. It can be a host name, an IPv4 address, or an IPv6 address. An IPv6 address must be enclosed by a left square bracket([) and a right square bracket(]). For example, in the case of localhost (meaning this computer), localhost can be specified as the host name, 127.0.0.1 as the IPv4 address, or [::1] as the IPv6 address.
+  If connection is attempted while the ISQL_CONNECTION environment variable is set to IPC or UNIX, and the remote server is specified for this option, iSQL ignores the ISQL_CONNECTION specification and connects to the remote server via TCP, and outputs a warning message that the ISQL_CONNECTION specification has been ignored. It can be a host name, an IPv4 address, or an IPv6 address. An IPv6 address must be enclosed by a left square bracket([) and a right square bracket(]). For example, in the case of localhost (meaning this computer), localhost can be specified as the host name, 127.0.0.1 as the IPv4 address, or [::1] as the IPv6 address.
   
   For more information about the IPv6 address notation, please refer to the *Altibase Administrator's Manual.*
   
@@ -887,7 +887,7 @@ Note: Setting this variable to 1 can be expensive in terms of usage of client re
 
 #### ISQL_CONNECTION
 
-When Altibase is operated with a client-server arrangement, the user can select the client-server protocol that is suitable for the operating environment by setting environment variables. Altibase supports the TCP/IP, IPC, IPCDA, and Unix domain SSL socket protocols. The default protocol for communication with Altibase servers is TCP/IP. 
+When Altibase is operated with a client-server arrangement, the user can select the client-server protocol that is suitable for the operating environment by setting environment variables. Altibase supports the TCP/IP, IPC, IPCDA, Unix domain socket, SSL/TLS protocol, and Infiniband. The default protocol for communication with Altibase servers is TCP/IP. 
 
 - TCP
 - UNIX
@@ -916,8 +916,6 @@ CSH: setenv ISQL_BUFFER_SIZE 128000
 SH: ISQL_BUFFER_SIZE = 128000; export ISQL_BUFFER_SIZE
 ```
 
-
-
 #### ALTIBASE_DATE_FORMAT
 
 When retrieving Date type data using a SELECT statement, the environment variable ALTIBASE_DATE_FORMAT can be used to change the default date format, which is YYYY/MM/DD HH:MI:SS, to some other date format.
@@ -928,8 +926,6 @@ Ex) For Born, Korn, or Bash Shell
 export ALTIBASE_DATE_FORMAT=’DD-MON-YYYY’
 ```
 
-
-
 #### ISQL_EDITOR
 
 This environment variable can be used to change the default editor (Ex: /bin/vi ). 
@@ -938,8 +934,6 @@ This environment variable can be used to change the default editor (Ex: /bin/vi 
 CSH: setenv ISQL_EDITOR /usr/bin/ed
 SH: ISQL_EDITOR=/usr/bin/ed; export ISQL_EDITOR
 ```
-
-
 
 #### ALTIBASE_IPC_FILEPATH
 
@@ -954,6 +948,59 @@ In a Unix environment, if a client and the server have different values for ALTI
 This environment variable sets the time zone of the client. If DB_TZ is specified for this option, the time zone is defaulted to that of the database server. 
 
 This environment variable can be set with time zone names like Asia/Seoul, abbreviations such as KST and UTC offset values as +09:00 are valid for specification.
+
+#### ALTIBASE_UT_FILE_PERMISSION
+
+This common environment variable sets the permission for files created by aexport, iLoader, and iSQL.
+
+If users do not specifiy this value, it is automatically set to 666 ( user:rw, group:rw, other: rw).
+
+Example) 
+
+Desired Permission Setting: user:rw, group:--, other:-- 
+
+```
+export ALTIBASE_UT_FILE_PERMISSION=600
+```
+
+If ISQL_FILE_PERMISSION, AEXPORT_FILE_PERMISSION, or ILO_FILE_PERMISSION is set in advance, these properties take precedence over ALTIBASE_UT_FILE_PERMISSION. 
+
+Example)
+
+```
+export ALTIBASE_UT_FILE_PERMISSION=660;
+export ISQL_FILE_PERMISSION=600; 
+```
+
+In the example, the permission setting for files generated in iSQL adheres to the ISQL_FILE_PERMISSION=600, which grants only the user read and write permissions (user:rw, group:--, other:--). Note that the permission settings for files generated in aexport and iLoader still follow the ALTIBASE_UT_FILE_PERMISSION.
+
+#### ISQL_FILE_PERMISSION
+
+This environment variable sets the permission for files created by iSQL. If users do not specify this value, it is automatically set to 666(user:rw, group:rw, other: rw).
+
+Example)
+
+Desired Permission Setting: user:rw, group:--, other:--
+
+```
+export ISQL_FILE_PERMISSION=600
+```
+
+#### ISQL_SECURE_LOGIN_MSG
+
+To reinforce security, this environment variable sets whether a detailed reason for login failure is displayed or not when users try logging in with the wrong user ID or password on iSQL. If users do not specify this value, it is automatically set to 0.
+
+- 1: Error message "Invalid UserID or Password" is displayed.
+
+- 0 or do not set this value: The specific reason for login failure is displayed.
+
+- Example
+
+  ```
+  export ISQL_SECURE_LOGIN_MSG=1
+  
+  export ISQL_SECURE_LOGIN_MSG=0
+  ```
 
 
 

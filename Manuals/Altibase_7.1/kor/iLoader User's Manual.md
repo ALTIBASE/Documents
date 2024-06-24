@@ -539,13 +539,13 @@ Altibase는 다음의 옵션들을 기본적으로 사용해 iLoader를 수행�
 | in \| out \| formout \| structout \| help | 자료 복사의 방향을 지시 (반드시 한가지만 입력) in : 파일에서 데이터베이스 테이블로 복사 out : 데이터베이스 테이블에서 파일로 복사 formout: 테이블의 포맷(format) 파일을 만들 때 사용된다. structout: formout과 비슷한 기능으로 주어진 테이블과 매칭되는 구조체를 파일로 만들 때 사용된다. (클라이언트 프로그램을 작성할 때 사용) help: 도움말 사용법을 보여준다. |
 | \-T *table_name*                          | 복사할 테이블의 이름, 데이터의 업로드나 다운로드 시에는 FORM 파일에 테이블 이름이 있으므로 이 옵션은 무시된다. |
 | \-d *datafile(datafiles)*                 | 데이터베이스에서 파일로, 또는 파일에서 데이터베이스로 자료를 복사할 때 사용되는 자료 파일의 전체 경로 formout인 경우에는 사용되지 않는다. 입력할 수 있는 파일 수는 최대 32개이며, 업로드 할 때에만 파일들을 연속으로 쓸 수 있다.  -d 옵션에 데이터를 순서대로 입력하여 업로드 할 경우, 순서대로 업로드 된다.  또한 다운로드 할 때 parallel 옵션과 함께 사용하면, 최소한 parallel 옵션에서 지정한 수만큼 파일이 생성된다. |
-| \-rule csv                                | 데이터 파일의 포맷을 csv 형태로 명시한다.  이 옵션은 –t 또는 -e 옵션과 함께 사용할 수 없다. 사용하면 에러가 발생한다. -t, -r, -e, -rule csv 옵션 중 어느 것도 사용하지 않으면 csv가 기본으로 사용된다. |
+| \-rule csv                                | 업로드 또는 다운로드 할 데이터 파일에 [CSV 포맷 규칙](#rule-csv)을 적용한다.<br/>구분자 관련 옵션인 -f, -t, -r, 그리고 -e와 함께 사용할 수 없다. |
 | \-f *formatfile*                          | 이전의 iLoader 호출에 의해 생성된 format 파일의 전체 경로    |
 | \-F *firstrow*                            | 복사 할 첫 번째 행의 번호 (기본 값은 1) 이 옵션은 데이터를 업로드할 때에만 유효하다. |
 | \-L *lastrow*                             | 복사 할 마지막 행의 번호 (기본 값은 마지막 행의 번호) 이 옵션은 데이터 업로드 시에만 유효하다. |
 | \-t *field_term*                          | 필드 사이의 구분자로, 기본값은 ‘\^’ 이다. %t 는 TAB을 %n은 새로운 줄(newline)을 의미한다. %r은 carriage return을 의미한다. -t, -r, -e 옵션은 각각 다른 값을 가져야 한다. 예) -t \^%t \< 주의 \>  명령행에서 ‘, “, \\, & 등의 문자는 자체적으로 처리하므로 구분자로 사용하지 않는 것이 좋다. 구분자를 명시할 때 (예를 들어 \|) iLoader 프롬프트 상에서는 -t \| 또는 “\|” 로, 일반 명령 프롬프트에서는 -t \|, ‘\|’ 또는 “\|”로 입력할 수 있다. |
 | \-r *row_term*                            | 행 사이의 구분자 (기본 값은 ‘\\n’ 이다.) 세부 입력 방법은 -t option과 같다. |
-| \-e *enclosing*                           | 칼럼 사이의 구분자 세부 입력 방법은 -t option과 같다.        |
+| \-e *enclosing*                           | 칼럼 사이의 구분자. 세부 입력 방법은 -t option과 같다.       |
 | \-lob *lob_option_string*                 | LOB 데이터는 최대 4GB의 크기를 가지므로 32-bit OS 에서 2GB 보다 큰 LOB 데이터를 하나의 파일에 저장할 때 문제가 발생할 수 있다. 따라서 이 옵션을 이용해 LOB 타입의 데이터를 다루는 방식을 설정할 수 있다. 이 옵션이 지정되지 않았을 경우 LOB 칼럼도 다른 칼럼과 마찬가지로 처리된다. |
 | \-replication true/false                  | 이중화를 off 하고 데이터를 로딩할 수 있는 옵션이다. (생략할 경우 true가 적용된다.) |
 | \-mode *mode_type*                        | APPEND : 기존의 테이블에 추가하여 삽입(기본값) REPLACE: DELETE 구문을 이용해 기존 테이블의 데이터를 모두 지우고 새로 생성 TRUNCATE: TRUNCATE 구문을 이용해 기존 테이블의 데이터를 모두 지우고 새로 생성 |
@@ -554,8 +554,8 @@ Altibase는 다음의 옵션들을 기본적으로 사용해 iLoader를 수행�
 | \-split *n*                               | 파일마다 저장할 레코드의 개수를 설정(out 커맨드에서만 적용됨)한다. 명령어 실행 후 n개의 레코드가 저장된 파일들이 datafile.dat0 부터 datafile.dat1, … 의 파일 이름으로 생성된다. |
 | \-errors *count*                          | in 모드로 iloader를 실행할 때 허용 가능한 에러 최대 개수를 지정하는 옵션이다. 이 옵션에서 설정한 에러 개수보다 많은 에러가 발생하면 실행을 멈춘다.  기본값은 50이며, 0으로 설정하면 발생한 에러 수에 무관하게 계속 실행된다. -parallel 옵션과 함께 사용될 경우 병렬로 처리되는 쓰레드 중에 한 개라도 이 옵션에서 설정한 에러 값 이상의 에러가 발생하면 모든 쓰레드가 종료된다. |
 | \-partition                               | \-T 옵션에 지정한 테이블이 partitioned 테이블이라면, 그 테이블의 파티션 개수만큼의 FORM 파일이 생성 된다. 각 FORM 파일의 이름은 formfile_name.partition_name이 될 것이다. 만약 지정한 테이블이 partitioned 테이블이 아니면, formfile_name이름으로 한 개의 FORM 파일이 생성 된다. |
-| -stmt_prefix [prefix_value]               | in/out 모드 수행시 iLoader가 생성하는 SQL 구문 앞에 사용자 지정값을 설정할 때 사용하는 옵션이다. 옵션 값을 입력하지 않으면 "NODE [META]"가 기본값으로 설정된다.<br /><br />예) iloader in -s 127.0.0.1 -u sys -p manager -f T1.fmt -d T1.dat -array 100 -atomic -stmt_prefix<br />생성되는 구문: NODE [META] INSERT INTO T1 VALUES (?, ?)<br />iloader out -s 127.0.0.1 -u sys -p manager -f T1.fmt -d T1.dat -stmt_prefix "NODE [DATA('NODE1')]"<br />생성되는 구문: NODE [DATA('NODE1')] SELECT I1, I2 FROM T1<br /><br />이 옵션은 데이터 업로드/다운로드에만 유효하다. |
-| -extra_col_delimiter                      | 레코드 마지막 컬럼 뒤에 컬럼 구분자와 레코드 구분자가 연달아 위치한 경우, 이를 레코드의 끝으로 인식하기 위한 옵션이다.<br/> <br/>예를 들어, 컬럼 구분자가 '^'이고 레코드 구분자가 '\n'인 데이터 파일이, 아래와 같은 형식이면 -extra_col_delimiter 옵션이 필요하다.<br/>Kim^1077^RD^\n<br/>Lee^1099^CS^\n<br/> <br/>이 옵션은 -rule csv 또는 -t 옵션과 함께 사용할 수 있다. |
+| -stmt_prefix [prefix_value]               | in/out 모드 수행시 iLoader가 생성하는 SQL 구문 앞에 사용자 지정값을 설정할 때 사용하는 옵션이다. 옵션 값을 입력하지 않으면 "NODE [META]"가 기본값으로 설정된다.<br />예) iloader in -s 127.0.0.1 -u sys -p manager -f T1.fmt -d T1.dat -array 100 -atomic -stmt_prefix<br />생성되는 구문: NODE [META] INSERT INTO T1 VALUES (?, ?)<br />iloader out -s 127.0.0.1 -u sys -p manager -f T1.fmt -d T1.dat -stmt_prefix "NODE [DATA('NODE1')]"<br />생성되는 구문: NODE [DATA('NODE1')] SELECT I1, I2 FROM T1<br />이 옵션은 데이터 업로드/다운로드에만 유효하다. |
+| -extra_col_delimiter                      | 레코드 마지막 칼럼 뒤에 칼럼 구분자와 레코드 구분자가 연달아 위치한 경우, 이를 레코드의 끝으로 인식하기 위한 옵션이다.<br/> 예를 들어, 칼럼 구분자가 '^'이고 레코드 구분자가 '\n'인 데이터 파일이, 아래와 같은 형식이면 -extra_col_delimiter 옵션이 필요하다.<br/>Kim^1077^RD^\n<br/>Lee^1099^CS^\n<br/>이 옵션은 -rule csv 또는 -t 옵션과 함께 사용할 수 있다. |
 | -geom [WKB]                               | out 모드 수행시, 공간 데이터를 Well-Known Binary (WKB) 포맷으로 out 하기 위한 옵션이다.<br/>Extended Well-Known Binary (EWKB) 포맷으로 지원하는 Altibase의 공간 데이터를, WKB 포맷을 사용하는 하위 버젼으로 이관하기 위해 사용한다.<br/>이 옵션을 사용하지 않으면 Altibase의 공간 객체 지원 포맷을 따른다. |
 
 -   위의 명령행 옵션 중 -S, -U, -P 가 빠져 있는 경우에는 실행 시 사용자에게 직접
@@ -578,8 +578,6 @@ Write Password :
 ISQL_CONNECTION : TCP
 ```
 
-
-
 -   쉘 프롬프트 상에서 iloader만 실행하거나 formout / in / out 의 세가지 명령어
     중 아무 옵션도 입력하지 않으면, iLoader\> 프롬프트가 나타나며 대화형 모드로
     작업을 수행하게 된다.
@@ -590,6 +588,19 @@ ISQL_CONNECTION : TCP
 
 -   SSL 접속에 대한 자세한 설명과 예제는 *iSQL User's Manual*의 '접속 연결 및
     해제'를 참조하기 바란다.
+
+> [!Note]
+>
+> **CSV 포맷 규칙과 -rule csv 옵션**<a name="rule-csv"></a>
+>
+> iLoader는 사용자가 구분자 옵션을 입력하지 않으면 CSV(comma-separated values) 포맷 규칙에 따라 데이터를 처리한다. CSV 포맷이란 쉼표로 필드 혹은 칼럼을, 줄바꿈으로 행을 구분하는 텍스트 기반 데이터 포맷이다. CSV 포맷 규칙이 적용된 데이터의 형식은 다음과 같이 변환된다.
+>
+> ```
+> 변환 전: 홍길동 027551234 서울
+> 변환 후: "홍길동",027551234,"서울"
+> ```
+>
+> CSV 포맷 규칙을 따르면 데이터는 쉼표나 큰따옴표를 포함하고 있어도 정상적으로 형식이 변환된다. 따라서 사용자는 데이터의 내용을 고려하지 않아도 되지만, **-rule csv 옵션을 사용할 경우 구분자를 임의로 지정하는 -f, -t, -r 그리고 -e 옵션은 사용할 수 없다**는 것을 유의해야 한다.
 
 ##### 제한사항
 

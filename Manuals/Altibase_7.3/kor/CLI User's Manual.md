@@ -115,14 +115,14 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [서문](#%EC%84%9C%EB%AC%B8)
-  - [이 매뉴얼에 대하여](#%EC%9D%B4-%EB%A7%A4%EB%89%B4%EC%96%BC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
-- [1.Altibase CLI 소개](#1altibase-cli-%EC%86%8C%EA%B0%9C)
-  - [개요](#%EA%B0%9C%EC%9A%94)
-  - [기본 사용법](#%EA%B8%B0%EB%B3%B8-%EC%82%AC%EC%9A%A9%EB%B2%95)
-  - [기본 프로그래밍 순서](#%EA%B8%B0%EB%B3%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%88%9C%EC%84%9C)
-  - [Altibase CLI 애플리케이션 빌드](#altibase-cli-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%B9%8C%EB%93%9C)
-- [2.Altibase CLI 함수](#2altibase-cli-%ED%95%A8%EC%88%98)
+- [서문](#서문)
+  - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
+- [1.Altibase CLI 소개](#1altibase-cli-소개)
+  - [개요](#개요)
+  - [기본 사용법](#기본-사용법)
+  - [기본 프로그래밍 순서](#기본-프로그래밍-순서)
+  - [Altibase CLI 애플리케이션 빌드](#altibase-cli-애플리케이션-빌드)
+- [2.Altibase CLI 함수](#2altibase-cli-함수)
   - [Altibase CLI API](#altibase-cli-api)
   - [SQLAllocConnect](#sqlallocconnect)
   - [SQLAllocEnv](#sqlallocenv)
@@ -184,9 +184,9 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [SQLTablePrivileges](#sqltableprivileges)
   - [SQLTables](#sqltables)
   - [SQLTransact](#sqltransact)
-- [3.LOB 인터페이스](#3lob-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
-  - [LOB 데이터 처리 방식](#lob-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B2%98%EB%A6%AC-%EB%B0%A9%EC%8B%9D)
-  - [LOB 데이터 타입](#lob-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+- [3.LOB 인터페이스](#3lob-인터페이스)
+  - [LOB 데이터 처리 방식](#lob-데이터-처리-방식)
+  - [LOB 데이터 타입](#lob-데이터-타입)
   - [LOB Function Overview](#lob-function-overview)
   - [SQLBindFileToCol](#sqlbindfiletocol)
   - [SQLBindFileToParam](#sqlbindfiletoparam)
@@ -195,28 +195,28 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [SQLPutLob](#sqlputlob)
   - [SQLTrimLob](#sqltrimlob)
   - [SQLFreeLob](#sqlfreelob)
-- [4.커서 사용](#4%EC%BB%A4%EC%84%9C-%EC%82%AC%EC%9A%A9)
-  - [커서 특성](#%EC%BB%A4%EC%84%9C-%ED%8A%B9%EC%84%B1)
-  - [암시적 커서 변환](#%EC%95%94%EC%8B%9C%EC%A0%81-%EC%BB%A4%EC%84%9C-%EB%B3%80%ED%99%98)
-  - [행 스크롤 및 Fetch](#%ED%96%89-%EC%8A%A4%ED%81%AC%EB%A1%A4-%EB%B0%8F-fetch)
-  - [제약 사항](#%EC%A0%9C%EC%95%BD-%EC%82%AC%ED%95%AD)
-- [A.부록: Sample Code](#a%EB%B6%80%EB%A1%9D-sample-code)
-  - [프로그래밍 시 각 단계에서 주의할 점](#%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%8B%9C-%EA%B0%81-%EB%8B%A8%EA%B3%84%EC%97%90%EC%84%9C-%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90)
-  - [Altibase CLI 프로그램 기본 예제](#altibase-cli-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B8%B0%EB%B3%B8-%EC%98%88%EC%A0%9C)
-  - [메타 정보 검색 프로그램 예제](#%EB%A9%94%ED%83%80-%EC%A0%95%EB%B3%B4-%EA%B2%80%EC%83%89-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%98%88%EC%A0%9C)
-  - [프로시저 테스트 프로그램 예제](#%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80-%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%98%88%EC%A0%9C)
-- [B.부록: 데이터형](#b%EB%B6%80%EB%A1%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95)
-  - [SQL 데이터형](#sql-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95)
-  - [C 데이터형](#c-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95)
-  - [SQL 데이터형을 C 데이터형으로 변환하기](#sql-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-c-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
-  - [C 데이터형을 SQL 데이터형으로 변환하기](#c-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9D%84-sql-%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%98%95%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0)
-- [C.부록: 오류 코드](#c%EB%B6%80%EB%A1%9D-%EC%98%A4%EB%A5%98-%EC%BD%94%EB%93%9C)
+- [4.커서 사용](#4커서-사용)
+  - [커서 특성](#커서-특성)
+  - [암시적 커서 변환](#암시적-커서-변환)
+  - [행 스크롤 및 Fetch](#행-스크롤-및-fetch)
+  - [제약 사항](#제약-사항)
+- [A.부록: Sample Code](#a부록-sample-code)
+  - [프로그래밍 시 각 단계에서 주의할 점](#프로그래밍-시-각-단계에서-주의할-점)
+  - [Altibase CLI 프로그램 기본 예제](#altibase-cli-프로그램-기본-예제)
+  - [메타 정보 검색 프로그램 예제](#메타-정보-검색-프로그램-예제)
+  - [프로시저 테스트 프로그램 예제](#프로시저-테스트-프로그램-예제)
+- [B.부록: 데이터형](#b부록-데이터형)
+  - [SQL 데이터형](#sql-데이터형)
+  - [C 데이터형](#c-데이터형)
+  - [SQL 데이터형을 C 데이터형으로 변환하기](#sql-데이터형을-c-데이터형으로-변환하기)
+  - [C 데이터형을 SQL 데이터형으로 변환하기](#c-데이터형을-sql-데이터형으로-변환하기)
+- [C.부록: 오류 코드](#c부록-오류-코드)
   - [SQLSTATE](#sqlstate)
-  - [명령문 상태 전이](#%EB%AA%85%EB%A0%B9%EB%AC%B8-%EC%83%81%ED%83%9C-%EC%A0%84%EC%9D%B4)
-  - [상태 전이 테이블](#%EC%83%81%ED%83%9C-%EC%A0%84%EC%9D%B4-%ED%85%8C%EC%9D%B4%EB%B8%94)
-- [D.부록: 업그레이드](#d%EB%B6%80%EB%A1%9D-%EC%97%85%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9C)
-  - [데이터 타입](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
-  - [기타 변경사항](#%EA%B8%B0%ED%83%80-%EB%B3%80%EA%B2%BD%EC%82%AC%ED%95%AD)
+  - [명령문 상태 전이](#명령문-상태-전이)
+  - [상태 전이 테이블](#상태-전이-테이블)
+- [D.부록: 업그레이드](#d부록-업그레이드)
+  - [데이터 타입](#데이터-타입)
+  - [기타 변경사항](#기타-변경사항)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -6900,13 +6900,18 @@ SQLTransact(SQL_NULL_HENV, dbc, SQL_COMMIT);
 
 ### LOB 데이터 처리 방식
 
-#### LOB 위치 입력기(LOB Locator)
+Altibase는 CLI에서 LOB데이터를 처리하기위해 LOB 위치 입력기(LOB Locator)를 이용한다. LOB Locator는 LOB 데이터에 대응되는 고유값으로 Altibase 서버의 내부 자료구조이다. LOB 데이터를 연산하기 위해서는 먼저 LOB Locator를 획득해야 하며, 이를 통해 LOB 데이터를 읽거나 쓸 수 있다. LOB Locator는 MVCC와 관련하여 특정 시점의 LOB 데이터를 가리키기 때문에, LOB Locator를 발생시킨 트랜잭션과 생명주기를 같이하며, 그 트랜잭션에 종속된다.
 
-CLI의 일부 함수에서 LOB 데이터를 처리할 때 LOB 위치 입력기를 사용하기 때문에 LOB 위치 입력기를 이용한 LOB 데이터 처리 방식에 대한 이해가 필요하다. 
+#### 자동 커밋 모드 해제
 
-LOB 위치 입력기는 LOB 데이터를 가리키는 Altibase 서버의 내부 자료구조이며 트랜잭션에 종속된다. 
+LOB 위치 입력기는 트랜잭션에 종속적이기 때문에 **CLI에서 LOB 위치 입력기를 이용하여 LOB 데이터를 처리하려면 반드시 자동 커밋 모드를 해제해야 한다.**
 
-CLI에서 LOB 데이터를 처리하는 과정은 LOB 위치 입력기를 얻는 작업과 LOB 위치 입력기를 이용하여 LOB 데이터를 읽고 쓰는 작업으로 나뉜다. 
+자동 커밋 모드를 해제하면 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 하나의 트랜잭션내에서 개별 작업으로 동작되어 LOB 위치 입력기를 공유할 수 있다. 반면, 자동 커밋 모드에서는 각각의 개별 트랜잭션으로 동작하기 때문에 두 트랜잭션 간에 LOB 위치 입력기를 공유할 수 없다.
+
+> **LOB 위치 입력기를 이용한 트랜잭션 커밋 시 주의사항**
+
+1. 자동 커밋 해제 모드에서 LOB 데이터를 읽고 쓰는 CLI 함수 수행 중 예상치 못한 에러가 발생하면, 내부적으로 초기화된 데이터가 남아 있을 수 있어 **반드시 트랜잭션을 롤백해야 한다.** 
+2. NOT NULL 제약이 있는 LOB 타입 컬럼에 NULL 값을 INSERT 혹은 UPDATE 수행하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생한다. 이 경우 초기화된 데이터가 남아 있어 **반드시 트랜잭션을 롤백해야 한다.** 
 
 #### LOB 위치 입력기 얻기
 
@@ -6928,16 +6933,22 @@ LOB 위치 입력기를 얻은 후에 이것을 이용하여 LOB 데이터를 �
 - SQLPutLob 
 - SQLTrimLob
 
-#### 자동 커밋 모드 해제
+#### LOB 데이터의 조회(SELECT)
 
-LOB 위치 입력기는 트랜잭션에 종속적이기 때문에 **CLI에서 LOB 위치 입력기를 이용하여 LOB 데이터를 처리하려면 반드시 자동 커밋 모드를 해제해야 한다.**
+LOB 데이터를 SELECT 할때, 내부적으로는 LOB Locator를 얻어와서 처리되기 때문에 연관된 트랜잭션이 열린 상태가 된다. 따라서 사용자는 명시적으로 commit 또는 rollback과 같은 트랜잭션 종료 작업을 추가로 해주어야 한다.
 
-자동 커밋 모드를 해제하면 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 하나의 트랜잭션에서 개별 작업이 되어 LOB 위치 입력기를 공유할 수 있다. 반면, 자동 커밋 모드에서는 각각의 개별 트랜잭션으로 동작하기 때문에 두 트랜잭션 간에 LOB 위치 입력기를 공유할 수 없다.
+> [!CAUTION]
+>
+> 만약, 사용자가 명시적으로 commit 또는 rollback 과 같은 트랜잭션 종료 작업을 하지 않으면, 데이터베이스의 메모리 사용량이 증가할 수 있다.
 
-> **LOB 위치 입력기를 이용한 트랜잭션 커밋 시 주의사항**
+#### 자원 해제하기
 
-1. 자동 커밋 해제 모드에서 LOB 데이터를 읽고 쓰는 CLI 함수 수행 중 예상치 못한 에러가 발생하면, 내부적으로 초기화된 데이타가 남아 있을 수 있어 **반드시 트랜잭션을 롤백해야 한다.** 
-2. NOT NULL 제약이 있는 LOB 타입 컬럼에 NULL 값을 INSERT 혹은 UPDATE 수행하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생한다. 이 경우 초기화된 데이터가 남아 있어 **반드시 트랜잭션을 롤백해야 한다.** 
+LOB 데이터와 관련한 작업이 완료된 경우, 관련된 자원을 해제해주어야 한다. 관련 CLI 함수는 아래와 같다. 
+
+* [SQLFreeLob](#sqlfreelob)
+* [SQLEndTran](#sqlendtran)
+
+SQLFreeLob 함수는 Lob Locator와 관련된 자원을 해제할 뿐, 트랜잭션을 종료하지는 않는다.
 
 ### LOB 데이터 타입
 
@@ -10600,7 +10611,7 @@ SQLLEN sClobLength;
 SQLCHAR *sQuery = (SQLCHAR *)”INSERT INTO T1 VALUES(?, ?)”;
 SQLPrepare(stmt, sQuery, SQL_NTS);
 
-SQLBindParameter(stmt, 1, SQL_C_BINARY, SQL_BLOB,0, 0, sBlobData, sizeof(sBlobData), sBlobLength);
+SQLBindParameter(stmt, 1, SQL_C_BINARY, SQL_BLOB,0, 0, sBlobData, sizeof(sBlobData), &sBlobLength);
 SQLBindParameter(stmt, 2, SQL_C_CHAR, SQL_CLOB,0, 0, sClobData, sizeof(sClobData), &sClobLength);
 sBlobLength = create_blob_data(sBlobData);
 sprintf((char *)sClobData, “this is clob data”);

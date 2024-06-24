@@ -19,7 +19,7 @@
     - [BUG-49573 Improves a memory error that occurs when a function-based index is used on the target table and a subquery is used in the SET clause in the multiple update statement.](#bug-49573improves-a-memory-error-that-occurs-when-a-function-based-index-is-used-on-the-target-table-and-a-subquery-is-used-in-the-set-clause-in-the-multiple-update-statement)
     - [BUG-49690 ALTER REPLICATION replication_name BUILD OFFLINE META When executing the META statement, the error message returned when the sender metafile or Restart SN file is invalid is improved.](#bug-49690alter-replication-replication_name-build-offline-meta-when-executing-the-meta-statement-the-error-message-returned-when-the-sender-metafile-or-restart-sn-file-is-invalid-is-improved)
     - [BUG-49718 Adds exception handling when setting index statistics information for inactive indexes.](#bug-49718adds-exception-handling-when-setting-index-statistics-information-for-inactive-indexes)
-    - [BUG-49722 Add exception handling when the PRIMARY KEY is different between replication target tables in SQL reflection mode and offline replication.](#bug-49722add-exception-handling-when-the-primary-key-is-different-between-replication-target-tables-in-sql-reflection-mode-and-offline-replication)
+    - [BUG-49722 Add exception handling when the PRIMARY KEY is different between replication target tables in SQL apply mode and offline replication.](#bug-49722add-exception-handling-when-the-primary-key-is-different-between-replication-target-tables-in-sql-apply-mode-and-offline-replication)
     - [BUG-49725 If replication SYNC operation fails due to failure to acquire table lock, [ERR-61152 (errno=16) Replication synchronization failed. Check whether the index on the remote server is consistent.] error occurs.](#bug-49725if-replication-sync-operation-fails-due-to-failure-to-acquire-table-lock-err-61152-errno16-replication-synchronization-failed-check-whether-the-index-on-the-remote-server-is-consistent-error-occurs)
     - [BUG-49728 In the process of inserting a disk index key, the index structure is changed to utilize the index node space, and the Altibase server abnormally terminates in the process of calculating the index key insertion position.](#bug-49728in-the-process-of-inserting-a-disk-index-key-the-index-structure-is-changed-to-utilize-the-index-node-space-and-the-altibase-server-abnormally-terminates-in-the-process-of-calculating-the-index-key-insertion-position)
     - [BUG-49739 A session that performed a CREATE AS SELECT statement using MERGE JOIN is not forced to close with SESSION CLOSE.](#bug-49739a-session-that-performed-a-create-as-select-statement-using-merge-join-is-not-forced-to-close-with-session-close)
@@ -380,7 +380,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-49722 Add exception handling when the PRIMARY KEY is different between replication target tables in SQL reflection mode and offline replication.
+### BUG-49722 Add exception handling when the PRIMARY KEY is different between replication target tables in SQL apply mode and offline replication.
 
 -   **module** : rp
 
@@ -390,12 +390,12 @@ Fixed Bugs
 
 -   **Description** : Exception handling is added for the following two situations where replication target tables succeed even though the PRIMARY KEY is different.
     
-    - When replication is started in SQL reflection mode (REPLICATION_SQL_APPLY_ENABLE = 1)
+    - When replication is started in SQL apply mode (REPLICATION_SQL_APPLY_ENABLE = 1)
     - When the Adapter performs BUILD OFFLINE META
     
     After reflecting this bug, the following error message occurs.
     
-    - Example when replication is started in SQL reflection mode
+    - Example when replication is started in SQL apply mode
     
       - replication sender side
     

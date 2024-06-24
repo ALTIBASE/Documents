@@ -1426,7 +1426,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 
 |      | Source        | Destination     | Notice                                                       |
 | :--: | :------------ | :-------------- | :----------------------------------------------------------- |
-|  1   | BINARY        | BLOB            |                                                              |
+|  1   | BINARY        | BYTE            |                                                              |
 |  2   | BINARY_DOUBLE | DOUBLE          | Special values such as NaN (Not a Number) and INF (Infinity) are not supported by Altibase. So, these values are not migrated. |
 |  3   | BINARY_FLOAT  | FLOAT           |                                                              |
 |  4   | BLOB          | BLOB            |                                                              |
