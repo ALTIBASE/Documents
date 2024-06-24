@@ -484,6 +484,7 @@ iloader [-h]
     [-port port_no] [-silent] [-nst] [-displayquery]
     [-NLS_USE nls_name]
     [-prefer_ipv6]
+    [-geom WKB]
     [-ssl_ca CA_file_path | -ssl_capath CA_dir_path]
     [-ssl_cert certificate_file_path]
     [-ssl_key key_file_path]
@@ -495,17 +496,18 @@ iloader [-h]
         [-t field_term] [-r row_term] [-mode mode_type]
         [-commit commit_unit] [-bad badfile]
         [-log logfile] [-e enclosing] [-array count]
-        [-replication {true | false}] [-split number]
+        [-replication true/false] [-split number]
         [-readsize size] [-errors count]
         [-lob lob_option_string] [-atomic]
-        [-parallel count] [-direct]
+        [-parallel count] [-direct [log|nolog]]
         [-rule csv]
         [-partition]
         [-dry-run]
         [-prefetch_rows]
         [-async_prefetch off|on|auto]
-        [-geom WKB]]
-        [-nologging]
+        [-geom WKB]
+        [-lightmode]
+        [-verbose]]
 ```
 
 
@@ -553,12 +555,13 @@ Altibase는 다음의 옵션들을 기본적으로 사용해 iLoader를 수행�
 | \-replication true/false                  | 이중화를 off 하고 데이터를 로딩할 수 있는 옵션이다. (생략할 경우 true가 적용된다.) |
 | \-mode *mode_type*                        | APPEND : 기존의 테이블에 추가하여 삽입(기본값) <br/>REPLACE: DELETE 구문을 이용해 기존 테이블의 데이터를 모두 지우고 새로 생성 <br />TRUNCATE: TRUNCATE 구문을 이용해 기존 테이블의 데이터를 모두 지우고 새로 생성 |
 | \-bad *badfile*                           | 로딩할 때 오류가 발생하여 업로드 되지 못한 행을 저장하며, 지정하지 않으면 저장하지 않는다. 옵션으로 stdout, stderr을 사용(소문자만 지원) 하여 파일을 생성하지 않고 stdout(standard out), stderr(standard error)를 화면으로 출력한다. |
-| \-log *logfile*                           | iloader가 수행하면서 발생하는 전반적인 과정을 기록한다. 시작 시간, 종료 시간, 대상 행 수, 처리 행 수, 오류 행 수, 오류 내역 등이 여기에 기록된다. 지정하지 않으면 저장하지 않는다. 옵션으로 stdout, stderr을 사용(소문자만 지원함) 하여 파일을 생성하지 않고 stdout(standard out), stderr(standard error)를 화면으로 출력한다. |
+| \-log *logfile*                           | iloader가 수행하면서 발생하는 전반적인 과정을 기록한다. 시작 시간, 종료 시간, 대상 행 수, 처리 행 수, 오류 행 수, 오류 내역 등이 여기에 기록된다. 지정하지 않으면 저장하지 않는다. 옵션으로 stdout, stderr을 사용(소문자만 지원함) 하여 파일을 생성하지 않고 stdout(standard out), stderr(standard error)를 화면으로 출력한다.<br/>이 옵션은 -verbose 옵션과 함께 사용할 수 있다. |
 | \-split *n*                               | 파일마다 저장할 레코드의 개수를 설정(out 커맨드에서만 적용됨)한다. 명령어 실행 후 n개의 레코드가 저장된 파일들이 datafile.dat0 부터 datafile.dat1, … 의 파일 이름으로 생성된다. |
 | \-errors *count*                          | in 모드로 iloader를 실행할 때 허용 가능한 에러의 최대 개수를 지정하는 옵션이다. 이 옵션에서 설정한 에러 개수보다 많은 에러가 발생하면 실행을 멈춘다.  기본값은 50이며, 0으로 설정하면 발생한 에러 수에 무관하게 계속 실행된다. -parallel 옵션과 함께 사용될 경우 병렬로 처리되는 쓰레드 중에 한 개라도 이 옵션에서 설정한 에러 값 이상의 에러가 발생하면 모든 쓰레드가 종료된다. |
 | \-partition                               | \-T 옵션에 지정한 테이블이 partitioned 테이블이라면, 그 테이블의 파티션 개수만큼의 FORM 파일이 생성 된다. 각 FORM 파일의 이름은 formfile_name.partition_name이 될 것이다. 만약 지정한 테이블이 partitioned 테이블이 아니면, formfile_name이름으로 한 개의 FORM 파일이 생성 된다. |
-| -extra_col_delimiter                      | 레코드 마지막 칼럼 뒤에 칼럼 구분자와 레코드 구분자가 연달아 위치한 경우, 이를 레코드의 끝으로 인식하기 위한 옵션이다.<br/> 예를 들어, 칼럼 구분자가 '^'이고 레코드 구분자가 '\n'인 데이터 파일이, 아래와 같은 형식이면 -extra_col_delimiter 옵션이 필요하다.<br/>Kim^1077^RD^\n<br/>Lee^1099^CS^\n<br/> 이 옵션은 -rule csv 또는 -t 옵션과 함께 사용할 수 있다. |
+| -extra_col_delimiter                      | 레코드 마지막 칼럼 뒤에 칼럼 구분자와 레코드 구분자가 연달아 위치한 경우, 이를 레코드의 끝으로 인식하기 위한 옵션이다.<br/> 예를 들어, 칼럼 구분자가 '^'이고 레코드 구분자가 '\n'인 데이터 파일이, 아래와 같은 형식이면 -extra_col_delimiter 옵션이 필요하다.<br/>Kim^1077^RD^\n<br/>Lee^1099^CS^\n<br/><br> 이 옵션은 -rule csv 또는 -t 옵션과 함께 사용할 수 있다. |
 | -geom [WKB]                               | out 모드 수행시, 공간 데이터를 Well-Known Binary (WKB) 포맷으로 out 하기 위한 옵션이다.<br/>Extended Well-Known Binary (EWKB) 포맷으로 지원하는 Altibase의 공간 데이터를, WKB 포맷을 사용하는 하위 버젼으로 이관하기 위해 사용한다.<br/>이 옵션을 사용하지 않으면 Altibase의 공간 객체 지원 포맷을 따른다. |
+| -verbose                                  | 업로드 에러가 발생한 경우, 에러가 발생한 [칼럼의 위치(COLUMN_ORDER)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md#sys_columns_)를 -log 옵션에서 설정한 로그 파일에 기록한다. 다만, 에러가 발생한 위치를 알 수 없을 때는 기록하지 않는다.<br/>이 옵션을 사용하기 위해선 -log 옵션을 반드시 설정해야 한다. |
 
 -   위의 명령행 옵션 중 -S, -U, -P 가 빠져 있는 경우에는 실행 시 사용자에게 직접
     옵션 값을 입력받게 된다.
@@ -1636,7 +1639,7 @@ Usage : { in | out | formout | structout | help }
         [-replication true/false] [-split number]
         [-readsize size] [-errors count]
         [-lob lob_option_string] [-atomic]
-        [-parallel count] [-direct]
+        [-parallel count] [-direct [log|nolog]]
         [-rule csv]
         [-partition]
         [-dry-run]
@@ -1644,6 +1647,7 @@ Usage : { in | out | formout | structout | help }
         [-async_prefetch off|on|auto]
         [-geom WKB]
         [-lightmode]
+        [-verbose]
 iLoader> help help
 Ex) help [ in | out | formout | structout | exit | help ]
 
@@ -1669,6 +1673,12 @@ $ iloader help
                     [-port port_no] [-silent] [-nst] [-displayquery]
                     [-NLS_USE nls_name]
                     [-prefer_ipv6]
+                    [-geom WKB]
+                    [-ssl_ca CA_file_path | -ssl_capath CA_dir_path]
+                    [-ssl_cert certificate_file_path]
+                    [-ssl_key key_file_path]
+                    [-ssl_verify]
+                    [-ssl_cipher cipher_list]
                     [{ in | out | formout | structout | help }
                      [-d datafile or datafiles] [-f formatfile]
                      [-T table_name] [-F firstrow] [-L lastrow]
@@ -1678,14 +1688,15 @@ $ iloader help
                      [-replication true/false] [-split number]
                      [-readsize size] [-errors count]
                      [-lob lob_option_string] [-atomic]
-                     [-parallel count] [-direct]
+                     [-parallel count] [-direct [log|nolog]]
                      [-rule csv]
                      [-partition]
                      [-dry-run]
                      [-prefetch_rows]
                      [-async_prefetch off|on|auto]
                      [-geom WKB]
-                     [-lightmode]]
+                     [-lightmode]
+                     [-verbose]]
             -h            : This screen
             -s            : Specify server name to connect
             -u            : Specify user name to connect
@@ -1696,6 +1707,7 @@ $ iloader help
             -displayquery : display query string
             -NLS_USE      : Specify NLS
             -prefer_ipv6  : Prefer resolving server_name to IPv6 Address
+            -geom         : Specify geometry format such as WKB
             -ssl_ca       : The path to a CA certificate file
             -ssl_cpath    : The path to a directory that contains CA certificates
             -ssl_cert     : The path to the client certificate
