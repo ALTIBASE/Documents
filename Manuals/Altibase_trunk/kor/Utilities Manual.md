@@ -2208,7 +2208,7 @@ aku는 마스터 파드의 저장소 손상으로 인한 데이터 손상을 복
   - REPLICATION_NAME_PREFIX = AKU_REP
 - 마스터 파드의 Altibase 서버 프로퍼티 설정
   - ADMIN_MODE = 1
-- 슬레이브 파드 *pod_name*-1가 실행 중이다.
+- 슬레이브 파드 *pod_name*-1와 *pod_name*-2가 실행 중이다.
 - 이중화 대상 테이블은 *T1*, *T2*, 그리고 *T3*이다.
 - 마스터 파드에서 슬레이브 파드 *pod_name*-1 사이의 이중화 객체 AKU_REP_01의 정보가 소실되었다.
 
@@ -2237,7 +2237,26 @@ AKU_REP_01                      -1
 > XSN은 송·수신 쓰레드를 통해 원격 서버와 지역 서버에 이중화 정보를 전달하는 XLog의 식별 번호이다. 이중화 객체를 초기화 하면 이 값은 -1이 된다.
 > 이 때 아래의 복구 절차를 순차적으로 수행하여 마스터 파드의 장애를 해결할 수 있다.
 
-1. 슬레이브 파드로부터 마스터 파드로의 동기화를 수행하여 데이터 정합성을 맞춘다.
+1. 복구 기준이 될 슬레이브 파드를 선택한다. 복구 기준이 되는 슬레이브 파드 외의 모든 슬레이브 파드는 `aku -p end` 명령을 수행하여 종료한다.
+
+   질문1: 복구 기준이 되는 슬레이브 파드를 선택하는 방법이 있을까요? 마스터 파드와 *pod_name*-1 사이의 이중화 객체 AKU_REP_01의 정보가 소실되었으니 pod_name-1을 기준으로 삼아야 하는 걸까요? 관련하여 내용 보충해주시면 정리하여 작성하겠습니다.
+
+   현재 슬레이브 파드가 두 개 실행 중이기 때문에, *pod_name*-2에서 `aku -p end`를 수행하여 종료한다.
+
+   ``` bash
+   질문2: aku -p end 수행 후 프롬프트가 필요합니다.
+   # 슬레이브 파드 pod_name-2를 종료한다.
+   $ aku -p end
+   AKU started with END option.
+   [AKU][2024/##/## ##:##:##.######][###############] [INFO][akuRunEnd:####][-][-] Start as SLAVE Pod.
+   [AKU][2024/##/## ##:##:##.######][###############] [INFO][akuRunEnd:####][-][-] Flush replications.
+   [AKU][2024/##/## ##:##:##.######][###############] [INFO][akuRunEnd:####][-][-] Replication flush has ended.
+   [AKU][2024/##/## ##:##:##.######][###############] [INFO][akuRunEnd:####][-][-] Reset replications.
+   [AKU][2024/##/## ##:##:##.######][###############] [INFO][akuRunEnd:####][-][-] Replication reset has ended.
+   AKU run successfully.
+   ```
+
+2. *pod_name*-1로부터 마스터 파드로의 동기화를 수행하여 데이터 정합성을 맞춘다.
 
    1. 마스터 파드에서 이중화 대상 테이블 레코드를 삭제한다.
 
@@ -2261,25 +2280,25 @@ AKU_REP_01                      -1
       Alter success.
       ```
 
-   2. 슬레이브 파드에서 데이터 동기화를 수행한다.
+   2. *pod_name*-1에서 데이터 동기화를 수행한다.
 
       데이터를 동기화하기 전에, XSN 값을 초기화하기 위해 RESET을 수행한다. 동기화가 완료되면 이중화가 자동으로 시작된다.
 
       ```sql
-      # 슬레이브 파드에서 이중화를 중지한다.(이중화가 시작되지 않은 경우 생략할 수 있다.)
+      # pod_name-1에서 이중화를 중지한다.(이중화가 시작되지 않은 경우 생략할 수 있다.)
       iSQL> ALTER REPLICATION AKU_REP_01 STOP;
       Alter success.
       
-      # 슬레이브 파드에서 마스터 파드와의 이중화 객체를 초기화한다.
+      # pod_name-1에서 마스터 파드와의 이중화 객체를 초기화한다.
       iSQL> ALTER REPLICATION AKU_REP_01 RESET;
       Alter success.
       
-      # 이중화 SYNC를 수행하여 슬레이브 파드와 마스터 파드의 데이터 정합성을 맞춘다.
+      # 이중화 SYNC를 수행하여 pod_name-1와 마스터 파드의 데이터 정합성을 맞춘다.
       iSQL> ALTER REPLICATION AKU_REP_01 SYNC;
       Alter success.
       ```
 
-2. 마스터 파드에서 이중화를 시작한다.
+3. 마스터 파드에서 이중화를 시작한다.
 
    마스터 파드에서 이중화를 시작하여 소실되었던 이중화 객체 정보의 복구를 완료한다. 
 
@@ -2288,9 +2307,9 @@ AKU_REP_01                      -1
    Alter success.
    ```
 
-3. `aku -p start` 명령을 다시 수행한다.
+4. `aku -p start` 명령을 다시 수행한다.
 
-   복구가 완료된 마스터 파드는 슬레이브 파드와 동일한 데이터를 갖고 있고, 마스터 파드와 슬레이브 파드 사이의 이중화 객체인 AKU_REP_01의 XSN 값도 갱신된다. 이제 `aku -p start` 명령을 다시 수행하면 정상적으로 처리된다.
+   복구가 완료된 마스터 파드는 *pod_name*-1와 동일한 데이터를 갖고 있고, 마스터 파드와 *pod_name*-1 사이의 이중화 객체인 AKU_REP_01의 XSN 값도 갱신된다. 이제 `aku -p start` 명령을 다시 수행하면 정상적으로 처리된다.
 
    ```bash
    # aku.conf를 읽어 이중화 객체를 생성한다. 
@@ -2299,7 +2318,7 @@ AKU_REP_01                      -1
    AKU started with START option.
    [AKU][2024/04/19 19:21:01.011887][139922191153408] [INFO][akuRunStart:828][-][-] Start as MASTER Pod.
    
-   # 마스터 파드와 슬레이브 파드의 이중화 갭을 제거한다.
+   # 마스터 파드와 pod_name-1의 이중화 갭을 제거한다.
    [AKU][2024/04/19 19:21:09.057372][139922191153408] [INFO][akuRunStart:891][-][-] Flush replications.
    [AKU][2024/04/19 19:21:09.086363][139922191153408] [INFO][akuRunStart:896][-][-] Replication flush has ended.
    
