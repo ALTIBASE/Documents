@@ -719,10 +719,6 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 </tr>
 </tbody>
 </table>
-
-
-##### ciphersuite_list
-
 ##### description
 
 | 기본값    |                               |
@@ -956,6 +952,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 필수 여부 | Yes                                                    |
 | 설정 범위 | N/A                                                    |
 | 설명      | 접속을 시도할 Altibase 서버의 IP 주소 또는 호스트명    |
+
+##### socket_immediate_close
+
+| 기본값    | false                                                        |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | [ true \| false ]                                            |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | JDBC 소켓 옵션인 SO_LINGER의 활성화 여부를 설정한다.<br>- true: SO_LINGER을 활성화한다. 전송되지 않은 데이터가 있더라도 시스템은 즉시 전송을 중지하고 소켓을 닫는다.<br>- false: SO_LINGER을 비활성한다. 소켓은 바로 닫히지만 시스템은 FIN_WAIT_2 상태에서 일정 시간 동안 아직 전송되지 않은 데이터를 보내려고 시도한다. |
 
 ##### sock_rcvbuf_block_ratio
 
