@@ -2138,9 +2138,10 @@ Master pod failure refers to a scenario where the `aku -p start` command fails o
 
 When a master pod failure occurs, the following steps should be taken to recover the master pod:
 
-1. Synchronize data from slave pods to the master pod to ensure data consistency.
-2. Start replication on the master pod.
-3. Retry the command `aku -p start`.
+1. Select the slave pod that will serve as the basis for recovery. Execute the `aku -p end` command to terminate all slave pods except for the one chosen as the recovery basis.
+2. Synchronize data from the slave pod to the master pod to ensure data consistency.
+3. Start replication on the master pod.
+4. Retry the command `aku -p start`.
 
 Refer to the example below for detailed steps of master pod failure recovery.
 
