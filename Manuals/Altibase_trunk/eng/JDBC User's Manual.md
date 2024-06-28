@@ -548,8 +548,6 @@ Chapter 3.</p>
 </tr>
 </tbody>
 </table>
-
-
 ##### connectionretrycount
 
 | Default Value | 0                                                            |
