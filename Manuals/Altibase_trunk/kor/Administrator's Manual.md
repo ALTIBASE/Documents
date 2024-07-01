@@ -7550,7 +7550,7 @@ loganchor1
 
 ##### 테이블스페이스 단위 온라인 백업
 
-SYS_TBS_MEM_DIC 데이터 파일 중에서 안정적인 버전이 /backup_dir 디렉터리에 온라인 백업된다.
+SYS_TBS_MEM_DIC 테이블스페이스의 안정적인 체크포인트 이미지 파일을 /backup_dir 디렉터리에 온라인 백업한다.
 
 ```
 iSQL(sysdba)> alter database backup tablespace SYS_TBS_MEM_DIC to ‘/backup_dir’;
