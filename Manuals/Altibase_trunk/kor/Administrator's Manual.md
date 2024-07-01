@@ -7574,7 +7574,7 @@ loganchor0 loganchor1 loganchor2
 
 /backup_dir에 USER_MEMORY_TBS와 USER_DISK_TBS테이블스페이스의 데이터 파일들을 온라인 백업 한다.
 
-메모리 테이블스페이스 데이터 파일은 안정적인 데이터 파일인지 확인 후 온라인 백업한다.
+메모리 테이블스페이스는 안정적인 체크포인트 이미지 파일을 확인한 후 온라인 백업을 수행한다.
 
 ```
 iSQL(sysdba)> alter tablespace USER_MEMORY_TBS begin backup;
