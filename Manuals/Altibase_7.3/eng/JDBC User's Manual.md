@@ -889,6 +889,15 @@ Chapter 3.</p>
 | Setting Range | N/A                                                          |
 | Description   | The IP address or host name of the Altibase server to be connected |
 
+##### socket_immediate_close
+
+| Default Value | false                                                        |
+| ------------- | :----------------------------------------------------------- |
+| Range         | [ true \| false ]                                            |
+| Mandatory     | No                                                           |
+| Setting Range | The session                                                  |
+| Description   | Enable or disable the TCP socket option SO_LINGER.<br>- true: Sets the SO_LINGER value to 0. The connection is terminated immediately upon closing the socket, and any remaining data is not sent.<br>- false: Disables SO_LINGER. The socket closes immediately, but if any data is left in the socket buffer, the kernel will attempt to send it for a certain period. |
+
 ##### sock_rcvbuf_block_ratio
 
 | Default Value | 0                                                            |
