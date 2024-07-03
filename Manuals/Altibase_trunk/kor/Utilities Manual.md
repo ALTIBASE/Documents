@@ -4126,7 +4126,7 @@ dumpdwf {-f double_write_file_name} {-p} {-s}
 
 ### 사용예
 
-쉘 프롬프트 상에서 다음과 같이 수행한다.
+명령 프롬프트에서 다음과 같이 수행한다.
 
 ```
 $ dumpdwf -f SYS_DOUBLE_WRITE
