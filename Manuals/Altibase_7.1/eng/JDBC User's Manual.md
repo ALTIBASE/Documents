@@ -894,7 +894,7 @@ Chapter 3.</p>
 | Range         | [ true \| false ]                                            |
 | Mandatory     | No                                                           |
 | Setting Range | The session                                                  |
-| Description   | Enable or disable the TCP socket option SO_LINGER.<br>- true: Sets the SO_LINGER value to 0. The connection is terminated immediately upon closing the socket, and any remaining data is not sent.<br>- false: Disables SO_LINGER. The socket closes immediately, but if any data is left in the socket buffer, the kernel will attempt to send it for a certain period. |
+| Description   | Enable or disable the TCP socket option SO_LINGER.<br>- true: Sets the SO_LINGER value to 0. The connection is terminated immediately upon closing the socket, and any remaining data is not sent.<br>- false: Disables SO_LINGER. The socket closes immediately, but if any data is left in the socket buffer, the kernel will attempt to send it for a certain period.<br>This connection attribute is supported by Altibase JDBC driver version 7.1.0.7.8 and above. |
 
 ##### sock_rcvbuf_block_ratio
 
