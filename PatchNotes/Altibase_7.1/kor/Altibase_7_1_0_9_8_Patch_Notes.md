@@ -12,8 +12,6 @@ Altibase 7.1.0.9.8 Patch Notes
 
 - [New Features](#new-features)
   - [BUG-50912 TCP 소켓 옵션 SO_LINGER를 설정하는 연결 속성 socket_immediate_close를 추가합니다.](#bug-50912-tcp-%EC%86%8C%EC%BC%93-%EC%98%B5%EC%85%98-so_linger%EB%A5%BC-%EC%84%A4%EC%A0%95%ED%95%98%EB%8A%94-%EC%97%B0%EA%B2%B0-%EC%86%8D%EC%84%B1-socket_immediate_close%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%A9%EB%8B%88%EB%8B%A4)
-
-
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-50948 서버에 fetch할 데이터가 남아 있는 경우 ResultSet.close()를 해도 커서가 바로 닫히지 않을 수 있습니다.](#bug-50948-%EC%84%9C%EB%B2%84%EC%97%90-fetch%ED%95%A0-%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B0%80-%EB%82%A8%EC%95%84-%EC%9E%88%EB%8A%94-%EA%B2%BD%EC%9A%B0-resultsetclose%EB%A5%BC-%ED%95%B4%EB%8F%84-%EC%BB%A4%EC%84%9C%EA%B0%80-%EB%B0%94%EB%A1%9C-%EB%8B%AB%ED%9E%88%EC%A7%80-%EC%95%8A%EC%9D%84-%EC%88%98-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4)
   - [BUG-50969 altibase\_stmt\_bind\_param 함수의 두 번째 인자의 메모리 주소가 변경되면 Some parameters were not bound. 에러가 발생합니다.](#bug-50969-altibase_stmt_bind_param-%ED%95%A8%EC%88%98%EC%9D%98-%EB%91%90-%EB%B2%88%EC%A7%B8-%EC%9D%B8%EC%9E%90%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%A3%BC%EC%86%8C%EA%B0%80-%EB%B3%80%EA%B2%BD%EB%90%98%EB%A9%B4-some-parameters-were-not-bound-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%B0%9C%EC%83%9D%ED%95%A9%EB%8B%88%EB%8B%A4)
