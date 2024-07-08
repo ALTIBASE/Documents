@@ -1908,7 +1908,6 @@ REPLICATIONS = (
 	SYNC_PARALLEL_COUNT     = 1
 	(
 		SYS.T1, SYS.T2 PARTITION P1,
-        SYS.T3
 	)
 )
 ~~~
