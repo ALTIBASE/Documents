@@ -1804,7 +1804,8 @@ REPLICATIONS = (
 	REPLICATION_NAME_PREFIX = AKU_REP
 	SYNC_PARALLEL_COUNT     = 1
 	(
-		SYS.T1, SYS.T2, SYS.T3
+		SYS.T1, SYS.T2 PARTITION P1,
+		SYS.T3
 	)
 )
 ```
@@ -1892,13 +1893,13 @@ To ensure stable usage of aku in a Kubernetes environment, the following conditi
 >
 > ⚠️ Do not create/drop/modify the Altibase replication objects created by aku.
 
-#### How to configure Altibase Replication Tables
+#### How to configure Altibase Replication Targets
 
-Users can specify the tables to be managed in replication in the aku configuration file. To specify replication tables, users need to add table information to the replication property section in the format [user name].[table name]. The maximum length for the user name and table name is 128 bytes. 
+Users can specify **tables** or **partitions** to be managed by the Altibase replication objects created by aku in the aku configuration file. To specify a replication target, add the target information in the format `[user name].[table name]` or `[user name].[table name] PARTITION [partition name]` to the replication property section. The maximum length for the user name, table name, and partition name is 128 bytes. 
 
-Each replication table is separated by a comma, and more than one replication table can be written on a single line.
+Each replication target information is separated by commas, and one or more replication target information can be written on a single line.
 
-Here's an example of configuring tables *T1* to *T9* to be split and managed across three replications.
+Here's an example of configuring tables *T1* to *T9* to be split and managed across three replications. For table *T2*, only partition *P1* is set as the replication target.
 
 ```bash
 #=================================================================
@@ -1908,7 +1909,8 @@ REPLICATIONS = (
     REPLICATION_NAME_PREFIX = AKU_REP1
     SYNC_PARALLEL_COUNT     = 1
     (
-        SYS.T1, SYS.T2, SYS.T3
+        SYS.T1, SYS.T2 PARTITION P1,
+        SYS.T3
     )
 ),
 (
@@ -2340,6 +2342,7 @@ $ aku -i
  
   User Name        : SYS
   Table Name       : T2
+  Partition Name   : P1
  
   User Name        : SYS
   Table Name       : T3

@@ -2426,6 +2426,7 @@ $ aku -i
  
   User Name        : SYS
   Table Name       : T2
+  Partition Name   : P1
  
   User Name        : SYS
   Table Name       : T3
