@@ -69,6 +69,7 @@ The symbols used in the tables on this page have the following meanings:
 | **Linux x86-64**                                             |               |                     |                            |
 | Red Hat Enterprise Linux 6.0<br />Red Hat Enterprise Linux 7.5 |       ●       |          ●          | *- GNU glibc 2.12 ~ 2.33*  |
 | Red Hat Enterprise Linux 8.2<br />Red Hat Enterprise Linux 8.3<br />Red Hat Enterprise Linux 8.4<br />Red Hat Enterprise Linux 8.6<br/>Red Hat Enterprise Linux 8.8 |     **○**     |        **○**        | *- GNU glibc 2.12 ~ 2.33*  |
+| Red Hat Enterprise Linux 8.10 | ● | ● | *- GNU glibc 2.12 ~ 2.33* |
 | Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |     **○**     |        **○**        | *- GNU glibc 2.12 ~ 2.33*  |
 | Oracle Linux 8.6(UEK) | ● | **●** | *- GNU glibc 2.12 ~ 2.33* |
 | Oracle Linux 8.8 | **○** | **○** | *- GNU glibc 2.12 ~ 2.33* |
@@ -98,6 +99,7 @@ The symbols used in the tables on this page have the following meanings:
 | **Linux x86-64**                                             |                                                         |                                                  |         |                  |                    |                       |
 | Red Hat Enterprise Linux 6.0                                 |                            ●                            |                        ●                         |    ●    |        ●         |         ●          |                       |
 | Red Hat Enterprise Linux 8.2<br/>Red Hat Enterprise Linux 8.3<br/>Red Hat Enterprise Linux 8.4<br/>Red Hat Enterprise Linux 8.6<br/>Red Hat Enterprise Linux 8.8 |                          **○**                          |                      **○**                       |  **○**  |      **○**       |       **○**        |                       |
+| Red Hat Enterprise Linux 8.10                                |                          **○**                          |                      **○**                       |    ●    |        ●         |       **○**        |                       |
 | Oracle Linux 7.2<br/>Oracle Linux 7.4<br/>Oracle Linux 7.9<br/>Oracle Linux 8.4 |                          **○**                          |                      **○**                       |  **○**  |      **○**       |       **○**        |                       |
 | Oracle Linux 8.6(UEK)                                        |                          **○**                          |                      **○**                       |    ●    |        ●         |       **○**        |                       |
 | Oracle Linux 8.8                                             |                          **○**                          |                      **○**                       |  **○**  |      **○**       |       **○**        |                       |
