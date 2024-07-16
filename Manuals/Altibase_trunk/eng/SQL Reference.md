@@ -5210,7 +5210,7 @@ For information on Database Link, please refer to the *Database Link User’s Ma
 
 #### Syntax
 
-![create_directory](media/SQL/create_directory.gif)
+![create_directory](media/SQL/create_directory.png)
 
 #### Prerequisites
 
@@ -5264,7 +5264,7 @@ Create success.
 
 **create_index ::=**
 
-![create_index_image98](media/SQL/create_index_image98.gif)
+![create_index](media/SQL/create_index.png)
 
 **table_index_clause ::=**
 
@@ -5961,7 +5961,7 @@ Create success.
 
 **create_queue ::=**
 
-![create_queue_image108](media/SQL/create_queue_image108.gif)
+![create_queue](media/SQL/create_queue.png)
 
 [column_definition ::=](#column_definition)
 
@@ -6042,7 +6042,7 @@ abc         1           99.999
 
 **create_replication ::=**
 
-![create_replication](media/SQL/create_replication.gif)
+![create_replication](media/SQL/create_replication.png)
 
 **option_clause ::=**
 
@@ -6210,7 +6210,7 @@ Create success.
 
 **create_sequence ::=**
 
-![create_sequence_image110](media/SQL/create_sequence_image110.gif)
+![create_sequence](media/SQL/create_sequence.png)
 
 **sequence_options ::=**
 
@@ -6562,7 +6562,7 @@ CREATE SEQUENCE seq1 CACHE 100 ENABLE SYNC TABLE;
 
 **create_synonym ::=**
 
-![create_synonym_image111](media/SQL/create_synonym_image111.gif)
+![create_synonym](media/SQL/create_synonym.png)
 
 #### Prerequisites
 
@@ -6699,7 +6699,7 @@ MY_DEPT.MEMBER
 
 **create_table ::=**
 
-![CREATE_TABLE_2](media/SQL/CREATE_TABLE_2.gif)
+![create_table](media/SQL/create_table.png)
 
 [table_constraint
 ::=](#table_constraint), [temporary_attributes_clause
@@ -7645,7 +7645,7 @@ PARTITION BY HASH (product_id)
 
 **create_disk_tablespace ::=**
 
-![create_disk_tablespace_image137](media/SQL/create_disk_tablespace_image137.gif)
+![create_disk_tablespace](media/SQL/create_disk_tablespace.png)
 
 **datafile_spec ::=**
 
@@ -7789,7 +7789,7 @@ Create success.
 
 **create_memory_tablespace ::=**
 
-![create_memory_tablespace_image140](media/SQL/create_memory_tablespace_image140.gif)
+![create_memory_tablespace](media/SQL/create_memory_tablespace.png)
 
 **initsize_clause ::=**
 
@@ -7935,9 +7935,9 @@ Create success.
 
 #### Syntax 
 
-**create_tablespace ::=**
+**create_volatile_tablespace ::=**
 
-![create_tablespace_image145](media/SQL/create_tablespace_image145.gif)
+![create_volatile_tablespace](media/SQL/create_volatile_tablespace.png)
 
 **initsize_clause ::=**
 
@@ -8042,7 +8042,7 @@ Create success.
 
 **create_temporary_tablespace ::=**
 
-![create_temporary_tablespace_image148](media/SQL/create_temporary_tablespace_image148.gif)
+![create_temporary_tablespace](media/SQL/create_temporary_tablespace.png)
 
 **datafile_spec ::=**
 
@@ -8089,7 +8089,7 @@ Create success.
 
 **create_trigger ::=**
 
-![create_trigger](media/SQL/create_trigger.gif)
+![create_trigger](media/SQL/create_trigger.png)
 
 **simple_dml_trigger ::=**
 
@@ -8370,7 +8370,7 @@ ID SCORE
 
 **create_user ::=**
 
-![create_user_image155](media/SQL/create_user_image155.gif)
+![create_user](media/SQL/create_user.png)
 
 **<a name="password_parameters"><a/>**
 
@@ -8530,7 +8530,7 @@ iSQL> CREATE USER rose4 IDENTIFIED BY rose4
 
 **create_view ::=**
 
-![create_view_image156](media/SQL/create_view_image156.gif)
+![create_view](media/SQL/create_view.png)
 
 **query_restriction_clause ::=**
 
@@ -8646,7 +8646,7 @@ Sandra                Hammond               Saeed                 Pahlavi
 
 **create_materialized_view ::=**
 
-![create_mview](media/SQL/create_mview.gif)
+![create_mview](media/SQL/create_mview.png)
 
 [table_partitioning_clause ::=](#table_partitioning_clause), [tablespace_clause
 ::=](#tablespace_clause), [logging_clause ::=](#logging_clause),
@@ -8745,10 +8745,6 @@ This specifies the query statement of the materialized view. When the user creat
 CREATE MATERIALIZED VIEW mv1 AS
 SELECT * FROM employees;
 ```
-
-
-
-
 
 ### DISJOIN TABLE
 

@@ -1139,7 +1139,7 @@ Altibase 데이터베이스 링크를 사용하기 위해서는 먼저 altibase.
 
 **create_database_link ::=**
 
-![](media/DBLink/create_dblink.gif)
+![](media/DBLink/create_dblink.png)
 
 #### 전제조건
 

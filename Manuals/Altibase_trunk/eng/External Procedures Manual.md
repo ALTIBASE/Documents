@@ -738,7 +738,7 @@ This chapter describes SQL statements supported by Altibase for the use of exter
 
 #### Syntax
 
-![](media/ExternalProcedure/image024.gif)
+![](media/ExternalProcedure/create_library.png)
 
 #### Description
 

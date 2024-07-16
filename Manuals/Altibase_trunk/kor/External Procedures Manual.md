@@ -874,7 +874,7 @@ char* str_uppercase_return(char *str1, long long str1_len, char * str2)
 
 #### 구문
 
-![](media/ExternalProcedure/image024.gif)
+![](media/ExternalProcedure/create_library.png)
 
 #### 설명
 

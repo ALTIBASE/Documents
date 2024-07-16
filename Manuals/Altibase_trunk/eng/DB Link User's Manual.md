@@ -1008,7 +1008,7 @@ This chapter discusses in detail the SQL statements and REMOTE functions provide
 
 **create_database_link ::=**
 
-![](media/DBLink/create_dblink.gif)
+![](media/DBLink/create_dblink.png)
 
 #### Prerequisites
 

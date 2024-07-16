@@ -632,7 +632,7 @@ IF done is NULL THEN
 
 create_procedure::=
 
-![](media/StoredProcedure/f92b873dfdce56f3ffd9259601f837c3.png)
+![](media/StoredProcedure/create_procedure.png)
 
 parameter_declaration::=
 
@@ -1289,7 +1289,7 @@ EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS
 
 create_function::=
 
-![](media/StoredProcedure/2af0f571d5d6a63272084d059964fca0.png)
+![](media/StoredProcedure/create_function.png)
 
 parameter_declaration::=
 
@@ -6056,7 +6056,7 @@ END;
 
 #### Syntax
 
-![create_typeset](media/StoredProcedure/create_typeset.gif)
+![create_typeset](media/StoredProcedure/create_typeset.png)
 
 #### Prerequisites
 
@@ -7240,7 +7240,7 @@ The figure below is a diagram of the structure of the package specification and 
 
 ##### create_package ::=
 
-![create_package](media/StoredProcedure/create_package.gif)
+![create_package](media/StoredProcedure/create_package.png)
 
 ##### invoker_rights_clause::=
 
@@ -7468,7 +7468,7 @@ Execute success.
 
 ##### create_package_body ::=
 
-![](media/StoredProcedure/bba17be9803aaf99425718e2904dbc23.png)
+![](media/StoredProcedure/create_package_body.png)
 
 ##### initialize_section::=
 
