@@ -22687,11 +22687,11 @@ The sections that follow describe the various kinds of conditions in detail.
 
 The following logical conditions are supported for use with Altibase. Each of them is described briefly below.
 
-| Local operators | Description                                                  |
-| --------------- | ------------------------------------------------------------ |
-| AND             | Returns TRUE if both of the constituent conditions are TRUE. Returns FALSE if either or both of the constituent conditions are FALSE. |
-| NOT             | Returns the opposite of the condition to which it applies. That is, it returns TRUE if the condition is FALSE, and returns FALSE if the condition is TRUE. |
-| OR              | Returns TRUE if either or both of the constituent conditions are TRUE. Returns FALSE if both of the constituent conditions are FALSE. |
+| Logical operators | Description                                                  |
+| ----------------- | ------------------------------------------------------------ |
+| AND               | Returns TRUE if both of the constituent conditions are TRUE. Returns FALSE if either or both of the constituent conditions are FALSE. |
+| NOT               | Returns the opposite of the condition to which it applies. That is, it returns TRUE if the condition is FALSE, and returns FALSE if the condition is TRUE. |
+| OR                | Returns TRUE if either or both of the constituent conditions are TRUE. Returns FALSE if both of the constituent conditions are FALSE. |
 
 #### Comparison Conditions
 
