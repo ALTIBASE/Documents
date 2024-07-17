@@ -7676,7 +7676,7 @@ DATA
 
 This keyword is used to specify that the tablespace to be created will be used to store user data. A data tablespace is created even when the CREATE TABLESPACE statement is executed without the DATA keyword.
 
-*tblspace_name*
+*tablespace_name*
 
 This is used to specify the name of the tablespace to be created. Refer to “Rules for Object Names” in Chapter 2 for more information on specifying names.
 
@@ -7936,7 +7936,7 @@ Create success.
 
 #### Syntax 
 
-**create_tablespace ::=**
+**create_volatile_tablespace ::=**
 
 ![create_tablespace_image145](media/SQL/create_tablespace_image145.gif)
 
@@ -8043,7 +8043,7 @@ Create success.
 
 **create_temporary_tablespace ::=**
 
-![create_temporary_tablespace_image148](media/SQL/create_temporary_tablespace_image148.gif)
+![create_temporary_tablespace](media/SQL/create_temporary_tablespace.png)
 
 **datafile_spec ::=**
 
@@ -8063,7 +8063,7 @@ This command is used to create a temporary tablespace for storing temporary resu
 
 To create a tablespace in which to store database objects permanently, use the CREATE DISK TABLESPACE statement.
 
-*tblspace_name*
+*tablespace_name*
 
 This is used to specify the name of the temporary tablespace to be created. Refer to “Rules for Object Names” in Chapter 2 for more information on specifying names.
 
@@ -9175,7 +9175,7 @@ Drop success.
 
 **drop_tablespace ::=**
 
-![drop_tablespace_image167](media/SQL/drop_tablespace_image167.gif)
+![drop_tablespace](media/SQL/drop_tablespace.png)
 
 #### Prerequisites
 
@@ -9185,7 +9185,7 @@ Only the SYS user and users with the DROP TABLESPACE system privilege can execut
 
 This statement is used to remove a tablespace from the database. 
 
-*tblspace_name*
+*tablespace_name*
 
 This is used to specify the name of the tablespace to drop.
 

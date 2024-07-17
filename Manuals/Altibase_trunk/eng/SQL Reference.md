@@ -7675,7 +7675,7 @@ DATA
 
 This keyword is used to specify that the tablespace to be created will be used to store user data. A data tablespace is created even when the CREATE TABLESPACE statement is executed without the DATA keyword.
 
-*tblspace_name*
+*tablespace_name*
 
 This is used to specify the name of the tablespace to be created. Refer to “Rules for Object Names” in Chapter 2 for more information on specifying names.
 
@@ -8062,7 +8062,7 @@ This command is used to create a temporary tablespace for storing temporary resu
 
 To create a tablespace in which to store database objects permanently, use the CREATE DISK TABLESPACE statement.
 
-*tblspace_name*
+*tablespace_name*
 
 This is used to specify the name of the temporary tablespace to be created. Refer to “Rules for Object Names” in Chapter 2 for more information on specifying names.
 
@@ -9212,7 +9212,7 @@ This statement is used to remove a tablespace from the database.
 
 If the IF EXISTS clause is used, the DROP statement runs without error even if the tablespace does not exist.
 
-*tblspace_name*
+*tablespace_name*
 
 This is used to specify the name of the tablespace to drop.
 

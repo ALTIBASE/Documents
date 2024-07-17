@@ -8720,7 +8720,7 @@ DATA
 사용자의 데이터가 저장될 테이블스페이스가 생성된다. DATA 키워드가 없이 CREATE
 TABLESPACE 구문을 실행하여도 데이터 테이블스페이스가 생성된다.
 
-*tblspace_name*
+*tablespace_name*
 
 생성될 테이블스페이스 이름을 명시한다. 테이블스페이스 이름은  2장 "객체 이름
 규칙"을 따라야 한다.
@@ -9047,7 +9047,7 @@ Create success.
 
 #### 구문 
 
-**create_tablespace ::=**
+**create_volatile_tablespace ::=**
 
 ![create_tablespace_image145](media/SQL/create_tablespace_image145.gif)
 
@@ -9173,7 +9173,7 @@ Create success.
 
 **create_temporary_tablespace ::=**
 
-![create_temporary_tablespace_image148](media/SQL/create_temporary_tablespace_image148.gif)
+![create_temporary_tablespace](media/SQL/create_temporary_tablespace.png)
 
 **datafile_spec ::=**
 
@@ -9197,7 +9197,7 @@ SYS 사용자이거나 CREATE TABLESPACE 시스템 권한을 가진 사용자만
 데이터베이스 내에 데이터베이스 객체를 영구적으로 저장하려면 CREATE DISK
 TABLESPACE 문을 사용하도록 한다.
 
-*tblspace_name*
+*tablespace_name*
 
 생성할 임시 테이블스페이스 이름을 명시한다. 테이블스페이스 이름은  2장 "객체 이름 규칙"을 따라야 한다.
 
@@ -10508,7 +10508,7 @@ Drop success.
 
 **drop_tablespace ::=**
 
-![drop_tablespace_image167](media/SQL/drop_tablespace_image167.gif)
+![drop_tablespace](media/SQL/drop_tablespace.png)
 
 #### 전제 조건
 
@@ -10519,7 +10519,7 @@ SYS 사용자와 DROP TABLESPACE 시스템 권한을 가진 사용자만이 테�
 
 데이터베이스에서 테이블스페이스를 제거하는 구문이다.
 
-*tblspace_name*
+*tablespace_name*
 
 제거할 테이블스페이스를 명시한다.
 
