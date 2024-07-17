@@ -885,6 +885,10 @@ char* str_uppercase_return(char *str1, long long str1_len, char * str2)
 
 라이브러리 객체의 이름을 명시한다.
 
+**IF NOT EXISTS**
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 라이브러리 객체가 존재하지 않는 경우에만 생성한다. 같은 이름의 라이브러리 객체가 존재하는 경우, CREATE 문은 오류 없이 실행되지만 기존의 라이브러리 객체는 아무 영향을 받지 않는다.
+
 ##### file_name
 
 동적 라이브러리 파일 이름을 명시한다. 이 파일은 \$ALTIBASE_HOME/lib에 위치해야
