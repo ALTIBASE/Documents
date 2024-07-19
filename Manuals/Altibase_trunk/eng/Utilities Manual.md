@@ -1893,7 +1893,7 @@ To ensure stable usage of aku in a Kubernetes environment, the following conditi
 
 Users can specify **tables** or **partitions** to be managed by the Altibase replication objects created by aku in the aku configuration file. To specify a replication target, add the target information in the format `[user name].[table name]` or `[user name].[table name] PARTITION [partition name]` to the replication property section. The maximum length for the user name, table name, and partition name is 128 bytes. 
 
-Each replication target information is separated by commas, and one or more replication target information can be written on a single line.
+Each replication target is separated by commas, and one or more replication target can be written on a single line.
 
 Here's an example of configuring tables *T1* to *T9* to be split and managed across three replications. For table *T2*, only partition *P1* is set as the replication target.
 
