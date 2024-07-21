@@ -1062,7 +1062,7 @@ In this example, the Little Endian (NDR) byte order is used, and a POLYGON with 
 
 EWKT indicates SRID information in addition to WKT format. Except for the notation of SRID information, the notation is identical to the WKT format. The EWKT format is not an OpenGIS standard and an example of spatial data described using the EWKT format is as follows.
 
-| Format         | WKT Expression | SRID                                                                                 | Description                                |
+| Format         | EWKT Expression | SRID                                                                                 | Description                                |
 |--------------------|------------------------------------------------------------------------------------------|-------|--------------------------------------------|
 | Point              | SRID=4326;POINT(10 10)                                                                            | 4326 | One Point; SRID is 4326                               |
 | LineString         | SRID=100;LINESTRING(10 10, 20 20, 30 40)                                                         | 100 | 3-point linestring; SRID is 100        |
@@ -1072,15 +1072,6 @@ EWKT indicates SRID information in addition to WKT format. Except for the notati
 #### EWKB (Extended Well-Known Binary)
 
 EWKB represents SRID information in addtion to the WKB format. Except for the notation of SRID information, the notation is identical to the WKB format. The EWKB format is not an OppenGIS standard.  The notation of the EWKB format is almost the same as that of the WKB format, but after the byte order (one byte; either NDR or XDR) and the GEOMETRY data type (four bytes; POINT, MULTIPOINT, etc.), the four-byte SRID is written differently. After the SRID notation, the object information is expressed in binary form similar to the WKB format.
-
-| Format          | WKT Expression | SRID                                                                                 | Description                                    |
-|--------------------|------------------------------------------------------------------------------------------|-------|--------------------------------------------|
-| Point              | SRID=4326;POINT(10 10)                                                                            | 4326 | One Point; SRID is 4326                      |
-| LineString         | SRID=100;LINESTRING(10 10, 20 20, 30 40)                                                         | 100 | 3-point linestring; SRID is 100 |
-| Polygon            | SRID=-999;POLYGON( (10 10, 10 20, 20 20, 20 15, 10 10) )                                          | -999 | A polygon consisting of one outer ring and zero inner rings; SRID is -999 |
-| MultiPoint         | SRID=0;MULTIPOINT(10 10, 20 20)                                                                | 0 | Multipoint with two points; SRID is 0 |
-
-
 
 ### DDL For Geometry
 
