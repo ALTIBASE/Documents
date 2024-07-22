@@ -726,7 +726,7 @@ IF done is NULL THEN
 
 create_procedure::=
 
-![](media/StoredProcedure/f92b873dfdce56f3ffd9259601f837c3.png)
+![](media/StoredProcedure/create_procedure.png)
 
 parameter_declaration::=
 
@@ -742,6 +742,10 @@ invoker_rights_clause::=
 
 저장 프로시저를 새로 생성하거나 이미 생성되어 있는 저장 프로시저를 새로운 저장
 프로시저로 변경하는 기능을 수행한다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 저장 프로시저가 없을 때만 생성한다. 같은 이름의 저장 프로시저가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 저장 프로시저에는 아무 영향을 주지 않는다.
 
 ##### parameter_declaration
 
@@ -1429,7 +1433,7 @@ EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS
 
 create_function::=
 
-![](media/StoredProcedure/2af0f571d5d6a63272084d059964fca0.png)
+![](media/StoredProcedure/create_function.png)
 
 parameter_declaration::=
 
@@ -1446,6 +1450,10 @@ invoker_rights_clause::=
 #### 기능
 
 저장 함수를 새로 생성하거나 이미 생성되어 있는 저장 함수를 대체한다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 저장 함수가 없을 때만 생성한다. 같은 이름의 저장 함수가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 저장 함수에는 아무 영향을 주지 않는다.
 
 ##### parameter_declaration
 
@@ -6815,7 +6823,7 @@ END;
 
 #### 구문
 
-![create_typeset](media/StoredProcedure/create_typeset.gif)
+![create_typeset](media/StoredProcedure/create_typeset.png)
 
 #### 전제 조건
 
@@ -6826,6 +6834,10 @@ SYS 사용자 또는 CREATE PROCEDURE, CREATE ANY PROCEDURE 시스템 권한을 
 
 저장 프로시저에서 사용할 사용자 정의 타입을 포함하는 타입 세트를 정의한다. 타입
 세트 내에서 정의한 타입은 프로시저의 INPUT / OUTPUT 인자로 사용할 때 용이하다.
+
+**IF NOT EXISTS**
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 타입 세트가 없을 때만 생성한다. 같은 이름의 타입 세트가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 타입 세트에는 아무 영향을 주지 않는다.
 
 ##### user_name
 
@@ -8143,7 +8155,7 @@ at "SYS.PROC2", line 6]
 
 ##### create_package ::=
 
-![create_package](media/StoredProcedure/create_package.gif)
+![create_package](media/StoredProcedure/create_package.png)
 
 ##### invoker_rights_clause::=
 
@@ -8164,6 +8176,10 @@ at "SYS.PROC2", line 6]
 #### 기능
 
 패키지 스펙을 생성하거나 이미 생성되어 있는 패키지 스펙을 대체한다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 패키지가 없을 때만 생성한다. 같은 이름의 패키지가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 패키지에는 아무 영향을 주지 않는다.
 
 ##### invoker_rights_clause
 
@@ -8377,7 +8393,7 @@ Execute success.
 
 ##### create_package_body ::=
 
-![](media/StoredProcedure/bba17be9803aaf99425718e2904dbc23.png)
+![](media/StoredProcedure/create_package_body.png)
 
 ##### initialize_section::=
 
@@ -8390,6 +8406,10 @@ Execute success.
 #### 기능
 
 패키지 바디를 생성하거나 이미 생성되어 있는 패키지 바디를 대체한다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 패키지 바디가 없을 때만 생성한다. 같은 이름의 패키지 바디가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 패키지 바디에는 아무 영향을 주지 않는다.
 
 ##### declare_section
 

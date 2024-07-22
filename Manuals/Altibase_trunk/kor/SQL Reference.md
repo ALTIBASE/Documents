@@ -5799,7 +5799,7 @@ Create success.
 
 #### 구문
 
-![create_directory](media/SQL/create_directory.gif)
+![create_directory](media/SQL/create_directory.png)
 
 #### 전제 조건
 
@@ -5829,6 +5829,10 @@ CREATE DIRECTORY문의 실행은 SYS_DIRECTORIES\_ 메타 테이블에 디렉토
 
 이미 존재하는 디렉토리를 대체하여 같은 이름의 새로운 디렉토리를 생성하기 위한
 옵션이다. 파일 시스템상의 실제 디렉토리는 삭제되지 않는다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 디렉토리 객체가 없을 때만 생성한다. 같은 이름의 디렉토리 객체가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 디렉토리 객체에는 아무 영향을 주지 않는다.
 
 *directory_name*
 
@@ -5868,7 +5872,7 @@ Create success.
 
 **create_index ::=**
 
-![create_index_image98](media/SQL/create_index_image98.gif)
+![create_index](media/SQL/create_index.png)
 
 **table_index_clause ::=**
 
@@ -5947,6 +5951,10 @@ DETERMINISTIC으로 생성된 것이어야 한다. 또한, 사용자는 함수 �
 
 함수 기반 인덱스는 수식을 기반으로 생성된 인덱스이다. 이 수식은 내장 SQL 함수
 또는 사용자 정의 함수를 포함할 수 있다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 인덱스가 없을 때만 생성한다. 같은 이름의 인덱스가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 인덱스에는 아무 영향을 주지 않는다.
 
 *user_name*
 
@@ -6661,7 +6669,7 @@ Create success.
 
 **create_queue ::=**
 
-![create_queue_image108](media/SQL/create_queue_image108.gif)
+![create_queue](media/SQL/create_queue.png)
 
 [column_definition ::=](#column_definition)
 
@@ -6679,6 +6687,10 @@ Create success.
 
 큐에 삽입 가능한 최대 메시지의 길이를 지정하거나 사용자가 직접 칼럼을 정의하여
 큐를 생성하는 구문이다. 큐 테이블에 저장 가능한 최대 레코드 수도 지정할 수 있다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 큐가 없을 때만 생성한다. 같은 이름의 큐가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 큐에는 아무 영향을 주지 않는다.
 
 *queue_name*
 
@@ -6762,7 +6774,7 @@ Create success.
 
 **create_replication ::=**
 
-![create_replication](media/SQL/create_replication.gif)
+![create_replication](media/SQL/create_replication.png)
 
 **option_clause ::=**
 
@@ -6791,6 +6803,10 @@ SYS 사용자만이 이중화 객체를 생성할 수 있다.
 데이터 충돌을 해결하기 위해 이중화 생성 구문에 AS MASTER 또는 AS SLAVE를
 지정하여 Master-Slave scheme을 사용할 수 있다. 이중화 충돌 해결에 대한 자세한
 내용은 *Replication Manual*을 참고한다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 이중화 객체가 없을 때만 생성한다. 같은 이름의 이중화 객체가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 이중화 객체에는 아무 영향을 주지 않는다.
 
 *replication_name*
 
@@ -6974,7 +6990,7 @@ Create success.
 
 **create_sequence ::=**
 
-![create_sequence_image110](media/SQL/create_sequence_image110.gif)
+![create_sequence](media/SQL/create_sequence.png)
 
 **sequence_options ::=**
 
@@ -6994,6 +7010,10 @@ ANY SEQUENCE 권한을 가져야한다.
 
 이 구문은 명시된 시퀀스 이름으로 새로운 시퀀스를 생성한다. 생성된 시퀀스는
 시퀀스 번호를 자동으로 생성하는데 사용된다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 시퀀스가 없을 때만 생성한다. 같은 이름의 시퀀스가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 시퀀스에는 아무 영향을 주지 않는다.
 
 *user_name*
 
@@ -7376,7 +7396,7 @@ CREATE SEQUENCE seq1 CACHE 100 ENABLE SYNC TABLE;
 
 **create_synonym ::=**
 
-![create_synonym_image111](media/SQL/create_synonym_image111.gif)
+![create_synonym](media/SQL/create_synonym.png)
 
 #### 전제 조건
 
@@ -7419,6 +7439,10 @@ PUBLIC 시노님은 모든 사용자가 사용할 수 있는 시노님이며, PR
 
 PUBLIC 시노님을 생성하려면 이 구문에 PUBLIC을 명시해야 한다. 이를 명시하지
 않으면 기본으로 PRIVATE 시노님이 생성된다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 시노님이 없을 때만 생성한다. 같은 이름의 시노님이 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 시노님에는 아무 영향을 주지 않는다.
 
 *user_name*
 
@@ -7547,7 +7571,7 @@ MY_DEPT.MEMBER
 
 **create_table ::=**
 
-![CREATE_TABLE_2](media/SQL/CREATE_TABLE_2.gif)
+![create_table](media/SQL/create_table.png)
 
 [table_constraint
 ::=](#table_constraint), [temporary_attributes_clause
@@ -7785,6 +7809,10 @@ DML 작업이 수행되는 순간에 테이블 세그먼트를 위한 공간이 
     테이블스페이스만 올 수 있다.
   - 임시 테이블은 휘발성 테이블스페이스만 저장할 수 있다.
   - 임시 테이블에 대해서는 분산 트랜잭션이 지원되지 않는다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 테이블이 없을 때만 생성한다. 같은 이름의 테이블이 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 테이블에는 아무 영향을 주지 않는다.
 
 *user_name*
 
@@ -8765,7 +8793,7 @@ PARTITION BY RANGE_USING_HASH (product_id)
 
 **create_disk_tablespace ::=**
 
-![create_disk_tablespace_image137](media/SQL/create_disk_tablespace_image137.gif)
+![create_disk_tablespace](media/SQL/create_disk_tablespace.png)
 
 **datafile_spec ::=**
 
@@ -8800,7 +8828,11 @@ DATA
 사용자의 데이터가 저장될 테이블스페이스가 생성된다. DATA 키워드가 없이 CREATE
 TABLESPACE 구문을 실행하여도 데이터 테이블스페이스가 생성된다.
 
-*tblspace_name*
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 테이블스페이스가 없을 때만 생성한다. 같은 이름의 테이블스페이스가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 테이블스페이스에는 아무 영향을 주지 않는다.
+
+*tablespace_name*
 
 생성될 테이블스페이스 이름을 명시한다. 테이블스페이스 이름은  2장 "객체 이름
 규칙"을 따라야 한다.
@@ -8943,7 +8975,7 @@ Create success.
 
 **create_memory_tablespace ::=**
 
-![create_memory_tablespace_image140](media/SQL/create_memory_tablespace_image140.gif)
+![create_memory_tablespace](media/SQL/create_memory_tablespace.png)
 
 **initsize_clause ::=**
 
@@ -8984,6 +9016,10 @@ Create success.
 
 사용자의 데이터를 저장할 테이블스페이스를 생성할 것을 지정한다. DATA 키워드 없이
 CREATE TABLESPACE 구문을 수행하여도 기본적으로 데이터 테이블스페이스가 생성된다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 테이블스페이스가 없을 때만 생성한다. 같은 이름의 테이블스페이스가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 테이블스페이스에는 아무 영향을 주지 않는다.
 
 *tablespace_name*
 
@@ -9127,9 +9163,9 @@ Create success.
 
 #### 구문 
 
-**create_tablespace ::=**
+**create_volatile_tablespace ::=**
 
-![create_tablespace_image145](media/SQL/create_tablespace_image145.gif)
+![create_volatile_tablespace](media/SQL/create_volatile_tablespace.png)
 
 **initsize_clause ::=**
 
@@ -9162,6 +9198,10 @@ Create success.
 
 사용자의 데이터를 저장할 테이블스페이스를 생성할 것을 지정한다. DATA 키워드 없이
 CREATE TABLESPACE 구문을 수행하여도 기본으로 데이터 테이블스페이스가 생성된다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 테이블스페이스가 없을 때만 생성한다. 같은 이름의 테이블스페이스가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 테이블스페이스에는 아무 영향을 주지 않는다.
 
 *tablespace_name*
 
@@ -9253,7 +9293,7 @@ Create success.
 
 **create_temporary_tablespace ::=**
 
-![create_temporary_tablespace_image148](media/SQL/create_temporary_tablespace_image148.gif)
+![create_temporary_tablespace](media/SQL/create_temporary_tablespace.png)
 
 **datafile_spec ::=**
 
@@ -9277,7 +9317,11 @@ SYS 사용자이거나 CREATE TABLESPACE 시스템 권한을 가진 사용자만
 데이터베이스 내에 데이터베이스 객체를 영구적으로 저장하려면 CREATE DISK
 TABLESPACE 문을 사용하도록 한다.
 
-*tblspace_name*
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 테이블스페이스가 없을 때만 생성한다. 같은 이름의 테이블스페이스가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 테이블스페이스에는 아무 영향을 주지 않는다.
+
+*tablespace_name*
 
 생성할 임시 테이블스페이스 이름을 명시한다. 테이블스페이스 이름은  2장 "객체 이름 규칙"을 따라야 한다.
 
@@ -9305,7 +9349,7 @@ Create success.
 
 **create_trigger ::=**
 
-![create_trigger](media/SQL/create_trigger.gif)
+![create_trigger](media/SQL/create_trigger.png)
 
 **simple_dml_trigger ::=**
 
@@ -9350,6 +9394,10 @@ Create success.
 이 절은 트리거가 이미 존재한다면 같은 이름의 트리거로 교체할 때 사용된다. 즉, 이
 절은 존재하는 트리거를 제거한 후 재생성하는 대신에 기존 트리거의 정의를
 변경한다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 트리거가 없을 때만 생성한다. 같은 이름의 트리거가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 트리거에는 아무 영향을 주지 않는다.
 
 *user_name*
 
@@ -9645,7 +9693,7 @@ ID SCORE
 
 **create_user ::=**
 
-![create_user_image155](media/SQL/create_user_image155.gif)
+![create_user](media/SQL/create_user.png)
 
 **<a name="password_parameters"><a/>**
 
@@ -9661,6 +9709,10 @@ SYS 사용자와 CREATE USER 시스템 권한을 가진 사용자만이 사용�
 
 명시된 사용자 이름, 암호, 테이블스페이스 접근 권한으로 데이터베이스 사용자를
 생성하는 구문이다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 사용자가 없을 때만 생성한다. 같은 이름의 사용자가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 사용자에는 아무 영향을 주지 않는다.
 
 *user_name*
 
@@ -9848,7 +9900,7 @@ iSQL> CREATE USER rose4 IDENTIFIED BY rose4
 
 **create_view ::=**
 
-![create_view_image156](media/SQL/create_view_image156.gif)
+![create_view](media/SQL/create_view.png)
 
 **query_restriction_clause ::=**
 
@@ -9890,6 +9942,10 @@ iSQL> CREATE USER rose4 IDENTIFIED BY rose4
 
 이 옵션을 사용하면 뷰의 베이스 테이블이 존재하고 뷰를 내포하고 있는 스키마
 소유자가 권한을 가지고 있을 때만 뷰가 생성된다. 이 옵션이 기본값이다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 뷰가 없을 때만 생성한다. 같은 이름의 뷰가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 뷰에는 아무 영향을 주지 않는다.
 
 *user_name*
 
@@ -9987,7 +10043,7 @@ Sandra                Hammond               Saeed                 Pahlavi
 
 **create_materialized_view ::=**
 
-![create_mview](media/SQL/create_mview.gif)
+![create_mview](media/SQL/create_mview.png)
 
 [table_partitioning_clause ::=](#table_partitioning_clause), [tablespace_clause
 ::=](#tablespace_clause), [logging_clause ::=](#logging_clause),
@@ -10038,6 +10094,10 @@ Materialized view는 쿼리문의 결과를 일반 테이블처럼 테이블스�
 쿼리 실행 시 수행 시간을 단축할 수 있다.
 
 Altibase는 읽기 전용 materialized view만 제공한다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 materialized view가 없을 때만 생성한다. 같은 이름의 materialized view가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 materialized view에는 아무 영향을 주지 않는다.
 
 *user_name*
 
@@ -10119,8 +10179,6 @@ view를 생성하라. 이 때 build절과 refresh절을 지정하지 않았기 �
 CREATE MATERIALIZED VIEW mv1 AS
 SELECT * FROM employees;
 ```
-
-
 
 
 
@@ -10633,7 +10691,7 @@ SYS 사용자와 DROP TABLESPACE 시스템 권한을 가진 사용자만이 테�
 
 IF EXISTS 절을 명시하면 테이블스페이스가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
-*tblspace_name*
+*tablespace_name*
 
 제거할 테이블스페이스를 명시한다.
 
