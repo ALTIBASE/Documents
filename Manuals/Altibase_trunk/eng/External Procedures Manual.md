@@ -744,6 +744,10 @@ This chapter describes SQL statements supported by Altibase for the use of exter
 
 This creates a new external library object or changes the previously existing external library into a new external library.
 
+##### IF NOT EXISTS
+
+If the IF NOT EXISTS clause is used, the library object will be created only if there is no existing library object with the same name. If a library object with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing library object will remain unaffected.
+
 ##### library_name
 
 This specifies the name of the library object.

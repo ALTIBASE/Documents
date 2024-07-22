@@ -1022,6 +1022,10 @@ The user can create a database link object with the CREATE DATABASE LINK stateme
 
 Specifies the PUBLIC|PRIVATE attribute of the database link object to be created. If set to PUBLIC, all users have access to the created database link object; If set to PRIVATE, only the user who created the database link object and the SYS user have access to it. On omission, the database object link is created as PUBLIC.
 
+##### IF NOT EXISTS
+
+If the IF NOT EXISTS clause is used, the database link object will be created only if there is no existing database link object with the same name. If a database link object with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing database link object will remain unaffected.
+
 ##### dblink_name
 
 Specifies the name of the database link object to be created. Refer to Chapter 1: “Rules for Object Name” in *SQL Reference* for more information on specifying names.

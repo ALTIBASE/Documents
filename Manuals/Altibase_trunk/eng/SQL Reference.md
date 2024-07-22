@@ -5230,6 +5230,10 @@ The CREATE DIRECTORY statement records directory data in the SYS_DIRECTORIES_ me
 
 This option allows an existing DIRECTORY object to be replaced when a new DIRECTORY object is created with the same name. Note that the actual directory in the file system is not deleted.
 
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the DIRECTORY object will be created only if there is no existing DIRECTORY object with the same name. If a DIRECTORY object with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing DIRECTORY object will remain unaffected.
+
 *directory_name*
 
 This is used to specify the name of the database object representing the directory. Refer to   "[Rules for Object Names](#object_name)" for more information on specifying names
@@ -5331,6 +5335,10 @@ This statement is used to create an index on the basis of one or more of the col
 A partitioned index is classified as either a prefixed index or a non-prefixed index, depending on the relationship between the partition key and the index columns. If the leftmost index partition key is the same column as the leftmost index column, it is a prefixed index. If they are different columns, it is a non-prefixed index. 
 
 Function-based indexes are based on expressions. Expressions can include built-in SQL functions or user-defined functions.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the index will be created only if there is no existing index with the same name. If a index with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing index will remain unaffected.
 
 *user_name*
 
@@ -5977,6 +5985,10 @@ It is necessary to be satisfied one or more of the following conditions in order
 
 This syntax either can configure the maximum length of messages that are inserted into a queue or allows the user to directly define a column in order to create a queue. It can also specifies the number of maximum records that can be stored in a queue table.
 
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the queue will be created only if there is no existing queue with the same name. If a queue with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing queue will remain unaffected.
+
 *queue_name*
 
 This is used to specify the name of the queue. The maximum possible length of the queue name is 28 bytes.
@@ -6061,6 +6073,10 @@ Only the SYS user can execute replication-related statements.
 This statement is used to create a replication object, set the connection between a local server and one or more remote servers, and establish replication there between. Replication takes place between tables on a 1:1 basis; that is, a table is matched to only one corresponding table.
 
 In order to resolve conflicts, the AS MASTER or AS SLAVE clause can be specified in the statement. Doing so stipulates that a master-slave scheme is to be used to resolve conflicts. For more detailed information about replication conflict resolution, please refer to Chapter 2 of the *Replication Manual.*
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the replication object will be created only if there is no existing replication object with the same name. If a replication object with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing replication object will remain unaffected.
 
 *replication_name*
 
@@ -6227,6 +6243,10 @@ Only the SYS user and users having the CREATE SEQUENCE system privilege can exec
 #### Description
 
 This statement is used to define a new sequence having the specified name and automatically populate the sequence.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the sequence will be created only if there is no existing sequence with the same name. If a sequence with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing sequence will remain unaffected.
 
 *user_name*
 
@@ -6598,6 +6618,10 @@ A PUBLIC synonym is accessible by all users, whereas a PRIVATE synonym can only 
 
 To create a public synonym, specify PUBLIC in the statement. If this keyword is not provided, a PRIVATE synonym will be created by default.
 
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the synonym will be created only if there is no existing synonym with the same name. If a synonym with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing synonym will remain unaffected.
+
 *user_name*
 
 If a user name is provided in front of the synonym name, that user will be the owner of the synonym.
@@ -6912,6 +6936,10 @@ For transaction-specific temporary tables, DDL operations are permitted, regardl
   - Only volatile tablespace can be specified for TABLESPACE of the lob_storage_clause for temporary tables.
   - Temporary tables can only be stored on volatile tablespace.
   - Distributed transactions are not supported for temporary tables.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the table will be created only if there is no existing table with the same name. If a table with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing table will remain unaffected.
 
 *user_name*
 
@@ -7675,6 +7703,10 @@ DATA
 
 This keyword is used to specify that the tablespace to be created will be used to store user data. A data tablespace is created even when the CREATE TABLESPACE statement is executed without the DATA keyword.
 
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the tablespace will be created only if there is no existing tablespace with the same name. If a tablespace with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing tablespace will remain unaffected.
+
 *tablespace_name*
 
 This is used to specify the name of the tablespace to be created. Refer to “Rules for Object Names” in Chapter 2 for more information on specifying names.
@@ -7827,6 +7859,10 @@ This keyword is used to specify that the tablespace to be created will be a memo
 
 This keyword is used to specify that the tablespace to be created will be used to store user data. A data tablespace is created even when the CREATE TABLESPACE statement is executed without the DATA keyword.
 
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the tablespace will be created only if there is no existing tablespace with the same name. If a tablespace with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing tablespace will remain unaffected.
+
 *tablespace_name*
 
 This is used to specify the name of the tablespace to create. Refer to “Rules for Object Names” in Chapter 2 for more information on specifying names.
@@ -7967,6 +8003,10 @@ This keyword is used to specify that the tablespace to be created will be a vola
 
 This keyword is used to specify that the tablespace to be created will be used to store user data. A data tablespace is created even when the CREATE TABLESPACE statement is executed without the DATA keyword.
 
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the tablespace will be created only if there is no existing tablespace with the same name. If a tablespace with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing tablespace will remain unaffected.
+
 *tablespace_name*
 
 This is used to specify the name of the tablespace to create. Refer to “Rules for Object Names” in Chapter 2 for more information on specifying names.
@@ -8062,6 +8102,10 @@ This command is used to create a temporary tablespace for storing temporary resu
 
 To create a tablespace in which to store database objects permanently, use the CREATE DISK TABLESPACE statement.
 
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the tablespace will be created only if there is no existing tablespace with the same name. If a tablespace with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing tablespace will remain unaffected.
+
 *tablespace_name*
 
 This is used to specify the name of the temporary tablespace to be created. Refer to “Rules for Object Names” in Chapter 2 for more information on specifying names.
@@ -8130,6 +8174,10 @@ This command is used to create a trigger having the specified name.
 *OR REPLACE*
 
 This is used to replace a trigger of the same name if a trigger already exists. That is, this changes the definition of an existing trigger instead of removing and recreating an existing trigger.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the trigger will be created only if there is no existing trigger with the same name. If a trigger with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing trigger will remain unaffected.
 
 *user_name*
 
@@ -8386,6 +8434,10 @@ Only the SYS user and users to whom the CREATE USER system privilege has been gr
 
 This statement is used to create a database user and specify the user's name, password, and tablespace access privileges.
 
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the user will be created only if there is no existing user with the same name. If a user with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing user will remain unaffected.
+
 *user_name*
 
 This is used to specify the name of the user to create. The user name must be unique in the database. Refer to “Rules for Object Names” in Chapter 2 for more information on specifying names.
@@ -8562,6 +8614,10 @@ This means that it is possible to use the FORCE option to create views that are 
 
 Use the NO FORCE clause to specify that the view is to be created only if the underlying objects exist and the owner of the schema in which the view is to be created has access privileges for them. This is the default view creation behavior.
 
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the view will be created only if there is no existing view with the same name. If a view with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing view will remain unaffected.
+
 *user_name*
 
 This is used to specify the name of the owner of the schema in which the view is to be created. If this value is omitted, Altibase will create the view in the schema of the user who is connected via the current session.
@@ -8682,6 +8738,10 @@ A new materialized view is created as the specified name. A materialized view is
 Like other tables, a materialized view stores the results of query statements in a tablespace and is mostly used for data warehouse purposes. The performance time for query execution can be significantly reduced by creating query statements that are frequently used or include time demanding JOIN or aggregate functions as materialized views. 
 
 Altibase provides only read-only materialized views. 
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the materialized view will be created only if there is no existing materialized view with the same name. If a materialized view with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing materialized view will remain unaffected.
 
 *user_name*
 
