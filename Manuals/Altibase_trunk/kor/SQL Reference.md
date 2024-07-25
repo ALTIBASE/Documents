@@ -5781,7 +5781,7 @@ Altibase 백업과 복구에 대한 자세한 정보는 *Administrator’s Manua
 
 *checkpoint_scale_clause*
 
-체크포인트 이미지 파일 관리 방식인 체크포인트 스케일을 설정한다.
+체크포인트 이미지 파일 관리 방식인 [체크포인트 스케일](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Administrator's%20Manual.md#%EC%B2%B4%ED%81%AC%ED%8F%AC%EC%9D%B8%ED%8A%B8-%EC%8A%A4%EC%BC%80%EC%9D%BCcheckpoint-scale)을 설정한다.
 
 `CHECKPOINT SCALE PAIR`는 체크포인트 스케일을 체크포인트 스케일 페어로 설정한다.
 `CHECKPOINT SCALE SINGLE`은 체크포인트 스케일을 체크포인트 스케일 싱글로 설정한다.
