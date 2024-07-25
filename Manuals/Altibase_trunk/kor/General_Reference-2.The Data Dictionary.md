@@ -4502,7 +4502,7 @@ iSQL> SELECT * FROM V$TAB;
 | V\$MEM_BTREE_NODEPOOL                 | 메모리 BTREE 인덱스를 위한 노드 풀 정보                      |
 | V\$MEM_RTREE_HEADER                   | 메모리 RTREE 인덱스의 헤더 정보                              |
 | V\$MEM_RTREE_NODEPOOL                 | 메모리 RTREE 인덱스를 위한 노드 풀 정보                      |
-| V$MEM_STABLE                          | 핑퐁 체크포인트 이미지 파일의 안정적인 파일 정보             |
+| V$MEM_STABLE                          | 안정적인 체크포인트 이미지 파일 정보             |
 | V\$MEM_TABLESPACES                    | 메모리에 생성된 테이블스페이스 정보                          |
 | V\$MEM_TABLESPACE_CHECKPOINT_PATHS    | 체크포인트 발생시 반영되는 DB 파일의 위치 정보               |
 | V\$MEM_TABLESPACE_STATUS_DESC         | 메모리 테이블스페이스의 상태 정보                            |
