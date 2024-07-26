@@ -4502,7 +4502,7 @@ iSQL> SELECT * FROM V$TAB;
 | V\$MEM_BTREE_NODEPOOL                 | 메모리 BTREE 인덱스를 위한 노드 풀 정보                      |
 | V\$MEM_RTREE_HEADER                   | 메모리 RTREE 인덱스의 헤더 정보                              |
 | V\$MEM_RTREE_NODEPOOL                 | 메모리 RTREE 인덱스를 위한 노드 풀 정보                      |
-| V$MEM_STABLE                          | 핑퐁 체크포인트 이미지 파일의 안정적인 파일 정보             |
+| V$MEM_STABLE                          | 안정적인 체크포인트 이미지 파일 정보             |
 | V\$MEM_TABLESPACES                    | 메모리에 생성된 테이블스페이스 정보                          |
 | V\$MEM_TABLESPACE_CHECKPOINT_PATHS    | 체크포인트 발생시 반영되는 DB 파일의 위치 정보               |
 | V\$MEM_TABLESPACE_STATUS_DESC         | 메모리 테이블스페이스의 상태 정보                            |
@@ -6977,7 +6977,7 @@ RESET_LSN중 로그파일 안의 오프셋 부분을 나타낸다.
 | OLDEST_LFGID              | INTEGER     | 사용하지 않음(0)                                             |
 | OLDEST_LOGFILE_NO         | INTEGER     | 재구동 복구 시에 디스크 관련 리두가 시작되는 로그 파일 번호  |
 | OLDEST_LOGFILE_OFFSET     | INTEGER     | 재구동 복구 시에 디스크 관련 리두가 시작되는 로그 파일 오프셋(offset) |
-| CHECKPOINT_SCALE          | VARCHAR(12) | 핑퐁 체크포인트 스케일 설정                                  |
+| CHECKPOINT_SCALE          | VARCHAR(12) | 체크포인트 스케일 설정 정보                               |
 
 #### 칼럼 정보
 
