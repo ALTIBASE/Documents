@@ -6894,11 +6894,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | CM_Multiplexing                        | The memory that is used for saving session information for communication |
 | CM_NetworkInterface                    | The memory that is used for saving information about individual communication nodes |
 | Condition_Variable                     | The memory used to manage condition variables for multithreaded control |
-| DatabaseLink                           | The memory that is used by Database Link                     |
-| Disaster_recovery                      | The memory used by disaster recovery                         |
-| Disaster_recovery_Control              | The memory used by the role manager in disaster recovery     |
-| Disaster_recovery_Executor             | The memory used during disaster recovery                     |
-| Disaster_recovery_Storage              | Not currently used                                           |
+| Database_Link                          | The memory that is used by Database Link                     |
 | Dynamic Module Loader                  | The memory used when loading shared libraries                |
 | External_Procedure                     | The memory used by external procedures                       |
 | External_Procedure_Agent               | The Memory used by the external procedure agent              |
@@ -6961,7 +6957,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | Replication_Sync                       | The memory that is used for synchronization in replication   |
 | RESERVED                               | Allocated, but not allocated when using the TLSF memory manager |
 | Socket_Manager                         | Not currently used                                           |
-| SQL Plan Cache Control                 | The memory that is used for the SQL Plan Cache               |
+| SQL_Plan_Cache_Control                 | The memory that is used for the SQL Plan Cache               |
 | Storage_DataPort                       | Memory that is used for executing DataPort                   |
 | Storage_Disk_Buffer                    | The memory that is used by the Disk Buffer Manager           |
 | Storage_Disk_Collection                | The memory that is used for performing Direct-Path Insert and LOB calculations for disk tables |
@@ -6987,7 +6983,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | Storage_Memory_Utility                 | The memory that is used when the Storage Manager Tool is used |
 | Storage_Tablespace                     | The memory that is used for managing and allocating tablespace nodes |
 | SYSTEM                                 | The memory allocated directly by the operating system using the malloc function |
-| Tablespace Free Extent Pool            | The memory that is used for managing free extent pools of tablespaces |
+| Tablespace_Free_Extent_Pool            | The memory that is used for managing free extent pools of tablespaces |
 | Temp_Memory                            | The memory that is used when allocating temporary space      |
 | Thread_Stack                           | The memory used by the thread stack when the thread is created |
 | Timer_Manager                          | The memory for the timer manager, which uses the timer thread when checking the system time |
