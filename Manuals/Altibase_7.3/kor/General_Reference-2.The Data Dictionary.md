@@ -7088,11 +7088,7 @@ Altibase가 사용하는 모듈 이름을 나타낸다. 이 칼럼은 다음의 
 | CM_Multiplexing                        | 통신을 위한 세션 정보 저장을 위해 사용되는 메모리            |
 | CM_NetworkInterface                    | 각 통신 노드에 대한 정보를 저장하기 위해 사용되는 메모리     |
 | Condition_Variable                     | 다중 쓰레드 제어를 위한 condition variables를 관리하는데 사용되는 메모리 |
-| DatabaseLink                           | 데이터베이스 링크에 의해 사용되는 메모리                     |
-| Disaster_recovery                      | 재해 복구에서 사용되는 메모리                                |
-| Disaster_recovery_Control              | 재해 복구의 역할 관리자가 사용하는 메모리                    |
-| Disaster_recovery_Executor             | 재해 복구관련 실행시 사용되는 메모리                         |
-| Disaster_recovery_Storage              | 현재 사용되지 않음                                           |
+| Database_Link                          | 데이터베이스 링크에 의해 사용되는 메모리                     |
 | Dynamic Module Loader                  | 공유 라이브러리 로딩시 사용되는 메모리                       |
 | External_Procedure                     | 익스터널 프로시저에서 사용되는 메모리                        |
 | External_Procedure_Agent               | 익스터널 프로시저 에이전트에서 사용되는 메모리               |
@@ -7137,7 +7133,7 @@ Altibase가 사용하는 모듈 이름을 나타낸다. 이 칼럼은 다음의 
 | Query_PSM_Concurrent_Execute           | DBMS_CONCURRENT_EXEC 패키지를 실행하기 위해 사용되는 메모리  |
 | Query_PSM_Execute                      | PSM (Persistent Stored Module) 실행을 위해 사용되는 메모리   |
 | Query_PSM_Node                         | PSM에서 연관 배열을 위해 사용되는 메모리                     |
-| Query_PSM_VARRAY                       | PSM에서 VARRAY를 위해 사용되는 메모리                        |
+| Query_PSM_Varray                       | PSM에서 VARRAY를 위해 사용되는 메모리                        |
 | Query_Sequence                         | 시퀀스 관리를 위해 사용되는 메모리                           |
 | Query_Transaction                      | 트리거 실행을 위해 사용되는 메모리                           |
 | Remote_Call_Client                     | 현재 사용되지 않음                                           |
@@ -7156,7 +7152,7 @@ Altibase가 사용하는 모듈 이름을 나타낸다. 이 칼럼은 다음의 
 | Replication_Sync                       | 이중화에서 동기화를 위해 사용되는 메모리                     |
 | RESERVED                               | TLSF 메모리 관리자 사용시 할당받았으나 아직 분배하지 않은 영역 |
 | Socket_Manager                         | 현재 사용되지 않음                                           |
-| SQL Plan Cache Control                 | SQL Plan Cache 실행 시 사용되는 메모리                       |
+| SQL_Plan_Cache_Control                 | SQL Plan Cache 실행 시 사용되는 메모리                       |
 | Storage_DataPort                       | DataPort 실행 시 사용되는 메모리                             |
 | Storage_Disk_Buffer                    | 디스크 버퍼 관리자에 의해 사용되는 메모리                    |
 | Storage_Disk_Collection                | 디스크 테이블에 대한 Direct-Path INSERT와 LOB 연산에 사용되는 메모리 |
@@ -7182,7 +7178,7 @@ Altibase가 사용하는 모듈 이름을 나타낸다. 이 칼럼은 다음의 
 | Storage_Memory_Utility                 | 스토리티 관리자 툴이 이용될 때 사용되는 메모리               |
 | Storage_Tablespace                     | 테이블스페이스 노드를 관리하고 할당하는데 사용되는 메모리    |
 | SYSTEM                                 | malloc 함수를 이용하여 운영체제에서 직접 할당받은 메모리     |
-| Tablespace Free Extent Pool            | 테이블스페이스의 free 익스텐트 풀을 관리하기 위해 사용되는 메모리 |
+| Tablespace_Free_Extent_Pool            | 테이블스페이스의 free 익스텐트 풀을 관리하기 위해 사용되는 메모리 |
 | Temp_Memory                            | 임시 공간 할당시 사용되는 메모리                             |
 | Thread_Stack                           | 쓰레드가 생성될 때 쓰레드 스택용으로 사용하는 메모리         |
 | Timer_Manager                          | 시스템 시간 확인 시 타이머 쓰레드를 사용하는 타이머 관리자를 위한 메모리 |
