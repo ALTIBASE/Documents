@@ -9,7 +9,7 @@ Altibase 7.1.0.9.9 Patch Notes
     - [BUG-47423 APRE에서 RETURNING INTO 절을 지원하도록 개선하였습니다.](#bug-47423)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-50949 aku 설정 파일에 주석 입력시, # 이후에 글자를 입력하지 않는 경우 오류가 발생합니다.](#bug-50949)
-    - [BUG-50997  외부 쿼리를 참조하는 서브 쿼리에서 집계 함수를 사용하는 경우, 특정 조건에서 결과값 오류가 발생합니다.](#bug-50997)
+    - [BUG-50997 외부 쿼리를 참조하는 서브 쿼리에서 집계 함수를 사용하는 경우, 특정 조건에서 결과값 오류가 발생합니다.](#bug-50997)
     - [BUG-51004 altibase_stmt_bind_param에 바인딩하는 변수의 타입 또는 포인터가 바뀌는 경우, "Function sequence error"가 발생할 수 있습니다.](#bug-51004)
 - [Changes](#changes)
     - [Version Info](#version-info)
@@ -78,7 +78,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50997<a name=bug-50997></a>  외부 쿼리를 참조하는 서브 쿼리에서 집계 함수를 사용하는 경우, 특정 조건에서 결과값 오류가 발생합니다.
+### BUG-50997<a name=bug-50997></a> 외부 쿼리를 참조하는 서브 쿼리에서 집계 함수를 사용하는 경우, 특정 조건에서 결과값 오류가 발생합니다.
 
 -   **module** : qp
 
@@ -142,7 +142,7 @@ Fixed Bugs
 
   - **수행 결과**
 
-    ```
+    ```sql
     ID
     --------------
     1
@@ -151,7 +151,7 @@ Fixed Bugs
 
   - **예상 결과**
 
-    ```
+    ```sql
     ID
     --------------
     0
@@ -183,12 +183,14 @@ Fixed Bugs
 
   - **재현 절차**
 
-        altibase_stmt_prepare (select ... )
-        altibase_stmt_bind_param(sStmt, sBind1)
-        altibase_stmt_execute
-        altibase_stmt_free_result
-        altibase_stmt_bind_param(sStmt, sBind2)
-        altibase_stmt_execute
+    ```
+    altibase_stmt_prepare (select ... )
+    altibase_stmt_bind_param(sStmt, sBind1)
+    altibase_stmt_execute
+    altibase_stmt_free_result
+    altibase_stmt_bind_param(sStmt, sBind2)
+    altibase_stmt_execute
+    ```
 
   - **수행 결과**
 
@@ -201,12 +203,14 @@ Fixed Bugs
 
   -   **예상 결과**
 
-          altibase_stmt_prepare (select ... )
-          altibase_stmt_bind_param(sStmt, sBind1)
-          altibase_stmt_execute
-          altibase_stmt_free_result
-          altibase_stmt_bind_param(sStmt, sBind2)  -> Success
-          altibase_stmt_execute
+      ```
+      altibase_stmt_prepare (select ... )
+      altibase_stmt_bind_param(sStmt, sBind1)
+      altibase_stmt_execute
+      altibase_stmt_free_result
+      altibase_stmt_bind_param(sStmt, sBind2)  -> Success
+      altibase_stmt_execute
+      ```
 
 -   **Workaround**
 
