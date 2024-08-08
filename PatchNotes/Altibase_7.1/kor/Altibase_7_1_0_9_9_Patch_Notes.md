@@ -4,11 +4,12 @@ Altibase 7.1.0.9.9 Patch Notes
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [New Features](#new-features)
     - [BUG-47423 APRE에서 RETURNING INTO 절을 지원하도록 개선하였습니다.](#bug-47423)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-50949 aku 설정 파일에 주석 입력시, # 이후에 글자를 입력하지 않는 경우 오류가 발생합니다.](#bug-50949)
-    - [BUG-50997  CNF 정규화 과정에서 OR구문에 집계 함수를 사용한 외부참조 서브쿼리가 있을 경우 결과 오류가 발생합니다.](#bug-50997)
+    - [BUG-50997  외부 쿼리를 참조하는 서브 쿼리에서 집계 함수를 사용하는 경우, 특정 조건에서 결과값 오류가 발생합니다.](#bug-50997)
     - [BUG-51004 altibase_stmt_bind_param에 바인딩하는 변수의 타입 또는 포인터가 바뀌는 경우, "Function sequence error"가 발생할 수 있습니다.](#bug-51004)
 - [Changes](#changes)
     - [Version Info](#version-info)
@@ -77,7 +78,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50997<a name=bug-50997></a>  CNF 정규화 과정에서 OR구문에 집계 함수를 사용한 외부참조 서브쿼리가 있을 경우 결과 오류가 발생합니다.
+### BUG-50997<a name=bug-50997></a>  외부 쿼리를 참조하는 서브 쿼리에서 집계 함수를 사용하는 경우, 특정 조건에서 결과값 오류가 발생합니다.
 
 -   **module** : qp
 
@@ -85,7 +86,12 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
-- **설명** : CNF 정규화 과정에서 OR구문에 집계 함수를 사용한 외부 참조 서브쿼리가 있을 경우 발생하는 결과 오류를 수정했습니다. 
+- **설명** : 외부 쿼리를 참조하는 서브 쿼리에서 집계 함수를 사용하는 경우, 특정 조건에서 발생하는 결과값 오류를 수정하였습니다.
+  이 버그는 다음의 조건을 모두 만족할 때만 발생합니다.
+
+  1. AND 연산자의 조건에서 OR 연산자가 포함된 경우.
+  2. OR 연산자의 조건에 외부 쿼리를 참조하는 서브 쿼리가 존재합니다.
+  3. 2.의 서브 쿼리가 집계 함수를 사용합니다.
 
 - **재현 방법**
 
