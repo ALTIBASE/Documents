@@ -214,8 +214,6 @@ Fixed Bugs
 
 -   **Workaround**
 
-        없음
-
 -   **변경사항**
 
     -   Performance view
