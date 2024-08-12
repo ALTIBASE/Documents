@@ -8,7 +8,7 @@ Altibase 7.1.0.9.9 Patch Notes
     - [BUG-47423 Improve APRE to support RETURNING INTO clause.](#bug-47423)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-50949 When a comment in the aku configuration file has no text after '#', an error occurs.](#bug-50949)
-    - [BUG-50997  Results error can occur under certain conditions when using aggregate functions in subqueries that reference outer queries.](#bug-50997)
+    - [BUG-50997  A results error can occur under certain conditions when using an aggregate function in a subquery that references an outer query](#bug-50997)
     - [BUG-51004 A "Function sequence error" may occur if the type or pointer of the variable bound to altibase_stmt_bind_param changes.](#bug-51004)
 - [Changes](#changes)
     - [Version Info](#version-info)
@@ -70,7 +70,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50997<a name=bug-50997></a> Results error can occur under certain conditions when using aggregate functions in subqueries that reference outer queries.
+### BUG-50997<a name=bug-50997></a> A results error can occur under certain conditions when using an aggregate function in a subquery that references an outer query.
 
 -   **module** : qp
 
@@ -78,13 +78,13 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
-- **Description** :
+- **Description** : Altibase fixed an issue where a results error occurred under specific conditions when using an aggregate function in a subquery that references an outer query.
 
-  Altibase fixed the results error that occurred when following conditions are met:
+  This bug only occurred when all of the following conditions were met:
 
-  1. The WHERE clause includes an OR operator.
-  2. The subquery uses an aggregate function.
-  3. The subquery references the outer query.
+  1.  An `OR` operator is used within the conditions of an `AND` operation.
+  2. The condition in the `OR` operator contains a subquery that references the outer query.
+  3. The subquery mentioned in 2. uses an aggregate function.
 
 - **How to reproduce this bug**
 
