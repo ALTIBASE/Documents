@@ -6944,6 +6944,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | Query_Prepare                          | The memory that is used for preparing queries for execution  |
 | Query_PSM_Concurrent_Execute           | The memory that is used for executing the DBMS_CONCURRENT_EXEC package |
 | Query_PSM_Execute                      | The memory that is used for executing PSM (Persistent Stored Module) |
+| Query_PSM_Internal_Execute             | Not currently used                                           |
 | Query_PSM_Node                         | The memory that is used for managing PSM array variables     |
 | Query_PSM_Varray                       | The memory that is used for VARRAY in PSM                    |
 | Query_Sequence                         | The memory that is used for managing sequences               |
@@ -6963,6 +6964,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | Replication_Storage                    | The memory that is used to apply XLOGs                       |
 | Replication_Sync                       | The memory that is used for synchronization in replication   |
 | RESERVED                               | Allocated, but not allocated when using the TLSF memory manager |
+| Shared Meta                            | Not currently used                                           |
 | Socket_Manager                         | Not currently used                                           |
 | SQL_Plan_Cache_Control                 | The memory that is used for the SQL Plan Cache               |
 | Storage_DataPort                       | Memory that is used for executing DataPort                   |
