@@ -115,10 +115,6 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
-  - [Audience](#audience)
-  - [Software Environment](#software-environment)
-  - [Organization](#organization)
-  - [Altibase Welcomes Your Opinions](#altibase-welcomes-your-opinions)
 - [1.ID Error Code](#1id-error-code)
   - [FATAL](#fatal)
   - [ABORT](#abort)
@@ -191,7 +187,7 @@ or the operating program is performed.
 
 Error messages may be changed without notice.
 
-### Audience
+#### Audience
 
 This manual has been prepared for the following Altibase users:
 
@@ -212,12 +208,12 @@ background knowledge:
 
 -   computer programming experience
 
-### Software Environment
+#### Software Environment
 
 This manual has been prepared assuming that Altibase 7.3 is used as the database
 server.
 
-### Organization
+#### Organization
 
 This manual has been organized as follows:
 
@@ -236,7 +232,7 @@ This manual has been organized as follows:
 -   Chapter13: Log Analyzer Error Code
 -   Chapter14: Regular Expression Error Code
 
-### Altibase Welcomes Your Opinions
+#### Altibase Welcomes Your Opinions
 
 Please feel free to send us your comments and suggestions regarding this manual.
 Your comments
@@ -4423,6 +4419,12 @@ server.
 **Cause:** The LobCursor that was writing is not closed for an unknown reason.
 
 **Action:** Rollback the transaction and check the server environments including disk usage, etc.
+
+**0x111C1 ( 70081) smERR_ABORT_WrongLogFileSize The log file size has changed. : <0%s> (current file size:<1%u>, expected file size:<2%u>)**
+
+**Cause:** The log file size has changed abnormally, so that the file is invalid.
+
+**Action:** Check if the backed-up file for the log file exists and restore it. If it's not available, contact Altibase's Support Center (http://support.altibase.com).
 
 ### IGNORE
 

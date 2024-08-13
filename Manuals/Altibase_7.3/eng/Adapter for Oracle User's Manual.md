@@ -3,7 +3,7 @@ Adapter for Oracle User’s Manual
 
 #### Altibase 7.3
 
-Alitbase® Tools & Utilities
+Altibase® Tools & Utilities
 
 <br><br><br><br><br><br>
 <!-- PDF 변환을 위한 여백입니다. --> 
@@ -85,7 +85,7 @@ Alitbase® Tools & Utilities
 <!-- PDF 변환을 위한 여백입니다. --> 
 
 <pre>
-Altibase Tool & Utilities Adapter for JDBC User’s Manual
+Altibase Tool & Utilities Adapter for Oracle User’s Manual
 Release 7.3
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
@@ -105,6 +105,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 # Table Of Contents
 
 - [Preface](#preface)
+  - [About This Manual](#about-this-manual)
 - [1. Introduction](#1-introduction)
   - [Adapter for Oracle](#adapter-for-oracle)
 - [2. Installation and Configuration](#2-installation-and-configuration)
@@ -118,7 +119,8 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Startup and Shutdown](#startup-and-shutdown)
   - [Data Types](#data-types)
   - [Adapter for Oracle Utility](#adapter-for-oracle-utility)
-  - [Command-Line Options](#command-line-options)
+  - [Command-Line Option](#command-line-option)
+  - [Offline Option](#offline-option)
 - [Appendix A: FAQ](#appendix-a-faq)
   - [FAQ](#faq)
 - [Appendix B: DDL order when using oraAdapter](#appendix-b-ddl-order-when-using-oraadapter)
@@ -129,26 +131,26 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 Preface
 ====
 
-- ### About This Manual
+### About This Manual
 
-  This manual explains the Adapter for Oracle utility, which applies data that has been changed in Altibase to an Oracle database.
+This manual explains the Adapter for Oracle utility, which applies data that has been changed in Altibase to an Oracle database.
 
-  #### Audience
+#### Audience
 
-  This manual has been prepared for the following Altibase users:
+This manual has been prepared for the following Altibase users:
 
-  -   Database administrators
-  -   Performance administrators
-  -   Database users
-  -   Application developers
-  -   Technical Supporters
+-   Database administrators
+-   Performance administrators
+-   Database users
+-   Application developers
+-   Technical Supporters
 
-  It is recommended for those reading this manual possess the following background knowledge:
+It is recommended for those reading this manual possess the following background knowledge:
 
-  -   Basic knowledge in the use of computers, operating systems, and operating system utilities
-  -   Experience in using relational database and an understanding of database concepts
-  -   Computer programming experience
-  -   Experience in database server management, operating system management, or network administration
+-   Basic knowledge in the use of computers, operating systems, and operating system utilities
+-   Experience in using relational database and an understanding of database concepts
+-   Computer programming experience
+-   Experience in database server management, operating system management, or network administration
 
 #### Organization
 
@@ -1015,8 +1017,6 @@ This is used to forcefully terminate the Adapter for Oracle process.
 oaUtility {status}
 ```
 
-
-
 ##### Description
 
 This is used to check whether oraAdapter is running.
@@ -1029,8 +1029,6 @@ This is used to check whether oraAdapter is running.
 oaUtility { check [ alive | constraints] }
 ```
 
-
-
 ##### Description
 
 If either the alive or constraints option is specified, oaUtility continually checks whether oraAdapter is running, and if it has been shut down (regardless of whether it was shut down normally or forcibly), restarts it. 
@@ -1039,7 +1037,7 @@ If either the alive or constraints option is specified, the corresponding task i
 
 Specifying the constraints option tells oaUtility to check whether each of the primary keys in the tables to be ported from Altibase to Oracle DB are defined consistently, i.e. on the basis of columns having the same name.
 
-### Command-Line Options
+### Command-Line Option
 
 The following command-line options are supported for use with oraAdapter.
 
@@ -1048,8 +1046,6 @@ The following command-line options are supported for use with oraAdapter.
 ```
 oraAdapter [ -v | -version ]
 ```
-
-
 
 #### Description
 
@@ -1063,7 +1059,87 @@ Altibase Adapter for Oracle version 5.5.1.1.2
 ...
 ```
 
+### Offline Option
 
+#### Syntax
+
+```sql
+CREATE REPLICATION ala_replication_name FOR ANALYSIS OPTIONS META_LOGGING 
+                   WITH 'remote_host_ip', remote_host_port_no 
+                   FROM user_name.table_name TO user_name.table_name;                   
+ALTER REPLICATION ala_replication_name SET OFFLINE ENABLE WITH 'log_dir';
+ALTER REPLICATION ala_replication_name SET OFFLINE DISABLE;
+ALTER REPLICATION ala_replication_name BUILD OFFLINE META [AT SN(sn)];
+ALTER REPLICATION ala_replication_name RESET OFFLINE META;
+ALTER REPLICATION ala_replication_name START WITH OFFLINE;
+```
+
+#### Description
+
+Using the oraAdapter to apply changed data from the Altibase server to the Oracle database, it is impossible to send logs that were not applied to the other database if a failure occurs on the running Altibase server. In this case, if the Altibase server is running with the META_LOGGING option and there is a Standby server with the same database structure as the Altibase server, the Offline option helps the Standby server access the unsent log files in the Altibase server where the failure occurs directly, and apply them to the Oracle database.
+
+- META_LOGGING  
+  This logs the sender meta and Restart SN information in files. When a failure occurs, the files are used to configure the meta information necessary to read unsent logs. The files ares created within the ala_meta_files folder in the log file path.
+  
+- SET OFFLINE ENABLE WITH 'log_dir'  
+  This enables the use of the offline replication option. This statement can only be executed when replication is stopped. It sets up the Standby server to access the log files directly by specifying the log file path of the Altibase server where the failure occurs.
+  
+- SET OFFLINE DISABLE  
+  This disables the use of the offline replication option. This statement can only be executed when replication is stopped.
+  
+- BUILD OFFLINE META  
+  This reads the sender meta and Restart SN files from the ala_meta_files folder in the specified log file path. This constructs the necessary meta information for the offline replication.
+  
+- RESET OFFLINE META   
+  This resets the meta information configured by BUILD OFFLINE META when it is no longer needed or configuring new meta information.
+  
+- START WITH OFFLINE  
+This starts replication through the specified offline path. Offline replication is a one-time operation, so it terminates right after applying all unsent logs. After the completion of offline replication, users can start replication again.
+
+#### Constraints
+
+- Reading and writing functions of the sender meta or Restart SN file can be executed by ALA only.
+- The ALA object name for the server running the offline oraAdapter must be the same as the ALA object name for the Active server.
+- Offline oraAdapter does not support ALA objects with compressed tables as replication targets.
+- If the offline oraAdapter cannot access the log file and the sender meta file paths of the Active server due to disk issues, the operation fails.
+- The log file size of the Active server and Standby server must be the same. The size is determined during the database creation, so it must be verified before using the offline option.
+- Changing log files and the sender meta files arbitrarily (renaming, copying log files to another system, deleting) can lead to abnormal termination issues.
+- If users restart the Standby server after performing BUILD OFFLINE META, the Remote Meta information used for analyzing logs disappears. Therefore, users need to execute BUILD OFFLINE META again.
+- When using the META_LOGGING Option, ALA also does not process the gap as the Archive logs, similar to replication.
+- If the SM version, OS, OS bit size (32 or 64), or log file size of the two database servers are different, starting Offline oraAdapter or creating an ALA object with the offline option fails.
+
+#### Example
+
+| No                                                      | Active Server                                                | Standby Server                                               | Oracle                                                 |
+| ------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------ |
+| 1. Create scheme                                        | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20));       | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20));       | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20)); |
+| 2. Create replication                                   | CREATE REPLICATION ALA FOR ANALYSIS OPTIONS META_LOGGING WITH 'adapter_ip', adapter_port FROM SYS.T1 to SYS.T1; | CREATE REPLICATION ALA FOR ANALYSIS WITH 'adapter_ip', adapter_port FROM SYS.T1 to SYS.T1; |                                                        |
+| 3. Start oraAdapter on the Active server                | $oaUtility start                                             |                                                              |                                                        |
+| 4. Start replication on the Active server               | ALTER REPLICATION ALA START;                                 |                                                              |                                                        |
+| 5. Failure occurs on the Active server                  | Failure occurs                                               |                                                              |                                                        |
+| 6. Start oraAdapter on the Standby server               |                                                              | $oaUtility start                                             |                                                        |
+| 7. Set offline option on the Standby server replication |                                                              | ALTER REPLICATION ALA SET OFFLINE ENABLE WITH 'active_home/logs' |                                                        |
+| 8. Configure the offline meta information               |                                                              | ALTER REPLICATION ALA BUILD OFFLINE META;                    |                                                        |
+| 9. Start offline replication                            |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
+
+#### Example - Processing When Replication GAP contains DDL
+
+| No                                                      | Active Server                                                | Standby Server                                               | Oracle                                                 |
+| ------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------ |
+| 1. Create scheme                                        | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20));       | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20));       | CREATE TABLE T1 (I1 INTEGER PRIMARY KEY, I2 CHAR(20)); |
+| 2. Create replication                                   | CREATE REPLICATION ALA FOR ANALYSIS OPTIONS META_LOGGING WITH 'adapter_ip', adapter_port FROM SYS.T1 to SYS.T1; | CREATE REPLICATION ALA FOR ANALYSIS WITH 'adapter_ip', adapter_port FROM SYS.T1 to SYS.T1; |                                                        |
+| 3. Start oraAdapter on the Active server                | $oaUtility start                                             |                                                              |                                                        |
+| 4. Start replication on the Active server               | ALTER REPLICATION ALA START;                                 |                                                              |                                                        |
+| 5. DDL on the active server                             | DDL                                                          |                                                              |                                                        |
+| 6. Failure occurs on the Active server                  | Failure occurs                                               |                                                              |                                                        |
+| 7. Start oraAdapter on the Standby server               |                                                              | $oaUtility start                                             |                                                        |
+| 8. Set offline option on the Standby server replication |                                                              | ALTER REPLICATION ALA SET OFFLINE ENABLE WITH 'active_home/logs' |                                                        |
+| 9. Configure the offline meta information               |                                                              | ALTER REPLICATION ALA BUILD OFFLINE META;                    |                                                        |
+| 10. Start offline replication                           |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
+| 11. The error occurs because of  DDL logs               |                                                              | [ERR-611B6 : Offline ALA Sender read DDL log.]               |                                                        |
+| 12. DDL on Oracle                                       |                                                              |                                                              | DDL                                                    |
+| 13. Restart oraAdatper on the Standby server            |                                                              | $oaUtility start                                             |                                                        |
+| 14. Restart offline replication                         |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
 
 Appendix A: FAQ
 =========
@@ -1090,7 +1166,7 @@ When using oraAdapter, DDL that is performing replication must be executed in th
 <tr>
 <th>No</th>
 <th>Active Server</th>
-<th>jdbcAdapter</th>
+<th>oraAdapter</th>
 <th>Standby Server</th>
 </tr>
 </thead>
@@ -1284,5 +1360,6 @@ When using oraAdapter, DDL that is performing replication must be executed in th
 </tr>
 </tbody>
 </table>
+
 
 

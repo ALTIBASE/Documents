@@ -5210,7 +5210,7 @@ For information on Database Link, please refer to the *Database Link User’s Ma
 
 #### Syntax
 
-![create_directory](media/SQL/create_directory.gif)
+![create_directory](media/SQL/create_directory.png)
 
 #### Prerequisites
 
@@ -5229,6 +5229,10 @@ The CREATE DIRECTORY statement records directory data in the SYS_DIRECTORIES_ me
 *OR REPLACE*
 
 This option allows an existing DIRECTORY object to be replaced when a new DIRECTORY object is created with the same name. Note that the actual directory in the file system is not deleted.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the DIRECTORY object will be created only if there is no existing DIRECTORY object with the same name. If a DIRECTORY object with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing DIRECTORY object will remain unaffected.
 
 *directory_name*
 
@@ -5264,7 +5268,7 @@ Create success.
 
 **create_index ::=**
 
-![create_index_image98](media/SQL/create_index_image98.gif)
+![create_index](media/SQL/create_index.png)
 
 **table_index_clause ::=**
 
@@ -5331,6 +5335,10 @@ This statement is used to create an index on the basis of one or more of the col
 A partitioned index is classified as either a prefixed index or a non-prefixed index, depending on the relationship between the partition key and the index columns. If the leftmost index partition key is the same column as the leftmost index column, it is a prefixed index. If they are different columns, it is a non-prefixed index. 
 
 Function-based indexes are based on expressions. Expressions can include built-in SQL functions or user-defined functions.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the index will be created only if there is no existing index with the same name. If a index with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing index will remain unaffected.
 
 *user_name*
 
@@ -5961,7 +5969,7 @@ Create success.
 
 **create_queue ::=**
 
-![create_queue_image108](media/SQL/create_queue_image108.gif)
+![create_queue](media/SQL/create_queue.png)
 
 [column_definition ::=](#column_definition)
 
@@ -5976,6 +5984,10 @@ It is necessary to be satisfied one or more of the following conditions in order
 #### Description
 
 This syntax either can configure the maximum length of messages that are inserted into a queue or allows the user to directly define a column in order to create a queue. It can also specifies the number of maximum records that can be stored in a queue table.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the queue will be created only if there is no existing queue with the same name. If a queue with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing queue will remain unaffected.
 
 *queue_name*
 
@@ -6042,7 +6054,7 @@ abc         1           99.999
 
 **create_replication ::=**
 
-![create_replication](media/SQL/create_replication.gif)
+![create_replication](media/SQL/create_replication.png)
 
 **option_clause ::=**
 
@@ -6061,6 +6073,10 @@ Only the SYS user can execute replication-related statements.
 This statement is used to create a replication object, set the connection between a local server and one or more remote servers, and establish replication there between. Replication takes place between tables on a 1:1 basis; that is, a table is matched to only one corresponding table.
 
 In order to resolve conflicts, the AS MASTER or AS SLAVE clause can be specified in the statement. Doing so stipulates that a master-slave scheme is to be used to resolve conflicts. For more detailed information about replication conflict resolution, please refer to Chapter 2 of the *Replication Manual.*
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the replication object will be created only if there is no existing replication object with the same name. If a replication object with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing replication object will remain unaffected.
 
 *replication_name*
 
@@ -6210,7 +6226,7 @@ Create success.
 
 **create_sequence ::=**
 
-![create_sequence_image110](media/SQL/create_sequence_image110.gif)
+![create_sequence](media/SQL/create_sequence.png)
 
 **sequence_options ::=**
 
@@ -6227,6 +6243,10 @@ Only the SYS user and users having the CREATE SEQUENCE system privilege can exec
 #### Description
 
 This statement is used to define a new sequence having the specified name and automatically populate the sequence.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the sequence will be created only if there is no existing sequence with the same name. If a sequence with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing sequence will remain unaffected.
 
 *user_name*
 
@@ -6562,7 +6582,7 @@ CREATE SEQUENCE seq1 CACHE 100 ENABLE SYNC TABLE;
 
 **create_synonym ::=**
 
-![create_synonym_image111](media/SQL/create_synonym_image111.gif)
+![create_synonym](media/SQL/create_synonym.png)
 
 #### Prerequisites
 
@@ -6597,6 +6617,10 @@ This clause specifies the re-creation of a synonym, if it already exists. Using 
 A PUBLIC synonym is accessible by all users, whereas a PRIVATE synonym can only be accessed by its owner.
 
 To create a public synonym, specify PUBLIC in the statement. If this keyword is not provided, a PRIVATE synonym will be created by default.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the synonym will be created only if there is no existing synonym with the same name. If a synonym with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing synonym will remain unaffected.
 
 *user_name*
 
@@ -6699,7 +6723,7 @@ MY_DEPT.MEMBER
 
 **create_table ::=**
 
-![CREATE_TABLE_2](media/SQL/CREATE_TABLE_2.gif)
+![create_table](media/SQL/create_table.png)
 
 [table_constraint
 ::=](#table_constraint), [temporary_attributes_clause
@@ -6912,6 +6936,10 @@ For transaction-specific temporary tables, DDL operations are permitted, regardl
   - Only volatile tablespace can be specified for TABLESPACE of the lob_storage_clause for temporary tables.
   - Temporary tables can only be stored on volatile tablespace.
   - Distributed transactions are not supported for temporary tables.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the table will be created only if there is no existing table with the same name. If a table with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing table will remain unaffected.
 
 *user_name*
 
@@ -7463,7 +7491,7 @@ iSQL> CREATE TABLE inventory(
   \<Query\> Create an id(INTEGER) column in the tab1 table with the UNIQUE constraint and create a direct key index on it.
   
 ```
-  iSQL> CREATE TABLE tab1 (id UNIQUE DIRECTKEY );
+  iSQL> CREATE TABLE tab1 (id INTEGER UNIQUE DIRECTKEY );
   Create success.
 ```
 
@@ -7645,7 +7673,7 @@ PARTITION BY HASH (product_id)
 
 **create_disk_tablespace ::=**
 
-![create_disk_tablespace_image137](media/SQL/create_disk_tablespace_image137.gif)
+![create_disk_tablespace](media/SQL/create_disk_tablespace.png)
 
 **datafile_spec ::=**
 
@@ -7675,7 +7703,11 @@ DATA
 
 This keyword is used to specify that the tablespace to be created will be used to store user data. A data tablespace is created even when the CREATE TABLESPACE statement is executed without the DATA keyword.
 
-*tblspace_name*
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the tablespace will be created only if there is no existing tablespace with the same name. If a tablespace with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing tablespace will remain unaffected.
+
+*tablespace_name*
 
 This is used to specify the name of the tablespace to be created. Refer to “Rules for Object Names” in Chapter 2 for more information on specifying names.
 
@@ -7789,7 +7821,7 @@ Create success.
 
 **create_memory_tablespace ::=**
 
-![create_memory_tablespace_image140](media/SQL/create_memory_tablespace_image140.gif)
+![create_memory_tablespace](media/SQL/create_memory_tablespace.png)
 
 **initsize_clause ::=**
 
@@ -7826,6 +7858,10 @@ This keyword is used to specify that the tablespace to be created will be a memo
 *DATA*
 
 This keyword is used to specify that the tablespace to be created will be used to store user data. A data tablespace is created even when the CREATE TABLESPACE statement is executed without the DATA keyword.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the tablespace will be created only if there is no existing tablespace with the same name. If a tablespace with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing tablespace will remain unaffected.
 
 *tablespace_name*
 
@@ -7935,9 +7971,9 @@ Create success.
 
 #### Syntax 
 
-**create_tablespace ::=**
+**create_volatile_tablespace ::=**
 
-![create_tablespace_image145](media/SQL/create_tablespace_image145.gif)
+![create_volatile_tablespace](media/SQL/create_volatile_tablespace.png)
 
 **initsize_clause ::=**
 
@@ -7966,6 +8002,10 @@ This keyword is used to specify that the tablespace to be created will be a vola
 *DATA*
 
 This keyword is used to specify that the tablespace to be created will be used to store user data. A data tablespace is created even when the CREATE TABLESPACE statement is executed without the DATA keyword.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the tablespace will be created only if there is no existing tablespace with the same name. If a tablespace with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing tablespace will remain unaffected.
 
 *tablespace_name*
 
@@ -8042,7 +8082,7 @@ Create success.
 
 **create_temporary_tablespace ::=**
 
-![create_temporary_tablespace_image148](media/SQL/create_temporary_tablespace_image148.gif)
+![create_temporary_tablespace](media/SQL/create_temporary_tablespace.png)
 
 **datafile_spec ::=**
 
@@ -8062,7 +8102,11 @@ This command is used to create a temporary tablespace for storing temporary resu
 
 To create a tablespace in which to store database objects permanently, use the CREATE DISK TABLESPACE statement.
 
-*tblspace_name*
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the tablespace will be created only if there is no existing tablespace with the same name. If a tablespace with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing tablespace will remain unaffected.
+
+*tablespace_name*
 
 This is used to specify the name of the temporary tablespace to be created. Refer to “Rules for Object Names” in Chapter 2 for more information on specifying names.
 
@@ -8089,7 +8133,7 @@ Create success.
 
 **create_trigger ::=**
 
-![create_trigger](media/SQL/create_trigger.gif)
+![create_trigger](media/SQL/create_trigger.png)
 
 **simple_dml_trigger ::=**
 
@@ -8130,6 +8174,10 @@ This command is used to create a trigger having the specified name.
 *OR REPLACE*
 
 This is used to replace a trigger of the same name if a trigger already exists. That is, this changes the definition of an existing trigger instead of removing and recreating an existing trigger.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the trigger will be created only if there is no existing trigger with the same name. If a trigger with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing trigger will remain unaffected.
 
 *user_name*
 
@@ -8370,7 +8418,7 @@ ID SCORE
 
 **create_user ::=**
 
-![create_user_image155](media/SQL/create_user_image155.gif)
+![create_user](media/SQL/create_user.png)
 
 **<a name="password_parameters"><a/>**
 
@@ -8385,6 +8433,10 @@ Only the SYS user and users to whom the CREATE USER system privilege has been gr
 #### Description
 
 This statement is used to create a database user and specify the user's name, password, and tablespace access privileges.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the user will be created only if there is no existing user with the same name. If a user with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing user will remain unaffected.
 
 *user_name*
 
@@ -8530,7 +8582,7 @@ iSQL> CREATE USER rose4 IDENTIFIED BY rose4
 
 **create_view ::=**
 
-![create_view_image156](media/SQL/create_view_image156.gif)
+![create_view](media/SQL/create_view.png)
 
 **query_restriction_clause ::=**
 
@@ -8561,6 +8613,10 @@ This means that it is possible to use the FORCE option to create views that are 
 *NO FORCE*
 
 Use the NO FORCE clause to specify that the view is to be created only if the underlying objects exist and the owner of the schema in which the view is to be created has access privileges for them. This is the default view creation behavior.
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the view will be created only if there is no existing view with the same name. If a view with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing view will remain unaffected.
 
 *user_name*
 
@@ -8646,7 +8702,7 @@ Sandra                Hammond               Saeed                 Pahlavi
 
 **create_materialized_view ::=**
 
-![create_mview](media/SQL/create_mview.gif)
+![create_mview](media/SQL/create_mview.png)
 
 [table_partitioning_clause ::=](#table_partitioning_clause), [tablespace_clause
 ::=](#tablespace_clause), [logging_clause ::=](#logging_clause),
@@ -8682,6 +8738,10 @@ A new materialized view is created as the specified name. A materialized view is
 Like other tables, a materialized view stores the results of query statements in a tablespace and is mostly used for data warehouse purposes. The performance time for query execution can be significantly reduced by creating query statements that are frequently used or include time demanding JOIN or aggregate functions as materialized views. 
 
 Altibase provides only read-only materialized views. 
+
+*IF NOT EXISTS*
+
+If the IF NOT EXISTS clause is used, the materialized view will be created only if there is no existing materialized view with the same name. If a materialized view with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing materialized view will remain unaffected.
 
 *user_name*
 
@@ -8745,10 +8805,6 @@ This specifies the query statement of the materialized view. When the user creat
 CREATE MATERIALIZED VIEW mv1 AS
 SELECT * FROM employees;
 ```
-
-
-
-
 
 ### DISJOIN TABLE
 
@@ -8862,7 +8918,7 @@ For information on Database Link, please refer to the *Database Link User’s Ma
 
 **drop_directory ::=**
 
-![drop_directory_image160](media/SQL/drop_directory_image160.gif)
+![drop_directory_image160](media/SQL/drop_directory.png)
 
 #### Prerequisites
 
@@ -8871,6 +8927,10 @@ Only the SYS user and users to whom the DROP ANY DIRECTORY system privilege has 
 #### Description
 
 This statement is used to remove a directory. Note that only the reference to the directory in the database is removed; the actual directory is not removed from the file system.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the directory does not exist.
 
 *directory_name*
 
@@ -8891,7 +8951,7 @@ Drop success.
 
 **drop_index ::=**
 
-![drop_index_image161](media/SQL/drop_index_image161.gif)
+![drop_index_image161](media/SQL/drop_index.png)
 
 #### Prerequisites
 
@@ -8900,6 +8960,10 @@ Only the SYS user, the owner of the schema containing the index, users having th
 #### Description
 
 This statement is used to remove an index from the database.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the index does not exist.
 
 *user_name*
 
@@ -8957,7 +9021,7 @@ Drop success.
 
 **drop_queue ::=**
 
-![drop_queue_image162](media/SQL/drop_queue_image162.gif)
+![drop_queue_image162](media/SQL/drop_queue.png)
 
 #### Prerequisites
 
@@ -8966,6 +9030,10 @@ Only the SYS user, the owner of the schema containing the queue, and users havin
 #### Description
 
 This statement is used to delete the specified queue. The queue table, the index for the queue table and the sequence used to generate MSGID values in the queue table are deleted along with the queue. 
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the queue does not exist.
 
 #### Example
 
@@ -8983,7 +9051,7 @@ iSQL> DROP QUEUE Q1;
 
 **drop_replication ::=**
 
-![drop_replication_image163](media/SQL/drop_replication_image163.gif)
+![drop_replication_image163](media/SQL/drop_replication.png)
 
 #### Prerequisites
 
@@ -8992,6 +9060,10 @@ Only the SYS user can execute replication-related statements.
 #### Description
 
 This statement is used to drop a replication.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the replication object does not exist.
 
 *replication_name*
 
@@ -9048,7 +9120,7 @@ Drop success.
 
 **drop_sequence ::=**
 
-![drop_sequence_image164](media/SQL/drop_sequence_image164.gif)
+![drop_sequence_image164](media/SQL/drop_sequence.png)
 
 #### Prerequisites
 
@@ -9057,6 +9129,10 @@ Only the SYS user, the owner of the schema containing the sequence, and users wi
 #### Description
 
 This statement is used to remove a sequence from the database. 
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the sequence does not exist.
 
 *user_name*
 
@@ -9083,7 +9159,7 @@ Drop success.
 
 **drop_synonym ::=**
 
-![drop_synonym](media/SQL/drop_synonym.gif)
+![drop_synonym](media/SQL/drop_synonym.png)
 
 #### Prerequisites
 
@@ -9100,6 +9176,10 @@ This statement is used to remove a synonym from the database.
 To remove a public synonym, use the PUBLIC keyword, If the PUBLIC keyword is not used, a PRIVATE synonym having the specified name will be removed.
 
 When the PUBLIC keyword is used, user_name cannot be specified.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the synonym does not exist.
 
 *user_name*
 
@@ -9133,7 +9213,7 @@ Drop success.
 
 **drop_table ::=**
 
-![](media/SQL/3b6b6558264ad2e958e72fe192ae417a.png)
+![](media/SQL/drop_table.png)
 
 #### Prerequisites
 
@@ -9144,6 +9224,10 @@ Only the SYS user, the owner of the schema containing the table, and users with 
 This statement is used to remove a table and all of its data from a database.
 
 Set the value of the RECYCLEBIN_ENABLE property to 1 to move a table to the recycle bin, instead of dropping it directly from the database. Tables of the same name can be dropped multiple times; only as many tables as the recycle bin can contain can be moved to the recycle bin. 
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the table does not exist.
 
 *user_name*
 
@@ -9174,7 +9258,7 @@ Drop success.
 
 **drop_tablespace ::=**
 
-![drop_tablespace_image167](media/SQL/drop_tablespace_image167.gif)
+![drop_tablespace_image167](media/SQL/drop_tablespace.png)
 
 #### Prerequisites
 
@@ -9184,7 +9268,11 @@ Only the SYS user and users with the DROP TABLESPACE system privilege can execut
 
 This statement is used to remove a tablespace from the database. 
 
-*tblspace_name*
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the tablespace does not exist.
+
+*tablespace_name*
 
 This is used to specify the name of the tablespace to drop.
 
@@ -9258,7 +9346,7 @@ Drop success.
 
 **drop_trigger ::=**
 
-![drop_trigger_image168](media/SQL/drop_trigger_image168.gif)
+![drop_trigger_image168](media/SQL/drop_trigger.png)
 
 #### Prerequisites 
 
@@ -9267,6 +9355,10 @@ Only the SYS user, the owner of the schema containing the trigger, and users wit
 #### Description
 
 This statement is used to drop the specified trigger from the database.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the trigger does not exist.
 
 *user_name*
 
@@ -9293,7 +9385,7 @@ Drop success.
 
 **drop_user ::=**
 
-![drop_user_image169](media/SQL/drop_user_image169.gif)
+![drop_user_image169](media/SQL/drop_user.png)
 
 #### Prerequisites
 
@@ -9302,6 +9394,10 @@ Only the SYS user and users with the DROP USER system privilege can execute the 
 #### Description
 
 This statement is used to drop the specified user from the database.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the user does not exist.
 
 *user_name*
 
@@ -9337,7 +9433,7 @@ Drop success.
 
 **drop_view ::=**
 
-![drop_view_image170](media/SQL/drop_view_image170.gif)
+![drop_view_image170](media/SQL/drop_view.png)
 
 #### Prerequisites
 
@@ -9346,6 +9442,10 @@ Only the SYS user, the owner of the schema containing the view, and users with t
 #### Description
 
 This statement is used to drop the specified view from the database.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the view does not exist.
 
 *user_name*
 
@@ -9372,7 +9472,7 @@ Drop success.
 
 **drop_mview ::=**
 
-![drop_mview](media/SQL/drop_mview.gif)
+![drop_mview](media/SQL/drop_mview.png)
 
 #### Prerequisites
 
@@ -9387,6 +9487,10 @@ Only the following users can delete the materialized view using this statement:
 #### Description
 
 This statement deletes the specified materialized view from the database.
+
+*IF EXISTS*
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the materialized view does not exist.
 
 *user_name*
 
@@ -22639,11 +22743,11 @@ The sections that follow describe the various kinds of conditions in detail.
 
 The following logical conditions are supported for use with Altibase. Each of them is described briefly below.
 
-| Local operators | Description                                                  |
-| --------------- | ------------------------------------------------------------ |
-| AND             | Returns TRUE if both of the constituent conditions are TRUE. Returns FALSE if either or both of the constituent conditions are FALSE. |
-| NOT             | Returns the opposite of the condition to which it applies. That is, it returns TRUE if the condition is FALSE, and returns FALSE if the condition is TRUE. |
-| OR              | Returns TRUE if either or both of the constituent conditions are TRUE. Returns FALSE if both of the constituent conditions are FALSE. |
+| Logical operators | Description                                                  |
+| ----------------- | ------------------------------------------------------------ |
+| AND               | Returns TRUE if both of the constituent conditions are TRUE. Returns FALSE if either or both of the constituent conditions are FALSE. |
+| NOT               | Returns the opposite of the condition to which it applies. That is, it returns TRUE if the condition is FALSE, and returns FALSE if the condition is TRUE. |
+| OR                | Returns TRUE if either or both of the constituent conditions are TRUE. Returns FALSE if both of the constituent conditions are FALSE. |
 
 #### Comparison Conditions
 

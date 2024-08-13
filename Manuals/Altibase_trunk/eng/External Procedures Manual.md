@@ -738,11 +738,15 @@ This chapter describes SQL statements supported by Altibase for the use of exter
 
 #### Syntax
 
-![](media/ExternalProcedure/image024.gif)
+![](media/ExternalProcedure/create_library.png)
 
 #### Description
 
 This creates a new external library object or changes the previously existing external library into a new external library.
+
+##### IF NOT EXISTS
+
+If the IF NOT EXISTS clause is used, the library object will be created only if there is no existing library object with the same name. If a library object with the same name already exists, the CREATE statement will execute without any name duplication error, and the existing library object will remain unaffected.
 
 ##### library_name
 
@@ -781,13 +785,19 @@ ALTER LIBRARY lib1 COMPILE;
 
 #### Syntax
 
-![](media/ExternalProcedure/image028.gif)
+**drop_library_statement ::=**
+
+![](media/ExternalProcedure/drop_library.png)
 
 #### Description
 
 This drops the external library object in the database.
 
 Even if an external procedure, which is included in the library object to be dropped, is being executed, the given library object is dropped. Only the library object is dropped from the database, however, and the related dynamic library file is left intact.
+
+##### IF EXISTS
+
+If the IF EXISTS clause is used, the DROP statement runs without error even if the external library object does not exist.
 
 #### Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1843,8 +1843,8 @@ To ensure stable usage of aku in a Kubernetes environment, the following conditi
 
 | Category                      | Property name                        | Default value | Description                                                  |
 | ----------------------------- | :----------------------------------- | :-----------: | :----------------------------------------------------------- |
-| Kubernetes Setting Properties | AKU_STS_NAME                         |               | The name of the StatefulSet defined in the Kubernetes object specification. |
-|                               | AKU_SVC_NAME                         |               | The Service name that provides the Network Service defined in the Kubernetes object specification. |
+| Kubernetes Setting Properties | AKU_STS_NAME                         |               | The name of the StatefulSet defined in the Kubernetes object specification.<br/>It can be set up to 63 bytes. |
+|                               | AKU_SVC_NAME                         |               | The service name that provides the Network Service defined in the Kubernetes object specification.<br/>It can be set up to 63 bytes. |
 |                               | AKU_SERVER_COUNT                     |       4       | The maximum number of Altibase servers that can be synchronized using aku. It also refers to the number of Pods that can be scaled up in Kubernetes. </br>It can be set from 1 to 6. |
 | Common Properties             | AKU_SYS_PASSWORD                     |               | Database SYS user password                                   |
 |                               | AKU_PORT_NO                          |     20300     | Altibase Server Port number.<br />It can be set from 1024 to 65535. |
@@ -1894,7 +1894,7 @@ To ensure stable usage of aku in a Kubernetes environment, the following conditi
 
 #### How to configure Altibase Replication Tables
 
-Users can specify the tables to be managed in replication in the aku configuration file. To specify replication tables, users need to add table information to the replication property section in the format [user name].[table name].
+Users can specify the tables to be managed in replication in the aku configuration file. To specify replication tables, users need to add table information to the replication property section in the format [user name].[table name]. The maximum length for the user name and table name is 128 bytes. 
 
 Each replication table is separated by a comma, and more than one replication table can be written on a single line.
 
@@ -2138,9 +2138,10 @@ Master pod failure refers to a scenario where the `aku -p start` command fails o
 
 When a master pod failure occurs, the following steps should be taken to recover the master pod:
 
-1. Synchronize data from slave pods to the master pod to ensure data consistency.
-2. Start replication on the master pod.
-3. Retry the command `aku -p start`.
+1. Select the slave pod that will serve as the basis for recovery. Execute the `aku -p end` command to terminate all slave pods except for the one chosen as the recovery basis.
+2. Synchronize data from the slave pod to the master pod to ensure data consistency.
+3. Start replication on the master pod.
+4. Retry the command `aku -p start`.
 
 Refer to the example below for detailed steps of master pod failure recovery.
 

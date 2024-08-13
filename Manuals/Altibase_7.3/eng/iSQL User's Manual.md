@@ -128,7 +128,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Creating, Executing, and Dropping Stored Procedures](#creating-executing-and-dropping-stored-procedures)
   - [Creating, Executing ,and Dropping Functions](#creating-executing-and-dropping-functions)
   - [Convenient User Functions](#convenient-user-functions)
-  - [Using National Character Sets](#using-national-character-sets)d
+  - [Using National Character Sets](#using-national-character-sets)
 
 
 

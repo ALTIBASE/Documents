@@ -726,7 +726,7 @@ IF done is NULL THEN
 
 create_procedure::=
 
-![](media/StoredProcedure/f92b873dfdce56f3ffd9259601f837c3.png)
+![](media/StoredProcedure/create_procedure.png)
 
 parameter_declaration::=
 
@@ -742,6 +742,10 @@ invoker_rights_clause::=
 
 저장 프로시저를 새로 생성하거나 이미 생성되어 있는 저장 프로시저를 새로운 저장
 프로시저로 변경하는 기능을 수행한다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 저장 프로시저가 없을 때만 생성한다. 같은 이름의 저장 프로시저가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 저장 프로시저에는 아무 영향을 주지 않는다.
 
 ##### parameter_declaration
 
@@ -1312,7 +1316,7 @@ T1.I1       T1.I2       T1.I3
 
 #### 구문
 
-![drop_procedure](media/StoredProcedure/drop_procedure.gif)
+![drop_procedure](media/StoredProcedure/drop_procedure.png)
 
 #### 기능
 
@@ -1322,6 +1326,10 @@ T1.I1       T1.I2       T1.I3
 프로시저는 삭제된다.
 
 삭제되고 없는 저장 프로시저나 함수가 호출될 때 Altibase는 오류 코드를 반환한다.
+
+##### IF EXISTS
+
+IF EXISTS 절을 명시하면 저장 프로시저가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 #### 예제
 
@@ -1425,7 +1433,7 @@ EMP_TEL          DNO         SALARY      SEX  BIRTH   JOIN_DATE    STATUS
 
 create_function::=
 
-![](media/StoredProcedure/2af0f571d5d6a63272084d059964fca0.png)
+![](media/StoredProcedure/create_function.png)
 
 parameter_declaration::=
 
@@ -1442,6 +1450,10 @@ invoker_rights_clause::=
 #### 기능
 
 저장 함수를 새로 생성하거나 이미 생성되어 있는 저장 함수를 대체한다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 저장 함수가 없을 때만 생성한다. 같은 이름의 저장 함수가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 저장 함수에는 아무 영향을 주지 않는다.
 
 ##### parameter_declaration
 
@@ -1808,7 +1820,7 @@ ALTER FUNCTION get_dept_name COMPILE;
 
 #### 구문
 
-![drop_function_statement](media/StoredProcedure/drop_function_statement.gif)
+![drop_function_statement](media/StoredProcedure/drop_function.png)
 
 #### 기능
 
@@ -1819,6 +1831,10 @@ ALTER FUNCTION get_dept_name COMPILE;
 
 이미 삭제된 저장 함수를 참조하고 있던 임의의 저장 프로시저 또는 저장 함수가
 실행될 때 Altibase는 오류를 출력한다.
+
+##### IF EXISTS
+
+IF EXISTS 절을 명시하면 저장 함수가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 #### 예제
 
@@ -6807,7 +6823,7 @@ END;
 
 #### 구문
 
-![create_typeset](media/StoredProcedure/create_typeset.gif)
+![create_typeset](media/StoredProcedure/create_typeset.png)
 
 #### 전제 조건
 
@@ -6818,6 +6834,10 @@ SYS 사용자 또는 CREATE PROCEDURE, CREATE ANY PROCEDURE 시스템 권한을 
 
 저장 프로시저에서 사용할 사용자 정의 타입을 포함하는 타입 세트를 정의한다. 타입
 세트 내에서 정의한 타입은 프로시저의 INPUT / OUTPUT 인자로 사용할 때 용이하다.
+
+**IF NOT EXISTS**
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 타입 세트가 없을 때만 생성한다. 같은 이름의 타입 세트가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 타입 세트에는 아무 영향을 주지 않는다.
 
 ##### user_name
 
@@ -6899,7 +6919,7 @@ Execute success.
 
 #### 구문
 
-![drop_typeset](media/StoredProcedure/drop_typeset.gif)
+![drop_typeset](media/StoredProcedure/drop_typeset.png)
 
 #### 전제 조건
 
@@ -6910,6 +6930,10 @@ SYS 사용자이거나 객체의 생성자 또는 DROP ANY PROCEDURE 시스템 �
 
 명시된 타입 세트를 제거한다. 제거된 타입 세트를 사용하던 저장 프로시저는
 유효하지 않은(Invalid) 상태가 된다.
+
+##### IF EXISTS
+
+IF EXISTS 절을 명시하면 타입 세트가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 ##### user_name
 
@@ -8131,7 +8155,7 @@ at "SYS.PROC2", line 6]
 
 ##### create_package ::=
 
-![create_package](media/StoredProcedure/create_package.gif)
+![create_package](media/StoredProcedure/create_package.png)
 
 ##### invoker_rights_clause::=
 
@@ -8152,6 +8176,10 @@ at "SYS.PROC2", line 6]
 #### 기능
 
 패키지 스펙을 생성하거나 이미 생성되어 있는 패키지 스펙을 대체한다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 패키지가 없을 때만 생성한다. 같은 이름의 패키지가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 패키지에는 아무 영향을 주지 않는다.
 
 ##### invoker_rights_clause
 
@@ -8365,7 +8393,7 @@ Execute success.
 
 ##### create_package_body ::=
 
-![](media/StoredProcedure/bba17be9803aaf99425718e2904dbc23.png)
+![](media/StoredProcedure/create_package_body.png)
 
 ##### initialize_section::=
 
@@ -8378,6 +8406,10 @@ Execute success.
 #### 기능
 
 패키지 바디를 생성하거나 이미 생성되어 있는 패키지 바디를 대체한다.
+
+*IF NOT EXISTS*
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 패키지 바디가 없을 때만 생성한다. 같은 이름의 패키지 바디가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 패키지 바디에는 아무 영향을 주지 않는다.
 
 ##### declare_section
 
@@ -8570,12 +8602,16 @@ Alter success.
 
 ##### drop_package ::=
 
-![drop_package](media/StoredProcedure/drop_package.gif)
+![drop_package](media/StoredProcedure/drop_package.png)
 
 #### 기능
 
 패키지를 삭제하는 구문이다. 이 구문으로 패키지 바디만 선택적으로 삭제하거나
 패키지 전체를 삭제할 수 있다.
+
+##### IF EXISTS
+
+IF EXISTS 절을 명시하면 패키지 전체 또는 패키지 바디가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 #### 예제
 

@@ -874,7 +874,7 @@ char* str_uppercase_return(char *str1, long long str1_len, char * str2)
 
 #### 구문
 
-![](media/ExternalProcedure/image024.gif)
+![](media/ExternalProcedure/create_library.png)
 
 #### 설명
 
@@ -884,6 +884,10 @@ char* str_uppercase_return(char *str1, long long str1_len, char * str2)
 ##### library_name
 
 라이브러리 객체의 이름을 명시한다.
+
+**IF NOT EXISTS**
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 라이브러리 객체가 없을 때만 생성한다. 같은 이름의 라이브러리 객체가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 라이브러리 객체에는 아무 영향을 주지 않는다.
 
 ##### file_name
 
@@ -923,7 +927,9 @@ ALTER LIBRARY lib1 COMPILE;
 
 #### 구문
 
-![](media/ExternalProcedure/image028.gif)
+**drop_library_statement ::=**
+
+![](media/ExternalProcedure/drop_library.png)
 
 #### 설명
 
@@ -932,6 +938,10 @@ ALTER LIBRARY lib1 COMPILE;
 삭제하려는 라이브러리 객체에 포함된 외부 프로시저가 실행 중이어도, 해당
 라이브러리 객체는 삭제된다. 단, 데이터베이스에서 라이브러리 객체만 삭제될 뿐,
 연관된 동적 라이브러리 파일이 삭제되지는 않는다.
+
+##### IF EXISTS
+
+IF EXISTS 절을 명시하면 라이브러리 객체가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 #### 예제
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1139,7 +1139,7 @@ Altibase 데이터베이스 링크를 사용하기 위해서는 먼저 altibase.
 
 **create_database_link ::=**
 
-![](media/DBLink/create_dblink.gif)
+![](media/DBLink/create_dblink.png)
 
 #### 전제조건
 
@@ -1152,6 +1152,10 @@ SYS 사용자 또는 CREATE DATABASE LINK 시스템 권한을 가진 사용자�
 ##### PUBLIC\|PRIVATE
 
 생성할 데이터베이스 링크 객체의 PUBLIC\|PRIVATE 속성을 지정한다. PUBLIC으로 지정하면 생성된 데이터베이스 링크 객체를 모든 사용자가 사용할 수 있으며, PRIVATE로 지정하면 데이터베이스 링크 객체를 생성한 사용자와 SYS 사용자만 사용할 수 있다. 지정하지 않을 경우, PUBLIC으로 생성된다.
+
+**IF NOT EXISTS**
+
+IF NOT EXISTS 절을 명시하면 같은 이름의 데이터베이스 링크 객체가 없을 때만 생성한다. 같은 이름의 데이터베이스 링크 객체가 있는 경우, CREATE 문은 이름 중복 오류 없이 실행되며 기존의 데이터베이스 링크 객체에는 아무 영향을 주지 않는다.
 
 ##### dblink_name
 
@@ -1197,7 +1201,7 @@ USING Altibase;
 
 **drop_database_link ::=**
 
-![](media/DBLink/drop_dblink.gif)
+![](media/DBLink/drop_dblink.png)
 
 #### 전제조건
 
@@ -1206,6 +1210,10 @@ SYS 사용자이거나 DROP DATABASE LINK 시스템 권한을 가진 사용자�
 #### 설명
 
 데이터베이스 링크 객체를 삭제한다.
+
+##### IF EXISTS
+
+ IF EXISTS 절을 명시하면 데이터베이스 링크 객체가 존재하지 않아도 DROP 구문이 오류 없이 실행된다.
 
 ##### dblink_name
 

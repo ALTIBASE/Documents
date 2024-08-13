@@ -474,7 +474,7 @@ jdbcAdapter는 원본 DB의 Altibase 서버 계정이 아닌 다른 사용자 �
     65536사이의 값으로 설정해야 한다.
 
 6. jdbcAdapter를 사용하려면 Other DB 프로퍼티를 적절히 설정해야 한다.
-   프로퍼티에 대한 자세한 설명은 이 장의 뒷 부분에 있는 “외부 데이타베이스의
+   프로퍼티에 대한 자세한 설명은 이 장의 뒷 부분에 있는 “외부 데이터베이스의
    프로퍼티”와 “DML 관련 프로퍼티”절을 참고한다.
 
 -   OTHER_DATABASE_USER: 데이터를 전송할 대상이 되는 Other DB에 접근할 사용자의
@@ -734,7 +734,7 @@ LOB 데이터 타입의 지원 여부를 결정하는 프로퍼티이다.
 -   0: LOB 데이터 타입을 지원하지 않는다.
 -   1: LOB 데이터 타입을 지원한다.
 
-#### 외부 데이타베이스의 프로퍼티
+#### 외부 데이터베이스의 프로퍼티
 
 jdbcAdapter에서 데이터를 보낼 대상이 되는 Other DB를 사용하기 위해서는 다음의
 프로퍼티들을 설정해야 한다.
@@ -937,7 +937,7 @@ jdbcAdapter를 사용하기 위해서는 여러가지 제약 조건이 있다. �
 
 #### 허용된 DDL 문
 
-일반적으로 이중화 대상인 테이블은 데이타 정의어(DDL)를 수행할 수 없다. 그러나
+일반적으로 이중화 대상인 테이블은 데이터 정의어(DDL)를 수행할 수 없다. 그러나
 다음의 몇 가지 DDL은 XLog Sender와 상관없이 DDL 수행이 가능하다. 그 외 수행할 수
 있는 DDL은 Replication Manual의 '이중화 대상 테이블에 DDL 실행'을 참조하기
 바란다.
@@ -956,7 +956,7 @@ jdbcAdapter를 사용하기 위해서는 여러가지 제약 조건이 있다. �
 
 #### 복제 대상 테이블에 허용된 DDL 문
 
-일반적으로 복제 대상 테이블에 데이타 정의어(DDL)를 수행하면, jdbcAdapter는 현재
+일반적으로 복제 대상 테이블에 데이터 정의어(DDL)를 수행하면, jdbcAdapter는 현재
 DDL 이전에 발생한 모든 변경 사항을 대상 데이터베이스에 반영한 후 종료된다.
 jdbcAdapter가 종료되면, 대상 데이터베이스에 동일한 DDL을 수행하여 테이블
 스키마를 동일하게 만든 후 jdbcAdapter를 재시작하여 복제를 다시 할 수 있다.
@@ -1150,7 +1150,7 @@ Adapter for JDBC version 7.3.0.0.0
 
 #### 구문
 
-```
+```sql
 CREATE REPLICATION ala_replication_name FOR ANALYSIS OPTIONS META_LOGGING 
                    WITH 'remote_host_ip', remote_host_port_no 
                    FROM user_name.table_name TO user_name.table_name;                   
@@ -1163,45 +1163,45 @@ ALTER REPLICATION ala_replication_name START WITH OFFLINE;
 
 #### 설명
 
-jdbcAdapter를 이용하여 Alitbase에서 변경된 데이타를 Other DB에 적용하는 환경에서,
+jdbcAdapter를 이용하여 Altibase에서 변경된 데이터를 Other DB에 적용하는 환경에서,
 서비스를 제공하는 Altibase 서버에서 장애가 발생하면 Other DB에 적용하지 못한 로그를  전송할 수 없게 된다.
 이때 Altibase 서버에 META_LOGGING Option을 수행 중이고, Altibase 서버와 동일한 데이터베이스 구성을 가진
-Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장애가 발생한 Alitbase 서버의 로그 파일에 직접 접근하여
+Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장애가 발생한 Altibase 서버의 로그 파일에 직접 접근하여
 미전송 로그를 가져와서 Other DB에 반영할 수 있다.
 
--   META_LOGGING
-    이중화 메타 정보와 SN 정보를 파일로 남겨서 장애 발생시 Standby 서버에서 
+-   META_LOGGING  
+    송신자 메타 정보와 재시작 SN 정보를 파일로 남겨서 장애 발생시 Standby 서버에서 
     미전송 로그를 읽어 올때 필요한 메타 정보를 구성할 수 있게 한다.
-    파일 경로는 로그 파일 경로의 ala_meta_files 폴더 안에 생성 된다.
--   SET OFFLINE ENABLE WITH 'log_dir' 
+    파일은 로그 파일 경로의 ala_meta_files 폴더 안에 생성 된다.
+-   SET OFFLINE ENABLE WITH 'log_dir'   
     오프라인 이중화 옵션을 사용할 수 있도록 설정한다. 이중화가 중지되어 있는 상태에서만
     이 구문을 수행할 수 있다.
     장애가 발생한 Altibase 서버의 로그 파일 경로를 설정하여 Standby 서버가 직접 로그 파일에
     접근하도록 한다.
--   SET OFFLINE DISABLE 
+-   SET OFFLINE DISABLE   
     오프라인 이중화 옵션을 사용하지 못하도록 설정한다. 이중화가 중지되어 있는
     상태에서만 이 구문을 수행할 수 있다.
--   BUILD OFFLINE META
-    설정된 로그 파일 경로의 ala_meta_files 폴더에서 메타 파일과 SN 파일을 읽어 
+-   BUILD OFFLINE META  
+    설정된 로그 파일 경로의 ala_meta_files 폴더에서 송신자 메타 파일과 재시작 SN 파일을 읽어 
     오프라인 이중화에 필요한 메타 정보를 구성한다.
--   RESET OFFLINE META
+-   RESET OFFLINE META  
     BUILD OFFLINE META로 구성된 메타 정보를 새로 구성하거나 더 이상 필요하지 않을때
     초기화 한다.
--   START WITH OFFLINE 
+-   START WITH OFFLINE   
     설정된 오프라인 경로를 이용하여 이중화를 수행한다. 오프라인 이중화는 일회성
     작업으로써, 미전송된 로그를 모두 반영한 후 바로 종료된다. 
     오프라인 이중화가 종료된 후에는 다시 이중화를 시작할 수 있다.
 
 #### 제약사항
 
-- 이중화 메타정보 파일 읽기, 쓰기 기능은 ALA만 사용 할수 있다.
+- 송신자 메타 정보 파일과 재시작 SN 파일의 읽기, 쓰기 기능은 ALA만 사용 할수 있다.
 - Offline jdbcAdapter을 수행할 서버의 ALA 객체 이름은 Active 서버의 ALA 객체 이름과 동일해야 한다. 
-- 압축 테이블을 이중화 대상으로 가지는 ALA객체에 대해서는 Offline jdbcAdapter를 지원하지 않는다.
-- Offline jdbcAdapter가 디스크 이상으로 Active서버의 로그 파일과 메타 파일 경로에 접근하지 못할 
+- 압축 테이블을 이중화 대상으로 가지는 ALA 객체에 대해서는 Offline jdbcAdapter를 지원하지 않는다.
+- Offline jdbcAdapter가 디스크 이상으로 Active 서버의 로그 파일과 송신자 메타 파일 경로에 접근하지 못할 
   경우에는 실패한다.
 - Active 서버와 Standby 서버의 로그 파일 크기는 동일해야 한다. 로그 파일 크기는 데이터베이스 생성 시에 
   정해지므로 오프라인 옵션을 사용하기 전에 이를 꼭 확인하여야 한다.
-- 로그 파일과 메타 파일을 사용자 임의로 변경(이름 변경, 다른 시스템에 로그 파일을 복제, 삭제)할 경우
+- 로그 파일과 송신자 메타 파일을 사용자 임의로 변경(이름 변경, 다른 시스템에 로그 파일을 복제, 삭제)할 경우
   비정상 종료와 같은 문제를 발생시킬 수 있다.
 - Standby 서버에 BUILD OFFLINE META 수행 후 재 구동할 경우 로그를 분석하는데 사용할 Remote Meta 정보가 사라지기 때문에 BUILD OFFLINE META를 다시 수행 해야 한다. 
 - META_LOGGING Option을 사용할 경우 ALA도 이중화와 동일하게 갭을 Archive 로그로 처리 하지 않는다.
@@ -1237,7 +1237,7 @@ Standby 서버가 있다면 Standby 서버에서 오프라인 옵션으로 장�
 | 9. 오프라인 메타 정보 구성                          |                                                              | ALTER REPLICATION ALA BUILD OFFLINE META;                    |                                                        |
 | 10. 오프라인 이중화 시작                            |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
 | 11. DDL 로그로 인해 <br />오프라인 이중화 에러 발생 |                                                              | [ERR-611B6 : Offline ALA Sender read DDL log.]               |                                                        |
-| 12.Other DB에 DDL                                   |                                                              |                                                              | DDL                                                    |
+| 12. Other DB에 DDL                                  |                                                              |                                                              | DDL                                                    |
 | 13. Standby 서버 jdbcAdapter 재 시작                |                                                              | $oaUtility start                                             |                                                        |
 | 14. 오프라인 이중화 재 시작                         |                                                              | ALTER REPLICATION ALA START WITH OFFLINE;                    |                                                        |
 

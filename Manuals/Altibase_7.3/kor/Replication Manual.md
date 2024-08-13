@@ -111,28 +111,21 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 # 목차
 
 - [서문](#서문)
-
   - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
 - [1.이중화 개요](#1이중화-개요)
-
   - [이중화 소개](#이중화-소개)
-
 - [2.이중화 관리](#2이중화-관리)
-
   - [이중화 순서](#이중화-순서)
   - [에러 발생과 해결](#에러-발생과-해결)
   - [충돌 해결](#충돌-해결)
   - [Eager 이중화 장애 복구 (Eager Replication Failback)](#eager-이중화-장애-복구-eager-replication-failback)
   - [병렬 이중화](#병렬-이중화)
   - [이중화 관련 성능 뷰](#이중화-관련-성능-뷰)
-
 - [3.이중화 사용](#3이중화-사용)
-
   - [이중화 제약조건](#이중화-제약조건)
   - [이중화 생성 (CREATE REPLICATION)](#이중화-생성-create-replication)
   - [이중화 시작, 종료와 변경 (ALTER REPLICATION)](#이중화-시작-종료와-변경-alter-replication)
   - [이중화 동기화(SYNC)](#이중화-동기화sync)
-
   - [이중화 삭제 (DROP REPLICATION)](#이중화-삭제-drop-replication)
   - [이중화 대상 테이블에 DDL 실행](#이중화-대상-테이블에-ddl-실행)
   - [이중화 대상 테이블에 DDL 복제 실행](#이중화-대상-테이블에-ddl-복제-실행)
@@ -140,27 +133,19 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [이중화 부가기능](#이중화-부가기능)
   - [다중 IP 네트워크 환경에서의 이중화](#다중-IP-네트워크-환경에서의-이중화)
   - [이중화 관련 프로퍼티](#이중화-관련-프로퍼티)
-
 - [4.Fail-Over](#4fail-over)
-
   - [Fail-Over 의 개요](#fail-over-의-개요)
   - [Fail-Over 사용 방법](#fail-over-사용-방법)
   - [JDBC에서 콜백 작성](#jdbc에서-콜백-작성)
   - [SQLCLI](#sqlcli)
   - [Embedded SQL](#embedded-sql)
   - [PDO에서 콜백 작성](#pdo에서-콜백-작성)
-
 - [5.시퀀스 이중화](#5시퀀스-이중화)
-
   - [시퀀스 이중화](#시퀀스-이중화)
-
 - [6.이중화 롤(ROLE)](#6-이중화-롤role)
-
   - [Log Analyzer 롤](#log-analyzer-롤)
   - [전파(Propagation)](#전파propagation)
-
 - [A.부록: FAQ](#a부록-faq)
-
   - [Replication FAQ](#replication-faq)
 
 <br>
@@ -210,6 +195,12 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 -   제 4장 Fail-Over  
     이 장은 Altibase Fail-Over 기능과 그 사용 방법에 대해 설명한다.
 
+-   제 5장 시퀀스 이중화  
+    이 장은 Altibase에서 지원하는 시퀀스 이중화를 위한 조건 및 방법을 설명한다.
+
+-   제 6장 이중화 롤(ROLE)  
+    이 장은 이중화에 롤(ROLE)을 부여하여 특별한 기능을 하도록 시스템을 구성하는 방법을 설명한다.
+    
 -   A. 부록 FAQ  
     이 장은 Altibase 이중화 구동 관련, 프로퍼티 관련 등 사용자들이 자주하는 질문을 모은 것이다.
 
@@ -530,9 +521,11 @@ Altibase에서 제공하는 이중화 부가 기능은 아래와 같다. 부가 
 -   이중화 트랜잭션 그룹 옵션  
     : 이중화 갭이 발생하였을 때 전송해야 할 복수의 트랜잭션들을 하나의 트랜잭션처럼 그룹화하여 수신 쓰레드에 로그를 전송하는 기능
     
-- 이중화 수신 전용 옵션
-
+- 이중화 수신 전용 옵션  
   : 이중화를 수신 전용 옵션으로 설정하는 기능.
+  
+- 메타 로깅 옵션  
+  : 송신자 메타 정보와 재시작 SN 정보를 파일로 저장하는 기능
 
 > #### 주의 사항
 >
@@ -1904,6 +1897,8 @@ Altibase는 이중화 부가 기능으로 다음의 기능을 제공한다. 이�
 
 -   이중화 수신 전용 옵션(Receive Only Option)
 
+-   메타 로깅 옵션(Meta Logging Option)
+
 이중화 옵션의 상태는 SYS_REPLICATIONS\_ 메타 테이블의 OPTIONS 칼럼 값을 통해서 확인할 수 있다. 자세한 내용은 *General Reference*를 참고한다.
 
 #### 복구 옵션(Recovery Option)
@@ -2205,6 +2200,24 @@ Alter success.
 iSQL> ALTER REPLICATION rep1 SET RECEIVE_ONLY OFF WITH '192.168.1.12',30300;
 Alter success.
 ```
+
+#### 메타 로깅 옵션(Meta Logging Option)
+
+##### 구문
+
+```sql
+CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING...;
+```
+
+##### 설명
+
+메타 로깅 옵션은 송신자 메타 정보와 재시작 SN 정보를 로그 파일 경로의 ala_meta_files 폴더 안에 파일로 저장한다. 이 파일들은 Adapter for JDBC와 Adapter for Oracle 유틸리티의 오프라인 옵션이 동작할 때 필요하다.
+
+> **Adapter for JDBC와 Adapter for Oracle의 오프라인 옵션**
+>
+> 오프라인 옵션은 Active 서버에서 장애가 발생한 경우 Standby 서버에서 미전송 로그를 읽어오는 기능이다. 이에 관한 자세한 설명은 [*Adapter for JDBC User’s Manual - 오프라인 옵션*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Adapter%20for%20JDBC%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option), [*Adapter for Oracle User’s Manual - 오프라인 옵션*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Adapter%20for%20Oracle%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)을 참고한다.
+
+이 옵션을 사용하기 위해선 Log Analyzer 롤로 이중화 객체를 생성해야 한다.
 
 ### 다중 IP 네트워크 환경에서의 이중화 
 

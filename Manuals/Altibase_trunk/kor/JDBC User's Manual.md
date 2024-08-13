@@ -113,29 +113,20 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 # 목차
 
 - [서문](#서문)
-
   - [이 매뉴얼에 대하여](#이-매뉴얼에-대하여)
-
 - [1.JDBC 시작하기](#1jdbc-시작하기)
-
     - [JDBC 드라이버 설치](#jdbc-드라이버-설치)
     - [데이터베이스에 연결하기](#데이터베이스에-연결하기)
     - [연결 정보](#연결-정보)
     - [Statement와 ResultSet 다루기](#statement와-resultset-다루기)
-
     - [JDBC Connection Failover](#jdbc-connection-failover)
-
 - [2.기본 기능](#2기본-기능)
-
   - [IPv6 접속](#ipv6-접속)
   - [Statement, PreparedStatement 및 CallableStatement](#statement-preparedstatement-및-callablestatement)
   - [내셔널 캐릭터 셋 사용](#내셔널-캐릭터-셋-사용)
-
 - [3.고급 기능](#3고급-기능)
-
     - [자동 생성 키](#자동-생성-키)
     - [타임아웃](#타임아웃)
-
     - [DataSource](#datasource)
     - [Connection Pool](#connection-pool)
     - [Multiple ResultSet](#multiple-resultset)
@@ -152,15 +143,10 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     - [JDBC 로깅](#jdbc-로깅)
     - [Hibernate](#hibernate)
     - [SQL Plan](#sql-plan)
-
 - [4.Tips & Recommendation](#4tips--recommendation)
-
   - [성능을 위한 팁](#%성능을-위한-팁)
-
 - [5.에러 메시지](#5에러-메시지)
-
     - [SQL States](#sql-states)
-
 - [6.JDBC 4.2 API References](#6jdbc-42-api-references)
     - [java.sql.Connection](#javasqlconnection)
     - [java.sql.Wrapper](#javasqlwrapper)
@@ -178,9 +164,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     - [java.sql.DriverAction](#javasqldriveraction)
     - [java.sql.SQLTypes](#javasqlsqltypes)
     - [Java 8 Time API](#java-8-time-api)
-
 - [A.부록: 데이터 타입 맵핑](#a부록-데이터-타입-맵핑)
-
     - [데이터 타입 맵핑](#데이터-타입-맵핑)
     - [Java 데이터형을 데이터베이스 데이터형으로 변환하기](#java-데이터형을-데이터베이스-데이터형으로-변환하기)
     - [데이터베이스 데이터형을 Java 데이터형으로 변환하기](#데이터베이스-데이터형을-Java-데이터형으로-변환하기)
@@ -735,10 +719,6 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 </tr>
 </tbody>
 </table>
-
-
-##### ciphersuite_list
-
 ##### description
 
 | 기본값    |                               |
@@ -972,6 +952,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 필수 여부 | Yes                                                    |
 | 설정 범위 | N/A                                                    |
 | 설명      | 접속을 시도할 Altibase 서버의 IP 주소 또는 호스트명    |
+
+##### socket_immediate_close
+
+| 기본값    | false                                                        |
+| --------- | :----------------------------------------------------------- |
+| 값의 범위 | [ true \| false ]                                            |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | TCP 소켓 옵션인 SO_LINGER의 활성화 여부를 설정한다.<br>- true: SO_LINGER 값을 0으로 설정한다. 소켓을 닫는 즉시 연결이 종료되고 남아있는 데이터는 전송되지 않는다.<br>- false: SO_LINGER를 비활성화한다. 소켓은 바로 닫히지만, 소켓 버퍼에 남아있는 데이터가 있다면 커널은 일정 시간 동안 데이터를 보내려고 시도한다.<br/>이 연결 속성은 Altibase JDBC 드라이버 7.3.0.0.7 이상부터 지원한다. |
 
 ##### sock_rcvbuf_block_ratio
 
