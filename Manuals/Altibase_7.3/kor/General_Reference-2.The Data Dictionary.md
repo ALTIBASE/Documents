@@ -7132,6 +7132,7 @@ Altibase가 사용하는 모듈 이름을 나타낸다. 이 칼럼은 다음의 
 | Query_Prepare                          | 실행을 위해 쿼리를 prepare하는데 사용되는 메모리             |
 | Query_PSM_Concurrent_Execute           | DBMS_CONCURRENT_EXEC 패키지를 실행하기 위해 사용되는 메모리  |
 | Query_PSM_Execute                      | PSM (Persistent Stored Module) 실행을 위해 사용되는 메모리   |
+| Query_PSM_Internal_Execute             | 현재 사용되지 않음                                           |
 | Query_PSM_Node                         | PSM에서 연관 배열을 위해 사용되는 메모리                     |
 | Query_PSM_Varray                       | PSM에서 VARRAY를 위해 사용되는 메모리                        |
 | Query_Sequence                         | 시퀀스 관리를 위해 사용되는 메모리                           |
@@ -7151,6 +7152,7 @@ Altibase가 사용하는 모듈 이름을 나타낸다. 이 칼럼은 다음의 
 | Replication_Storage                    | XLog를 적용하는데 사용되는 메모리                            |
 | Replication_Sync                       | 이중화에서 동기화를 위해 사용되는 메모리                     |
 | RESERVED                               | TLSF 메모리 관리자 사용시 할당받았으나 아직 분배하지 않은 영역 |
+| Shared Meta                            | 현재 사용되지 않음                                           |
 | Socket_Manager                         | 현재 사용되지 않음                                           |
 | SQL_Plan_Cache_Control                 | SQL Plan Cache 실행 시 사용되는 메모리                       |
 | Storage_DataPort                       | DataPort 실행 시 사용되는 메모리                             |
