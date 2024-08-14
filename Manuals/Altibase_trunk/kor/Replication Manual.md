@@ -130,11 +130,11 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [다중 IP 네트워크 환경에서의 이중화](#다중-IP-네트워크-환경에서의-이중화)
   - [이중화 관련 프로퍼티](#이중화-관련-프로퍼티)
 - [4.이중화 대상에 DDL 문 수행](#4이중화-대상에-DDL-문-수행)
-  - 개요
-  - 기본 설정에서의 DDL 문 수행 방법
-  - DDL 문 수행 활성화 관련 프로퍼티를 설정하여 수행하는 방법
-  - DDL 문 복제 관련 프로퍼티를 설정하여 수행하는 방법
-  - 예제
+  - [이중화와 DDL문 수행 개요](#개요)
+  - [기본 설정에서의 DDL 문 수행 방법](#기본-설정에서의-ddl-문-수행-방법)
+  - [DDL 문 수행 관련 프로퍼티를 설정하여 수행하는 방법](#ddl-문-수행-관련-프로퍼티를-설정하여-수행하는-방법)
+  - [DDL 문 복제 관련 프로퍼티를 설정하여 수행하는 방법](#ddl-문-복제-관련-프로퍼티를-설정하여-수행하는-방법)
+  - [DDL 문 수행 예제](#예제)
 - [5.Fail-Over](#4fail-over)
   - [Fail-Over 의 개요](#fail-over-의-개요)
   - [Fail-Over 사용 방법](#fail-over-사용-방법)
@@ -142,9 +142,9 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [SQLCLI](#sqlcli)
   - [Embedded SQL](#embedded-sql)
   - [PDO에서 콜백 작성](#pdo에서-콜백-작성)
-- [5.시퀀스 이중화](#5시퀀스-이중화)
+- [6.시퀀스 이중화](#5시퀀스-이중화)
   - [시퀀스 이중화](#시퀀스-이중화)
-- [6.이중화 롤(ROLE)](#6-이중화-롤role)
+- [7.이중화 롤(ROLE)](#6이중화-롤role)
   - [Log Analyzer 롤](#log-analyzer-롤)
   - [전파(Propagation)](#전파propagation)
 - [A.부록: FAQ](#a부록-faq)
@@ -2222,7 +2222,7 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
 # 4.이중화 대상에 DDL 문 수행
 
-## 개요
+## 이중화와 DDL문 수행 개요
 
 원칙적으로 이중화 수행 중에는 이중화 대상 테이블 또는 파티션(이하 이중화 대상)에 대부분의 DDL 문을 수행할 수 없다. 이는 DDL이 이중화 대상의 메타 정보를 변경시켜 데이터 불일치를 초래할 수 있기 때문이다. 그러나 Altibase는 운영 상의 편의를 위해 프로퍼티 설정을 변경하여 이중화 대상에 DDL 문을 수행할 수 있는 방법을 제공한다.
 
@@ -2240,15 +2240,15 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
   - REPLICATION_DDL_SYNC
 
-위의 네 프로퍼티의 기본값은 0이며, 이 프로퍼티들의 설정에 따라 수행 할 수 있는 DDL 문의 종류와 범위가 결정된다.
+위의 네 프로퍼티의 기본값은 모두 0이며, 이 프로퍼티들의 설정에 따라 수행 할 수 있는 DDL 문의 종류와 범위가 결정된다.
 
 이중화 대상에 DDL 문을 실행하는 방법은 세 가지가 있다:
 
 1. [기본 설정에서의 DDL 문 수행 방법](#기본-설정에서의-DDL-문-수행-방법)
-2. [DDL 문 활성화 관련 프로퍼티를 설정하여 수행하는 방법](#ddl-문-활성화-관련-프로퍼티를-설정하여-수행하는-방법)
+2. [DDL 문 수행 관련 프로퍼티를 설정하여 수행하는 방법](#ddl-문-수행-관련-프로퍼티를-설정하여-수행하는-방법)
 3. [DDL 문 복제 관련 프로퍼티를 설정하여 수행하는 방법](#ddl-문-복제-관련-프로퍼티를-설정하여-수행하는-방법)
 
-이 장에서는 위의 세 가지 방법에 대해 각각의 방법으로 수행할 수 있는 DDL 문, 제약 사항, 수행 절차, 그리고 예시를 통해 이중화 대상에 DDL 문을 수행하는 법을 설명한다.
+이 장에서는 위의 세 가지 방법에 대해 각각의 방법으로 수행할 수 있는 DDL 문, 제약 사항, 수행 방법, 그리고 예시를 설명한다.
 
 ## 기본 설정에서의 DDL 문 수행 방법
 
@@ -2299,7 +2299,7 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
 이 절차는 다음과 같은 상황을 전제한다.
 
-- 모든 이중화 대상 DDL문 수행 관련 프로퍼티가 기본값으로 설정되어 있다.
+- 모든 이중화 대상 DDL 문 수행 관련 프로퍼티가 기본값으로 설정되어 있다.
 - 이중화가 동작 중이다.
 
 이 절차에서는 Active 서버에서 서비스를 중지하는 것이 필수적이다. Active 서버를 서비스를 중지하지 않고 DDL 문을 수행할 경우, DDL 문을 수행하는 동시에 Active 서버에서 주 트랜잭션이 발생하면 데이터 불일치가 일어날 수 있다.
@@ -2308,7 +2308,7 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
 #### 이중화 대상 서버 모두 동시에 서비스 중지가 가능한 환경
 
-이중화 대상 서버를 모두 같은 시점에 운영 중지할 수 있는 환경에서는 다음과 같은 단계로 이중화 대상에 DDL 문으르 수행할 수 있다.
+이중화 대상 서버를 같은 시점에 모두 운영 중지할 수 있는 환경에서는 다음과 같은 단계로 이중화 대상에 DDL 문을 수행할 수 있다.
 
 [Step 1. 사전 작업](#step-1-사전-작업)
 
@@ -2316,7 +2316,7 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
 [Step 3. 이중화 대상 삭제](#step-3-이중화-대상-삭제)
 
-[Step 4. DDL문 수행](#step-4-ddl문-수행)
+[Step 4. DDL 문 수행](#step-4-ddl-문-수행)
 
 [Step 5. 이중화 대상 원복](#step-5-이중화-대상-원복)
 
@@ -2411,7 +2411,23 @@ ALTER REPLICATION replication_name START;
 
 아래 절차에서는 Active 서버 두 개를 Active1과 Active2로 명명하고, Active1부터 DDL 문을 수행한다고 가정한다.
 
-##### Step 1: Active1에서의 서비스 중단
+[Step 1. Active1 서버 사전 작업](#step-1-active1-서버-사전-작업)
+
+[Step 2. Active1 서버 이중화 대상 삭제](#step-2-active1-서버-이중화-대상-삭제)
+
+[Step 3. Active1 서버 DDL 문 수행](#step-3-active1-서버-ddl-문-수행)
+
+[Step 4. Active1 서버 이중화 대상 원복](#step-4-active1-서버-이중화-대상-원복)
+
+[Step 5. Active1 서버 이중화 재시작](#step-5-active1-서버-이중화-재시작)
+
+[Step 6. Active1 서버 사후 작업](#step-6-active1-서버-사후-작업)
+
+[Step 7. Active2 서버 사전 작업](#step-7-active2-서버-사전-작업)
+
+[Step 8. Active2 서버 DDL 문 수행](#step-8-active2-서버-ddl-문-수행)
+
+##### Step 1: Active1 서버 사전 작업
 
 1. Active1 서버 이중화 갭 해소 Active1 서버에서 이중화 갭을 해소한 후, 갭이 해소되었는지 확인한다.
 
@@ -2426,9 +2442,9 @@ ALTER REPLICATION replication_name START;
    ALTER REPLICATION replication_name STOP;
    ```
 
-3. Active2로 서비스 이관
+3. Active2로 서비스 이전
 
-4. Active1 서버의 세션을 확인하여 서비스가 Active2로 이관되었는지 확인한다.
+4. Active1 서버의 세션을 확인하여 서비스가 Active2로 이전되었는지 확인한다.
 
    ```sql
    SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();
@@ -2498,9 +2514,11 @@ ALTER REPLICATION replication_name START;
 
 Active1 서버에서 수행한 **Step 1**부터 **Step 7** 작업을 Active2 서버에서도 수행한다.
 
-## DDL 문 수행 활성화 관련 프로퍼티를 설정하여 수행하는 방법
 
-### DDL 문 수행 활성화 관련 프로퍼티
+
+## DDL 문 수행 관련 프로퍼티를 설정하여 수행하는 방법
+
+### DDL 문 수행 관련 프로퍼티
 
 이중화 대상 테이블에 수행할 수 있는 DDL 문은 이중화 프로퍼티 설정에 따라 달라진다. ??이중화 중지 없이 가능하다??
 
@@ -2541,9 +2559,9 @@ Active1 서버에서 수행한 **Step 1**부터 **Step 7** 작업을 Active2 서
 
 | 프로퍼티                     | 지역 서버 | 원격 서버 |
 | :--------------------------- | :-------- | :-------- |
-| REPLICATION_DDL_ENABLE       | 1         |           |
-| REPLICATION_DDL_ENABLE_LEVEL | 0         |           |
-| REPLICATION_SQL_APPLY_ENABLE | 0         |           |
+| REPLICATION_DDL_ENABLE       | 1         | 1         |
+| REPLICATION_DDL_ENABLE_LEVEL | ?         | ?         |
+| REPLICATION_SQL_APPLY_ENABLE | ?         | ?         |
 
 ##### DDL 문 수행 레벨 0에서 수행할 수 있는 DDL 문
 
@@ -2557,17 +2575,17 @@ ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE );
 
 - 외래 키를 추가할 수 없다.
 
-- 칼럼 제약 조건을 명시할 수 없다.
+- [제약 조건](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Administrator's%20Manual.md#%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4)이 있는 칼럼을 추가할 수 없다.
 
 ```sql
 ALTER TABLE table_name DROP COLUMN column_name;
 ```
 
-- 프라이머리 키를 삭제할 수 없다.
-
 - 압축 칼럼을 삭제할 수 없다.
 
-- 제약조건이 있는 칼럼은 삭제할 수 없다.
+- 프라이머리 키를 삭제할 수 없다.
+
+- [제약 조건](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Administrator's%20Manual.md#%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4)이 있는 칼럼은 삭제할 수 없다.
 
 - 함수 기반 인덱스에 사용된 칼럼은 삭제 할 수 없다.
 
@@ -2594,7 +2612,7 @@ ALTER TABLE table_name TRUNCATE PARTITION partition_name;
 TRUNCATE TABLE table_name;
 ```
 
-- 압축 칼럼을 가지지 않는 테이블에 한해서 지원한다.
+- 압축 칼럼을 가진 테이블의 데이터는 삭제할 수 없다.
 
 ###### 인덱스 생성과 삭제
 
@@ -2609,11 +2627,11 @@ DROP INDEX index_name;
 
 #### 레벨 1
 
-| 프로퍼티                     | DDL문 수행 서버 | DDL문 복제 서버 |
-| :--------------------------- | :-------------- | :-------------- |
-| REPLICATION_DDL_ENABLE       | 1               | 1               |
-| REPLICATION_DDL_ENABLE_LEVEL | 1               | 1               |
-| REPLICATION_SQL_APPLY_ENABLE | 0               | 1               |
+| 프로퍼티                     | 지역 서버 | 원격 서버 |
+| :--------------------------- | :-------- | :-------- |
+| REPLICATION_DDL_ENABLE       | 1         | ?         |
+| REPLICATION_DDL_ENABLE_LEVEL | 1         | ?         |
+| REPLICATION_SQL_APPLY_ENABLE | ?         | 1         |
 
 ##### SQL 반영 모드
 
@@ -2621,15 +2639,49 @@ SQL 반영 모드는 지역 서버와 원격 서버의 메타 정보가 달라�
 
 이중화 대상 테이블에 DDL 문을 순차적으로 지역 서버와 원격 서버에 수행하면, 두 서버 간에 일시적으로 이중화 메타 정보가 달라진다. Altibase 이중화는 메타 정보가 다르면 이중화를 시작할 수 없으며, 이중화 중에 메타 정보가 변경되면 이중화가 중단되고 더 이상 이중화를 수행할 수 없다. 이러한 상황에서 SQL 반영 모드를 사용하면, 메타 정보의 변경 여부와 상관없이 이중화를 시작하고 실행 중인 이중화를 중지시키지 않는다.
 
-SQL 반영 모드는 수신자가 XLog를 SQL 문으로 변환하여 복제 트랜잭션을 반영하는 기능으로 작동한다. 이 모드를 사용하려면 프로퍼티로 활성화해야 하며 지역 서버와 원격 서버 간의 이중화 메타 정보가 서로 다를 때 동작한다. 또한, 이 모드는 이중화 대상 테이블 또는 파티션 단위로 동작한다.
+SQL 반영 모드는 수신자가 XLog를 SQL 문으로 변환하여 복제 트랜잭션을 반영하는 기능으로 작동한다.
 
 > [!caution]
 >
 > SQL 반영 모드는 DDL 문 수행 작업 중 일시적으로만 사용하고, **사용 후 즉시 비활성화**해야 한다. SQL 반영 모드로 동작하는 이중화 대상의 복제 속도는 XLog를 반영하는 것보다 현저히 느리며 데이터 불일치가 발생할 수 있다.
 
+###### SQL 반영 모드 동작 조건
+
+SQL 반영 모드는 다음의 메타 정보 하나 이상이 지역 서버와 원격 서버에서 서로 다를 때 동작한다. 
+
+- 칼럼 정보가 다를 때
+
+  - 이중화 대상 칼럼의 데이터 타입이 다를 때 
+
+  - 이중화 대상 칼럼의 데이터 타입은 같지만 size, precision, scale이 다를 때
+
+
+- 제약 조건이 다를 때
+
+  - 이중화 대상의 CHECK 제약 조건의 condition이 다를 때
+
+  - 이중화 대상의 CHECK 제약 조건의 이름이 다를 때
+
+  - 이중화 대상 칼럼의 NOT NULL/NULL 제약 조건이 다를 때 
+
+
+- 인덱스 정보가 다를 때
+
+  - 유일 키 인덱스의 구성 정보가 다를 때
+
+  - 유일 키 인덱스가 이중화 대상 칼럼과 이중화 대상이 아닌 칼럼으로 구성되었을 때
+
+  - 함수 기반 인덱스의 구성 정보가 다를 때
+
+  - 함수 기반 인덱스가 이중화 대상 칼럼과 이중화 대상이 아닌 칼럼으로 구성되었을 때
+
+
+- 파티션 정보가 다를 때
+  - 이중화 쌍의 파티션 수가 다를 때
+
 ###### SQL 반영 모드 설정
 
-SQL 반영 모드를 사용하려면 수신자 에서 REPLICATION_SQL_APPLY_ENABLE 프로퍼티를 1로 설정해야 한다. 이 프로퍼티의 기본값은 0이다. 
+SQL 반영 모드를 사용하려면 수신자의 REPLICATION_SQL_APPLY_ENABLE 프로퍼티를 1로 설정해야 한다.
 
 설정 방법은 다음과 같다.
 
@@ -2637,37 +2689,11 @@ SQL 반영 모드를 사용하려면 수신자 에서 REPLICATION_SQL_APPLY_ENAB
 ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
 ```
 
-설정이 잘 되었는지 확인하려면 다음 쿼리를 실행한다. 
+설정이 잘 되었는지 확인하려면, 수신자 서버에서 다음 쿼리를 실행한다. 
 
 ```sql
 SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'REPLICATION_SQL_APPLY_ENABLE';
 ```
-
-###### SQL 반영 모드 동작 조건
-
-SQL 반영 모드는 아래 조건 중 하나 이상을 충족할 때 동작한다. 
-
-칼럼 정보가 다를 때
-
-- 이중화 대상 칼럼의 데이터 타입이 다를 때 
-- 이중화 대상 칼럼의 데이터 타입은 같지만 size, precision, scale이 다를 때
-
-제약 조건이 다를 때
-
-- 이중화 대상 칼럼 또는 이중화 대상 테이블의 CHECK 제약 조건의 condition이 다를 때
-- 이중화 대상 칼럼 또는 이중화 대상 테이블의 CHECK 제약 조건의 이름이 다를 때
-- 이중화 대상 칼럼의 NOT NULL/NULL 제약 조건이 다를 때 
-
-인덱스 정보가 다를 때
-
-- 유일 키 인덱스의 구성 정보가 다를 때
-- 유일 키 인덱스가 이중화 대상 칼럼과 이중화 대상이 아닌 칼럼으로 구성되었을 때
-- 함수 기반 인덱스의 구성 정보가 다를 때
-- 함수 기반 인덱스가 이중화 대상 칼럼과 이중화 대상이 아닌 칼럼으로 구성되었을 때
-
-파티션 정보가 다를 때
-
-- 이중화 쌍의 파티션 수가 다를 때
 
 ###### 제약 사항
 
@@ -2750,11 +2776,13 @@ DROP INDEX index_name;
 
 - [복구 옵션](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication Manual.md#복구-옵션recovery-option)을 설정한 이중화 객체에 속한 이중화 대상에는 DDL 문을 수행할 수 없다. 만약 해당 이중화 대상에 DDL문을 수행하고 싶다면 [기본 이중화 대상 DDL 문 수행 방법](#기본-이중화-대상-DDL-문-수행-방법)에 따라 이 이중화 대상을 이중화 객체에서 삭제한 후 DDL 문을 수행해야 한다. 
 
-- EAGER 모드로 동작 중인 이중화에는 DDL 문을 수행할 수 없다. 만약 해당 이중화 대상에 DDL 문을 수행하고 싶다면 이중화를 중지한 후 DDL 문을 수행해야 한다. 
+- EAGER 모드로 동작 중인 이중화에는 DDL 문을 수행할 수 없다. 만약 해당 이중화 대상에 DDL 문을 수행하고 싶다면 이중화를 중지한 후 DDL 문을 수행해야 한다.
 
 #### 수행 방법
 
 ##### 레벨 0
+
+다음은 DDL 문 수행 레벨이 0일 때 이중화 대상에 DDL 문을 수행하는 절차이다. 보다 자세한 절차는 DDL문 수행 예제 절의 [DDL 문 수행 레벨 0 예제](#ddl-문-수행-레벨-0-예제)를 참고한다.
 
 ###### Step 1. 서비스 이전
 
@@ -2762,7 +2790,7 @@ DROP INDEX index_name;
 
 ###### Step 2. 프로퍼티 설정
 
-DDL 문을 수행하는 서버에 다음과 같이 프로퍼티를 설정한다. (이외 프로퍼티는 기본값으로 설정되어있음을 가정한다.)
+이중화 쌍을 이루는 모든 서버에 다음과 같이 프로퍼티를 설정한다. (이외 프로퍼티는 기본값으로 설정되어있음을 가정한다.)
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
@@ -2770,7 +2798,150 @@ ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
 
 ###### Step 3. 세션의 이중화 모드 확인 및 설정 
 
+이중화 쌍을 이루는 서버 중 Active 서버의 이중화 모드를 확인하고 설정한다.
+
 ```sql
+-- SESSION_REPLICATION_MODE가 'DEFAULT'이면 해당 세션에서 수행하는 트랜잭션은 이중화 대상이다. 
+-- SESSION_REPLICATION_MODE가 'NONE'이면 해당 세션에서 수행하는 트랜잭션은 이중화를 수행 하지 않는다. 
+SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE 
+FROM V$SESSION WHERE ID = SESSION_ID();
+-- 세션의 이중화 모드가 'NONE'이면 'DEFAULT'로 변경한다.
+ALTER SESSION SET REPLICATION_MODE = DEFAULT;
+```
+
+###### Step 4. DDL 문 수행
+
+이중화 쌍을 이루는 모든 서버에서 동일한 DDL 문을 수행한다. DDL 문을 수행하기 전 이중화 갭을 모두 반영하는 것에 주의한다.
+
+1. DDL 문 수행 전, 남아있는 이중화 갭을 모두 반영한다.
+
+   ```sql
+   ALTER REPLICATION replication_name FLUSH;
+   ```
+
+2. DDL 문을 수행한다.
+
+###### Step 5. 프로퍼티 설정 원복
+
+DDL 문 수행에 필요한 프로퍼티들은 DDL 문 수행이 끝나는 즉시 기본값으로 변경해야 한다.
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+```
+
+###### Step 6. 서비스 분배
+
+서비스를 원래대로 분배한다.
+
+##### 레벨 1 - 테이블
+
+다음은 DDL 문 수행 레벨이 1이고 이중화 대상이 테이블일 경우 DDL 문을 수행하는 절차이다. 보다 자세한 절차는 [DDL 문 수행 레벨 1 예제](#ddl-문-수행-레벨-1-예제)의 1번과 2번 예제를 참고한다.
+
+###### Step 1. 서비스 이전
+
+서비스를 DDL 문을 수행하는 지역 서버로 모두 이전한다.
+
+###### Step 2. 프로퍼티 설정
+
+이중화 쌍을 이루는 모든 서버에 다음과 같이 프로퍼티를 설정한다.
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+```
+
+원격 서버에 다음과 같이 프로퍼티를 설정한다.
+
+```sql
+ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 1;
+```
+
+###### Step 3. 세션의 이중화 모드 확인 및 설정
+
+이중화 쌍을 이루는 서버의 이중화 모드를 확인하고 설정한다.
+
+```sql
+-- SESSION_REPLICATION_MODE가 'DEFAULT'이면 해당 세션에서 수행하는 트랜잭션은 이중화 대상이다. 
+-- SESSION_REPLICATION_MODE가 'NONE'이면 해당 세션에서 수행하는 트랜잭션은 이중화를 수행 하지 않는다. 
+SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE 
+FROM V$SESSION WHERE ID = SESSION_ID();
+-- 세션의 이중화 모드가 'NONE'이면 'DEFAULT'로 변경한다.
+ALTER SESSION SET REPLICATION_MODE = DEFAULT;
+```
+
+###### Step 4. DDL 문 수행
+
+이중화 쌍을 이루는 모든 서버에서 동일한 DDL 문을 수행한다. DDL 문을 수행하기 전 이중화 갭을 모두 반영하는 것에 주의한다.
+
+1. DDL 문 수행 전, 남아있는 이중화 갭을 모두 반영한다.
+
+   ```sql
+   ALTER REPLICATION replication_name FLUSH;
+   ```
+
+2. DDL 문을 수행한다.
+
+###### Step 5. SQL 반영 모드 동작 여부 확인
+
+원격 서버에서 SQL 반영 모드가 정상적으로 동작하는지 확인한다.
+
+```sql
+SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
+```
+
+###### Step 6. 프로퍼티 설정 원복
+
+DDL 문 수행에 필요한 프로퍼티들은 DDL 문 수행이 끝나는 즉시 기본값으로 변경해야 한다.
+
+지역 서버에서 다음과 같이 프로퍼티를 기본값으로 원복한다.
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+```
+
+원격 서버에서 다음과 같이 프로퍼티를 기본값으로 원복한다.
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
+```
+
+###### Step 7. 서비스 분배
+
+서비스를 원래대로 분배한다.
+
+##### 레벨 1 - 파티션
+
+다음은 DDL 문 수행 레벨이 1이고 이중화 대상이 파티션일 경우 DDL 문을 수행하는 절차이다. 이중화 대상이 파티션이면 이중화를 중지하는 절차가 필요하다. 보다 자세한 절차는 [DDL 문 수행 레벨 1 예제](#ddl-문-수행-레벨-1-예제)의 3번 예제를 참고한다.
+
+###### Step 1. 서비스 이전
+
+서비스를 DDL 문을 수행하는 지역 서버로 모두 이전한다.
+
+###### Step 2. 프로퍼티 설정
+
+이중화 쌍을 이루는 모든 서버에 다음과 같이 프로퍼티를 설정한다.
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+```
+
+원격 서버에 다음과 같이 프로퍼티를 설정한다.
+
+```sql
+ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 1;
+```
+
+###### Step 3. 세션의 이중화 모드 확인 및 설정
+
+이중화 쌍을 이루는 서버 중 Active 서버의 이중화 모드를 확인하고 설정한다.
+
+```sql
+-- SESSION_REPLICATION_MODE가 'DEFAULT'이면 해당 세션에서 수행하는 트랜잭션은 이중화 대상이다. 
+-- SESSION_REPLICATION_MODE가 'NONE'이면 해당 세션에서 수행하는 트랜잭션은 이중화를 수행 하지 않는다. 
 SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE 
 FROM V$SESSION WHERE ID = SESSION_ID();
 -- 세션의 이중화 모드가 'NONE'이면 'DEFAULT'로 변경한다.
@@ -2779,179 +2950,80 @@ ALTER SESSION SET REPLICATION_MODE = DEFAULT;
 
 ###### Step 4. 이중화 갭 해소
 
+DDL 문 수행 전, 남아있는 이중화 갭을 모두 반영한다.
+
 ```sql
-ALTER REPLICATION replication_name FLUSH ALL;
+ALTER REPLICATION replication_name FLUSH;
 ```
 
 ###### Step 5. 이중화 중지
 
-###### Step 6. DDL 문 수행
-
-###### Step 7. 이중화 시작
-
-###### Step 8. 이중화 갭 해소
-
-```sql
-ALTER REPLICATION replication_name FLUSH;
-```
-
-###### Step 9. 프로퍼티 설정 원복
-
-```sql
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-```
-
-###### Step 10. 서비스 분배
-
-서비스를 원래대로 분배한다.
-
-##### 레벨 1
-
-###### 이중화 대상이 테이블일 경우
-
-**Step 1. 서비스 이전**
-
-서비스를 DDL 문을 수행하는 지역 서버로 모두 이전한다.
-
-**Step 2. 프로퍼티 설정**
-
-DDL 문을 수행하는 서버에 다음과 같이 프로퍼티를 설정한다. (이외 프로퍼티는 기본값으로 설정되어있음을 가정한다.)
-
-```sql
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
-```
-
-DDL 문이 복제될 서버에 다음과 같이 프로퍼티를 설정한다.
-
-```sql
-ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 1;
-```
-
-**Step 3. 세션의 이중화 모드 확인 및 설정**
-
-```sql
-SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE 
-FROM V$SESSION WHERE ID = SESSION_ID();
--- 세션의 이중화 모드가 'NONE'이면 'DEFAULT'로 변경한다.
-ALTER SESSION SET REPLICATION_MODE = DEFAULT;
-```
-
-**Step 4. 이중화 갭 해소**
-
-```sql
-ALTER REPLICATION replication_name FLUSH ALL;
-```
-
-**Step 5. DDL 문 수행**
-
-**Step 6. 이중화 갭 해소**
-
-```sql
-ALTER REPLICATION replication_name FLUSH;
-```
-
-**Step 7. SQL 반영 모드 동작 여부 확인**
-
-```sql
-SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
-```
-
-**Step 8. 프로퍼티 설정 원복**
-
-```sql
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
-```
-
-```sql
-ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
-```
-
-**Step 9. 서비스 분배**
-
-서비스를 원래대로 분배한다.
-
-###### 파티션 대상
-
-**Step 1. 서비스 이전**
-
-서비스를 DDL 문을 수행하는 지역 서버로 모두 이전한다.
-
-**Step 2. 프로퍼티 설정**
-
-DDL 문을 수행하는 서버에 다음과 같이 프로퍼티를 설정한다. (이외 프로퍼티는 기본값으로 설정되어있음을 가정한다.)
-
-```sql
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
-```
-
-DDL 문이 복제될 서버에 다음과 같이 프로퍼티를 설정한다.
-
-```sql
-ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 1;
-```
-
-**Step 3. 세션의 이중화 모드 확인 및 설정**
-
-```sql
-SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE 
-FROM V$SESSION WHERE ID = SESSION_ID();
--- 세션의 이중화 모드가 'NONE'이면 'DEFAULT'로 변경한다.
-ALTER SESSION SET REPLICATION_MODE = DEFAULT;
-```
-
-**Step 4. 이중화 갭 해소**
-
-```sql
-ALTER REPLICATION replication_name FLUSH ALL;
-```
-
-**Step 5. 이중화 중지**
+이중화 쌍을 이루는 서버의 이중화를 모두 중지한다.
 
 ```sql
 ALTER REPLICATON replication_name STOP;
 ```
 
-**Step 6. DDL 문 수행**
+###### Step 6. DDL 문 수행
 
-**Step 7. 이중화 시작**
+이중화 쌍을 이루는 서버 모두에 동일한 DDL 문을 수행한다.
+
+###### Step 7. 이중화 시작
+
+이중화 쌍을 이루는 서버의 이중화를 모두 다시 시작한다.
 
 ```sql
 ALTER REPLICATON replication_name START;
 ```
 
-**Step 8. 이중화 갭 해소**
+###### Step 8. 이중화 갭 해소
+
+DDL 문 수행으로 발생한 이중화 갭을 모두 반영한다.
 
 ```sql
 ALTER REPLICATION replication_name FLUSH;
 ```
 
-**Step 9. SQL 반영 모드 동작 여부 확인**
+###### Step 9. SQL 반영 모드 동작 여부 확인
+
+원격 서버에서 SQL 반영 모드가 정상적으로 동작하는지 확인한다.
 
 ```sql
 SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
 ```
 
-**Step 10. 프로퍼티 설정 원복**
+###### Step 10. 프로퍼티 설정 원복
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
 ```
 
+원격 서버에서 다음과 같이 프로퍼티를 기본값으로 원복한다.
+
 ```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
 ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
 ```
 
-**Step 11. 서비스 분배**
+###### Step 11. 서비스 분배
 
 서비스를 원래대로 분배한다.
+
+
 
 ## DDL 문 복제 관련 프로퍼티를 설정하여 수행하는 방법
 
 DDL 문 복제 관련 프로퍼티를 활성화하면 DDL 문을 수행한 서버에서 원격 서버로 DDL 문을 복제한다. 이중화 대상 서버와 원격 서버가 동기식으로 동작하기 때문에 주 트랜잭션이나 복제 트랜잭션 중 하나에서 DDL 문이 실패하면 해당 DDL 문은 실패한다.
+
+
+
+??
+
+DDL 복제 수행 시 원격 서버의 이중화 대상 테이블에도 LOCK이 잡혀 트랜잭션 접근이 제한된다는 내용 명시, DDL 복제 수행에 이중화 갭을 처리하는데 FLUSH를 명시적으로 처리하는 이유(대상 테이블에 LOCK이 잡히기 때문에, DDL 복제 쿼리 이전의 트랜잭션 LOCK 을 최소화하기 위함)를 명시할 것인지, 한다면 내용 확인 한번 더 필요
+
+??
 
 이 기능은 Altibase 7.1.0.x.x 부터 지원한다. (7.1 매뉴얼에만 추가)
 
@@ -2963,13 +3035,13 @@ DDL 문 복제 관련 프로퍼티를 활성화하면 DDL 문을 수행한 서�
 
   이중화 대상에 DDL 문 복제를 활성화하는 설정.
 
-  이중화 대상에 DDL 문 수행을 활성화 하는 REPLICATION_DDL_ENABLE 프로퍼티와 SQL 반영 모드를 활성화하는 REPLICATION_SQL_APPLY_ENABLE 프로퍼티가 1로 설정되어 있어야 한다.
+  ?? 이중화 대상에 DDL 문 수행을 활성화 하는 REPLICATION_DDL_ENABLE 프로퍼티와 SQL 반영 모드를 활성화하는 REPLICATION_SQL_APPLY_ENABLE 프로퍼티가 1로 설정되어 있어야 한다.
 
-  수행하는 DDL 문의 종류에 따라 DDL 수행 레벨 관련 설정 프로퍼티인 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티의 설정이 필요할 수 있다.
+  수행하는 DDL 문의 종류에 따라 DDL 수행 레벨 관련 설정 프로퍼티인 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티의 설정이 필요할 수 있다. ??
 
-- **설정 위치**: 이중화 서버에 모두 설정한다.
+- **설정 위치**: 이중화 쌍을 이루는 서버에 모두 설정한다.
 
-- **기본값**: 0 (한 서버에서 수행하는 DDL 문을 이중화 대상 서버로 복제하지 않는다.)
+- **기본값**: 0
 
 - **설정값**:
   - 0: DDL 문 복제 수행 비활성화
@@ -2987,17 +3059,17 @@ DDL 문 복제 기능을 사용하기 위해서는 아래의 조건을 만족해
 
 ### DDL 문 복제 수행 방법
 
-이 절에서는 DDL 문 복제를 수행하는 방법에 대하여 설명한다.
+이 절에서는 DDL 문 복제를 수행하는 방법에 대하여 설명한다. 보다 자세한 절차는 [DDL 문 복제 예제](#ddl-문-복제-예제)를 참고한다.
 
 아래 수행 방법에서는 DDL을 수행할 서버를 지역 서버로, DDL 복제가 자동으로 수행되는 서버를 원격 서버로 간주한다. 또한, 이중화는 두 서버에서 모두 시작한 상태라고 가정한다.
 
-**Step 1. 서비스 이전**
+###### Step 1. 서비스 이전
 
 서비스를 DDL 문을 수행하는 지역 서버로 모두 이전한다.
 
-**Step 2. 프로퍼티 설정**
+###### Step 2. 프로퍼티 설정
 
-지역 서버에 다음과 같이 프로퍼티를 설정한다. (이외 프로퍼티는 기본값으로 설정되어있음을 가정한다.)
+이중화 쌍을 이루는 모든 서버에 다음과 같이 프로퍼티를 설정한다.
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
@@ -3008,36 +3080,47 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=1;
 원격 서버에 다음과 같이 프로퍼티를 설정한다.
 
 ```sql
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
 ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 1;
-ALTER SESSION SET REPLICATION_DDL_SYNC=1;
 ```
 
-**Step 3. 세션의 이중화 모드 확인 및 설정**
+###### Step 3. 세션의 이중화 모드 확인 및 설정
+
+이중화 쌍을 이루는 서버 중 Active 서버의 이중화 모드를 확인하고 설정한다.
 
 ```sql
+-- SESSION_REPLICATION_MODE가 'DEFAULT'이면 해당 세션에서 수행하는 트랜잭션은 이중화 대상이다. 
+-- SESSION_REPLICATION_MODE가 'NONE'이면 해당 세션에서 수행하는 트랜잭션은 이중화를 수행 하지 않는다. 
 SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE 
 FROM V$SESSION WHERE ID = SESSION_ID();
 -- 세션의 이중화 모드가 'NONE'이면 'DEFAULT'로 변경한다.
 ALTER SESSION SET REPLICATION_MODE = DEFAULT;
 ```
 
-**Step 4. 이중화 갭 해소**
+###### Step 4. 이중화 갭 해소
+
+DDL 문 수행 전, 이중화 쌍을 이루는 모든 서버에서 다음 쿼리를 수행하여 남아있는 이중화 갭을 모두 반영한다.
 
 ```sql
 ALTER REPLICATION replication_name FLUSH ALL;
 ```
 
-**Step 5. DDL 문 수행**
+###### Step 5. DDL 문 수행
 
-**Step 6. 프로퍼티 설정 원복**
+지역 서버에서 DDL 문을 수행한다.
+
+###### Step 6. 프로퍼티 설정 원복
+
+DDL 문 수행에 필요한 프로퍼티들은 DDL 문 수행이 끝나는 즉시 기본값으로 변경해야 한다.
+
+지역 서버에서 다음과 같이 프로퍼티를 기본값으로 원복한다.
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; 
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;   
 ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
 ```
+
+원격 서버에서 다음과 같이 프로퍼티를 기본값으로 원복한다.
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
@@ -3046,23 +3129,9 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
 ALTER SESSION SET REPLICATION_DDL_SYNC=0;
 ```
 
-**Step 7. 서비스 분배**
+###### Step 7. 서비스 분배
 
 서비스를 원래대로 분배한다.
-
-| 작업                       | 지역 서버                                                    | 원격 서버                                                    |
-| :------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 사용자 사전 작업           |                                                              | 지역 서버로 서비스 이전                                      |
-| DDL 문 수행 활성화         | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
-| DDL 문 수행 레벨 설정      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;             | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;             |
-| SQL 반영 모드 설정         |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=1;             |
-| DDL 문 복제 기능 설정      | ALTER SESSION SET REPLICATION_DDL_SYNC=1;                    | ALTER SYSTEM SET REPLICATION_DDL_SYNC=1;                     |
-| 세션의 이중화 모드 확인    | ALTER SESSION SET REPLICATION=DEFAULT;                       |                                                              |
-| 원격 서버의 이중화 갭 제거 |                                                              | ALTER REPLICATION replication_name FLUSH;                    |
-| 지역 서버의 이중화 갭 제거 | ALTER REPLICATION replication_name FLUSH;                    |                                                              |
-| DDL 문 수행                | DDL 문                                                       |                                                              |
-| 이중화 프로퍼티 원복       | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; <br>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; <br/>  ALTER SESSION SET REPLICATION_DDL_SYNC = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; <br/>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;<br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=0; |
-| 사용자 사후 작업           | 원격 서버로 서비스 분배                                      |                                                              |
 
 ### 제약 사항
 
@@ -3074,222 +3143,459 @@ DDL 문 복제 기능의 제약 사항은 다음과 같다.
 - [복구 옵션](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication Manual.md#복구-옵션recovery-option)을 설정한 이중화 객체에 속한 이중화 대상에는 사용할 수 없다.
 - 인덱스 파티션 재구축, 권한 부여/회수, 트리거 생성/삭제 구문은 사용할 수 없다.
 
-## 예제
+## DDL 문 수행 예제
 
-Active-Standby 및 Active-Active 환경에서의 다양한 DDL 문 수행 예제를 소개한다.
+Active-Standby 와 Active-Active 환경에서의 다양한 DDL 문 수행 예제를 소개한다.
 
-#### 테이블에 제약조건이 없는 칼럼 추가
+### 기본 이중화 대상 DDL 문 수행 예제
 
-테이블 t1에 INTEGER 데이터 타입 i3 칼럼을 추가한다. 이 작업은 DDL 문 수행 레벨 0에 해당하므로 DDL 문 수행을 활성화하는 프로퍼티만 변경하면 된다. 
+#### 1. 이중화 대상 서버 모두 동시에 서비스 중지가 가능한 환경에서 파티션 인덱스를 재구축하기
 
-Active-Standby 환경 
+이중화 이름 rep1 
 
-| 작업 절차                   | Active                                                       | Standby                                                      |
-| :-------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 사용자 사전 작업            | -                                                            |                                                              |
-| DDL 문 수행 활성화          | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
-| 세션의 이중화 모드 확인     | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE FROM V$SESSION WHERE ID = SESSION_ID(); | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE FROM V$SESSION WHERE ID = SESSION_ID(); |
-| 세션의 이중화 모드 변경     | ALTER SESSION SET REPLICATION = DEFAULT;                     |                                                              |
-| Standby에서 먼저 DDL문 수행 |                                                              | ALTER TABLE t1 ADD COLUMN ( I3 INTEGER );                    |
-| 이중화 갭 제거              | ALTER REPLICATION rep1 FLUSH ALL;                            |                                                              |
-| Active에서 DDL 문 수행      | ALTER TABLE t1 ADD COLUMN ( I3 INTEGER );                    |                                                              |
-| 프로퍼티 원복               | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 |
-| 사용자 사후 작업            | 주 트랜잭션 차단 해제                                        |                                                              |
+테이블 t1
 
-Active-Active 환경 
+파티션 P1, P2, P3
+
+T1 테이블의 I2 컬럼에 대해 T1_IDX라는 이름의 인덱스가 생성됩니다.
+
+이 인덱스는 파티션별로 나누어지며, P1 파티션에 대해서는 IDX_P1 인덱스 파티션, P2 파티션에 대해서는 IDX_P2 인덱스 파티션이 생성됩니다.
+
+P3 파티션에 대해서는 별도의 인덱스 파티션이 정의되지 않았습니다.
+
+##### Active-Standby 환경 
+
+| 작업 절차        | 상세             | Active                                                   | Standby                                                  |
+| ---------------- | ---------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| 사전 작업        | 서비스 중지      | 서비스 중지                                              |                                                          |
+|                  | 서비스 중지 확인 | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID(); |                                                          |
+|                  | 관리자 모드 설정 | ALTER SYSTEM SET ADMIN_MODE = 1;                         |                                                          |
+|                  | 이중화 갭 해소   | ALTER REPLICATION  rep1 FLUSH;                           |                                                          |
+|                  | 갭 해소 확인     | SELECT REP_NAME, REP_GAP FROM V$REPGAP;                  |                                                          |
+| 이중화 중지      |                  | ALTER REPLICATION rep1 STOP;                             |                                                          |
+| 이중화 대상 삭제 |                  | ALTER REPLICATION rep1 DROP TABLE FROM sys.t1 TO sys.t1; | ALTER REPLICATION rep1 DROP TABLE FROM sys.t1 TO sys.t1; |
+| DDL 문 수행      |                  | ALTER` `INDEX` `T1_IDX REBUILD PARTITION IDX_P1 ;        | ALTER` `INDEX` `T1_IDX REBUILD PARTITION IDX_P1 ;        |
+| 이중화 대상 원복 |                  | ALTER REPLICATION rep1 ADD TABLE FROM sys.t1 TO sys.t1;  | ALTER REPLICATION rep1 ADD TABLE FROM sys.t1 TO sys.t1;  |
+| 이중화 재시작    |                  | ALTER REPLICATION rep1 START;                            |                                                          |
+| 사후 작업        | 이중화 갭 해소   | ALTER REPLICATION rep1 FLUSH;                            |                                                          |
+|                  | 관리자 모드 해제 | ALTER SYSTEM SET ADMIN_MODE = 0;                         |                                                          |
+|                  | 서비스 재시작    | 서비스  재시작                                           |                                                          |
+
+##### Active-Active 환경 
+
+| 작업 절차        | 상세             | Active1                                                  | Active2                                                  |
+| ---------------- | ---------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| 사전 작업        | 서비스 중지      | 서비스 중지                                              | 서비스 중지                                              |
+|                  | 서비스 중지 확인 | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID(); | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID(); |
+|                  | 관리자 모드 설정 | ALTER SYSTEM SET ADMIN_MODE = 1;                         | ALTER SYSTEM SET ADMIN_MODE = 1;                         |
+|                  | 이중화 갭 해소   | ALTER REPLICATION rep1 FLUSH;                            | ALTER REPLICATION rep1 FLUSH;                            |
+|                  | 갭 해소 확인     | SELECT REP_NAME, REP_GAP FROM V$REPGAP;                  | SELECT REP_NAME, REP_GAP FROM V$REPGAP;                  |
+| 이중화 중지      |                  | ALTER REPLICATION rep1 STOP;                             | ALTER REPLICATION rep1 STOP;                             |
+| 이중화 대상 삭제 |                  | ALTER REPLICATION rep1 DROP TABLE FROM sys.t1 TO sys.t1; | ALTER REPLICATION rep1 DROP TABLE FROM sys.t1 TO sys.t1; |
+| DDL 문 수행      |                  | ALTER` `INDEX` `T1_IDX REBUILD PARTITION IDX_P1 ;        | ALTER` `INDEX` `T1_IDX REBUILD PARTITION IDX_P1 ;        |
+| 이중화 대상 원복 |                  | ALTER REPLICATION rep1 ADD TABLE FROM sys.t1 TO sys.t1;  | ALTER REPLICATION rep1 ADD TABLE FROM sys.t1 TO sys.t1;  |
+| 이중화 재시작    |                  | ALTER REPLICATION rep1 START;                            | ALTER REPLICATION rep1 START;                            |
+| 사후 작업        | 이중화 갭 해소   | ALTER REPLICATION rep1 FLUSH;                            | ALTER REPLICATION rep1 FLUSH;                            |
+|                  | 관리자 모드 해제 | ALTER SYSTEM SET ADMIN_MODE = 0;                         | ALTER SYSTEM SET ADMIN_MODE = 0;                         |
+|                  | 서비스 재시작    | 서비스  재시작                                           |                                                          |
+
+#### 2. 이중화 대상 서버 모두 동시에 서비스 중지할 수 없는 환경에서 파티션 인덱스를 재구축하기
+
+서비스를 한쪽 서버로 이관하고 DDL 문 수행을 한 서버 씩 순차적으로 수행한다. Active-Active 이중화 환경에서 수행할 수 있는 방법이다. 아래 표는 Active 1부터 DDL 문을 수행한다고 가정한다. 
+
+##### Active-Active 환경 
+
+| 작업 절차                     | 상세                       | Active1                                                  | Active2                                                  |
+| ----------------------------- | -------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| Active1 서버 사전 작업        | 이중화 갭 해소             | ALTER REPLICATION rep1 FLUSH;                            |                                                          |
+|                               | 이중화 갭 해소 확인        | SELECT REP_NAME, REP_GAP FROM V$REPGAP;                  |                                                          |
+|                               | 이중화 중지                | ALTER REPLICATION rep1 STOP;                             | ALTER REPLICATION rep1 STOP;                             |
+|                               | 서비스 이전                | Active2로 서비스 이전                                    |                                                          |
+|                               | 서비스 이전 확인           | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID(); | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID(); |
+|                               | 관리자 모드 설정           | ALTER SYSTEM SET ADMIN_MODE = 1;                         |                                                          |
+| Active1 서버 이중화 대상 삭제 |                            | ALTER REPLICATION rep1 DROP TABLE FROM sys.t1 TO sys.t1; |                                                          |
+| Active1 서버 DDL 문 수행      |                            | ALTER` `INDEX` `T1_IDX REBUILD PARTITION IDX_P1 ;        |                                                          |
+| Active1 서버 이중화 대상 원복 |                            | ALTER REPLICATION rep1 ADD TABLE FROM sys.t1 TO sys.t1;  | ALTER REPLICATION rep1 ADD TABLE FROM sys.t1 TO sys.t1;  |
+| Active1 서버 이중화 재시작    |                            | ALTER REPLICATION rep1 START;                            |                                                          |
+| Active1 서버 사후 작업        | 이중화 갭 해소             | ALTER REPLICATION rep1 FLUSH;                            |                                                          |
+|                               | 관리자 모드 해제           | ALTER SYSTEM SET ADMIN_MODE = 0;                         |                                                          |
+|                               | Active2 서버 이중화 재시작 |                                                          | ALTER REPLICATION rep1 START;                            |
+| Active2 서버 사전 작업        | 이중화 갭 해소             |                                                          | ALTER REPLICATION replication_name FLUSH;                |
+|                               | 이중화 갭 해소 확인        |                                                          | SELECT REP_NAME, REP_GAP FROM V$REPGAP;                  |
+|                               | 이중화 중지                | ALTER REPLICATION rep1 STOP;                             | ALTER REPLICATION rep1 STOP;                             |
+|                               | 서비스 이전                |                                                          | Active1로 서비스 이전                                    |
+|                               | 서비스 이전 확인           | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID(); | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID(); |
+|                               | 관리자 모드 설정           |                                                          | ALTER SYSTEM SET ADMIN_MODE = 1;                         |
+| Active2 서버 이중화 대상 삭제 |                            |                                                          | ALTER REPLICATION rep1 DROP TABLE FROM sys.t1 TO sys.t1; |
+| Active2 서버 DDL 문 수행      |                            |                                                          | ALTER` `INDEX` `T1_IDX REBUILD PARTITION IDX_P1 ;        |
+| Active2 서버 이중화 대상 원복 |                            |                                                          | ALTER REPLICATION rep1 ADD TABLE FROM sys.t1 TO sys.t1;  |
+| Active2 서버 이중화 재시작    |                            |                                                          | ALTER REPLICATION rep1 START;                            |
+| Active2 서버 사후 작업        | 이중화 갭 해소             |                                                          | ALTER REPLICATION rep1 FLUSH;                            |
+|                               | 관리자 모드 해제           |                                                          | ALTER SYSTEM SET ADMIN_MODE = 0;                         |
+|                               | Active1 서버 이중화 재시작 | ALTER REPLICATION rep1 START;                            |                                                          |
+| 서비스 분배                   |                            | Active2로 서비스를 다시 분배한다.                        |                                                          |
+
+
+
+### DDL 문 수행 레벨 0 예제
+
+#### 1. 테이블에 제약 조건이 없는 칼럼을 추가하기
+
+아래의 예제는 이중화 대상 테이블 *t1*에 INTEGER 데이터 타입을 가지는 *i3* 칼럼을 추가한다.
+
+##### Active-Standby 환경 
+
+<table>
+	<tbody>
+		<tr>
+			<td>작업 절차</td>
+			<td>상세</td>
+			<td>Active</td>
+			<td>Standby</td>
+		</tr>
+		<tr>
+			<td>서비스 이전</td>
+			<td></td>
+			<td colspan="2">Active-Standby 환경이므로 이전할 서비스가 없다.</td>
+		</tr>
+		<tr>
+			<td>프로퍼티 설정</td>
+			<td>DDL 문 수행 활성화</td>
+			<td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+			<td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+		</tr>
+		<tr>
+			<td rowspan="2">세션의 이중화 모드 확인 및 설정</td>
+			<td>세션의 이중화 모드 확인</td>
+			<td>SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE FROM V$SESSION WHERE ID = SESSION_ID();</td>
+			<td>SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE FROM V$SESSION WHERE ID = SESSION_ID();</td>
+		</tr>
+		<tr>
+			<td>세션의 이중화 모드 설정</td>
+			<td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td rowspan="4">DDL문 수행</td>
+			<td>이중화 갭 제거</td>
+			<td></td>
+			<td>ALTER REPLICATION rep1 FLUSH;</td>
+		</tr>
+		<tr>
+			<td>DDL 문 수행</td>
+			<td></td>
+			<td>ALTER TABLE t1 ADD COLUMN ( I3 INTEGER );</td>
+		</tr>
+		<tr>
+			<td>이중화 갭 제거</td>
+			<td>ALTER REPLICATION rep1 FLUSH;</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>DDL 문 수행</td>
+			<td>ALTER TABLE t1 ADD COLUMN ( I3 INTEGER );</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>프로퍼티 설정 원복</td>
+			<td>DDL 문 수행 비활성화</td>
+			<td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+			<td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+		</tr>
+		<tr>
+			<td>서비스 분배</td>
+			<td></td>
+			<td colspan="2">Active-Standby 환경이므로 분배할 서비스가 없다.</td>
+		</tr>
+	</tbody>
+</table>
+
+##### Active-Active 환경 
 
 Active1을 지역 서버로 간주하고 두 Active 서버에 DDL 문을 수행하는 절차이다.
 
-| 작업 절차                   | Active1                                                      | Active2                                                      |
-| :-------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 사용자 사전 작업            |                                                              | 서비스를 Active1로 이전                                      |
-| 서비스 이전 확인            |                                                              | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();     |
-| 관리자 모드 설정            |                                                              | ALTER SYSTEM SET ADMIN_MODE = 1;                             |
-| DDL 문 수행 활성화          | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
-| 세션의 이중화 모드 확인     | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE FROM V$SESSION WHERE ID = SESSION_ID(); | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE FROM V$SESSION WHERE ID = SESSION_ID(); |
-| 세션의 이중화 모드 변경     | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
-| 이중화 갭 제거              |                                                              | ALTER REPLICATION rep1 FLUSH ALL;                            |
-| Active2에서 먼저 DDL문 수행 |                                                              | ALTER TABLE t1 ADD COLUMN ( I3 INTEGER );                    |
-| 이중화 갭 제거              | ALTER REPLICATION rep1 FLUSH ALL;                            |                                                              |
-| Active1에서 DDL 문 수행     | ALTER TABLE t1 ADD COLUMN ( I3 INTEGER );                    |                                                              |
-| 프로퍼티 원복               | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 |
-| 사용자 사후 작업            | Active2로 서비스 분배                                        |                                                              |
+<table>
+	<tbody>
+		<tr>
+			<td>작업 절차</td>
+			<td>상세</td>
+			<td>Active1</td>
+			<td>Active2</td>
+		</tr>
+		<tr>
+			<td rowspan="2">서비스 이전</td>
+			<td>서비스 이전</td>
+			<td colspan="2">서비스를 Active1으로 이전한다.</td>
+		</tr>
+		<tr>
+			<td>서비스 이전 확인</td>
+			<td></td>
+			<td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+		</tr>
+		<tr>
+			<td rowspan="2">프로퍼티 설정</td>
+			<td>관리자 모드 설정</td>
+			<td></td>
+			<td>ALTER SYSTEM SET ADMIN_MODE = 1;</td>
+		</tr>
+		<tr>
+			<td>DDL 문 수행 활성화</td>
+			<td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+			<td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+		</tr>
+		<tr>
+			<td rowspan="2">세션의 이중화 모드 확인 및 설정</td>
+			<td>세션의 이중화 모드 확인</td>
+			<td>SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE FROM V$SESSION WHERE ID = SESSION_ID();</td>
+			<td>SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE FROM V$SESSION WHERE ID = SESSION_ID();</td>
+		</tr>
+		<tr>
+			<td>세션의 이중화 모드 설정</td>
+			<td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+			<td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+		</tr>
+		<tr>
+			<td rowspan="4">DDL 문 수행</td>
+			<td>이중화 갭 제거</td>
+			<td></td>
+			<td>ALTER REPLICATION rep1 FLUSH;</td>
+		</tr>
+		<tr>
+			<td>DDL문 수행</td>
+			<td></td>
+			<td>ALTER TABLE t1 ADD COLUMN ( I3 INTEGER );</td>
+		</tr>
+		<tr>
+			<td>이중화 갭 제거</td>
+			<td>ALTER REPLICATION rep1 FLUSH;</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>DDL 문 수행</td>
+			<td>ALTER TABLE t1 ADD COLUMN ( I3 INTEGER );</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td rowspan="2">프로퍼티 설정 원복</td>
+			<td>관리자 모드 설정 해제</td>
+			<td></td>
+			<td>ALTER SYSTEM SET ADMIN_MODE = 0;</td>
+		</tr>
+		<tr>
+			<td>DDL 문 수행 비활성화</td>
+			<td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+			<td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+		</tr>
+		<tr>
+			<td>서비스 분배</td>
+			<td></td>
+			<td colspan="2">Active2로 서비스를 분배한다</td>
+		</tr>
+	</tbody>
+</table>
 
-#### 칼럼의 데이터 타입 변경 : 현재 칼럼보다 넓은 범위의 데이터 타입으로 변경
+### DDL 문 수행 레벨 1 예제
+
+#### 1. 칼럼의 데이터 타입 변경 : 현재 칼럼보다 넓은 범위의 데이터 타입으로 변경
 
 테이블 t1 칼럼 c2의 데이터 타입을 CHAR(5)에서 CHAR(10)으로 변경하는 예이다. 현재 칼럼보다 범위가 넓어질 때는 주 트랜잭션이 발생하지 않는 곳부터 DDL 문을 수행한다.
 
-Active-Standby 환경 
+##### Active-Standby 환경 
 
-| 작업 절차                   | Active                                                       | Standby                                                      |
-| :-------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 사용자 사전 작업            | -                                                            | -                                                            |
-| DDL 문 수행 활성화          | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
-| DDL 문 수행 레벨 설정       | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
-| SQL 반영 모드 설정          |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
-| 세션의 이중화 모드 변경     | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
-| Standby에서 먼저 DDL문 수행 |                                                              | ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );                |
-| 이중화 갭 제거              | ALTER REPLICATION rep1 FLUSH ALL;                            |                                                              |
-| Active에서 DDL 문 수행      | ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );                |                                                              |
-| 이중화 갭 제거              | ALTER REPLICATION rep1 FLUSH WAIT 60;                        |                                                              |
-| SQL 반영 모드 동작 확인     |                                                              | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   |
-| 프로퍼티 원복               | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; |
-| 사용자 사후 작업            | 주 트랜잭션 차단 해제                                        |                                                              |
+| 작업 절차                       | 상세                    | Active                                                       | Standby                                                      |
+| :------------------------------ | ----------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| 서비스 이전                     |                         | Active-Standby 환경이므로 이전할 서비스가 없다.              | -                                                            |
+| 프로퍼티 설정                   | DDL 문 수행 활성화      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
+|                                 | DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
+|                                 | SQL 반영 모드 활성화    |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
+| 세션의 이중화 모드 확인 및 설정 | 세션의 이중화 모드 확인 | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE <br/>FROM V$SESSION WHERE ID = SESSION_ID(); | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE <br/>FROM V$SESSION WHERE ID = SESSION_ID(); |
+|                                 | 세션의 이중화 모드 설정 | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
+| DDL문 수행                      | 이중화 갭 해소          |                                                              | ALTER REPLICATION rep1 FLUSH;                                |
+|                                 | DDL문 수행              |                                                              | ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );                |
+|                                 | 이중화 갭 해소          | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
+|                                 | DDL 문 수행             | ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );                |                                                              |
+| SQL 반영 모드 동작 확인         |                         |                                                              | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   |
+| 프로퍼티 원복                   | DDL 문 수행 비활성화    | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 |
+|                                 | DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;           |
+|                                 | SQL 반영 모드 비활성화  |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
+| 서비스 분배                     |                         | Active-Standby 환경이므로 분배할 서비스가 없다.              |                                                              |
 
-Active-Active 환경 
+##### Active-Active 환경 
 
-| 작업 절차                   | Active1                                                      | Active2                                                      |
-| :-------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 사용자 사전 작업            |                                                              | Active1로 서비스 이전                                        |
-| 서비스 이전 확인            |                                                              | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();     |
-| DDL 문 수행 활성화          | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
-| DDL 문 수행 레벨 설정       | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
-| SQL 반영 모드 설정          | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
-| 세션의 이중화 모드 변경     | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
-| 이중화 갭 제거              |                                                              | ALTER REPLICATION rep1 FLUSH ALL;                            |
-| Active2에서 먼저 DDL문 수행 |                                                              | ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );                |
-| 이중화 갭 제거              | ALTER REPLICATION rep1 FLUSH ALL;                            |                                                              |
-| Active1에서 먼저 DDL문 수행 | ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );                |                                                              |
-| 이중화 갭 제거              | ALTER REPLICATION rep1 FLUSH WAIT 60;                        |                                                              |
-| SQL 반영 모드 동작 확인     | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   |
-| 프로퍼티 원복               | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; |
-| 사용자 사후 작업            | Active2로 서비스 분배                                        |                                                              |
+| 작업 절차                       | 상세                     | Active1                                                      | Active2                                                      |
+| :------------------------------ | ------------------------ | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| 서비스 이전                     | 서비스 이전              |                                                              | Active1로 서비스 이전                                        |
+|                                 | 서비스 이전 확인         |                                                              | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();     |
+| 프로퍼티 설정                   | DDL 문 수행 활성화       | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
+|                                 | DDL 문 수행 레벨 설정    | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
+|                                 | SQL 반영 모드 활성화     | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
+| 세션의 이중화 모드 확인 및 설정 | 세션의 이중화 모드 확인  | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE <br/>FROM V$SESSION WHERE ID = SESSION_ID(); | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE <br/>FROM V$SESSION WHERE ID = SESSION_ID(); |
+|                                 | 세션의 이중화 모드  설정 | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
+| DDL문 수행                      | 이중화 갭 해소           |                                                              | ALTER REPLICATION rep1 FLUSH ALL;                            |
+|                                 | DDL문 수행               |                                                              | ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );                |
+|                                 | 이중화 갭 해소           | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
+|                                 | DDL문 수행               | ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );                |                                                              |
+|                                 |                          | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
+| SQL 반영 모드 동작 확인         |                          | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   |
+| 프로퍼티 설정 원복              | DDL 문 수행 활성화       | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 |
+|                                 | DDL 문 수행 레벨 설정    | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;           |
+|                                 | SQL 반영 모드 활성화     | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
+| 서비스 분배                     |                          | Active2로 서비스를 분배한다.                                 |                                                              |
 
-#### 기존 칼럼에 CHECK 제약조건 추가 : 현재 칼럼보다 좁은 범위의 데이터 타입으로 변경
+#### 2. 기존 칼럼에 CHECK 제약조건 추가 : 현재 칼럼보다 좁은 범위의 데이터 타입으로 변경
 
 테이블 t1의 칼럼 c2에 CHECK 제약조건을 추가한다. 현재 칼럼보다 범위가 좁아질 때는 주 트랜잭션이 발생하는 곳부터 DDL 문을 수행한다.
 
-Active-Standby 환경 
+##### Active-Standby 환경
 
-| 작업 절차                   | Active                                                       | Standby                                                      |
-| :-------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 사용자 사전 작업            |                                                              |                                                              |
-| DDL 문 수행 활성화          | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
-| DDL 문 수행 레벨 설정       | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
-| SQL 반영 모드 설정          |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
-| 세션의 이중화 모드 변경     | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
-| 이중화 갭 제거              | ALTER REPLICATION rep1 FLUSH ALL;                            |                                                              |
-| Active에서 먼저 DDL 문 수행 | ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 < 10 );    |                                                              |
-| 이중화 갭 제거              | ALTER REPLICATION rep1 FLUSH WAIT 60;                        |                                                              |
-| Standby에서 DDL문 수행      |                                                              | ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 < 10 );    |
-| SQL 반영 모드 동작 확인     |                                                              | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   |
-| 프로퍼티 원복               | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; |
-| 사용자 사후 작업            | 주 트랜잭션 차단 해제                                        |                                                              |
+| 작업 절차                       | 상세                    | Active                                                       | Standby                                                      |
+| :------------------------------ | ----------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| 서비스 이전                     |                         | Active-Standby 환경이므로 이전할 서비스가 없다.              | -                                                            |
+| 프로퍼티 설정                   | DDL 문 수행 활성화      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
+|                                 | DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
+|                                 | SQL 반영 모드 활성화    |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
+| 세션의 이중화 모드 확인 및 설정 | 세션의 이중화 모드 확인 | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE  FROM V$SESSION WHERE ID = SESSION_ID(); | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE  FROM V$SESSION WHERE ID = SESSION_ID(); |
+|                                 | 세션의 이중화 모드 설정 | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
+| DDL문 수행                      | 이중화 갭 해소          | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
+|                                 | DDL문 수행              | ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 < 10 );    |                                                              |
+|                                 | 이중화 갭 해소          | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
+|                                 | DDL 문 수행             |                                                              | ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 < 10 );    |
+| SQL 반영 모드 동작 확인         |                         |                                                              | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   |
+| 프로퍼티 원복                   | DDL 문 수행 비활성화    | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 |
+|                                 | DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;           |
+|                                 | SQL 반영 모드 비활성화  |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
+| 서비스 분배                     |                         | Active-Standby 환경이므로 분배할 서비스가 없다.              |                                                              |
 
-Active-Active 환경
+##### Active-Active 환경
 
-| 작업 절차                   | Active1                                                      | Active2                                                      |
-| :-------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 사용자 사전 작업            |                                                              | Active1로 서비스 이전                                        |
-| 서비스 이전 확인            |                                                              | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();     |
-| DDL 문 수행 활성화          | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
-| DDL 문 수행 레벨 설정       | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
-| SQL 반영 모드 설정          | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
-| 세션의 이중화 모드 변경     | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
-| 이중화 갭 제거              | ALTER REPLICATION rep1 FLUSH ALL;                            |                                                              |
-| Active1에서 먼저 DDL문 수행 | ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 < 10 );    |                                                              |
-| 이중화 갭 제거              | ALTER REPLICATION rep1 FLUSH WAIT 60;                        |                                                              |
-| 이중화 갭 제거              |                                                              | ALTER REPLICATION rep1 FLUSH ALL;                            |
-| Active2에서 DDL문 수행      |                                                              | ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 < 10 );    |
-| 이중화 갭 제거              |                                                              | ALTER REPLICATION rep1 FLUSH WAIT 60;                        |
-| Standby에서 DDL문 수행      |                                                              | ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 < 10 );    |
-| SQL 반영 모드 동작 확인     | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   |
-| 프로퍼티 원복               | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;<br>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;<br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;<br/>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;<br/>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; |
-| 사용자 사후 작업            | Active2로 서비스 분배                                        |                                                              |
+| 작업 절차                       | 상세                    | Active1                                                    | Active2                                                    |
+| :------------------------------ | ----------------------- | :--------------------------------------------------------- | :--------------------------------------------------------- |
+| 서비스 이전                     | 서비스 이전             |                                                            | Active1로 서비스 이전                                      |
+|                                 | 서비스 이전 확인        |                                                            | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();   |
+| 프로퍼티 설정                   | DDL 문 수행 활성화      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;               | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;               |
+|                                 | DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;         | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;         |
+|                                 | SQL 반영 모드 활성화    | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;         | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;         |
+| 세션의 이중화 모드 확인 및 설정 | 세션의 이중화 모드 확인 |                                                            |                                                            |
+|                                 | 세션의 이중화 모드 설정 | ALTER SESSION SET REPLICATION = DEFAULT;                   | ALTER SESSION SET REPLICATION = DEFAULT;                   |
+| DDL문 수행                      | 이중화 갭 해소          | ALTER REPLICATION rep1 FLUSH;                              |                                                            |
+|                                 | DDL문 수행              | ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 < 10 );  |                                                            |
+|                                 | 이중화 갭 해소          |                                                            | ALTER REPLICATION rep1 FLUSH;                              |
+|                                 | DDL문 수행              |                                                            | ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 < 10 );  |
+| SQL 반영 모드 동작 확인         |                         | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER; | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER; |
+| 프로퍼티 설정 원복              | DDL 문 수행 비활성화    | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;               | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;               |
+|                                 | DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;         | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;         |
+|                                 | SQL 반영 모드 비활성화  | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;         | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;         |
+| 서비스 분배                     |                         | Active2로 서비스 분배                                      |                                                            |
 
-#### 파티션 분할
+#### 3. 파티션 분할
 
 파티션 P2를 파티션 P3과 P4로 분할한다. 
 
-Active-Standby 환경 
+##### Active-Standby 환경 
 
-| 작업 절차               | Active                                                       | Standby                                                      |
-| :---------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-|                         |                                                              |                                                              |
-| DDL 문 수행 활성화      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
-| DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
-| SQL 반영 모드 설정      |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
-| 세션의 이중화 모드 변경 | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
-| 이중화 갭 제거          | ALTER REPLICATION rep1 FLUSH ALL;                            |                                                              |
-| 이중화 중지             | ALTER REPLICATION rep1 STOP;                                 |                                                              |
-| DDL 문 수행             | ALTER TABLE t1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 ); | ALTER TABLE t1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 ); |
-| 이중화 시작             | ALTER REPLICATION rep1 START;                                |                                                              |
-| 이중화 갭 제거          | ALTER REPLICATION rep1 FLUSH WAIT 60;                        |                                                              |
-| SQL 반영 모드 동작 확인 |                                                              | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   |
-| 프로퍼티 원복           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; |
+| 작업 절차                       |                         | Active                                                       | Standby                                                      |
+| :------------------------------ | ----------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| 서비스 이전                     |                         | Active-Standby 환경이므로 이전할 서비스가 없다.              |                                                              |
+| 프로퍼티 설정                   | DDL 문 수행 활성화      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
+|                                 | DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
+|                                 | SQL 반영 모드 활성화    |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
+| 세션의 이중화 모드 확인 및 설정 | 세션의 이중화 모드 확인 | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE <br/>FROM V$SESSION WHERE ID = SESSION_ID(); | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE <br/>FROM V$SESSION WHERE ID = SESSION_ID(); |
+|                                 | 세션의 이중화 모드 설정 | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
+| 이중화 갭 해소                  |                         | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
+| 이중화 중지                     |                         | ALTER REPLICATION rep1 STOP;                                 |                                                              |
+| DDL 문 수행                     |                         | ALTER TABLE t1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 ); | ALTER TABLE t1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 ); |
+| 이중화 시작                     |                         | ALTER REPLICATION rep1 START;                                |                                                              |
+| 이중화 갭 해소                  |                         | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
+| SQL 반영 모드 동작 확인         |                         |                                                              | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   |
+| 프로퍼티 설정 원복              | DDL 문 수행 활성화      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 |
+|                                 | DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;           |
+|                                 | SQL 반영 모드 활성화    |                                                              | REPLICATION_SQL_APPLY_ENABLE = 0;                            |
+| 서비스 분배                     |                         | Active-Standby 환경이므로 분배할 서비스가 없다.              |                                                              |
 
-Active-Active 환경 
+##### Active-Active 환경 
 
-| 작업 절차                   | Active1                                                      | Active2                                                      |
-| :-------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 사용자 사전 작업            |                                                              | Active1로 서비스 이전                                        |
-| 서비스 이전 확인            |                                                              | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();     |
-| DDL 문 수행 활성화          | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
-| DDL 문 수행 레벨 설정       | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
-| SQL 반영 모드 설정          | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
-| 세션의 이중화 모드 변경     | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
-| 이중화 갭 제거              | ALTER REPLICATION rep1 FLUSH ALL;                            | ALTER REPLICATION rep1 FLUSH ALL;                            |
-| 이중화 중지                 | ALTER REPLICATION rep1 STOP;                                 | ALTER REPLICATION rep1 STOP;                                 |
-| Active1에서 먼저 DDL문 수행 | ALTER TABLE t1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 ); | ALTER TABLE t1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 ); |
-| 이중화 시작                 | ALTER REPLICATION rep1 START;                                | ALTER REPLICATION rep1 START;                                |
-| 이중화 갭 제거              | ALTER REPLICATION rep1 FLUSH WAIT 60;                        | ALTER REPLICATION rep1 FLUSH WAIT 60;                        |
-| SQL 반영 모드 동작 확인     | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   |
-| 프로퍼티 원복               | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; |
-| 사용자 사후 작업            | Active2로 서비스 분배                                        |                                                              |
+| 작업 절차                       |                         | Active1                                                      | Active2                                                      |
+| :------------------------------ | ----------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| 서비스 이전                     | 서비스 이전             |                                                              | Active1로 서비스 이전                                        |
+|                                 | 서비스 이전 확인        |                                                              | SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();     |
+| 프로퍼티 설정                   | DDL 문 수행 활성화      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
+|                                 | DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
+|                                 | SQL 반영 모드 활성화    | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
+| 세션의 이중화 모드 확인 및 설정 | 세션의 이중화 모드 확인 | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE <br/>FROM V$SESSION WHERE ID = SESSION_ID(); | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE <br/>FROM V$SESSION WHERE ID = SESSION_ID(); |
+|                                 | 세션의 이중화 모드설정  | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
+| 이중화 갭 해소                  |                         | ALTER REPLICATION rep1 FLUSH;                                | ALTER REPLICATION rep1 FLUSH;                                |
+| 이중화 중지                     |                         | ALTER REPLICATION rep1 STOP;                                 | ALTER REPLICATION rep1 STOP;                                 |
+| DDL문 수행                      |                         | ALTER TABLE t1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 ); | ALTER TABLE t1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4 ); |
+| 이중화 시작                     |                         | ALTER REPLICATION rep1 START;                                | ALTER REPLICATION rep1 START;                                |
+| 이중화 갭 해소                  |                         | ALTER REPLICATION rep1 FLUSH;                                | ALTER REPLICATION rep1 FLUSH;                                |
+| SQL 반영 모드 동작 확인         |                         | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   | SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;   |
+| 프로퍼티 설정 원복              | DDL 문 수행 비활성화    | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 |
+|                                 | DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;           |
+|                                 | SQL 반영 모드 비활성화  | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
+| 서비스 분배                     |                         | Active2로 서비스 분배                                        |                                                              |
 
-#### TRUNCATE TABLE 문 복제 
+### DDL 문 복제 예제
+
+#### 1. TRUNCATE TABLE 문 복제 
 
 DDL 문을 복제하는 몇 가지 예제를 소개한다. 아래 표에서 지역 서버는 DDL 문을 수행하는 서버이고 원격 서버는 지역 서버에서 수행한 DDL 문이 복제되는 서버를 의미한다
 
-| 작업 절차                  | 지역 서버                                                    | 원격 서버                                                    |
-| :------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 사용자 사전 작업           |                                                              | 지역 서버로 서비스 이전                                      |
-| DDL 문 수행 활성화         | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
-| DDL 문 복제 기능 설정      | ALTER SESSION SET REPLICATION_DDL_SYNC = 1;                  | ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;                   |
-| 세션의 이중화 모드 확인    | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
-| 원격 서버의 이중화 갭 제거 |                                                              | ALTER REPLICATION rep1 FLUSH;                                |
-| 지역 서버의 이중화 갭 제거 | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
-| DDL 문 수행                | TRUNCATE TABLE t1;                                           |                                                              |
-| 굳이 할 필요가?            | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
-| 프로퍼티 원복              | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0; |
-| 사용자 사후 작업           | 원격 서버로 서비스 분배                                      |                                                              |
+| 작업 절차                       | 상세                       | 지역 서버                                                    | 원격 서버                                                    |
+| :------------------------------ | -------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| 서비스 이전                     |                            |                                                              | 지역 서버로 서비스 이전                                      |
+| 프로퍼티 설정                   | DDL 문 수행 활성화         | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
+|                                 | DDL 문 복제 활성화         | ALTER SESSION SET REPLICATION_DDL_SYNC = 1;                  | ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;                   |
+| 세션의 이중화 모드 확인 및 설정 | 세션의 이중화 모드 확인    | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE <br/>FROM V$SESSION WHERE ID = SESSION_ID(); | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE <br/>FROM V$SESSION WHERE ID = SESSION_ID(); |
+|                                 | 세션의 이중화 모드 설정    | ALTER SESSION SET REPLICATION = DEFAULT;                     | ALTER SESSION SET REPLICATION = DEFAULT;                     |
+| 이중화 갭 해소                  | 원격 서버의 이중화 갭 해소 |                                                              | ALTER REPLICATION rep1 FLUSH;                                |
+|                                 | 지역 서버의 이중화 갭 해소 | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
+| DDL 문 수행                     |                            | TRUNCATE TABLE t1;                                           |                                                              |
+| 프로퍼티 설정 원복              | DDL 문 수행 비활성화       | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 |
+|                                 | DDL 문 복제 비활성화       | ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;                   | ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;                   |
+| 서비스 분배                     |                            | 원격 서버로 서비스 분배                                      |                                                              |
 
-#### 칼럼의 제약 조건 변경 DDL 문 복제
+#### 2. 칼럼의 제약 조건 변경 DDL 문 복제
 
 아래 표에서 지역 서버는 DDL 문을 수행하는 서버이고 원격 서버는 지역 서버에서 수행한 DDL 문이 복제되는 서버를 의미한다. 이중화 시작 상태라고 가정?
 
-| 작업 절차               | 지역 서버                                                    | 원격 서버                                                    |
-| :---------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 사용자 사전 작업        |                                                              | 지역 서버로 서비스 이전                                      |
-| DDL 문 수행 활성화      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
-| DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
-| SQL 반영 모드 설정      |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
-| DDL 문 복제 기능 설정   | ALTER SESSION SET REPLICATION_DDL_SYNC = 1;                  | ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;                   |
-| 세션의 이중화 모드 설정 | ALTER SESSION SET REPLICATION = DEFAULT;                     |                                                              |
-|                         | ALTER REPLICATION rep1 FLUSH;                                | ALTER REPLICATION rep1 FLUSH;                                |
-|                         | ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );                 |                                                              |
-| 굳이 할 필요가?         | ALTER REPLICATION rep1 FLUSH;                                |                                                              |
-| 프로퍼티 원복           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; ALTER SESSION SET REPLICATION_DDL_SYNC = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0; ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; |
-| 사용자 사후 작업        | 원격 서버로 서비스 분배                                      |                                                              |
+| 작업 절차                       | 설명                    | 지역 서버                                                    | 원격 서버                                                    |
+| :------------------------------ | ----------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| 서비스 이전                     |                         |                                                              | 지역 서버로 서비스 이전                                      |
+| 프로퍼티 설정                   | DDL 문 수행 활성화      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
+|                                 | DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
+|                                 | SQL 반영 모드 활성화    |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
+|                                 | DDL 문 복제 활성화      | ALTER SESSION SET REPLICATION_DDL_SYNC = 1;                  | ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;                   |
+| 세션의 이중화 모드 확인 및 설정 | 세션의 이중화 모드 확인 | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE <br/>FROM V$SESSION WHERE ID = SESSION_ID(); | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE <br/>FROM V$SESSION WHERE ID = SESSION_ID(); |
+|                                 | 세션의 이중화 모드 설정 | ALTER SESSION SET REPLICATION = DEFAULT;                     |                                                              |
+| 이중화 갭 해소                  |                         | ALTER REPLICATION rep1 FLUSH;                                | ALTER REPLICATION rep1 FLUSH;                                |
+| DDL 문 수행                     |                         | ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );                 |                                                              |
+| 프로퍼티 설정 원복              | DDL 문 수행 활성화      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 |
+|                                 | DDL 문 수행 레벨 설정   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;           |
+|                                 | SQL 반영 모드 활성화    |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
+|                                 | DDL 문 복제 활성화      | ALTER SESSION SET REPLICATION_DDL_SYNC = 0;                  | ALTER SESSION SET REPLICATION_DDL_SYNC = 0;                  |
+| 서비스 분배                     |                         | 원격 서버로 서비스 분배                                      |                                                              |
 
-#### 삼중화 환경에서 테이블에 NOT NULL 제약조건을 가진 칼럼 추가 DDL 문 복제
+#### 3. 삼중화 환경에서 테이블에 NOT NULL 제약조건을 가진 칼럼 추가 DDL 문 복제
 
 지역 서버와 원격 서버1의 이중화 객체는 rep1, 지역 서버와 원격 서버 2의 이중화 객체는 rep2, 원격 서버1과 원격 서버2의 이중화 객체를 rep3 이라 가정한다.
 
-| 작업 절차                  | 지역 서버                                                    | 원격 서버 1                                                  | 원격 서버 2                                                  |
-| :------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 사용자 사전 작업           |                                                              | 지역 서버로 서비스 이전                                      | 지역 서버로 서비스 이전                                      |
-| DDL 문 수행 활성화         | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 |
-| DDL 문 수행 레벨 설정      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           |
-| SQL 반영 모드 설정         |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
-| DDL 문 복제 기능 설정      | ALTER SESSION SET REPLICATION_DDL_SYNC = 1;                  | ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;                   | ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;                   |
-| 세션의 이중화 모드 설정    | ALTER SESSION SET REPLICATION = DEFAULT;                     |                                                              |                                                              |
-| 원격 서버의 이중화 갭 제거 |                                                              | ALTER REPLICATION rep1 FLUSH; ALTER REPLICATION rep3 FLUSH;  | ALTER REPLICATION rep2 FLUSH; ALTER REPLICATION rep3 FLUSH;  |
-| 지역 서버의 이중화 갭 제거 | ALTER REPLICATION rep1 FLUSH; ALTER REPLICATION rep2 FLUSH;  |                                                              |                                                              |
-| DDL 문 수행                | ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );                 |                                                              |                                                              |
-| 굳이 할 필요가?            | ALTER REPLICATION rep1 FLUSH; ALTER REPLICATION rep2 FLUSH;  |                                                              |                                                              |
-| 프로퍼티 원복              | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; ALTER SESSION SET REPLICATION_DDL_SYNC = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0; | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0; |
-| 사용자 사후 작업           | 원격 서버1, 원격 서버2로 서비스 분배                         |                                                              |                                                              |
+| 작업 절차                       | 상세                       | 지역 서버                                                    | 원격 서버 1                                                 | 원격 서버 2                                                 |
+| :------------------------------ | -------------------------- | :----------------------------------------------------------- | :---------------------------------------------------------- | :---------------------------------------------------------- |
+| 서비스 이전                     |                            |                                                              | 지역 서버로 서비스 이전                                     | 지역 서버로 서비스 이전                                     |
+| 프로퍼티 설정                   | DDL 문 수행 활성화         | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;                |
+|                                 | DDL 문 수행 레벨 설정      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;          | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;          |
+|                                 | SQL 반영 모드  활성화      |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;          | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;          |
+|                                 | DDL 문 복제 활성화         | ALTER SESSION SET REPLICATION_DDL_SYNC = 1;                  | ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;                  | ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;                  |
+| 세션의 이중화 모드 확인 및 설정 | 세션의 이중화 모드 확인    | SELECT DECODE(REPLICATION_MODE, 0, 'DEFAULT', 16, 'NONE') SESSION_REPLICATION_MODE <br/>FROM V$SESSION WHERE ID = SESSION_ID(); |                                                             |                                                             |
+|                                 | 세션의 이중화 모드  설정   | ALTER SESSION SET REPLICATION = DEFAULT;                     |                                                             |                                                             |
+| 이중화 갭 해소                  | 원격 서버의 이중화 갭 해소 |                                                              | ALTER REPLICATION rep1 FLUSH; ALTER REPLICATION rep3 FLUSH; | ALTER REPLICATION rep2 FLUSH; ALTER REPLICATION rep3 FLUSH; |
+|                                 | 지역 서버의 이중화 갭 해소 | ALTER REPLICATION rep1 FLUSH; ALTER REPLICATION rep2 FLUSH;  |                                                             |                                                             |
+| DDL 문 수행                     |                            | ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );                 |                                                             |                                                             |
+| 프로퍼티 설정 원복              | DDL 문 수행 비활성화       | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                 | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;                |
+|                                 | DDL 문 수행 레벨 설정      | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;           | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;          | ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;          |
+|                                 | SQL 반영 모드 비활성화     |                                                              | REPLICATION_SQL_APPLY_ENABLE = 0;                           | REPLICATION_SQL_APPLY_ENABLE = 0;                           |
+|                                 | DDL 문 복제 비활성화       | ALTER SESSION SET REPLICATION_DDL_SYNC = 0;                  | ALTER SESSION SET REPLICATION_DDL_SYNC = 0;                 | ALTER SESSION SET REPLICATION_DDL_SYNC = 0;                 |
+| 사용자 사후 작업                |                            | 원격 서버1, 원격 서버2로 서비스 분배                         |                                                             |                                                             |
 
 # 5.Fail-Over
 
@@ -4408,7 +4714,7 @@ catch (PDOException $ex) {
 }
 ```
 
-5.시퀀스 이중화
+6.시퀀스 이중화
 =============
 
 Altibase는 기본적으로 테이블 객체만 이중화를 지원한다. 따라서 시퀀스 이중화란 시퀀스 자체의 복제가 아니라 시퀀스 이중화만을 위한 전용 테이블을 생성하여 사용하는 방식이다.
@@ -4518,7 +4824,7 @@ ALTER SEQUENCE user_name.seq_name DISABLE SYNC TABLE;
 
 
 
-# 6. 이중화 롤(ROLE)
+# 7.이중화 롤(ROLE)
 
 이중화 롤은 이중화에 롤(ROLE)을 부여하여 특별한 기능을 하도록 시스템을 구성하는 데 사용한다. 
 
