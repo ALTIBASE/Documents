@@ -1192,7 +1192,7 @@ SYS 사용자만이 이중화 동작을 변경할 수 있다.
     재시작 SN 등의 이중화 정보를 reset한다. 이중화가 중지된 상태에서만 수행할 수 있으며, 이중화 객체를 삭제한 후 다시 생성하는 것을 대신해서 사용할 수 있다.
     
 -   DROP TABLE  
-    특정 테이블 또는 파티션을 이중화 대상에서 제외시킨다.
+    특정 테이블 또는 파티션을 이중화 대상에서 제외시킨다. DROP TABLE을 수행하는 시점에 대상 테이블의 주 트랜잭션 로그나 테이블 메타 로그가 이중화 갭에 있다면 그 이중화 갭은 포기하므로 데이터 불일치가 발생할 수 있다.
     
 -   ADD TABLE  
     특정 테이블 또는 파티션을 이중화 대상에 추가한다. 
@@ -2222,9 +2222,9 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
 # 4.이중화 대상에 DDL 문 수행
 
-## 이중화와 DDL문 수행 개요
+## 이중화와 DDL문 수행
 
-원칙적으로 이중화 수행 중에는 이중화 대상 테이블 또는 파티션(이하 이중화 대상)에 대부분의 DDL 문을 수행할 수 없다. 이는 DDL이 이중화 대상의 메타 정보를 변경시켜 데이터 불일치를 초래할 수 있기 때문이다. 그러나 Altibase는 운영 상의 편의를 위해 프로퍼티 설정을 변경하여 이중화 대상에 DDL 문을 수행할 수 있는 방법을 제공한다.
+기본적으로 이중화 대상 테이블 또는 파티션(이하 이중화 대상)에는 대부분의 DDL 문을 수행할 수 없다. 이는 DDL 문 이 이중화 대상의 메타 정보를 변경시켜 데이터 불일치를 초래할 수 있기 때문이다. 그러나 운영 상의 편의를 위해 프로퍼티 설정을 변경하여 이중화 대상에 DDL 문을 수행할 수 있는 방법을 제공한다.
 
 이중화 대상에 DDL 문을 실행하는 것과 관련 있는 이중화 프로퍼티는 다음 네 가지가 있다.
 
@@ -2391,6 +2391,8 @@ ALTER REPLICATION replication_name START;
 >
 > Active-Active 서버 환경을 구축한 경우, 위의 과정을 두 서버에서 모두 실행해야 한다.
 
+
+
 #### 이중화 대상 서버의 서비스를 동시에 중지할 수 없는 환경
 
 이중화 대상 서버가 모두 서비스 중인 상태에서 두 서버를 동시에 중지할 수 없는 경우, 서비스를 한쪽 서버로 이관하고 DDL 문 수행을 각 서버에서 순차적으로 수행해야 한다. 보다 자세한 절차는 [기본 설정에서의 이중화 대상 DDL 문 수행 예제](#기본-설정에서의-이중화-대상-DDL-문-수행-예제)의 2번 예제를 참고한다.
@@ -2488,7 +2490,7 @@ Active1 서버에서 수행한 **Step 1**부터 **Step 7** 작업을 Active2 서
 
 ### DDL 문 수행 관련 프로퍼티
 
-Altibase는 DDL 문 수행 관련 프로퍼티를 설정하여 이중화를 중지하지 않고 이중화 대상에 DDL 문을 수행하는 방법을 제공한다. 수행 할 수 있는 DDL 문의 종류와 범위는 아래의 이중화 프로퍼티 설정에 따라 달라진다.
+이중화 대상에 DDL 문을 수행하려면 관련 설정을 활성화해야 한다. 수행 할 수 있는 DDL 문의 종류와 범위는 아래의 이중화 프로퍼티 설정에 따라 달라진다.
 
 #### REPLICATION_DDL_ENABLE
 
@@ -2520,7 +2522,7 @@ Altibase는 DDL 문 수행 관련 프로퍼티를 설정하여 이중화를 중�
   - 0: SQL 반영 모드 비활성화
   - 1: SQL 반영 모드 활성화
 
-### DDL 문 활성화 레벨에 따른 가능한 DDL 구문
+### DDL 문 수행 레벨에 따른 가능한 DDL 구문
 
 #### 레벨 0
 
@@ -2561,16 +2563,14 @@ ALTER TABLE table_name DROP COLUMN column_name;
 ###### 칼럼의 기본값 설정과 해제
 
 ```sql
-ALTER TABLE table_name
-ALTER COLUMN ( column_name SET DEFAULT value ); 
+ALTER TABLE table_name ALTER COLUMN ( column_name SET DEFAULT value ); 
 ALTER TABLE table_name ALTER COLUMN ( column_name DROP DEFAULT);
 ```
 
 ###### 테이블 또는 파티션의 테이블스페이스 변경
 
 ```sql
-ALTER TABLE table_name
-ALTER TABLESPACE tablespace_name;
+ALTER TABLE table_name ALTER TABLESPACE tablespace_name;
 ALTER TABLE table_name ALTER PARTITION partition_name TABLESPACE;
 ```
 
