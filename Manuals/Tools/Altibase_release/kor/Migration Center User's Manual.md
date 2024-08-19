@@ -8172,7 +8172,7 @@ java.security 파일의 jdk.tls.disabledAlgorithms 항목에서 TLSv1, TLSv1.1�
 
 java.security 파일의 경로는 자바 버전에 따라 다르다:
 
-- 자바 11 이전: `$JAVA_HOME/jre/lib/security`
+- 자바 11 미만: `$JAVA_HOME/jre/lib/security`
 - 자바 11 이상: `$JAVA_HOME/conf/security`
 
 ~~~java
