@@ -529,7 +529,7 @@ altiShapeLoader의 가져오기 수행 성능을 조정하기 위한 옵션이�
 | :------------ | :----------------------------- | :----------------------------------------------------------- | :----: |
 | -parallel     | PARALLEL                       | 데이터 입력 작업 쓰레드 수. <br />가져오기 수행 성능 조정을 위한 옵션이다. altiShapeLoader는 생산자-소비자 패턴(Producer Consumer Pattern)의 멀티 쓰레드 구조로, 쉐이프 파일을 읽어 큐에 넣는 1개의 쓰레드(생산자)와 큐에서 데이터를 읽어 데이터베이스에 입력하는 N개의 쓰레드(소비자)로 구성된다. 여기서 parallel 옵션은 N개의 소비자 쓰레드를 의미한다. 최소값은 1이고 최대값은 제한이 없다. 이 옵션을 사용하지 않는 경우 기본값 4를 적용한다. |   4    |
 | -commit       | COMMIT                         | 데이터 입력 시 커밋 단위. <br />가져오기 수행 성능 조정을 위한 옵션이다. 데이터 입력 작업 쓰레드가 몇 개의 레코드 단위로 커밋할 것인지를 결정한다. 최소값은 1이고 최대값은 제한이 없다. 이 옵션을 사용하지 않는 경우 기본값 1000을 적용한다. |  1000  |
-| -atomic_batch | ATOMIC_BATCH                   | 데이터 입력 시 일괄 처리(Batch) 여부.<br />가져오기 수행 성능 조정을 위한 옵션이다. 데이터 입력 작업 시 Altibase JDBC Driver의 Atomic Batch 기능을 사용하여 데이터를 일괄 처리할 것인지 결정한다. T로 설정하면 데이터를 일괄 처리하며, F로 설정하면 일괄 처리하지 않는다. 이 옵션을 사용하지 않는 경우 기본값 T를 적용한다. |   T    |
+| -atomic_batch | ATOMIC_BATCH                   | 데이터 입력 시 [Atomic Batch](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/JDBC%20User's%20Manual.md#atomic-batch) 기능 사용 여부.<br />가져오기 수행 성능 조정을 위한 옵션이다. 데이터 입력 작업 시 Altibase JDBC Driver의 Atomic Batch 기능을 사용하여 데이터를 일괄 처리할 것인지 결정한다. T로 설정하면 데이터를 일괄 처리하며, F로 설정하면 일괄 처리하지 않는다. 이 옵션을 사용하지 않는 경우 기본값 T를 적용한다. |   T    |
 
 ### 특수 옵션
 
