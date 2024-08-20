@@ -7,12 +7,12 @@
 
 - [New Features](#new-features)
     - [Improve V\$DISK\_BTREE\_HEADER and V\$MEM\_BTREE\_HEADER performance views to include index status information.](#bug-50768)
-    - [BUG-50812 cdbc (C API) support on Windows Clients](#bug-50812)
+    - [BUG-50812 cdbc (C API) support on Windows Clients.](#bug-50812)
 - [Fixed Bugs](#fixed-bugs)
-    - [BUG-50433 Improved to avoid accessing corrupted pages during Disk Page Recovery or Service operations.](#bug-50433)
-    - [BUG-50781 하나의 IPC 채널에 2개의 클라이언트가 세마포어를 제어해, 수신된 데이터가 재수신되어 Invalid protocol sequence 에러가 발생하는 문제를 수정하였습니다.](#bug-50781)
-    - [BUG-50791 TO_CHAR 함수를 ALIAS로 조건절에 사용시 뷰에 대한 조건절 Pushdown 이 2번 이상 발생할 경우, 비정상 종료되는 문제를 수정합니다.](#bug-50791)
-    - [BUG-50799 Resolved the issue where the odbccli_sl.dll was missing from the Windows installation file.](#bug-50799)
+    - [BUG-50433 Improve to avoid accessing corrupted pages during Disk Page Recovery or service.](#bug-50433)
+    - [BUG-50781 Fix an issue where two clients controlling the semaphore on a single IPC channel caused data to be re-received, resulting in an Invalid protocol sequence error.](#bug-50781)
+    - [BUG-50791 Fix an issue causing server abnormal termination when the TO_CHAR function was used as an alias in a condition clause, and  multiple condition clause pushdowns on views occurred.](#bug-50791)
+    - [BUG-50799 Resolve the issue where the odbccli_sl.dll was missing from the Windows installation file.](#bug-50799)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [Compatibility](#Compatibility)
@@ -58,7 +58,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50812<a name=bug-50812></a> cdbc (C API) support on Windows Clients
+### BUG-50812<a name=bug-50812></a> cdbc (C API) support on Windows Clients.
 
 -   **module** : ux-cdbc
 
@@ -66,16 +66,15 @@ New Features
 
 -   **Reproducibility** : Always
 
--   **Description** :  Windows 7.1 client now supports cdbc(C API).
+-   **Description** :  Windows 7.1 clients now supports cdbc(C API).
 
 -   **How to reproduce this bug**
-
     -   **Reproduction conditions**
-
+    
     -   **Actual Results**
-
+    
     -   **Expected Results**
-
+    
 -   **Workaround**
 
 -   **Changes**
@@ -88,7 +87,7 @@ New Features
 Fixed Bugs
 ==========
 
-### BUG-50433<a name=bug-50433></a> Improved to avoid accessing corrupted pages during Disk Page Recovery or Service operations.
+### BUG-50433<a name=bug-50433></a> Improve to avoid accessing corrupted pages during Disk Page Recovery or Service operations.
 
 -   **module** : sm
 
@@ -98,7 +97,7 @@ Fixed Bugs
 
 -   **Description** : 
     
-    1. Altibase modified to prevent access to corrupted pages during Disk Page Recovery or Service.
+    1. Altibase modified to prevent access to corrupted pages during Disk Page Recovery or service.
     
     2. If a corrupted Disk Index Page is detected during service, it will be marked with an inconsistent flag, and the index will be set as an inconsistent index.
     
@@ -119,7 +118,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50781<a name=bug-50781></a> Fixed an issue where two clients controlling the semaphore on a single IPC channel caused data to be re-received, resulting in an Invalid protocol sequence error.
+### BUG-50781<a name=bug-50781></a> Fix an issue where two clients controlling the semaphore on a single IPC channel caused data to be re-received, resulting in an Invalid protocol sequence error.
 
 -   **module** : cm-ipc
 -   **Category** : Functional Error
@@ -139,7 +138,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50791<a name=bug-50791></a> TO_CHAR 함수를 ALIAS로 조건절에 사용시 뷰에 대한 조건절 Pushdown 이 2번 이상 발생할 경우, 비정상 종료되는 문제를 수정합니다. Fixed an issue causing server abnormal termination when the TO_CHAR function was used as an alias in a condition clause, and  multiple condition clause pushdowns on views occurred.
+### BUG-50791<a name=bug-50791></a> Fix an issue causing server abnormal termination when the TO_CHAR function was used as an alias in a condition clause, and  multiple condition clause pushdowns on views occurred.
 
 -   **module** : qp
 
@@ -147,18 +146,14 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : TO_CHAR 함수를 alias로 조건절에 사용시 뷰에 대한 조건절 Pushdown이 2번 이상 발생할 경우, 서버가 비정상 종료되는 문제를 수정합니다. 이 버그는 아래의 4가지 조건이 모두 일치하는 경우에만 발생합니다. 
+-   **Description** : Altibase fixed an issue causing server abnormal termination when the TO_CHAR function was used as an alias in a condition clause, and  multiple condition clause pushdowns on views occurred.
     
-    This bug occurred under the following conditions:
+    This bug occurred where the following conditions are all met:
     
-    1. TO_CHAR 함수의 2번째 인자로 숫자 형식이나 날짜 형식이 있는 경우
-    2. TO_CHAR 함수의 1번째 인자가 Numeric 타입이 아닌 경우
-    3. TO_CHAR 함수의 1번째 인자의 컬럼이 서브쿼리의 뷰에 존재하며, 뷰 머징이 되지 않고 Pushdown되는 경우
-    4. 서브쿼리의 타겟절에서 TO_CHAR 함수를 사용하고 ALIAS를 지정하며, 이 ALIAS를 메인쿼리의 조건절에서 사용할 때, TO_CHAR 함수가 사용된 뷰로 Pushdown 되는 경우
-    5. The second argument of the TO_CHAR function is a numeric or date format.
-    6. The first argument of the TO_CHAR function is not of Numeric type.
-    7. The first argument column of the TO_CHAR function exists in a subquery view that is not merged but pushed down.
-    8. The TO_CHAR function is used in the target clause of the subquery with an alias, and this alias is used in the condition clause of the main query, causing a pushdown to the view where TO_CHAR is used.
+    1. The second argument of the TO_CHAR function is a numeric or date format.
+    2. The first argument of the TO_CHAR function is not a `Numeric` type.
+    3. The first argument column of the TO_CHAR function exists in a subquery view where view merging does not occur, but it is pushed down.
+    4. The TO_CHAR function is used in the target clause of the subquery with an alias, and this alias is used in the condition clause of the main query, causing a pushdown to the view where TO_CHAR is used.
     
 - **How to reproduce this bug**
 
@@ -217,7 +212,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50799<a name=bug-50799></a> Resolved the issue where the odbccli_sl.dll was missing from the Windows installation file.
+### BUG-50799<a name=bug-50799></a> Resolve the issue where the odbccli_sl.dll was missing from the Windows installation file.
 
 -   **module** : pkg-map
 
