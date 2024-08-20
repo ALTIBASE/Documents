@@ -4,15 +4,15 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Fixed Bugs](#fixed-bugs)
-    - [BUG-50775 Multiple Statement 쿼리를 수행할 때 SQLExecute() 결과값이 SQL_NO_DATA일 경우, execute 처리가 중단되는 문제를 수정합니다.](#bug-50775)
-    - [BUG-50782 Multiple Statement 에서 Named-base Binding 이 동작하지 않는 문제를 수정합니다.](#bug-50782)
-    - [BUG-50784 CWE-114 및 CWE-73 의 보안 취약점 해결](#bug-50784)
-    - [BUG-50798 매체 복구(MEDIA RECOVERY) 진행 중에 체크포인트 이미지 파일이 추가되는 경우, 내부적으로 PCH(Page Control Header)를 할당하는 과정에서 오류가 있어서 수정하였습니다.](#bug-50798)
-    - [BUG-50803 altibase\_boot.log 에 잘못된 errno 가 출력되는 문제를 수정합니다.](#bug-50803)
-    - [BUG-50804 AltibaseStatement.close()시 서버 커넥션이 단절된 경우 STF(Session Time Failover)가 동작하지 않는 문제를 수정합니다.](#bug-50804)
-    - [BUG-50817 DISK TABLE, DISK INDEX AGING 수행 시, 테이블에 X Lock(Exclusive Lock) 잡던 것을 IX Lock(Intent Exclusive Lock)으로 변경합니다.](#bug-50817)
-    - [BUG-50826 CLI 함수 SQLPrimaryKeys()의 결과 컬럼의 2번째 열의 이름이 잘못 출력되는 문제를 수정합니다.](#bug-50826)
-    - [BUG-50840 매체 복구(MEDIA RECOVERY) 진행 중에 체크포인트 이미지 파일이 추가되는 경우, 내부적으로 페이지가 할당되지 않는 경우가 있어서 수정합니다.](#bug-50840)
+    - [BUG-50775 Fix an issue where execute processing is aborted if the result of SQLExecute() is SQL_NO_DATA when performing a Multiple Statement query.](#bug-50775)
+    - [BUG-50782 Fix an issue where Name-based Binding did not work in Multiple Statement.](#bug-50782)
+    - [BUG-50784 Address security vulnerabilities in CWE-114 and CWE-73](#bug-50784)
+    - [BUG-50798 Fix an error in allocating the page control header (PCH) internally when a checkpoint image file was added during MEDIA RECOVERY.](#bug-50798)
+    - [BUG-50803 Fix an issue where altibase_boot.log printed an incorrect errno.](#bug-50803)
+    - [BUG-50804 Fix an issue where Session Time Failover (STF) did not work if the server connection was lost when AltibaseStatement.close() was called.](#bug-50804)
+    - [BUG-50817 Change from holding an X Lock(Exclusive Lock) on the table to an IX Lock (Intent Exclusive Lock) when executing AGING statement on a disk table or disk index.](#bug-50817)
+    - [BUG-50826 Fix an issue where the CLI function SQLPrimaryKeys() outputted the wrong name for the second column of the result.](#bug-50826)
+    - [BUG-50840 Fix an error where pages were not allocated internally when a checkpoint image file was added during MEDIA RECOVERY.](#bug-50840)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [Compatibility](#Compatibility)
@@ -24,7 +24,7 @@
 Fixed Bugs
 ==========
 
-### BUG-50775<a name=bug-50775></a> Fixed an issue where execute processing is aborted if the result of SQLExecute() is SQL_NO_DATA when performing a Multiple Statement query.
+### BUG-50775<a name=bug-50775></a> Fix an issue where execute processing is aborted if the result of SQLExecute() is SQL_NO_DATA when performing a Multiple Statement query.
 
 -   **module** : mm-cli
 -   **Category** : Functional Error
@@ -44,7 +44,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50782<a name=bug-50782></a> Fixed an issue where Named-based Binding did not work in Multiple Statement.
+### BUG-50782<a name=bug-50782></a> Fix an issue where Name-based Binding did not work in Multiple Statement.
 
 -   **module** : mm-cli
 
@@ -52,7 +52,7 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : Altibase fixed an issue where Named-base binding did not work correctly when binding multiple parameters in multiple statements.
+-   **Description** : Altibase fixed an issue where Name-based binding did not work correctly when binding multiple parameters in multiple statements.
     
 -   **How to reproduce this bug**
     -   **Reproduction conditions**
@@ -70,7 +70,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50784<a name=bug-50784></a> Addressing Security Vulnerabilities in CWE-114 and CWE-73
+### BUG-50784<a name=bug-50784></a> Address security vulnerabilities in CWE-114 and CWE-73.
 
 -   **module** : mm-jdbc
 
@@ -123,7 +123,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50803<a name=bug-50803></a> Fixed an issue where altibase_boot.log printed an incorrect errno.
+### BUG-50803<a name=bug-50803></a> Fix an issue where altibase_boot.log printed an incorrect errno.
 
 -   **module** : cm
 
@@ -150,7 +150,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50804<a name=bug-50804></a> AltibaseStatement.close()시 서버 커넥션이 단절된 경우 STF(Session Time Failover)가 동작하지 않는 문제를 수정합니다. Fixed an issue where Session Time Failover (STF) did not work if the server connection was lost when AltibaseStatement.close() was called.
+### BUG-50804<a name=bug-50804></a> Fix an issue where Session Time Failover (STF) did not work if the server connection was lost when AltibaseStatement.close() was called.
 
 -   **module** : mm-jdbc
 
@@ -207,12 +207,12 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50817<a name=bug-50817></a> Changed from holding an X Lock(Exclusive Lock) on the table to an IX Lock (Intent Exclusive Lock) when executing DISK TABLE or DISK INDEX AGING statement.
+### BUG-50817<a name=bug-50817></a> Change from holding an X Lock(Exclusive Lock) on the table to an IX Lock (Intent Exclusive Lock) when executing AGING statement on a disk table or disk index.
 
 -   **module** : sm
 -   **Category** : Other
 -   **Reproducibility** : Always
--   **Description** : Altibase changed from holding an X Lock(Exclusive Lock) on the table to an IX Lock (Intent Exclusive Lock) when executing DISK TABLE or DISK INDEX AGING.DISK TABLE, DISK INDEX AGING statement. This change solved an issue where an X Lock would cause a timeout while waiting for a transaction when performing AGING on a disk table or disk index to update page information.
+-   **Description** : Altibase changed from holding an X Lock(Exclusive Lock) on the table to an IX Lock (Intent Exclusive Lock) when executing AGING statement on a disk table or disk. This change solved an issue where an X Lock would cause a timeout while waiting for a transaction when performing AGING on a disk table or disk index to update page information.
 -   **How to reproduce this bug**
     -   **Reproduction conditions**
     
@@ -227,7 +227,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50826<a name=bug-50826></a> Fixed an issue where the CLI function SQLPrimaryKeys() outputted the wrong name for the second column of the result.
+### BUG-50826<a name=bug-50826></a> Fix an issue where the CLI function SQLPrimaryKeys() outputted the wrong name for the second column of the result.
 
 -   **module** : mm-cli
 
@@ -365,7 +365,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50840<a name=bug-50840></a> Fixed an error where pages were not allocated internally when a checkpoint image file was added during MEDIA RECOVERY.
+### BUG-50840<a name=bug-50840></a> Fix an error where pages were not allocated internally when a checkpoint image file was added during MEDIA RECOVERY.
 
 -   **module** : sm
 
