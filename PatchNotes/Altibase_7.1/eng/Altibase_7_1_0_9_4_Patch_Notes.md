@@ -6,13 +6,13 @@
 # **Table of Contents**  
 
 - [New Features](#new-features)
-    - [BUG-50768 V\$DISK\_BTREE\_HEADER, V\$MEM\_BTREE\_HEADER 성능뷰에 인덱스의 상태 정보를 출력하도록 개선되었습니다.](#bug-50768)
-    - [BUG-50812 윈도우 클라이언트에서 cdbc(C API) 지원](#bug-50812)
+    - [Improve V\$DISK\_BTREE\_HEADER and V\$MEM\_BTREE\_HEADER performance views to include index status information.](#bug-50768)
+    - [BUG-50812 cdbc (C API) support on Windows Clients](#bug-50812)
 - [Fixed Bugs](#fixed-bugs)
-    - [BUG-50433 Disk Page Recovery 또는 Service 중에 Corrupted Page 에 접근하는 문제를 회피하도록 개선합니다.](#bug-50433)
+    - [BUG-50433 Improved to avoid accessing corrupted pages during Disk Page Recovery or Service operations.](#bug-50433)
     - [BUG-50781 하나의 IPC 채널에 2개의 클라이언트가 세마포어를 제어해, 수신된 데이터가 재수신되어 Invalid protocol sequence 에러가 발생하는 문제를 수정하였습니다.](#bug-50781)
     - [BUG-50791 TO_CHAR 함수를 ALIAS로 조건절에 사용시 뷰에 대한 조건절 Pushdown 이 2번 이상 발생할 경우, 비정상 종료되는 문제를 수정합니다.](#bug-50791)
-    - [BUG-50799 윈도우용 설치 파일에 odbccli_sl.dll 이 누락된 문제를 수정합니다.](#bug-50799)
+    - [BUG-50799 Resolved the issue where the odbccli_sl.dll was missing from the Windows installation file.](#bug-50799)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [Compatibility](#Compatibility)
@@ -58,7 +58,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50812<a name=bug-50812></a> cdbc (C API) Support on Windows Clients
+### BUG-50812<a name=bug-50812></a> cdbc (C API) support on Windows Clients
 
 -   **module** : ux-cdbc
 
