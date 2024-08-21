@@ -353,7 +353,7 @@ altibase-sts-0         0/1     Running   0                16m    10.244.1.91    
 - Kubernetes 사용을 위해서는 Altibase로부터 hostname 기반 license를 발급받아야 합니다.
 - 본 예제에서의 hostname은 altibase-sts-0, altibase-sts-1, altibase-sts-2, altibase-sts-3 로 생성됩니다.
 - 알티베이스 설치 매뉴얼을 참고하여, Altibase를 설치합니다.
-- 각각의 pod에 접속하여, /CONFIGMAP/set_altibase.env 를 먼저 수행해준 이후에 설치작업을 진행합니다.
+- 각각의 pod에 접속하여, /CONFIGMAP/set_altibase.env 를 먼저 수행해준 이후에 알티베이스 설치작업을 진행합니다.
 - 아래에서는 첫번째 pod에 대하여, 알티베이스 설치이후의 과정을 테스트 용도로 기록합니다.
   - altibase server 생성
   - altibase server 시작
