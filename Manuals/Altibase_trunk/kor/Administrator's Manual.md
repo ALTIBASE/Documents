@@ -6683,7 +6683,7 @@ dbs 디렉터리에서 메모리 테이블스페이스 *MY_MEM_TBS*의 체크포
 
 - 로그앵커 조회
 
-  [dumpla 유틸리티](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities Manual.md#dumpla)를 사용하여 '[ TABLESPACE ATTRIBUTE ]' 영역의 'Stable Checkpoint Image Num.' 항목 값을 확인한다.
+  유틸리티 [dumpla](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities%20Manual.md#dumpla)를 사용하여 '[ TABLESPACE ATTRIBUTE ]' 영역의 'Stable Checkpoint Image Num.' 항목 값을 확인한다.
 
 - 성능 뷰 조회
 
@@ -6723,11 +6723,11 @@ rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-0-2
 
 - 로그앵커 조회
 
-  [dumpla 유틸리티](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities Manual.md#dumpla)를 사용하여 '[MEMORY CHECKPOINT IMAGE ATTRIBUTE]' 영역의 'Stable Single Checkpoint Image Num.' 항목 값을 확인한다.
+  유틸리티 [dumpla](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities%20Manual.md#dumpla)를 사용하여 ' [MEMORY CHECKPOINT IMAGE ATTRIBUTE] ' 영역의 'Stable Single Checkpoint Image Num.' 항목 값을 확인한다.
 
 - 성능 뷰 조회
 
-  [V$MEM_STABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-2.The Data Dictionary.md#vmem_table) 성능 뷰의 CURRENT_DB 값을 확인한다.
+  [V$MEM_STABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-2.The%20Data%20Dictionary.md#vmem_stable) 성능 뷰의 CURRENT_DB 값을 확인한다.
 
 변경안 2 ----
 
@@ -6737,11 +6737,11 @@ rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-0-2
 
 - 로그앵커 조회
 
-  [dumpla 유틸리티](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities Manual.md#dumpla)를 사용하여 '[MEMORY CHECKPOINT IMAGE ATTRIBUTE]' 영역의 'Stable Single Checkpoint Image Num.' 항목 값을 확인한다.
+  유틸리티 [dumpla](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Utilities%20Manual.md#dumpla)를 사용하여 ' [MEMORY CHECKPOINT IMAGE ATTRIBUTE] ' 영역의 'Stable Single Checkpoint Image Num.' 항목 값을 확인한다.
 
-- V$MEM_STABLE 성능 뷰 조회
+- 성능 뷰 조회
 
-  [V$MEM_STABLE 성능 뷰](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-2.The Data Dictionary.md#vmem_table)를 조회하여 CURRENT_DB 값을 확인한다.
+  [V$MEM_STABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-2.The%20Data%20Dictionary.md#vmem_stable) 성능 뷰의 CURRENT_DB 값을 확인한다.
 
 **체크포인트 스케일 싱글에서 체크포인트 이미지 파일 기록 방식**
 
@@ -6752,9 +6752,13 @@ rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-0-2
   더티 페이지가 체크포인트 이미지 파일의 50%을 초과하는 경우의 기록 방식이다.
 
   1️⃣ 불안정한 체크포인트 이미지 파일을 새로 생성한다.
+
   2️⃣ 불안정한 체크포인트 이미지 파일에 더티 페이지가 포함된 체크포인트 이미지 파일의 내용 전부를 기록한다. 
+
   3️⃣ WAL 프로토콜을 구현하기 위하여 로그 레코드를 기록한다. 
+
   4️⃣ 로그 앵커에서 안정적인 체크포인트 이미지 파일의 핑퐁 번호를 1️⃣번에서 생성한 체크포인트 이미지 파일의 핑퐁 번호로 변경한다. 
+
   5️⃣ 기존의 체크포인트 이미지 파일을 삭제한다.
 
 - **더블 라이트**
@@ -6762,13 +6766,16 @@ rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-0-2
   더티 페이지가 체크포인트 이미지 파일의 50% 이하인 경우의 기록 방식이다. 
 
   (1) 더블 라이트 이미지 버퍼에 더티 페이지의 스냅샷을 저장한다. 
-  (2) (1)에서 저장한 더티 페이지의 스냅샷을 더블 라이트 이미지 파일에 기록한다. 
-  (3) WAL 프로토콜을 구현하기 위하여 로그 레코드를 기록한다.
-  (4) 더블 라이트 이미지 버퍼에 저장한 더티 페이지의 스냅샷을 안정적인 체크포인트 이미지 파일에 직접 기록한다. 
   
-  > [!CAUTION]
-  >
-  > 핑퐁 체크포인트의 더블 라이트 방식에서 사용하는 더블 라이트 이미지 버퍼와 더블 라이트 이미지 파일을 디스크 데이터베이스에서 사용하는 더블 라이트 파일과 혼동하지 않도록 주의한다.
+  (2) (1)에서 저장한 더티 페이지의 스냅샷을 더블 라이트 이미지 파일에 기록한다. 
+  
+  (3) WAL 프로토콜을 구현하기 위하여 로그 레코드를 기록한다.
+  
+  (4) 더블 라이트 이미지 버퍼에 저장한 더티 페이지의 스냅샷을 안정적인 체크포인트 이미지 파일에 직접 기록한다. 
+
+> [!CAUTION]
+>
+> 핑퐁 체크포인트의 더블 라이트 방식에서 사용하는 더블 라이트 이미지 버퍼와 더블 라이트 이미지 파일을 디스크 데이터베이스에서 사용하는 더블 라이트 파일과 혼동하지 않도록 주의한다.
 
 **체크포인트 스케일 싱글에서 체크포인트 이미지 파일 복구** --수정안
 
@@ -6793,7 +6800,7 @@ rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-0-2
    iSQL> SHUTDOWN IMMEDIATE;
    ```
 
-**더블 라이트 리커버리** -- 제시안
+**더블 라이트 리커버리(Double Write Recovery)** -- 제시안
 
 더블 라이트 과정에서 장애가 발생한 경우 드물지만 더티 페이지와 체크포인트 이미지 파일이 손상될 수 있다. **더블 라이트 리커버리**는 이러한 상황에서 손상된 체크포인트 이미지 파일을 복구하기 위해 고안된 기능이다. 더블 라이트 리커버리가 수행되면, 더블 라이트 이미지 파일을 사용하여 더티 페이지를 복구한다.
 
