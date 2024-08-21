@@ -185,7 +185,7 @@ data:
       echo `date` "${MY_POD_NAME}: Start altibase server : [server start] "
       echo `date` "${MY_POD_NAME}: Configure aku "
       echo `date` "${MY_POD_NAME}: Start aku : [aku -p start] "
-      echo `date` "${MY_POD_NAME}: Next pod will be started after aku is started successfully because of startupProbe setti                                                                  ng."
+      echo `date` "${MY_POD_NAME}: Next pod will be started after aku is started successfully because of startupProbe setting."
     fi
 
     while (true)
