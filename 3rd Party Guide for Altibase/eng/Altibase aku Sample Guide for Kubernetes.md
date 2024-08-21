@@ -17,6 +17,7 @@
   - [Write a StatefulSet yaml file](#Write-a-StatefulSet-yaml-file)
   - [Create StatefulSet](#Create-StatefulSet)
   - [Confirm StatefulSet and Pod creation](#Confirm-StatefulSet-and-Pod-creation)
+  - [Altibase installation and aku configuration](#Altibase-installation-and-aku-configuration)
   - [Check Altibase replication operation](#Check-Altibase-replication-operation)
   - [Check Scale-down operation](#Check-Scale-down-operation)
   - [Check Scale-up operation](#Check-Scale-up-operation)
@@ -122,7 +123,7 @@ altibase-pv-d          100Gi      RWX            Retain           Available     
 ## Using ConfigMap
 
 - In this example, set_linux.env, set_altibase.env and entry_point.sh files are managed as ConfigMap.
-- In this example, the ubuntu:18.04 docker image registered at https://hub.docker.com/ was used for testing purposes.
+- In this example, the ubuntu:18.04 docker image registered at https://hub.docker.com/ is used for testing purposes.
 - In a real environment, you can use a Linux docker image suitable for each purpose.
 - You need to change set_linux.env to match the Linux docker image that will actually be used. Please refer to the documents below.
   - Altibase Installation Manual
@@ -350,25 +351,140 @@ altibase-sts-0         0/1     Running   0                16m    10.244.1.91    
 ```
 
 #### Altibase installation and aku configuration
+
 - To use Kubernetes, you must obtain a hostname-based license from Altibase.
 - In this example, the hostnames are created as altibase-sts-0, altibase-sts-1, altibase-sts-2, and altibase-sts-3.
 - Install Altibase by referring to the Altibase installation manual.
-- Connect to each pod and execute /CONFIGMAP/set_altibase.env first, then proceed with the installation.
-- Below, the process after installing Altibase for the first pod is recorded for testing purposes.
+- Connect to each pod and execute /CONFIGMAP/set_altibase.env first, then proceed with the Altibase installation.
+- Below, the tasks after installing Altibase for the first pod is recorded for testing purposes.
   - Creating an altibase server
   - Start altibase server
   - Create tables(T1, T2, T3) for sample purposes 
-Generate aku.conf for sample purposes
-aku start
-Since startupProbe is set, aku must be executed successfully before the pod is created.
+  - Generate aku.conf for sample purposes
+  - aku start
+- Since startupProbe is set, aku must be executed successfully before the next pod is created.
+
+```
+$ kubectl exec -it altibase-sts-0 -- bash
+root@altibase-sts-0:/# . /CONFIGMAP/set_altibase.env
+root@altibase-sts-0:/# . server create utf8 utf8
+-----------------------------------------------------------------
+     Altibase Client Query utility.
+     Release Version 7.1.0.9.9
+     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
+     All Rights Reserved.
+-----------------------------------------------------------------
+ISQL_CONNECTION = UNIX, SERVER = localhost
+Connected to idle instance.
+Connecting to the DB server.... Connected.
+
+
+TRANSITION TO PHASE : PROCESS
+Command executed successfully.
+
+DB Info (Page Size     = 32768)
+        (Page Count    = 257)
+        (Total DB Size = 8421376)
+        (DB File Size  = 1073741824)
+
+        Creating MMDB FILES     [SUCCESS]
+
+        Creating Catalog Tables [SUCCESS]
+
+        Creating DRDB FILES     [SUCCESS]
+
+  [SM] Rebuilding Indices [Total Count:0]  [SUCCESS]
+
+DB Writing Completed. All Done.
+
+Create success.
+root@altibase-sts-0:/# 
+root@altibase-sts-0:/# server start
+-----------------------------------------------------------------
+     Altibase Client Query utility.
+     Release Version 7.1.0.9.9
+     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
+     All Rights Reserved.
+-----------------------------------------------------------------
+ISQL_CONNECTION = UNIX, SERVER = localhost
+Connected to idle instance.
+Connecting to the DB server.... Connected.
+
+
+TRANSITION TO PHASE : PROCESS
+
+
+TRANSITION TO PHASE : CONTROL
+
+
+TRANSITION TO PHASE : META
+  [SM] Recovery Phase - 1 : Preparing Database
+                          : Dynamic Memory Version => Parallel Loading
+  [SM] Recovery Phase - 2 : Loading Database
+  [SM] Recovery Phase - 3 : Skipping Recovery & Starting Threads...
+                            Refining Disk Table
+  [SM] Refine Memory Table : ..................................................................................................................                                              ............... [SUCCESS]
+  [SM] Rebuilding Indices [Total Count:133] ...................................................................................................                                              .................................. [SUCCESS]
+
+
+TRANSITION TO PHASE : SERVICE
+  [CM] Listener started : TCP on port 20300 [IPV4]
+  [CM] Listener started : UNIX
+  [CM] Listener started : IPC
+  [RP] Initialization : [PASS]
+
+--- STARTUP Process SUCCESS ---
+Command executed successfully.
+root@altibase-sts-0:/# 
+root@altibase-sts-0:/# is -sysdba
+-----------------------------------------------------------------
+     Altibase Client Query utility.
+     Release Version 7.1.0.9.9
+     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
+     All Rights Reserved.
+-----------------------------------------------------------------
+ISQL_CONNECTION = UNIX, SERVER = localhost
+iSQL(sysdba)> CREATE TABLE T1 ( I1 INTEGER PRIMARY KEY, I2 INTEGER );
+Create success.
+iSQL(sysdba)> CREATE TABLE T2 ( I1 INTEGER PRIMARY KEY, I2 INTEGER );
+Create success.
+iSQL(sysdba)> CREATE TABLE T3 ( I1 INTEGER PRIMARY KEY, I2 INTEGER );
+Create success.
+iSQL(sysdba)> exit
+root@altibase-sts-0:/# 
+root@altibase-sts-0:~# cd $ALTIBASE_HOME/conf
+root@altibase-sts-0:/ALTIBASE/altibase_home_altibase-sts-0/conf# cp aku.conf.sample aku.conf
+root@altibase-sts-0:/ALTIBASE/altibase_home_altibase-sts-0/conf# aku -p start
+AKU started with START option.
+[AKU][2024/08/20 06:18:45.610353][139788776925184] [INFO][akuRunStart:854][-][-] Start as MASTER Pod.
+AKU run successfully.
+root@altibase-sts-0:/ALTIBASE/altibase_home_altibase-sts-0/conf#
+root@altibase-sts-0:/ALTIBASE/altibase_home_altibase-sts-0/conf# exit
+```
+
+- You need to do the same tasks for the rest of the pods.
+- After all pods have completed their tasks normally, the status will be as follows.
+
+```
+$ kubectl get sts -o wide
+NAME                 READY   AGE    CONTAINERS               IMAGES
+altibase-sts         4/4     12m    altibase-sts             ubuntu:18.04
+
+$ kubectl get pod -o wide
+NAME                   READY   STATUS    RESTARTS         AGE    IP             NODE      NOMINATED NODE   READINESS GATES
+altibase-sts-0         1/1     Running   0                16m    10.244.1.91    worker2   <none>           <none>
+altibase-sts-1         1/1     Running   0                16m    10.244.2.118   worker1   <none>           <none>
+altibase-sts-2         1/1     Running   0                15m    10.244.1.92    worker2   <none>           <none>
+altibase-sts-3         1/1     Running   0                14m    10.244.2.119   worker1   <none>           <none>
+```
 
 ##### Check Altibase replication operation
 - The altibase-sts-3 pod connects to the local Altibase with isql and inputs data to the T1 table.
 - Access the altibase of the altibase-sts-2 pod with isql from the altibase-sts-3 pod and search the T1 table.
 
 ```
-$ kubectl exec -it altibase-sts-3 -- /bin/bash
-root@altibase-sts-3:/# . /home/altibase/config_map/set_altibase.env
+$ kubectl exec -it altibase-sts-3 -- bash
+root@altibase-sts-3:/# . /CONFIGMAP/set_altibase.env
 root@altibase-sts-3:/# is
 -----------------------------------------------------------------
      Altibase Client Query utility.
@@ -405,8 +521,8 @@ I1          I2
 $ kubectl scale sts altibase-sts --replicas=3
 statefulset.apps/altibase-sts scaled
 $
-$ kubectl exec -it altibase-sts-2 -- /bin/bash
-root@altibase-sts-2:/# . /home/altibase/config_map/set_altibase.env
+$ kubectl exec -it altibase-sts-2 -- bash
+root@altibase-sts-2:/# . /CONFIGMAP/set_altibase.env
 root@altibase-sts-2:/# is
 -----------------------------------------------------------------
      Altibase Client Query utility.
@@ -431,8 +547,8 @@ AKU_REP_23                                -1
 - Connect to the altibase-sts-3 pod and check if the data additionally inserted in the T1 table is reflected in the scaled-up pod.
 
 ```
-$ kubectl exec -it altibase-sts-0 -- /bin/bash
-root@altibase-sts-0:/# . /home/altibase/config_map/set_altibase.env
+$ kubectl exec -it altibase-sts-0 -- bash
+root@altibase-sts-0:/# . /CONFIGMAP/set_altibase.env
 root@altibase-sts-0:/# is
 -----------------------------------------------------------------
      Altibase Client Query utility.
@@ -449,8 +565,8 @@ $
 $ kubectl scale sts altibase-sts --replicas=4
 statefulset.apps/altibase-sts scaled
 $
-$ kubectl exec -it altibase-sts-3 -- /bin/bash
-root@altibase-sts-3:/# . /home/altibase/config_map/set_altibase.env
+$ kubectl exec -it altibase-sts-3 -- bash
+root@altibase-sts-3:/# . /CONFIGMAP/set_altibase.env
 root@altibase-sts-3:/# is
 -----------------------------------------------------------------
      Altibase Client Query utility.
