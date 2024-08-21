@@ -128,9 +128,6 @@ altibase-pv-d          100Gi      RWX            Retain           Available     
   - Altibase Installation Manual
   - Linux Setup Guide for Altibase ( https://aid.altibase.com/display/arch/Linux+Setup+Guide+for+Altibase )
 
-###### - To use Kubernetes, a hostname-based license must be issued from Altibase.
-###### - In this example, 4 pods are created, so 4 licenses are required.
-
 ##### Write a ConfigMap yaml file
 
 ```yaml
@@ -272,6 +269,8 @@ metadata:
 spec:
   serviceName: altibase-svc
   replicas: 4
+  updateStrategy:
+    type: RollingUpdate
   podManagementPolicy: OrderedReady
   selector:
     matchLabels:
@@ -284,21 +283,16 @@ spec:
       terminationGracePeriodSeconds: 60
       containers:
       - name: altibase-sts
-        image: altibase/7.1-bare
+        image: ubuntu:18.04
         command:
         - /bin/bash
         - "-c"
-        - /home/altibase/config_map/entry_point.sh
+        - /CONFIGMAP/entry_point.sh
         ports:
         - containerPort: 20300
           protocol: TCP
         - containerPort: 20301
           protocol: TCP
-        resources:
-          requests:
-            cpu: 250m
-          limits:
-            cpu: 3 
         startupProbe:
           exec:
             command:
@@ -310,7 +304,7 @@ spec:
         - name: altibase-pv
           mountPath: /ALTIBASE
         - name: altibase-cm
-          mountPath: /home/altibase/config_map
+          mountPath: /CONFIGMAP
           readOnly: true
       volumes:
         - name: altibase-cm
@@ -318,14 +312,10 @@ spec:
             name: altibase-cm
             defaultMode: 0777
             items:
-            - key: "license"
-              path: "license"
+            - key: "set_linux.env"
+              path: "set_linux.env"
             - key: "set_altibase.env"
               path: "set_altibase.env"
-            - key: "aku.conf"
-              path: "aku.conf"
-            - key: "sample_schema.sql"
-              path: "sample_schema.sql"
             - key: "entry_point.sh"
               path: "entry_point.sh"
   volumeClaimTemplates:
@@ -347,18 +337,30 @@ statefulset.apps/altibase-sts created
 
 ##### Confirm StatefulSet and Pod creation
 
+- When first creating altibase-sts, since altibase has not been installed and aku has not been set up, only one pod, altibase-sts-0, is created as shown below and is not yet in the READY state.
+
 ```
 $ kubectl get sts -o wide
 NAME                 READY   AGE    CONTAINERS               IMAGES
-altibase-sts         4/4     12m    altibase-sts             altibase/7.1-bare
+altibase-sts         0/4     12m    altibase-sts             ubuntu:18.04
 
 $ kubectl get pod -o wide
 NAME                   READY   STATUS    RESTARTS         AGE    IP             NODE      NOMINATED NODE   READINESS GATES
-altibase-sts-0         1/1     Running   0                16m    10.244.1.91    worker2   <none>           <none>
-altibase-sts-1         1/1     Running   0                16m    10.244.2.118   worker1   <none>           <none>
-altibase-sts-2         1/1     Running   0                15m    10.244.1.92    worker2   <none>           <none>
-altibase-sts-3         1/1     Running   0                14m    10.244.2.119   worker1   <none>           <none>
+altibase-sts-0         0/1     Running   0                16m    10.244.1.91    worker2   <none>           <none>
 ```
+
+#### Altibase installation and aku configuration
+- To use Kubernetes, you must obtain a hostname-based license from Altibase.
+- In this example, the hostnames are created as altibase-sts-0, altibase-sts-1, altibase-sts-2, and altibase-sts-3.
+- Install Altibase by referring to the Altibase installation manual.
+- Connect to each pod and execute /CONFIGMAP/set_altibase.env first, then proceed with the installation.
+- Below, the process after installing Altibase for the first pod is recorded for testing purposes.
+  - Creating an altibase server
+  - Start altibase server
+  - Create tables(T1, T2, T3) for sample purposes 
+Generate aku.conf for sample purposes
+aku start
+Since startupProbe is set, aku must be executed successfully before the pod is created.
 
 ##### Check Altibase replication operation
 - The altibase-sts-3 pod connects to the local Altibase with isql and inputs data to the T1 table.
