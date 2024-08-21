@@ -9,7 +9,7 @@ Altibase 7.1.0.9.9 Patch Notes
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-50949 When a comment in the aku configuration file has no text after '#', an error occurs.](#bug-50949)
     - [BUG-50997  A results error can occur under certain conditions when using an aggregate function in a subquery that references an outer query](#bug-50997)
-    - [BUG-51004 A "Function sequence error" may occur if the type or pointer of the variable bound to altibase_stmt_bind_param changes.](#bug-51004)
+    - [BUG-51004 A "Function sequence error" may occur if the type or pointer of the variable bound to altibase_stmt_bind_param() changes.](#bug-51004)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [Compatibility](#Compatibility)
