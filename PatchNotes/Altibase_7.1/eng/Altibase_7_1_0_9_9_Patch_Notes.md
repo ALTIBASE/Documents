@@ -170,7 +170,7 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : Altibase fixed the issue to prevent a "Function sequence error" when the type or pointer of the variable bound to altibase_stmt_bind_param changes.
+-   **Description** : Altibase fixed the issue to prevent a "Function sequence error" when the type or pointer of the variable bound to altibase_stmt_bind_param() changes.
     
 - **How to reproduce this bug**
 
