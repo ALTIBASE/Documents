@@ -113,11 +113,11 @@ persistentvolume/altibase-pv-d created
 
 ```
 $ kubectl get pv -o wide
-NAME                   CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM                                              STORAGECLASS   REASON   AGE    VOLUMEMODE
-altibase-pv-a          100Gi      RWX            Retain           Available                                                                              30s    Filesystem
-altibase-pv-b          100Gi      RWX            Retain           Available                                                                              30s    Filesystem
-altibase-pv-c          100Gi      RWX            Retain           Available                                                                              30s    Filesystem
-altibase-pv-d          100Gi      RWX            Retain           Available                                                                              30s    Filesystem
+NAME            CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                                STORAGECLASS   REASON   AGE   VOLUMEMODE
+altibase-pv-a   100Gi      RWX            Retain           Bound    default/altibase-pv-altibase-sts-0                           30s   Filesystem
+altibase-pv-b   100Gi      RWX            Retain           Bound    default/altibase-pv-altibase-sts-2                           30s   Filesystem
+altibase-pv-c   100Gi      RWX            Retain           Bound    default/altibase-pv-altibase-sts-1                           30s   Filesystem
+altibase-pv-d   100Gi      RWX            Retain           Bound    default/altibase-pv-altibase-sts-3                           30s   Filesystem
 ```
 
 ## ConfigMap 사용
