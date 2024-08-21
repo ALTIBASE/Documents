@@ -162,7 +162,7 @@ Fixed Bugs
   -   Compile Option
   -   Error Code
 
-### BUG-51004<a name=bug-51004></a> A "Function sequence error" may occur if the type or pointer of the variable bound to altibase_stmt_bind_param changes.
+### BUG-51004<a name=bug-51004></a> A "Function sequence error" may occur if the type or pointer of the variable bound to altibase_stmt_bind_param() changes.
 
 -   **module** : ux-cdbc
 
