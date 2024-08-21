@@ -1,7 +1,6 @@
 # Altibase aku Sample Guide for Kubernetes
 
 - [Overview](#Overview)
-- [Create Altibase Docker image](#Create-Altibase-Docker-image)
 - [Using PersistentVolume](#Using-PersistentVolume)
   - [Write a PersistentVolume yaml file](#Write-a-PersistentVolume-yaml-file)
   - [Create PersistentVolume](#Create-PersistentVolume)
@@ -29,37 +28,11 @@ This document presents a sample guide to using Kubernetes StatefulSet using Alti
 - The contents of this document are for sample purposes only, and should be modified according to each purpose and environment in the actual environment.
 - test environment
   - Kubernetes: v1.24.2
-  - Altibase: v7.1.0.8.8
-  - Docker: v20.10.17
-
-## Create Altibase Docker image
-
-- Prepare the altibase_home directory to be copied to the Docker image.
-  - Install Altibase for Linux. It is not necessary to create an Altibase database.
-  - When an Altibase database is created, the following operations are required.
-    - Delete all files in $ALTIBASE_HOME/arch_logs.
-    - Delete all files in $ALTIBASE_HOME/dbs.
-    - Delete all files in $ALTIBASE_HOME/logs.
-    - Delete all files in $ALTIBASE_HOME/trc.
-- Create an Altibase Docker image using the Dockerfile below.
-- You can also use https://hub.docker.com/r/altibase/7.1-bare without creating a Docker image.
-
-```
-# file : Dockerfile
-
-FROM ubuntu:18.04
-MAINTAINER Altibase
-
-RUN sed -e '56 i\root\t\t soft\t nofile\t\t 1048576 \nroot\t\t hard\t nofile\t\t 1048576 \nroot\t\t soft\t nproc\t\t unlimited \nroot\t\t hard\t nproc\t\t unlimited \n' -i /etc/security/limits.conf; \
-echo "vm.swappiness = 1" >> /etc/sysctl.conf; \
-echo "kernel.sem = 20000 32000 512 5029" >> /etc/sysctl.conf;
-
-COPY ./altibase_home /home/altibase/altibase_home
-```
+  - Altibase: v7.1.0.9.9
 
 ## Using PersistentVolume
 
-- In this example, 4 volumes are set to different paths, but you can set them to the same path in whole or in part. This is because each pod creates its own subdirectory using the hostname.
+- In this example, 4 volumes are set to different paths, but you can set them to the same path. This is because each pod creates its own subdirectory using the hostname.
 - This example uses NFS volumes. Modifications are required to suit your environment.
 - You can use any other type of volume that guarantees persistence.
 
@@ -148,10 +121,15 @@ altibase-pv-d          100Gi      RWX            Retain           Available     
 
 ## Using ConfigMap
 
-- In this example, license, set_altibase.env, aku.conf, sample_schema.sql, and entry_point.sh files are managed as ConfigMap.
-- Notes for managing altibase.properties file with ConfigMap are described in entry_point.sh file.
-- To use Kubernetes, a hostname-based license must be issued from Altibase.
-- In this example, 4 pods are created, so 4 licenses are required.
+- In this example, set_linux.env, set_altibase.env and entry_point.sh files are managed as ConfigMap.
+- In this example, the ubuntu:18.04 docker image registered at https://hub.docker.com/ was used for testing purposes.
+- In a real environment, you can use a Linux docker image suitable for each purpose.
+- You need to change set_linux.env to match the Linux docker image that will actually be used. Please refer to the documents below.
+  - Altibase Installation Manual
+  - Linux Setup Guide for Altibase ( https://aid.altibase.com/display/arch/Linux+Setup+Guide+for+Altibase )
+
+###### - To use Kubernetes, a hostname-based license must be issued from Altibase.
+###### - In this example, 4 pods are created, so 4 licenses are required.
 
 ##### Write a ConfigMap yaml file
 
@@ -163,15 +141,14 @@ kind: ConfigMap
 metadata:
   name: altibase-cm
 data:
-  license: |
-    # You need four hostname based Altibase licenses.
-    0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
-    2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
-    3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
-    
+  set_linux.env: |
+    sed -e '56 i\root\t\t soft\t nofile\t\t 1048576 \nroot\t\t hard\t nofile\t\t 1048576 \nroot\t\t soft\t nproc\t\t unlimited \nroot\t\t hard\t nproc\t\t unlimited \n' -i /etc/security/limits.conf; \
+    echo "vm.swappiness = 1" >> /etc/sysctl.conf; \
+    echo "kernel.sem = 20000 32000 512 5029" >> /etc/sysctl.conf;
+
   set_altibase.env: |
-    export ALTIBASE_HOME=/home/altibase/altibase_home
+    export MY_POD_NAME=${HOSTNAME}
+    export ALTIBASE_HOME=/ALTIBASE/altibase_home_${MY_POD_NAME}
     export ALTIBASE_NLS_USE=UTF8
     export ALTIBASE_PORT_NO=20300
     export ALTIBASE_REPLICATION_PORT_NO=20301
@@ -180,130 +157,38 @@ data:
     export PATH=${ALTIBASE_HOME}/bin:${PATH}
     export LD_LIBRARY_PATH=${ALTIBASE_HOME}/lib:${LD_LIBRARY_PATH};
 
-  aku.conf: |
-    AKU_SYS_PASWWORD              = "manager"
-    AKU_STS_NAME                  = "altibase-sts"
-    AKU_SVC_NAME                  = "altibase-svc"
-    AKU_SERVER_COUNT              = 4
-    AKU_QUERY_TIMEOUT             = 3600
-    AKU_PORT_NO                   = 20300
-    AKU_REPLICATION_PORT_NO       = 20301
-    AKU_FLUSH_AT_START            = 1
-    AKU_FLUSH_TIMEOUT_AT_START    = 300
-    AKU_FLUSH_AT_END              = 1
-    AKU_ADDRESS_CHECK_COUNT       = 30
-    AKU_DELAY_START_COMPLETE_TIME = 0
-
-    REPLICATIONS = (
-        REPLICATION_NAME_PREFIX = "AKU_REP"
-        SYNC_PARALLEL_COUNT     = 1
-        (
-            (
-                USER_NAME      = "SYS"
-                TABLE_NAME     = "T1"
-            ),
-            (
-                USER_NAME      = "SYS"
-                TABLE_NAME     = "T2"
-            ),
-            (
-                USER_NAME      = "SYS"
-                TABLE_NAME     = "T3"
-            )
-        )
-    )
-
-  sample_schema.sql: |
-    CREATE TABLE T1 ( I1 INTEGER PRIMARY KEY, I2 INTEGER );
-    CREATE TABLE T2 ( I1 INTEGER, I2 INTEGER, I3 CHAR(100) )
-    PARTITION BY RANGE( I1 )
-    (
-        PARTITION P1 VALUES LESS THAN (100),
-        PARTITION P2 VALUES LESS THAN (200),
-        PARTITION P3 VALUES DEFAULT
-    );
-    CREATE TABLE T3 ( I1 INTEGER, I2 INTEGER, I3 CHAR(100), I4 INTEGER);
-    ALTER TABLE T2 ADD PRIMARY KEY ( I1, I2 );
-    ALTER TABLE T3 ADD PRIMARY KEY ( I1, I3 );
-    
   entry_point.sh: |
     #!/bin/bash
-    . /home/altibase/config_map/set_altibase.env
-    MY_POD_NAME=${HOSTNAME}
+    . /CONFIGMAP/set_linux.env
+    . /CONFIGMAP/set_altibase.env
 
     function PodTerminate()
     {
-      echo `date` "${MY_POD_NAME} aku end : begin" >> /ALTIBASE/${MY_POD_NAME}.log
-      ${ALTIBASE_HOME}/bin/aku -p end >> /ALTIBASE/${MY_POD_NAME}.log
-      echo `date` "${MY_POD_NAME} aku end : finish" >> /ALTIBASE/${MY_POD_NAME}.log
+      echo `date` "${MY_POD_NAME} aku end"
+      ${ALTIBASE_HOME}/bin/aku -p end
+      echo `date` "${MY_POD_NAME} server stop"
+      ${ALTIBASE_HOME}/bin/server stop
     }
     trap PodTerminate SIGTERM
+    trap PodTerminate TERM
 
-    cp /home/altibase/config_map/license ${ALTIBASE_HOME}/conf/license
-    cp /home/altibase/config_map/aku.conf ${ALTIBASE_HOME}/conf/aku.conf
-    #If you need to change altibase.properties, you need to set altibase.properties as a ConfigMap. After that, you need to uncomment following line.
-    #cp /home/altibase/config_map/altibase.properties ${ALTIBASE_HOME}/conf/altibase.properties
-    DB_DIR="/ALTIBASE/${MY_POD_NAME}"
-    DB_DIR_SED="\/ALTIBASE\/${MY_POD_NAME}"
-    #set path for arch_logs, dbs, logs and trc directories.
-    echo `date` "${MY_POD_NAME} sed -i 's/?/${DB_DIR_SED}/g' ${ALTIBASE_HOME}/conf/altibase.properties"  >> /ALTIBASE/${MY_POD_NAME}.log
-    sed -i "s/?/${DB_DIR_SED}/g" ${ALTIBASE_HOME}/conf/altibase.properties
-
-    while (true)
-    do
-      if [ -d "${DB_DIR}" ];then
-        echo `date` "${MY_POD_NAME} Altibase database path exists. [${DB_DIR}] " >> /ALTIBASE/${MY_POD_NAME}.log
-      else
-        echo `date` "${MY_POD_NAME} Create Altibase database path. [${DB_DIR}] " >> /ALTIBASE/${MY_POD_NAME}.log
-        mkdir -p ${DB_DIR}
-        sleep 1
-      fi
-
-      if [ -f "${DB_DIR}/dbs/SYS_TBS_MEM_DATA-0-0" ] ;then
-        echo `date` "${MY_POD_NAME} Altibase database exists. " >> /ALTIBASE/${MY_POD_NAME}.log
-        break
-      else
-        echo `date` "${MY_POD_NAME} Create Altibase database. " >> /ALTIBASE/${MY_POD_NAME}.log
-        rm -rf ${DB_DIR}/*
-        mkdir -p ${DB_DIR}/arch_logs
-        mkdir -p ${DB_DIR}/dbs
-        mkdir -p ${DB_DIR}/logs
-        mkdir -p ${DB_DIR}/trc
-        chown -R ${USER}:${USER} ${HOME}
-        chown -R ${USER}:${USER} ${DB_DIR}
-        ${ALTIBASE_HOME}/bin/server create UTF8 UTF8
-        sleep 5
-        if [ -f "${DB_DIR}/dbs/SYS_TBS_MEM_DATA-0-0" ] ;then
-          break
-        else
-          echo `date` "${MY_POD_NAME} ${DB_DIR}/dbs/SYS_TBS_MEM_DATA-0-0 file is NOT!!! created."
-          continue
-        fi
-      fi
-    done
-
-    echo `date` "${MY_POD_NAME} altibase server start " >> /ALTIBASE/${MY_POD_NAME}.log
-    ${ALTIBASE_HOME}/bin/server start
-
-    exec_command="${ALTIBASE_HOME}/bin/isql -silent -s localhost -u sys -p manager -sysdba "
-
-    $exec_command<<EOF>> .result
-      set linesize 100
-      set pagesize 50
-      select count(*) from system_.sys_tables_ where table_name='T1' or table_name='T2' or table_name='T3';
-      exit;
-    EOF
-    result_count=$(tail -2 .result| head -1| awk '{print $1}')
-    cat .result >> /ALTIBASE/${MY_POD_NAME}.log
-    echo `date` "${MY_POD_NAME} result_count: [${result_count}] " >> /ALTIBASE/${MY_POD_NAME}.log
-    rm .result
-
-    if [ ${result_count} -ne 3 ];then
-      ${ALTIBASE_HOME}/bin/is -sysdba -f /home/altibase/config_map/sample_schema.sql >> /ALTIBASE/${MY_POD_NAME}.log
+    if [ -d "${ALTIBASE_HOME}" ];then
+      echo `date` "${MY_POD_NAME}: [${ALTIBASE_HOME}] path exists."
+      echo `date` "${MY_POD_NAME}: It is assumed altibase is installed and aku is configured."
+      echo `date` "${MY_POD_NAME}: altibase server start "
+      ${ALTIBASE_HOME}/bin/server start
+      echo `date` "${MY_POD_NAME}: aku start "
+      ${ALTIBASE_HOME}/bin/aku -p start
+    else
+      mkdir -p ${ALTIBASE_HOME}
+      echo `date` "${MY_POD_NAME}: [${ALTIBASE_HOME}] path is newly created."
+      echo `date` "${MY_POD_NAME}: You need to install altibase and do the followings. "
+      echo `date` "${MY_POD_NAME}: Create altibase server : [server create utf8 utf8] "
+      echo `date` "${MY_POD_NAME}: Start altibase server : [server start] "
+      echo `date` "${MY_POD_NAME}: Configure aku "
+      echo `date` "${MY_POD_NAME}: Start aku : [aku -p start] "
+      echo `date` "${MY_POD_NAME}: Next pod will be started after aku is started successfully because of startupProbe setti                                                                  ng."
     fi
-
-    echo `date` "${MY_POD_NAME} aku start " >> /ALTIBASE/${MY_POD_NAME}.log
-    ${ALTIBASE_HOME}/bin/aku -p start >> /ALTIBASE/${MY_POD_NAME}.log
 
     while (true)
     do
@@ -372,7 +257,8 @@ altibase-svc                   ClusterIP   None         <none>        20300/TCP,
 ## Using StatefulSet
 
 - In this example, the StatefulSet creates 4 Pods.
-- Altibase Kubernetes Utility supports up to 4 pods.
+- Altibase v7.1 version supports up to 4 pods.
+- Altibase v7.3 or above versions support up to 6 pods.
 
 ##### Write a StatefulSet yaml file
 
@@ -484,7 +370,7 @@ root@altibase-sts-3:/# . /home/altibase/config_map/set_altibase.env
 root@altibase-sts-3:/# is
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.8.8
+     Release Version 7.1.0.9.9
      Copyright 2000, ALTIBASE Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
@@ -495,7 +381,7 @@ iSQL> exit
 root@altibase-sts-3:/# isql -s altibase-sts-2.altibase-svc -u sys -p manager
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.8.8
+     Release Version 7.1.0.9.9
      Copyright 2000, ALTIBASE Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
@@ -522,7 +408,7 @@ root@altibase-sts-2:/# . /home/altibase/config_map/set_altibase.env
 root@altibase-sts-2:/# is
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.8.8
+     Release Version 7.1.0.9.9
      Copyright 2000, ALTIBASE Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
@@ -548,7 +434,7 @@ root@altibase-sts-0:/# . /home/altibase/config_map/set_altibase.env
 root@altibase-sts-0:/# is
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.8.8
+     Release Version 7.1.0.9.9
      Copyright 2000, ALTIBASE Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
@@ -566,7 +452,7 @@ root@altibase-sts-3:/# . /home/altibase/config_map/set_altibase.env
 root@altibase-sts-3:/# is
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.8.8
+     Release Version 7.1.0.9.9
      Copyright 2000, ALTIBASE Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
