@@ -356,8 +356,8 @@ altibase-sts-0         0/1     Running   0                16m    10.244.1.91    
 - 아래에서는 첫번째 pod에 대하여, 알티베이스 설치이후의 과정을 테스트 용도로 기록합니다.
   - altibase server 생성
   - altibase server 시작
-  - 샘플 용도의 스키마 생성
-  - 샘플 용도의 aku 설정
+  - 샘플 용도의 테이블 생성(T1,T2,T3)
+  - 샘플 용도의 aku.conf 생성
   - aku 시작
   - startupProbe 설정이 되어있어서, aku가 성공적으로 수행되어야, 그 다음 pod가 생성됩니다. 
 
