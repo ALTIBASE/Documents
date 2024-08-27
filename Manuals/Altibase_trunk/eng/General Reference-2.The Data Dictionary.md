@@ -219,6 +219,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [V\$LFG](#vlfg)
   - [V\$LOCK](#vlock)
   - [V\$LOCK_STATEMENT](#vlock_statement)
+  - [V$LOCK_TABLE_STATS](#vlock_table_stats)
   - [V\$LOG](#vlog)
   - [V\$LOCK_WAIT](#vlock_wait)
   - [V\$MEMGC](#vmemgc)
@@ -4301,6 +4302,7 @@ Performance views are identified by the prefix V$. The following table lists all
 | V\$LFG                                | Information about LFG and statistical information related to GROUP COMMIT |
 | V\$LOCK                               | Information about all table level lock nodes in the database at the current point in time |
 | V\$LOCK_STATEMENT                     | Information about locks and statements, shown together       |
+| V$LOCK_TABLE_STATS                    | Information about table statistics lock status               |
 | V\$LOCK_WAIT                          | Information about the status of transactions waiting to obtain locks |
 | V\$LOG                                | Information about log anchor files                           |
 | V\$MEMGC                              | Information about garbage collection (memory space recovery) |
@@ -6767,6 +6769,24 @@ This view displays information about statements that are holding or waiting to a
 | LOCK_DESC      | VARCHAR(32)    | A character string indicating the lock mode e.g.) IX, IS, X  |
 | LOCK_CNT       | INTEGER        | The number of locks for the lock node                        |
 | IS_GRANT       | BIGINT         | Indicates whether the table is locked or is waiting to be locked |
+
+### V$LOCK_TABLE_STATS
+
+This view displays information about table statistics lock status.
+
+| Column name | Type       | Description                  |
+| ----------- | ---------- | ---------------------------- |
+| TABLE_OID   | BIGINT     | The table object identifier  |
+| STAT_LOCKED | VARCHAR(6) | Table statistics lock status |
+
+#### Column Information
+
+##### STAT_LOCKED
+
+This indicates whether the table statistics are locked.
+
+- NONE: Statistics unlocked
+- LOCKED: Statistics locked
 
 ### V\$LOG
 
