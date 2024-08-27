@@ -12986,7 +12986,7 @@ SET_PRIMARY_KEY_STATS (
 | Name             | In/Output | Data Type    | Description                                                  |
 | ---------------- | --------- | ------------ | ------------------------------------------------------------ |
 | ownname          | IN        | VARCHAR(128) | Name of the index owner                                      |
-| tablename        | IN        | VARCHAR(128) | Name of the table for which statistics to be changed         |
+| tabname          | IN        | VARCHAR(128) | Name of the table for which statistics to be changed         |
 | keycount         | IN        | BIGINT       | Number of records in the index                               |
 | numpage          | IN        | BIGINT       | Number of pages in the index                                 |
 | numdist          | IN        | BIGINT       | Number of unique keys in the index                           |
@@ -13040,7 +13040,7 @@ SET_UNIQUE_KEY_STATS (
 | Name             | In/Out | Data Type      | Description                                                  |
 | ---------------- | ------ | -------------- | ------------------------------------------------------------ |
 | ownname          | IN     | VARCHAR(128)   | Name of the index owner                                      |
-| tablename        | IN     | VARCHAR(128)   | Name of the table for which statistics to be changed         |
+| tabname          | IN     | VARCHAR(128)   | Name of the table for which statistics to be changed         |
 | colnamelist      | IN     | VARCHAR(32000) | List of column names to change statistics for. If DESC is specified in a column when creating a UNIQUE KEY INDEX, it must also be specified in uppercase in the colnamelist. |
 | keycount         | IN     | BIGINT         | Number of records in the index                               |
 | numpage          | IN     | BIGINT         | Number of pages in the index                                 |
@@ -13084,10 +13084,10 @@ LOCK_TABLE_STATS (
 
 ##### Parameters
 
-| Name      | In/Out | Data Type    | Description                                          |
-| --------- | ------ | ------------ | ---------------------------------------------------- |
-| ownname   | IN     | VARCHAR(128) | Name of the index owner                              |
-| tablename | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
+| Name    | In/Out | Data Type    | Description                                          |
+| ------- | ------ | ------------ | ---------------------------------------------------- |
+| ownname | IN     | VARCHAR(128) | Name of the index owner                              |
+| tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
 
 ##### Return Value
 
@@ -13122,10 +13122,10 @@ UNLOCK_TABLE_STATS (
 
 ##### Parameters
 
-| Name      | In/Out | Data Type    | Description                                          |
-| --------- | ------ | ------------ | ---------------------------------------------------- |
-| ownname   | IN     | VARCHAR(128) | Name of the index owner                              |
-| tablename | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
+| Name    | In/Out | Data Type    | Description                                          |
+| ------- | ------ | ------------ | ---------------------------------------------------- |
+| ownname | IN     | VARCHAR(128) | Name of the index owner                              |
+| tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
 
 ##### Return Value
 
