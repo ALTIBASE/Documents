@@ -5339,7 +5339,7 @@ For more detailed information about each stored procedure, please refer to DBMS 
 
 #### Inquiring Statistical Information
 
-The collected statistics are stored in the V$DMBS_STATS performance view. For more information on V$DBMS_STATS performance view, refer to the *General Reference*.
+The collected statistics are stored in the V$DBMS_STATS performance view. For more information on V$DBMS_STATS performance view, refer to the *General Reference*.
 
 #### Restrictions
 
