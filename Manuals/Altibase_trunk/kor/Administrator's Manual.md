@@ -6750,15 +6750,43 @@ rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-0-2
 >
 > 핑퐁 체크포인트의 더블 라이트 방식에서 사용하는 더블 라이트 이미지 버퍼와 더블 라이트 이미지 파일을 디스크 데이터베이스에서 사용하는 더블 라이트 파일과 혼동하지 않도록 주의한다.
 
-**더블 라이트 리커버리(Double Write Recovery)**<a name="doublewriterecovery"></a>
+**더블 라이트 리커버리(Double Write Recovery)**
 
 **더블 라이트 리커버리**는 장애로 인해 손상된 더티 페이지를 복구하는 동작으로, Altibase에서 META 구동 단계에서 자동으로 수행된다. 
 
 Altibase는 더블 라이트 방식을 사용할 때, 더티 페이지를 안정적인 체크포인트 이미지 파일에 직접 기록한다. 그러나 이 과정에서 장애가 발생하면 부분 쓰기(Partial write)로 인해 체크포인트 이미지 파일이 손상될 수 있다. 이 때 손상되었을 가능성이 있는 더티 페이지를 더블 라이트 리커버리를 통해 복구한다.
 
-일반적으로 더블 라이트 리커버리는 Altibase가 자동으로 수행하므로, 사용자가 별도로 신경 쓸 필요는 없다. 그러나 오류 메시지 `ERR-111C6 : The process was interrupted while performing a Scale SINGLE Checkpoint.`가 발생했을 때는 사용자가 서버를 재구동하여 더블 라이트 리커버리를 수행하도록 해야 한다.
+일반적으로 더블 라이트 리커버리는 Altibase가 자동으로 수행하므로 사용자가 별도로 신경 쓸 필요는 없다.
 
-해당 오류 메시지에 대한 보다 자세한 해결 방법은 [여기](#ERR-111C6-발생-시-문제-해결)를 참고하라.
+> [!note]
+>
+> **ERR-111C6 문제 해결**
+>
+> ```sql
+> iSQL> [ERR-111C6 : The process was interrupted while performing a Scale SINGLE Checkpoint.]
+> ```
+>
+> 운영 중 `ERR-111C6` 오류가 발생했다면 아래의 절차를 통해 문제를 해결할 수 있다.
+>
+> 1. 서버 재구동
+>
+>    해당 오류가 발생한 서버를 다시 구동하여 더블 라이트 리커버리를 수행한다.
+>
+> 2. 체크포인트 수행
+>
+>    서버 재구동 후, [체크포인트를 수행](#체크포인트 제어)한다.
+>
+> 이 오류 메시지는 다음 두 구문을 실행할 때 발생할 수 있다.
+>
+> ```sql
+> # 데이터베이스 복구 수행
+> iSQL> ALTER DATABASE RECOVER DATABASE;
+> 
+> # 체크포인트 스케일을 싱글에서 페어로 변경
+> iSQL> ALTER DATABASE CHECKPOINT SCALE PAIR;
+> ```
+>
+> 만약 서버를 다시 구동할 수 없다면 이전에 백업한 안정적인 체크포인트 이미지 파일을 현재 서버의 체크포인트 이미지 파일 저장 경로에 복사한 후 다시 시도한다. 이에 관한 자세한 절차는 [매체복구 사례 7](#매체복구-사례-7)을 참고한다.
 
 #### 디스크 DB의 체크포인트
 
@@ -8045,9 +8073,11 @@ $ cp /backup_dir/SYS_TBS_MEM_DIC-0-0 $ALTIBASE_HOME/dbs;
 
 먼저 [LOGANCHOR HEADER]의 Checkpoint Scale 항목을 참고하여 체크포인트 방식을 구분한다.
 
-Checkpoint Scale 항목의 값이 PAIR인 경우 [ TABLESPACE ATTRIBUTE ]의 Stable Checkpoint Image Num. 항목을 참고한다.
+- Checkpoint Scale 항목의 값이 PAIR인 경우: 
+  [ TABLESPACE ATTRIBUTE ]의 Stable Checkpoint Image Num. 항목 참고
 
-Checkpoint Scale 항목의 값이 SINGLE인 경우 [ MEMORY CHECKPOINT IMAGE ATTRIBUTE ]의 Stable Single Checkpoint Image Num. 항목을 참고한다.
+- Checkpoint Scale 항목의 값이 SINGLE인 경우: 
+  [ MEMORY CHECKPOINT IMAGE ATTRIBUTE ]의 Stable Single Checkpoint Image Num. 항목 참고
 
 ```
 % dumpla loganchor0
@@ -8101,23 +8131,6 @@ iSQL(sysdba)> ALTER DATABASE RECOVER DATABASE;
 ```
 iSQL(sysdba)> ALTER DATABASE dbname SERVICE;
 ```
-
-##### ERR-111C6 발생 시 문제 해결
-
-체크포인트 스케일 설정이 싱글이고 더티 페이지가 손상된 상태에서 매체 복구를 시도하면 아래의 오류 메시지가 발생한다. 
-
-```sql
-iSQL> [ERR-111C6 : The process was interrupted while performing a Scale SINGLE Checkpoint.]
-```
-
-이 때 사용자는 다음과 같은 절차로 체크포인트 이미지 파일을 복구해야 한다. 
-
-1. 해당 오류가 발생한 서버를 다시 구동하여 [더블 라이트 리커버리](#doublewriterecovery)를 수행한다.
-2. [체크포인트를 수행](#체크포인트 제어)한다.
-
-> [!tip]
->
-> 이 문제 해결 방법은 데이터베이스의 체크포인트 스케일 설정을 싱글에서 페어로 변경하려고 할 때 동일한 오류가 발생하는 경우에도 적용된다.
 
 #### 매체복구 사례 8
 
@@ -8190,8 +8203,6 @@ iSQL(sysdba)> ALTER DATABASE BACKUP DATABASE TO ‘/backup_dir’;
 | 메시지 | The process was interrupted while performing a Scale SINGLE Checkpoint. |
 | 원인   | 더티 페이지가 손상된 상태에서 매체 복구 또는 스케일 설정 변경을 시도함. |
 | 해결책 | 다음과 같이 체크포인트 이미지를 복구한다.<br />1. 해당 오류가 발생한 서버를 다시 구동한다.<br />2. 체크포인트를 수행한다. |
-
-내용은 트러블슈팅(문제 해결로 Ka***에선 쓰고 있더라구요...)이 맞는데, 사실 딱 이 오류코드에 대한 내용만 있을 거라서 절로 빼는 게 이상...만약에 사례 안에 들어간다면 매체복구 7? 
 
 # 11.증분 백업과 복구
 
