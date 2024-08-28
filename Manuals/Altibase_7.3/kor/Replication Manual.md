@@ -1514,7 +1514,7 @@ Altibase에서는 이중화 대상 테이블에 대하여 다음의 세가지 �
   DROP INDEX index_name; // Unique, function-base index는 삭제할 수 없다.
   ```
 
-- ##### REPLICATION_DDL_ENABLE_LEVEL = 1로 설정한 경우, 사용할 수 있는 DDL
+- ##### REPLICATION_DDL_ENABLE_LEVEL = 1로 설정한 경우, 사용할 수 있는 DDL<a name="ddlenablelevel1"></a>
 
   ```sql
   ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
@@ -1989,6 +1989,8 @@ Active-Standby 이중화 환경에서, 서비스를 제공하는 Active 서버�
     
 -   Standby 서버를 오프라인 이중화 시작 전에 재구동해서는 안 된다. 왜냐하면 Standby서버를 재시작하면 수신하지 못한 로그를 분석하는데 사용할 정보가 사라지기 때문이다.
     
+-   미전송된 로그에 [REPLICATION_DDL_ENABLE_LEVEL = 1로 설정한 경우, 사용할 수 있는 DDL](#ddlenablelevel1)이 포함되어 있을 경우 REPLICATION_SQL_APPLY_ENABLE 프로퍼티를 1로 설정하여 Altibase가 SQL 반영 모드로 동작하도록 해야 한다.
+    
 - **Altibase 버전 및 이기종 간 오프라인 옵션 호환성**
 
   호환성 조건을 만족하지 않으면 오프라인 이중화를 시작하거나 오프라인 옵션으로 이중화 객체 생성 시 실패한다.
@@ -2010,7 +2012,7 @@ Active-Standby 이중화 환경에서, 서비스를 제공하는 Active 서버�
 
 이중화 이름이 rep1이고, Active서버의 로그 경로가 active_server/altibase_home/logs일 때 오프라인 옵션은 아래와 같이 사용된다.
 
--   이중화 객체 생성시 오프라인 옵션을 설정한다.
+-   이중화 객체 생성 시 오프라인 옵션을 설정한다.
 
 ```
 iSQL>CREATE REPLICATION REP1 OPTIONS OFFLINE 'actiive_server/altibase_home/logs'
@@ -2023,10 +2025,22 @@ WITH '127.0.0.1',20300 FROM SYS.A TO SYS.B;
 iSQL>ALTER REPLICATION REP1 SET OFFLINE ENABLE WITH 'active_server/altibase_home/logs';
 ```
 
+-   Altibase가 SQL 반영 모드로 동작하도록 프로퍼티를 설정한다.
+
+```
+iSQL>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
+```
+
 -   설정된 오프라인 로그 경로를 이용하여 이중화를 수행한다.
 
 ```
 iSQL>ALTER REPLICATION REP1 START WITH OFFLINE;
+```
+
+-   Altibase가 SQL 반영 모드로 동작하지 않도록 프로퍼티 설정을 원복한다.
+
+```
+iSQL>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 ```
 
 -   이중화 오프라인 옵션을 사용하지 않도록 설정한다.
