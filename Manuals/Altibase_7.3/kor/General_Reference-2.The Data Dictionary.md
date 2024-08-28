@@ -232,6 +232,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [V\$LFG](#vlfg)
   - [V\$LOCK](#vlock)
   - [V\$LOCK_STATEMENT](#vlock_statement)
+  - [V$LOCK_TABLE_STATS](#vlock_table_stats)
   - [V\$LOG](#vlog)
   - [V\$LOCK_WAIT](#vlock_wait)
   - [V\$MEMGC](#vmemgc)
@@ -4493,6 +4494,7 @@ iSQL> SELECT * FROM V$TAB;
 | V\$LFG                                | LFG에 대한 정보와 그룹커밋 관련 통계값                       |
 | V\$LOCK                               | 현재 시점에서 데이터베이스의 모든 테이블 레벨 Lock 노드 정보 |
 | V\$LOCK_STATEMENT                     | Lock과 statement 에 대한 정보                                |
+| V$LOCK_TABLE_STATS                    | 테이블 통계 잠금 상태 정보                                   |
 | V\$LOCK_WAIT                          | 트랜잭션의 락 획득을 위한 대기 상태 정보                     |
 | V\$LOG                                | 로그 앵커 정보                                               |
 | V\$MEMGC                              | 메모리 공간 회수를 위한 garbage collection에 대한 정보       |
@@ -6957,6 +6959,24 @@ RESET_LSN중 로그파일 안의 오프셋 부분을 나타낸다.
 | LOCK_DESC      | VARCHAR(32)    | 잠금 모드를 가리키는 문자열 예) IX, IS, X                    |
 | LOCK_CNT       | INTEGER        | 해당 잠금 노드의 잠금 개수                                   |
 | IS_GRANT       | BIGINT         | 해당 테이블에 대하여 잠금을 잡고 있는지 대기하고 있는지 여부 |
+
+### V$LOCK_TABLE_STATS
+
+테이블 통계 잠금 상태를 보여준다. 
+
+| Column name | Type       | Description           |
+| ----------- | ---------- | --------------------- |
+| TABLE_OID   | BIGINT     | 테이블 객체 식별자    |
+| STAT_LOCKED | VARCHAR(6) | 테이블 통계 잠금 여부 |
+
+#### 칼럼 정보
+
+##### STAT_LOCKED
+
+이 값은 테이블 통계의 잠금 여부를 나타낸다.
+
+- NONE: 통계 잠금 해제 상태
+- LOCKED: 통계 잠금 상태
 
 ### V\$LOG
 

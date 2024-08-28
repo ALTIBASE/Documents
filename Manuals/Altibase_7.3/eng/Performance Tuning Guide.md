@@ -5326,6 +5326,11 @@ The user can manually set statistics for objects or the system using the followi
 
 -   SET_COLUMN_STATS
 
+The user can manually lock or unlock the table statistics using the following system stored procedures.
+
+- LOCK_TABLE_STATS
+
+- UNLOCK_TABLE_STATS
 
 For more detailed information about each stored procedure, please refer to DBMS Stats in the Stored Procedures Manual.
 
@@ -5333,7 +5338,7 @@ For more detailed information about each stored procedure, please refer to DBMS 
 
 #### Inquiring Statistical Information
 
-The collected statistics are stored in the V$DMBS_STATS performance view. For more information on \V$DBMS_STATS performance view, refer to the *General Reference*.
+The collected statistics are stored in the V$DBMS_STATS performance view. For more information on V$DBMS_STATS performance view, refer to the *General Reference*.
 
 #### Restrictions
 
