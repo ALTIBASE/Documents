@@ -10373,14 +10373,12 @@ Altibase는 통계 자료 수집을 위해 다음과 같은 시스템 저장 프
 아래는 개별적인 칼럼, 인덱스, 테이블 또는 시스템 관련 통계 자료를 변경하는 저장
 프로시저이다.
 
-| 이름                  | 설명                                                         |
-| --------------------- | ------------------------------------------------------------ |
-| SET_SYSTEM_STATS      | 데이터베이스 시스템에 대한 통계 자료를 변경한다.             |
-| SET_TABLE_STATS       | 특정 테이블에 대한 통계 자료를 변경한다.                     |
-| SET_INDEX_STATS       | 특정 인덱스에 대한 통계 자료를 변경한다.                     |
-| SET_COLUMN_STATS      | 특정 테이블의 칼럼에 대한 통계 자료를 변경한다.              |
-| SET_PRIMARY_KEY_STATS | 특정 테이블의 PRIMARY KEY INDEX에 대한 통계 자료를 변경한다. |
-| SET_UNIQUE_KEY_STATS  | 특정 테이블의 UNIQUE KEY INDEX에 대한 통계 자료를 변경한다.??? |
+| 이름             | 설명                                             |
+| ---------------- | ------------------------------------------------ |
+| SET_SYSTEM_STATS | 데이터베이스 시스템에 대한 통계 자료를 변경한다. |
+| SET_TABLE_STATS  | 특정 테이블에 대한 통계 자료를 변경한다.         |
+| SET_INDEX_STATS  | 특정 인덱스에 대한 통계 자료를 변경한다.         |
+| SET_COLUMN_STATS | 특정 테이블의 칼럼에 대한 통계 자료를 변경한다.  |
 
 아래는 개별적인 칼럼, 인덱스, 테이블 또는 시스템 관련 통계 자료를 조회하는 저장
 프로시저이다.
@@ -11147,6 +11145,74 @@ no_invalidate     BOOLEAN DEFAULT FALSE );
 
 ```
 iSQL> EXEC DELETE_TABLE_STATS( 'SYS','T1');
+Execute success.
+```
+
+
+
+#### LOCK_TABLE_STATS
+
+이 프로시저는 특정 테이블의 통계를 잠근다.
+
+##### 구문
+
+```
+LOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+
+
+##### 파라미터
+
+| 이름    | 입출력 | 데이터 타입  | 설명                             |
+| ------- | ------ | ------------ | -------------------------------- |
+| ownname | IN     | VARCHAR(128) | 인덱스 소유자의 이름             |
+| tabname | IN     | VARCHAR(128) | 통계 자료를 변경할 테이블의 이름 |
+
+##### 결과값
+
+저장 프로시저이므로 결과값을 반환하지 않는다.
+
+##### 예제
+
+```
+iSQL> EXEC LOCK_TABLE_STATS( 'SYS', 'T1' );
+Execute success.
+```
+
+
+
+#### UNLOCK_TABLE_STATS
+
+이 프로시저는 특정 테이블의 통계 잠금을 해제한다.
+
+##### 구문
+
+```
+UNLOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+
+
+##### 파라미터
+
+| 이름    | 입출력 | 데이터 타입  | 설명                             |
+| ------- | ------ | ------------ | -------------------------------- |
+| ownname | IN     | VARCHAR(128) | 인덱스 소유자의 이름             |
+| tabname | IN     | VARCHAR(128) | 통계 자료를 변경할 테이블의 이름 |
+
+##### 결과값
+
+저장 프로시저이므로 결과값을 반환하지 않는다.
+
+##### 예제
+
+```
+iSQL> EXEC UNLOCK_TABLE_STATS( 'SYS', 'T1' );
 Execute success.
 ```
 
@@ -13976,78 +14042,6 @@ SET_UNIQUE_KEY_STATS (
 ```
 iSQL> EXEC DBMS_STATS.SET_UNIQUE_KEY_STATS( 'SYS', 'T1', 'C1,C2', 1, 2, 3, 4, 5, 6, TRUE );
 __SYS_IDX_ID_149
-Execute success.
-```
-
-#### LOCK_TABLE_STATS
-
-이 프로시저는 특정 테이블의 통계를 잠근다.
-
-##### 구문
-
-```
-LOCK_TABLE_STATS (
-  ownname VARCHAR(128),
-  tabname VARCHAR(128) );
-```
-
-
-
-##### 파라미터
-
-| 이름    | 입출력 | 데이터 타입  | 설명                             |
-| ------- | ------ | ------------ | -------------------------------- |
-| ownname | IN     | VARCHAR(128) | 인덱스 소유자의 이름             |
-| tabname | IN     | VARCHAR(128) | 통계 자료를 변경할 테이블의 이름 |
-
-##### 결과값
-
-저장 프로시저이므로 결과값을 반환하지 않는다.
-
-##### 예외
-
-예외를 발생시키지 않는다.
-
-##### 예제
-
-```
-iSQL> EXEC DBMS_STATS.LOCK_TABLE_STATS( 'SYS', 'T1' );
-Execute success.
-```
-
-#### UNLOCK_TABLE_STATS
-
-이 프로시저는 특정 테이블의 통계 잠금을 해제한다.
-
-##### 구문
-
-```
-UNLOCK_TABLE_STATS (
-  ownname VARCHAR(128),
-  tabname VARCHAR(128) );
-```
-
-
-
-##### 파라미터
-
-| 이름    | 입출력 | 데이터 타입  | 설명                             |
-| ------- | ------ | ------------ | -------------------------------- |
-| ownname | IN     | VARCHAR(128) | 인덱스 소유자의 이름             |
-| tabname | IN     | VARCHAR(128) | 통계 자료를 변경할 테이블의 이름 |
-
-##### 결과값
-
-저장 프로시저이므로 결과값을 반환하지 않는다.
-
-##### 예외
-
-예외를 발생시키지 않는다.
-
-##### 예제
-
-```
-iSQL> EXEC DBMS_STATS.UNLOCK_TABLE_STATS( 'SYS', 'T1' );
 Execute success.
 ```
 

@@ -9381,6 +9381,13 @@ The stored procedures which delete or copy statistics pertaining to individual c
 | DELETE_INDEX_STATS    | Deletes statistics pertaining to a particular index          |
 | DELETE_COLUMN_STATS   | Deletes statistics pertaining to columns of a particular table |
 
+The stored procedures which lock or unlock statistics of specific table are listed in the following table.
+
+| Name               | Description                                 |
+| ------------------ | ------------------------------------------- |
+| LOCK_TABLE_STATS   | Locks the statistics of a specific table.   |
+| UNLOCK_TABLE_STATS | Unlocks the statistics of a specific table. |
+
 #### Notes
 
 -   The process of gathering statistics imposes an additional workload on the Altibase server.
@@ -10088,8 +10095,6 @@ cascade_index     BOOLEAN DEFAULT TRUE,
 no_invalidate     BOOLEAN DEFAULT FALSE );
 ```
 
-
-
 ##### Parameters
 
 | Name             | Input/Output | Data Type    | Description                                                  |
@@ -10110,6 +10115,74 @@ Because it is a stored procedure, there is no return value.
 
 ```
 iSQL> EXEC DELETE_TABLE_STATS( 'SYS','T1');
+Execute success.
+```
+
+
+
+#### LOCK_TABLE_STATS
+
+This procedure locks the statistics of a specific table.
+
+##### Syntax
+
+```
+LOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+
+
+##### Parameters
+
+| Name    | In/Out | Data Type    | Description                                          |
+| ------- | ------ | ------------ | ---------------------------------------------------- |
+| ownname | IN     | VARCHAR(128) | Name of the index owner                              |
+| tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
+
+##### Return Value
+
+Because it is a stored procedure, there is no return value.
+
+##### Example
+
+```
+iSQL> LOCK_TABLE_STATS( 'SYS', 'T1' );
+Execute success.
+```
+
+
+
+#### UNLOCK_TABLE_STATS
+
+This procedure unlocks the statistics of a specific table.
+
+##### Syntax
+
+```
+UNLOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+
+
+##### Parameters
+
+| Name    | In/Out | Data Type    | Description                                          |
+| ------- | ------ | ------------ | ---------------------------------------------------- |
+| ownname | IN     | VARCHAR(128) | Name of the index owner                              |
+| tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
+
+##### Return Value
+
+Because it is a stored procedure, there is no return value.
+
+##### Example
+
+```
+iSQL> EXEC UNLOCK_TABLE_STATS( 'SYS', 'T1' );
 Execute success.
 ```
 
@@ -13063,82 +13136,6 @@ There is no exception.
 ```
 iSQL> EXEC DBMS_STATS.SET_UNIQUE_KEY_STATS( 'SYS', 'T1', 'C1,C2', 1, 2, 3, 4, 5, 6, TRUE );
 __SYS_IDX_ID_149
-Execute success.
-```
-
-
-
-#### LOCK_TABLE_STATS
-
-This procedure locks the stats information of a specific table.
-
-##### Syntax
-
-```
-LOCK_TABLE_STATS (
-  ownname VARCHAR(128),
-  tabname VARCHAR(128) );
-```
-
-
-
-##### Parameters
-
-| Name    | In/Out | Data Type    | Description                                          |
-| ------- | ------ | ------------ | ---------------------------------------------------- |
-| ownname | IN     | VARCHAR(128) | Name of the index owner                              |
-| tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
-
-##### Return Value
-
-Because it is a stored procedure, there is no return value.
-
-##### Exception
-
-There is no exception.
-
-##### Example
-
-```
-iSQL> EXEC DBMS_STATS.LOCK_TABLE_STATS( 'SYS', 'T1' );
-Execute success.
-```
-
-
-
-#### UNLOCK_TABLE_STATS
-
-This procedure unlocks the stats information of a specific table.
-
-##### Syntax
-
-```
-UNLOCK_TABLE_STATS (
-  ownname VARCHAR(128),
-  tabname VARCHAR(128) );
-```
-
-
-
-##### Parameters
-
-| Name    | In/Out | Data Type    | Description                                          |
-| ------- | ------ | ------------ | ---------------------------------------------------- |
-| ownname | IN     | VARCHAR(128) | Name of the index owner                              |
-| tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
-
-##### Return Value
-
-Because it is a stored procedure, there is no return value.
-
-##### Exception
-
-There is no exception.
-
-##### Example
-
-```
-iSQL> EXEC DBMS_STATS.UNLOCK_TABLE_STATS( 'SYS', 'T1' );
 Execute success.
 ```
 
