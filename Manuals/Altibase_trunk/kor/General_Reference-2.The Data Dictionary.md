@@ -7000,8 +7000,8 @@ RESET_LSN중 로그파일 안의 오프셋 부분을 나타낸다.
 
 현재 데이터베이스의 체크포인트 스케일 설정을 보여준다.
 
-* PAIR: [체크포인트 스케일 페어]()의 내용을 참고한다.
-* SINGLE: [체크포인트 스케일 싱글]()의 내용을 참고한다.
+* PAIR: [체크포인트 스케일 페어](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Administrator's%20Manual.md#%EC%B2%B4%ED%81%AC%ED%8F%AC%EC%9D%B8%ED%8A%B8-%EC%8A%A4%EC%BC%80%EC%9D%BC-%ED%8E%98%EC%96%B4checkpoint-scale-pair)의 내용을 참고한다.
+* SINGLE: [체크포인트 스케일 싱글](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Administrator's%20Manual.md#%EC%B2%B4%ED%81%AC%ED%8F%AC%EC%9D%B8%ED%8A%B8-%EC%8A%A4%EC%BC%80%EC%9D%BC-%EC%8B%B1%EA%B8%80checkpoint-scale-single)의 내용을 참고한다.
 
 ### V\$LOCK_WAIT
 
