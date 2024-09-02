@@ -15047,7 +15047,7 @@ Unsigned Integer
 
 ##### Attributes
 
-Read-Only, Single Value
+Read-Write, Single Value
 
 ##### Range
 
