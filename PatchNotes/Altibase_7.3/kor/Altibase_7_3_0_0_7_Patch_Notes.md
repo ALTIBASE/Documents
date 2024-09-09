@@ -53,7 +53,7 @@
 New Features
 ============
 
-### BUG-47423 APRE에서 RETURNING INTO 절을 지원하도록 개선하였습니다.
+### BUG-47423<a name=bug-47423></a> APRE에서 RETURNING INTO 절을 지원하도록 개선하였습니다.
 
 -   **module** : mm-apre
 
@@ -80,7 +80,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50868 AKU 다중 이중화 지원 및 기능 개선
+### BUG-50868<a name=bug-50868></a> AKU 다중 이중화 지원 및 기능 개선
 
 -   **module** : aku
 
@@ -201,7 +201,7 @@ New Features
     -   Error Code
 
 
-### BUG-50878 aexport.properties 파일에서 ILOADER_FIELD_TERM, ILOADER_ROW_TERM 프로퍼티의 값을 변경합니다.
+### BUG-50878<a name=bug-50878></a> aexport.properties 파일에서 ILOADER_FIELD_TERM, ILOADER_ROW_TERM 프로퍼티의 값을 변경합니다.
 
 -   **module** : ux-aexport
 
@@ -234,7 +234,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50912 TCP 소켓 옵션 SO_LINGER를 설정하는 연결 속성 socket_immediate_close를 추가합니다.
+### BUG-50912<a name=bug-50912></a> TCP 소켓 옵션 SO_LINGER를 설정하는 연결 속성 socket_immediate_close를 추가합니다.
 
 -   **module** : mm-jdbc
 
@@ -271,7 +271,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50249 PICL 라이브러리에 예외상황 발생시 로그에 남기는 기능을 추가합니다. (AIX, HP-UX)
+### BUG-50249<a name=bug-50249></a> PICL 라이브러리에 예외상황 발생시 로그에 남기는 기능을 추가합니다. (AIX, HP-UX)
 
 -   **module** : ux-altiMon
 
@@ -308,7 +308,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50005 aku 실행 시 옵션을 입력하지 않거나 잘못된 옵션을 입력했을 때, 오류 메시지를 출력하지 않고 help 메시지만 출력하도록 변경하였습니다.
+### BUG-50005<a name=bug-50005></a> aku 실행 시 옵션을 입력하지 않거나 잘못된 옵션을 입력했을 때, 오류 메시지를 출력하지 않고 help 메시지만 출력하도록 변경하였습니다.
 
 -   **module** :
 
@@ -380,7 +380,7 @@ New Features
 
 # Fixed Bugs
 
-### BUG-50182 테이블의 행(Row)을 삭제하는 도중에 ALTER TABLE ... ADD COLUMN... DDL이 실행되면, 잘못된 메모리에 접근하는 오류가 발생할 수 있습니다.
+### BUG-50182<a name=bug-50182></a> 테이블의 행(Row)을 삭제하는 도중에 ALTER TABLE ... ADD COLUMN... DDL이 실행되면, 잘못된 메모리에 접근하는 오류가 발생할 수 있습니다.
 
 -   **module** : sm
 
@@ -406,7 +406,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50810 API를 통한 LOB 데이터 작업시, "Internal server error"가 발생할 수 있습니다. 
+### BUG-50810<a name=bug-50810></a> API를 통한 LOB 데이터 작업시, "Internal server error"가 발생할 수 있습니다. 
 
 -   **module** : sm
 
@@ -439,7 +439,7 @@ New Features
             -   **Cause**: The previous LOB write operation terminated incompletely.
             -   **Action**: Execute ROLLBACK and retry the statement.
 
-### BUG-50849 escape syntax에 대문자가 포함된 경우 정상적으로 파싱처리가 되지 않습니다.
+### BUG-50849<a name=bug-50849></a> escape syntax에 대문자가 포함된 경우 정상적으로 파싱처리가 되지 않습니다.
 
 -   **module** : mm-cli
 
@@ -507,7 +507,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50862 송신자로부터 이중화 시작 요청을 수신하는 동시에 수신자가 이중화를 삭제하는 경우, 동시성 문제가 발생할 수 있습니다.
+### BUG-50862<a name=bug-50862></a> 송신자로부터 이중화 시작 요청을 수신하는 동시에 수신자가 이중화를 삭제하는 경우, 동시성 문제가 발생할 수 있습니다.
 
 -   **module** : rp-receiver
 
@@ -532,7 +532,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50864 로그 파일의 크기가 비정상적으로 변경된 경우, 잘못된 에러 메세지가 출력됩니다.
+### BUG-50864<a name=bug-50864></a> 로그 파일의 크기가 비정상적으로 변경된 경우, 잘못된 에러 메세지가 출력됩니다.
 
 -   **module** : sm
 -   **Category** : Message Error
@@ -561,7 +561,7 @@ New Features
             -   **Cause**: The log file size has changed abnormally, so that the file is invalid.
             -   **Action**: Check if the backed-up file for the log file exists and restore it. If it's not available, contact Altibase’s Support Center ([http://support.altibase.com](http://support.altibase.com/)).
 
-### BUG-50866 온라인 백업된 파일을 이용해서 복구를 시도할 때 MustRedo LSN까지의 로그파일이 없는 경우, 복구가 실패했음에도 불구하고 "Database media recovery successful"메시지를 출력합니다.
+### BUG-50866<a name=bug-50866></a> 온라인 백업된 파일을 이용해서 복구를 시도할 때 MustRedo LSN까지의 로그파일이 없는 경우, 복구가 실패했음에도 불구하고 "Database media recovery successful"메시지를 출력합니다.
 
 -   **module** : sm
 
@@ -588,7 +588,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50875 Logical Ager가 삭제해야 할 인덱스 키를 찾지 못할 때 Altibase 서버가 비정상 종료합니다.
+### BUG-50875<a name=bug-50875></a> Logical Ager가 삭제해야 할 인덱스 키를 찾지 못할 때 Altibase 서버가 비정상 종료합니다.
 
 -   **module** : sm-mem-index
 
@@ -617,7 +617,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50881 IPCDA 접속 중에 클라이언트가 종료하면 서버가 비정상 종료합니다.
+### BUG-50881<a name=bug-50881></a> IPCDA 접속 중에 클라이언트가 종료하면 서버가 비정상 종료합니다.
 
 -   **module** : cm
 
@@ -644,7 +644,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50891 사용하지 않는 INSPECTION_LARGE_HEAP_THRESHOLD 프로퍼티를 삭제하였습니다.
+### BUG-50891<a name=bug-50891></a> 사용하지 않는 INSPECTION_LARGE_HEAP_THRESHOLD 프로퍼티를 삭제하였습니다.
 
 -   **module** : sm
 
@@ -669,7 +669,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50905 ODBC 연결 스트링에 DSN 속성을 입력하지 않으면 Invalid attribute value. 에러가 발생합니다.
+### BUG-50905<a name=bug-50905></a> ODBC 연결 스트링에 DSN 속성을 입력하지 않으면 Invalid attribute value. 에러가 발생합니다.
 
 -   **module** : ul-odbc
 
@@ -732,7 +732,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50907 조인에서 하이브리드 파티션드 테이블이 사용되고 SERIAL_EXECUTE_MODE 프로퍼티가 1일 때, 결과 값에 오류가 발생할 수 있습니다.
+### BUG-50907<a name=bug-50907></a> 조인에서 하이브리드 파티션드 테이블이 사용되고 SERIAL_EXECUTE_MODE 프로퍼티가 1일 때, 결과 값에 오류가 발생할 수 있습니다.
 
 -   **module** : qp
 
@@ -818,7 +818,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50914 altibase_store_result, altibase_next_result를 순차적으로 실행할 때, 두 번째 결과 집합에서 HY010 Function sequence error. 에러가 발생합니다.
+### BUG-50914<a name=bug-50914></a> altibase_store_result, altibase_next_result를 순차적으로 실행할 때, 두 번째 결과 집합에서 HY010 Function sequence error. 에러가 발생합니다.
 
 -   **module** : ux-cdbc
 
@@ -911,7 +911,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50919 altibase_stmt_next_result 함수를 실행할 때, 두 번째 결과 집합에서 "HY010 Function sequence error." 에러가 발생합니다.
+### BUG-50919<a name=bug-50919></a> altibase_stmt_next_result 함수를 실행할 때, 두 번째 결과 집합에서 "HY010 Function sequence error." 에러가 발생합니다.
 
 -   **module** : ux-cdbc
 
@@ -989,7 +989,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50920 데이터 업로드 시 에러가 발생한 경우, 어느 칼럼에서 발생했는지 알 수 없습니다.
+### BUG-50920<a name=bug-50920></a> 데이터 업로드 시 에러가 발생한 경우, 어느 칼럼에서 발생했는지 알 수 없습니다.
 
 -   **module** : ux-iloader
 
@@ -1101,7 +1101,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50923  SQLPrepare 함수의 SQL 텍스트 문자열 인자가 빈 문자열일 때 에러가 발생하지 않습니다.
+### BUG-50923<a name=bug-50923></a> SQLPrepare 함수의 SQL 텍스트 문자열 인자가 빈 문자열일 때 에러가 발생하지 않습니다.
 
 -   **module** : mm-cli
 
@@ -1170,7 +1170,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50938 AKU 에서 이용하는 문자열 값의 길이 제한이 실제와 다르게 설정되어 있습니다.
+### BUG-50938<a name=bug-50938></a> AKU 에서 이용하는 문자열 값의 길이 제한이 실제와 다르게 설정되어 있습니다.
 
 -   **module** : aku
 
@@ -1200,7 +1200,7 @@ New Features
     -   Compile Option
 -   Error Code
 
-### BUG-50948 서버에 fetch할 데이터가 남아 있는 경우 ResultSet.close()를 해도 커서가 바로 닫히지 않을 수 있습니다.
+### BUG-50948<a name=bug-50948></a> 서버에 fetch할 데이터가 남아 있는 경우 ResultSet.close()를 해도 커서가 바로 닫히지 않을 수 있습니다.
 
 -   **module** : mm-jdbc
 
@@ -1264,7 +1264,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50949 aku 설정 파일에 주석 입력시, # 이후에 글자를 입력하지 않는 경우 오류가 발생합니다.
+### BUG-50949<a name=bug-50949></a> aku 설정 파일에 주석 입력시, # 이후에 글자를 입력하지 않는 경우 오류가 발생합니다.
 
 -   **module** : aku
 
@@ -1291,7 +1291,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50950 aku -p start를 실행할 때 첫 번째 이중화 객체 생성이 실패해도 AKU가 즉시 종료되지 않습니다.
+### BUG-50950<a name=bug-50950></a> aku -p start를 실행할 때 첫 번째 이중화 객체 생성이 실패해도 AKU가 즉시 종료되지 않습니다.
 
 -   **module** : aku
 
@@ -1317,7 +1317,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50969 RESET_PARAMS가 내부적으로 수행될 때 bakBindParam도 제거되어야 합니다
+### BUG-50969<a name=bug-50969></a> RESET_PARAMS가 내부적으로 수행될 때 bakBindParam도 제거되어야 합니다
 
 -   **module** : ux-cdbc
 
@@ -1396,7 +1396,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50975 SIMPLE QUERY 최적화 기능을 활성화하고 JDBC 연결 속성에 remove_redundant_transmission을 사용할 때, SQL 문 수행 중 메모리 오류가 발생할 수 있습니다.
+### BUG-50975<a name=bug-50975></a> SIMPLE QUERY 최적화 기능을 활성화하고 JDBC 연결 속성에 remove_redundant_transmission을 사용할 때, SQL 문 수행 중 메모리 오류가 발생할 수 있습니다.
 
 -   **module** : mm
 
@@ -1490,7 +1490,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-50997 외부 쿼리를 참조하는 서브 쿼리에서 집계 함수를 사용하는 경우, 특정 조건에서 결과값 오류가 발생합니다.
+### BUG-50997<a name=bug-50997></a> 외부 쿼리를 참조하는 서브 쿼리에서 집계 함수를 사용하는 경우, 특정 조건에서 결과값 오류가 발생합니다.
 
 -   **module** : qp
 
@@ -1581,7 +1581,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-51004 altibase\_stmt\_bind\_param에 바인딩하는 변수의 타입 또는 포인터가 바뀌는 경우, "Function sequence error"가 발생할 수 있습니다.
+### BUG-51004<a name=bug-51004></a> altibase\_stmt\_bind\_param에 바인딩하는 변수의 타입 또는 포인터가 바뀌는 경우, "Function sequence error"가 발생할 수 있습니다.
 
 -   **module** : ux-cdbc
 
@@ -1637,7 +1637,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-51012 SQLColumns함수에서 SchemaName(스키마 이름) 인자에 NULL이 전달될 경우, 잘못된 데이터가 반환됩니다.
+### BUG-51012<a name=bug-51012></a> SQLColumns함수에서 SchemaName(스키마 이름) 인자에 NULL이 전달될 경우, 잘못된 데이터가 반환됩니다.
 
 -   **module** : mm-cli
 
@@ -1663,7 +1663,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-51013 ODBC 드라이버를 이용하여 다이너셋(dynaset) 테스트를 수행할 때, Altibase 데이터베이스에 연결이 성공했으나 다이너셋을 지원하지 않는다는 오류가 발생합니다.
+### BUG-51013<a name=bug-51013></a> ODBC 드라이버를 이용하여 다이너셋(dynaset) 테스트를 수행할 때, Altibase 데이터베이스에 연결이 성공했으나 다이너셋을 지원하지 않는다는 오류가 발생합니다.
 
 - **module** : mm-cli
 

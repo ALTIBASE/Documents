@@ -6,7 +6,7 @@ Altibase 7.3.0.0.8 Patch Notes
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [New Features](#new-features)
-  - [BUG-48885 통계 잠금 기능(LOCK_TABLE_STATS) 추가](bug-48885)
+  - [BUG-48885 통계 잠금 기능(LOCK_TABLE_STATS) 추가](#bug-48885)
 
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-50650 체크포인트 수행 중 내부적으로 Memory recovery LSN이 갱신되지 않은 상태에서 서버가 종료된 경우, 서버 재시작에 실패할 수 있습니다.](#bug-50650)
