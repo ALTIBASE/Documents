@@ -5084,25 +5084,27 @@ Altibase는 애플리케이션 개발 환경에서 언두 테이블스페이스�
 
 (P = Precision, V = Value length)
 
-| 자료형   | 예측 칼럼 크기                     |
-|----------|------------------------------------|
-| INTEGER  | 4                                  |
-| SMALLINT | 2                                  |
-| BIGINT   | 8                                  |
-| DATE     | 8                                  |
-| DOUBLE   | 8                                  |
-| CHAR     | 2 + P                              |
-| VARCHAR  | 22 + V                             |
-| NCHAR    | 2+(P \* 2)-UTF8 </br>2+(P \* 3)-UTF16   |
-| NVARCHAR | 22+(V \* 2)-UTF8 </br>22+(V \* 3)-UTF16 |
-| BIT      | 4 + (P/8)                          |
-| VARBIT   | 22 + (P/8)                         |
-| FLOAT    | 3 + (P+2)/2                        |
-| NUMERIC  | 3 + (P+2)/2                        |
+| 자료형   | 예측 칼럼 크기                          |
+| -------- | --------------------------------------- |
+| INTEGER  | 4                                       |
+| SMALLINT | 2                                       |
+| BIGINT   | 8                                       |
+| DATE     | 8                                       |
+| DOUBLE   | 8                                       |
+| CHAR     | 2+P                                     |
+| VARCHAR  | 22+V                                    |
+| NCHAR    | 2+(P*2) - UTF8 </br>2+(P\*3) - UTF16    |
+| NVARCHAR | 22+(V\*2) - UTF8 </br>22+(V\*3) - UTF16 |
+| BIT      | 4+(P/8)                                 |
+| VARBIT   | 22+(P/8)                                |
+| BYTE     | 2+P                                     |
+| VARBYTE  | 22+V                                    |
+| FLOAT    | 3+(P+2)/2                               |
+| NUMERIC  | 3+(P+2)/2                               |
 
 위 도표에서 P(Precision)는 테이블 생성시 결정된 칼럼의 크기를 가리킨다. P보다 긴 데이터는 해당 데이터 타입의 칼럼에 입력될 수 없다. V(Value length)는 입력된 데이터의 실제 길이로, V는 P보다 클 수 없다.
 
-CHAR, NCHAR, BIT 타입 같은 고정 길이 칼럼은 P 만큼의 공간을 항상 점유하므로, 칼럼의 길이는 데이터의 실제 길이에 상관없이 고정된다. 그러나 VARCHAR, NVARCHAR, VARBIT같은 가변 길이 칼럼은 점유하는 공간이 데이터 길이에 따라서 가변적이다.
+CHAR, NCHAR, BIT 타입 같은 고정 길이 칼럼은 P 만큼의 공간을 항상 점유하므로, 칼럼의 길이는 데이터의 실제 길이에 상관없이 고정된다. 그러나 VARCHAR, NVARCHAR, VARBIT, VARBYTE 같은 가변 길이 칼럼은 점유하는 공간이 데이터 길이에 따라서 가변적이다.
 
 디스크 테이블과 달리, 메모리 테이블은 데이터 접근 속도를 높이기 위한 패딩 공간을 포함한다. 이 공간의 크기는 데이터 타입과 칼럼의 위치에 따라서 가변적이다.
 
@@ -5208,87 +5210,102 @@ Altibase의 디스크 테이블 크기는 자료형과 데이터의 구성을 �
         <th>251바이트 이상</th>
     </tr>
     <tr>
-    	<td>Integer</td>
+    	<td>INTEGER</td>
         <td>1</td>
         <td>5</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>SmallInt</td>
+    	<td>SMALLINT</td>
         <td>1</td>
         <td>3</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>BigInt</td>
+    	<td>BIGINT</td>
         <td>1</td>
         <td>9</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>Date</td>
+    	<td>DATE</td>
         <td>1</td>
         <td>9</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>Double</td>
+    	<td>DOUBLE</td>
         <td>1</td>
         <td>9</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>Char</td>
+    	<td>CHAR</td>
         <td>1</td>
         <td>1+P</td>
         <td>3+P</td>
     </tr>
     <tr>
-    	<td>Varchar</td>
+    	<td>VARCHAR</td>
         <td>1</td>
         <td>1+V</td>
         <td>3+V</td>
     </tr>
     <tr>
-    	<td>NChar</td>
+    	<td>NCHAR</td>
         <td>1</td>
         <td>1+P</td>
         <td>3+P</td>
     </tr>
     <tr>
-    	<td>NVarchar</td>
+    	<td>NVARCHAR</td>
         <td>1</td>
         <td>1+V</td>
         <td>3+V</td>
     </tr>
     <tr>
-    	<td>Bit</td>
+    	<td>BIT</td>
         <td>1</td>
         <td>5+(P/8)</td>
         <td>7+(P/8)</td>
     </tr>
     <tr>
-    	<td>Varbit</td>
+    	<td>VARBIT</td>
         <td>1</td>
         <td>5+(V/8)</td>
         <td>7+(V/8)</td>
     </tr>
     <tr>
-    	<td>Float</td>
+    	<td>BYTE</td>
         <td>1</td>
-        <td>4+(V+2) / 2</td>
-        <td>6+(V+2) / 2</td>
+        <td>1+P</td>
+        <td>3+P</td>
     </tr>
     <tr>
-    	<td>Numeric</td>
+    	<td>VARBYTE</td>
         <td>1</td>
-        <td>4+(V+2) / 2</td>
-        <td>6+(V+2) / 2</td>
+        <td>1+V</td>
+        <td>3+V</td>
+    </tr>
+    <tr>
+    	<td>FLOAT</td>
+        <td>1</td>
+        <td>4+(V+2)/2</td>
+        <td>6+(V+2)/2</td>
+    </tr>
+    <tr>
+    	<td>NUMERIC</td>
+        <td>1</td>
+        <td>4+(V+2)/2</td>
+        <td>6+(V+2)/2</td>
     </tr>
 </table>
+
+
+
 위 도표에서 P(Precision)는 테이블 생성시 결정된 칼럼의 최대 크기이다. P 보다 큰 길이를 갖는 데이터는 그 타입의 칼럼에 입력되지 않는다. 또한 고정길이 칼럼인 CHAR, NCHAR, BIT 등은 항상 P 만큼의 공간을 점유하기 때문에, 데이터의 길이와 상관없이 칼럼의 길이는 일정하다.
 
-V(Value length)는 실제로 삽입된 데이터의 실제 길이로, P보다 클 수 없다. 또한 가변 길이 칼럼인 VARCHAR, NVARCHAR, VARVIT등은 데이터의 크기에 따라 점유하는 공간의 크기가 달라진다. 따라서 데이터의 크기에 따라 칼럼의 크기가 변한다.
+V(Value length)는 실제로 삽입된 데이터의 실제 길이로, P보다 클 수 없다. 또한 가변 길이 칼럼인 VARCHAR, NVARCHAR, VARBIT, VARBYTE 등은 데이터의 크기에 따라 점유하는 공간의 크기가 달라진다. 따라서 데이터의 크기에 따라 칼럼의 크기가 변한다.
 
 ##### 로우(row) 크기 추정
 
@@ -5343,84 +5360,85 @@ tablespace user_data02;
         <th>251바이트 이상</th>
     </tr>
     <tr>
-    	<td>Integer</td>
+    	<td>INTEGER</td>
         <td>4</td>
         <td>4</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>SmallInt</td>
+    	<td>SMALLINT</td>
         <td>2</td>
         <td>2</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>BigInt</td>
+    	<td>BIGINT</td>
         <td>8</td>
         <td>8</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>Date</td>
+    	<td>DATE</td>
         <td>8</td>
         <td>8</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>Double</td>
+    	<td>DOUBLE</td>
         <td>8</td>
         <td>8</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>Char</td>
+    	<td>CHAR</td>
         <td>1</td>
         <td>1+P</td>
         <td>3+P</td>
     </tr>
     <tr>
-    	<td>Varchar</td>
+    	<td>VARCHAR</td>
         <td>1</td>
         <td>1+V</td>
         <td>3+V</td>
     </tr>
     <tr>
-    	<td>NChar</td>
+    	<td>NCHAR</td>
         <td>1</td>
         <td>1+P</td>
         <td>3+P</td>
     </tr>
     <tr>
-    	<td>NVarchar</td>
+    	<td>NVARCHAR</td>
         <td>1</td>
         <td>1+V</td>
         <td>3+V</td>
     </tr>
     <tr>
-    	<td>Bit</td>
+    	<td>BIT</td>
         <td>1</td>
         <td>5+(P/8)</td>
         <td>7+(P/8)</td>
     </tr>
     <tr>
-    	<td>Varbit</td>
+    	<td>VARBIT</td>
         <td>1</td>
         <td>5+(V/8)</td>
         <td>7+(V/8)</td>
     </tr>
     <tr>
-    	<td>Float</td>
+    	<td>FLOAT</td>
         <td>1</td>
-        <td>4+(V+2) / 2</td>
-        <td>6+(V+2) / 2</td>
+        <td>4+(V+2)/2</td>
+        <td>6+(V+2)/2</td>
     </tr>
     <tr>
-    	<td>Numeric</td>
+    	<td>NUMERIC</td>
         <td>1</td>
         <td>4+(V+2) / 2</td>
         <td>6+(V+2) / 2</td>
     </tr>
 </table>
+
 
 위 도표에서 P(Precision)와 V(Value length)는 각각 테이블 생성시 결정된 칼럼의 최대 크기와 실제로 삽입된 데이터의 크기를 의미한다.
 

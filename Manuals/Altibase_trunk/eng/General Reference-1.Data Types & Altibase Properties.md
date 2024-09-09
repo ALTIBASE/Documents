@@ -441,7 +441,7 @@ Floating-Point Numbers Size Calculation: ( 3 + ( ( p ) + 2 ) / 2 )
 - - NUMBER: the same as FLOAT
 ```
 
-**Date Data Type**
+##### Date Data Type
 
 | Type | Size (byte) |
 | ---- | ----------- |
@@ -489,10 +489,20 @@ length = L if the input value is stored in a variable area<br>
 length = M if the input value is stored in a fixed area
 </td>
     </tr>
+    <tr>
+    	<td>VARBYTE</td>
+        <td>1 ~ 32000</td>
+        <td>length + 2<br>
+where<br>
+length = L if the input value is stored in a variable area<br>
+length = M if the input value is stored in a fixed area
+</td>
+    </tr>
     </table>
 
 
-**Geometry Data Type**
+
+##### Geometry Data Type
 
 | Type     | Length       | Size (byte) |
 | -------- | ------------ | ----------- |
