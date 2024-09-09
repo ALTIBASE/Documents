@@ -17,7 +17,7 @@ Altibase 6.5.1.10.2 Patch Notes
 New Features
 ============
 
-### BUG-47423 APRE에서 RETURNING INTO 절을 지원하도록 개선하였습니다.
+### BUG-47423<a name=bug-47423></a>  APRE에서 RETURNING INTO 절을 지원하도록 개선하였습니다.
 
 -   **module** : mm-apre
 
@@ -47,7 +47,7 @@ New Features
 Fixed Bugs
 ==========
 
-### BUG-50948 서버에 fetch할 데이터가 남아 있는 경우 ResultSet.close()를 해도 커서가 바로 닫히지 않을 수 있습니다.
+### BUG-50948<a name=bug-50948></a> 서버에 fetch할 데이터가 남아 있는 경우 ResultSet.close()를 해도 커서가 바로 닫히지 않을 수 있습니다.
 
 -   **module** : mm-jdbc
 
@@ -66,44 +66,52 @@ Fixed Bugs
     이 버그가 수정된 버전을 반영하려면 Altibase JDBC 드라이버를
     6.5.1.10.2 이상 버전으로 패치해야 합니다.
 
--   **재현 방법**
+- **재현 방법**
 
-    -   **재현 절차**
+  - **재현 절차**
 
-            iSQL> create table t1 (c1 int);
-            iSQL> insert into t1 select level from dual connect by level <= 1000;
-            [altibase.properties]
-            FETCH_TIMEOUT = 5 
-            sStmt.setFetchSize(1);
-            ResultSet sRs = sStmt.executeQuery("SELECT * FROM t1");
-            if (sRs.next())
-            {
-                System.out.println("col1 ===>" + sRs.getInt(1));
-            }
-            sRs.close();
-            Thread.sleep(7000);
-            sRs = sStmt.executeQuery("SELECT 1 FROM dual");
-            if (sRs.next())
-            {
-                System.out.println(sRs.getString(1));
-            }
+    ```java
+    iSQL> create table t1 (c1 int);
+    iSQL> insert into t1 select level from dual connect by level <= 1000;
+    
+    [altibase.properties]
+    FETCH_TIMEOUT = 5
+        
+    [Altibase 클라이언트]
+    sStmt.setFetchSize(1);
+    ResultSet sRs = sStmt.executeQuery("SELECT * FROM t1");
+    if (sRs.next())
+    {
+        System.out.println("col1 ===>" + sRs.getInt(1));
+    }
+    sRs.close();
+    Thread.sleep(7000);
+    sRs = sStmt.executeQuery("SELECT 1 FROM dual");
+    if (sRs.next())
+    {
+        System.out.println(sRs.getString(1));
+    }
+    ```
 
-    -   **수행 결과**
+  - **수행 결과**
 
-            [client]
-            Exception in thread "main" java.sql.SQLException: Communication link failure: There was no response from the server, and the channel has reached end-of-stream.
-            [server]
-            [2024/06/03 09:51:01 4EF][PID:26603][Thread-139699788171328][LWP-26592]
-            [Notify : Fetch Timeout] Session Closed by Server : Session ID = 2
-                CLIENT_INFO           => TCP 192.168.1.48:54096(PID : 2065530879)
-                Time Limit            => 5
-                Running Time          => 6
-                Transaction ID        => 5152
-                Caused by Query       => SELECT * FROM t1
+    ```java
+    [Altibase 클라이언트]
+    Exception in thread "main" java.sql.SQLException: Communication link failure: There was no response from the server, and the channel has reached end-of-stream.
+        
+    [Altibase 서버]
+    [2024/06/03 09:51:01 4EF][PID:26603][Thread-139699788171328][LWP-26592]
+    [Notify : Fetch Timeout] Session Closed by Server : Session ID = 2
+        CLIENT_INFO           => TCP 192.168.1.48:54096(PID : 2065530879)
+        Time Limit            => 5
+        Running Time          => 6
+        Transaction ID        => 5152
+        Caused by Query       => SELECT * FROM t1
+    ```
 
-    -   **예상 결과**
+  -   **예상 결과**
 
-            1
+          1
 
 -   **Workaround**
 
@@ -114,7 +122,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51012 SQLColumns함수에서 SchemaName(스키마 이름) 인자에 NULL이 전달될 경우, 잘못된 데이터가 반환됩니다.
+### BUG-51012<a name=bug-51012></a> SQLColumns함수에서 SchemaName(스키마 이름) 인자에 NULL이 전달될 경우, 잘못된 데이터가 반환됩니다.
 
 -   **module** : mm-cli
 
@@ -141,7 +149,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51013 ODBC 드라이버를 이용하여 다이너셋(dynaset) 테스트를 수행할 때, Altibase 데이터베이스에 연결이 성공했으나 다이너셋을 지원하지 않는다는 오류가 발생합니다.
+### BUG-51013<a name=bug-51013></a> ODBC 드라이버를 이용하여 다이너셋(dynaset) 테스트를 수행할 때, Altibase 데이터베이스에 연결이 성공했으나 다이너셋을 지원하지 않는다는 오류가 발생합니다.
 
 -   **module** : mm-cli
 
@@ -170,7 +178,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51041 디스크 테이블에서 DML 을 수행하는 중에 내부적으로테이블 정보를 기록하는 페이지가 깨진 경우, 서버가 비정상 종료되는 문제가 있습니다.
+### BUG-51041<a name=bug-51041></a> 디스크 테이블에서 DML 을 수행하는 중에 내부적으로테이블 정보를 기록하는 페이지가 깨진 경우, 서버가 비정상 종료되는 문제가 있습니다.
 
 -   **module** : sm
 
