@@ -453,7 +453,7 @@ New Features
     않습니다. 이전 버전에서는 대문자를 사용하면 "parse error" 에러가
     발생하였으나, 이 버그가 반영된 버전부터는 에러가 발생하지 않습니다.
 
-    ODBC 이스케이스 시퀀스 항목은 [Microsoft ODBC
+    ODBC 이스케이프 시퀀스 항목은 [Microsoft ODBC
     페이지](https://learn.microsoft.com/ko-kr/sql/odbc/reference/appendixes/odbc-escape-sequences?view=sql-server-ver16)를
     참고해 주십시오.
 
