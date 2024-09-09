@@ -5118,23 +5118,23 @@ The estimated size of each data type is shown in the following table.
 
 (P = Precision, V = Value length)
 
-| Data Type | Estimated Column Size                  |
-| --------- | -------------------------------------- |
-| INTEGER   | 4                                      |
-| SMALLINT  | 2                                      |
-| BIGINT    | 8                                      |
-| DATE      | 8                                      |
-| DOUBLE    | 8                                      |
-| CHAR      | 2+P                                    |
-| VARCHAR   | 22+V                                   |
-| NCHAR     | 2+(P*2) - UTF8<br>2+(P\*3) - UTF16     |
-| NVARCHAR  | 22+(V\*2 ) - UTF8<br>22+(V\*3) - UTF16 |
-| BIT       | 4+(P/8)                                |
-| BYTE      | 2+P                                    |
-| VARBIT    | 22+(P/8)                               |
-| VARBYTE   | 22+V                                   |
-| FLOAT     | 3+(P+2)/2                              |
-| NUMERIC   | 3+(P+2)/2                              |
+| Data Type | Estimated Column Size                 |
+| --------- | ------------------------------------- |
+| INTEGER   | 4                                     |
+| SMALLINT  | 2                                     |
+| BIGINT    | 8                                     |
+| DATE      | 8                                     |
+| DOUBLE    | 8                                     |
+| CHAR      | 2+P                                   |
+| VARCHAR   | 22+V                                  |
+| NCHAR     | 2+(P*2) - UTF8<br>2+(P\*3) - UTF16    |
+| NVARCHAR  | 22+(V\*2) - UTF8<br>22+(V\*3) - UTF16 |
+| BIT       | 4+(P/8)                               |
+| BYTE      | 2+P                                   |
+| VARBIT    | 22+(P/8)                              |
+| VARBYTE   | 22+V                                  |
+| FLOAT     | 3+(P+2)/2                             |
+| NUMERIC   | 3+(P+2)/2                             |
 
 In the above table, P (Precision) indicates the size of the column determined when the table is created. Data longer than P cannot be inserted into a column of the corresponding data type. V (Value) is the actual length of the inserted data, so V cannot be greater than P. 
 
@@ -5394,84 +5394,97 @@ In Altibase, the size of a disk index can be calculated based on the actual data
         <th>Greater than 250 bytes</th>
     </tr>
     <tr>
-    	<td>Integer</td>
+    	<td>INTEGER</td>
         <td>4</td>
         <td>4</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>SmallInt</td>
+    	<td>SMALLINT</td>
         <td>2</td>
         <td>2</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>BigInt</td>
+    	<td>BIGINT</td>
         <td>8</td>
         <td>8</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>Date</td>
+    	<td>DATE</td>
         <td>8</td>
         <td>8</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>Double</td>
+    	<td>DOUBLE</td>
         <td>8</td>
         <td>8</td>
         <td>X</td>
     </tr>
     <tr>
-    	<td>Char</td>
+    	<td>CHAR</td>
         <td>1</td>
         <td>1+P</td>
         <td>3+P</td>
     </tr>
     <tr>
-    	<td>Varchar</td>
+    	<td>VARCHAR</td>
         <td>1</td>
         <td>1+V</td>
         <td>3+V</td>
     </tr>
     <tr>
-    	<td>NChar</td>
+    	<td>NCHAR</td>
         <td>1</td>
         <td>1+P</td>
         <td>3+P</td>
     </tr>
     <tr>
-    	<td>NVarchar</td>
+    	<td>NVARCHAR</td>
         <td>1</td>
         <td>1+V</td>
         <td>3+V</td>
     </tr>
     <tr>
-    	<td>Bit</td>
+    	<td>BIT</td>
         <td>1</td>
         <td>5+(P/8)</td>
         <td>7+(P/8)</td>
     </tr>
     <tr>
-    	<td>Varbit</td>
+    	<td>VARBIT</td>
         <td>1</td>
         <td>5+(V/8)</td>
         <td>7+(V/8)</td>
     </tr>
     <tr>
-    	<td>Float</td>
+    	<td>BYTE</td>
+        <td>1</td>
+        <td>1+P</td>
+        <td>3+P</td>
+    </tr>
+    <tr>
+    	<td>VARBYTE</td>
+        <td>1</td>
+        <td>1+V</td>
+        <td>3+V</td>
+    </tr>
+    <tr>
+    	<td>FLOAT</td>
         <td>1</td>
         <td>4+(V+2) / 2</td>
         <td>6+(V+2) / 2</td>
     </tr>
     <tr>
-    	<td>Numeric</td>
+    	<td>NUMERIC</td>
         <td>1</td>
         <td>4+(V+2) / 2</td>
         <td>6+(V+2) / 2</td>
     </tr>
 </table>
+
 
 In the above table, P (Precision) and V (Value) respectively indicate the maximum size of the column, which is set when the table is created, and the size of the data that are actually inserted into the table. 
 

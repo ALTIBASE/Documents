@@ -447,7 +447,7 @@ Floating-Point Numbers Size Calculation: ( 3 + ( ( p ) + 2 ) / 2 )
 | ---- | ----------- |
 | DATE | 8           |
 
-**Binary Data Types**
+##### Binary Data Types
 
 <table>
     <tr>

@@ -5301,8 +5301,6 @@ Altibase의 디스크 테이블 크기는 자료형과 데이터의 구성을 �
     </tr>
 </table>
 
-
-
 위 도표에서 P(Precision)는 테이블 생성시 결정된 칼럼의 최대 크기이다. P 보다 큰 길이를 갖는 데이터는 그 타입의 칼럼에 입력되지 않는다. 또한 고정길이 칼럼인 CHAR, NCHAR, BIT 등은 항상 P 만큼의 공간을 점유하기 때문에, 데이터의 길이와 상관없이 칼럼의 길이는 일정하다.
 
 V(Value length)는 실제로 삽입된 데이터의 실제 길이로, P보다 클 수 없다. 또한 가변 길이 칼럼인 VARCHAR, NVARCHAR, VARBIT, VARBYTE 등은 데이터의 크기에 따라 점유하는 공간의 크기가 달라진다. 따라서 데이터의 크기에 따라 칼럼의 크기가 변한다.
@@ -5426,6 +5424,18 @@ tablespace user_data02;
         <td>7+(V/8)</td>
     </tr>
     <tr>
+    	<td>BYTE</td>
+        <td>1</td>
+        <td>1+P</td>
+        <td>3+P</td>
+    </tr>
+    <tr>
+    	<td>VARBYTE</td>
+        <td>1</td>
+        <td>1+V</td>
+        <td>3+V</td>
+    </tr>
+    <tr>
     	<td>FLOAT</td>
         <td>1</td>
         <td>4+(V+2)/2</td>
@@ -5434,11 +5444,10 @@ tablespace user_data02;
     <tr>
     	<td>NUMERIC</td>
         <td>1</td>
-        <td>4+(V+2) / 2</td>
-        <td>6+(V+2) / 2</td>
+        <td>4+(V+2)/2</td>
+        <td>6+(V+2)/2</td>
     </tr>
 </table>
-
 
 위 도표에서 P(Precision)와 V(Value length)는 각각 테이블 생성시 결정된 칼럼의 최대 크기와 실제로 삽입된 데이터의 크기를 의미한다.
 
