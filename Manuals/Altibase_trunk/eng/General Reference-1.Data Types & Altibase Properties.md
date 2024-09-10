@@ -438,7 +438,7 @@ Floating-Point Numbers Size Calculation: ( 3 + ( ( p ) + 2 ) / 2 )
 - FLOAT(p)  
   FLOAT(20): Size = 3 + 22/2 = 14 bytes
   
-- - NUMBER: the same as FLOAT
+- NUMBER: the same as FLOAT
 ```
 
 ##### Date Data Type
