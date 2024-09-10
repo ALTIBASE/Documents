@@ -453,7 +453,7 @@ Floating-Point Numbers Size Calculation: ( 3 + ( ( p ) + 2 ) / 2 )
     <tr>
     	<td colspan="3"><pre>M : Defined column length
 L : The length of the input value</pre>
-</td>
+		</td>
     </tr>
     <tr>
     	<th>Type</th>
@@ -470,7 +470,16 @@ L : The length of the input value</pre>
         <td>1 ~ 32000</td>
         <td>M + 2</td>
     </tr>
-     <tr>
+    <tr>
+    	<td>VARBYTE</td>
+        <td>1 ~ 32000</td>
+        <td>length + 2<br>
+			where<br>
+			length = L if the input value is stored in a variable area<br>
+			length = M if the input value is stored in a fixed area
+		</td>
+    </tr>
+    <tr>
     	<td>NIBBLE</td>
         <td>1 ~ 254</td>
         <td>M/2 + 1</td>
@@ -484,22 +493,12 @@ L : The length of the input value</pre>
     	<td>VARBIT</td>
         <td>1 ~ 64000</td>
         <td>length/8 + 4<br>
-where<br>
-length = L if the input value is stored in a variable area<br>
-length = M if the input value is stored in a fixed area
-</td>
+			where<br>
+			length = L if the input value is stored in a variable area<br>
+			length = M if the input value is stored in a fixed area
+		</td>
     </tr>
-    <tr>
-    	<td>VARBYTE</td>
-        <td>1 ~ 32000</td>
-        <td>length + 2<br>
-where<br>
-length = L if the input value is stored in a variable area<br>
-length = M if the input value is stored in a fixed area
-</td>
-    </tr>
-    </table>
-
+</table>
 
 
 ##### Geometry Data Type

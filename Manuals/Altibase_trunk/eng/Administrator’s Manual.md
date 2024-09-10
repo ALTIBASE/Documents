@@ -5130,15 +5130,15 @@ The estimated size of each data type is shown in the following table.
 | NCHAR     | 2+(P*2) - UTF8<br>2+(P\*3) - UTF16    |
 | NVARCHAR  | 22+(V\*2) - UTF8<br>22+(V\*3) - UTF16 |
 | BIT       | 4+(P/8)                               |
-| BYTE      | 2+P                                   |
 | VARBIT    | 22+(P/8)                              |
+| BYTE      | 2+P                                   |
 | VARBYTE   | 22+V                                  |
 | FLOAT     | 3+(P+2)/2                             |
 | NUMERIC   | 3+(P+2)/2                             |
 
 In the above table, P (Precision) indicates the size of the column determined when the table is created. Data longer than P cannot be inserted into a column of the corresponding data type. V (Value) is the actual length of the inserted data, so V cannot be greater than P. 
 
-In fixed-length columns, such as those of type CHAR, NCHAR, BIT etc., space equal to P is always occupied, and therefore the length of the column is fixed regardless of the actual length of the data. However, for variable-length columns, such as those of type VARCHAR, NVARCHAR, VARBIT, VARBYTE etc., the amount of space occupied varies depending on the length of the data.
+In fixed-length columns, such as those of type CHAR, NCHAR, BIT, etc., space equal to P is always occupied, and therefore the length of the column is fixed regardless of the actual length of the data. However, for variable-length columns, such as those of type VARCHAR, NVARCHAR, VARBIT, VARBYTE, etc., the amount of space occupied varies depending on the length of the data.
 
 Unlike disk tables, memory tables contain padded space to increase the speed of data access. The size of this space varies according to the data type and the position of the column.
 
@@ -5333,11 +5333,9 @@ In Altibase, the size of a disk table can be calculated on the basis of the data
         <td>6+(V+2)/2</td>
     </tr>
 </table>
-
-
 In the above table, P (Precision) indicates the maximum size of the column, which is set when the table is created. Data longer than P cannot be inserted into a column of that type. Additionally, for fixed-length columns, such as those of type CHAR, NCHAR, BIT, etc., space equal to P is always occupied, and therefore the length of the column is fixed regardless of the actual length of the data.
 
-V (Value) denotes the actual length of the inserted data, which of course cannot be greater than P. In addition, the amount of space occupied by variable-length columns, such as those of type VARCHAR, NVARCHAR, VARBIT, VARBYTE etc., varies according to the length of the data. Therefore, the column size can vary depending on the size of the data.
+V (Value) denotes the actual length of the inserted data, which of course cannot be greater than P. In addition, the amount of space occupied by variable-length columns, such as those of type VARCHAR, NVARCHAR, VARBIT, VARBYTE, etc., varies according to the length of the data. Therefore, the column size can vary depending on the size of the data.
 
 ##### Estimating Row Size
 
@@ -5474,17 +5472,16 @@ In Altibase, the size of a disk index can be calculated based on the actual data
     <tr>
     	<td>FLOAT</td>
         <td>1</td>
-        <td>4+(V+2) / 2</td>
-        <td>6+(V+2) / 2</td>
+        <td>4+(V+2)/2</td>
+        <td>6+(V+2)/2</td>
     </tr>
     <tr>
     	<td>NUMERIC</td>
         <td>1</td>
-        <td>4+(V+2) / 2</td>
-        <td>6+(V+2) / 2</td>
+        <td>4+(V+2)/2</td>
+        <td>6+(V+2)/2</td>
     </tr>
 </table>
-
 
 In the above table, P (Precision) and V (Value) respectively indicate the maximum size of the column, which is set when the table is created, and the size of the data that are actually inserted into the table. 
 
