@@ -8168,7 +8168,12 @@ Migration Center를 구동하는데 사용한 Java Runtime Environment (JRE) 의
 
 `해결 방법`
 
-$JAVA_HOME/jre/lib/security/java.security 파일의 jdk.tls.disabledAlgorithms 항목에서 TLSv1, TLSv1.1을 제거하면 이전 버전의 TLS를 사용 가능하다. 
+java.security 파일의 jdk.tls.disabledAlgorithms 항목에서 TLSv1, TLSv1.1을 제거하면 이전 버전의 TLS를 사용 가능하다. 
+
+java.security 파일의 경로는 자바 버전에 따라 다르다:
+
+- 자바 11 미만: `$JAVA_HOME/jre/lib/security`
+- 자바 11 이상: `$JAVA_HOME/conf/security`
 
 ~~~java
 //jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, 

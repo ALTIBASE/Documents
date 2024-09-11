@@ -993,6 +993,7 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
     DATE_TEST=WHERE C2 > TO_DATE('2023-12-02', 'YYYY-MM-DD');
     ```
     
+
 보다 상세한 파일 편집 방법과 제약점은 파일 상단에서 제공하는 안내를 참조한다.
 
 ##### "Unacceptable Name" 단계
@@ -1053,7 +1054,7 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
    1. Queue: 큐 객체 마이그레이션
 
    2. Constraints: 유니크, 프라이머리 키, 외래 키, 및 check 제약 조건 등의 제약 조건 마이그레이션
-      
+   
 3. Index: 인덱스 객체 마이그레이션
    
 4. Synonym: PRIVATE 시노님 객체 마이그레이션
@@ -7809,7 +7810,12 @@ Migration Center를 구동하는데 사용한 Java Runtime Environment (JRE) 의
 
 `해결 방법`
 
-$JAVA_HOME/jre/lib/security/java.security 파일의 jdk.tls.disabledAlgorithms 항목에서 TLSv1, TLSv1.1을 제거하면 이전 버전의 TLS를 사용 가능하다. 
+java.security 파일의 jdk.tls.disabledAlgorithms 항목에서 TLSv1, TLSv1.1을 제거하면 이전 버전의 TLS를 사용 가능하다.
+
+java.security 파일의 경로는 자바 버전에 따라 다르다:
+
+- 자바 11 미만: `$JAVA_HOME/jre/lib/security`
+- 자바 11 이상: `$JAVA_HOME/conf/security`
 
 ~~~java
 //jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, 
