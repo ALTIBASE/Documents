@@ -1102,51 +1102,52 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
 
 마이그레이션 대상이 되는 원본 데이터베이스의 객체와 테이블의 데이터가 저장하려는 데이터베이스(Altibase)로 직접 마이그레이션된다.
 
-| 이름                                                         | 설명                                                         |
-| :----------------------------------------------------------- | :----------------------------------------------------------- |
-| Execution Thread                                             | 데이터 마이그레이션 실행 시 수행할 최대 스레드 개수를 설정한다. 기본 설정은 마이그레이션 센터가 실행된 시스템의 논리 CPU 개수 * 3이다. 설정값 범위는 1 ~ 논리 CPU 개수 * 3을 권장한다. |
-| Migration Target                                             | 마이그레이션 대상을 선택한다. <br />- Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />- Object: 데이터베이스 객체만 |
-| **Object Options**                                           |                                                              |
-| Foreign Key Migration                                        | 마이그레이션 대상에 외래 키 제약 조건 포함 여부를 설정한다. 기본 설정은 No이다. |
-| PSM Migration                                                | 마이그레이션 대상에 PSM 객체(저장 프로시저, 저장 함수, Materialized View, 뷰, 타입 세트 및 트리거) 포함 여부를 설정한다. 기본 설정은 Yes이다. |
-| Drop Existing Objects                                        | 마이그레이션 수행 전 데이터베이스 객체 재생성 여부를 설정한다.<br />Yes는 대상 데이터베이스에서 마이그레이션 대상 객체를 삭제(Drop)하고 생성(Create)한다. No는 데이터베이스 객체 삭제 과정 없이 마이그레이션을 수행한다. 기본 설정은 No이다. |
-| Keep Partition Table                                         | 파티션드 테이블 유지 여부를 설정한다. <br />Yes는 변환 가능한 경우 원본 데이터베이스와 동일한 파티션드 테이블을 생성한다. 이 경우 사용자는 조정(Reconcile) 단계 중 5. Partitioned Table Conversion에서 파티션드 테이블 변환에 필요한 추가 작업을 진행해야 한다. No는 논파티션드 테이블로 변경하여 생성한다. 기본 설정은 No이다. |
-| Use Double-quoted Identifier                                 | 데이터베이스 객체 이름에 큰 따옴표 사용 여부를 설정한다. 기본 설정은 No이다. |
-| Remove FORCE from View DDL                                   | 뷰 생성 구문에서 'FORCE' 키워드 삭제 여부를 설정한다. 기본 설정은 Yes이다. |
-| Postfix for reserved word                                    | 원본 데이터베이스 객체 이름이 Altibase 예약어와 충돌할 경우 객체 이름에 추가할 접미사를 설정한다. 기본 설정은 _POC이다. |
-| ✓ Default '' (Empty String) Not Null Column<br />질의 01:표에 추가될 사항인 것 같아서 추가했습니다. | 빈 문자열(Empty string)이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼의 정의를 어떻게 할 것이지 설정한다. <br />- Replace Default Empty String: 'Yes'로 설정하면 Replacement Default Value에 설정한 문자열로 기본값을 변경한다. 기본 설정은 ?이다.<br />- Replacement Default Value: 기본값으로 설정될 문자열을 입력한다.<br />- Remove Not Null: NOT NULL 제약 조건을 해제한다. 기본 설정은 ?이다. |
-| **Data Options**                                             |                                                              |
-| Batch Execution                                              | 성능 향상을 위한 JDBC 배치 입력 사용 여부를 설정한다. 기본 설정은 Yes이다. |
-| Batch Size                                                   | JDBC 배치 입력 사용 시 배치 크기를 지정한다. 기본 설정은 10000이다. |
-| Batch LOB type                                               | BLOB, CLOB 데이터 타입의 배치 처리 여부를 지정한다. <br/>Yes는 배치 처리를 허용하는 것을 의미한다. 단, LOB 데이터 크기에 따라 메모리 초과 (Out Of Memory) 등의 문제가 발생할 수 있음을 주의해야 한다. 또한 배치 기능을 지원하지 않는 TimesTen에서 예외가 발생할 수 있다. <br />No는 배치 처리를 허용하지 않는다. 기본 설정은 No이다. |
-| Log Insert-failed Data                                       | 데이터 마이그레이션 중 입력 실패한 행(row)을 로그 파일에 작성할 것인지 설정한다. 이 옵션은 Batch Execution 옵션이 No인 경우 활성화된다. 기본 설정은 No이다. |
-| File Encoding                                                | 입력 실패한 레코드를 파일에 기록할 때 인코딩 문자 집합을 지정한다. Log Insert-failed Data 옵션이 Yes인 경우 활성화된다. 기본설정은 UTF8이다. |
-| ✓ Replace Empty String Data<br />질의 02: 질의 01과 동일     | 데이터 마이그레이션 수행 중 발견된 빈 문자열을 사용자가 지정한 문자열로 변경하기 위한 옵션이다.<br />- Replace Empty Strings in Not Null:  'Yes'로 설정하면 'Replacement String'에 설정한 문자열로 빈 문자열을 변경한다. 기본 설정은 ?이다.<br />- Replacement String: 'Replace Empty Strings in Not Null' 설정이 'Yes'일때 빈 문자열을 대체할 문자열을 입력한다.<br />- Apply to Nullable Columns: 'Yes'로 설정하면 NOT NULL 제약 조건이 걸려있지 않은 칼럼의 빈 문자열도 Replacement String에 입력한 문자열로 같이 변경한다. 기본 설정은 ?이다. |
-| **Data Validation Options**                                  |                                                              |
-| Operation                                                    | 검증 단계에서 수행할 연산을 선택한다. <br />- DIFF : 원본 및 대상 데이터베이스 간 데이터 불일치 검사 <br />- FILESYNC: DIFF의 결과로 생성된 CSV 파일을 대상 데이터베이스에 반영 |
-| Write to CSV                                                 | 불일치 데이터를 CSV 파일에 기록할 것인지 설정한다.           |
-| Include LOB                                                  | 불일치 데이터를 CSV 파일에 기록할 때 LOB 데이터를 포함할 것인지 설정한다. |
-| Data Sampling                                                | 데이터 샘플링 기능 사용 여부를 설정한다.<br />Yes는 검증 단계의 소요 시간을 줄이기 위해, 샘플 데이터를 대상으로 검증 단계를 수행한다. No는 전체 데이터를 대상으로 검증 단계를 수행한다. 기본 설정은 Yes이다. |
-| Percent Sampling (exact counting)                            | 테이블에서 샘플링할 데이터의 비율을 퍼센트 단위로 지정한다. 구축 단계에서 Exact Counting Method를 선택한 경우 이 옵션이 사용된다. |
-| Record Count Sampling (approximate counting)                 | 테이블에서 샘플링할 레코드의 개수를 지정한다. 구축 단계에서 Approximate Counting Method를 선택한 경우 이 옵션이 사용된다. |
+| 이름                                         | 설명                                                         |
+| :------------------------------------------- | :----------------------------------------------------------- |
+| Execution Thread                             | 데이터 마이그레이션 실행 시 수행할 최대 스레드 개수를 설정한다. 기본 설정은 마이그레이션 센터가 실행된 시스템의 논리 CPU 개수 * 3이다. 설정값 범위는 1 ~ 논리 CPU 개수 * 3을 권장한다. |
+| Migration Target                             | 마이그레이션 대상을 선택한다. <br />- Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />- Object: 데이터베이스 객체만 |
+| **Object Options**                           |                                                              |
+| Foreign Key Migration                        | 마이그레이션 대상에 외래 키 제약 조건 포함 여부를 설정한다. 기본 설정은 No이다. |
+| PSM Migration                                | 마이그레이션 대상에 PSM 객체(저장 프로시저, 저장 함수, Materialized View, 뷰, 타입 세트 및 트리거) 포함 여부를 설정한다. 기본 설정은 Yes이다. |
+| Drop Existing Objects                        | 마이그레이션 수행 전 데이터베이스 객체 재생성 여부를 설정한다.<br />Yes는 대상 데이터베이스에서 마이그레이션 대상 객체를 삭제(Drop)하고 생성(Create)한다. No는 데이터베이스 객체 삭제 과정 없이 마이그레이션을 수행한다. 기본 설정은 No이다. |
+| Keep Partition Table                         | 파티션드 테이블 유지 여부를 설정한다. <br />Yes는 변환 가능한 경우 원본 데이터베이스와 동일한 파티션드 테이블을 생성한다. 이 경우 사용자는 조정(Reconcile) 단계 중 5. Partitioned Table Conversion에서 파티션드 테이블 변환에 필요한 추가 작업을 진행해야 한다. No는 논파티션드 테이블로 변경하여 생성한다. 기본 설정은 No이다. |
+| Use Double-quoted Identifier                 | 데이터베이스 객체 이름에 큰 따옴표 사용 여부를 설정한다. 기본 설정은 No이다. |
+| Remove FORCE from View DDL                   | 뷰 생성 구문에서 'FORCE' 키워드 삭제 여부를 설정한다. 기본 설정은 Yes이다. |
+| Postfix for reserved word                    | 원본 데이터베이스 객체 이름이 Altibase 예약어와 충돌할 경우 객체 이름에 추가할 접미사를 설정한다. 기본 설정은 _POC이다. |
+| Default '' (Empty String) Not Null Column    | 빈 문자열(Empty string)[^1]이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼의 정의를 어떻게 처리할 지 설정한다. <br />- Replace Default Empty String: Yes로 설정하면 Replacement Default Value에 설정한 문자열로 기본값을 변경한다. 기본 설정은 No이다.<br />- Replacement Default Value: 기본값으로 설정될 문자열을 입력한다.<br />- Remove Not Null: NOT NULL 제약 조건을 해제한다. 기본 설정은 No이다. |
+| **Data Options**                             |                                                              |
+| Batch Execution                              | 성능 향상을 위한 JDBC 배치 입력 사용 여부를 설정한다. 기본 설정은 Yes이다. |
+| Batch Size                                   | JDBC 배치 입력 사용 시 배치 크기를 지정한다. 기본 설정은 10000이다. |
+| Batch LOB type                               | BLOB, CLOB 데이터 타입의 배치 처리 여부를 지정한다. <br/>Yes는 배치 처리를 허용하는 것을 의미한다. 단, LOB 데이터 크기에 따라 메모리 초과 (Out Of Memory) 등의 문제가 발생할 수 있음을 주의해야 한다. 또한 배치 기능을 지원하지 않는 TimesTen에서 예외가 발생할 수 있다. <br />No는 배치 처리를 허용하지 않는다. 기본 설정은 No이다. |
+| Log Insert-failed Data                       | 데이터 마이그레이션 중 입력 실패한 행(row)을 로그 파일에 작성할 것인지 설정한다. 이 옵션은 Batch Execution 옵션이 No인 경우 활성화된다. 기본 설정은 No이다. |
+| File Encoding                                | 입력 실패한 레코드를 파일에 기록할 때 인코딩 문자 집합을 지정한다. Log Insert-failed Data 옵션이 Yes인 경우 활성화된다. 기본설정은 UTF8이다. |
+| Replace Empty String Data                    | 데이터 마이그레이션 수행 중 발견한 빈 문자열을 사용자가 지정한 문자열로 변경하기 위한 옵션이다.<br />- Replace Empty Strings in Not Null:  Yes로 설정하면 'Replacement String'에 설정한 문자열로 빈 문자열을 변경한다. 기본 설정은  No이다.<br />- Replacement String: 'Replace Empty Strings in Not Null' 설정이 Yes일때 빈 문자열을 대체할 문자열을 입력한다.<br />- Apply to Nullable Columns: Yes로 설정하면 NOT NULL 제약 조건이 걸려있지 않은 칼럼의 빈 문자열도 Replacement String에 입력한 문자열로 같이 변경한다. 기본 설정은  No이다. |
+| **Data Validation Options**                  |                                                              |
+| Operation                                    | 검증 단계에서 수행할 연산을 선택한다. <br />- DIFF : 원본 및 대상 데이터베이스 간 데이터 불일치 검사 <br />- FILESYNC: DIFF의 결과로 생성된 CSV 파일을 대상 데이터베이스에 반영 |
+| Write to CSV                                 | 불일치 데이터를 CSV 파일에 기록할 것인지 설정한다.           |
+| Include LOB                                  | 불일치 데이터를 CSV 파일에 기록할 때 LOB 데이터를 포함할 것인지 설정한다. |
+| Data Sampling                                | 데이터 샘플링 기능 사용 여부를 설정한다.<br />Yes는 검증 단계의 소요 시간을 줄이기 위해, 샘플 데이터를 대상으로 검증 단계를 수행한다. No는 전체 데이터를 대상으로 검증 단계를 수행한다. 기본 설정은 Yes이다. |
+| Percent Sampling (exact counting)            | 테이블에서 샘플링할 데이터의 비율을 퍼센트 단위로 지정한다. 구축 단계에서 Exact Counting Method를 선택한 경우 이 옵션이 사용된다. |
+| Record Count Sampling (approximate counting) | 테이블에서 샘플링할 레코드의 개수를 지정한다. 구축 단계에서 Approximate Counting Method를 선택한 경우 이 옵션이 사용된다. |
+
+[^1]: 길이가 0인 문자열
 
 ### DB to File 마이그레이션 옵션
 
 마이그레이션 대상이 되는 원본 데이터베이스의 객체와 테이블의 데이터가 SQL 스크립트 파일, form 파일, CSV 형태의 데이터 파일로 각각 저장된다. 저장된 파일들은 iSQL, iLoader를 이용하여 저장하려는 데이터베이스(Altibase)로 마이그레이션 할 수 있다.
 
-✓ 질의 03: 여기 표에는 아무것도 안들어가도 되는 건가요?
-
-| 이름                         | 설명                                                         |
-| ---------------------------- | ------------------------------------------------------------ |
-| Execution Thread             | 데이터 마이그레이션 실행 시 수행할 최대 스레드 개수를 설정한다. 기본 설정은 마이그레이션 센터가 실행된 시스템의 논리 CPU 개수 * 3이다. 설정값 범위는 1 ~ 논리 CPU 개수 * 3을 권장한다. |
-| Migration Target             | 마이그레이션 대상을 선택한다. <br />- Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />- Object: 데이터베이스 객체만 |
-| **Object Options**           |                                                              |
-| Foreign Key Migration        | 마이그레이션 대상에 외래 키 제약 조건 포함 여부를 설정한다. 기본 설정은 No이다. |
-| PSM Migration                | 마이그레이션 대상에 PSM 객체(저장 프로시저, 저장 함수, Materialized View, 뷰, 타입 세트 및 트리거) 포함 여부를 설정한다. 기본 설정은 Yes이다. |
-| Keep Partition Table         | 파티션드 테이블 유지 여부를 설정한다. <br />Yes는 변환 가능한 경우 원본 데이터베이스와 동일한 파티션드 테이블을 생성한다. 이 경우 사용자는 조정(Reconcile) 단계 중 5. Partitioned Table Conversion에서 파티션드 테이블 변환에 필요한 추가 작업을 진행해야 한다. No는 논파티션드 테이블로 변경하여 생성한다. 기본 설정은 No이다. |
-| Use Double-quoted Identifier | 데이터베이스 객체 이름에 큰 따옴표 사용 여부를 설정한다. 기본 설정은 No이다. |
-| **Data Files**               |                                                              |
-| File Encoding                | 스크립트와 데이터 파일 출력에 사용될 인코딩 문자 집합을 지정한다. |
+| 이름                                      | 설명                                                         |
+| ----------------------------------------- | ------------------------------------------------------------ |
+| Execution Thread                          | 데이터 마이그레이션 실행 시 수행할 최대 스레드 개수를 설정한다. 기본 설정은 마이그레이션 센터가 실행된 시스템의 논리 CPU 개수 * 3이다. 설정값 범위는 1 ~ 논리 CPU 개수 * 3을 권장한다. |
+| Migration Target                          | 마이그레이션 대상을 선택한다. <br />- Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />- Object: 데이터베이스 객체만 |
+| **Object Options**                        |                                                              |
+| Foreign Key Migration                     | 마이그레이션 대상에 외래 키 제약 조건 포함 여부를 설정한다. 기본 설정은 No이다. |
+| PSM Migration                             | 마이그레이션 대상에 PSM 객체(저장 프로시저, 저장 함수, Materialized View, 뷰, 타입 세트 및 트리거) 포함 여부를 설정한다. 기본 설정은 Yes이다. |
+| Keep Partition Table                      | 파티션드 테이블 유지 여부를 설정한다. <br />Yes는 변환 가능한 경우 원본 데이터베이스와 동일한 파티션드 테이블을 생성한다. 이 경우 사용자는 조정(Reconcile) 단계 중 5. Partitioned Table Conversion에서 파티션드 테이블 변환에 필요한 추가 작업을 진행해야 한다. No는 논파티션드 테이블로 변경하여 생성한다. 기본 설정은 No이다. |
+| Use Double-quoted Identifier              | 데이터베이스 객체 이름에 큰 따옴표 사용 여부를 설정한다. 기본 설정은 No이다. |
+| Default '' (Empty String) Not Null Column | 빈 문자열이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼의 정의를 어떻게 처리할 지 설정한다. <br />- Replace Default Empty String: Yes로 설정하면 Replacement Default Value에 설정한 문자열로 기본값을 변경한다. 기본 설정은 No이다.<br />- Replacement Default Value: 기본값으로 설정될 문자열을 입력한다.<br />- Remove Not Null: NOT NULL 제약 조건을 해제한다. 기본 설정은  No이다. |
+| **Data Files**                            |                                                              |
+| File Encoding                             | 스크립트와 데이터 파일 출력에 사용될 인코딩 문자 집합을 지정한다. |
 
 <br/>
 
@@ -1851,21 +1852,27 @@ Altibase의 테이블 칼럼의 기본값은 원본 데이터베이스의 기본
 
 Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 데이터베이스에 원본 데이터베이스의 테이블과 동일한 테이블을 생성한다. 이를 위해 원본 데이터베이스의 테이블 속성과 일치하는 테이블 생성 구문을 먼저 만든다. 이 때 Migration Center는 원본 테이블의 칼럼 기본값과 동일하게 대상 테이블의 칼럼에 기본값을 설정하려 한다. 이 절의 맵핑 테이블에 나열된 기본값은 Migration Center가 CREATE TABLE 문 생성시에 표에 따라 변환하여 지정한다. 그 외의 기본값은 변경 없이 그대로 CREATE TABLE 문에 지정된다.
 
-> 주의: 변경 없이 그대로 사용되는 기본값 중에는 원본과 대상 데이터베이스간에 호환이 되지 않는 것이 있을 수 있다. 필요하다면 나중에 사용자가 Reconcile 단계의 DDL Editing 창에서 직접 CREATE TABLE 문의 기본값을 수정해야 한다.
+> [!caution]
+>
+> 변경 없이 그대로 사용되는 기본값 중에는 원본과 대상 데이터베이스간에 호환이 되지 않는 것이 있을 수 있다. 필요하다면 나중에 사용자가 Reconcile 단계의 DDL Editing 창에서 직접 CREATE TABLE 문의 기본값을 수정해야 한다.
 
 #### 기본값 맵핑 정책
 
-- 대다수의 원본 데이터베이스 기본값은 변경 없이 대상 데이터베이스와 호환된다. 하지만 아래의 경우에는 Migration Center가 원본 데이터베이스의 기본값을 대상 데이터베이스 정책에 맞춰 변환한다.
+대다수의 원본 데이터베이스 기본값은 변경 없이 대상 데이터베이스와 호환된다. 하지만 아래의 경우에는 Migration Center가 원본 데이터베이스의 기본값을 대상 데이터베이스 정책에 맞춰 변환한다.
+
+- 문자형 데이터 타입의 기본값이 빈 문자열인 경우
+
+  Altibase는 빈 문자열(`''`)을 NULL로 인식하므로, 기본값을 지정하지 않는다. 다만 칼럼의 기본값이 빈 문자열이면서 NOT NULL 제약 조건도 설정한 칼럼의 경우 [빈 문자열 처리 옵션](#빈-문자열-처리-옵션) 절의 내용을 참고한다.
+
+- 날짜형 데이터 타입의 기본값이 문자열 표현인 경우
   
-  ✓ 질의 04: 아래 내용이 추가되어야 할 것 같아서 문장을 수정했습니다.
-  
-- 문자형 데이터 타입의 기본값이 빈 문자열(Empty string)인 경우 : Altibase는 빈 문자열(`''`)을 NULL로 인식하므로, 기본값을 지정하지 않는다. 다만 칼럼의 기본값이 빈 문자열이면서 NOT NULL 제약 조건도 설정한 칼럼의 경우 [빈 문자열 처리 옵션](#빈-문자열-처리-옵션) 절의 내용을 참고한다.
-  
-- 날짜형 데이터 타입의 기본값이 문자열 표현인 경우 : 원본 데이터베이스 별로 날짜형을 위한 기본 포맷이 다르므로, Migration Center는 테이블 생성 구문에
+  원본 데이터베이스 별로 날짜형을 위한 기본 포맷이 다르므로, Migration Center는 테이블 생성 구문에
   기본값 대신에 DEFAULT 키워드가 포함된 주석을 지정한다. 필요하다면 나중에 사용자가 주석을 참고하여 직접 기본값을 설정해야 한다.  
   단 원본 데이터베이스가 MySQL, TimesTen, 또는 CUBRID일 때, 아래의 표처럼 Migration Center가 기본값을 자동으로 변환한다.
   
-- 기본값에 함수가 사용된 경우 : 아래 표에 열거된 함수가 원본 데이터베이스의 기본값으로 단독 사용된 경우에 한해서 표와 같이 변환된다. 그 외의 함수 또는 복잡한 형태의 표현식일 경우에는 변경 없이 그대로 변환된다. 필요하다면 나중에 사용자가 직접 변경해야 한다.
+- 기본값에 함수가 사용된 경우
+
+  아래 표에 열거된 함수가 원본 데이터베이스의 기본값으로 단독 사용된 경우에 한해서 표와 같이 변환된다. 그 외의 함수 또는 복잡한 형태의 표현식일 경우에는 변경 없이 그대로 변환된다. 필요하다면 나중에 사용자가 직접 변경해야 한다.
 
 #### Oracle 데이터베이스 to Altibase
 
@@ -1968,8 +1975,9 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
         <td >LOCALTIMESETAMP()</td><td></td>
     </tr>
 </table>
-
-> 참고: MySQL은 테이블의 첫 칼럼의 데이터 타입이 TIMESTAMP인 경우, 사용자가 기본값을 지정하지 않아도 기본값으로 CURRENT_TIMESTAMP이 자동으로 지정된다. 따라서, 이 경우 기본값이 SYSDATE으로 변환된다. 아래의 예제를 참고하라.
+> [!note]
+>
+> MySQL은 테이블의 첫 칼럼의 데이터 타입이 TIMESTAMP인 경우, 사용자가 기본값을 지정하지 않아도 기본값으로 CURRENT_TIMESTAMP이 자동으로 지정된다. 따라서, 이 경우 기본값이 SYSDATE으로 변환된다. 아래의 예제를 참고하라.
 
 아래는 변환 예제이다.
 
@@ -2145,80 +2153,132 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 
 ### 기본값으로 설정된 빈 문자열
 
-------
-
-✓ 질의 05: 실선 안의 표가 꼭 필요할까요? 
-
 각 데이터베이스마다 빈 문자열을 처리하는 방법은 다음과 같다.
 
-| 데이터베이스 | CHAR           | VARCHAR   |
-| :----------- | :------------- | :-------- |
-| Altibase     | NULL           | NULL      |
-| Oracle       | NULL           | NULL      |
-| MySQL        | 빈 문자열      | 빈 문자열 |
-| SQL Server   | 고정 길이 공백 | 빈 문자열 |
-| PostgreSQL   | 고정 길이 공백 | 빈 문자열 |
-| CUBRID       | 고정 길이 공백 | 빈 문자열 |
-| Informix     | 고정 길이 공백 | 빈 문자열 |
+| 데이터베이스 | CHAR             | VARCHAR       |
+| :----------- | :--------------- | :------------ |
+| Oracle       | NULL             | NULL          |
+| MySQL        | **빈 문자열**    | **빈 문자열** |
+| SQL Server   | 고정 길이 문자열 | **빈 문자열** |
+| PostgreSQL   | 고정 길이 문자열 | **빈 문자열** |
+| CUBRID       | 고정 길이 문자열 | **빈 문자열** |
+| Informix     | 고정 길이 문자열 | **빈 문자열** |
 
-기본적으로는 Altibase는 일괄적으로 빈 문자열을 NULL로 처리한다. 데이터베이스마다 빈 문자열을 처리하는 정책이 다르기때문에 마이그레이션 수행할 때 다양한 문제가 발생 가능하다. ✓ 질의 06: NOT NULL 제약 조건 외 어떤 문제가 또 발생할 수 있나요?
+Altibase는 기본적으로 빈 문자열을 NULL로 처리한다. 즉, 원본 데이터베이스에 빈 문자열 데이터가 있다면 마이그레이션 시 NULL 처리한다. 만약 빈 문자열이 칼럼의 기본값으로 설정되었다면(`DEFAULT ''`), Altibase는 이를 `DEFAULT NULL`로 해석한다. 이 과정에서 기본값으로 설정한 빈 문자열은 자동으로 제거된다.
 
-Not Null 제약 조건이 있는 칼럼에 빈 문자열이 입력되어있다면 이 데이터를 Altibase로 데이터 마이그레이션을 수행할 때 Altibase에서는 해당 데이터가 NULL로 처리되어 NOT NULL 제약 조건을 위반하는 것으로 판단하여 일부 데이터가 유실될 수 있다.
+그러나 **기본값이 빈 문자열이면서 NOT NULL 제약 조건이 설정된 칼럼**이 있는 경우, Altibase로 마이그레이션 시 빈 문자열이 NULL로 간주되어 제약 조건과 충돌하게 된다. 이러한 충돌로 인한 데이터 유실을 방지하기 위해, Migration Center는 빈 문자열 기본값을 사용자 정의값으로 변경하거나 NOT NULL 제약 조건을 조정하는 옵션을 제공한다.
 
-------------------
+> [!note]
+>
+>  Altibase는 고정 길이의 공백으로 구성된 문자열이나  NULL 을 빈 문자열과 구분한다. 즉, 빈 문자열을 지원하지 않는 문자형 데이터형은 빈 문자열 처리 옵션의 영향을 받지 않으며, 마이그레이션 수행 시 고정 길이의 공백으로 구성된 문자열 또는  NULL이 그대로 유지된다.
 
-빈 문자열이란 길이가 0인 문자열을 의미한다. 
+--------------------------------------------------------------------------------------
 
-기본적으로 Altibase는 빈 문자열을 NULL로 처리한다. 즉, 원본 데이터베이스의 `DEFAULT ''`  설정은 Altibase에서는 `DEFAULT NULL`로 해석되며 마이그레이션 과정에서 기본값으로 설정한 빈 문자열은 자동으로 제거된다.
+각 데이터베이스마다 빈 문자열을 지원하는 문자형 데이터 타입은 다음과 같다.
 
-그러나 **기본값이 빈 문자열이면서 NOT NULL 제약 조건이 설정된 칼럼**이 있는 경우, Altibase로 마이그레이션 시 빈 문자열이 NULL로 간주되어 제약 조건과 충돌하게 된다. 이러한 충돌로 인한 데이터 유실을 방지하기 위해, Migration Center는 빈 문자열 기본값을 사용자 정의값으로 변경하거나 NOT NULL 제약 조건을 조정하는 옵션을 제공한다. ✓ 질의 07: 초안과 버그를 읽고 "제약 조건과 충돌"로 표현을 바꾸었는데 내용에 오류가 없는지 확인 부탁드립니다.
+| 문자형 데이터 타입 | 빈 문자열을 지원하는 데이터베이스                   |
+| :----------------- | --------------------------------------------------- |
+| **CHAR**           | MySQL                                               |
+| **VARCHAR**        | MySQL / SQL Server / PostgreSQL / CUBRID / Informix |
+
+Altibase는 기본적으로 빈 문자열을 NULL로 처리한다. 즉, 원본 데이터베이스에 빈 문자열 데이터가 있다면 마이그레이션 시 NULL 처리한다. 만약 빈 문자열이 칼럼의 기본값으로 설정되었다면(`DEFAULT ''`), Altibase는 이를 `DEFAULT NULL`로 해석한다. 이 과정에서 기본값으로 설정한 빈 문자열은 자동으로 제거된다.
+
+그러나 **기본값이 빈 문자열이면서 NOT NULL 제약 조건이 설정된 칼럼**이 있는 경우, Altibase로 마이그레이션 시 빈 문자열이 NULL로 간주되어 제약 조건과 충돌하게 된다. 이러한 충돌로 인한 데이터 유실을 방지하기 위해, Migration Center는 빈 문자열 기본값을 사용자 정의값으로 변경하거나 NOT NULL 제약 조건을 조정하는 옵션을 제공한다.
+
+---------------------------------------------------------------------------------------
+
+각 데이터베이스마다 빈 문자열을 지원하는 문자형 데이터 타입은 다음과 같다.
+
+|         | Oracle | MySQL | SQL Server | PostgreSQL | CUBRID | Informix |
+| :------ | ------ | ----- | ---------- | ---------- | ------ | :------- |
+| CHAR    | X      | O     | X          | X          | X      | X        |
+| VARCHAR | X      | O     | O          | O          | O      | O        |
+
+Altibase는 기본적으로 빈 문자열을 NULL로 처리한다. 즉, 원본 데이터베이스에 빈 문자열 데이터가 있다면 마이그레이션 시 NULL 처리한다. 만약 빈 문자열이 칼럼의 기본값으로 설정되었다면(`DEFAULT ''`), Altibase는 이를 `DEFAULT NULL`로 해석한다. 이 과정에서 기본값으로 설정한 빈 문자열은 자동으로 제거된다.
+
+그러나 **기본값이 빈 문자열이면서 NOT NULL 제약 조건이 설정된 칼럼**이 있는 경우, Altibase로 마이그레이션 시 빈 문자열이 NULL로 간주되어 제약 조건과 충돌하게 된다. 이러한 충돌로 인한 데이터 유실을 방지하기 위해, Migration Center는 빈 문자열 기본값을 사용자 정의값으로 변경하거나 NOT NULL 제약 조건을 조정하는 옵션을 제공한다.
 
 #### 빈 문자열 처리 옵션
 
-Migration Center는 데이터 유실을 방지하기 위해 메인 메뉴 Migration의 Migration Options에서 빈 문자열 처리 옵션을 제공한다.
+Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 처리 옵션을 제공한다. 이 옵션은 메뉴 **Migration > Migration Options** 경로를 통해 설정할 수 있다.
 
 ##### Object Options
 
-> [!caution]
+다음은 Object Options 에서 설정할 수 있는 빈 문자열 처리 옵션이다.
+
+![](C:\Users\ALTIBASE\Desktop\work\tw\ALTIBASE\Documents\Manuals\Tools\Altibase_trunk\kor\media\MigrationCenter\empty-string-object-options.png)
+
+아래의 옵션을 설정하여 Altibase로 마이그레이션 시 생성될 테이블의 `CREATE` 문을 수정할 수 있다.
+
+> [!tip]
 >
-> Object Options는 데이터베이스 객체 마이그레이션에 적용되며, Altibase에서 생성될 테이블의 CREATE 문만 변경한다. 빈 문자열 데이터를 처리하는 옵션은 Data Options에서 설정할 수 있다.
+> Object Options의 빈 문자열 처리 옵션은 빈 문자열 데이터를 직접 처리하지는 않는다. 만약 **원본 데이터베이스에 이미 존재하는 빈 문자열 데이터를 마이그레이션을 수행할 때 변경하고 싶다면 Data Options의 빈 문자열 처리 옵션을 설정**해야 한다.
 
-1. **Replace Default Empty String:** Altibase가 CREATE 문을 생성할 때 `DEFAULT ''` 를 사용자가 정의한 기본값으로 대체한다. 
+| 옵션                             | 설명                                                         | 참고                                                      |
+| -------------------------------- | ------------------------------------------------------------ | --------------------------------------------------------- |
+| **Replace Default Empty String** | Altibase에서 생성하는 `CREATE` 문에서 사용자가 정의한 문자열로 기본값을 대체할지 여부를 설정한다. |                                                           |
+| **Replacement Default Value**    | 빈 문자열을 대체할 기본값을 입력한다.                        | **Replace Default Empty String**이 'Yes'일 때 활성화된다. |
+| **Remove Not Null**              | Altibase에서 생성하는 `CREATE` 문에서 `NOT NULL` 제약 조건을 해제한다. |                                                           |
 
-2. **Replacement Default Value:** 'Replace Default Empty String' 설정이 'Yes'일때 빈 문자열을 대체할 기본값을 입력한다.
+이 옵션들은 개별적으로 또는 동시에 적용할 수 있으며, 사용자 요구에 따라 빈 문자열 처리 방식을 유연하게 조정할 수 있다.
 
-   ✓ 질의 08: 만약 칼럼 정의를 `default null`로 변경하고 싶으면 3번 설정을 Yes로 설정하고 1번 설정은 No로 하면 되나요?(특별히 기본값을 지정하지 않으면 그냥 기본값 null이니까..?)  -> not null 제약 조건이 걸린 칼럼에서 not null 제약 조건만 제거하면 데이터 유실 없이, altibase 데이터 변환 정책을 따라 빈 문자열 데이터는 null값으로 마이그레이션 되는건가요?
+예를 들어, 원본 데이터베이스 테이블의 칼럼 정의가 `C1 CHAR(10) DEFAULT '' NOT NULL`일 때, 아래와 같은 옵션 조합에 따라 생성되는 구문은 다음과 같다.
 
-3. **Remove Not Null**:  Altibase가 CREATE 문을 생성할 때 `NOT NULL` 제약 조건을 해제한다. ~~이 옵션은 데이터 마이그레이션 시 오류를 방지하고, 이후 수동으로 데이터를 처리할 수 있도록 한다.~~ ✓ 질의 09: 모든 옵션이 오류를 방지하기 위해 고안된거라 우선 지웠습니다.
-
-이러한 옵션들은 개별적으로 또는 동시에 적용 가능하며, 사용자 요구에 맞춰 빈 문자열 처리 방식을 조정할 수 있다.
-
-✓질의 10: 2번 옵션은 1번이 No이면 아예 입력창이 비활성화 되는지? 아니면 입력창에 쓸 수는 있는데 적용이 안되는지...?
-
-예를 들어, 원본 데이터베이스 테이블의 칼럼 정의 `C1 CHAR(10) DEFAULT '' NOT NULL` 에 대해 옵션을 적용하면 아래와 같은 구문이 생성된다.
-
-|                          | Replace Default Empty String: Yes                   | Replace Default Empty String: No        |
-| :----------------------- | :-------------------------------------------------- | :-------------------------------------- |
-| **Remove Not Null: Yes** | C1 CHAR(10) DEFAULT '**EMTPY_STRING**' ~~NOT NULL~~ | C1 CHAR(10) ~~DEFAULT~~ '' ~~NOT NULL~~ |
-| **Remove Not Null: No**  | C1 CHAR(10) DEFAULT '**EMTPY_STRING**' NOT NULL     | C1 CHAR(10) ~~DEFAULT~~ '' NOT NULL     |
+<table>
+  <thead>
+    <tr style="background-color: #f2f2f2;">
+      <th>Replace Default Empty String</th>
+      <th>Replacement Default Value</th>
+      <th>Remove Not Null</th>
+      <th>생성된 구문</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Replace Default Empty String: Yes -->
+    <tr style="background-color: white;">
+      <td rowspan="2"><strong>Yes</strong></td>
+        <td><strong>EMPTY_STRING</strong></td>
+      <td><strong>Yes</strong></td>
+      <td><code>C1 CHAR(10) DEFAULT 'EMPTY_STRING'</code></td>
+        <td>기본값 대체<br><code>NOT NULL</code> 제약 조건 해제</td>
+    </tr>
+    <tr style="background-color: #f9f9f9;">
+      <td><strong>EMPTY_STRING</strong></td>
+      <td><strong>No</strong></td>
+      <td><code>C1 CHAR(10) DEFAULT 'EMPTY_STRING' NOT NULL</code></td>
+        <td>기본값 대체<br><code>NOT NULL</code> 제약 조건 유지</td>
+    </tr>
+    <!-- Replace Default Empty String: No -->
+    <tr style="background-color: white;">
+      <td rowspan="2"><strong>No</strong></td>
+      <td><strong>N/A</strong></td>
+      <td><strong>Yes</strong></td>
+      <td><code>C1 CHAR(10)</code></td>
+        <td>기본값 설정 삭제<br><code>NOT NULL</code> 제약 조건 해제</td>
+    </tr>
+    <tr style="background-color: #f9f9f9;">
+      <td><strong>N/A</strong></td>
+      <td><strong>No</strong></td>
+      <td><code>C1 CHAR(10) NOT NULL</code></td>
+      <td>기본값 설정 삭제<br><code>NOT NULL</code> 제약 조건 유지</td>
+    </tr>
+  </tbody>
+</table>
 
 ##### Data Options
 
-데이터 마이그레이션 수행 중 발견된 빈 문자열을 사용자가 정의한 값으로 변경하기 위한 옵션이다.
+다음은 Data Options 에서 설정할 수 있는 빈 문자열 처리 옵션이다.
 
-✓ 질의 11: 여기선 데이터만 처리하는 것이지 칼럼 정의를 바꾸는 것이 아니니, 만약 Object Options을 변경하지 않고 Data Options만 수정하는 경우, 칼럼 정의는  `default ''`가 Altibase에  맞게 변환된 `defualt null`이 되나요? 다시 말해, 위의 `C1 CHAR(10) DEFAULT '' NOT NULL`에 대체 문자열을 'aaa'로 설정했다고 가정하면 칼럼 정의는 `C1 CHAR(10) DEFAULT NULL NOT NULL`이 되지만(이건 이상하긴 하네요...)  마이그레이션 시  C1에 원래 `''`가 입력되어있던 행은 전부 `aaa`가 들어있는 게 되는 건가요..?
+![](C:\Users\ALTIBASE\Desktop\work\tw\ALTIBASE\Documents\Manuals\Tools\Altibase_trunk\kor\media\MigrationCenter\empty-string-data-options.png)
 
-✓ 질의 12: 질의 11에 이어서, Object Options과 Data Options의 빈 문자열 관련 옵션을 둘 다 커스텀한뒤 마이그레이션을 진행할 수 있나요?
+아래의 옵션을 설정하여 데이터 마이그레이션 중 발견된 빈 문자열을 사용자가 정의한 값으로 변경할 수 있다.
 
-✓ 질의 13: 질의 11에 이어서, 마이그레이션 옵션에서 Object Options 탭의 Replacement Default Value와 Data Options 탭의 Replacement String의 입력값이이 다르면 어떻게 되나요? 어떤 값이 더 우선 적용된다거나, 혹은 에러가 날 수 있으니 반드시 같은 값을 넣어야 한다 등의 주의사항을 넣기 위한 질문입니다.
-
-1. **Replace Empty Strings in Not Null:** NOT NULL 제약 조건이 설정된 칼럼의 빈 문자열을 Replacement String의 입력값으로 변경한다. 
-
-2. **Replacement String:** 'Replace Empty Strings in Not Null' 설정이 'Yes'일때 빈 문자열을 대체할 문자열을 입력한다.
-
-3. **Apply to Nullable Columns:**  NOT NULL 제약 조건이 걸려있지 않은 칼럼의 빈 문자열 데이터도 Replacement String에 입력한 문자열로 같이 변경한다. 'Replace Empty Strings in Not Null' 설정이 'Yes'일 때만 활성화된다.
-
-   ✓ 질의 14: NOT NULL 제약 조건이 걸려있지 않은 = Nullable 이라고 봐도 무방하나요?
+| 옵션                                  | 설명                                                         | 참고                                                         |
+| ------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **Replace Empty Strings in Not Null** | `NOT NULL` 제약 조건이 설정된 칼럼의 빈 문자열을 사용자가 정의한 문자열로  대체할지 여부를 설정한다. |                                                              |
+| **Replacement String**                | **Replace Empty Strings in Not Null** 설정이 'Yes'일때 빈 문자열을 대체할 문자열을 입력한다. | **Replace Empty Strings in Not Null**이 'Yes'일 때 만 활성화된다. |
+| **Apply to Nullable Columns**         | `NOT NULL` 제약 조건이 걸려있지 않은 칼럼의 빈 문자열 데이터도 **Replacement String**에 입력한 문자열로 같이 변경할지 여부를 설정한다. | **Replace Empty Strings in Not Null**이 'Yes'일 때만 활성화된다. |
 
 # E.부록: PSM 변환기 규칙 목록
 
@@ -7859,7 +7919,7 @@ MS-SQL은 Altibase와 사용자와 스키마 간의 관계가 다르다. Altibas
 
 실행 파일 migcenter.bat를 편집기로 열어, 환경변수 JAVA_HOME의 값을 장비에 기존에 설치된 JRE 위치로 변경해야 한다. 변경할 JRE는 반드시 8 이상이어야 한다.
 
-#### 오류 메시지 'Unable to insert (or update) NULL into NOT NULL column.'와 함께 데이터 이관에 실패한다.
+#### 오류 메시지 'Unable to insert (or update) NULL into NOT NULL column.'와 함께 데이터 이관에 실패한다. ✓ 수정 필요
 
 `원인`
 
