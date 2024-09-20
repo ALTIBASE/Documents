@@ -2243,7 +2243,7 @@ Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 
 
 다음은 Object Options 에서 설정할 수 있는 빈 문자열 처리 옵션이다.
 
-![](C:\Users\ALTIBASE\Desktop\work\tw\ALTIBASE\Documents\Manuals\Tools\Altibase_trunk\kor\media\MigrationCenter\empty-string-object-options.png)
+![](https://github.com/ALTIBASE/Documents/blob/BUG-51069/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-object-options.png)
 
 아래의 옵션을 설정하여 빈 문자열이 기본값으로 설정된 테이블을 Altibase로 마이그레이션할 때 생성할 CREATE 문을 조정할 수 있다. ✓ 질문 02: `Default ''`가 있는 모든 칼럼이 해당? 아니면 `Default '' NOT NULL` 이어야지만?
 
