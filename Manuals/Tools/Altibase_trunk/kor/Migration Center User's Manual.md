@@ -2301,7 +2301,7 @@ Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 
 
 다음은 Data Options 에서 설정할 수 있는 빈 문자열 처리 옵션이다.
 
-![](C:\Users\ALTIBASE\Desktop\work\tw\ALTIBASE\Documents\Manuals\Tools\Altibase_trunk\kor\media\MigrationCenter\empty-string-data-options.png)
+![](https://github.com/ALTIBASE/Documents/blob/BUG-51069/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-data-options.png)
 
 아래의 옵션을 설정하여 데이터 마이그레이션 중 발견된 빈 문자열을 사용자가 정의한 값으로 변경할 수 있다.
 
