@@ -1120,7 +1120,7 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
 | Use Double-quoted Identifier                 | 데이터베이스 객체 이름에 큰 따옴표 사용 여부를 설정한다. 기본 설정은 No이다. |
 | Remove FORCE from View DDL                   | 뷰 생성 구문에서 'FORCE' 키워드 삭제 여부를 설정한다. 기본 설정은 Yes이다. |
 | Postfix for reserved word                    | 원본 데이터베이스 객체 이름이 Altibase 예약어와 충돌할 경우 객체 이름에 추가할 접미사를 설정한다. 기본 설정은 _POC이다. |
-| Default '' (Empty String) Not Null Column    | 빈 문자열(Empty string)[^1]이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼의 정의를 어떻게 조정할 지 설정한다. <br />- Replace Default Empty String: Yes는 기본값을 사용자가 지정한 문자열로 설정하는 것을 의미한다. 기본 설정은 No이다.<br />- Replacement Default Value: 기본값으로 설정될 문자열을 입력한다. Replace Default Empty String 설정이 Yes일 때만 활성화된다.<br />- Remove Not Null: Yes는 빈 문자열이 기본값인 칼럼에 설정된 NOT NULL 제약 조건을 해제하는 것을 의미한다. 기본 설정은 No이다. ✓ 질문01 : Not null 제약조건을 전부 삭제하는 게 아니라 빈 문자열이 기본값인 칼럼에 한정하여 Not null 제약 조건을 삭제하는 게 맞는지? 확인차 질문 드립니다. |
+| Default '' (Empty String) Not Null Column    | 빈 문자열(Empty string)[^1]이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼의 정의를 어떻게 조정할 지 설정한다. <br />- Replace Default Empty String: Yes는 기본값을 사용자가 지정한 문자열로 설정하는 것을 의미한다. 기본 설정은 No이다.<br />- Replacement Default Value: 기본값으로 설정될 문자열을 입력한다. Replace Default Empty String 설정이 Yes일 때만 활성화된다.<br />- Remove Not Null: Yes는 빈 문자열이 기본값인 칼럼에 설정된 NOT NULL 제약 조건을 해제하는 것을 의미한다. 기본 설정은 No이다. |
 | **Data Options**                             |                                                              |
 | Batch Execution                              | 성능 향상을 위한 JDBC 배치 입력 사용 여부를 설정한다. 기본 설정은 Yes이다. |
 | Batch Size                                   | JDBC 배치 입력 사용 시 배치 크기를 지정한다. 기본 설정은 10000이다. |
@@ -2157,12 +2157,6 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 
 ### 기본값으로 설정된 빈 문자열
 
-✓ 제안: 표의 형태를 두 가지로 하여 문단을 작성했습니다. 저는 제안 2의 내용이 간결하고 좋다고 생각하지만, 혹시 제안 2의 내용에 사용자가 알아야하지만 누락된 내용이 있다고 판단되시면 코멘트로 리뷰 부탁드립니다. 
-
---------------------------------------------------------------------------------------------
-
-제안 1: 기존에 주신 표 형태에 Note로 "빈 문자열"에만 적용되는 처리 방식이라는 내용을 추가했습니다.
-
 각 데이터베이스마다 빈 문자열을 처리하는 방법은 다음과 같다.
 
 | 데이터베이스 | CHAR             | VARCHAR       |
@@ -2182,59 +2176,6 @@ Altibase는 기본적으로 빈 문자열을 NULL로 처리한다. 즉, 원본 �
 >
 >  Altibase는 고정 길이의 공백으로 구성된 문자열과  NULL을 빈 문자열과 구분한다. 따라서, 위 표에서 **빈 문자열**로 표시된 항목만 마이그레이션 시 빈 문자열 처리 옵션의 영향을 받는다.
 
-----------------------
-
-제안 2: "빈 문자열"에만 해당하는 내용이기에 지원함(O), 지원하지 않음(X) 이외의 내용을 전부 제거했습니다.
-
-각 데이터베이스마다 빈 문자열을 지원하는 문자형 데이터 타입은 다음과 같다.
-
-<table>
-	<tbody align=center>
-		<tr>
-			<td rowspan="2"><strong>데이터베이스</strong></td>
-			<td colspan="2"><strong>지원 여부</strong></td>
-		</tr>
-		<tr>
-			<td><strong>CHAR</strong></td>
-			<td><strong>VARCHAR</strong></td>
-		</tr>
-		<tr>
-			<td><strong>Oracle</strong></td>
-			<td>X</td>
-			<td>X</td>
-		</tr>
-		<tr>
-			<td><strong>MySQL</strong></td>
-			<td>O</td>
-			<td>O</td>
-		</tr>
-		<tr>
-			<td><strong>SQL Server</strong></td>
-			<td>X</td>
-			<td>O</td>
-		</tr>
-		<tr>
-			<td><strong>PostgreSQL</strong></td>
-			<td>X</td>
-			<td>O</td>
-		</tr>
-		<tr>
-			<td><strong>CUBRID</strong></td>
-			<td>X</td>
-			<td>O</td>
-		</tr>
-		<tr>
-			<td><strong>Informix</strong></td>
-			<td>X</td>
-			<td>O</td>
-		</tr>
-	</tbody>
-</table>
-
-Altibase는 기본적으로 빈 문자열을 NULL로 처리한다. 즉, 원본 데이터베이스에 빈 문자열 데이터가 있다면 마이그레이션 시 NULL 처리한다. 만약 빈 문자열이 칼럼의 기본값으로 설정되었다면(`DEFAULT ''`), Altibase는 이를 `DEFAULT NULL`로 해석하고, 기존의 기본값 설정을 제거한다.
-
-그러나 **기본값이 빈 문자열이면서 NOT NULL 제약 조건이 설정된 칼럼**이 있는 경우, Altibase로 마이그레이션 시 빈 문자열이 NULL로 간주되어 제약 조건과 충돌하게 된다. 이러한 충돌로 인한 데이터 유실을 방지하기 위해, Migration Center는 빈 문자열 기본값을 사용자 정의값으로 변경하거나 NOT NULL 제약 조건을 조정하는 옵션을 제공한다.
-
 #### 빈 문자열 처리 옵션
 
 Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 처리 옵션을 제공한다. 이 옵션은 메뉴 **Migration > Migration Options** 경로를 통해 설정할 수 있다.
@@ -2245,7 +2186,7 @@ Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 
 
 ![](https://github.com/ALTIBASE/Documents/blob/BUG-51069/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-object-options.png)
 
-아래의 옵션을 설정하여 빈 문자열이 기본값으로 설정된 테이블을 Altibase로 마이그레이션할 때 생성할 CREATE 문을 조정할 수 있다. ✓ 질문 02: `Default ''`가 있는 모든 칼럼이 해당? 아니면 `Default '' NOT NULL` 이어야지만?
+아래의 옵션을 설정하여 빈 문자열이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼 테이블을 마이그레이션할 때 생성할 CREATE 문을 조정할 수 있다.
 
 > [!tip]
 >
@@ -2295,8 +2236,6 @@ Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 
     </tr>
   </tbody>
 </table>
-
-
 ##### Data Options
 
 다음은 Data Options 에서 설정할 수 있는 빈 문자열 처리 옵션이다.
@@ -7950,19 +7889,17 @@ MS-SQL은 Altibase와 사용자와 스키마 간의 관계가 다르다. Altibas
 
 실행 파일 migcenter.bat를 편집기로 열어, 환경변수 JAVA_HOME의 값을 장비에 기존에 설치된 JRE 위치로 변경해야 한다. 변경할 JRE는 반드시 8 이상이어야 한다.
 
-#### 오류 메시지 'Unable to insert (or update) NULL into NOT NULL column.'와 함께 데이터 이관에 실패한다. ✓ 질문 03: 수정 필요? 
-
-수정 필요한지 점검 부탁드립니다. 조정 단계에서 빈 문자열 처리 옵션을 설정하는 게 아니라 이미 오류가 난 상황이기에...수정할 필요가 있을지도 애매해서, 우선 내용 체크 부탁드립니다.
+#### 오류 메시지 'Unable to insert (or update) NULL into NOT NULL column.'와 함께 데이터 이관에 실패한다.
 
 `원인`
 
-MS-SQL에서 NOT NULL 제약 조건이 걸린 테이블 칼럼에 길이가 0인 문자열이 삽입되어 있기 때문이다.
+MS-SQL에서 NOT NULL 제약 조건이 걸린 테이블 칼럼에 빈 문자열이 삽입되어 있기 때문이다.
 
-Altibase에서는 길이가 0인 문자열은 NULL을 의미하기 때문에, NOT NULL 제약 조건이 걸린 테이블 칼럼에 길이가 0인 문자열을 삽입하는 것을 허용하지 않는다.
+Altibase에서는 빈 문자열은 NULL을 의미하기 때문에, NOT NULL 제약 조건이 걸린 테이블의 칼럼에 빈 문자열을 삽입하는 것을 허용하지 않는다.
 
 `해결 방법`
 
-Reconcile 단계 - DDL Editing에서 해당 테이블의 Destination DDL로부터 NOT NULL 제약 조건을 삭제한 뒤, `Save` 버튼을 클릭하여 저장한다.
+[빈 문자열 처리 옵션](#빈-문자열-처리-옵션)을 참고하여 Data Options의 빈 문자열 처리 옵션을 조정하고 다시 마이그레이션을 시도한다.
 
 #### 중복된 외래키의 이관이 실패한다.
 
