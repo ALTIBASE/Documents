@@ -367,45 +367,21 @@ Since Migration Center is bundled with the JRE 8 for the 64-bit Microsoft Window
 
 #### Compatible Database Systems
 
-The compatible database systems that are migratable can be divided into Altibase or Oracle depending on the target database.
-
-##### If Altibase is the target database:
-
-If Altibase is the target database, the source database that can be migrated is as follows.
-
-###### Destination Database
+##### Destination Database
 
 - Altibase 6.5.1 or later
 
-###### Source Database
+##### Source Database
 
 - Altibase: 4.3.9 or later
-
-- Oracle Database: 9i - 11g
-
-- Microsoft SQL Server: 2005 - 2012
-
-- Oracle MySQL: 5.0 - 5.5
-
+- Oracle Database: 9i ~ 11g
+- Microsoft SQL Server: 2005 ~ 2012
+- Oracle MySQL: 5.0 - 5.7
 - Informix: 11.50
-
 - Oracle TimesTen: 7.0, 11.2
-
-- CUBRID: 8.4.1\~9.3.5(ISO-8859-1, UTF-8 charset)
-
-- Tibero: 5\~6
-
-##### If Oracle is the target database:
-
-If Oracle is the target database, the source database that can be migrated is as follows.
-
-###### Destination Database
-
-- Oracle Database 10g - 11g
-
-###### Source Database
-
-- Altibase: 4.3.9 or later
+- CUBRID: 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset)
+- Tibero: 4sp1 ~ 6
+- PostgreSQL: 9.5.3
 
 ##### JDBC Driver
 
