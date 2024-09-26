@@ -7739,7 +7739,7 @@ Last Created Logfile Num 	 [ 20350 ]
 Delete Logfile(s) Range  	 [ 20333 ~ 20344 ]                       
 Update And Flush Count   	 [ 316 ]                                 
 New Tablespace ID        	 [ 8 ]
-Checkpoint Scale             [ PAIR ]
+Checkpoint Scale              	 [ PAIR ]
 ```
 
 ARCHIVE_DIR 프로퍼티에 정의된 디렉터리에 logfile18320부터 logfile20344까지 존재하는지 확인한다. 만약 존재하지 않는다면, 아카이브 로그파일을 백업 저장 장치로부터 ARCHIVE_DIR 프로퍼티에 지정된 디렉터리로 복사한다.
