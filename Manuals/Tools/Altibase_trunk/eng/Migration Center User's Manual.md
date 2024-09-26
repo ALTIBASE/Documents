@@ -141,6 +141,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Automatic Correction of Character Column Length Considering Heterogeneous Character Set](#automatic-correction-of-character-column-length-considering-heterogeneous-character-set)
 - [Appendix D: Mapping Default Values](#appendix-d-mapping-default-values)
   - [Mapping Table for Default Values](#mapping-table-for-default-values)
+  - [Empty String as a Default Value](#Empty-String-as-a-Default-Value)
 - [Appendix E: PSM Converter Rule List](#appendix-e-psm-converter-rule-list)
   - [View Conversion Rules](#view-conversion-rules)
   - [Trigger Conversion Rules](#trigger-conversion-rules)
@@ -349,7 +350,7 @@ This section discusses the system requirements for Migration Center and compatib
 
 - Disk: 150MB or more free space
 
-- Screen resolution: 1024 x 768 pixels or higher
+- Screen resolution: 1024 x 900 pixels or higher
 
 ##### CLI Mode
 
@@ -367,17 +368,11 @@ Since Migration Center is bundled with the JRE 8 for the 64-bit Microsoft Window
 
 #### Compatible Database Systems
 
-The compatible database systems that are migratable can be divided into Altibase or Oracle depending on the target database.
-
-##### If Altibase is the target database:
-
-If Altibase is the target database, the source database that can be migrated is as follows.
-
-###### Destination Database
+##### Destination Database
 
 - Altibase 6.5.1 or later
 
-###### Source Database
+##### Source Database
 
 - Altibase: 4.3.9 or later
 
@@ -394,18 +389,6 @@ If Altibase is the target database, the source database that can be migrated is 
 - CUBRID: 8.4.1\~9.3.5(ISO-8859-1, UTF-8 charset)
 
 - Tibero: 5\~6
-
-##### If Oracle is the target database:
-
-If Oracle is the target database, the source database that can be migrated is as follows.
-
-###### Destination Database
-
-- Oracle Database 10g - 11g
-
-###### Source Database
-
-- Altibase: 4.3.9 or later
 
 ##### JDBC Driver
 
@@ -1022,12 +1005,14 @@ Object and table data of the source database to be migrated are migrated directl
 | Use Double-quoted Identifier                 | Specifies whether or not to use double quotation marks for schema and object names. This option is set to 'No' by default. |
 | Remove FORCE from View DDL                   | Specifies whether or not to remove 'FORCE' keyword from the statement creating a view. |
 | Postfix for reserved word                    | Specifies a user-defined word which is to be added to the database object name in the source database as a postfix when it conflicts with a reserved keyword of Altibase. The defualt value is _POC. |
+| Default '' (Empty String) Not Null Column    | Defines how to modify the column definition when an empty string[^1] is set as the default value and a NOT NULL constraint is applied <br />- Replace Default Empty String: Setting this option to 'Yes' replaces the default empty string with a user-defined value. The default setting is 'No'.<br />- Replacement Default Value: Specifies the string to be used as the new default value. This option is only enabled when **Replace Default Empty String** is set to 'Yes'.<br />- Remove Not Null: Setting this option to 'Yes' removes the NOT NULL constraint from the column where the empty string is the default value. The default setting is 'No'. |
 | **Data Options**                             |                                                              |
 | Batch Execution                              | Specifies whether or not to use batch insert in JDBC for higher performance. This option is set to 'Yes' by default. |
 | Batch Size                                   | Specifies the batch size when batch insert in JDBC is used. The default value is 10,000. |
 | Batch LOB type                               | Specifies whether or not to batch process BLOB and CLOB data types.<br />'Yes' means to allow batch processing. However, it should be noted that problems such as out of memory (OOM) may occur depending on the size of the LOB data. Also, an exception may be raised in TimesTen, which does not support the batch processing for LOB data types.'No' does not allow batch processing. This option is set to 'No' by default. |
 | Log Insert-failed Data                       | Specifies whether or not to log insert-failed rows during data migration. This option is available only when the Batch Execution option is disabled. This option is set to 'No' by default. |
 | File Encoding                                | Specifies the encoding character set to be used when logging the insert-failed data into files. This option is available only when the Log Insert-failed Data option is enabled. The default value is UTF8. |
+| Replace Empty String Data                    | Defines how to replace empty string data encountered during data migration with a user-defined string.<br />- Replace Empty Strings in Not Null: Setting this option to 'Yes' replaces empty string data in columns with a `NOT NULL` constraint with a user-defined string. The default setting is 'No'.<br/>- Replacement String: Specifies the string that will replace the empty string. This option is only enabled when **Replace Empty Strings in Not Null** is set to 'Yes'.<br />- Apply to Nullable Columns: Setting this option to 'Yes' replaces empty string data in columns without a `NOT NULL` constraint with the value specified in **Replacement String**. The default setting is 'No'. |
 | **Data Validation Options**                  |                                                              |
 | Operation                                    | Specifies the operation to be executed in the data validation stage: <br />DIFF: Check data difference between the source and the target databases. <br/>FILESYNC: Apply the CSV file created as a result of DIFF operation to the target database. |
 | Write to CSV                                 | Specifies whether or not to write the inconsistent data to the CSV file. |
@@ -1036,23 +1021,26 @@ Object and table data of the source database to be migrated are migrated directl
 | Percent Sampling (exact counting)            | Specifies the percentage of data to be sampled from target tables. This option is used only when the Exact Counting Method is selected in the build stage. |
 | Record Count Sampling (approximate counting) | Specifies the number of records to be sampled from target tables. This option is used only if the Approximate Counting Method is selected in the build stage. |
 
+[^1]: A string of length zero
+
 ### DB to File Migration Options
 
 Object and table data of the source database to be migrated are stored as SQL script file, form file, and CSV type data file, respectively.
 
 The stored files can be migrated to the database (Altibase) to be saved using iSQL and iLoader.
 
-| Name                         | Description                                                  |
-| ---------------------------- | ------------------------------------------------------------ |
-| Execution Thread             | Specifies the maximum number of multi thread to be used when executing data migration. Default value is triple of the amount logical processors in the system running the Migration Center. The suggested range of this value is from 1 to triple of the amount logical processors in the system running the Migration Center. |
-| Migration Target             | Specifies the targets for data migration: <br />\- Object & Data: Database objects and table data<br />\- Object: Database objects only |
-| **Object Options**           |                                                              |
-| Foreign Key Migration        | Specifies whether or not to include foreign key constraints in migration target. This option is set to 'No' by default. |
-| PSM Migration                | Specifies whether or not to include  PSM objects such as procedures, functions, materialized views, views, typesets, and triggers. This option is set to 'Yes' by default. |
-| Keep Partition Table         | Specifies whether or not to maintain partitioned tables.<br />When this option is set to 'Yes', partitioned tables in the the source database will be migrated as partitioned tables. In this case, additional work is required for the partitioned tables in the reconcile stage's '5. Partitioned Table Conversion'. When this option is set to 'No', target partitioned tables will be migrated as non-partitioned tables. This option is set to 'No' by default. |
-| Use Double-quoted Identifier | Specifies whether or not to use double quotation marks for schema and object names. This option is set to 'No' by default. |
-| **Data Files**               |                                                              |
-| File Encoding                | Specifies the encoding character set to be used for scripts and data files. |
+| Name                                      | Description                                                  |
+| ----------------------------------------- | ------------------------------------------------------------ |
+| Execution Thread                          | Specifies the maximum number of multi thread to be used when executing data migration. Default value is triple of the amount logical processors in the system running the Migration Center. The suggested range of this value is from 1 to triple of the amount logical processors in the system running the Migration Center. |
+| Migration Target                          | Specifies the targets for data migration: <br />\- Object & Data: Database objects and table data<br />\- Object: Database objects only |
+| **Object Options**                        |                                                              |
+| Foreign Key Migration                     | Specifies whether or not to include foreign key constraints in migration target. This option is set to 'No' by default. |
+| PSM Migration                             | Specifies whether or not to include  PSM objects such as procedures, functions, materialized views, views, typesets, and triggers. This option is set to 'Yes' by default. |
+| Keep Partition Table                      | Specifies whether or not to maintain partitioned tables.<br />When this option is set to 'Yes', partitioned tables in the the source database will be migrated as partitioned tables. In this case, additional work is required for the partitioned tables in the reconcile stage's '5. Partitioned Table Conversion'. When this option is set to 'No', target partitioned tables will be migrated as non-partitioned tables. This option is set to 'No' by default. |
+| Use Double-quoted Identifier              | Specifies whether or not to use double quotation marks for schema and object names. This option is set to 'No' by default. |
+| Default '' (Empty String) Not Null Column | Defines how to modify the column definition when an empty string is set as the default value and a NOT NULL constraint is applied <br />- Replace Default Empty String: Setting this option to 'Yes' replaces the default empty string with a user-defined value. The default setting is 'No'.<br />- Replacement Default Value: Specifies the string to be used as the new default value. This option is only enabled when **Replace Default Empty String** is set to 'Yes'.<br />- Remove Not Null: Setting this option to 'Yes' removes the NOT NULL constraint from the column where the empty string is the default value. The default setting is 'No'. |
+| **Data Files**                            |                                                              |
+| File Encoding                             | Specifies the encoding character set to be used for scripts and data files. |
 
 <br/>
 
@@ -1659,7 +1647,7 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 
 <br/>
 
-# Appendix E: PSM Converter Rule List
+# Appendix D: Mapping Default Values
 
 The default values for Altibase table columns are mostly compatible with the default values for the source database. 
 
@@ -1677,9 +1665,17 @@ Prior to migrating data, Migration Center creates a table identical to the sourc
 
 Default values of most of the original database are compatible with the target database without any modifications. However, Migration Center converts source database default values according to the policy of the target database system for the following exceptions.
 
-- The CHARACTER data type with a zero length string as the default value: Altibase identifies zero length strings as NULL; therefore, the default value is not specified. 
-- The DATE data type with a string expression as the default value: Since the default format for the DATE data type differs among source databases, Migration Center specifies a comment which includes the DEFAULT keyword in the CREATE TABLE statement, instead of the default value. If necessary, the user must manually set the default value later on, by referring to the comment. However, if the source database is the one among the MySQL, TimesTen or CUBRID, Migration Center automatically converts default values as shown below. 
-- The default value specified with a function: A function which is listed in the following table is converted accordingly, only if the function is exclusively specified as the default value in the source database. Other functions or expressions of a complex form are converted without being changed. If necessary, the user must manually change them later on. 
+- The CHARACTER data type with an empty string as the default value
+
+  Altibase treats an empty string (`''`) as NULL, meaning that no default value is assigned. For columns where the default value is an empty string and a `NOT NULL` constraint is present, refer to the [Empty String Handling Options](#empty-string-handling-options) section.
+
+- The DATE data type with a string expression as the default value
+
+  Since the default format for the DATE data type differs among source databases, Migration Center specifies a comment which includes the DEFAULT keyword in the CREATE TABLE statement, instead of the default value. If necessary, the user must manually set the default value later on, by referring to the comment. However, if the source database is the one among the MySQL, TimesTen or CUBRID, Migration Center automatically converts default values as shown below. 
+
+- The default value specified with a function
+
+  A function which is listed in the following table is converted accordingly, only if the function is exclusively specified as the default value in the source database. Other functions or expressions of a complex form are converted without being changed. If necessary, the user must manually change them later on. 
 
 #### Oracle Database to Altibase
 
@@ -1965,7 +1961,100 @@ The following is an example of the conversion.
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval( <br />c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL, <br />c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT QRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER ); | CREATE TABLE TESTTBL_4_DEFVAL(  <br />C1  NUMBER (38, 0)  DEFAULT 123,    <br />C2  VARCHAR (50)    DEFAULT 'test',    <br />C3  NUMBER (38, 0),    <br />C4  CHAR (10),    <br />C5  NUMBER (38, 0)  DEFAULT SQRT(144) + 72,   <br />C6  DATE /\* DEFAULT '97/04/21' \*/,    <br />C7  DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'),    <br />C8  VARCHAR (100)   DEFAULT DB_TIMEZONE(),    <br />C9  VARCHAR (100)   DEFAULT SYS_GUID_STR(),<br />C10 VARCHAR (100)   DEFAULT USER_ID(), <br />C11 VARCHAR (100)   DEFAULT USER_NAME() ); |
 
-<br/>
+### Empty String as a Default Value
+
+Each database vendor handles empty strings as follows:
+
+| Database Vendor | CHAR                | VARCHAR          |
+| :-------------- | :------------------ | :--------------- |
+| Oracle          | NULL                | NULL             |
+| MySQL           | **Empty String**    | **Empty String** |
+| SQL Server      | Fixed-length string | **Empty String** |
+| PostgreSQL      | Fixed-length string | **Empty String** |
+| CUBRID          | Fixed-length string | **Empty String** |
+| Informix        | Fixed-length string | **Empty String** |
+
+Altibase, by default, processes empty strings as NULL. As a result, empty string data in the original database is processed as NULL during migration. If an empty string is set as the default value (`DEFAULT ''`), Altibase interprets this as `DEFAULT NULL` and removes the existing default value setting.
+
+However, if there is a column where the **default value is an empty string and a NOT NULL constraint is set**, during migration to Altibase, the empty string is considered NULL, which will conflict with the NOT NULL constraint. To avoid potential data loss resulting from such conflicts, the Migration Center offers options to modify the default empty string value or adjust the NOT NULL constraint.
+
+> [!note]
+>
+> Altibase distinguishes between strings composed of fixed-length spaces and NULL from empty strings. Therefore, only the items marked as **Empty String** in the table above are affected by the empty string handling options during migration.
+#### Empty String Handling Options
+
+Migration Center offers empty string handling options to prevent data loss. These options can be set via the menu **Migration > Migration Options**.
+
+##### Object Options
+
+ Empty string handling options that can be set in the Object Options are below:
+
+![](https://github.com/ALTIBASE/Documents/blob/BUG-51069/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-object-options.png)
+
+By configuring the options below, users can adjust the CREATE statement generated when migrating a table with columns where the default value is an empty string and a NOT NULL constraint is set.
+
+> [!tip]
+>
+> The empty string handling options in Object Options do not directly process empty string data. **If users want to modify empty string data, users need to configure the empty string handling options in Data Options**.
+
+| Option                           | Description                                                  | Remarks                                                    |
+| -------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------- |
+| **Replace Default Empty String** | Sets whether to replace the default value with a user-defined string in the `CREATE` statement generated by Altibase. |                                                            |
+| **Replacement Default Value**    | Enters the default value to replace the empty string.        | Activated when Replace Default Empty String is set to Yes. |
+| **Remove Not Null**              | Removes the NOT NULL constraint in the `CREATE` statement generated by Altibase. |                                                            |
+
+These options can be applied individually or in combination, providing flexibility in empty string handling according to user requirements. For instance, if the column definition in the source database is `C1 CHAR(10) DEFAULT '' NOT NULL`, the generated statement will differ based on the selected option combinations as below.
+
+<table>
+  <thead>
+    <tr style="background-color: #f2f2f2;">
+      <th>Replace Default Empty String</th>
+      <th>Replacement Default Value</th>
+      <th>Remove Not Null</th>
+      <th>Column Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Replace Default Empty String: Yes -->
+    <tr style="background-color: white;">
+      <td rowspan="2">Yes</td>
+        <td>EMPTY_STRING</td>
+      <td>Yes</td>
+      <td><code>C1 CHAR(10) DEFAULT 'EMPTY_STRING'</code></td>
+    </tr>
+    <tr style="background-color: #f2f2f2;">
+      <td>EMPTY_STRING</td>
+      <td>No</td>
+      <td><code>C1 CHAR(10) DEFAULT 'EMPTY_STRING' NOT NULL</code></td>
+    </tr>
+    <!-- Replace Default Empty String: No -->
+    <tr style="background-color: white;">
+      <td rowspan="2">No</td>
+      <td>N/A</td>
+      <td>Yes</td>
+      <td><code>C1 CHAR(10)</code></td>
+    </tr>
+    <tr style="background-color: #f2f2f2;">
+      <td>N/A</td>
+      <td>No</td>
+      <td><code>C1 CHAR(10) NOT NULL</code></td>
+    </tr>
+  </tbody>
+</table>
+
+##### Data Options
+
+The empty string handling options that can be set in Data Options are below:
+
+![](https://github.com/ALTIBASE/Documents/blob/BUG-51069/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-data-options.png)
+
+By configuring the options below, users can change empty strings discovered during data migration to a user-defined value.
+
+| Option                                | Description                                                  | Remarks                                                      |
+| ------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **Replace Empty Strings in Not Null** | Sets whether to replace empty strings in columns with NOT NULL constraints with a user-defined string. |                                                              |
+| **Replacement String**                | Enters the string to replace the empty string.               | Activated when Replace Empty Strings in Not Null is set to Yes. |
+| **Apply to Nullable Columns**         | Sets whether to replace empty string data in columns without NOT NULL constraints with the string entered in Replacement String. | Activated when Replace Empty Strings in Not Null is set to Yes. |
 
 # Appendix E: PSM Converter Rule List
 
