@@ -1364,7 +1364,7 @@ Altibase supports three types of DDL statements for replication target tables.
   DROP INDEX index_name; //Unique or function-based index cannot be deleted.
   ```
   
-- ##### DDL statements with REPLICATION_DDL_ENABLE_LEVEL = 1
+- ##### DDL statements with REPLICATION_DDL_ENABLE_LEVEL = 1<a name="ddlenablelevel1"></a>
 
   ```sql
   ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
@@ -1837,6 +1837,8 @@ The below figure is an example of the offline option in use.
 
 - The Standby Server should not be restarted before starting offline replication, because the information used to analyze the logs that could not be received will disappear when starting up the Standby Server.
 
+- If the unsent logs contain [DDL statements with REPLICATION_DDL_ENABLE_LEVEL = 1](#ddlenablelevel1), the user must set the REPLICATION_SQL_APPLY_ENABLE property to 1 so that Altibase operates in SQL apply mode.
+
 - **Option compatibility between different Altibase versions or Altibase and heterogeneous database**
 
   Offline replication or creating replication object with offline option fails if it does not meet the compatibility condition
@@ -1858,26 +1860,38 @@ The below figure is an example of the offline option in use.
 
 Assuming that the name of a replication object is rep1 and that the path of Active Server logs is active_server/altibase_home/logs, the offline option is used as follows:
 
--   Setting the offline option when creating a replication object:
+-   Set the offline option when creating a replication object:
 
 ```
 iSQL>CREATE REPLICATION REP1 OPTIONS OFFLINE 'actiive_server/altibase_home/logs'
 WITH '127.0.0.1',20300 FROM SYS.A TO SYS.B;
 ```
 
--   Setting the offline option for an existing replication object:
+-   Set the offline option for an existing replication object:
 
 ```
 iSQL>ALTER REPLICATION REP1 SET OFFLINE ENABLE WITH 'active_server/altibase_home/logs';
 ```
 
--   Executing offline replication using the specified path:
+-   Set the property to enable Altibase to operate in SQL apply mode:
 
 ```
-iSQL>ALTER REPLICATION REP1 START WITH OFFLINE;
+iSQL>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
 ```
 
--   Specifying that the offline option is not to be used:
+-   Execute offline replication using the specified path:
+
+```
+iSQL>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
+```
+
+-   Restore the property settings to disable Altibase to operate in SQL apply mode:
+
+```
+iSQL>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
+```
+
+-   Specify that the offline option is not to be used:
 
 ```
 iSQL>ALTER REPLICATION REP1 SET OFFLINE DISABLE;

@@ -407,47 +407,29 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 
 #### 호환 가능한 데이터베이스 시스템
 
-마이그레이션이 가능한 데이터베이스 시스템은 대상 데이터베이스에 따라 Altibase와 Oracle로 나눌 수 있다.
-
-##### Altibase가 대상 데이터베이스인 경우
-
-Altibase가 대상 데이터베이스일 경우 마이그레이션이 가능한 원본 데이터베이스는 아래와 같다.
-
-###### 대상 데이터베이스
+##### 대상 데이터베이스
 
 - Altibase 6.5.1 이상 버전
 
-###### 원본 데이터베이스
+##### 원본 데이터베이스
 
 - Altibase: 4.3.9 이상 버전
 
-- Oracle Database: 9i - 11g
+- Oracle Database: 9i ~ 11g
 
-- Microsoft SQL Server: 2005 - 2012
+- Microsoft SQL Server: 2005 ~ 2012
 
-- Oracle MySQL: 5.0 - 5.7
+- Oracle MySQL: 5.0 ~ 5.7
 
 - Informix: 11.50
 
 - Oracle TimesTen: 7.0, 11.2
 
-- CUBRID: 8.4.1\~9.3.5(ISO-8859-1, UTF-8 charset)
+- CUBRID: 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset)
 
-- Tibero: 4sp1~6
+- Tibero: 4sp1 ~ 6
 
 - PostgreSQL: 9.5.3
-
-##### Oracle이 대상 데이터베이스인 경우
-
-Oracle이 대상 데이터베이스일 경우 마이그레이션이 가능한 원본 데이터베이스는 아래와 같다.
-
-###### 대상 데이터베이스
-
-- Oracle Database 10g - 11g
-
-###### 원본 데이터베이스
-
-- Altibase: 4.3.9 이상 버전
 
 ##### JDBC 드라이버
 
@@ -7919,7 +7901,12 @@ Migration Center를 구동하는데 사용한 Java Runtime Environment (JRE) 의
 
 `해결 방법`
 
-$JAVA_HOME/jre/lib/security/java.security 파일의 jdk.tls.disabledAlgorithms 항목에서 TLSv1, TLSv1.1을 제거하면 이전 버전의 TLS를 사용 가능하다. 
+java.security 파일의 jdk.tls.disabledAlgorithms 항목에서 TLSv1, TLSv1.1을 제거하면 이전 버전의 TLS를 사용 가능하다.
+
+java.security 파일의 경로는 자바 버전에 따라 다르다:
+
+- 자바 11 미만: `$JAVA_HOME/jre/lib/security`
+- 자바 11 이상: `$JAVA_HOME/conf/security`
 
 ~~~java
 //jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, 

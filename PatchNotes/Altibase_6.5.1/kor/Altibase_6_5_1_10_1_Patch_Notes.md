@@ -546,10 +546,6 @@ Changes
 
 메타 버전은 변경되지 않았다.
 
-> 패치를 롤백하려는 경우,
-> [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation%20Guide.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를
-> 참고한다.
-
 #### CM protocol Version
 
 통신 프로토콜 버전은 변경되지 않았다.

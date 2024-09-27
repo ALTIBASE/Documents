@@ -375,20 +375,14 @@ Since Migration Center is bundled with the JRE 8 for the 64-bit Microsoft Window
 ##### Source Database
 
 - Altibase: 4.3.9 or later
-
-- Oracle Database: 9i - 11g
-
-- Microsoft SQL Server: 2005 - 2012
-
-- Oracle MySQL: 5.0 - 5.5
-
+- Oracle Database: 9i ~ 11g
+- Microsoft SQL Server: 2005 ~ 2012
+- Oracle MySQL: 5.0 - 5.7
 - Informix: 11.50
-
 - Oracle TimesTen: 7.0, 11.2
-
-- CUBRID: 8.4.1\~9.3.5(ISO-8859-1, UTF-8 charset)
-
-- Tibero: 5\~6
+- CUBRID: 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset)
+- Tibero: 4sp1 ~ 6
+- PostgreSQL: 9.5.3
 
 ##### JDBC Driver
 
@@ -8089,7 +8083,7 @@ If there is a global temporary table among the list of migration objects of the 
 
 When performing the Reconcile step, the Migration Center takes a list of Altibase tablespaces that the user can access and tries to map tablespaces and tables between databases. At this time, this error occurs when there is no accessible volatile tablespace in Altibase to be mapped for a global temporary table in Oracle.
 
-##### Action
+##### Solution
 
 Create a volatile tablespace in the target database, Altibase, grant access privileges, and then perform the reconcile step again.
 
@@ -8195,15 +8189,51 @@ This is because the difference between databases on how to handle zero-length st
 
 Reconcile phase - In DDL Editing, delete the NOT NULL constraint from the Destination DDL of the corresponding table and click the "Save" button to save it.
 
-#### Migration of duplicate foreign key is failed..
+#### Migration of duplicate foreign key is failed.
 
 ##### Cause
 
 MS-SQL allows duplicate foreign keys while Altibase does not. So, only one foreign key will be migrated.
 
-##### Action
+##### Solution
 
 In the “Missing” tab of the report created after the Run step, you can see the foreign keys that failed to escalate.
+
+#### The error message 'The server selected protocol version TLS10 is not accepted by client preferences' is printed and connection fails.
+
+##### Cause
+
+The issue occurs because the Java Runtime Environment (JRE) used to run the Migration Center has been updated to default to TLS 1.2 or later, while the MS-SQL server does not support the newer TLS versions.
+
+##### Solution
+
+To enable the use of older TLS versions, remove TLSv1 and TLSv1.1 from the jdk.tls.disabledAlgorithms in the java.security file.
+
+The path to the java.security file depends on the Java version:
+
+- Java 10 and earlier: `$JAVA_HOME/jre/lib/security`
+- Java 11 and later: `$JAVA_HOME/conf/security`
+
+~~~java
+//jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, 
+jdk.tls.disabledAlgorithms=SSLv3, RC4, DES, MD5withRSA, 
+~~~
+
+If using TLS 1.2 or later is mandatory, refer to [KB3135244 - TLS 1.2 support for Microsoft SQL Server](https://support.microsoft.com/en-us/topic/kb3135244-tls-1-2-support-for-microsoft-sql-server-e4472ef8-90a9-13c1-e4d8-44aad198cdbe) to update Windows, MS-SQL server, and the MS-SQL JDBC driver file.
+
+#### Using a JDBC driver that is not compatible with the Java version running the Migration center may result in the following error: "Unable to connect to DB. javax/xml/bind/DatatypeConverter."
+
+Running the Migration Center on Java 11 or later while using a JDBC driver designed for JRE 10 or earlier may result in the following error: *"Unable to connect to DB. javax/xml/bind/DatatypeConverter."*
+
+##### Cause
+
+This error occurs because the JDBC driver designed for JRE 10 or earlier references the javax.xml.bind module, which has been removed in Java 11 and later versions.
+
+##### Solution
+
+Use a JDBC driver file that is compatible with the Java version running the Migration Center.
+
+Example) mssql-jdbc-7.2.2.**jre11**.jar
 
 ### Altibase
 
@@ -8213,7 +8243,7 @@ In the “Missing” tab of the report created after the Run step, you can see t
 
 Altibase version 5.1.5 or lower does not support globalization, so JDBC does not know how to handle the character set of the database.
 
-##### Action
+##### Solution
 
 You must include the character set value (for example, KSC5601) set in the destination database in the encoding option of the corresponding database connection information in the Migration Center. Here's how to check the Altibase character set.
 
@@ -8292,7 +8322,7 @@ https://m.blog.naver.com/PostView.nhn?blogId=jangkeunna&logNo=70146227929&proxyR
 
 If you find that the MySQL JDBC driver returns a null value when importing data with a size of 1, it is probably a MySQL JDBC driver issue.
 
-##### Action
+##### Solution
 
 You need to replace the driver with version 5.0.8 of MySQL Connector / J (link). If the same happens in the retry, cancel Batch Execution by following the procedure below.
 
