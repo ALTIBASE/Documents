@@ -350,7 +350,7 @@ This section discusses the system requirements for Migration Center and compatib
 
 - Disk: 150MB or more free space
 
-- Screen resolution: 1024 x 900 pixels or higher
+- Screen resolution: 1024x900 pixels or higher
 
 ##### CLI Mode
 
@@ -1005,14 +1005,14 @@ Object and table data of the source database to be migrated are migrated directl
 | Use Double-quoted Identifier                 | Specifies whether or not to use double quotation marks for schema and object names. This option is set to 'No' by default. |
 | Remove FORCE from View DDL                   | Specifies whether or not to remove 'FORCE' keyword from the statement creating a view. |
 | Postfix for reserved word                    | Specifies a user-defined word which is to be added to the database object name in the source database as a postfix when it conflicts with a reserved keyword of Altibase. The defualt value is _POC. |
-| Default '' (Empty String) Not Null Column    | Defines how to modify the column definition when an empty string[^1] is set as the default value and a NOT NULL constraint is applied <br />- Replace Default Empty String: Setting this option to 'Yes' replaces the default empty string with a user-defined value. The default setting is 'No'.<br />- Replacement Default Value: Specifies the string to be used as the new default value. This option is only enabled when **Replace Default Empty String** is set to 'Yes'.<br />- Remove Not Null: Setting this option to 'Yes' removes the NOT NULL constraint from the column where the empty string is the default value. The default setting is 'No'. |
+| Default '' (Empty String) Not Null Column    | Defines how to modify the column definition when an empty string[^1] is set as the default value and a NOT NULL constraint is applied <br />- Replace Default Empty String: Setting this option to 'Yes' allows to replace the default empty string with a user-defined value. The default setting is 'No'.<br />- Replacement Default Value: Specifies the string to be used as the new default value. This option is only enabled when Replace Default Empty String is set to 'Yes'.<br />- Remove Not Null: Setting this option to 'Yes' removes the NOT NULL constraint from the column where the empty string is the default value. The default setting is 'No'. |
 | **Data Options**                             |                                                              |
 | Batch Execution                              | Specifies whether or not to use batch insert in JDBC for higher performance. This option is set to 'Yes' by default. |
 | Batch Size                                   | Specifies the batch size when batch insert in JDBC is used. The default value is 10,000. |
 | Batch LOB type                               | Specifies whether or not to batch process BLOB and CLOB data types.<br />'Yes' means to allow batch processing. However, it should be noted that problems such as out of memory (OOM) may occur depending on the size of the LOB data. Also, an exception may be raised in TimesTen, which does not support the batch processing for LOB data types.'No' does not allow batch processing. This option is set to 'No' by default. |
 | Log Insert-failed Data                       | Specifies whether or not to log insert-failed rows during data migration. This option is available only when the Batch Execution option is disabled. This option is set to 'No' by default. |
 | File Encoding                                | Specifies the encoding character set to be used when logging the insert-failed data into files. This option is available only when the Log Insert-failed Data option is enabled. The default value is UTF8. |
-| Replace Empty String Data                    | Defines how to replace empty string data encountered during data migration with a user-defined string.<br />- Replace Empty Strings in Not Null: Setting this option to 'Yes' replaces empty string data in columns with a `NOT NULL` constraint with a user-defined string. The default setting is 'No'.<br/>- Replacement String: Specifies the string that will replace the empty string. This option is only enabled when **Replace Empty Strings in Not Null** is set to 'Yes'.<br />- Apply to Nullable Columns: Setting this option to 'Yes' replaces empty string data in columns without a `NOT NULL` constraint with the value specified in **Replacement String**. The default setting is 'No'. |
+| Replace Empty String Data                    | Specifies how to replace empty string data encountered during data migration with a user-defined string.<br />- Replace Empty Strings in Not Null: Setting this option to 'Yes' allows to replace empty string data with a user-defined string. The default setting is 'No'.<br/>- Replacement String: Specifies the string that will replace the empty string. This option is only enabled when Replace Empty Strings in Not Null is set to 'Yes'.<br />- Apply to Nullable Columns: Setting this option to 'Yes' allows to replace empty string data in columns **without a `NOT NULL` constraint** with the value specified in Replacement String. The default setting is 'No'. |
 | **Data Validation Options**                  |                                                              |
 | Operation                                    | Specifies the operation to be executed in the data validation stage: <br />DIFF: Check data difference between the source and the target databases. <br/>FILESYNC: Apply the CSV file created as a result of DIFF operation to the target database. |
 | Write to CSV                                 | Specifies whether or not to write the inconsistent data to the CSV file. |
@@ -1038,7 +1038,7 @@ The stored files can be migrated to the database (Altibase) to be saved using iS
 | PSM Migration                             | Specifies whether or not to include  PSM objects such as procedures, functions, materialized views, views, typesets, and triggers. This option is set to 'Yes' by default. |
 | Keep Partition Table                      | Specifies whether or not to maintain partitioned tables.<br />When this option is set to 'Yes', partitioned tables in the the source database will be migrated as partitioned tables. In this case, additional work is required for the partitioned tables in the reconcile stage's '5. Partitioned Table Conversion'. When this option is set to 'No', target partitioned tables will be migrated as non-partitioned tables. This option is set to 'No' by default. |
 | Use Double-quoted Identifier              | Specifies whether or not to use double quotation marks for schema and object names. This option is set to 'No' by default. |
-| Default '' (Empty String) Not Null Column | Defines how to modify the column definition when an empty string is set as the default value and a NOT NULL constraint is applied <br />- Replace Default Empty String: Setting this option to 'Yes' replaces the default empty string with a user-defined value. The default setting is 'No'.<br />- Replacement Default Value: Specifies the string to be used as the new default value. This option is only enabled when **Replace Default Empty String** is set to 'Yes'.<br />- Remove Not Null: Setting this option to 'Yes' removes the NOT NULL constraint from the column where the empty string is the default value. The default setting is 'No'. |
+| Default '' (Empty String) Not Null Column | Defines how to modify the column definition when an empty string is set as the default value and a NOT NULL constraint is applied <br />- Replace Default Empty String: Setting this option to 'Yes' allows to replace the default empty string with a user-defined value. The default setting is 'No'.<br />- Replacement Default Value: Specifies the string to be used as the new default value. This option is only enabled when Replace Default Empty String is set to 'Yes'.<br />- Remove Not Null: Setting this option to 'Yes' removes the NOT NULL constraint from the column where the empty string is the default value. The default setting is 'No'. |
 | **Data Files**                            |                                                              |
 | File Encoding                             | Specifies the encoding character set to be used for scripts and data files. |
 
@@ -1667,7 +1667,7 @@ Default values of most of the original database are compatible with the target d
 
 - The CHARACTER data type with an empty string as the default value
 
-  Altibase treats empty strings (`''`) as NULL, meaning that no default value is assigned. For columns where the default value is an empty string and a `NOT NULL` constraint is present, refer to the [Empty String Handling Options](#empty-string-handling-options) section.
+  Altibase treats empty strings (`''`) as NULL, meaning that no default value is assigned. For columns where the default value is an empty string and a NOT NULL constraint is present, refer to the [Empty String Handling Options](#empty-string-handling-options) section.
 
 - The DATE data type with a string expression as the default value
 
@@ -1989,7 +1989,7 @@ Migration Center offers empty string handling options to prevent data loss. Thes
 
  Empty string handling options that can be set in the Object Options are below:
 
-![](https://github.com/ALTIBASE/Documents/blob/BUG-51069/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-object-options.png)
+![](https://github.com/ALTIBASE/Documents/blob/BUG-51069/Manuals/Tools/Altibase_trunk/eng/media/MigrationCenter/empty-string-object-options.png)
 
 By configuring the options below, users can adjust the CREATE statement generated when migrating a table with columns where the default value is an empty string and a NOT NULL constraint is set.
 
@@ -1999,8 +1999,8 @@ By configuring the options below, users can adjust the CREATE statement generate
 
 | Option                           | Description                                                  | Remarks                                                    |
 | -------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------- |
-| **Replace Default Empty String** | Sets whether to replace the default value with a user-defined string in the `CREATE` statement generated by Altibase. |                                                            |
-| **Replacement Default Value**    | Enters the default value to replace the empty string.        | Activated when Replace Default Empty String is set to Yes. |
+| **Replace Default Empty String** | Specifies whether to replace the default value with a user-defined string in the `CREATE` statement generated by Altibase. |                                                            |
+| **Replacement Default Value**    | Specifies the default value to replace the empty string.     | Enabled when Replace Default Empty String is set to 'Yes'. |
 | **Remove Not Null**              | Removes the NOT NULL constraint in the `CREATE` statement generated by Altibase. |                                                            |
 
 These options can be applied individually or in combination, providing flexibility in empty string handling according to user requirements. For instance, if the column definition in the source database is `C1 CHAR(10) DEFAULT '' NOT NULL`, the generated statement will differ based on the selected option combinations as below.
@@ -2046,15 +2046,15 @@ These options can be applied individually or in combination, providing flexibili
 
 The empty string handling options that can be set in Data Options are below:
 
-![](https://github.com/ALTIBASE/Documents/blob/BUG-51069/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-data-options.png)
+![](https://github.com/ALTIBASE/Documents/blob/BUG-51069/Manuals/Tools/Altibase_trunk/eng/media/MigrationCenter/empty-string-data-options.png)
 
 By configuring the options below, users can change empty strings discovered during data migration to a user-defined value.
 
 | Option                                | Description                                                  | Remarks                                                      |
 | ------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| **Replace Empty Strings in Not Null** | Sets whether to replace empty strings in columns with NOT NULL constraints with a user-defined string. |                                                              |
-| **Replacement String**                | Enters the string to replace the empty string.               | Activated when Replace Empty Strings in Not Null is set to Yes. |
-| **Apply to Nullable Columns**         | Sets whether to replace empty string data in columns without NOT NULL constraints with the string entered in Replacement String. | Activated when Replace Empty Strings in Not Null is set to Yes. |
+| **Replace Empty Strings in Not Null** | Specifies whether to replace empty strings in columns with NOT NULL constraints with a user-defined string. |                                                              |
+| **Replacement String**                | Specifies the string to replace the empty string.            | Enabled when Replace Empty Strings in Not Null is set to 'Yes'. |
+| **Apply to Nullable Columns**         | Specifies whether to replace empty string data in columns without NOT NULL constraints with the string specified in Replacement String. | Enabled when Replace Empty Strings in Not Null is set to 'Yes'. |
 
 # Appendix E: PSM Converter Rule List
 
