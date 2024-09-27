@@ -1667,7 +1667,7 @@ Default values of most of the original database are compatible with the target d
 
 - The CHARACTER data type with an empty string as the default value
 
-  Altibase treats an empty string (`''`) as NULL, meaning that no default value is assigned. For columns where the default value is an empty string and a `NOT NULL` constraint is present, refer to the [Empty String Handling Options](#empty-string-handling-options) section.
+  Altibase treats empty strings (`''`) as NULL, meaning that no default value is assigned. For columns where the default value is an empty string and a `NOT NULL` constraint is present, refer to the [Empty String Handling Options](#empty-string-handling-options) section.
 
 - The DATE data type with a string expression as the default value
 
