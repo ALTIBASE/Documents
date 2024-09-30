@@ -1312,7 +1312,9 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | Materialized View      |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
 | Trigger                |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
 
-> 참고:  Tibero의 Procedure, Function, View, Materialized View, Trigger는 객체를 마이그레이션하기 위해 Third-Party에서 제공하는 Oracle용 SQL 파서를 사용한다. 따라서, Oracle 문법과 호환되지 않는 Tibero 고유의 문법으로 생성된 객체는 변환과정에서 파싱 에러가 발생가능하며, 이 경우 사용자가 수동으로 문법을 변환해야 한다.
+> [!note]
+>
+> Tibero의 Procedure, Function, View, Materialized View, Trigger는 객체를 마이그레이션하기 위해 Third-Party에서 제공하는 Oracle용 SQL 파서를 사용한다. 따라서, Oracle 문법과 호환되지 않는 Tibero 고유의 문법으로 생성된 객체는 변환과정에서 파싱 에러가 발생가능하며, 이 경우 사용자가 수동으로 문법을 변환해야 한다.
 
 ### PostgreSQL to Altibase
 
@@ -1331,7 +1333,9 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | Materialized View      |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Trigger                |                   X                   |                   X                    | 마이그레이션 미지원 대상이다. 구축(Build) 단계에서 PostgreSQL에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 
-> 참고 : 위 표에 기록되지 않은 PostgreSQL의 객체(예, Exclusion 제약, Type, Enum 등)는 Altibase에 대응되는 객체가 없어 마이그레이션 대상에서 제외한다.
+> [!note]
+>
+> 위 표에 기록되지 않은 PostgreSQL의 객체(예, Exclusion 제약, Type, Enum 등)는 Altibase에 대응되는 객체가 없어 마이그레이션 대상에서 제외한다.
 
 
 
@@ -1961,6 +1965,7 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
         <td >LOCALTIMESETAMP()</td><td></td>
     </tr>
 </table>
+
 > [!note]
 >
 > MySQL은 테이블의 첫 칼럼의 데이터 타입이 TIMESTAMP인 경우, 사용자가 기본값을 지정하지 않아도 기본값으로 CURRENT_TIMESTAMP이 자동으로 지정된다. 따라서, 이 경우 기본값이 SYSDATE으로 변환된다. 아래의 예제를 참고하라.
@@ -2166,7 +2171,7 @@ Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 
 
 다음은 Object Options 에서 설정할 수 있는 빈 문자열 처리 옵션이다.
 
-![](https://github.com/ALTIBASE/Documents/blob/BUG-51069/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-object-options.png)
+![](https://github.com/ALTIBASE/Documents/tree/master/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-object-options.png)
 
 아래의 옵션을 설정하여 빈 문자열이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼 테이블을 마이그레이션할 때 생성할 CREATE 문을 조정할 수 있다.
 
@@ -2222,7 +2227,7 @@ Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 
 
 다음은 Data Options 에서 설정할 수 있는 빈 문자열 처리 옵션이다.
 
-![](https://github.com/ALTIBASE/Documents/blob/BUG-51069/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-data-options.png)
+![](https://github.com/ALTIBASE/Documents/tree/master/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-data-options.png)
 
 아래의 옵션을 설정하여 데이터 마이그레이션 중 발견된 빈 문자열을 사용자가 정의한 값으로 변경할 수 있다.
 
@@ -7619,7 +7624,9 @@ OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 3�
 
     2. JVM 내 heap 최대 크기를 정하는 옵션 -Xmx의 값을 기존 값보다 높게 설정한다.
 
-    > Note: Windows 32 bit machine에서는 OS dependency로 인해 Xmx 값을 최대 1.5 GB까지 설정할 수 있다.
+    > [!note]
+    >
+    > Windows 32 bit machine에서는 OS dependency로 인해 Xmx 값을 최대 1.5 GB까지 설정할 수 있다.
 
 - `<PermGen space>`
 
