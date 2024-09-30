@@ -261,7 +261,7 @@ L : 입력 문자열의 길이</pre>
 </td>
     </tr>
     <tr>
-    	<th>타 입</th>
+    	<th>타입</th>
         <th>Length</th>
         <th>Size</th>
     </tr>
@@ -302,7 +302,6 @@ length*3 + 2(UTF8)<br>
     </tr>
     </table>
 
-
 NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩된 문자열의 최대 길이는 UTF8로 인코딩된 문자열의 최대 길이와 다르다.
 
 ##### 숫자형 데이터형
@@ -310,7 +309,7 @@ NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩�
 <table>
     <tr>
         <td rowspan="12">Non-native</td>
-        <th>타 입</th>
+        <th>타입</th>
         <th>Precision</th>
         <th>Scale</th>
         <th>Size (bytes)</th>
@@ -414,7 +413,6 @@ NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩�
     </tr> 
 </table>
 
-
 ###### 예제 
 
 예제1. 고정 소수점 숫자 크기 계산 : ( 3 + ( ( p ) + 2 ) / 2 )
@@ -452,22 +450,22 @@ NCHAR와 NVARCHAR는 유니코드 문자형 타입이다. UTF16으로 인코딩�
 - NUMBER: FLOAT과 동일
 ```
 
-**날짜 데이터형**
+##### 날짜 데이터형
 
-| 타 입 | Size (byte) |
-| ----- | ----------- |
-| DATE  | 8           |
+| 타입 | Size (byte) |
+| ---- | ----------- |
+| DATE | 8           |
 
-**이진 데이터형**
+##### 이진 데이터형
 
 <table>
     <tr>
         <td colspan="3"><pre>M : 정의된 칼럼 길이
 L : 입력 문자열의 길이</pre>
-</td>
+		</td>
     </tr>
     <tr>
-    	<th>타 입</th>
+    	<th>타입</th>
         <th>Length</th>
         <th>Size</th>
     </tr>
@@ -481,12 +479,21 @@ L : 입력 문자열의 길이</pre>
         <td>1 ~ 32000</td>
         <td>M + 2</td>
     </tr>
-     <tr>
+    <tr>
+    	<td>VARBYTE</td>
+        <td>1 ~ 32000</td>
+        <td>length + 2<br>
+			여기서<br>
+			입력 값이 가변영역에 저장되면, length = L<br>
+			입력 값이 고정영역에 저장되면, length = M
+		</td>
+    </tr>
+    <tr>
     	<td>NIBBLE</td>
         <td>1 ~ 254</td>
         <td>M/2 + 1</td>
     </tr>
-     <tr>
+    <tr>
     	<td>BIT</td>
         <td>1 ~ 64000</td>
         <td>M/8 + 4</td>
@@ -495,17 +502,16 @@ L : 입력 문자열의 길이</pre>
     	<td>VARBIT</td>
         <td>1 ~ 64000</td>
         <td>length/8 + 4<br>
-여기서<br>
-입력 값이 가변영역에 저장되면, length = L<br>
-입력 값이 고정영역에 저장되면, length = M
-</td>
+			여기서<br>
+			입력 값이 가변영역에 저장되면, length = L<br>
+			입력 값이 고정영역에 저장되면, length = M
+		</td>
     </tr>
-    </table>
+</table>
 
+##### 공간 데이터형
 
-**공간 데이터형**
-
-| 타 입    | Length       | Size (byte) |
+| 타입     | Length       | Size (byte) |
 | -------- | ------------ | ----------- |
 | GEOMETRY | 8\~104857600 | length + 40 |
 

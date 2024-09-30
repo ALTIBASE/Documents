@@ -440,16 +440,16 @@ Floating-Point Numbers Size Calculation: ( 3 + ( ( p ) + 2 ) / 2 )
 - FLOAT(p)  
   FLOAT(20): Size = 3 + 22/2 = 14 bytes
   
-- - NUMBER: the same as FLOAT
+- NUMBER: the same as FLOAT
 ```
 
-**Date Data Type**
+##### Date Data Type
 
 | Type | Size (byte) |
 | ---- | ----------- |
 | DATE | 8           |
 
-**Binary Data Types**
+##### Binary Data Types
 
 <table>
     <tr>
@@ -472,12 +472,21 @@ L : The length of the input value</pre>
         <td>1 ~ 32000</td>
         <td>M + 2</td>
     </tr>
-     <tr>
+    <tr>
+    	<td>VARBYTE</td>
+        <td>1 ~ 32000</td>
+        <td>length + 2<br>
+			where<br>
+			length = L if the input value is stored in a variable area<br>
+			length = M if the input value is stored in a fixed area
+		</td>
+    </tr>
+    <tr>
     	<td>NIBBLE</td>
         <td>1 ~ 254</td>
         <td>M/2 + 1</td>
     </tr>
-     <tr>
+    <tr>
     	<td>BIT</td>
         <td>1 ~ 64000</td>
         <td>M/8 + 4</td>
@@ -486,15 +495,14 @@ L : The length of the input value</pre>
     	<td>VARBIT</td>
         <td>1 ~ 64000</td>
         <td>length/8 + 4<br>
-where<br>
-length = L if the input value is stored in a variable area<br>
-length = M if the input value is stored in a fixed area
-</td>
+			where<br>
+			length = L if the input value is stored in a variable area<br>
+			length = M if the input value is stored in a fixed area
+		</td>
     </tr>
-    </table>
+</table>
 
-
-**Geometry Data Type**
+##### Geometry Data Type
 
 | Type     | Length       | Size (byte) |
 | -------- | ------------ | ----------- |
