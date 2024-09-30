@@ -2170,7 +2170,7 @@ Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 
 
 다음은 Object Options 에서 설정할 수 있는 빈 문자열 처리 옵션이다.
 
-![](https://github.com/ALTIBASE/Documents/tree/master/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-object-options.png)
+![](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-object-options.png)
 
 아래의 옵션을 설정하여 빈 문자열이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼 테이블을 마이그레이션할 때 생성할 CREATE 문을 조정할 수 있다.
 
@@ -2227,7 +2227,7 @@ Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 
 
 다음은 Data Options 에서 설정할 수 있는 빈 문자열 처리 옵션이다.
 
-![](https://github.com/ALTIBASE/Documents/tree/master/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-data-options.png)
+![](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-data-options.png)
 
 아래의 옵션을 설정하여 데이터 마이그레이션 중 발견된 빈 문자열을 사용자가 정의한 값으로 변경할 수 있다.
 
