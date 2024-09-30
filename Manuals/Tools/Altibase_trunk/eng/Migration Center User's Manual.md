@@ -1215,7 +1215,7 @@ Objects in the source database that Migration Center does not migrate automatica
 
 > [!note]
 >
-> MigrationCenter uses the SQL parser for Oracle provided by Third Party to migrate Tibero's Procedure, Function, View, Materialized View, and Trigger objects. Therefore, objects created with Tibero native syntax that is incompatible with Oracle grammar can cause parsing errors during conversion. In this case, the user must manually translate the syntax.
+> Migration Center uses the SQL parser for Oracle provided by Third Party to migrate Tibero's Procedure, Function, View, Materialized View, and Trigger objects. Therefore, objects created with Tibero native syntax that is incompatible with Oracle grammar can cause parsing errors during conversion. In this case, the user must manually translate the syntax.
 
 ### PostgreSQL to Altibase
 
@@ -2080,15 +2080,15 @@ When converting several SQL statements, end each SQL statement with a slash (‘
 
 #### RULE-11001
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 'WITH CHECK OPTION' has been removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -2096,7 +2096,7 @@ AS SELECT * FROM t1
 WITH CHECK OPTION;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 
@@ -2106,41 +2106,41 @@ AS SELECT * FROM t1
 
 #### RULE-11002
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 The alias constraints have been removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
-(a1 **UNIQUE**)
+(a1 UNIQUE)
 AS SELECT c1 FROM t1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
-(a1 /* UNIQUE */ /* [REMOVED] RULE-11002 : Inline constraints are removed*/)
+(a1 /* UNIQUE */ /* [REMOVED] RULE-11002 : Inline constraints are removed */)
 AS SELECT c1 FROM t1;
 ```
 
 #### RULE-11003
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 View level constraints must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -2148,7 +2148,7 @@ CREATE OR REPLACE VIEW v1
 AS SELECT c1 FROM t1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 
@@ -2158,15 +2158,15 @@ AS SELECT c1 FROM t1;
 
 #### RULE-11004
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 BEQUEATH clause has been removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 
@@ -2174,7 +2174,7 @@ BEQUEATH CURRENT_USER
 AS SELECT * FROM t1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 
@@ -2184,23 +2184,23 @@ AS SELECT * FROM t1;
 
 #### RULE-11005
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 XMLType view clause should be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
 OF XMLTYPE WITH OBJECT ID DEFAULT
-AS SELECT \* FROM t1;
+AS SELECT * FROM t1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 
@@ -2210,23 +2210,23 @@ AS SELECT * FROM t1;
 
 #### RULE-11006
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The clause of object type view should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1_1
 OF type1 UNDER v1
-AS SELECT \* FROM t1;
+AS SELECT * FROM t1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1_1
@@ -2236,15 +2236,15 @@ AS SELECT * FROM t1;
 
 #### RULE-11007
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 VISIBLE or INVISIBLE has been removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -2252,7 +2252,7 @@ CREATE OR REPLACE VIEW v1
 AS SELECT * FROM t1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -2262,15 +2262,15 @@ AS SELECT * FROM t1;
 
 #### RULE-11008
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 FORCE has been removed. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FORCE VIEW v1
@@ -2278,7 +2278,7 @@ CREATE OR REPLACE FORCE VIEW v1
 AS SELECT * FROM t1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE /* FORCE */ /* [REMOVED] RULE-11008 : FORCE has been removed */ VIEW v1
@@ -2292,15 +2292,15 @@ AS SELECT * FROM t1;
 
 > Version Scope: Less than the Altibase version 6.3.1.0.0
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
  ‘INSTEAD OF’ should be manually converted 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER log_attendance
@@ -2312,7 +2312,7 @@ END IF;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER log_attendance
@@ -2326,15 +2326,15 @@ END;
 
 #### RULE-12003
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 Triggers supporting multiple events must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2344,7 +2344,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2356,17 +2356,19 @@ END;
 
 #### RULE-12004
 
-> Version Scope: Less than the Altibase version 6.3.1.0.0
+This rule is about the DECLARE clause used within a PSM block, and is applied differently depending on the Altibase server version.
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+***Less than the Altibase version 6.3.1.0.0***
+
+###### Description
 
 AS or IS should be used regardless of that DECLARE exists or not in the PSM block. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2376,7 +2378,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2386,17 +2388,13 @@ NULL;
 END;
 ```
 
-> Version Scope: Altibase 6.3.1.0.0 ~ 6.5.1.3.7 or below
+***Altibase 6.3.1.0.0 ~ 6.5.1.3.7 or below***
 
-##### Type
-
-`TODO`
-
-##### Description
+###### Description
 
 The DECLARE preceding the PSM body should be replaced with AS or IS.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2408,7 +2406,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2422,15 +2420,15 @@ END;
 
 #### RULE-12005
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 Non-DML triggers must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2440,7 +2438,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2452,15 +2450,15 @@ END;
 
 #### RULE-12007
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 Nested tables must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2470,7 +2468,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2482,15 +2480,15 @@ END;
 
 #### RULE-12008
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The CALL routine clause must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2498,7 +2496,7 @@ AFTER DELETE ON t1
 CALL testproc1(a1, a2);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2508,15 +2506,15 @@ CALL testproc1(a1, a2) /* [TODO] RULE-12008 : CALL routine clause must be conver
 
 #### RULE-12009
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The parent row of a nested table cannot be specified.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2527,7 +2525,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2540,15 +2538,15 @@ END;
 
 #### RULE-12010
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The trigger ordering clause should be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2559,7 +2557,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2572,15 +2570,15 @@ END;
 
 #### RULE-12011
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The ommitted correlation name has been added in the REFERENCING clause.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2590,7 +2588,7 @@ BEGIN
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2604,15 +2602,15 @@ END;
 
 #### RULE-12012
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 A suffix has been added to the local identifier corresponding to the reserved words of Altibase.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2623,7 +2621,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2636,15 +2634,15 @@ END;
 
 #### RULE-12013
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 The trigger edition clause has been removed. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2655,7 +2653,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2668,15 +2666,15 @@ END;
 
 #### RULE-12014
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
-The ENABLE has been removed.
+The ENABLE is removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2687,7 +2685,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2700,15 +2698,15 @@ END;
 
 #### RULE-12015
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The DISABLE should be converted manually. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2719,7 +2717,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2732,15 +2730,15 @@ END;
 
 #### RULE-12016
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The colon preceding the alias referring to the rows defined in the REFERENCING clause has been eliminated. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2750,7 +2748,7 @@ DBMS_OUTPUT.PUT_LINE(:new.c1);
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2762,15 +2760,15 @@ END;
 
 #### RULE-12017
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 The trigger label name at the end of PL/SQL block has been removed in the CREATE TRIGGER statement.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2780,7 +2778,7 @@ NULL;
 END trig1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -2796,15 +2794,15 @@ END /* trig1 */ /* [REMOVED] RULE-12017 : The trigger label name at the end of b
 
 > Version Scope: Less than the Altibase version 6.3.1.0.0 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
-The AS LANGUAGE clause must be converted manually .
+The AS LANGUAGE clause must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1
@@ -2813,7 +2811,7 @@ AS LANGUAGE JAVA
 NAME 'test.quote() return java.lang.String';
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1
@@ -2824,15 +2822,15 @@ NAME 'test.quote() return java.lang.String'/* [TODO] RULE-13001 : AS LANGUAGE cl
 
 #### RULE-13002
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
-The AUTHID clause has been removed .
+The AUTHID clause is removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -2844,7 +2842,7 @@ RETURN a1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -2858,15 +2856,15 @@ END;
 
 #### RULE-13003
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
-The PARALLEL_ENABLE clause has been removed .
+The PARALLEL_ENABLE clause is removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -2878,7 +2876,7 @@ RETURN a1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -2892,15 +2890,15 @@ END;
 
 #### RULE-13004
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
-The RESULT_CACHE clause is removed .
+The RESULT_CACHE clause is removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -2912,7 +2910,7 @@ RETURN a1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -2926,15 +2924,15 @@ END;
 
 #### RULE-13005
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
 DETERMINISTIC is removed 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -2946,7 +2944,7 @@ RETURN a1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -2960,15 +2958,15 @@ END;
 
 #### RULE-13006
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
-The PIPELINED keyword must be converted manually .
+The PIPELINED keyword must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE FUNCTION getCityList RETURN tripLog_pkg.nt_city PIPELINED AS
@@ -2980,7 +2978,7 @@ RETURN;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE FUNCTION getCityList RETURN tripLog_pkg.nt_city PIPELINED /* [TODO] RULE-13006 : The keyword PIPELINED must be converted manually */ AS
@@ -2994,15 +2992,15 @@ END;
 
 #### RULE-13007
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The PIPELINED USING/AGGREGATE USING clause must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1
@@ -3010,7 +3008,7 @@ RETURN NUMBER
 AGGREGATE USING implementation_type;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1
@@ -3022,15 +3020,15 @@ AGGREGATE USING implementation_type/* [TODO] RULE-13007 : PIPELINED USING or AGG
 
 > Version Scope: Altibase 6.3.1.0.0 or above 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The WITH CONTEXT clause should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1
@@ -3038,7 +3036,7 @@ RETURN NUMBER IS
 LANGUAGE C LIBRARY lib1 WITH CONTEXT PARAMETERS(CONTEXT);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1
@@ -3050,15 +3048,15 @@ LANGUAGE C LIBRARY lib1 WITH CONTEXT /* [TODO] RULE-13008 : WITH CONTEXT clause 
 
 > Version Scope: Altibase 6.3.1.0.0 or above 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The AGENT IN clause should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1
@@ -3066,7 +3064,7 @@ RETURN NUMBER IS
 LANGUAGE C LIBRARY lib1 AGENT IN(EXTPROC);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1
@@ -3076,15 +3074,15 @@ LANGUAGE C LIBRARY lib1 AGENT IN(EXTPROC)/* [TODO] RULE-13009 : AGENT IN clause 
 
 #### RULE-13010
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
 The ACCESSIBLE BY clause has been removed. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -3096,7 +3094,7 @@ RETURN a1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -3112,15 +3110,15 @@ END;
 
 > Version Scope: Altibase 6.3.1.0.0 or later
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 JAVA call specification should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
@@ -3129,7 +3127,7 @@ LANGUAGE JAVA NAME
 'com.altibase.ex.empMgr.addEmp(java.lang.String)';
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
@@ -3142,15 +3140,15 @@ LANGUAGE JAVA NAME
 
 > Version Scope: Altibase 6.3.1.0.0 or above 
 
-##### Type
+###### Type
 
 `TODO` 
 
-##### Description
+###### Description
 
 The external parameter CONTEXT and SELF should manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
@@ -3159,7 +3157,7 @@ LANGUAGE C LIBRARY lib1
 PARAMETERS(a1, a1 LENGTH, SELF);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
@@ -3172,15 +3170,15 @@ PARAMETERS(a1, a1 LENGTH, SELF)/* [TODO] RULE-13012 : The external parameter CON
 
 > Version Scope: Altibase 6.3.1.0.0 or later
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The properties should be manually converted except INDICATOR, LENGTH, and MAXLEN.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
@@ -3189,7 +3187,7 @@ LANGUAGE C LIBRARY lib1
 PARAMETERS(a1, a1 CHARSETID, a1 CHARSETFORM);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
@@ -3202,15 +3200,15 @@ PARAMETERS(a1, a1 CHARSETID /* [TODO] RULE-13013 : The property except for INDIC
 
 > Version Scope: Altibase 6.3.1.0.0 or later
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The BY REFERENCE clause should manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -3219,7 +3217,7 @@ LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 BY REFERENCE);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -3232,15 +3230,15 @@ PARAMETERS(a1 BY REFERENCE /* [TODO] RULE-13014 : BY REFERENCE clause must be co
 
 > Version Scope: Altibase 6.3.1.0.0 or later
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 External data type of the parameters should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -3249,7 +3247,7 @@ LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -3264,15 +3262,15 @@ PARAMETERS(a1 OCINUMBER /* [TODO] RULE-13015 : External data type of the paramet
 
 > Version Scope: Less than the Altibase version tag 6.3.1.0.0 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
-The AS LANGUAGE clause must be converted manually .
+The AS LANGUAGE clause must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER)
@@ -3280,7 +3278,7 @@ AS LANGUAGE JAVA
 NAME 'test.quote() return java.lang.String';
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER)
@@ -3290,15 +3288,15 @@ NAME 'test.quote() return java.lang.String'/* [TODO] RULE-14001 : AS LANGUAGE cl
 
 #### RULE-14002
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
 The AUTHID clause is removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER)
@@ -3309,7 +3307,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER)
@@ -3324,22 +3322,22 @@ END;
 
 > Version Scope : Altibase 6.3.1.0.0 or later
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The WITH CONTEXT clause should manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
 LANGUAGE C LIBRARY lib1 WITH CONTEXT;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -3350,22 +3348,22 @@ LANGUAGE C LIBRARY lib1 WITH CONTEXT /* [TODO] RULE-14003 : WITH CONTEXT clause 
 
 > Version Scope : Altibase 6.3.1.0.0 or later
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The AGENT IN clause should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
 LANGUAGE C LIBRARY lib1 AGENT IN(EXTPROC);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -3374,15 +3372,15 @@ LANGUAGE C LIBRARY lib1 AGENT IN(EXTPROC)/* [TODO] RULE-14004 : AGENT IN clause 
 
 #### RULE-14005
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 The ACCESSIBLE BY clause has been removed. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1
@@ -3393,7 +3391,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1
@@ -3408,15 +3406,15 @@ END;
 
 > Version Scope : Altibase 6.3.1.0.0 or later
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
  JAVA call specification should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 VARCHAR2) AS
@@ -3424,7 +3422,7 @@ LANGUAGE JAVA NAME
 'com.altibase.ex.empMgr.addEmp(java.lang.String)';
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 VARCHAR2) AS
@@ -3437,15 +3435,15 @@ LANGUAGE JAVA NAME
 
 > Version Scope : Altibase 6.3.1.0.0 or later 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
-The parameters CONTEXT and SELF should be mannually converted. 
+The parameters CONTEXT and SELF should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
@@ -3453,7 +3451,7 @@ LANGUAGE C LIBRARY lib1
 PARAMETERS(a1, a1 LENGTH, SELF);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
@@ -3465,15 +3463,15 @@ PARAMETERS(a1, a1 LENGTH, SELF /* [TODO] RULE-14007 : The parameters CONTEXT and
 
 > Version Scope : Altibase 6.3.1.0.0 or later 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The properties should be manually converted except INDICATOR, LENGTH, and MAXLEN. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
@@ -3481,7 +3479,7 @@ LANGUAGE C LIBRARY lib1
 PARAMETERS(a1, a1 CHARSETID, a1 CHARSETFORM);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
@@ -3493,15 +3491,15 @@ PARAMETERS(a1, a1 CHARSETID /* [TODO] RULE-14008 : The property except for INDIC
 
 > Version Scope : Altibase 6.3.1.0.0 or later 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The BY REFERENCE clause should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
@@ -3509,7 +3507,7 @@ LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 BY REFERENCE);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CRETE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
@@ -3521,15 +3519,15 @@ PARAMETERS(a1 BY REFERENCE /* [TODO] RULE-14009 : BY REFERENCE clause must be co
 
 > Version Scope : Altibase 6.3.1.0.0 or later 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 External data type of the parameters should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREAT OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
@@ -3537,7 +3535,7 @@ LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREAT OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
@@ -3549,15 +3547,15 @@ PARAMETERS(a1 OCINUMBER /* [TODO] RULE-14010 : External data type of the paramet
 
 #### RULE-15004
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
 All clauses between the column alias clause and subquery are removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE MATERIALIZED VIEW mview1
@@ -3577,7 +3575,7 @@ USING ENFORCED CONSTRAINTS FOR UPDATE DISABLE QUERY REWRITE
 AS SELECT * FROM t1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE MATERIALIZED VIEW mview1
@@ -3601,15 +3599,15 @@ AS SELECT * FROM t1;
 
 #### RULE-16001
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
 The AUTHID clause is removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PACKAGE empMgr_pkg AUTHID CURRENT_USER 
@@ -3617,7 +3615,7 @@ AS PROCEDURE delete(p_id INTEGER);
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PACKAGE empMgr_pkg /* AUTHID CURRENT_USER */ /* [REMOVED] RULE-16001 : The invoker rights clause is removed */ 
@@ -3627,15 +3625,15 @@ END;
 
 #### RULE-16002
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
 The ACCESSIBLE BY clause has been removed. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PACKAGE pkg1
@@ -3644,7 +3642,7 @@ AS
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PACKAGE pkg1
@@ -3657,22 +3655,22 @@ END;
 
 #### RULE-17001
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
 The AGENT clause is removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE LIBRARY lib1 AS
 '${ORACLE_HOME}/lib/test_lib.so' AGENT 'test.rule.no_17001.com';
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE LIBRARY lib1 AS
@@ -3681,22 +3679,22 @@ CREATE OR REPLACE LIBRARY lib1 AS
 
 #### RULE-17002
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
-The UNTRUSTED keyword is removed,
+The UNTRUSTED keyword is removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE LIBRARY lib1 UNTRUSTED 
 AS '${ORACLE_HOME}/lib/test_lib.so';
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE LIBRARY lib1 /* UNTRUSTED */ /* [REMOVED] RULE-17002 : The keyword UNTRUSTED is removed */ 
@@ -3707,22 +3705,22 @@ AS '${ORACLE_HOME}/lib/test_lib.so';
 
 #### RULE-20001
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The Flashback Query clause should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
 SELECT * FROM t1 CROSS JOIN t2 VERSIONS BETWEEN TIMESTAMP MINVALUE AND MAXVALUE;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -3731,15 +3729,15 @@ SELECT * FROM t1 CROSS JOIN t2 VERSIONS BETWEEN TIMESTAMP MINVALUE AND MAXVALUE/
 
 #### RULE-20006
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 DBlink must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -3747,7 +3745,7 @@ AS
 SELECT * FROM t1@remote;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -3759,15 +3757,15 @@ SELECT * FROM t1@remote /* [TODO] RULE-20006 : DBlink must be converted manually
 
 > Version Scope: Less than the Altibase version tag 6.5.1.0.0 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The GROUPING SETS clause must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -3777,7 +3775,7 @@ FROM t1
 GROUP BY GROUPING SETS((c1, c2, c3, c4), (c1, c2, c3), (c3, c4));
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -3791,15 +3789,15 @@ GROUP BY GROUPING SETS((c1, c2, c3, c4), (c1, c2, c3), (c3, c4))/* [TODO] RULE-2
 
 > Version Scope: Less than the Altibase version tag 6.3.1.0.0 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The START WITH clause following the CONNECT BY clause must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -3807,7 +3805,7 @@ AS
 SELECT c1, c2, c3, c4 FROM t1 CONNECT BY c1 = c2 START WITH c1 = c4;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -3819,15 +3817,15 @@ SELECT c1, c2, c3, c4 FROM t1 CONNECT BY c1 = c2 START WITH c1 = c4 /* [TODO] RU
 
 > Version Scope: Less than the Altibase version tag 6.3.1.0.0 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
- The IGNORE LOOP should be placed after the following condition to convert NOCYCLE. 
+The IGNORE LOOP should be placed after the following condition to convert NOCYCLE. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -3836,7 +3834,7 @@ SELECT c1, c2, c3, c4
 FROM t1 CONNECT BY NOCYCLE c1 = c2 START WITH c1 = c4;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -3847,15 +3845,15 @@ FROM t1 CONNECT BY NOCYCLE /* [TODO] RULE-20010 : To convert 'NOCYCLE', 'IGNORE 
 
 #### RULE-20011
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
 All hints are removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -3863,7 +3861,7 @@ AS
 SELECT /*+ORDERED */ * FROM t1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -3875,15 +3873,15 @@ SELECT * FROM t1;
 
 > Version Scope: Less than the Altibase version tag 6.1.1.0.0 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The PIVOT clause must be reviewed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW xmlView
@@ -3894,7 +3892,7 @@ PIVOT XML (COUNT(*) FOR sex IN (ANY))
 ORDER BY dname;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW xmlView
@@ -3909,15 +3907,15 @@ ORDER BY dname;
 
 > Version Scope: Less than the Altibase version tag 6.5.1.0.0 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The UNPIVOT clause must be reviewed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -3927,7 +3925,7 @@ UNPIVOT (c5 FOR c2 IN (c3 AS 'no', c4 AS 'name'))
 ORDER BY c1, c2;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -3939,15 +3937,15 @@ ORDER BY c1, c2;
 
 #### RULE-20014
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 Schema names are removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE test_user1.proc1(a1 NUMBER)
@@ -3961,7 +3959,7 @@ SELECT * INTO :cur1, :cur2 FROM "Test_User1".t1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER)
@@ -3979,15 +3977,15 @@ END;
 
 > Version Scope: Less than the Altibase version tag 6.3.1.0.0 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The RETURNING clause must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE FUNCTION deleteMenu(p_menuName IN VARCHAR2) RETURN INTEGER
@@ -4000,7 +3998,7 @@ RETURN v_totalCnt;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE FUNCTION deleteMenu(p_menuName IN VARCHAR(32000))
@@ -4016,15 +4014,15 @@ END;
 
 #### RULE-20016
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The CONNECT_BY_ISCYCLE pseudo-column should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -4039,7 +4037,7 @@ START WITH c2 = 100
 CONNECT BY PRIOR c2 = c3 AND LEVEL <= 4;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -4058,15 +4056,15 @@ CONNECT BY PRIOR c2 = c3 AND LEVEL <= 4;
 
 > Version Scope: Altibase 6.3.1.1.7 or earlier
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
 NULLS FIRST and NULLS LAST are removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -4077,7 +4075,7 @@ FROM t1
 ORDER BY c1 NULLS FIRST;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -4090,15 +4088,15 @@ ORDER BY c1 /* NULLS LAST */ /* [REMOVED] RULE-20017 : 'NULLS FIRST' and 'NULLS 
 
 #### RULE-20019
 
-##### Type
+###### Type
 
 `REMOVED` 
 
-##### Description
+###### Description
 
 The Subquery restriction clause has been removed. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -4106,7 +4104,7 @@ AS
 SELECT * FROM (SELECT * FROM t2 WITH READ ONLY) t1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -4116,15 +4114,15 @@ SELECT * FROM (SELECT * FROM t2 /* WITH READ ONLY */ /* [REMOVED] RULE-20019 : R
 
 #### RULE-20020
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 An inner join clause that is a CROSS or NATURAL INNER join must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -4132,7 +4130,7 @@ AS
 SELECT * FROM (SELECT * FROM t1) CROSS JOIN t2;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -4142,15 +4140,15 @@ SELECT * FROM (SELECT * FROM t1) CROSS JOIN t2 /* [TODO] RULE-20020 : A CROSS or
 
 #### RULE-20021
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The USING clause in a join should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -4158,7 +4156,7 @@ AS
 SELECT c1, c2 FROM t1 JOIN t2 USING(c1, c2);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -4168,15 +4166,15 @@ SELECT c1, c2 FROM t1 JOIN t2 USING(c1, c2) /* [TODO] RULE-20021 : USING clause 
 
 #### RULE-20022
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 A NATURAL type outer join clause must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE VIEW sales_view
@@ -4185,7 +4183,7 @@ SELECT * FROM log_guest NATURAL FULL OUTER JOIN log_sales
 ORDER BY datetime;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE VIEW sales_view AS
@@ -4195,15 +4193,15 @@ ORDER BY datetime;
 
 #### RULE-20023
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
  The UNIQUE is converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -4211,7 +4209,7 @@ AS
 SELECT UNIQUE c1 FROM t1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1
@@ -4221,15 +4219,15 @@ SELECT DISTINCT c1 FROM t1;
 
 #### RULE-20028
 
-##### Type
+###### Type
 
  `CONVERTED`
 
-##### Description
+###### Description
 
 Double quotations are removed. However, in the reconcile "Unacceptable Name" step, if the "Use Double-quoted Identifier" option is selected for an object that requires double quotes in the name, the quotes for the name are not removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW "USER1"."V1" ("A1")
@@ -4241,7 +4239,7 @@ UNION ALL
 SELECT "no" "A1" FROM "T3" WHERE "C6" = '2';
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW USER1.V1(A1)
@@ -4255,40 +4253,40 @@ SELECT no A1 FROM T3 WHERE C6 = '2';
 
 #### RULE-20029
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The global identifier that is an Altibase keyword is converted by appending a postfix.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE PROCEDURE open(p_objName VARCHAR2, p_objType VARCHAR2)
 AS
-v_ddl VARCHAR2(200) := 'CREATE ' \|\| p_objType \|\| ' ' \|\| p_objName;
+v_ddl VARCHAR2(200) := 'CREATE ' || p_objType || ' ' || p_objName;
 BEGIN
 CASE p_objType
-WHEN 'TABLE' THEN v_ddl := v_ddl \|\| ' (c1 INTEGER)';
-WHEN 'VIEW' THEN v_ddl := v_ddl \|\| ' AS SELECT \* FROM dual';
+WHEN 'TABLE' THEN v_ddl := v_ddl || ' (c1 INTEGER)';
+WHEN 'VIEW' THEN v_ddl := v_ddl || ' AS SELECT * FROM dual';
 END CASE;
 DBMS_OUTPUT.PUT_LINE(v_ddl);
 EXECUTE IMMEDIATE v_ddl;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE PROCEDURE open_POC(p_objName VARCHAR2, p_objType VARCHAR2)
 AS
-v_ddl VARCHAR2(200) := 'CREATE' \|\| p_objType \|\| ' ' \|\| p_objName;
+v_ddl VARCHAR2(200) := 'CREATE' || p_objType || ' ' || p_objName;
 BEGIN
 CASE p_objType
-WHEN 'TABLE' THEN v_ddl := v_ddl \|\| ' (c1 INTEGER)';
-WHEN 'VIEW' THEN v_ddl := v_ddl \|\| ' AS SELECT \* FROM dual';
+WHEN 'TABLE' THEN v_ddl := v_ddl || ' (c1 INTEGER)';
+WHEN 'VIEW' THEN v_ddl := v_ddl || ' AS SELECT * FROM dual';
 END CASE;
 DBMS_OUTPUT.PUT_LINE(v_ddl);
 EXECUTE IMMEDIATE v_ddl;
@@ -4299,22 +4297,22 @@ END;
 
 > Version Scope: Greater than or equal to the Altibase version tag 6.5.1.0.0 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 Window functions with the GROUPING SETS clause must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS SELECT c1, c2, SUM(c3), RANK() OVER(ORDER BY c1)
 FROM t1 GROUP BY GROUPING SETS(c1, c2);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS SELECT c1, c2, SUM(c3), RANK() OVER(ORDER BY c1) /* [TODO] 
@@ -4326,15 +4324,15 @@ FROM t1 GROUP BY GROUPING SETS(c1, c2);
 
 > Version Scope: Greater than or equal to the Altibase version tag 6.5.1.0.0 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 Multiple GROUPING SETS clauses must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE VIEW mgr_view
@@ -4343,7 +4341,7 @@ SELECT mgr, job, comm, deptno, SUM(sal) FROM emp GROUP BY
 GROUPING SETS(job), GROUPING SETS(mgr, deptno), GROUPING SETS(comm);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE VIEW mgr_view
@@ -4354,15 +4352,15 @@ GROUPING SETS(job), GROUPING SETS(mgr, deptno), GROUPING SETS(comm) /* [TODO] RU
 
 #### RULE-20043
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 The EDITIONING, EDITIONABLE, and NONEDITIONABLE properties have been removed. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE EDITIONABLE PROCEDURE proc1 AS
@@ -4371,7 +4369,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE /* EDITIONABLE */ /* [REMOVED] RULE-20043 : The EDITIONING, EDITIONABLE, and NONEDITIONABLE properties have been removed */ PROCEDURE proc1 AS
@@ -4382,15 +4380,15 @@ END;
 
 #### RULE-20044
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The partition extention clause defining values of partition key should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4398,7 +4396,7 @@ SELECT *
 FROM t1 PARTITION FOR ('QA', 'RND');
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4410,15 +4408,15 @@ FROM t1 PARTITION FOR ('QA', 'RND') /* [TODO] RULE-20052 : Query partition claus
 
 > Version Scope: Altibase 6.3.1.0.0 or later
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The alias of a subquery column in the WITH clause should be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4426,7 +4424,7 @@ WITH t1(c1, c2) AS (SELECT * FROM TABLE(func1))
 SELECT * FROM t1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4438,15 +4436,15 @@ SELECT * FROM t1;
 
 > Version Scope: Greater than or equal to the Altibase version tag 6.1.1.0.0
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The XML of PIVOT clause should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4454,7 +4452,7 @@ SELECT *
 FROM t1 PIVOT XML (SUM(c1) FOR c2 IN (ANY));
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4462,21 +4460,19 @@ SELECT *
 FROM t1 PIVOT XML /* [TODO] RULE-20046 : The XML keyword of the pivot clause must be converted manually */ (SUM(c1) FOR c2 IN (ANY));
 ```
 
-
-
 #### RULE-20047
 
 > Version Scope: Greater than or equal to the Altibase version tag 6.1.1.0.0 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 ANY or a subquery declared in the pivot_in_clause should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4484,7 +4480,7 @@ SELECT *
 FROM t1 PIVOT XML (SUM(c1) FOR c2 IN (ANY));
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4494,15 +4490,15 @@ FROM t1 PIVOT XML (SUM(c1) FOR c2 IN (ANY) /* [TODO] RULE-20047 : The ANY keywor
 
 #### RULE-20048
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The SAMPLE clause should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4510,7 +4506,7 @@ SELECT *
 FROM t1 SAMPLE(50);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4520,15 +4516,15 @@ FROM t1 SAMPLE(50) /* [TODO] RULE-20048 : The sample clause must be converted ma
 
 #### RULE-20049
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The ROW LIMITING should be converted into the LIMIT clause. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4536,7 +4532,7 @@ SELECT *
 FROM t1 OFFSET 1 ROW;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4546,15 +4542,15 @@ FROM t1 OFFSET 1 ROW /* [TODO] RULE-20049 : The row limiting clause must be conv
 
 #### RULE-20050
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The SKIP LOCKED in the FOR UPDATE clause should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4571,7 +4567,7 @@ CLOSE cur1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4590,15 +4586,15 @@ END;
 
 #### RULE-20051
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 OF ... column in the FOR UPDATE clause should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4615,7 +4611,7 @@ CLOSE cur1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4634,15 +4630,15 @@ END;
 
 #### RULE-20052
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The query partition clause should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4650,7 +4646,7 @@ SELECT *
 FROM t1 LEFT OUTER JOIN t2 PARTITION BY (10) ON t1.c2 = t2.c2;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4662,15 +4658,15 @@ FROM t1 LEFT OUTER JOIN t2 PARTITION BY (10) /* [TODO] RULE-20052 : Query partit
 
 > Version Scope: Greater than or equal to the Altibase version tag 6.3.1.0.0 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The WHERE clause in the MERGE statement should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4680,7 +4676,7 @@ WHEN MATCHED THEN UPDATE SET t1.c2 = t2.c2 WHERE t1.c1 = 10;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4692,15 +4688,15 @@ END
 
 #### RULE-20054
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 The error logging clause has been removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4709,7 +4705,7 @@ INSERT INTO t1 VALUES('6.12') LOG ERRORS;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4722,15 +4718,15 @@ END;
 
 > Version Scope: Greater than or equal to the Altibase version tag 6.3.1.0.0 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The DELETE WHERE clause in the MERGE statement should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4740,7 +4736,7 @@ WHEN MATCHED THEN UPDATE SET t1.c2 = t2.c2 DELETE t1.c1 = 11;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4752,15 +4748,15 @@ END;
 
 #### RULE-20056
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 Inserting of record type variables should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 t1%ROWTYPE) AS
@@ -4769,7 +4765,7 @@ INSERT INTO t1 VALUES a1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 t1%ROWTYPE) AS
@@ -4780,15 +4776,15 @@ END;
 
 #### RULE-20057
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 Conditional insert clause must be converted manually. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4799,7 +4795,7 @@ ELSE INTO emp_etc SELECT * FROM employees;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4812,15 +4808,15 @@ END;
 
 #### RULE-20058
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The CURRENT OF clause in the WHERE clause should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4839,7 +4835,7 @@ CLOSE cur1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4860,17 +4856,17 @@ END;
 
 #### RULE-20059
 
-> Version Scope: Altibase version tag 6.5.1.0.0 or earlier
-
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+***Altibase version tag 6.5.1.0.0 or earlier***
+
+###### Description
 
 The TABLE function should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4878,7 +4874,7 @@ SELECT *
 FROM TABLE(func1('ALTIBASE'));
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4886,19 +4882,17 @@ SELECT *
 FROM TABLE(func1('ALTIBASE')) /* [TODO] RULE-20059 : Table function must be converted manually */;
 ```
 
+***Altibase version tag 6.5.1.0.0 or later***
 
-
-> Version Scope: Altibase version tag 6.5.1.0.0 or later 
-
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 DML(INSERT, DELETE, and UPDATE) used in the TABLE functions should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4907,7 +4901,7 @@ DELETE FROM TABLE(SELECT c2 FROM t1) t WHERE t.c1 = 1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -4920,15 +4914,15 @@ END;
 
 > Version Scope: Altibase version tag 6.5.1.0.0 or later 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The (+) operator should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4936,7 +4930,7 @@ SELECT t1.c1, t1_c2.c2
 FROM t1, TABLE(t1.c2) (+) t1_c2;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4948,15 +4942,15 @@ FROM t1, TABLE(t1.c2) (+) /* [TODO] RULE-20060 : The (+) operator must be conver
 
 > Version Scope: Altibase version tag 6.5.1.0.0 or later
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The collection expression arguments in the TABLE function should be the user-defined function.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4964,7 +4958,7 @@ SELECT *
 FROM TABLE(SELECT c2 FROM t1);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4974,22 +4968,22 @@ FROM TABLE(SELECT c2 FROM t1) /* [TODO] RULE-20061 : The collection expression a
 
 #### RULE-20062
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The ONLY clause should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
 SELECT * FROM ONLY(v2);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -4998,15 +4992,15 @@ SELECT * FROM ONLY(v2) /* [TODO] RULE-20062 : ONLY Clause must be converted manu
 
 #### RULE-20063
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The record type variables in the SET clause should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 t1%ROWTYPE) AS
@@ -5015,7 +5009,7 @@ UPDATE t1 SET ROW = a1 WHERE c1 = a1.c1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -5026,15 +5020,15 @@ END;
 
 #### RULE-20065
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 Subpartitions should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -5042,7 +5036,7 @@ SELECT *
 FROM t1 SUBPARTITION FOR ('HDB', 'HDB DA');
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -5054,15 +5048,15 @@ FROM t1 SUBPARTITION for ('HDB', 'HDB DA') /* [TODO] RULE-20065 : SUBPARTITION m
 
 > Version Scope: Altibase version tag 6.1.1.0.0 or earlier
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The CROSS APPLY or OUTER APPLY join should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -5070,7 +5064,7 @@ SELECT *
 FROM t1 CROSS APPLY (SELECT * FROM t2 WHERE t1.c1 = c1);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -5082,15 +5076,15 @@ FROM t1 CROSS APPLY (SELECT * FROM t2 WHERE t1.c1 = c1) /* [TODO] RULE-20066 : C
 
 #### RULE-30001
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 Unsupported data types are converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
@@ -5107,35 +5101,18 @@ RETURN a1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
--- Version earlier than Altibase 7.1
 CREATE OR REPLACE FUNCTION func1(a1 VARCHAR(65534))
 RETURN VARCHAR(65534)
 IS
 m_binary_double DOUBLE;
-m_number NUMBER (10):= 1234;
+m_number NUMBER := 1234;
 TYPE rt_n IS RECORD (c1 INTEGER);
 TYPE rt_nn IS RECORD (c1 INTEGER);
-TYPE tt_1 IS TABLE OF DATE INDEX BY VARCHAR(10);
-TYPE tt_2 IS TABLE OF DATE INDEX BY VARCHAR(10);
-BEGIN
-RETURN a1;
-END;
-```
-
-```sql
--- Version greater than or equal to the Altibase 7.1
-CREATE OR REPLACE FUNCTION func1(a1 VARCHAR)
-RETURN VARCHAR
-IS
-m_binary_double DOUBLE;
-m_number NUMBER (10):= 1234;
-TYPE rt_n IS RECORD (c1 INTEGER);
-TYPE rt_nn IS RECORD (c1 INTEGER);
-TYPE tt_1 IS TABLE OF DATE INDEX BY VARCHAR(10);
-TYPE tt_2 IS TABLE OF DATE INDEX BY VARCHAR(10);
+TYPE tt_1 IS TABLE OF DATE INDEX BY VARCHAR2(10);
+TYPE tt_2 IS TABLE OF DATE INDEX BY VARCHAR2(10);
 BEGIN
 RETURN a1;
 END;
@@ -5143,15 +5120,15 @@ END;
 
 #### RULE-30002
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 Unsupported data types must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1
@@ -5163,7 +5140,7 @@ NULL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1
@@ -5177,15 +5154,15 @@ END;
 
 #### RULE-30003
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 If the data type of variable referencing the %TYPE were to be a userdefined or VARRAY type, it should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE FUNCTION getSeason_thailand(p_date DATE) RETURN VARCHAR2
@@ -5211,7 +5188,7 @@ RETURN v_currSeason;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE FUNCTION getSeason_thailand(p_date DATE) RETURN VARCHAR2
@@ -5239,15 +5216,15 @@ END;
 
 #### RULE-30004
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 If the data type of variables is VARRY or the user-defined type, it should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE FUNCTION getSeason_thailand(p_date DATE) RETURN VARCHAR2
@@ -5273,7 +5250,7 @@ RETURN v_currSeason;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE FUNCTION getSeason_thailand(p_date DATE) RETURN VARCHAR2
@@ -5301,15 +5278,15 @@ END;
 
 #### RULE-30005
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 The NOT NULL constraint is removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -5321,7 +5298,7 @@ RETURN a1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -5337,15 +5314,15 @@ END;
 
 > Version Scope: Less than the Altibase version tag 6.5.1.0.0 
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 NOCOPY is removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE PROCEDURE appendSysdate
@@ -5360,7 +5337,7 @@ p1 := p1 || v_date;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE PROCEDURE appendSysdate
@@ -5377,15 +5354,15 @@ END;
 
 #### RULE-30008
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The local identifier that is an Altibase reserved word is converted by appending a postfix.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE PROCEDURE printDdlReplEnable
@@ -5407,7 +5384,7 @@ END;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE PROCEDURE printDdlReplEnable
@@ -5431,15 +5408,15 @@ END;
 
 #### RULE-31001
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 All implicit cursors are converted to explicit cursors.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER)
@@ -5456,7 +5433,7 @@ END LOOP;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER)
@@ -5477,15 +5454,15 @@ END;
 
 #### RULE-31002
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 SUBTYPE type variables must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -5501,7 +5478,7 @@ RETURN a1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -5519,15 +5496,15 @@ END;
 
 #### RULE-31003
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 VARRAY type variables must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE FUNCTION getSeason_korea(p_date DATE) RETURN VARCHAR2 IS
@@ -5542,7 +5519,7 @@ RETURN v_currSeason;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE FUNCTION getSeason_korea(p_date DATE) RETURN VARCHAR2 IS
@@ -5559,15 +5536,15 @@ END;
 
 #### RULE-31004
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 %ROWTYPE type parameters for CURSOR must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -5584,7 +5561,7 @@ RETURN cur1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -5603,15 +5580,15 @@ END;
 
 #### RULE-31005
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The RETURN clause of CURSOR must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -5626,7 +5603,7 @@ RETURN a1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 NUMBER)
@@ -5642,15 +5619,15 @@ END;
 
 #### RULE-31006
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 Cannot define or declare procedure or function in the declare section.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE PROCEDURE util_tblMgr(p_cmd VARCHAR2, p_tblName VARCHAR2) IS
@@ -5678,7 +5655,7 @@ END CASE;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE PROCEDURE util_tblMgr(p_cmd VARCHAR2, p_tblName VARCHAR2) IS
@@ -5708,19 +5685,15 @@ END;
 
 #### RULE-31008
 
-This rule is about PRAGMA. The conversion results vary depending on the Altibase version.
-
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
-***Altibase 6.3.1.0.9 and earlier***
+PRAGMA is removed. However, when it is removed, AUTONOMOUS_TRANSACTION is excluded in Altibase 6.3.1.0.10 or higher, and EXCEPTION_INIT is excluded in Altibase 6.5.1.0.0 or higher.
 
-- PRAGMA is removed.
-
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE PROCEDURE addShot(p_cnt INTEGER)
@@ -5741,7 +5714,7 @@ COMMIT;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE PROCEDURE addShot(p_cnt INTEGER)
@@ -5762,11 +5735,9 @@ COMMIT;
 END;
 ```
 
-***Altibase 6.3.1.0.10 and later***
+***Altibase 6.3.1.0.10 or above***
 
-- PRAGMA AUTONOMOUS_TRANSACTION is preserved.
-
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE PROCEDURE addShot(p_cnt INTEGER)
@@ -5787,11 +5758,9 @@ COMMIT;
 END;
 ```
 
-***Altibase 6.5.1 and later***
+***Altibase 6.5.1.0.0 or higher***
 
-- PRAGMA AUTONOMOUS_TRANSACTION, PRAGMA EXCEPTION_INIT are preserved.
-
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE addShot(p_cnt INTEGER) AS
@@ -5813,15 +5782,15 @@ END;
 
 #### RULE-31010
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The collection constructor must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE FUNCTION getSeason_korea(p_date DATE) RETURN VARCHAR2
@@ -5837,7 +5806,7 @@ RETURN v_currSeason;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE FUNCTION getSeason_korea(p_date DATE) RETURN VARCHAR(32000)
@@ -5855,15 +5824,15 @@ END;
 
 #### RULE-31011
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 If the data type of associative array is defined using %TYPE or %ROWTYPE, it should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE PACKAGE tripLog_pkg AS
@@ -5876,7 +5845,7 @@ PROCEDURE printCityList;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE PACKAGE tripLog_pkg AS
@@ -5891,15 +5860,15 @@ END;
 
 #### RULE-31012
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The index data type of Associative array has been converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE PACKAGE tripLog_pkg AS
@@ -5912,7 +5881,7 @@ PROCEDURE printCityList;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE PACKAGE tripLog_pkg AS
@@ -5929,15 +5898,15 @@ END;
 
 > Version Scope: Altibase version tag 6.3.1.0.0 or earlier
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 Cannot COMMIT while cursor is still open.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER)
@@ -5961,7 +5930,7 @@ COMMIT;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER)
@@ -5989,15 +5958,15 @@ END;
 
 > Version Scope: Altibase version tag 6.3.1.0.0 or earlier
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 Cannot ROLLBACK while a cursor is still open.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -6022,7 +5991,7 @@ ROLLBACK;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE TRIGGER trig1
@@ -6049,15 +6018,15 @@ END;
 
 #### RULE-32003
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 The SET TRANSACTION statement is removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1IS
@@ -6067,7 +6036,7 @@ SET TRANSACTION READ ONLY NAME 'Test Rule 13019';
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1IS
@@ -6079,15 +6048,15 @@ END;
 
 #### RULE-32006
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The FORALL statement is converted to the FOR statement.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE PROCEDURE delEmp
@@ -6100,7 +6069,7 @@ DELETE FROM employees WHERE state=stateList(i);
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE PROCEDURE delEmp
@@ -6116,15 +6085,15 @@ END;
 
 #### RULE-32007
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The FORALL statement must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE PROCEDURE delEmp
@@ -6137,7 +6106,7 @@ DELETE FROM employees WHERE state=stateList(i);
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE PROCEDURE delEmp
@@ -6152,15 +6121,15 @@ END;
 
 #### RULE-32008
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 A whitespace is appended before and after the range value in the FOR LOOP statement.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE FUNCTION getCityList RETURN tripLog_pkg.nt_city PIPELINED AS
@@ -6172,11 +6141,10 @@ RETURN;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
-CREATE FUNCTION getCityList
-RETURN tripLog_pkg.nt_city PIPELINED AS
+CREATE FUNCTION getCityList RETURN tripLog_pkg.nt_city PIPELINED AS
 BEGIN
 FOR i IN 1 .. tripLog_pkg.v_cityList.LAST LOOP
 PIPE ROW(tripLog_pkg.v_cityList(i));
@@ -6187,15 +6155,15 @@ END
 
 #### RULE-32009
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The condition in the CONTINUE statement is converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE PROCEDURE showMail(p_from DATE)
@@ -6218,7 +6186,7 @@ END IF;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE PROCEDURE showMail(p_from DATE)
@@ -6245,15 +6213,15 @@ END;
 
 #### RULE-32010
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The host variables should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6262,7 +6230,7 @@ SELECT c2 BULK COLLECT INTO :v_arr FROM t1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6273,15 +6241,15 @@ END;
 
 #### RULE-32012
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The host variables should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE FUNCTION getCitiList
@@ -6295,7 +6263,7 @@ RETURN;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE FUNCTION getCitiList
@@ -6311,15 +6279,15 @@ END;
 
 #### RULE-32013
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The label in the CONTINUE statement is converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE PROCEDURE showMail(p_from DATE)
@@ -6343,7 +6311,7 @@ END IF;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE PROCEDURE showMail(p_from DATE)
@@ -6371,15 +6339,15 @@ END;
 
 #### RULE-32014
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 SCN (System Change Number) cannot be assigned to the transaction.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6388,7 +6356,7 @@ COMMIT FORCE 'ORCL.C50E231F042A.10.5.109239', 143217566;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6399,15 +6367,15 @@ END;
 
 #### RULE-32015
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The corrupt transaction cannot be committed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6416,7 +6384,7 @@ COMMIT FORCE CORRUPT_XID_ALL;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6427,15 +6395,15 @@ END;
 
 #### RULE-32016
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 The WRITE clause in the COMMIT statement is removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1
@@ -6448,7 +6416,7 @@ COMMIT WRITE NOWAIT IMMEDIATE;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1
@@ -6463,15 +6431,15 @@ END;
 
 #### RULE-32017
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 The COMMENT clause in the COMMIT statement is removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6480,7 +6448,7 @@ COMMIT COMMENT 'PROCEDURE proc1 committed';
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6491,15 +6459,15 @@ END;
 
 #### RULE-32018
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The TO SAVEPOINT clause in the ROLLBACK statement is converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6508,7 +6476,7 @@ ROLLBACK TO sp1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6519,15 +6487,15 @@ END;
 
 #### RULE-32019
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 The label in the CASE statement has been removed. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
@@ -6545,7 +6513,7 @@ RETURN v1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
@@ -6567,15 +6535,15 @@ END;
 
 > Version Scope : Altibase 6.5.1.0.0 or earlier
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 BULK COLLECT INTO clause of the FETCH statement must be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6590,7 +6558,7 @@ CLOSE cur1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6607,15 +6575,15 @@ END;
 
 #### RULE-32021
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The dynamic RETURNING clause should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6625,7 +6593,7 @@ EXECUTE IMMEDIATE 'DELETE FROM t1 WHERE c1=SYSDATE' RETURNING INTO v1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6637,15 +6605,15 @@ END;
 
 #### RULE-32022
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
  THE in front of the subquery has been removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6658,7 +6626,7 @@ DBMS_OUTPUT.PUT_LINE(v1);
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6673,15 +6641,15 @@ END;
 
 #### RULE-32024
 
-##### Type
+###### Type
 
 `REMOVED`
 
-##### Description
+###### Description
 
 The target procedure has been removed.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 ( p_emp_no IN integer ) AS
@@ -6694,7 +6662,7 @@ DBMS_OUTPUT.PUT_LINE( 'i1 : ' || v1 );
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 ( p_emp_no IN integer ) AS
@@ -6709,15 +6677,15 @@ END;
 
 #### RULE-33001
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 This is an exception which is not supported.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6729,7 +6697,7 @@ DBMS_OUTPUT.PUT_LINE('Exception Name: ACCESS_INTO_NULL, Error Code: -6530');
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6746,15 +6714,15 @@ END;
 
 > Version Scope : Altibase 6.3.1.0.0 or later
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The user should check whether the built-in package is installed in Altibase.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6766,7 +6734,7 @@ DBMS_OUTPUT.PUT_LINE('Exception Name: UTL_FILE.INVALID_FILENAME, Error Code:');
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6780,15 +6748,15 @@ END;
 
 #### RULE-33003
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The exception has been converted according to Altibase grammar.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6800,7 +6768,7 @@ DBMS_OUTPUT.PUT_LINE('Exception Name: UTL_FILE.INVALID_PATH, Error Code:');
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6816,15 +6784,15 @@ END;
 
 #### RULE-40001
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The built-in package has been converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6834,7 +6802,7 @@ DBMS_OUTPUT.PUT_LINE('world!');
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6848,15 +6816,15 @@ END;
 
 > Version Scope: Altibase 6.3.1.0.0 or later
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The user should chek whether the target built-in package is installed in Altibase.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6865,7 +6833,7 @@ DBMS_OUTPUT.NEW_LINE;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1 AS
@@ -6876,15 +6844,15 @@ END;
 
 #### RULE-40003
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The target built-in packages should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(p_file FILE_TYPE) AS
@@ -6893,7 +6861,7 @@ UTL_FILE.PUTF(p_file, 'Hello %s!', 'world');
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(p_file FILE_TYPE) AS
@@ -6904,22 +6872,22 @@ END;
 
 #### RULE-40004
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The target SQL functions have been converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
 SELECT UID FROM dual;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -6928,15 +6896,15 @@ SELECT USER_ID() FROM dual;
 
 #### RULE-40005
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 This function is not supported.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(p1 VARCHAR2)
@@ -6947,7 +6915,7 @@ RETURN v1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE FUNCTION func1(p1 VARCHAR2)
@@ -6960,15 +6928,15 @@ END;
 
 #### RULE-40006
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The arguments of TRIM have been converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW stats AS
@@ -6976,7 +6944,7 @@ SELECT TRIM(LEADING 0 FROM total_stats)
 FROM test_result WHERE date = SYSDATE;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW stats AS
@@ -6986,15 +6954,15 @@ FROM test_result WHERE date = SYSDATE;
 
 #### RULE-40007
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The arguments of BIN_TO_NUM function have been converted by being connected with '||'. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW status_view AS
@@ -7002,7 +6970,7 @@ SELECT BIN_TO_NUM(cp_plan, hp_plan, tv_plan, net_plan) status
 FROM service_tbl WHERE ym = TO_CHAR(SYSDATE, 'YYYYMM');
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW status_view AS
@@ -7012,15 +6980,15 @@ FROM service_tbl WHERE ym = TO_CHAR(SYSDATE, 'YYYYMM');
 
 #### RULE-40008
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The CAST function containing a subquery as an argument should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -7028,7 +6996,7 @@ SELECT c1, CAST(MULTISET(SELECT c1 FROM t2 ORDER BY c2) AS tmp_tbl)
 FROM t1 ORDER BY c1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -7038,15 +7006,15 @@ FROM t1 ORDER BY c1;
 
 #### RULE-40009
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The DUMP function contains multiple arguments should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -7054,7 +7022,7 @@ SELECT DUMP(c3, 8, 3, 2)
 FROM t1 WHERE c3 = 100 ORDER BY c2;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW v1 AS
@@ -7064,15 +7032,15 @@ FROM t1 WHERE c3 = 100 ORDER BY c2;
 
 #### RULE-40010
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The EXTRACT function has been converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW rsvStats_year AS
@@ -7080,7 +7048,7 @@ SELECT EXTRACT(YEAR FROM rsv_date) year, COUNT(*) cnt
 FROM rsv_table GROUP BY EXTRACT(YEAR FROM rsv_date);
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE VIEW rsvStats_year AS
@@ -7090,22 +7058,22 @@ FROM rsv_table GROUP BY EXTRACT(rsv_date, 'YEAR');
 
 #### RULE-40011
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The datetime field prefixed with 'TIMEZONE' in the EXTRACT function should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE VIEW view1 AS
 SELECT EXTRACT(TIMEZONE_REGION FROM CURRENT_TIMESTAMP) FROM dual;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE VIEW view1 AS
@@ -7114,22 +7082,22 @@ SELECT EXTRACT(TIMEZONE_REGION /* [TODO] RULE-40011 : The datetime field prefixe
 
 #### RULE-40012
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The EXTRACT function containing XMLType instance as parameters should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE VIEW view1 AS
 SELECT EXTRACT(emp_into, 'Employee/Name') emp_name FROM dual;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE VIEW view1 AS
@@ -7138,22 +7106,22 @@ SELECT EXTRACT(emp_info, 'Employee/Name') /* [TODO] RULE-40012 : The EXTRACT fun
 
 #### RULE-40013
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The SYS_CONTEXT function has been converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE VIEW view1 AS
 SELECT SYS_CONTEXT('USERENV', 'SESSION_USER') FROM dual;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE VIEW view1 AS
@@ -7162,22 +7130,22 @@ SELECT USER_NAME() FROM dual;
 
 #### RULE-40014
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The precision degree, which is an optional argument, of the CURRENT_TIMESTAMP function should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE VIEW view1 AS
 SELECT CURRENT_TIMESTAMP(0) FROM dual;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE VIEW view1 AS
@@ -7186,22 +7154,22 @@ SELECT CURRENT_TIMESTAMP(0) /* [TODO] RULE-40014 : The optional argument of the 
 
 #### RULE-40015
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The nlsparam,which is an optional argument, specifying languages should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE VIEW view1 AS
 SELECT TO_CHAR(SYSDATE, 'DL', 'NLS_DATE_LANGUAGE = korean') FROM dual;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE VIEW view1 AS
@@ -7210,22 +7178,22 @@ SELECT TO_CHAR(SYSDATE, 'DL', 'NLS_DATE_LANGUAGE = korean' /* [TODO] RULE-40015 
 
 #### RULE-40016
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The optional argument match_param, which may affect operating a function, should be manually converted. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE VIEW view1 AS
 SELECT REGEXP_SUBSTR(content, '(Name: )(([a-z]+) ([a-z]+))', 1, 1, 'i', 3) "First Name" FROM page_pi;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE VIEW view1 AS
@@ -7236,22 +7204,22 @@ SELECT REGEXP_SUBSTR(content, '(Name: )(([a-z]+) ([a-z]+))', 1, 1, 'i' /* [TODO]
 
 > Version Scope: Altibase 6.3.1.0.0 or above 
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The optional argument subexpr should be manually converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE VIEW view1 AS
 SELECT REGEXP_SUBSTR(content, '(Name: )(([a-z]+) ([a-z]+))', 1, 1, 'i', 4) "Family Name" FROM page_pi;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE VIEW view1 AS
@@ -7260,15 +7228,15 @@ SELECT REGEXP_SUBSTR(content, '(Name: )(([a-z]+) ([a-z]+))', 1, 1, 'i', 4 /* [TO
 
 #### RULE-40018
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The MOD operator has been converted as a function.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE FUNCTION func1(p1 PLS_INTEGER) RETURN PLS_INTEGER AS
@@ -7278,7 +7246,7 @@ RETURN v1;
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE FUNCTION func1(p1 PLS_INTEGER) RETURN PLS_INTEGER AS
@@ -7290,15 +7258,15 @@ END;
 
 #### RULE-40019
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The built-in package has been converted.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1
@@ -7308,7 +7276,7 @@ DBMS_MVIEW.REFRESH('CAL_MONTH_SALES_MV, FWEEK_PSCAT_SALES_MV', 'CF', '', TRUE, F
 END;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE OR REPLACE PROCEDURE proc1
@@ -7321,21 +7289,21 @@ END;
 
 #### RULE-40020
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The WM_CONCAT function has been converted to the LISTAGG function. 
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 SELECT WM_CONCAT(val) FROM t1;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 SELECT LISTAGG(val, ',') WITHIN GROUP(ORDER BY val) FROM t1;
@@ -7343,22 +7311,22 @@ SELECT LISTAGG(val, ',') WITHIN GROUP(ORDER BY val) FROM t1;
 
 #### RULE-40021
 
-##### Type
+###### Type
 
 `TODO`
 
-##### Description
+###### Description
 
 The parameter in the function 'SYS_CONTEXT' should be converted manually.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE VIEW v_r40021 AS 
 SELECT SYS_CONTEXT('USERENV', 'INSTANCE_NAME') FROM dual;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE VIEW v_r40021 AS 
@@ -7367,21 +7335,21 @@ SELECT SYS_CONTEXT('USERENV', 'INSTANCE_NAME') /* [TODO] RULE-40021 : The parame
 
 #### RULE-40022
 
-##### Type
+###### Type
 
 `CONVERTED`
 
-##### Description
+###### Description
 
 The third argument of the function 'SYS_CONTEXT', which indicates the length of the return value, is converted to the function 'SUBSTR' surrounding 'SYS_CONTEXT'.
 
-##### Original SQL Text
+###### Original SQL Text
 
 ```sql
 CREATE VIEW v_r40022 AS SELECT SYS_CONTEXT('USERENV', 'INSTANCE_NAME', 100) FROM dual;
 ```
 
-##### Processed SQL Text
+###### Processed SQL Text
 
 ```sql
 CREATE VIEW v_r40022 AS SELECT SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'), 0, 100) FROM dual;
