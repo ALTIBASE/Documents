@@ -701,9 +701,8 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
 
 6. 원본 데이터베이스의 각 테이블에서 데이터 추출시에 사용할 SELECT문을 확인하고, 원한다면 수정한다.
 
-    > [!TIP]
-    >
-    > 원본 데이터베이스에서 데이터를 추출할 때, 특정 조건에 맞는 데이터만 선택적으로 추출하여 마이그레이션 할 수 있다. 자세한 내용은 [5.Migration Center 내부 - "Select Editing 단계"](#Select-Editing-단계) 절을 참조한다.
+> [!tip]
+> 원본 데이터베이스에서 데이터를 추출할 때, 특정 조건에 맞는 데이터만 선택적으로 추출하여 마이그레이션 할 수 있다. 자세한 내용은 [5.Migration Center 내부 - "Select Editing 단계"](#Select-Editing-단계) 절을 참조한다.
 
 7. 스키마 마이그레이션 과정에서 사용될 DDL SQL문장들이 올바른지 확인하고, 그렇지 않다면 수정한다.
 
