@@ -2909,6 +2909,8 @@ SET JOIN_DATE = :s_timestamp
 WHERE ENO = 5;    
 ```
 
+#### 실수형 타입
+
 ##### SQL_NUMERIC_STRUCT 
 
 이 타입 사용 시 좀 더 정확한 NUMERIC 데이터를 전달할 수 있다. 
@@ -5746,6 +5748,11 @@ CONNTYPE옵션의 설정에 대한 설명은 6장을 참조하기 바란다.
 - 숫자형, 타입의 배열
 - 구조체의 배열
 - 구성 요소가 배열인 구조체
+- 다음의 확장된 데이터 타입
+  - SQL_DATE_STRUCT
+  - SQL_TIME_STRUCT
+  - SQL_TIMESTAMP_STRUCT
+  - SQL_NUMERIC_STRUCT
 
 ##### 예제
 
@@ -5789,6 +5796,11 @@ VALUES (:a_gno, :a_gname, :a_goods_location,
 
 - 숫자형, 타입의 배열
 - 구성 요소가 배열인 구조체
+- 다음의 확장된 데이터 타입
+  - SQL_DATE_STRUCT
+  - SQL_TIME_STRUCT
+  - SQL_TIMESTAMP_STRUCT
+  - SQL_NUMERIC_STRUCT
 
 ##### 제한 사항
 
@@ -5839,6 +5851,11 @@ SET DNO = :a_dno,
 
 - 숫자형, 타입의 배열
 - 구성 요소가 배열인 구조체
+- 다음의 확장된 데이터 타입
+  - SQL_DATE_STRUCT
+  - SQL_TIME_STRUCT
+  - SQL_TIMESTAMP_STRUCT
+  - SQL_NUMERIC_STRUCT
 
 ##### 제한 사항
 
@@ -5881,6 +5898,11 @@ EXEC SQL DELETE FROM EMPLOYEES
 - 숫자형, 문자형 타입의 배열
 - 구조체의 배열
 - 구성 요소가 배열인 구조체
+- 다음의 확장된 데이터 타입
+  - SQL_DATE_STRUCT
+  - SQL_TIME_STRUCT
+  - SQL_TIMESTAMP_STRUCT
+  - SQL_NUMERIC_STRUCT
 
 ##### 제한 사항
 

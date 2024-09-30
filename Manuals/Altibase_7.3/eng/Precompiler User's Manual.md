@@ -2919,6 +2919,8 @@ SET JOIN_DATE = :s_timestamp
 WHERE ENO = 5;    
 ```
 
+#### Real Number Types
+
 ##### SQL_NUMERIC_STRUCT 
 
 When using this type, NUMERIC data can be passed
@@ -5739,6 +5741,11 @@ The array types that can be used with INSERT statements are as follows:
 - Simple arrays 
 - Arrays of structures 
 - Structures comprising arrays as individual elements thereof
+- Extended APRE data types below:
+  - SQL_DATE_STRUCT
+  - SQL_TIME_STRUCT
+  - SQL_TIMESTAMP_STRUCT
+  - SQL_NUMERIC_STRUCT
 
 ##### Example
 
@@ -5782,6 +5789,11 @@ The array types that can be used with the UPDATE statement are as follows:
 
 - Simple arrays 
 - Structures comprising arrays as individual elements thereof
+- Extended APRE data types below:
+  - SQL_DATE_STRUCT
+  - SQL_TIME_STRUCT
+  - SQL_TIMESTAMP_STRUCT
+  - SQL_NUMERIC_STRUCT
 
 ##### Limitation
 
@@ -5832,6 +5844,11 @@ The array types that can be used with the DELETE statement are as follows:
 
 - Simple arrays
 - Structures comprising arrays as individual elements
+- Extended APRE data types below:
+  - SQL_DATE_STRUCT
+  - SQL_TIME_STRUCT
+  - SQL_TIMESTAMP_STRUCT
+  - SQL_NUMERIC_STRUCT
 
 ##### Limitation
 
@@ -5874,6 +5891,11 @@ The array types that can be used with the SELECT statement are as follows. The a
 - Simple arrays 
 - Arrays of structures 
 - Structures comprising arrays as individual elements
+- Extended APRE data types below:
+  - SQL_DATE_STRUCT
+  - SQL_TIME_STRUCT
+  - SQL_TIMESTAMP_STRUCT
+  - SQL_NUMERIC_STRUCT
 
 ##### Limitation
 
