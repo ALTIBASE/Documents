@@ -1643,7 +1643,7 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 
 <br/>
 
-# Appendix E: PSM Converter Rule List
+# Appendix D: Mapping Default Values
 
 The default values for Altibase table columns are mostly compatible with the default values for the source database. 
 
