@@ -1008,7 +1008,7 @@ Object and table data of the source database to be migrated are migrated directl
 | Batch LOB type                               | Specifies whether or not to batch process BLOB and CLOB data types.<br />'Yes' means to allow batch processing. However, it should be noted that problems such as out of memory (OOM) may occur depending on the size of the LOB data. Also, an exception may be raised in TimesTen, which does not support the batch processing for LOB data types.'No' does not allow batch processing. This option is set to 'No' by default. |
 | Log Insert-failed Data                       | Specifies whether or not to log insert-failed rows during data migration. This option is available only when the Batch Execution option is disabled. This option is set to 'No' by default. |
 | File Encoding                                | Specifies the encoding character set to be used when logging the insert-failed data into files. This option is available only when the Log Insert-failed Data option is enabled. The default value is UTF8. |
-| Replace Empty String Data                    | Specifies how to replace empty string data encountered during data migration with a user-defined string.<br />- Replace Empty Strings in Not Null: Setting this option to 'Yes' allows to replace empty string data with a user-defined string. The default setting is 'No'.<br/>- Replacement String: Specifies the string that will replace the empty string. This option is only enabled when Replace Empty Strings in Not Null is set to 'Yes'.<br />- Apply to Nullable Columns: Setting this option to 'Yes' allows to replace empty string data in columns **without a `NOT NULL` constraint** with the value specified in Replacement String. The default setting is 'No'. |
+| Replace Empty String Data                    | Specifies how to replace empty string data encountered during data migration with a user-defined string.<br />- Replace Empty Strings in Not Null: Setting this option to 'Yes' allows to replace empty string data with a user-defined string. The default setting is 'No'.<br/>- Replacement String: Specifies the string that will replace the empty string. This option is only enabled when Replace Empty Strings in Not Null is set to 'Yes'.<br />- Apply to Nullable Columns: Setting this option to 'Yes' allows to replace empty string data in columns **without a NOT NULL constraint** with the value specified in Replacement String. The default setting is 'No'. |
 | **Data Validation Options**                  |                                                              |
 | Operation                                    | Specifies the operation to be executed in the data validation stage: <br />DIFF: Check data difference between the source and the target databases. <br/>FILESYNC: Apply the CSV file created as a result of DIFF operation to the target database. |
 | Write to CSV                                 | Specifies whether or not to write the inconsistent data to the CSV file. |
@@ -1279,9 +1279,7 @@ These tables describe the basic data type mapping tables between heterogeneous d
 
 Since Migration Center 7.11, if a table's column length of a source database exceeds the maximum range of the data type mapped to the target database, the data type of the target database can be automatically converted to a data type with a larger range than the default mapping table. For instance, the following data types can be changed to CLOB if necessary in order to minimize data loss.
 
-- <div align="left">
-      <img src="media/MigrationCenter/datatypemapping-step-3.png">
-  </div>    
+- CHAR   
 - VARCHAR or VARCHAR2, LVARCHAR, TT_VARCHAR
 
 #### Oracle to Altibase
@@ -1804,7 +1802,8 @@ comment is left.</td>
         <td >LOCALTIMESETAMP()</td><td></td>
     </tr>
 </table>
-> [!note]
+
+> [!NOTE]
 >
 > If the first column of a table is of the TIMESTAMP data type, MySQL automatically specifies CURRENT_TIMESTAMP as the default value, even if the user omits it. In this case, the default value is converted to SYSDATE. Please refer to the following example.
 

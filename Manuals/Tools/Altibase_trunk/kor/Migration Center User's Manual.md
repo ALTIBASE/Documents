@@ -1372,6 +1372,7 @@ Change 버튼을 클릭하면 아래의 창이 뜬다. Change Mapping Type 창�
 <div align="left">
     <img src="media/MigrationCenter/datatypemapping-step-3.png">
 </div>
+
 ### 기본 데이터 타입 맵핑 테이블
 
 이기종 데이터베이스 간의 기본 데이터 타입 매핑 테이블과 사용자가 주의할 사항을 설명한다.
@@ -2223,6 +2224,7 @@ Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 
     </tr>
   </tbody>
 </table>
+
 ##### Data Options
 
 다음은 Data Options 에서 설정할 수 있는 빈 문자열 처리 옵션이다.
