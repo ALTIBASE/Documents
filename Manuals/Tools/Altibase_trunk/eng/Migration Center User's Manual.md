@@ -1991,7 +1991,7 @@ Migration Center offers empty string handling options to prevent data loss. Thes
 
  Empty string handling options that can be set in the Object Options are below:
 
-![](https://github.com/ALTIBASE/Documents/tree/master/Manuals/Tools/Altibase_trunk/eng/media/MigrationCenter/empty-string-object-options.png)
+![](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_trunk/eng/media/MigrationCenter/empty-string-object-options.png)
 
 By configuring the options below, users can adjust the CREATE statement generated when migrating a table with columns where the default value is an empty string and a NOT NULL constraint is set.
 
@@ -2048,7 +2048,7 @@ These options can be applied individually or in combination, providing flexibili
 
 The empty string handling options that can be set in Data Options are below:
 
-![](https://github.com/ALTIBASE/Documents/tree/master/Manuals/Tools/Altibase_trunk/eng/media/MigrationCenter/empty-string-data-options.png)
+![](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_trunk/eng/media/MigrationCenter/empty-string-data-options.png)
 
 By configuring the options below, users can change empty strings discovered during data migration to a user-defined value.
 
