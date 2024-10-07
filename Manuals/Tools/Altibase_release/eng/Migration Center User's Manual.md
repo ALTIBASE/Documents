@@ -1,9 +1,9 @@
 Migration Center User's Manual
 ================
 
-#### Release 7.11
+#### Release 7.13
 
-Alitbase® Tools & Utilities
+Altibase® Tools & Utilities
 
 <br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
@@ -86,7 +86,7 @@ Alitbase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities Migration Center User's Manual
-Release 7.11
+Release 7.13
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
 software is prohibited.<br>
@@ -98,6 +98,7 @@ Telephone : +82-2-2082-1000
 Fax       : +82-2-2082-1099
 Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
+
 
 <br>
 
