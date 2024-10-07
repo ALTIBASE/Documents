@@ -172,7 +172,7 @@ New Features
 
 -   **재현 빈도** : Always
 
--   **증상** : altiMon 에서 모니터링 대상인 Alitbase 접속정보를 설정할때, 추가적인 연결 속성을 지정하는 기능이 추가되었습니다.
+-   **증상** : altiMon 에서 모니터링 대상인 Altibase 접속정보를 설정할때, 추가적인 연결 속성을 지정하는 기능이 추가되었습니다.
     
 
  config.xml에 \<ConnectionProperties\> 태그를 추가하여 설정할 수 있다.

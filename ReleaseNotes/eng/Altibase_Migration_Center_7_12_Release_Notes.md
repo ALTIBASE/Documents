@@ -3,7 +3,7 @@ Altibase Migration Center 7.12 Release Notes
 
 #### Release 7.12 (Jan. 30, 2023)
 
-Alitbase® Tools & Utilities
+Altibase® Tools & Utilities
 
 <br><br><br><br><br><br>
 <!-- PDF 변환을 위한 여백입니다. --> 

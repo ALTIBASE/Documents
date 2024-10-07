@@ -299,7 +299,7 @@ Altibase Monitoring API is supported for Altibase 5.5.1 or later.
 
 Please consider the following while writng and executing an application with Altibase Monitoring API:
 
--   An Alitbase Monitoring API application connects to an Altibase server using a Unix domain socket. Therefore, the application and Altibase need to run on the same server. 
+-   An Altibase Monitoring API application connects to an Altibase server using a Unix domain socket. Therefore, the application and Altibase need to run on the same server. 
   
 -   Memory that is internally allocated by an Altibase Monitoring API function or library is shared by Altibase Monitoring API functions and is not thread-safe. Accordingly, multiple threads should be prevented from concurrently accessing shared memory by synchronization using mutexes. For more detailed information, please refer to Chapter 4: sample_7.c.
 
