@@ -5,13 +5,13 @@
 
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-50775 Multiple Statement 쿼리를 수행할 때 SQLExecute() 결과값이 SQL_NO_DATA일 경우, execute 처리가 중단되는 문제를 수정합니다.](#bug-50775)
-    - [BUG-50782 Multiple Statement 에서 Named-base Binding 이 동작하지 않는 문제를 수정합니다.](#bug-50782)
+    - [BUG-50782 Multiple Statement 에서 Name-based Binding 이 동작하지 않는 문제를 수정합니다.](#bug-50782)
     - [BUG-50784 CWE-114 및 CWE-73 의 보안 취약점 해결](#bug-50784)
     - [BUG-50798 매체 복구(MEDIA RECOVERY) 진행 중에 체크포인트 이미지 파일이 추가되는 경우, 내부적으로 PCH(Page Control Header)를 할당하는 과정에서 오류가 있어서 수정하였습니다.](#bug-50798)
     - [BUG-50803 altibase\_boot.log 에 잘못된 errno 가 출력되는 문제를 수정합니다.](#bug-50803)
     - [BUG-50804 AltibaseStatement.close()시 서버 커넥션이 단절된 경우 STF(Session Time Failover)가 동작하지 않는 문제를 수정합니다.](#bug-50804)
     - [BUG-50817 DISK TABLE, DISK INDEX AGING 수행 시, 테이블에 X Lock(Exclusive Lock) 잡던 것을 IX Lock(Intent Exclusive Lock)으로 변경합니다.](#bug-50817)
-    - [BUG-50826 CLI 함수 SQLPrimaryKeys()의 결과 컬럼의 2번째 열의 이름이 잘못 출력되는 문제를 수정합니다.](#bug-50826)
+    - [BUG-50826 CLI 함수 SQLPrimaryKeys()의 결과 칼럼의 2번째 열의 이름이 잘못 출력되는 문제를 수정합니다.](#bug-50826)
     - [BUG-50840 매체 복구(MEDIA RECOVERY) 진행 중에 체크포인트 이미지 파일이 추가되는 경우, 내부적으로 페이지가 할당되지 않는 경우가 있어서 수정합니다.](#bug-50840)
 - [Changes](#changes)
     - [Version Info](#version-info)
@@ -50,7 +50,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50782<a name=bug-50782></a> Multiple Statement 에서 Named-base Binding 이 동작하지 않는 문제를 수정합니다.
+### BUG-50782<a name=bug-50782></a> Multiple Statement 에서 Name-based Binding 이 동작하지 않는 문제를 수정합니다.
 
 -   **module** : mm-cli
 
@@ -58,7 +58,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : Multiple statement에서 여러개의 파라미터 바인딩을 할 때, Named-base binding 이 제대로 동작하지 않던 문제가 해결되었습니다.
+-   **설명** : Multiple statement에서 여러개의 파라미터 바인딩을 할 때, Name-based binding 이 제대로 동작하지 않던 문제가 해결되었습니다.
     
 -   **재현 방법**
 
@@ -236,7 +236,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50826<a name=bug-50826></a> CLI 함수 SQLPrimaryKeys()의 결과 컬럼의 2번째 열의 이름이 잘못 출력되는 문제를 수정합니다.
+### BUG-50826<a name=bug-50826></a> CLI 함수 SQLPrimaryKeys()의 결과 칼럼의 2번째 열의 이름이 잘못 출력되는 문제를 수정합니다.
 
 -   **module** : mm-cli
 
@@ -244,7 +244,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : SQLPrimaryKeys() 함수의 결과 컬럼의 2번째 열의 이름이 TABLE_SCHEM이 출력되어야 하는데, TABLE_CAT으로 출력되는 문제를 수정합니다.
+-   **설명** : SQLPrimaryKeys() 함수의 결과 칼럼의 2번째 열의 이름이 TABLE_SCHEM이 출력되어야 하는데, TABLE_CAT으로 출력되는 문제를 수정합니다.
     
 - **재현 방법**
 
@@ -365,7 +365,7 @@ Fixed Bugs
 
 -   **Workaround**
 
-        컬럼 순서로 조회
+        칼럼 순서로 조회
 
 -   **변경사항**
 
