@@ -1,7 +1,6 @@
 # Altibase aku Sample Guide for Kubernetes
 
 - [개요](#개요)
-- [Altibase Docker image 생성](#Altibase-Docker-image-생성)
 - [PersistentVolume 사용](#PersistentVolume-사용)
   - [PersistentVolume yaml 파일 작성](#PersistentVolume-yaml-파일-작성)
   - [PersistentVolume 생성](#PersistentVolume-생성)
@@ -18,6 +17,7 @@
   - [StatefulSet yaml 파일 작성](#StatefulSet-yaml-파일-작성)
   - [StatefulSet 생성](#StatefulSet-생성)
   - [StatefulSet 및 Pod 생성 확인](#StatefulSet-및-Pod-생성-확인)
+  - [Altibase 설치 및 aku 설정](#Altibase-설치-및-aku-설정)
   - [이중화 동작 확인](#이중화-동작-확인)
   - [Scale-down 동작확인](#Scale-down-동작확인)
   - [Scale-up 동작확인](#Scale-up-동작확인)
@@ -26,40 +26,14 @@
 
 본 문서는 Altibase aku를 이용하여 Kubernetes StatefulSet을 사용하는 샘플 가이드를 제시합니다. 
 - aku에 대해서는 Altibase Utilities 매뉴얼에서 aku 항목을 참고합니다.
-- 본 문서의 내용은 샘플용도이며, 실제환경에서는 각각의 용도 및 환경에 맞추어 수정되어야 합니다.
+- 본 문서의 내용은 샘플용도이며, 실제 환경에서는 각각의 용도 및 환경에 맞추어 수정되어야 합니다.
 - 테스트 환경
   - Kubernetes: v1.24.2
-  - Altibase: v7.1.0.8.8
-  - Docker: v20.10.17
-
-## Altibase Docker image 생성
-
-- Docker image에 복사할 altibase_home 디렉토리를 준비합니다.
-  - Linux용 Altibase를 설치합니다. Altibase database를 생성할 필요는 없습니다.
-  - Altibase database를 생성한 경우에는 아래 작업이 필요합니다.
-    - $ALTIBASE_HOME/arch_logs 내부의 화일들은 모두 삭제합니다.
-    - $ALTIBASE_HOME/dbs 내부의 화일들은 모두 삭제합니다.
-    - $ALTIBASE_HOME/logs 내부의 화일들은 모두 삭제합니다.
-    - $ALTIBASE_HOME/trc 내부의 화일들은 모두 삭제합니다.
-- 아래의 Dockerfile을 이용하여, Altibase Docker image를 생성합니다.
-- Docker image를 생성하지 않고, https://hub.docker.com/r/altibase/7.1-bare 를 이용해도 됩니다.
-
-```
-# file : Dockerfile
-
-FROM ubuntu:18.04
-MAINTAINER Altibase
-
-RUN sed -e '56 i\root\t\t soft\t nofile\t\t 1048576 \nroot\t\t hard\t nofile\t\t 1048576 \nroot\t\t soft\t nproc\t\t unlimited \nroot\t\t hard\t nproc\t\t unlimited \n' -i /etc/security/limits.conf; \
-echo "vm.swappiness = 1" >> /etc/sysctl.conf; \
-echo "kernel.sem = 20000 32000 512 5029" >> /etc/sysctl.conf;
-
-COPY ./altibase_home /home/altibase/altibase_home
-```
+  - Altibase: v7.1.0.9.9
 
 ## PersistentVolume 사용
 
-- 본 예시에서는 4개의 volume을 서로 다른 path로 설정하였지만, 전체 혹은 부분적으로 동일한 path로 설정해도 됩니다. 개별 pod에서 hostname을 이용하여 고유한 subdirectory를 만들기 때문입니다. 
+- 본 예시에서는 4개의 volume을 서로 다른 path로 설정하였지만, 동일한 path로 설정해도 됩니다. 개별 pod에서 hostname을 이용하여 고유한 subdirectory를 만들기 때문입니다. 
 - 본 예시에서는 NFS volume을 사용합니다. 사용자 환경에 맞추어 수정이 필요합니다.
 - 영속성을 보장하는 다른 형태의 volume을 사용해도 됩니다.
 
@@ -148,10 +122,12 @@ altibase-pv-d          100Gi      RWX            Retain           Available     
 
 ## ConfigMap 사용
 
-- 본 예제에서는 license, set_altibase.env, aku.conf, sample_schema.sql, entry_point.sh 화일을 ConfigMap으로 관리합니다.
-- altibase.properties 화일을 ConfigMap으로 관리하기 위한 유의사항은 entry_point.sh 화일내에 기술되어 있습니다.
-- Kubernetes 사용을 위해서는 Altibase로부터 hostname 기반 license를 발급받아야 합니다.
-- 본 예제에서는 4개의 pod를 생성하므로, 4개의 license가 필요합니다.
+- 본 예제에서는 set_linux.env, set_altibase.env, entry_point.sh 화일을 ConfigMap으로 관리합니다.
+- 본 예제에서는 https://hub.docker.com/ 에 등록된 ubuntu:18.04 docker image를 테스트 용도로 사용하였습니다.
+- 실제 환경에서는 각각의 용도에 맞는 Linux docker image를 사용하면 됩니다.
+- 실제 사용될 Linux docker image에 맞추어 set_linux.env 의 변경이 필요하며, 아래의 문서들을 참고합니다.
+  - 알티베이스 설치 매뉴얼
+  - Altibase 운영을 위한 Linux 설정 가이드 ( https://aid.altibase.com/pages/viewpage.action?pageId=13436485 )
 
 ##### ConfigMap yaml 파일 작성
 
@@ -163,15 +139,14 @@ kind: ConfigMap
 metadata:
   name: altibase-cm
 data:
-  license: |
-    # You need four hostname based Altibase licenses.
-    0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
-    2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
-    3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
-    
+  set_linux.env: |
+    sed -e '56 i\root\t\t soft\t nofile\t\t 1048576 \nroot\t\t hard\t nofile\t\t 1048576 \nroot\t\t soft\t nproc\t\t unlimited \nroot\t\t hard\t nproc\t\t unlimited \n' -i /etc/security/limits.conf; \
+    echo "vm.swappiness = 1" >> /etc/sysctl.conf; \
+    echo "kernel.sem = 20000 32000 512 5029" >> /etc/sysctl.conf;
+
   set_altibase.env: |
-    export ALTIBASE_HOME=/home/altibase/altibase_home
+    export MY_POD_NAME=${HOSTNAME}
+    export ALTIBASE_HOME=/ALTIBASE/altibase_home_${MY_POD_NAME}
     export ALTIBASE_NLS_USE=UTF8
     export ALTIBASE_PORT_NO=20300
     export ALTIBASE_REPLICATION_PORT_NO=20301
@@ -180,130 +155,38 @@ data:
     export PATH=${ALTIBASE_HOME}/bin:${PATH}
     export LD_LIBRARY_PATH=${ALTIBASE_HOME}/lib:${LD_LIBRARY_PATH};
 
-  aku.conf: |
-    AKU_SYS_PASWWORD              = "manager"
-    AKU_STS_NAME                  = "altibase-sts"
-    AKU_SVC_NAME                  = "altibase-svc"
-    AKU_SERVER_COUNT              = 4
-    AKU_QUERY_TIMEOUT             = 3600
-    AKU_PORT_NO                   = 20300
-    AKU_REPLICATION_PORT_NO       = 20301
-    AKU_FLUSH_AT_START            = 1
-    AKU_FLUSH_TIMEOUT_AT_START    = 300
-    AKU_FLUSH_AT_END              = 1
-    AKU_ADDRESS_CHECK_COUNT       = 30
-    AKU_DELAY_START_COMPLETE_TIME = 0
-
-    REPLICATIONS = (
-        REPLICATION_NAME_PREFIX = "AKU_REP"
-        SYNC_PARALLEL_COUNT     = 1
-        (
-            (
-                USER_NAME      = "SYS"
-                TABLE_NAME     = "T1"
-            ),
-            (
-                USER_NAME      = "SYS"
-                TABLE_NAME     = "T2"
-            ),
-            (
-                USER_NAME      = "SYS"
-                TABLE_NAME     = "T3"
-            )
-        )
-    )
-
-  sample_schema.sql: |
-    CREATE TABLE T1 ( I1 INTEGER PRIMARY KEY, I2 INTEGER );
-    CREATE TABLE T2 ( I1 INTEGER, I2 INTEGER, I3 CHAR(100) )
-    PARTITION BY RANGE( I1 )
-    (
-        PARTITION P1 VALUES LESS THAN (100),
-        PARTITION P2 VALUES LESS THAN (200),
-        PARTITION P3 VALUES DEFAULT
-    );
-    CREATE TABLE T3 ( I1 INTEGER, I2 INTEGER, I3 CHAR(100), I4 INTEGER);
-    ALTER TABLE T2 ADD PRIMARY KEY ( I1, I2 );
-    ALTER TABLE T3 ADD PRIMARY KEY ( I1, I3 );
-    
   entry_point.sh: |
     #!/bin/bash
-    . /home/altibase/config_map/set_altibase.env
-    MY_POD_NAME=${HOSTNAME}
+    . /CONFIGMAP/set_linux.env
+    . /CONFIGMAP/set_altibase.env
 
     function PodTerminate()
     {
-      echo `date` "${MY_POD_NAME} aku end : begin" >> /ALTIBASE/${MY_POD_NAME}.log
-      ${ALTIBASE_HOME}/bin/aku -p end >> /ALTIBASE/${MY_POD_NAME}.log
-      echo `date` "${MY_POD_NAME} aku end : finish" >> /ALTIBASE/${MY_POD_NAME}.log
+      echo `date` "${MY_POD_NAME} aku end"
+      ${ALTIBASE_HOME}/bin/aku -p end
+      echo `date` "${MY_POD_NAME} server stop"
+      ${ALTIBASE_HOME}/bin/server stop
     }
     trap PodTerminate SIGTERM
+    trap PodTerminate TERM
 
-    cp /home/altibase/config_map/license ${ALTIBASE_HOME}/conf/license
-    cp /home/altibase/config_map/aku.conf ${ALTIBASE_HOME}/conf/aku.conf
-    #If you need to change altibase.properties, you need to set altibase.properties as a ConfigMap. After that, you need to uncomment following line.
-    #cp /home/altibase/config_map/altibase.properties ${ALTIBASE_HOME}/conf/altibase.properties
-    DB_DIR="/ALTIBASE/${MY_POD_NAME}"
-    DB_DIR_SED="\/ALTIBASE\/${MY_POD_NAME}"
-    #set path for arch_logs, dbs, logs and trc directories.
-    echo `date` "${MY_POD_NAME} sed -i 's/?/${DB_DIR_SED}/g' ${ALTIBASE_HOME}/conf/altibase.properties"  >> /ALTIBASE/${MY_POD_NAME}.log
-    sed -i "s/?/${DB_DIR_SED}/g" ${ALTIBASE_HOME}/conf/altibase.properties
-
-    while (true)
-    do
-      if [ -d "${DB_DIR}" ];then
-        echo `date` "${MY_POD_NAME} Altibase database path exists. [${DB_DIR}] " >> /ALTIBASE/${MY_POD_NAME}.log
-      else
-        echo `date` "${MY_POD_NAME} Create Altibase database path. [${DB_DIR}] " >> /ALTIBASE/${MY_POD_NAME}.log
-        mkdir -p ${DB_DIR}
-        sleep 1
-      fi
-
-      if [ -f "${DB_DIR}/dbs/SYS_TBS_MEM_DATA-0-0" ] ;then
-        echo `date` "${MY_POD_NAME} Altibase database exists. " >> /ALTIBASE/${MY_POD_NAME}.log
-        break
-      else
-        echo `date` "${MY_POD_NAME} Create Altibase database. " >> /ALTIBASE/${MY_POD_NAME}.log
-        rm -rf ${DB_DIR}/*
-        mkdir -p ${DB_DIR}/arch_logs
-        mkdir -p ${DB_DIR}/dbs
-        mkdir -p ${DB_DIR}/logs
-        mkdir -p ${DB_DIR}/trc
-        chown -R ${USER}:${USER} ${HOME}
-        chown -R ${USER}:${USER} ${DB_DIR}
-        ${ALTIBASE_HOME}/bin/server create UTF8 UTF8
-        sleep 5
-        if [ -f "${DB_DIR}/dbs/SYS_TBS_MEM_DATA-0-0" ] ;then
-          break
-        else
-          echo `date` "${MY_POD_NAME} ${DB_DIR}/dbs/SYS_TBS_MEM_DATA-0-0 file is NOT!!! created."
-          continue
-        fi
-      fi
-    done
-
-    echo `date` "${MY_POD_NAME} altibase server start " >> /ALTIBASE/${MY_POD_NAME}.log
-    ${ALTIBASE_HOME}/bin/server start
-
-    exec_command="${ALTIBASE_HOME}/bin/isql -silent -s localhost -u sys -p manager -sysdba "
-
-    $exec_command<<EOF>> .result
-      set linesize 100
-      set pagesize 50
-      select count(*) from system_.sys_tables_ where table_name='T1' or table_name='T2' or table_name='T3';
-      exit;
-    EOF
-    result_count=$(tail -2 .result| head -1| awk '{print $1}')
-    cat .result >> /ALTIBASE/${MY_POD_NAME}.log
-    echo `date` "${MY_POD_NAME} result_count: [${result_count}] " >> /ALTIBASE/${MY_POD_NAME}.log
-    rm .result
-
-    if [ ${result_count} -ne 3 ];then
-      ${ALTIBASE_HOME}/bin/is -sysdba -f /home/altibase/config_map/sample_schema.sql >> /ALTIBASE/${MY_POD_NAME}.log
+    if [ -d "${ALTIBASE_HOME}" ];then
+      echo `date` "${MY_POD_NAME}: [${ALTIBASE_HOME}] path exists."
+      echo `date` "${MY_POD_NAME}: It is assumed altibase is installed and aku is configured."
+      echo `date` "${MY_POD_NAME}: altibase server start "
+      ${ALTIBASE_HOME}/bin/server start
+      echo `date` "${MY_POD_NAME}: aku start "
+      ${ALTIBASE_HOME}/bin/aku -p start
+    else
+      mkdir -p ${ALTIBASE_HOME}
+      echo `date` "${MY_POD_NAME}: [${ALTIBASE_HOME}] path is newly created."
+      echo `date` "${MY_POD_NAME}: You need to install altibase and do the followings. "
+      echo `date` "${MY_POD_NAME}: Create altibase server : [server create utf8 utf8] "
+      echo `date` "${MY_POD_NAME}: Start altibase server : [server start] "
+      echo `date` "${MY_POD_NAME}: Configure aku "
+      echo `date` "${MY_POD_NAME}: Start aku : [aku -p start] "
+      echo `date` "${MY_POD_NAME}: Next pod will be started after aku is started successfully because of startupProbe setting."
     fi
-
-    echo `date` "${MY_POD_NAME} aku start " >> /ALTIBASE/${MY_POD_NAME}.log
-    ${ALTIBASE_HOME}/bin/aku -p start >> /ALTIBASE/${MY_POD_NAME}.log
 
     while (true)
     do
@@ -372,7 +255,8 @@ altibase-svc                   ClusterIP   None         <none>        20300/TCP,
 ## StatefulSet 사용
 
 - 본 예시에서는 StatefulSet으로 4개의 pod를 생성합니다.
-- Altibase Kubernetes Utility는 최대 4개의 pod에 이중화 구성을 지원합니다.
+- Altibase v7.1 버전의 aku는 최대 4개의 pod에 이중화 구성을 지원합니다.
+- Altibase v7.3 이상 버전에서의 aku는 최대 6개의 pod에 이중화 구성을 지원합니다.
 
 ##### StatefulSet yaml 파일 작성
 
@@ -386,6 +270,8 @@ metadata:
 spec:
   serviceName: altibase-svc
   replicas: 4
+  updateStrategy:
+    type: RollingUpdate
   podManagementPolicy: OrderedReady
   selector:
     matchLabels:
@@ -398,21 +284,16 @@ spec:
       terminationGracePeriodSeconds: 60
       containers:
       - name: altibase-sts
-        image: altibase/7.1-bare
+        image: ubuntu:18.04
         command:
         - /bin/bash
         - "-c"
-        - /home/altibase/config_map/entry_point.sh
+        - /CONFIGMAP/entry_point.sh
         ports:
         - containerPort: 20300
           protocol: TCP
         - containerPort: 20301
           protocol: TCP
-        resources:
-          requests:
-            cpu: 250m
-          limits:
-            cpu: 3 
         startupProbe:
           exec:
             command:
@@ -424,7 +305,7 @@ spec:
         - name: altibase-pv
           mountPath: /ALTIBASE
         - name: altibase-cm
-          mountPath: /home/altibase/config_map
+          mountPath: /CONFIGMAP
           readOnly: true
       volumes:
         - name: altibase-cm
@@ -432,14 +313,10 @@ spec:
             name: altibase-cm
             defaultMode: 0777
             items:
-            - key: "license"
-              path: "license"
+            - key: "set_linux.env"
+              path: "set_linux.env"
             - key: "set_altibase.env"
               path: "set_altibase.env"
-            - key: "aku.conf"
-              path: "aku.conf"
-            - key: "sample_schema.sql"
-              path: "sample_schema.sql"
             - key: "entry_point.sh"
               path: "entry_point.sh"
   volumeClaimTemplates:
@@ -460,11 +337,136 @@ statefulset.apps/altibase-sts created
 ```
 
 ##### StatefulSet 및 Pod 생성 확인
+- 최초 altibase-sts 생성시에는 알티베이스 생성 및 aku 설정이 안된 상태이므로, 아래와 같이 altibase-sts-0 pod 하나만 생성되고, 아직 READY 가 되지 않은 상태로 있습니다.
 
 ```
 $ kubectl get sts -o wide
 NAME                 READY   AGE    CONTAINERS               IMAGES
-altibase-sts         4/4     12m    altibase-sts             altibase/7.1-bare
+altibase-sts         0/4     12m    altibase-sts             ubuntu:18.04
+
+$ kubectl get pod -o wide
+NAME                   READY   STATUS    RESTARTS         AGE    IP             NODE      NOMINATED NODE   READINESS GATES
+altibase-sts-0         0/1     Running   0                16m    10.244.1.91    worker2   <none>           <none>
+```
+
+##### Altibase 설치 및 aku 설정
+- Kubernetes 사용을 위해서는 Altibase로부터 hostname 기반 license를 발급받아야 합니다.
+- 본 예제에서의 hostname은 altibase-sts-0, altibase-sts-1, altibase-sts-2, altibase-sts-3 로 생성됩니다.
+- 알티베이스 설치 매뉴얼을 참고하여, Altibase를 설치합니다.
+- 각각의 pod에 접속하여, /CONFIGMAP/set_altibase.env 를 먼저 수행해준 이후에 알티베이스 설치작업을 진행합니다.
+- 아래에서는 첫번째 pod에 대하여, 알티베이스 설치이후의 과정을 테스트 용도로 기록합니다.
+  - altibase server 생성
+  - altibase server 시작
+  - 샘플 용도의 테이블 생성(T1,T2,T3)
+  - 샘플 용도의 aku.conf 생성
+  - aku 시작
+  - startupProbe 설정이 되어있어서, aku가 성공적으로 수행되어야, 그 다음 pod가 생성됩니다. 
+
+```
+$ kubectl exec -it altibase-sts-0 -- bash
+root@altibase-sts-0:/# . /CONFIGMAP/set_altibase.env
+root@altibase-sts-0:/# . server create utf8 utf8
+-----------------------------------------------------------------
+     Altibase Client Query utility.
+     Release Version 7.1.0.9.9
+     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
+     All Rights Reserved.
+-----------------------------------------------------------------
+ISQL_CONNECTION = UNIX, SERVER = localhost
+Connected to idle instance.
+Connecting to the DB server.... Connected.
+
+
+TRANSITION TO PHASE : PROCESS
+Command executed successfully.
+
+DB Info (Page Size     = 32768)
+        (Page Count    = 257)
+        (Total DB Size = 8421376)
+        (DB File Size  = 1073741824)
+
+        Creating MMDB FILES     [SUCCESS]
+
+        Creating Catalog Tables [SUCCESS]
+
+        Creating DRDB FILES     [SUCCESS]
+
+  [SM] Rebuilding Indices [Total Count:0]  [SUCCESS]
+
+DB Writing Completed. All Done.
+
+Create success.
+root@altibase-sts-0:/# 
+root@altibase-sts-0:/# server start
+-----------------------------------------------------------------
+     Altibase Client Query utility.
+     Release Version 7.1.0.9.9
+     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
+     All Rights Reserved.
+-----------------------------------------------------------------
+ISQL_CONNECTION = UNIX, SERVER = localhost
+Connected to idle instance.
+Connecting to the DB server.... Connected.
+
+
+TRANSITION TO PHASE : PROCESS
+
+
+TRANSITION TO PHASE : CONTROL
+
+
+TRANSITION TO PHASE : META
+  [SM] Recovery Phase - 1 : Preparing Database
+                          : Dynamic Memory Version => Parallel Loading
+  [SM] Recovery Phase - 2 : Loading Database
+  [SM] Recovery Phase - 3 : Skipping Recovery & Starting Threads...
+                            Refining Disk Table
+  [SM] Refine Memory Table : ..................................................................................................................                                              ............... [SUCCESS]
+  [SM] Rebuilding Indices [Total Count:133] ...................................................................................................                                              .................................. [SUCCESS]
+
+
+TRANSITION TO PHASE : SERVICE
+  [CM] Listener started : TCP on port 20300 [IPV4]
+  [CM] Listener started : UNIX
+  [CM] Listener started : IPC
+  [RP] Initialization : [PASS]
+
+--- STARTUP Process SUCCESS ---
+Command executed successfully.
+root@altibase-sts-0:/# 
+root@altibase-sts-0:/# is -sysdba
+-----------------------------------------------------------------
+     Altibase Client Query utility.
+     Release Version 7.1.0.9.9
+     Copyright 2000, ALTIBASE Corporation or its subsidiaries.
+     All Rights Reserved.
+-----------------------------------------------------------------
+ISQL_CONNECTION = UNIX, SERVER = localhost
+iSQL(sysdba)> CREATE TABLE T1 ( I1 INTEGER PRIMARY KEY, I2 INTEGER );
+Create success.
+iSQL(sysdba)> CREATE TABLE T2 ( I1 INTEGER PRIMARY KEY, I2 INTEGER );
+Create success.
+iSQL(sysdba)> CREATE TABLE T3 ( I1 INTEGER PRIMARY KEY, I2 INTEGER );
+Create success.
+iSQL(sysdba)> exit
+root@altibase-sts-0:/# 
+root@altibase-sts-0:~# cd $ALTIBASE_HOME/conf
+root@altibase-sts-0:/ALTIBASE/altibase_home_altibase-sts-0/conf# cp aku.conf.sample aku.conf
+root@altibase-sts-0:/ALTIBASE/altibase_home_altibase-sts-0/conf# aku -p start
+AKU started with START option.
+[AKU][2024/08/20 06:18:45.610353][139788776925184] [INFO][akuRunStart:854][-][-] Start as MASTER Pod.
+AKU run successfully.
+root@altibase-sts-0:/ALTIBASE/altibase_home_altibase-sts-0/conf#
+root@altibase-sts-0:/ALTIBASE/altibase_home_altibase-sts-0/conf# exit
+```
+
+- 나머지 pod들에 대해서도 동일한 작업을 해주어야 합니다.
+- 모든 pod들에 정상적으로 작업이 완료된 이후에 아래와 같은 상태가 됩니다.
+
+```
+$ kubectl get sts -o wide
+NAME                 READY   AGE    CONTAINERS               IMAGES
+altibase-sts         4/4     12m    altibase-sts             ubuntu:18.04
 
 $ kubectl get pod -o wide
 NAME                   READY   STATUS    RESTARTS         AGE    IP             NODE      NOMINATED NODE   READINESS GATES
@@ -479,12 +481,12 @@ altibase-sts-3         1/1     Running   0                14m    10.244.2.119   
 - altibase-sts-3 pod에서 isql로 altibase-sts-2 pod의 Altibase에 접속하여, T1 테이블을 조회한다.
 
 ```
-$ kubectl exec -it altibase-sts-3 -- /bin/bash
-root@altibase-sts-3:/# . /home/altibase/config_map/set_altibase.env
+$ kubectl exec -it altibase-sts-3 -- bash
+root@altibase-sts-3:/# . /CONFIGMAP/set_altibase.env
 root@altibase-sts-3:/# is
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.8.8
+     Release Version 7.1.0.9.9
      Copyright 2000, ALTIBASE Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
@@ -495,7 +497,7 @@ iSQL> exit
 root@altibase-sts-3:/# isql -s altibase-sts-2.altibase-svc -u sys -p manager
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.8.8
+     Release Version 7.1.0.9.9
      Copyright 2000, ALTIBASE Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
@@ -516,12 +518,12 @@ I1          I2
 $ kubectl scale sts altibase-sts --replicas=3
 statefulset.apps/altibase-sts scaled
 $
-$ kubectl exec -it altibase-sts-2 -- /bin/bash
-root@altibase-sts-2:/# . /home/altibase/config_map/set_altibase.env
+$ kubectl exec -it altibase-sts-2 -- bash
+root@altibase-sts-2:/# . /CONFIGMAP/set_altibase.env
 root@altibase-sts-2:/# is
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.8.8
+     Release Version 7.1.0.9.9
      Copyright 2000, ALTIBASE Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
@@ -541,12 +543,12 @@ AKU_REP_23                                -1
 - altibase-sts-3 pod에 접속하여, T1 테이블에 추가로 입력한 데이터가 scale-up된 pod에 반영되어 있는지 확인한다.
 
 ```
-$ kubectl exec -it altibase-sts-0 -- /bin/bash
-root@altibase-sts-0:/# . /home/altibase/config_map/set_altibase.env
+$ kubectl exec -it altibase-sts-0 -- bash
+root@altibase-sts-0:/# . /CONFIGMAP/set_altibase.env
 root@altibase-sts-0:/# is
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.8.8
+     Release Version 7.1.0.9.9
      Copyright 2000, ALTIBASE Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
@@ -559,12 +561,12 @@ $
 $ kubectl scale sts altibase-sts --replicas=4
 statefulset.apps/altibase-sts scaled
 $
-$ kubectl exec -it altibase-sts-3 -- /bin/bash
-root@altibase-sts-3:/# . /home/altibase/config_map/set_altibase.env
+$ kubectl exec -it altibase-sts-3 -- bash
+root@altibase-sts-3:/# . /CONFIGMAP/set_altibase.env
 root@altibase-sts-3:/# is
 -----------------------------------------------------------------
      Altibase Client Query utility.
-     Release Version 7.1.0.8.8
+     Release Version 7.1.0.9.9
      Copyright 2000, ALTIBASE Corporation or its subsidiaries.
      All Rights Reserved.
 -----------------------------------------------------------------
