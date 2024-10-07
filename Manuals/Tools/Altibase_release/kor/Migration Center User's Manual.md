@@ -1,7 +1,7 @@
 Migration Center User's Manual
 ================
 
-#### Release 7.11
+#### Release 7.13
 
 Altibase® Tools & Utilities
 
@@ -98,7 +98,7 @@ Altibase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities Migration Center User's Manual
-Release 7.11
+Release 7.13
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
 <b>㈜알티베이스</b>
@@ -107,6 +107,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 팩스 : 02-2082-1099
 고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
 홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
+
 
 <br>
 

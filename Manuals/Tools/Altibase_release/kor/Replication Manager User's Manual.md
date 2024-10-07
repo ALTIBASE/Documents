@@ -98,7 +98,7 @@ Alitbase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities Replication Manager User’s Manual
-Release 1.3
+Release 1.4
 Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
 <b>㈜알티베이스</b>
