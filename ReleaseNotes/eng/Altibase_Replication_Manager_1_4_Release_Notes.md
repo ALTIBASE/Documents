@@ -3,7 +3,7 @@ Replication Manager Release Notes
 
 #### Release 1.4 (August 31, 2023)
 
-Alitbase® Tools & Utilities
+Altibase® Tools & Utilities
 
 <br><br><br><br><br><br>
 <!-- PDF 변환을 위한 여백입니다. --> 

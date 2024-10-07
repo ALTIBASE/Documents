@@ -3,7 +3,7 @@ Replication Manager User’s Manual
 
 #### Release 1.5
 
-Alitbase® Tools & Utilities
+Altibase® Tools & Utilities
 
 <br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
@@ -209,7 +209,7 @@ For more detailed information, please refer to the following documents.
 
 - API User’s Manual
 
-- Alitbase C Interface Manual
+- Altibase C Interface Manual
 
 - iSQL User’s Manual
 

@@ -3,7 +3,7 @@ Replication Manager User’s Manual
 
 #### Release 1.5
 
-Alitbase® Tools & Utilities
+Altibase® Tools & Utilities
 
 <br><br><br><br><br><br><!-- PDF 변환을 위한 여백입니다. --> 
 
@@ -128,11 +128,11 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 서문
 ====
 
-이 매뉴얼은 Alitbase 데이터베이스 관리를 위한 Replication Manager 사용법을 설명한다.
+이 매뉴얼은 Altibase 데이터베이스 관리를 위한 Replication Manager 사용법을 설명한다.
 
 #### 대상 사용자
 
-이 매뉴얼은 다음과 같은 Alitbase 사용자를 대상으로 작성되었다.
+이 매뉴얼은 다음과 같은 Altibase 사용자를 대상으로 작성되었다.
 
 - 데이터베이스 관리자
 
@@ -156,7 +156,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 #### 소프트웨어 환경
 
-이 매뉴얼은 데이터베이스 서버로 Alitbase 버전 7.1을 사용한다는 가정 하에 작성되었다.
+이 매뉴얼은 데이터베이스 서버로 Altibase 버전 7.1을 사용한다는 가정 하에 작성되었다.
 
 #### 이 매뉴얼의 구성
 
@@ -167,7 +167,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   이 장은 Replication Manager 설치를 위한 필수 선행 요건과 설치, 삭제 방법을 설명한다.
 - 제 2장 시작하기</br>
 
-  이 장은 Replication Manager의 사용자 인터페이스에 관한 소개와 Alitbase 데이터베이스 연결 방법 그리고 상세 사용법에 관해 설명한다.
+  이 장은 Replication Manager의 사용자 인터페이스에 관한 소개와 Altibase 데이터베이스 연결 방법 그리고 상세 사용법에 관해 설명한다.
 
 #### 관련 자료
 
@@ -185,7 +185,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 - API User’s Manual
 
-- Alitbase C Interface Manual
+- Altibase C Interface Manual
 
 - iSQL User’s Manual
 
@@ -221,11 +221,11 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 ### 개요
 
-Replication Manager는 Alitbase의 이중화 관리를 위한 GUI 툴이다. Alitbase 데이터베이스 관리자는 일반적으로 이중화 객체가 활성화되어 있는 Alitbase의 모든 인스턴스에 연결할 수 있어야 한다. iSQL 같은 명령어 인터페이스를 사용하게 되면, DB관리자는 여러 콘솔창들을 오가며 이중화 대상 객체를 수정하거나 이중화 시작, 종료 등의 이중화 관련 작업을 수행해야 한다. DB관리자가 이중화 객체들의 상태와 관계를 모두 기억하고 있어야 하므로, 이중화 객체 수가 선형적으로 증가함에 따라 이중화 관리 부담은 지수적으로 증가한다. 그러나 Replication Manager는 그래픽 유저 인터페이스(GUI)이기 때문에, 화면에 이중화 노드를 모두 보여주어 이중화 관련 작업이 수월하도록 도와준다.
+Replication Manager는 Altibase의 이중화 관리를 위한 GUI 툴이다. Altibase 데이터베이스 관리자는 일반적으로 이중화 객체가 활성화되어 있는 Altibase의 모든 인스턴스에 연결할 수 있어야 한다. iSQL 같은 명령어 인터페이스를 사용하게 되면, DB관리자는 여러 콘솔창들을 오가며 이중화 대상 객체를 수정하거나 이중화 시작, 종료 등의 이중화 관련 작업을 수행해야 한다. DB관리자가 이중화 객체들의 상태와 관계를 모두 기억하고 있어야 하므로, 이중화 객체 수가 선형적으로 증가함에 따라 이중화 관리 부담은 지수적으로 증가한다. 그러나 Replication Manager는 그래픽 유저 인터페이스(GUI)이기 때문에, 화면에 이중화 노드를 모두 보여주어 이중화 관련 작업이 수월하도록 도와준다.
 
 이 도구 사용 시 얻을 수 있는 주요 이점은 다음과 같다:
 
-1. Replication Manager는 Alitbase 의 여러 버전과 함께 사용할 수 있다.
+1. Replication Manager는 Altibase 의 여러 버전과 함께 사용할 수 있다.
 2. 이중화 객체들의 상태와 관계를 한눈에 알 수 있다.
 3. 마우스 클릭 한 번으로 이중화 객체를 관리할 수 있다.
 4. 이중화 객체와 관련된 객체의 속성을 확인할 수 있다.
@@ -335,9 +335,9 @@ Replication Manager의 user interaface는 아래처럼 구성되어 있다.
 
 ### 알티베이스에 연결하기
 
-이 절은 Alitbase에 연결하기 위한 기본적인 단계를 길라잡이 형태로 설명한다. Alitbase와 함께 Replication Manager를 실행할 때의 작업 흐름은 보통 다음과 같다.
+이 절은 Altibase에 연결하기 위한 기본적인 단계를 길라잡이 형태로 설명한다. Altibase와 함께 Replication Manager를 실행할 때의 작업 흐름은 보통 다음과 같다.
 
-1. Alitbase에 연결할 때 사용될 JDBC 드라이버 파일을 불러온다.
+1. Altibase에 연결할 때 사용될 JDBC 드라이버 파일을 불러온다.
 2. 데이터베이스 연결을 추가한다.
 3. 데이터베이스에 접속한다.
 4. 필요한 대로 이중화 관리 작업을 처리한다.
@@ -390,14 +390,14 @@ JDBC 드라이버를 불러오기 절차이다.
 - Options(선택 사항)
 
   - IP Address Type: 필요하면 알맞은 IP 주소 유형을 선택한다. Replication Manager는 IPv4와 IPv6 주소를 지원한다.
-  - NLS for Client: Altibase 5.1.1 이하 버전의 경우, Altibase 서버 캐릭터셋을 선택한다. Alitbase 5.3.1 이상 버전에 연결할 때는 선택하지 않아도 무방하다.
+  - NLS for Client: Altibase 5.1.1 이하 버전의 경우, Altibase 서버 캐릭터셋을 선택한다. Altibase 5.3.1 이상 버전에 연결할 때는 선택하지 않아도 무방하다.
 
 3. 연결 성공 여부를 확인하려면 "Connection Test" 버튼을 클릭한다.
 4. 마지막으로 "Save" 버튼을 클릭한다.
 
 #### 데이터베이스에 연결하기
 
-Alitbase를 설치하고 앞선 두 가지 작업을 마침으로써 데이터베이스에 연결할 준비가 완료되었다.
+Altibase를 설치하고 앞선 두 가지 작업을 마침으로써 데이터베이스에 연결할 준비가 완료되었다.
 
 ![6e97d198c19b208617582e4bcb6c9ea7](media/ReplicationManager/6e97d198c19b208617582e4bcb6c9ea7.png)
 

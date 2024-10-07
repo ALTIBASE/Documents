@@ -41,7 +41,7 @@ Altibase Replication Manager 1.2 Release Notes
 
 ### 2.1 Altibase Replication Manager 1.2
 
-Replication Manager는 Alitbase의 이중화를 효율적으로 관리하기 위한 GUI 툴이다.
+Replication Manager는 Altibase의 이중화를 효율적으로 관리하기 위한 GUI 툴이다.
 
 #### 2.1.1 새로운 기능
 

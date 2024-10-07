@@ -208,7 +208,7 @@ For more detailed information, please refer to the following documents.
 
 - API User’s Manual
 
-- Alitbase C Interface Manual
+- Altibase C Interface Manual
 
 - iSQL User’s Manual
 

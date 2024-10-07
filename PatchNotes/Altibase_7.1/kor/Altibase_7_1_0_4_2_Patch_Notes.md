@@ -5,7 +5,7 @@
 - [Altibase 7.1.0.4.2 Patch Notes](#altibase-71042-patch-notes)
   - [New Features](#new-features)
     - [BUG-48014  ST_Collect 함수지원](#bug-48014-st_collect-%ED%95%A8%EC%88%98%EC%A7%80%EC%9B%90)
-    - [BUG-48023  Alitbase 7.1에서 쿼리 플랜변경으로 인해 떨어진 aexport 성능을 원복합니다.](#bug-48023-alitbase-71%EC%97%90%EC%84%9C-%EC%BF%BC%EB%A6%AC-%ED%94%8C%EB%9E%9C%EB%B3%80%EA%B2%BD%EC%9C%BC%EB%A1%9C-%EC%9D%B8%ED%95%B4-%EB%96%A8%EC%96%B4%EC%A7%84-aexport-%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%9B%90%EB%B3%B5%ED%95%A9%EB%8B%88%EB%8B%A4)
+    - [BUG-48023  Altibase 7.1에서 쿼리 플랜변경으로 인해 떨어진 aexport 성능을 원복합니다.](#bug-48023-altibase-71%EC%97%90%EC%84%9C-%EC%BF%BC%EB%A6%AC-%ED%94%8C%EB%9E%9C%EB%B3%80%EA%B2%BD%EC%9C%BC%EB%A1%9C-%EC%9D%B8%ED%95%B4-%EB%96%A8%EC%96%B4%EC%A7%84-aexport-%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%9B%90%EB%B3%B5%ED%95%A9%EB%8B%88%EB%8B%A4)
     - [BUG-48047  heapmin이 제거된 AIX 패키지 제공](#bug-48047-heapmin%EC%9D%B4-%EC%A0%9C%EA%B1%B0%EB%90%9C-aix-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%A0%9C%EA%B3%B5)
   - [Fixed Bugs](#fixed-bugs)
     - [BUG-46438  SORT_AREA_SIZE 가 너무 작아서 쿼리 수행이 실패한 경우에 잘못된 에러메시지가 출력됩니다.](#bug-46438-sort_area_size-%EA%B0%80-%EB%84%88%EB%AC%B4-%EC%9E%91%EC%95%84%EC%84%9C-%EC%BF%BC%EB%A6%AC-%EC%88%98%ED%96%89%EC%9D%B4-%EC%8B%A4%ED%8C%A8%ED%95%9C-%EA%B2%BD%EC%9A%B0%EC%97%90-%EC%9E%98%EB%AA%BB%EB%90%9C-%EC%97%90%EB%9F%AC%EB%A9%94%EC%8B%9C%EC%A7%80%EA%B0%80-%EC%B6%9C%EB%A0%A5%EB%90%A9%EB%8B%88%EB%8B%A4)
@@ -69,7 +69,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-48023  Alitbase 7.1에서 쿼리 플랜변경으로 인해 떨어진 aexport 성능을 원복합니다.
+### BUG-48023  Altibase 7.1에서 쿼리 플랜변경으로 인해 떨어진 aexport 성능을 원복합니다.
 
 -   **module** : ux-aexport
 

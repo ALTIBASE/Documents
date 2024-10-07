@@ -512,7 +512,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **증상** : 하위 버젼(Alitbase v5.x) Client 로 상위버전(ALTIBASE 6.3.1 이상)
+-   **증상** : 하위 버젼(Altibase v5.x) Client 로 상위버전(ALTIBASE 6.3.1 이상)
     서버와 통신할때, 반환된 메모리에 접근할 수 있는 문제를
     해결하였습니다.
 
