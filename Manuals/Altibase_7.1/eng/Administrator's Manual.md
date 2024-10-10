@@ -6293,9 +6293,9 @@ The table creating statement above can be shown as figure below.
 
 [Figure 7-28] Partition Areas of a Hash using Range Partitioned Table
 
-The operation on hash using range partitioned object is the same as range partitioned object.
+##### Operations on Hash-Partitioned Objects
 
-## 
+The operation on hash using range partitioned object is the same as range partitioned object.
 
 # 8. Managing Transactions
 
