@@ -7451,41 +7451,11 @@ ALTER DATABASE db_name META RESETLOGS;
 
 만약 사용자가 실수로 DROP TABLESPACE 구문을 이용하여 테이블스페이스를 삭제한 경우에는, 현재의 로그앵커 파일에는 삭제된 테이블스페이스 정보가 없기 때문에 백업된 로그앵커를 사용할 수 밖에 없다.
 
-**메모리 테이블스페이스의 데이터 파일 복구 시 안정적인 체크포인트 이미지 파일을 이용해야 한다.**
-
-체크포인트 이미지 파일은 MEM_DB_DIR 프로퍼티에 설정한 경로에 위치한다.
-
-체크포인트 스케일이 페어일 때, 체크포인트 이미지 파일은 핑퐁 번호 0번과 1번, 한 벌로 유지된다. 매체 복구를 수행할 때 안정적인 체크포인트 이미지 파일을 이용해야 하기 때문에, 백업 시 사용자는 안정적인 체크포인트 이미지 파일을 확인 후 그 파일을 백업해야 한다.
-
-로그 앵커의 "[ TABLESPACE ATTRIBUTE ]" 영역의 "Stable Checkpoint Image Num." 항목으로 안정적인 체크포인트 이미지 파일의 핑퐁 번호를 확인할 수 있다.
-
-백업한 안정적인 체크포인트 이미지 파일이 다음과 같다면:
-
-```
-SYS_TBS_MEM_DIC-1-0,
-SYS_TBS_MEM_DIC-1-1, 
-SYS_TBS_MEM_DIC-1-2
-```
-
-복구하기 위해 백업 받은 체크포인트 이미지 파일을 다음과 같이 복사해야 한다.
-
-```
-$ cp SYS_TBS_MEM_DIC-1-0  $ALTIBASE_HOME/dbs
-$ cp SYS_TBS_MEM_DIC-1-1  $ALTIBASE_HOME/dbs
-$ cp SYS_TBS_MEM_DIC-1-2  $ALTIBASE_HOME/dbs
-```
-
-복사 후 매체 복구를 수행하면, 복구 완료 시점에 자동으로 안정적인 체크포인트 이미지 파일을 복사해서 불안정한 체크포인트 이미지 파일을 생성한다.
-
-체크포인트 스케일이 싱글이면 안정적인 체크포인트 이미지 파일 1개만 유지하므로 백업이나 복구할 때 안정적인 체크포인트 이미지 파일을 확인하는 과정이 필요하지 않다.
-
----수정안---
-
 **메모리 테이블스페이스의 매체 복구를 수행하려면 안정적인 체크포인트 이미지 파일을 백업해야 한다.**
 
-체크포인트 스케일이 싱글이라면, 안정적인 체크포인트 이미지 파일 하나만 유지되기 때문에 백업 시 별도의 파일 확인 과정이 필요하지 않다. 따라서 추가적인 선별 작업 없이 백업한 파일들로 매체 복구를 수행할 수 있다.
+체크포인트 스케일이 싱글이라면, 안정적인 체크포인트 이미지 파일 하나만 유지되기 때문에 백업할 파일을 선별할 필요가 없다.
 
-반면, 체크포인트 스케일이 페어라면 백업 시 핑퐁 번호 0번 파일과 1번 파일 중 어느 것이 안정적인 체크포인트 이미지 파일인지 확인해야 한다. 이를 확인하려면 dumpla 유틸리티를 사용하여 로그 앵커의 "[TABLESPACE ATTRIBUTE]" 영역에 있는 "Stable Checkpoint Image Num." 항목을 조회한다. 
+반면, 체크포인트 스케일이 페어라면 백업 시 핑퐁 번호를 확인하여 안정적인 체크포인트 이미지 파일을 선별해야 한다. 이를 확인하려면 dumpla 유틸리티를 사용하여 로그 앵커의 "[TABLESPACE ATTRIBUTE]" 영역에 있는 "Stable Checkpoint Image Num." 항목을 조회한다. 
 
 **테이블스페이스의 추가, 삭제 또는 이름 변경 등이 이루어지면, 딕셔너리 테이블스페이스(SYS_TBS_MEM_DIC)의 백업이나 전체 데이터베이스의 백업이 필요하다.**
 
@@ -8049,47 +8019,49 @@ $ cp /backup_dir/SYS_TBS_MEM_DIC-0-0 $ALTIBASE_HOME/dbs
 - Checkpoint Scale 항목의 값이 PAIR인 경우: 
   
   [ TABLESPACE ATTRIBUTE ]의 Stable Checkpoint Image Num. 항목을 참고한다.
-
-```
-% dumpla loganchor0
-[LOGANCHOR HEADER]
-...
-Checkpoint Scale              [ PAIR ]
-...
-[ TABLESPACE ATTRIBUTE ]
-Tablespace ID                 [ 0 ]
-Tablespace Name               [ SYS_TBS_MEM_DIC ]
-New Database File ID          [ 0 ]
-Tablespace Status             [ ONLINE ]
-TableSpace Type               [ 0 ]
-Checkpoint Path Count         [ 0 ]
-Autoextend Mode               [ Autoextend ]
-Shared Memory Key             [ 0 ]
-Stable Checkpoint Image Num.  [ 1 ]
-Init Size                     [ 4 MBytes ( 129 Pages ) ]
-Next Size                     [ 4 MBytes ( 128 Pages ) ]
-Maximum Size                  [ 134217727 MBytes ( 4294967295 Pages ) ]
-Split File Size               [ 1024 MBytes ( 32768 Pages ) ]
-```
+  
+  ```bash
+  % dumpla loganchor0
+  [LOGANCHOR HEADER]
+  ...
+  Checkpoint Scale              [ PAIR ]
+  ...
+  [ TABLESPACE ATTRIBUTE ]
+  Tablespace ID                 [ 0 ]
+  Tablespace Name               [ SYS_TBS_MEM_DIC ]
+  New Database File ID          [ 0 ]
+  Tablespace Status             [ ONLINE ]
+  TableSpace Type               [ 0 ]
+  Checkpoint Path Count         [ 0 ]
+  Autoextend Mode               [ Autoextend ]
+  Shared Memory Key             [ 0 ]
+  Stable Checkpoint Image Num.  [ 1 ]
+  Init Size                     [ 4 MBytes ( 129 Pages ) ]
+  Next Size                     [ 4 MBytes ( 128 Pages ) ]
+  Maximum Size                  [ 134217727 MBytes ( 4294967295 Pages ) ]
+  Split File Size               [ 1024 MBytes ( 32768 Pages ) ]
+  ```
 
 - Checkpoint Scale 항목의 값이 SINGLE인 경우: 
   
   [ MEMORY CHECKPOINT IMAGE ATTRIBUTE ]의 Stable Single Checkpoint Image Num. 항목을 참고한다.
-
-```
-% dumpla loganchor0
-[LOGANCHOR HEADER]
-...
-Checkpoint Scale              [ SINGLE ]
-...
-[ MEMORY CHECKPOINT IMAGE ATTRIBUTE ]
-Tablespace ID                        [ 0 ]
-File Number                          [ 0 ]
-Stable Single Checkpoint Image Num.  [ 1 ]
-Create LSN                           [ 0, 2028 ]
-Create On Disk (PingPong 0)          [ Created ]
-Create On Disk (PingPong 1)          [ Created ]
-```
+  
+  ```bash
+  % dumpla loganchor0
+  [LOGANCHOR HEADER]
+  ...
+  Checkpoint Scale              [ SINGLE ]
+  ...
+  [ MEMORY CHECKPOINT IMAGE ATTRIBUTE ]
+  Tablespace ID                        [ 0 ]
+  File Number                          [ 0 ]
+  Stable Single Checkpoint Image Num.  [ 1 ]
+  Create LSN                           [ 0, 2028 ]
+  Create On Disk (PingPong 0)          [ Created ]
+  Create On Disk (PingPong 1)          [ Created ]
+  ```
+  
+  
 
 백업한 체크포인트 이미지 파일의 핑퐁 번호는 [0]이고 로그 앵커에서 확인한 현재 안정적인 체크포인트 이미지 파일의 핑퐁 번호는 [1]이므로, 다음과 같이 복사한다.
 
