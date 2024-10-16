@@ -1,5 +1,4 @@
-Log Analyzer User’s Manual
-==========================
+# Log Analyzer User’s Manual
 
 #### Trunk
 
