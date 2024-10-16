@@ -425,7 +425,6 @@ However, the Log Analyzer differs from Replication in the following ways:
 
 -   The Log Analyzer can be used with tables having foreign keys. 
 -   Only Lazy Mode is supported for use with the Log Analyzer. 
--   Replication SYNC is not supported.
 
 For more information on Replication, please refer to the *Replication Manual.*
 

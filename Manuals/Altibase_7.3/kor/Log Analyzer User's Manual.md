@@ -493,10 +493,7 @@ XLog Sender는 Replication 모듈을 사용하므로, 기본적으로 아래와 
 그러나, Replication과는 달리,
 
 -   Foreign Key 컬럼을 가지고 있는 테이블도 로그분석 대상이 될 수 있다.
-
 -   Lazy Mode만 지원한다.
-
--   Replication SYNC를 지원하지 않는다.
 
 Replication에 대한 자세한 내용은 *Replication Manual*을 참고한다.
 
