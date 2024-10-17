@@ -350,7 +350,7 @@ This section discusses the system requirements for Migration Center and compatib
 
 - Disk: 150MB or more free space
 
-- Screen resolution: 1024x900 pixels or higher
+- Screen resolution: 1024x800 pixels or higher
 
 ##### CLI Mode
 
