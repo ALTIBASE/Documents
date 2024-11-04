@@ -191,9 +191,9 @@ Migration Center 7.14 의 새로운 기능과 수정된 버그 및 변경 사항
 
 특정 DBMS에서 Altibase로 마이그레이션 할 때, Empty String 값이면 정상 동작 하지 않고 제거되는 경우가 있다. Empty String 데이터를 Altibase에 적합한 데이터로 변환하는 기능을 Migration Option에 추가한다.
 
-### BUG-51035 Not Null & default '' 컬럼 정의를 변환할 수 있는 기능을 제공해야 합니다.
+### BUG-51035 Not Null & Default '' 컬럼 정의를 변환할 수 있는 기능을 제공해야 합니다.
 
-특정 DBMS에서 Altibase로 마이그레이션 할 때, Default ''(Empty String) Not Null 컬럼일 경우 정상 동작하지 않고 제거된다. Not Null & default '' 컬럼을 Altibase에 적합한 DDL을 구성할 수 있는 옵션을 추가한다.
+특정 DBMS에서 Altibase로 마이그레이션 할 때, Default ''(Empty String) Not Null 컬럼일 경우 정상 동작하지 않고 제거된다. Not Null & Default '' 컬럼 변환 시 Altibase에 적합한 DDL을 구성할 수 있는 옵션을 추가한다.
 
 ### BUG-51075 Option 창에 Scrollbar가 필요합니다.
 

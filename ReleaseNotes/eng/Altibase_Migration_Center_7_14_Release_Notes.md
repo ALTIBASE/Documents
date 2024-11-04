@@ -184,9 +184,9 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 
 When performing from a specific DBMS to Altibase migration, the Empty String value may not operate normally and may be removed. The function of converting Empty String data into data suitable for Altibase is added to the migration option.
 
-### BUG-51035	When performing to Altibase migration, the Not Null & default ''(Empty String) column conversion function should be provided
+### BUG-51035	When performing to Altibase migration, the Not Null & Default ''(Empty String) column conversion function should be provided
 
-When performing from a specific DBMS to Altibase migration, default ''(Empty String) & Not Null column does not work normally and is removed. The function of configuring the Not Null & default ''(Empty String) into suitable DDL for Altibase is added to the migration option.
+When performing from a specific DBMS to Altibase migration, Default ''(Empty String) & Not Null column does not work normally and is removed. When converting Not Null & Default '' columns, add the option to configure DDL suitable for Altibase.
 
 ### BUG-51075	The option window requires a Scrollbar
 
