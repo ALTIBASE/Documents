@@ -207,7 +207,7 @@ TimesTen의 Binary 타입의 기본 데이터 매핑 타입을 Altibase BLOB 타
 
 Migration Center에 지속적으로 옵션이 추가되면서 기존 Option 창이 너무 길어져 사용에 불편함을 줄 우려가 있다. Option 창에 스크롤바를 추가하고 Option 창 높이를 수정한다.
 
-### BUG-51076 Migration Center  UI 개선: 메인 창의 분리바를 사용자가 조정 가능하도록 변경합니다.
+### BUG-51076 Migration Center UI 개선: 메인 창의 분리바를 사용자가 조정 가능하도록 변경합니다.
 
 특정 해상도에서 Migration Center 메인 창 왼쪽 Project 트리와 DB Properties 창이 보이지 않는 경우가 있다. 왼쪽 창은 사용자가 임의로 크기 조절이 불가능하여 사용자가 이 경우에 Migration Center를 정상적으로 사용할 수 없다. 메인 창 왼쪽 Project 트리와 DB Properties 창을 사용자가 크기를 조정가능하도록 수정한다.
 

@@ -192,7 +192,7 @@ Change the default data mapping type of TimesTen Binary type from Altibase BLOB 
 
 When performing from a specific DBMS to Altibase migration, the Empty String value may not operate normally and may be removed. The function of converting Empty String data into data suitable for Altibase is added to the migration option.
 
-### BUG-51035	Provide Conversion Function for Not Null & Default ''(Empty String) Columns During Migration  to Altibase
+### BUG-51035	Provide Conversion Function for Not Null & Default ''(Empty String) Columns During Migration to Altibase
 
 When performing from a specific DBMS to Altibase migration, Not Null & Default ''(Empty String) column does not work normally and is removed. When converting Not Null & Default '' columns for migration, add the option to configure DDL suitable for Altibase.
 
