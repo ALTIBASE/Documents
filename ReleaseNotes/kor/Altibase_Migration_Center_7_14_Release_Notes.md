@@ -183,7 +183,7 @@ Migration Center 7.14 의 새로운 기능과 수정된 버그 및 변경 사항
 <br/>
 
 ## 2.2 수정된 버그
-### BUG-50263 데이터 타입 매핑: Oracle, TimesTen, Tibero BINARY_DOUBLE 타입의 기본 데이터 매핑 타입을 Altibase VARCHAR 타입에서 DOUBLE 타입으로 변경합니다.
+### BUG-50263 데이터 매핑 타입 변경: Oracle, TimesTen, Tibero BINARY_DOUBLE 타입의 기본 데이터 매핑 타입을 Altibase VARCHAR 타입에서 DOUBLE 타입으로 변경합니다.
 
 Oracle, TimesTen, Tibero의 BINARY_DOUBLE 타입은 Altibase DOUBLE 타입과 호환되므로 기본 데이터 매핑 타입을 변경한다. 다만 Oracle, TimesTen, Tibero은 특수한 값인 NaN(Not a Number)과 INF(Infinity)를 지원하는 반면, Altibase는 지원하지 않는다. 이 값의 경우 데이터 손실이 발생할 수 있다.
 
@@ -191,7 +191,7 @@ Oracle, TimesTen, Tibero의 BINARY_DOUBLE 타입은 Altibase DOUBLE 타입과 �
 
 Migration Center가 지원하는 Altibase to Oracle 데이터 마이그레이션 기능을 제거한다.
 
-### BUG-50827 데이터 타입 매핑: TimesTen Binary 타입의 기본 데이터 매핑 타입을 Altibase BLOB 타입에서 BYTE 타입으로 변경합니다.
+### BUG-50827 데이터 매핑 타입 변경: TimesTen Binary 타입의 기본 데이터 매핑 타입을 Altibase BLOB 타입에서 BYTE 타입으로 변경합니다.
 
 TimesTen의 Binary 타입의 기본 데이터 매핑 타입을 Altibase BLOB 타입에서 BYTE 타입으로 변경한다.
 
