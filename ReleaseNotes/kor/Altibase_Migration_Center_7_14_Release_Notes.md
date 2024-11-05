@@ -176,38 +176,38 @@ Migration Center 7.14 의 새로운 기능과 수정된 버그 및 변경 사항
 
 ## 2.1 새로운 기능
 
-### BUG-50652 Reconcile에서 입력한 Select 조건을 사용자가 Run 단계에서 편집할 수 있어야 합니다.
+### BUG-50652 Reconcile 단계에서 입력한 Select 조건을 Run 단계에서 편집할 수 있도록 허용합니다.
 
 원본 데이터베이스에서 데이터를 추출할 때, 특정 조건에 맞는 데이터만 선택적으로 추출하여 마이그레이션 할 수 있는 기능이 추가되었다. Select 조건은 Reconcile 단계 중 "Select Editing"에서 수정하거나, Reconcile 단계 완료 후 사용자가 직접 TableCondition.properties 파일에서 편집할 수 있다.
 
 <br/>
 
 ## 2.2 수정된 버그
-### BUG-50263 Oracle, TimesTen, Tibero의 BINARY_DOUBLE 타입을 Altibase DOUBLE 타입으로 매핑해야 합니다.
+### BUG-50263 데이터 타입 매핑: Oracle, TimesTen, Tibero BINARY_DOUBLE 타입의 기본 데이터 매핑 타입을 Altibase VARCHAR 타입에서 DOUBLE 타입으로 변경합니다.
 
 Oracle, TimesTen, Tibero의 BINARY_DOUBLE 타입은 Altibase DOUBLE 타입과 호환되므로 기본 데이터 매핑 타입을 변경한다. 다만 Oracle, TimesTen, Tibero은 특수한 값인 NaN(Not a Number)과 INF(Infinity)를 지원하는 반면, Altibase는 지원하지 않는다. 이 값의 경우 데이터 손실이 발생할 수 있다.
 
-### BUG-50821 Altibase to Oracle 기능을 제거합니다. 
+### BUG-50821 Migration Center 대상 데이터베이스에서 Oracle을 제거합니다.
 
 Migration Center가 지원하는 Altibase to Oracle 데이터 마이그레이션 기능을 제거한다.
 
-### BUG-50827 TimesTen Binary 타입의 기본 데이터 매핑 타입을 Altibase BLOB 타입에서 BYTE 타입으로 변경해야 합니다.
+### BUG-50827 데이터 타입 매핑: TimesTen Binary 타입의 기본 데이터 매핑 타입을 Altibase BLOB 타입에서 BYTE 타입으로 변경합니다.
 
 TimesTen의 Binary 타입의 기본 데이터 매핑 타입을 Altibase BLOB 타입에서 BYTE 타입으로 변경한다.
 
-### BUG-51034 Empty string 데이터 변환 기능을 제공해야 합니다.
+### BUG-51034 Altibase 대상으로 마이그레이션 수행 시 Empty string 데이터 변환 기능 옵션을 제공합니다.
 
-특정 DBMS에서 Altibase로 마이그레이션 할 때, Empty String 값이면 정상 동작 하지 않고 제거되는 경우가 있다. Empty String 데이터를 Altibase에 적합한 데이터로 변환하는 기능을 Migration Option에 추가한다.
+특정 DBMS에서 Altibase로 마이그레이션 할 때, Empty String 값이면 정상 동작 하지 않고 제거되는 경우가 있다. Empty String 데이터를 Altibase에 적합한 데이터로 변환하는 기능을 Migration Option에서 제공한다.
 
-### BUG-51035 Not Null & Default '' 컬럼 정의를 변환할 수 있는 기능을 제공해야 합니다.
+### BUG-51035 Altibase 대상으로 마이그레이션 수행 시 Not Null & Default '' 컬럼 변환 기능 옵션을 제공합니다.
 
-특정 DBMS에서 Altibase로 마이그레이션 할 때, Default ''(Empty String) Not Null 컬럼일 경우 정상 동작하지 않고 제거된다. Not Null & Default '' 컬럼 변환 시 Altibase에 적합한 DDL을 구성할 수 있는 옵션을 추가한다.
+특정 DBMS에서 Altibase로 마이그레이션 할 때, Default ''(Empty String) Not Null 컬럼일 경우 정상 동작하지 않고 제거된다. Not Null & Default '' 컬럼 변환 시 Altibase에 적합한 DDL을 구성할 수 있는 옵션을 제공한다.
 
-### BUG-51075 Option 창에 Scrollbar가 필요합니다.
+### BUG-51075 Migration Center UI 개선: 사용성 향상을 위해 옵션 창에 스크롤바를 추가하고 창 높이를 조정합니다.
 
-Migration Center에 지속적으로 옵션이 추가되면서 기존 Option 창 길이가 너무 길어져 사용에 불편함을 줄 우려가 있다. Option 창에 스크롤바를 추가하고 Option 창 길이를 수정한다.
+Migration Center에 지속적으로 옵션이 추가되면서 기존 Option 창이 너무 길어져 사용에 불편함을 줄 우려가 있다. Option 창에 스크롤바를 추가하고 Option 창 높이를 수정한다.
 
-### BUG-51076 메인창의 분리바를 사용자가 조정가능해야 합니다.
+### BUG-51076 Migration Center  UI 개선: 메인 창의 분리바를 사용자가 조정 가능하도록 변경합니다.
 
 특정 해상도에서 Migration Center 메인 창 왼쪽 Project 트리와 DB Properties 창이 보이지 않는 경우가 있다. 왼쪽 창은 사용자가 임의로 크기 조절이 불가능하여 사용자가 이 경우에 Migration Center를 정상적으로 사용할 수 없다. 메인 창 왼쪽 Project 트리와 DB Properties 창을 사용자가 크기를 조정가능하도록 수정한다.
 

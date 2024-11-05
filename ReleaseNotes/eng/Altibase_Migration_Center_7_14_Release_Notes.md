@@ -168,7 +168,7 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 
 ## 2.1 New Features
 
-### BUG-50652	The Select condition entered in Reconcile step should be deitable by the user at the Run step
+### BUG-50652	Allow User to Modify Select Condition Entered in Reconcile Step Before Executing in Run Step
 
 When extracting data from the source database, a function that allows only data that meets a specific condition to be selectively extracted and migrated has been added. The Select condition can be modified in "Select Editing" during the Reconcile step, or edited directly by the user in the TableCondition.properties file after completing the Reconcile step.
 
@@ -176,31 +176,31 @@ When extracting data from the source database, a function that allows only data 
 
 ## 2.2 Bug-Fixes
 
-### BUG-50263 The BINARY_DOUBLE type of Oracle, TimesTen and Tibero should be mapped to the Altibase DOUBLE type
+### BUG-50263	Data type mapping: BINARY_DOUBLE of Oracle, TimesTen, and Tibero is now mapped to Altibase DOUBLE, replacing the previous VARCHAR mapping
 
 The BINARY_DOUBLE types of Oracle, TimesTen, and Tibero are compatible with the Altibase DOUBLE type, so the default data mapping type need to be changed. However, Oracle, TimesTen, and Tibero support special values of NaN(Not a Number) and INF(Infinity), while Altibase does not. For these values, data loss can occur.
 
-### BUG-50821	Remove the Altibase to Oracle data migration feature
+### BUG-50821	Oracle has been removed from destination databases in Migration Center
 
 Remove the Altibase to Oracle data migration feature supported by Migration Center.
 
-### BUG-50827  The default data mapping type of the TimesTen Binary type should be changed from Altibase BLOB type to Altibase BYTE type
+### BUG-50827 	Data type mapping update: The TimesTen BINARY type is now mapped to Altibase BYTE, replacing the previous BLOB mapping
 
 Change the default data mapping type of TimesTen Binary type from Altibase BLOB type to Altibase BYTE type.
 
-### BUG-51034	When performing to Altibase migration, the Empty String data conversion function should be provided
+### BUG-51034	Provide Empty String Data Conversion Function for Migration to Altibase
 
 When performing from a specific DBMS to Altibase migration, the Empty String value may not operate normally and may be removed. The function of converting Empty String data into data suitable for Altibase is added to the migration option.
 
-### BUG-51035	When performing to Altibase migration, the Not Null & Default ''(Empty String) column conversion function should be provided
+### BUG-51035	Provide Conversion Function for Not Null & Default ''(Empty String) Columns During Migration  to Altibase
 
 When performing from a specific DBMS to Altibase migration, Not Null & Default ''(Empty String) column does not work normally and is removed. When converting Not Null & Default '' columns for migration, add the option to configure DDL suitable for Altibase.
 
-### BUG-51075	The option window requires a Scrollbar
+### BUG-51075	Migration Center UI Enhancement: Add Scrollbar and Adjust Height for Improved Usability in Option Window
 
 As options are continuously added to the Migration Center, the length of the existing Option window is too long, which may cause inconvenience to use. Add a scrollbar to the Option window and modify the height of the Option window to be small.
 
-### BUG-51076	The separation bar in the Migration Center main window should be adjustable by the user
+### BUG-51076	Migration Center UI Enhancement: Allow User-Adjustable Separation Bar in the Main Window
 
 In some cases, the Project Tree and DB Properties window on the left side of the Migration Center main window may not be visible at certain resolutions. In the left window, the user cannot use the Migration Center normally in this case because the user cannot arbitrarily adjust the size. Modify the Project Tree and DB Properties window on the left side of the main window to allow the user to adjust the size.
 
