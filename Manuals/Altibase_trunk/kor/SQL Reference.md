@@ -3233,15 +3233,18 @@ DROP TABLE
 - PARALLEL : 병렬 적용자 옵션을 사용하거나 사용하지 않게 변경 할 수 있다.
   그리고 적용자의 개수를 변경할 수 있다.
 
-*offline_cluase*
+*offline_clause*
 
-오프라인 옵션을 변경하거나 송신자 메타 파일과 SN 파일을 읽어 메타 정보를 구성하거나 초기화하고 설정된 오프라인 경로를 이용하여 이중화를 수행할 수 있다.
+이중화 부가기능 중 오프라인 옵션의 설정을 변경한다.
 
-- SET OFFLINE ENABLE WITH 'log_dir' : 오프라인 이중화 옵션을 사용할 수 있도록 설정한다. 
-- SET OFFLINE DISABLE : 오프라인 이중화 옵션을 사용하지 못하도록 설정한다.
+- SET OFFLINE ENABLE WITH 'log_dir' : 오프라인 옵션을 사용하도록 설정한다.
+- SET OFFLINE DISABLE : 오프라인 옵션을 사용하지 않도록 설정한다.
+- START WITH OFFLINE : 오프라인 옵션 이중화를 시작한다. 이는 일회성 작업으로, 미전송된 로그를 모두 반영한 후 바로 종료된다.
+
+*meta_logging_clause*
+
 - BUILD OFFLINE META : 송신자 메타 파일과 재시작 SN 파일을 읽어 오프라인 이중화에 필요한 메타 정보를 구성한다.
 - RESET OFFLINE META : BUILD OFFLINE META로 구성된 메타 정보를 새로 구성하거나 더 이상 필요하지 않을 때 초기화 한다.
-- START WITH OFFLINE : 설정된 오프라인 경로를 이용하여 이중화를 수행한다. 오프라인 이중화는 일회성 작업으로써, 미전송된 로그를 모두 반영한 후 바로 종료된다.
 
 #### 주의 사항
 
