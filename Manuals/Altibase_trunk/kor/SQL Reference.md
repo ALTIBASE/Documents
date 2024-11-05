@@ -3123,7 +3123,7 @@ DELETE OFF 은 큐 테이블에 DELETE 문 사용을 허용하지 않는다. 이
 
 **offline_clause ::=**
 
-![offline_clause](media/SQL/offline_clause.gif)
+![offline_clause](media/SQL/offline_clause.png)
 
 #### 전제 조건
 
@@ -3235,8 +3235,13 @@ DROP TABLE
 
 *offline_cluase*
 
-오프라인 옵션을 변경하거나 설정된 오프라인 경로를 이용하여 이중화를 수행할 수
-있다.
+오프라인 옵션을 변경하거나 송신자 메타 파일과 SN 파일을 읽어 메타 정보를 구성하거나 초기화하고 설정된 오프라인 경로를 이용하여 이중화를 수행할 수 있다.
+
+- SET OFFLINE ENABLE WITH 'log_dir' : 오프라인 이중화 옵션을 사용할 수 있도록 설정한다. 
+- SET OFFLINE DISABLE : 오프라인 이중화 옵션을 사용하지 못하도록 설정한다.
+- BUILD OFFLINE META : 송신자 메타 파일과 재시작 SN 파일을 읽어 오프라인 이중화에 필요한 메타 정보를 구성한다.
+- RESET OFFLINE META : BUILD OFFLINE META로 구성된 메타 정보를 새로 구성하거나 더 이상 필요하지 않을 때 초기화 한다.
+- START WITH OFFLINE : 설정된 오프라인 경로를 이용하여 이중화를 수행한다. 오프라인 이중화는 일회성 작업으로써, 미전송된 로그를 모두 반영한 후 바로 종료된다.
 
 #### 주의 사항
 
@@ -6778,7 +6783,7 @@ Create success.
 
 **option_clause ::=**
 
-![](media/SQL/option_clause.gif)
+![](media/SQL/option_clause.png)
 
 **replication_item ::=**
 
@@ -6828,12 +6833,15 @@ XLog Sender를 생성한다. 자세한 설명은 *Log Analyzer User’s Manual*�
 
 *option_clause*
 
-이중화 객체의 RECOVERY, OFFLINE, GROUPING, PARALLEL, GAPLESS, RECEIVE_ONLY 옵션을 지정하는 절이다.
+이중화 객체의 RECOVERY, OFFLINE, GROUPING, PARALLEL, GAPLESS, RECEIVE_ONLY, META_LOGGING  옵션을 지정하는 절이다.
 
-이 기능은 각각 데이터 복구를 위해 사용되거나, 오프라인 이중화 수행시 사용된다.
-또한 성능을 위하여 이중화 트랜잭션을 그룹화하거나 병렬 적용자 옵션을 지정할 때
-사용할 수 있다. 이중화 격차를 일정 수준 이하로 유지하기 위하여 갭 해소(GAPLESS)
-옵션도 지정할 수 있다. 자세한 설명은 *Replication Manual*을 참고한다.
+- RECOVERY : 데이터 복구를 위하여 사용하거나 사용하지 않도록 사용 된다.
+- OFFLINE : 오프라인 이중화 수행 시 사용 된다.
+- GROUPING : 이중화 트랜잭션 그룹화 하는데 사용 된다.
+- PARALLEL : 병렬 적용자 옵션을 지정할 때 사용된다.
+- GAPLESS : 이중화 격차를 일정 수준 이하로 유지하기 위하여 사용 된다.
+- RECEIVE_ONLY : 이중화를 수신 전용 옵션으로 설정하여 다른 노드로 변경 데이터를 전송하지 않기 위해 사용 된다.
+- META_LOGGING : 메타 정보와 재시작 SN 정보를 로그 파일 경로의 폴더 안에 파일로 저장 할 때 사용 된다.
 
 *replication_host_ip*
 
