@@ -176,7 +176,7 @@ When extracting data from the source database, a function that allows only data 
 
 ## 2.2 Bug-Fixes
 
-### BUG-50263	Data type mapping: BINARY_DOUBLE of Oracle, TimesTen, and Tibero is now mapped to Altibase DOUBLE, replacing the previous VARCHAR mapping
+### BUG-50263	Data type mapping update: BINARY_DOUBLE of Oracle, TimesTen, and Tibero is now mapped to Altibase DOUBLE, replacing the previous VARCHAR mapping
 
 The BINARY_DOUBLE types of Oracle, TimesTen, and Tibero are compatible with the Altibase DOUBLE type, so the default data mapping type need to be changed. However, Oracle, TimesTen, and Tibero support special values of NaN(Not a Number) and INF(Infinity), while Altibase does not. For these values, data loss can occur.
 
