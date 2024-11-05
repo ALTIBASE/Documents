@@ -1,7 +1,7 @@
 Altibase Migration Center 7.14 Release Notes
 ================
 
-#### Release 7.14 (Novenber 1, 2023)
+#### Release 7.14 (Novenber 1, 2024)
 
 Altibase® Tools & Utilities
 
@@ -122,7 +122,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 ## 1.1 Altibase Migration Center
 
-Migration Center is a database migration tool which enables users to migrate a third-party database to Altibase database and external files or Altibase database to Oracle database in a convenient manner. Typically, the tasks of manual database migration are complicated, time-consuming, and prone to human error. In order to relieve such burden, Migration Center can be utilized providing qualified help for users to efficiently perform database migration with only a few mouse clicks in the Graphic User Interface (GUI) mode. Moreover, it also supports the migration at a Command Line Interface (CLI) mode for optimized resource consumption.
+Migration Center is a database migration tool that either directly or indirectly copies generally compatible database objects and data. Most databases comply with international standards, but no database is exempt from manual database migration. Generally, manual database migration is complicated, time-consuming, and error-prone. Migration Center helps users migrate databases with only a few mouse clicks in Graphic User Interface (GUI) mode, and offers Command Line Interface (CLI) mode as well.
 
 <br/>
 
@@ -143,7 +143,7 @@ Migration Center can be run regardless of OS if it meets the minimum software sp
 
 ### Minimum Software
 
-Migration Center is a pure Java-based client application relying on the JAVA Runtime Environment (JRE) instead of the client's hardware or an operating system. In order to execute Migration Center in the GUI mode, however, additional support for the graphic library of operating system is required.
+Migration Center is a pure Java application that uses Swing for GUI mode. It runs regardless of the user’s hardware and operating system, but relies on the JRE. The user is recommended to install Oracle, or IBM Java 8 or later. To run Migration Center in GUI mode, the user’s environment must support Java Swing.
 
 | Mode | JRE                         | OS Graphic Library |
 | ---- | --------------------------- | ------------------ |
@@ -156,17 +156,9 @@ Migration Center is a pure Java-based client application relying on the JAVA Run
 
 This section introduces the DBMSs and versions that can be migrated using Migration Center 7.14.
 
-#### The target DBMS is Altibase
-
 | Source DBMS                                                  | Target DBMS              |
 | ------------------------------------------------------------ | ------------------------ |
 | Altibase 4.3.9 or higher<br />CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br/>Informix 11.50 <br />Microsoft SQL Server 2005 ~ 2012<br />Oracle Database 9i ~ 11g <br />Oracle MySQL 5.0 ~ 5.7 <br />Oracle TimesTen 7.0, 11.2 <br />Tibero 4 SP1 ~ 6<br/>PostgreSQL 9.5.3 | Altibase 6.5.1 or higher |
-
-#### The target DBMS is Oracle
-
-| Source DBMS | Target DBMS               |
-| ------------------------------------------------------------ | ------------------------- |
-| Altibase 4.3.9 or higher                                     | Oracle Database 10g ~ 11g |
 
 <br/>
 
@@ -176,9 +168,25 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 
 ## 2.1 New Features
 
+### BUG-50652	The Select condition entered in Reconcile step should be deitable by the user at the Run step
+
+When extracting data from the source database, a function that allows only data that meets a specific condition to be selectively extracted and migrated has been added. The Select condition can be modified in "Select Editing" during the Reconcile step, or edited directly by the user in the TableCondition.properties file after completing the Reconcile step.
+
 <br/>
 
 ## 2.2 Bug-Fixes
+
+### BUG-50263 The BINARY_DOUBLE type of Oracle, TimesTen and Tibero should be mapped to the Altibase DOUBLE type
+
+The BINARY_DOUBLE types of Oracle, TimesTen, and Tibero are compatible with the Altibase DOUBLE type, so the default data mapping type need to be changed. However, Oracle, TimesTen, and Tibero support special values of NaN(Not a Number) and INF(Infinity), while Altibase does not. For these values, data loss can occur.
+
+### BUG-50821	Remove the Altibase to Oracle data migration feature
+
+Remove the Altibase to Oracle data migration feature supported by Migration Center.
+
+### BUG-50827  The default data mapping type of the TimesTen Binary type should be changed from Altibase BLOB type to Altibase BYTE type
+
+Change the default data mapping type of TimesTen Binary type from Altibase BLOB type to Altibase BYTE type.
 
 ### BUG-51034	When performing to Altibase migration, the Empty String data conversion function should be provided
 
@@ -186,11 +194,11 @@ When performing from a specific DBMS to Altibase migration, the Empty String val
 
 ### BUG-51035	When performing to Altibase migration, the Not Null & Default ''(Empty String) column conversion function should be provided
 
-When performing from a specific DBMS to Altibase migration, Default ''(Empty String) & Not Null column does not work normally and is removed. When converting Not Null & Default '' columns, add the option to configure DDL suitable for Altibase.
+When performing from a specific DBMS to Altibase migration, Not Null & Default ''(Empty String) column does not work normally and is removed. When converting Not Null & Default '' columns for migration, add the option to configure DDL suitable for Altibase.
 
 ### BUG-51075	The option window requires a Scrollbar
 
-As options are continuously added to the Migration Center, the length of the existing Option window is too long, which may cause inconvenience to use. Add a scrollbar to the Option window and modify the length of the Option window to be small.
+As options are continuously added to the Migration Center, the length of the existing Option window is too long, which may cause inconvenience to use. Add a scrollbar to the Option window and modify the height of the Option window to be small.
 
 ### BUG-51076	The separation bar in the Migration Center main window should be adjustable by the user
 

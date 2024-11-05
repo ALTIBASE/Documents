@@ -128,7 +128,7 @@ Copyright ⓒ 2001~2024 Altibase Corp. All Rights Reserved.<br>
 
 ## 1.1 Altibase Migration Center
 
-Migration Center는 데이터베이스 마이그레이션을 위한 도구로서, 사용자가 편리하게 써드파티 데이터베이스를 알티베이스 데이터베이스 또는 외부 파일로 이관하거나 알티베이스 데이터베이스를 오라클 데이터베이스로 이관하도록 한다. 보통 데이터베이스 마이그레이션은 수동으로 진행할 경우 복잡하고 시간이 많이 소요되며 휴먼 에러가 발생할 가능성이 크다. 이를 예방하기 위해 Migration Center는 GUI 모드에서 마우스 클릭 몇 번만으로 데이터베이스 마이그레이션을 가능하게 한다. 이에 더하여, 자원 사용을 최적화하기 위해 CLI 모드도 지원한다.
+Migration Center는 데이터베이스 사이에 일반적으로 호환되는 데이터베이스 객체와 데이터를 직접 또는 간접적으로 복사하는 데이터베이스 마이그레이션(migration) 도구이다. 대부분의 데이터베이스는 국제 표준을 준수하지만, 어떤 데이터베이스라도 수동 데이터베이스 마이그레이션이 불가피한 경우가 있다. 일반적으로 데이터베이스 마이그레이션 작업을 수동으로 직접 하는 것은 복잡하고 시간이 많이 소모되며, 사람이 하는 일이기에 실수가 잦을 수 있다. Migration Center는 사용자가 그래픽 사용자 인터페이스(GUI) 모드에서 몇 번의 마우스 클릭만으로도 데이터베이스 마이그레이션 작업을 수행할 수 있게 도와준다. 또한, 명령어 인터페이스(CLI) 모드도 지원한다.
 
 <br/>
 
@@ -151,7 +151,7 @@ Migration Center는 소프트웨어 최소 사양을 만족하면 OS 무관하�
 
 ### 소프트웨어 최소 사양
 
-Migration Center는 순수 Java 기반 클라이언트 애플리케이션으로, JAVA Runtime Environment (JRE)에 의존한다. 또한  Migration Center를 GUI 모드로 실행하기 위해 운영 체제의 그래픽 라이브러리에 대한 추가 지원이 필요하다.
+Migration Center는 GUI 모드의 경우 스윙(Swing)을 사용하는 순수 자바 애플리케이션이다. 이는 사용자의 하드웨어 및 운영 체제에 상관없이 대부분 독립적으로 실행되지만, 오라클 자바 런타임 환경(JRE)에 의존적이다. 오라클 또는 IBM Java 8 이상의 JRE를 설치할 것을 권장한다. GUI 모드로 Migration Center를 실행하려면, 사용자의 환경이 자바 스윙을 지원해야 한다.
 
 | Mode | JRE                      | OS Graphic Library |
 | ---- | ------------------------ | :----------------: |
@@ -164,17 +164,9 @@ Migration Center는 순수 Java 기반 클라이언트 애플리케이션으로,
 
 Migration Center 7.14 으로 마이그레이션 할 수 있는 데이터베이스 시스템 종류와 버전을 소개한다.
 
-#### 대상 데이터베이스가 Altibase 일 때
-
 | **원본 데이터베이스 종류 및 버전**                           | **대상 데이터베이스 버전** |
 | :----------------------------------------------------------- | :------------------------- |
 | Altibase 4.3.9 이상<br />CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br/>Informix 11.50 <br />Microsoft SQL Server 2005 ~ 2012<br />Oracle Database 9i ~ 11g <br />Oracle MySQL 5.0 ~ 5.7 <br />Oracle TimesTen 7.0, 11.2 <br />Tibero 4 SP1 ~ 6<br/>PostgreSQL 9.5.3 | Altibase 6.5.1 이상        |
-
-#### 대상 데이터베이스가 Oracle 일 때
-
-| **원본 데이터베이스 종류 및 버전** | **대상 데이터베이스 버전** |
-| :--------------------------------- | :------------------------- |
-| Altibase 4.3.9 이상                | Oracle Database 10g ~ 11g  |
 
 <br/>
 
@@ -184,9 +176,25 @@ Migration Center 7.14 의 새로운 기능과 수정된 버그 및 변경 사항
 
 ## 2.1 새로운 기능
 
+### BUG-50652 Reconcile에서 입력한 Select 조건을 사용자가 Run 단계에서 편집할 수 있어야 합니다.
+
+원본 데이터베이스에서 데이터를 추출할 때, 특정 조건에 맞는 데이터만 선택적으로 추출하여 마이그레이션 할 수 있는 기능이 추가되었다. Select 조건은 Reconcile 단계 중 "Select Editing"에서 수정하거나, Reconcile 단계 완료 후 사용자가 직접 TableCondition.properties 파일에서 편집할 수 있다.
+
 <br/>
 
 ## 2.2 수정된 버그
+### BUG-50263 Oracle, TimesTen, Tibero의 BINARY_DOUBLE 타입을 Altibase DOUBLE 타입으로 매핑해야 합니다.
+
+Oracle, TimesTen, Tibero의 BINARY_DOUBLE 타입은 Altibase DOUBLE 타입과 호환되므로 기본 데이터 매핑 타입을 변경한다. 다만 Oracle, TimesTen, Tibero은 특수한 값인 NaN(Not a Number)과 INF(Infinity)를 지원하는 반면, Altibase는 지원하지 않는다. 이 값의 경우 데이터 손실이 발생할 수 있다.
+
+### BUG-50821 Altibase to Oracle 기능을 제거합니다. 
+
+Migration Center가 지원하는 Altibase to Oracle 데이터 마이그레이션 기능을 제거한다.
+
+### BUG-50827 TimesTen Binary 타입의 기본 데이터 매핑 타입을 Altibase BLOB 타입에서 BYTE 타입으로 변경해야 합니다.
+
+TimesTen의 Binary 타입의 기본 데이터 매핑 타입을 Altibase BLOB 타입에서 BYTE 타입으로 변경한다.
+
 ### BUG-51034 Empty string 데이터 변환 기능을 제공해야 합니다.
 
 특정 DBMS에서 Altibase로 마이그레이션 할 때, Empty String 값이면 정상 동작 하지 않고 제거되는 경우가 있다. Empty String 데이터를 Altibase에 적합한 데이터로 변환하는 기능을 Migration Option에 추가한다.
@@ -197,7 +205,7 @@ Migration Center 7.14 의 새로운 기능과 수정된 버그 및 변경 사항
 
 ### BUG-51075 Option 창에 Scrollbar가 필요합니다.
 
-Migration Center에 지속적으로 옵션이 추가되면서 기존 Option 창 길이가 너무 길어져 사용에 불편함을 줄 우려가 있다. Option 창에 스크롤바를 추가하고 Option 창 길이를 작게 수정한다.
+Migration Center에 지속적으로 옵션이 추가되면서 기존 Option 창 길이가 너무 길어져 사용에 불편함을 줄 우려가 있다. Option 창에 스크롤바를 추가하고 Option 창 길이를 수정한다.
 
 ### BUG-51076 메인창의 분리바를 사용자가 조정가능해야 합니다.
 
