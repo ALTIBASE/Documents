@@ -130,6 +130,8 @@ Migration Center is a database migration tool that either directly or indirectly
 
 ### Minimum Hardware
 
+The minimum specifications of hardware for running Migration Center are as follows.
+
 |                        |           GUI mode           | CLI mode |
 | ---------------------- | :--------------------------: | :------: |
 | **Computer processor** | 800MHz Pentium III or better |  Ditto   |
@@ -164,7 +166,7 @@ This section introduces the DBMSs and versions that can be migrated using Migrat
 
 # 2. Release Information
 
-This section summarizes new features, fixed bugs, and changes in Migration Center.
+This section summarizes new features, fixed bugs, and changes in Migration Center 7.14.
 
 ## 2.1 New Features
 
@@ -180,29 +182,29 @@ When extracting data from the source database, a function that allows only data 
 
 The BINARY_DOUBLE types of Oracle, TimesTen, and Tibero are compatible with the Altibase DOUBLE type, so the default data mapping type need to be changed. However, Oracle, TimesTen, and Tibero support special values of NaN(Not a Number) and INF(Infinity), while Altibase does not. For these values, data loss can occur.
 
-### BUG-50821	Oracle has been removed from destination databases in Migration Center
+### BUG-50821	Altibase to Oracle migration feature is no longer supported
 
-Remove the Altibase to Oracle data migration feature supported by Migration Center.
+Altibase to Oracle migration feature is no longer provided in accordance with company policy.
 
-### BUG-50827 	Data type mapping update: The TimesTen BINARY type is now mapped to Altibase BYTE, replacing the previous BLOB mapping
+### BUG-50827 	Data type mapping update: The TimesTen Binary type is now mapped to Altibase BYTE, replacing the previous BLOB mapping
 
-Change the default data mapping type of TimesTen Binary type from Altibase BLOB type to Altibase BYTE type.
+The default data mapping type of TimesTen Binary type is more suitable for BYTE type than Altibase BLOB type, which is a large binary data type, considering data size range and compatibility. Therefore, the data mapping type of TimesTen Binary type is changed from Altibase BLOB type to BYTE type.
 
 ### BUG-51034	Provide Empty String Data Conversion Function for Migration to Altibase
 
-When performing from a specific DBMS to Altibase migration, the Empty String value may not operate normally and may be removed. The function of converting Empty String data into data suitable for Altibase is added to the migration option.
+Since Altibase does not distinguish between Empty String and Null data, unexpected results may occur when migrating records with Empty String. To prevent this, a function of converting Empty String data into a form suitable for Altibase is added to the Migration Option.
 
 ### BUG-51035	Provide Conversion Function for Not Null & Default ''(Empty String) Columns During Migration to Altibase
 
-When performing from a specific DBMS to Altibase migration, Not Null & Default ''(Empty String) column does not work normally and is removed. When converting Not Null & Default '' columns for migration, add the option to configure DDL suitable for Altibase.
+Since Altibase does not distinguish between Empty String and Null data, columns with Not Null and Default ''(Empty String) settings in other DBMS cannot be migrated as they are. To solve this problem, the Migration Option provides the function of converting Not Null & Default ''(Empty String) column into DDL suitable for Altibase.
 
 ### BUG-51075	Migration Center UI Enhancement: Add Scrollbar and Adjust Height for Improved Usability in Option Window
 
-As options are continuously added to the Migration Center, the length of the existing Option window is too long, which may cause inconvenience to use. Add a scrollbar to the Option window and modify the height of the Option window to be small.
+As options are continuously added to the Migration Center, the length of the existing Option window is too long, which may cause inconvenience to use. Add a scrollbar to the Option window and modify the height of the Option window.
 
 ### BUG-51076	Migration Center UI Enhancement: Allow User-Adjustable Separation Bar in the Main Window
 
-In some cases, the Project Tree and DB Properties window on the left side of the Migration Center main window may not be visible at certain resolutions. In the left window, the user cannot use the Migration Center normally in this case because the user cannot arbitrarily adjust the size. Modify the Project Tree and DB Properties window on the left side of the main window to allow the user to adjust the size.
+In some cases, the Project tree and DB Properties window on the left side of the Migration Center main window may not be visible at certain resolutions. In the left window, the user cannot use the Migration Center normally in this case because the user cannot arbitrarily adjust the size. Modify the Project tree and DB Properties window on the left side of the main window to allow the user to adjust the size.
 
 <br/>
 
@@ -251,7 +253,7 @@ The Migration Center installation package is provided in two types (.zip, .gz) f
 
 #### Package
 
-<http://support.altibase.com>
+<http://support.altibase.com/en/product>
 
 #### Manual
 

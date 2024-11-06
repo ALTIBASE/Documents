@@ -136,7 +136,7 @@ Migration Center는 데이터베이스 사이에 일반적으로 호환되는 �
 
 ### 하드웨어 최소 사양
 
-Migration Center센터를 실행하기 위한 하드웨어의 최소 사양은 아래와 같다. 
+Migration Center를 실행하기 위한 하드웨어의 최소 사양은 아래와 같다. 
 
 |                 |        GUI 모드         | CLI 모드 |
 | --------------- | :---------------------: | :------: |
@@ -183,33 +183,33 @@ Migration Center 7.14 의 새로운 기능과 수정된 버그 및 변경 사항
 <br/>
 
 ## 2.2 수정된 버그
-### BUG-50263 데이터 매핑 타입 변경: Oracle, TimesTen, Tibero BINARY_DOUBLE 타입의 기본 데이터 매핑 타입을 Altibase VARCHAR 타입에서 DOUBLE 타입으로 변경합니다.
+### BUG-50263 데이터 매핑 타입 변경: Oracle, TimesTen, Tibero의 BINARY_DOUBLE 타입의 기본 데이터 매핑 타입을 Altibase VARCHAR 타입에서 DOUBLE 타입으로 변경합니다.
 
 Oracle, TimesTen, Tibero의 BINARY_DOUBLE 타입은 Altibase DOUBLE 타입과 호환되므로 기본 데이터 매핑 타입을 변경한다. 다만 Oracle, TimesTen, Tibero은 특수한 값인 NaN(Not a Number)과 INF(Infinity)를 지원하는 반면, Altibase는 지원하지 않는다. 이 값의 경우 데이터 손실이 발생할 수 있다.
 
-### BUG-50821 Migration Center 대상 데이터베이스에서 Oracle을 제거합니다.
+### BUG-50821 Migration Center 대상 데이터베이스에서 Oracle을 더 이상 지원하지 않습니다.
 
-Migration Center가 지원하는 Altibase to Oracle 데이터 마이그레이션 기능을 제거한다.
+Migration Center가 지원하는 Altibase to Oracle 데이터 마이그레이션 기능을 Migration Center 7.14 버전부터 더 이상 지원하지 않는다.
 
-### BUG-50827 데이터 매핑 타입 변경: TimesTen Binary 타입의 기본 데이터 매핑 타입을 Altibase BLOB 타입에서 BYTE 타입으로 변경합니다.
+### BUG-50827 데이터 매핑 타입 변경: TimesTen의 Binary 타입의 기본 데이터 매핑 타입을 Altibase BLOB 타입에서 BYTE 타입으로 변경합니다.
 
-TimesTen의 Binary 타입의 기본 데이터 매핑 타입을 Altibase BLOB 타입에서 BYTE 타입으로 변경한다.
+TimesTen의 Binary 타입의 기본 데이터 매핑 타입은 데이터 크기 범위와 호환성을 고려하였을 때, 대용량 이진 데이터 타입인 Altibase BLOB 타입 보다는 BYTE 타입에 더 적합하다. 따라서 TimesTen Binary 타입의 데이터 매핑 타입을 Altibase BLOB 타입에서 BYTE 타입으로 변경한다.
 
 ### BUG-51034 Altibase 대상으로 마이그레이션 수행 시 Empty string 데이터 변환 기능 옵션을 제공합니다.
 
-특정 DBMS에서 Altibase로 마이그레이션 할 때, Empty String 값이면 정상 동작 하지 않고 제거되는 경우가 있다. Empty String 데이터를 Altibase에 적합한 데이터로 변환하는 기능을 Migration Option에서 제공한다.
+Altibase는 Empty String과 Null 데이터를 구분하지 않기 때문에, Empty String을 가진 레코드를 마이그레이션할 때 예기치 않은 결과가 발생할 수 있다. 이를 방지하기 위해, Empty String 데이터를 Altibase에 적합한 형태로 변환하는 기능을 Migration Option에 추가한다.
 
 ### BUG-51035 Altibase 대상으로 마이그레이션 수행 시 Not Null & Default '' 컬럼 변환 기능 옵션을 제공합니다.
 
-특정 DBMS에서 Altibase로 마이그레이션 할 때, Default ''(Empty String) Not Null 컬럼일 경우 정상 동작하지 않고 제거된다. Not Null & Default '' 컬럼 변환 시 Altibase에 적합한 DDL을 구성할 수 있는 옵션을 제공한다.
+Altibase는 Empty String과 Null 데이터를 구분하지 않기 때문에, 다른 DBMS의 Not Null 및 Default ''(Empty String) 설정이 있는 컬럼을 그대로 마이그레이션할 수 없다. 이를 해결하기 위해 Migration Option에서 해당 컬럼을 Altibase에 맞는 DDL로 변환하는 기능을 제공한다.
 
 ### BUG-51075 Migration Center UI 개선: 사용성 향상을 위해 옵션 창에 스크롤바를 추가하고 창 높이를 조정합니다.
 
-Migration Center에 지속적으로 옵션이 추가되면서 기존 Option 창이 너무 길어져 사용에 불편함을 줄 우려가 있다. Option 창에 스크롤바를 추가하고 Option 창 높이를 수정한다.
+Migration Center에 지속적으로 옵션이 추가되면서 기존 Option 창이 너무 길어져 사용에 불편함을 줄 우려가 있다. Option 창에 스크롤바를 추가하고 Option 창 높이를 조정한다.
 
 ### BUG-51076 Migration Center UI 개선: 메인 창의 분리바를 사용자가 조정 가능하도록 변경합니다.
 
-특정 해상도에서 Migration Center 메인 창 왼쪽 Project 트리와 DB Properties 창이 보이지 않는 경우가 있다. 왼쪽 창은 사용자가 임의로 크기 조절이 불가능하여 사용자가 이 경우에 Migration Center를 정상적으로 사용할 수 없다. 메인 창 왼쪽 Project 트리와 DB Properties 창을 사용자가 크기를 조정가능하도록 수정한다.
+특정 해상도에서 Migration Center 메인 창 왼쪽 Project 트리와 DB Properties 창이 보이지 않는 경우가 있다. 왼쪽 창은 사용자가 임의로 크기 조절이 불가능하여 이 경우에 Migration Center를 정상적으로 사용할 수 없다. 메인 창 왼쪽 Project 트리와 DB Properties 창을 사용자가 분리바를 이용하여 크기를 조정가능하도록 변경한다.
 
 <br/>
 
@@ -258,11 +258,11 @@ Migration Center 설치 패키지는 두 가지 형태(.zip, .gz) 파일로 제�
 
 #### 패키지
 
-[http://support.altibase.com](http://support.altibase.com/)
+http://support.altibase.com/kr/product
 
 #### 매뉴얼
 
-[Migration Center User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/kor/Migration%20Center%20User's%20Manual.md)
+[Migration Center User's Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_release/kor/Migration%20Center%20User's%20Manual.md)
 
 #### 설치
 
