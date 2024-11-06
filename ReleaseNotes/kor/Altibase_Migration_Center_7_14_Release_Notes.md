@@ -201,7 +201,7 @@ Altibase는 Empty String과 Null 데이터를 구분하지 않기 때문에, Emp
 
 ### BUG-51035 Altibase 대상으로 마이그레이션 수행 시 Not Null & Default '' 컬럼 변환 기능 옵션을 제공합니다.
 
-Altibase는 Empty String과 Null 데이터를 구분하지 않기 때문에, 다른 DBMS의 Not Null 및 Default ''(Empty String) 설정이 있는 컬럼을 그대로 마이그레이션할 수 없다. 이를 해결하기 위해 Migration Option에서 해당 컬럼을 Altibase에 맞는 DDL로 변환하는 기능을 제공한다.
+Altibase는 Empty String과 Null 데이터를 구분하지 않기 때문에, 다른 DBMS의 Not Null이면서 Default ''(Empty String) 설정이 있는 컬럼을 그대로 마이그레이션할 수 없다. 이를 해결하기 위해 Migration Option에서 해당 컬럼을 Altibase에 맞는 DDL로 변환하는 기능을 제공한다.
 
 ### BUG-51075 Migration Center UI 개선: 사용성 향상을 위해 옵션 창에 스크롤바를 추가하고 창 높이를 조정합니다.
 

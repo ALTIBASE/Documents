@@ -170,7 +170,7 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 
 ## 2.1 New Features
 
-### BUG-50652	Allow User to Modify Select Condition Entered in Reconcile Step Before Executing in Run Step
+### BUG-50652	Support User to Modify Select Condition Entered in Reconcile Step Before Executing in Run Step
 
 When extracting data from the source database, a function that allows only data that meets a specific condition to be selectively extracted and migrated has been added. The Select condition can be modified in "Select Editing" during the Reconcile step, or edited directly by the user in the TableCondition.properties file after completing the Reconcile step.
 
@@ -178,15 +178,15 @@ When extracting data from the source database, a function that allows only data 
 
 ## 2.2 Bug-Fixes
 
-### BUG-50263	Data type mapping update: BINARY_DOUBLE of Oracle, TimesTen, and Tibero is now mapped to Altibase DOUBLE, replacing the previous VARCHAR mapping
+### BUG-50263	Data Type Mapping Update: BINARY_DOUBLE of Oracle, TimesTen, and Tibero is Now Mapped to Altibase DOUBLE, Replacing the Previous VARCHAR Mapping
 
 The BINARY_DOUBLE types of Oracle, TimesTen, and Tibero are compatible with the Altibase DOUBLE type, so the default data mapping type need to be changed. However, Oracle, TimesTen, and Tibero support special values of NaN(Not a Number) and INF(Infinity), while Altibase does not. For these values, data loss can occur.
 
-### BUG-50821	Altibase to Oracle migration feature is no longer supported
+### BUG-50821	Altibase to Oracle Migration Feature is No Longer Supported
 
 Altibase to Oracle migration feature is no longer provided in accordance with company policy.
 
-### BUG-50827 	Data type mapping update: The TimesTen Binary type is now mapped to Altibase BYTE, replacing the previous BLOB mapping
+### BUG-50827 	Data Type Mapping Update: The TimesTen Binary Type is Now Mapped to Altibase BYTE, Replacing the Previous BLOB Mapping
 
 The default data mapping type of TimesTen Binary type is more suitable for BYTE type than Altibase BLOB type, which is a large binary data type, considering data size range and compatibility. Therefore, the data mapping type of TimesTen Binary type is changed from Altibase BLOB type to BYTE type.
 
