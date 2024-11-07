@@ -196,7 +196,7 @@ Since Altibase does not distinguish between Empty String and Null data, unexpect
 
 ### BUG-51035	Provide Conversion Function for Not Null & Default ''(Empty String) Columns During Migration to Altibase
 
-Since Altibase does not distinguish between Empty String and Null data, columns with Not Null and Default ''(Empty String) settings in other DBMS cannot be migrated as they are. To solve this problem, the Migration Option provides the function of converting Not Null & Default ''(Empty String) column into DDL suitable for Altibase.
+Since Altibase does not distinguish between Empty String and Null data, columns with Not Null and Default ''(Empty String) settings in other DBMS cannot be migrated as they are. To solve this problem, the Migration Option provides the function of converting Not Null & Default ''(Empty String) column into DDL statements suitable for Altibase.
 
 ### BUG-51075	Migration Center UI Enhancement: Add Scrollbar and Adjust Height for Improved Usability in Option Window
 
@@ -204,7 +204,7 @@ As options are continuously added to the Migration Center, the length of the exi
 
 ### BUG-51076	Migration Center UI Enhancement: Allow User-Adjustable Separation Bar in the Main Window
 
-In some cases, the Project tree and DB Properties window on the left side of the Migration Center main window may not be visible at certain resolutions. In the left window, the user cannot use the Migration Center normally in this case because the user cannot arbitrarily adjust the size. Modify the Project tree and DB Properties window on the left side of the main window to allow the user to adjust the size.
+In some cases, the Project tree and DB Properties window on the left side of the Migration Center main window may not be visible at certain resolutions. In the left window, the user cannot normally use the Migration Center in this case because the user cannot arbitrarily adjust the size. Modify the Project tree and DB Properties window on the left side of the main window to allow the user to adjust the size.
 
 <br/>
 
