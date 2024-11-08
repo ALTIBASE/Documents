@@ -180,7 +180,7 @@ When extracting data from the source database, a function that allows only data 
 
 ### BUG-50263	Data Type Mapping Update: BINARY_DOUBLE of Oracle, TimesTen, and Tibero is Now Mapped to DOUBLE, Replacing the Previous VARCHAR Mapping
 
-The BINARY_DOUBLE types of Oracle, TimesTen, and Tibero are compatible with the Altibase DOUBLE type, so the default data mapping type need to be changed. However, Oracle, TimesTen, and Tibero support special values of NaN(Not a Number) and INF(Infinity), while Altibase does not. For these values, data loss can occur.
+The BINARY_DOUBLE types of Oracle, TimesTen, and Tibero are compatible with the DOUBLE type, so the default data mapping type need to be changed. However, Oracle, TimesTen, and Tibero support special values of NaN(Not a Number) and INF(Infinity), while Altibase does not. For these values, data loss can occur.
 
 ### BUG-50821	Altibase to Oracle Migration Feature is No Longer Supported
 
@@ -188,7 +188,7 @@ Altibase to Oracle migration feature is no longer provided in accordance with co
 
 ### BUG-50827 	Data Type Mapping Update: The TimesTen Binary Type is Now Mapped to BYTE, Replacing the Previous BLOB Mapping
 
-The default data mapping type of TimesTen Binary type is more suitable for BYTE type than Altibase BLOB type, which is a large binary data type, considering data size range and compatibility. Therefore, the data mapping type of TimesTen Binary type is changed from Altibase BLOB type to BYTE type.
+The default data mapping type of TimesTen Binary type is more suitable for BYTE type than BLOB type, which is a large binary data type, considering data size range and compatibility. Therefore, the data mapping type of TimesTen Binary type is changed from BLOB type to BYTE type.
 
 ### BUG-51034	Provide Empty String Data Conversion Function for Migration to Altibase
 
