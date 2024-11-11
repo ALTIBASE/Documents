@@ -150,12 +150,12 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [TimesTen to Altibase](#timesten-to-altibase)
   - [Tibero to Altibase](#tibero-to-altibase)
   - [PostgreSQL to Altibase](#postgresql-to-altibase)
-- [C.부록: 데이터 타입 맵핑](#c부록-데이터-타입-맵핑)
-  - [데이터 타입 맵핑 테이블 변경](#데이터-타입-맵핑-테이블-변경)
-  - [기본 데이터 타입 맵핑 테이블](#기본-데이터-타입-맵핑-테이블)
+- [C.부록: 데이터 타입 매핑](#c부록-데이터-타입-매핑)
+  - [데이터 타입 매핑 테이블 변경](#데이터-타입-매핑-테이블-변경)
+  - [기본 데이터 타입 매핑 테이블](#기본-데이터-타입-매핑-테이블)
   - [이종 문자 집합을 고려한 문자형 컬럼 길이 자동 보정](#이종-문자-집합을-고려한-문자형-컬럼-길이-자동-보정)
-- [D.부록: 기본값 맵핑](#d부록-기본값-맵핑)
-  - [기본값 맵핑 테이블](#기본값-맵핑-테이블)
+- [D.부록: 기본값 매핑](#d부록-기본값-매핑)
+  - [기본값 매핑 테이블](#기본값-매핑-테이블)
 - [E.부록: PSM 변환기 규칙 목록](#e부록-psm-변환기-규칙-목록)
   - [뷰 변환 규칙](#뷰-변환-규칙)
   - [트리거 변환 규칙](#트리거-변환-규칙)
@@ -243,14 +243,14 @@ Center를 사용하는 방법을 기술한다.
   이 부록은 Migration Center를 사용해서 마이그레이션할 수 있는 데이터베이스
   객체를 표로 제공한다.
 
-- C. 부록: 데이터 타입 맵핑  
-  이 부록은 기존 프로젝트를 위한 기본 데이터 타입 맵핑을 확인하고
-  커스터마이징하는 방법에 대해 설명하며, 기본 데이터 타입 맵핑 목록을
+- C. 부록: 데이터 타입 매핑  
+  이 부록은 기존 프로젝트를 위한 기본 데이터 타입 매핑을 확인하고
+  커스터마이징하는 방법에 대해 설명하며, 기본 데이터 타입 매핑 목록을
   제공한다.
 
-- D. 부록: 기본값 맵핑  
+- D. 부록: 기본값 매핑  
   Migration Center가 원본 데이터베이스를 Altibase에 맞춰 변환할 때 상이한
-  테이블 컬럼의 기본값을 변환하기 위한 기본값 맵핑 테이블을 제공한다.
+  테이블 컬럼의 기본값을 변환하기 위한 기본값 매핑 테이블을 제공한다.
 
 - E. 부록: PSM 변환기 규칙 목록  
   Oracle에서 Altibase로 마이그레이션을 할 때, PSM 변환기가 DDL SQL 문장으로
@@ -391,9 +391,9 @@ Migration Center는 데이터베이스 사이에 일반적으로 호환되는 �
    조정한다. 이 도구는 또한 쓰레드들이 처리할 데이터를 수동으로 분할할 수 있는
    방법도 제공한다.
 
-5. 서로 다른 종류의 데이터베이스 간에 다른 데이터 타입들의 데이터 타입 맵핑을
-   제공한다. 유연성(flexibility)을 위해 사용자 정의 데이터 타입 맵핑 뿐만
-   아니라 편의를 위해 기본 타입 맵핑도 지원한다.
+5. 서로 다른 종류의 데이터베이스 간에 다른 데이터 타입들의 데이터 타입 매핑을
+   제공한다. 유연성(flexibility)을 위해 사용자 정의 데이터 타입 매핑 뿐만
+   아니라 편의를 위해 기본 타입 매핑도 지원한다.
 
 6. 더 나은 사용성을 위한 GUI모드 뿐만 아니라, 만약의 경우를 대비해 명령어
    인터페이스(CLI) 모드도 제공한다.
@@ -879,7 +879,7 @@ ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&trustst
 1. "Migration" 메뉴 아래의 "Reconcile" 메뉴 항목을 선택하거나, 도구 모음에서
    "Reconcile" 아이콘을 클릭한다.
 
-2. 목적에 맞게 기본 데이터 타입 맵핑을 수정하거나 그대로 승인한다.
+2. 목적에 맞게 기본 데이터 타입 매핑을 수정하거나 그대로 승인한다.
 
 3. 원본 데이터베이스에서 기본 대상인 Altibase의 테이블스페이스를 지정한다.
 
@@ -1209,30 +1209,30 @@ Altibase의 테이블스페이스에 대한 자세한 내용은 각각의 *Admin
 
 ##### "Data Type Mapping" 단계
 
-"Data Type Mapping" 단계에서는 이기종 데이터베이스 간의 데이터 타입을 맵핑할 수
+"Data Type Mapping" 단계에서는 이기종 데이터베이스 간의 데이터 타입을 매핑할 수
 있다. 데이터 타입의 작은 차이는 데이터를 마이그레이션 하는 동안 예기치 못한
 데이터 손실 및 데이터 절단을 일으킬 수 있다. 따라서, 사용자는 이를 주의해야
-한다. 더 자세한 내용은 "C. 부록: 데이터 타입 맵핑"을 참고한다.
+한다. 더 자세한 내용은 "C. 부록: 데이터 타입 매핑"을 참고한다.
 
 ##### "PSM Data Type Mapping" 단계
 
 "PSM Data Type Mapping" 단계에서는 서로 다른 데이터베이스 간의 PSM 데이터 타입을
-맵핑할 수 있다. 이 단계는 "Oracle to Altibase PSM Migration" 또는 "TimesTen to
+매핑할 수 있다. 이 단계는 "Oracle to Altibase PSM Migration" 또는 "TimesTen to
 Altibase PSM Migration" 수행시에만 활성화 된다. 이 단계에서 정의된 내용은 나중에
 PSM 마이그레이션의 "SQL Editing" 단계에서 대상 DDL에 반영될 것이다.
 
 ##### "Tablespace to Tablespace Mapping" 단계
 
 "Tablespace to Tablespace Mapping" 단계에서는 원본 및 대상 데이터베이스 간의
-테이블스페이스를 맵핑할 수 있다. 테이블스페이스 맵핑이 설정되면,
-테이블스페이스의 내용물 또한 선택된 테이블스페이스로 모두 함께 맵핑된다. 이
-단계는 기본 테이블스페이스 맵핑을 생성하는데, 이 맵핑은 "Object to Tablespace
+테이블스페이스를 매핑할 수 있다. 테이블스페이스 매핑이 설정되면,
+테이블스페이스의 내용물 또한 선택된 테이블스페이스로 모두 함께 매핑된다. 이
+단계는 기본 테이블스페이스 매핑을 생성하는데, 이 매핑은 "Object to Tablespace
 Mapping" 메뉴 항목을 사용해서 변경할 수 있다.
 
 ##### "Object to Tablespace Mapping" 단계
 
 "Object to Tablespace Mapping" 단계에서는 각각의 테이블 및 인덱스를 드래그 앤
-드롭하여 대상 데이터베이스 상의 테이블스페이스로 맵핑할 수 있다. 맵핑이 변경될
+드롭하여 대상 데이터베이스 상의 테이블스페이스로 매핑할 수 있다. 매핑이 변경될
 때마다 대상 데이터베이스 상의 관련 테이블스페이스에 대해 필요한 전체 저장 공간
 크기가 다시 계산된다. 내부적으로, 데이터베이스 객체의 크기는 바이트 단위로
 정확하게 유지되지만, 대화 상자에는 그 값을 반올림하여 MB단위로 보여준다. 따라서,
@@ -1648,16 +1648,16 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 <br/>
 
-# C.부록: 데이터 타입 맵핑
+# C.부록: 데이터 타입 매핑
 
-이기종 데이터베이스 간의 데이터 타입을 맵핑할 때 Migration Center의 기본 정책은 "데이터 손실을 최소화하라"이다. 하지만 데이터가 손실되거나 손상되더라도 사용자가 데이터 타입 맵핑 방식을 직접 정의하는 것을 원할 수도 있다. 이런 요구를 만족시키기 위해 Migration Center는 데이터 타입 맵핑 테이블을 편집하는 방법을
+이기종 데이터베이스 간의 데이터 타입을 매핑할 때 Migration Center의 기본 정책은 "데이터 손실을 최소화하라"이다. 하지만 데이터가 손실되거나 손상되더라도 사용자가 데이터 타입 매핑 방식을 직접 정의하는 것을 원할 수도 있다. 이런 요구를 만족시키기 위해 Migration Center는 데이터 타입 매핑 테이블을 편집하는 방법을
 제공한다.
 
 이번 장에서는 Migration Center의 프로젝트 진행 과정에서 기본 데이터 타입 매핑 테이블을 확인하고 변경하는 방법을 설명한다. 또한 Migration Center의 기본 데이터 타입 매핑 테이블에서 사용자가 알아야 할 주의 사항을 설명한다.
 
-### 데이터 타입 맵핑 테이블 변경
+### 데이터 타입 매핑 테이블 변경
 
-사용자는 아래와 같이 Reconcile 단계에서 데이터 타입의 맵핑 테이블을 변경할 수 있다.
+사용자는 아래와 같이 Reconcile 단계에서 데이터 타입의 매핑 테이블을 변경할 수 있다.
 
 **1. Reconcile(조정)**
 
@@ -1686,7 +1686,7 @@ Change 버튼을 클릭하면 아래의 창이 뜬다. Change Mapping Type 창�
 </div>
 
 
-### 기본 데이터 타입 맵핑 테이블
+### 기본 데이터 타입 매핑 테이블
 
 이기종 데이터베이스 간의 기본 데이터 타입 매핑 테이블과 사용자가 주의할 사항을 설명한다.
 
@@ -1730,7 +1730,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 | 7    | TINYINT          | SMALLINT         |                                                              |
 | 8    | SMALLMONEY       | FLOAT            |                                                              |
 | 9    | BIT              | CHAR(1)          |                                                              |
-| 10   | FLOAT            | VARCHAR(310)     | Altibase에는 SQL Server FLOAT 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR(310)으로 맵핑된다. |
+| 10   | FLOAT            | VARCHAR(310)     | Altibase에는 SQL Server FLOAT 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR(310)으로 매핑된다. |
 | 11   | REAL             | FLOAT            |                                                              |
 | 12   | DATE             | DATE             |                                                              |
 | 13   | DATETIME2        | DATE             | 스케일의 차이로 인해서 시간의 fraction 손실이 발생할 수 있다. SQL Server의 DATETIME2 타입 스케일이 나노초의 100배(7자리 수)인 반면, Altibase에서는 DATE 타입의 스케일이 마이크로초(6자리 수)이다. |
@@ -1762,10 +1762,10 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  7   | INT (INTEGER)      | INTEGER                         | 주의: Altibase의 INT 타입의 최솟값(-2,147,483,647)은 MySQL INT 타입의 최솟값(-2,147,483,648) 보다 크다. |
 |  8   | INT UNSIGNED       | BIGINT                          |                                                              |
 |  9   | BIGINT             | BIGINT                          | 주의: Altibase의 BIGINT 타입의 최솟값(-9,223,372,036,854,775,807)은 MySQL BIGINT 타입의 최솟값(-9,223,372,036,854,775,808) 보다 크다. |
-|  10  | BIGINT UNSIGNED    | NUMERIC(20,0)                   | Altibase에는 MySQL BIGINT UNSIGNED 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 NUMERIC 타입으로 맵핑된다 |
-|  11  | DECIMAL (NUMERIC)  | VARCHAR(70)                     | Altibase에는 MySQL DECIMAL 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
+|  10  | BIGINT UNSIGNED    | NUMERIC(20,0)                   | Altibase에는 MySQL BIGINT UNSIGNED 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 NUMERIC 타입으로 매핑된다 |
+|  11  | DECIMAL (NUMERIC)  | VARCHAR(70)                     | Altibase에는 MySQL DECIMAL 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
 |  12  | FLOAT              | FLOAT                           |                                                              |
-|  13  | DOUBLE             | VARCHAR(310)                    | Altibase에는 MySQL DECIMAL 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
+|  13  | DOUBLE             | VARCHAR(310)                    | Altibase에는 MySQL DECIMAL 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
 |  14  | BIT                | VARBIT                          |                                                              |
 |  15  | DATETIME           | DATE                            | 시각 부분이 0으로 설정된다.                                  |
 |  16  | DATE               | DATE                            |                                                              |
@@ -1782,8 +1782,8 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  27  | TEXT               | CLOB                            |                                                              |
 |  28  | MEDIUMTEXT         | CLOB                            |                                                              |
 |  29  | LONGTEXT           | CLOB                            |                                                              |
-|  30  | ENUM               | VARCHAR(10666)                  | Altibase에는 MySQL ENUM 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
-|  31  | SET                | VARCHAR(10666)                  | Altibase에는 MySQL SET 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 맵핑된다. |
+|  30  | ENUM               | VARCHAR(10666)                  | Altibase에는 MySQL ENUM 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
+|  31  | SET                | VARCHAR(10666)                  | Altibase에는 MySQL SET 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
 
 #### Informix 11.5 to Altibase
 
@@ -2144,7 +2144,7 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 
 <br/>
 
-# D.부록: 기본값 맵핑
+# D.부록: 기본값 매핑
 
 Altibase의 테이블 컬럼의 기본값은 원본 데이터베이스의 기본값과 대부분 호환된다.
 
@@ -2153,15 +2153,15 @@ Center가 이러한 몇 가지 예외 상황에 대해 원본 데이터베이스
 맞춰 변환한다.
 
 이 부록은 Migration Center가 Altibase에 맞춰 원본 데이터베이스의 기본값을
-변환하는 기본값 맵핑 테이블을 제공한다.
+변환하는 기본값 매핑 테이블을 제공한다.
 
-### 기본값 맵핑 테이블
+### 기본값 매핑 테이블
 
 Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 데이터베이스 에 원본
 데이터베이스의 테이블과 동일한 테이블을 생성한다. 이를 위해 원본 데이터베이스의
 테이블 속성과 일치하는 테이블 생성 구문을 먼저 만든다. 이 때 Migration Center는
 원본 테이블의 컬럼 기본값과 동일하게 대상 테이블의 컬럼에 기본값을 설정하려
-한다. 이 절의 맵핑 테이블에 나열된 기본값은 Migration Center가 CREATE TABLE 문
+한다. 이 절의 매핑 테이블에 나열된 기본값은 Migration Center가 CREATE TABLE 문
 생성시에 표에 따라 변환하여 지정한다. 그 외의 기본값은 변경 없이 그대로 CREATE
 TABLE 문에 지정된다.
 
@@ -2169,7 +2169,7 @@ TABLE 문에 지정된다.
 > 호환이 되지 않는 것이 있을 수 있다. 필요하다면 나중에 사용자가 Reconcile 단계의
 > DDL Editing 창에서 직접 CREATE TABLE 문의 기본값을 수정해야 한다.
 
-#### 기본값 맵핑 정책
+#### 기본값 매핑 정책
 
 - 대다수의 원본 데이터베이스 기본값은 변경 없이 대상 데이터베이스와 호환된다.
   하지만 아래의 경우에는 Migration Center가 원본 데이터베이스의 기본값을 대상
@@ -8015,7 +8015,7 @@ LONG 또는 LONG RAW 컬럼의 데이터 전송은 스트림을 통해 이루어
 
 원본 데이터베이스인 오라클의 이관 객체 목록 중, 전역 임시 테이블(global temporary table)이 존재할 경우, 반드시 대상 데이터베이스인 Altibase에 휘발성 테이블스페이스가 존재해야 한다. 오라클의 전역 임시 테이블은 Altibase의 임시 테이블로 이관되며, Altibase의 임시 테이블은 휘발성 테이블스페이스에만 저장 가능하기 때문이다. (매뉴얼 참조: SQL Reference - 3. 데이터 정의어 - CREATE TABLE -설명)
 
-Reconcile 단계를 수행할 때, 마이그레이션 센터는 사용자가 접근 가능한 Altibase 테이블스페이스들의 목록을 가져와 데이터베이스 간 테이블스페이스 및 테이블 맵핑을 시도한다. 이 때, 오라클에 존재하는 전역 임시 테이블과 맵핑할 Altibase의 휘발성 테이블스페이스가 없을 경우, 이러한 오류가 발생한다.
+Reconcile 단계를 수행할 때, 마이그레이션 센터는 사용자가 접근 가능한 Altibase 테이블스페이스들의 목록을 가져와 데이터베이스 간 테이블스페이스 및 테이블 매핑을 시도한다. 이 때, 오라클에 존재하는 전역 임시 테이블과 매핑할 Altibase의 휘발성 테이블스페이스가 없을 경우, 이러한 오류가 발생한다.
 
 `해결 방법`
 
@@ -8295,7 +8295,7 @@ MySQL은 데이터 타입 NCHAR, NVARCHAR을 지원하지 않는다. 대신 CHAR
 
 해당 현상은 정상적인 동작이다.
 
-Note: 기본 DataType Map에서 MySQL의 NVARCHAR가 Altibase의 NVARCHAR(10666)으로 맵핑되어있다.
+Note: 기본 DataType Map에서 MySQL의 NVARCHAR가 Altibase의 NVARCHAR(10666)으로 매핑되어있다.
 
 MySQL과 Altibase 간 국가별 문자 집합의 글자 당 바이트 수가 서로 다를 경우, 이에 대한 고려 없이 이관을 수행하면 제한 바이트 수 초과로 스키마를 생성하지 못하는 상황이 발생할 수도 있다. 이러한 상황을 피하기 위해, 마이그레이션 센터는 기본적으로 NVARCHAR의 크기를 고정하였다.
 
