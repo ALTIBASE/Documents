@@ -1,7 +1,7 @@
 Altibase Migration Center 7.14 Release Notes
 ================
 
-#### Release 7.14 (Novenber 1, 2024)
+#### Release 7.14 (November 1, 2024)
 
 Altibase® Tools & Utilities
 
