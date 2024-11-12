@@ -57,16 +57,16 @@
 | :----------------------------------------------------------- | :-----------: | :-----------------: | :-------------------- |
 | **Unix**                                                     |               |                     |                       |
 | AIX 6.1 TL9                                                  |       ✅       |          ✅          |                       |
-| AIX 7.1                                                      |     ✅     |          ✅          |                       |
+| AIX 7.1                                                      |       ✅       |          ✅          |                       |
 | AIX 7.2                                                      |       ✅       |          ✅          |                       |
 | HP-UX Itanium (IA-64) 11.31                                  |       ✅       |          ✅          |                       |
 | **Linux (x86-64) - Red Hat 계열**                            |               |                     |                       |
 | Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33* |
-| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |       ✅       |        ✅        | *- glibc 2.12 ~ 2.33* |
+| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33* |
 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33* |
 | **Linux (x86-64) - Debian 계열**                             |               |                     |                       |
-| Ubuntu 12                                                    |       ✅       |        ✅        | *- glibc 2.17 ~ 2.33* |
-| Ubuntu 16                                                    |       ✅       |        ✅        | *- glibc 2.23 ~ 2.33* |
+| Ubuntu 12                                                    |       ✅       |          ✅          | *- glibc 2.17 ~ 2.33* |
+| Ubuntu 16                                                    |       ✅       |          ✅          | *- glibc 2.23 ~ 2.33* |
 | Ubuntu 18                                                    |       ✅       |          ✅          | *- glibc 2.27 ~ 2.33* |
 | **Linux on Power**                                           |               |                     |                       |
 | POWER7 w/Red Hat Enterprise Linux 6.5                        |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33* |
@@ -85,11 +85,11 @@
 | AIX 6.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          |                     |
 | AIX 7.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          |                     |
 | AIX 7.2                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          |                     |
-| HP-UX Itanium (IA-64) 11.31                                  |                             ❌                             |                       ❌                        |    ✅    |        ✅         |         ❌          |                     |
+| HP-UX Itanium (IA-64) 11.31                                  |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ❌          |                     |
 | **Linux (x86-64) - Red Hat 계열**                            |                                                           |                                                    |         |                  |                    |                     |
 | Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
-| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |                             ✅                             |                         ✅                          |    ✅    |        ✅         |       ✅        |                     |
-| Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |                             ✅                             |                         ✅                          |    ✅    |        ✅         |       ✅        |                     |
+| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
+| Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
 | **Linux (x86-64) - Debian 계열**                             |                                                           |                                                    |         |                  |                    |                     |
 | Ubuntu 12                                                    |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
 | Ubuntu 16                                                    |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
@@ -153,7 +153,7 @@
 
 | 운영 체제                                                    | PDO 드라이버<br/>PDO_ALTIBASE-1.x.x for PHP 5.3.3, 7.1.20 | PDO 드라이버<br />PDO_ALTIBASE-2.x.x for PHP 8.1.8 | altiMon | Adapter for JDBC | Adapter for Oracle | 소프트웨어 요구사항                                          |
 | :----------------------------------------------------------- | :-------------------------------------------------------: | :------------------------------------------------: | :-----: | :--------------: | :----------------: | :----------------------------------------------------------- |
-| **Unix**                                                     |                                                           |                                                    |         |                  |                    |
+| **Unix**                                                     |                                                           |                                                    |         |                  |                    |                                                              |
 | AIX 6.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          |                                                              |
 | AIX 7.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.1.9 이상*                        |
 | AIX 7.2 TL2                                                  |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.1.9 이상*                        |
@@ -192,35 +192,35 @@
 > - 아래 표에 없는 리눅스 배포판(Fedora, openSUSE 등)은 공식 지원 대상이 아니며 호환성을 보장하지 않습니다.
 
 
-| 운영 체제 | Altibase 서버 | Altibase 클라이언트<br />32비트 | Altibase 클라이언트 <br />64비트 | 소프트웨어 요구사항 |
-| :------------------------ | :-----------------: | :-----------------------------: | :-----------------------------: | :------------------ |
-| **UNIX** |                     |                                 |                                 |                     |
-| AIX 6.1 TL3<br />AIX 6.1 TL9 |          ✅          |                ✅                |                ✅                |                     |
-| AIX 7.1 | ✅ | ✅ | ✅ | |
-| AIX 7.2 | ✅ | ✅ | ✅ | |
-| HP-UX Itanium (IA-64) 11.31 |       ✅       |                ✅                | ✅ |                     |
-| Solaris 10 (Sun SPARC)                                       |       ✅       |                ✅                |                ✅                 | |
-| Solaris 11 (Sun SPARC)                                       |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.4.2 이상* |
-|**Linux (x86-64) - Red Hat 계열**|||||
-| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |       ✅       |                ✅                |                ✅                 |*- glibc 2.12 ~ 2.33*|
-|Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7|       ✅       |                ✅                |                ✅                 |*- glibc 2.12 ~ 2.33*|
-|Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8|       ✅       |                ✅                |                ✅                 |*- glibc 2.12 ~ 2.33*|
-|**Linux (x86-64) - Debian 계열**|||||
-|Ubuntu 12|       ✅       |                ✅                |                ✅                 |*- glibc 2.17 ~ 2.33*|
-|**Linux on Power**|||||
-|POWER7 w/ Red Hat Enterprise Linux 6.5|       ✅       |                ✅                |                ✅                 |*- glibc 2.12 ~ 2.33*|
-|POWER8 w/ Red Hat Enterprise Linux 7.1|       ✅       |                ✅                |                ✅                 |*- glibc 2.12 ~ 2.33*|
-|**Linux on Power (Little Endian)**|||||
-|POWER8(LE) w/ Red Hat Enterprise Linux 7.2|       ✅       |                ✅                |                ✅                 |*- glibc 2.17 ~ 2.33*<br />*- Altibase 6.5.1.4.5 이상*|
-|POWER9(LE) w/ Red Hat Enterprise Linux 7.6|       ✅       |                ✅                |                ✅                 |*- glibc 2.17 ~ 2.33*<br />*- Altibase 6.5.1.7.6 이상*|
-|**Microsoft Windows (x64)**|||||
-|Microsoft Windows Server 2008|       ✅       |                ✅                |                ✅                 |*- Altibase 6.5.1.7.7 이상*|
-|Microsoft Windows Server 2012|✅|✅|✅|*- Altibase 6.5.1.7.7 이상*|
-|Microsoft Windows Server 2016|✅|✅|✅|*- Altibase 6.5.1.7.7 이상*|
-|Microsoft Windows Server 2019|✅|✅|✅|*- Altibase 6.5.1.7.7 이상*|
-|Microsoft Windows 7|       ✅       |                ✅                |                ✅                 ||
-|Microsoft Windows 8|✅|✅|✅||
-|Microsoft Windows 10|       ✅       |                ✅                |                ✅                 |*- Altibase  6.5.1.6.2 이상*|
+| 운영 체제                                                    | Altibase 서버 | Altibase 클라이언트<br />32비트 | Altibase 클라이언트 <br />64비트 | 소프트웨어 요구사항                                    |
+| :----------------------------------------------------------- | :-----------: | :-----------------------------: | :------------------------------: | :----------------------------------------------------- |
+| **UNIX**                                                     |               |                                 |                                  |                                                        |
+| AIX 6.1 TL3<br />AIX 6.1 TL9                                 |       ✅       |                ✅                |                ✅                 |                                                        |
+| AIX 7.1                                                      |       ✅       |                ✅                |                ✅                 |                                                        |
+| AIX 7.2                                                      |       ✅       |                ✅                |                ✅                 |                                                        |
+| HP-UX Itanium (IA-64) 11.31                                  |       ✅       |                ✅                |                ✅                 |                                                        |
+| Solaris 10 (Sun SPARC)                                       |       ✅       |                ✅                |                ✅                 |                                                        |
+| Solaris 11 (Sun SPARC)                                       |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.4.2 이상*                            |
+| **Linux (x86-64) - Red Hat 계열**                            |               |                                 |                                  |                                                        |
+| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |       ✅       |                ✅                |                ✅                 | *- glibc 2.12 ~ 2.33*                                  |
+| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |       ✅       |                ✅                |                ✅                 | *- glibc 2.12 ~ 2.33*                                  |
+| Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |       ✅       |                ✅                |                ✅                 | *- glibc 2.12 ~ 2.33*                                  |
+| **Linux (x86-64) - Debian 계열**                             |               |                                 |                                  |                                                        |
+| Ubuntu 12                                                    |       ✅       |                ✅                |                ✅                 | *- glibc 2.17 ~ 2.33*                                  |
+| **Linux on Power**                                           |               |                                 |                                  |                                                        |
+| POWER7 w/ Red Hat Enterprise Linux 6.5                       |       ✅       |                ✅                |                ✅                 | *- glibc 2.12 ~ 2.33*                                  |
+| POWER8 w/ Red Hat Enterprise Linux 7.1                       |       ✅       |                ✅                |                ✅                 | *- glibc 2.12 ~ 2.33*                                  |
+| **Linux on Power (Little Endian)**                           |               |                                 |                                  |                                                        |
+| POWER8(LE) w/ Red Hat Enterprise Linux 7.2                   |       ✅       |                ✅                |                ✅                 | *- glibc 2.17 ~ 2.33*<br />*- Altibase 6.5.1.4.5 이상* |
+| POWER9(LE) w/ Red Hat Enterprise Linux 7.6                   |       ✅       |                ✅                |                ✅                 | *- glibc 2.17 ~ 2.33*<br />*- Altibase 6.5.1.7.6 이상* |
+| **Microsoft Windows (x64)**                                  |               |                                 |                                  |                                                        |
+| Microsoft Windows Server 2008                                |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
+| Microsoft Windows Server 2012                                |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
+| Microsoft Windows Server 2016                                |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
+| Microsoft Windows Server 2019                                |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
+| Microsoft Windows 7                                          |       ✅       |                ✅                |                ✅                 |                                                        |
+| Microsoft Windows 8                                          |       ✅       |                ✅                |                ✅                 |                                                        |
+| Microsoft Windows 10                                         |       ✅       |                ✅                |                ✅                 | *- Altibase  6.5.1.6.2 이상*                           |
 
 
 
