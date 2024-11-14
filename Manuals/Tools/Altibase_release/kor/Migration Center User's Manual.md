@@ -504,6 +504,8 @@ Migration Center 프로젝트는 마이그레이션의 모든 면을 기술하�
 
 Migration Center를 사용하여 마이그레이션을 수행하는 전반적인 과정은 "준비(Prepare)", "구축(Build)", "조정(Reconcile)", "실행(Run)" 및 "검증(Data Validation)" 의 다섯 단계로 구성된다.
 
+![](media/MigrationCenter/0e1eca129799717d226a7ee6a611eba8.jpg)
+
 ##### 준비(Prepare) 단계
 
 "준비" 단계는 실제 마이그레이션 프로젝트에 대한 암묵적인 단계이다. "준비" 단계의 최종 상태는 모든 데이터베이스 연결이 설정된 프로젝트가 열려 있는 것이다. 최종 "준비" 단계 상태로 가려면, 사용자는 운영중인 데이터베이스 연결 정보를 추가하거나, 기존의 마이그레이션 프로젝트를 열거나, 사전에 구성된 데이터베이스 연결을 사용해서 새로운 마이그레이션 프로젝트를 생성하거나, 또는 데이터베이스와의 연결을 설정해야 한다.
@@ -543,8 +545,7 @@ Options"의 "Data Validation Options" 항목들 중 "Data Sampling"을 "No"로 �
 
 GUI 모드는 사용자 친화적인 인터페이스로 Migration Center의 기본 인터페이스이다. GUI 모드를 사용하면 마이그레이션의 전 과정을 직관적으로 수행할 수 있으며, 특히 "조정" 단계와 옵션 변경에서 섬세한 조작이 가능하다. 클라이언트 컴퓨터에서 서버까지 자바 스윙 (Java Swing)을 지원하는 플랫폼이면 어느 곳이든 GUI 모드로 수행가능하다.
 
-Migration Center GUI는 아래 그림과 같이 네 개의 창으로 이루어져 있다. 왼쪽 상단부터 시작하여 시계 방향으로 각각 "프로젝트(Project)", "정보(Information)",
-"로그(Log)", "DB 속성(DB Properties)" 창이다.
+Migration Center GUI는 아래 그림과 같이 네 개의 창으로 이루어져 있다. 왼쪽 상단부터 시작하여 시계 방향으로 각각 "프로젝트(Project)", "정보(Information)", "로그(Log)", "DB 속성(DB Properties)" 창이다.
 
 ![](media/MigrationCenter/54ff6818cfe8f8b9110c2bac05ecb0f9.png)
 
@@ -950,7 +951,7 @@ Altibase의 테이블스페이스에 대한 자세한 내용은 각각의 *Admin
 
 SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCondition.properties 파일에 기록된다. 이 파일은 Reconcile의 마지막 단계에서 자동 생성되며, 사용자가 편집 가능하다.
 
-###### Tablecondition.properties
+###### TableCondition.properties
 
 실행 단계에서 원본 데이터베이스 테이블에서 특정한 데이터를 선택적으로 마이그레이션할 수 있도록 "TableCondition.properties" 파일을 제공한다. 사용자는 이 파일에 데이터를 식별하여 마이그레이션하는 데 필요한 조건들을 입력할 수 있다. 파일에 포함되지 않은 테이블은 원본 테이블에서 대상 테이블로 전체 데이터를 마이그레이션한다.
 
