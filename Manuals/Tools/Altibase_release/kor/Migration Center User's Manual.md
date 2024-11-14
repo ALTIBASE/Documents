@@ -412,19 +412,19 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 
 - Altibase: 4.3.9 이상 버전
 
-- Oracle Database: 9i ~ 11g
+- Oracle Database: 9i~11g
 
-- Microsoft SQL Server: 2005 ~ 2012
+- Microsoft SQL Server: 2005~2012
 
-- Oracle MySQL: 5.0 ~ 5.7
+- Oracle MySQL: 5.0~5.7
 
 - Informix: 11.50
 
 - Oracle TimesTen: 7.0, 11.2
 
-- CUBRID: 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset)
+- CUBRID: 8.4.1~9.3.5 (ISO-8859-1, UTF-8 charset)
 
-- Tibero: 4sp1 ~ 6
+- Tibero: 4sp1~6
 
 - PostgreSQL: 9.5.3
 
@@ -1084,7 +1084,7 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
 
 | 이름                                         | 설명                                                         |
 | :------------------------------------------- | :----------------------------------------------------------- |
-| Execution Thread                             | 데이터 마이그레이션 실행 시 수행할 최대 스레드 개수를 설정한다. 기본 설정은 마이그레이션 센터가 실행된 시스템의 논리 CPU 개수 * 3이다. 설정값 범위는 1 ~ 논리 CPU 개수 * 3을 권장한다. |
+| Execution Thread                             | 데이터 마이그레이션 실행 시 수행할 최대 스레드 개수를 설정한다. 기본 설정은 마이그레이션 센터가 실행된 시스템의 논리 CPU 개수 * 3이다. 설정값 범위는 1~논리 CPU 개수 * 3을 권장한다. |
 | Migration Target                             | 마이그레이션 대상을 선택한다. <br />- Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />- Object: 데이터베이스 객체만 |
 | **Object Options**                           |                                                              |
 | Foreign Key Migration                        | 마이그레이션 대상에 외래 키 제약 조건 포함 여부를 설정한다. 기본 설정은 No이다. |
@@ -1118,7 +1118,7 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
 
 | 이름                                      | 설명                                                         |
 | ----------------------------------------- | ------------------------------------------------------------ |
-| Execution Thread                          | 데이터 마이그레이션 실행 시 수행할 최대 스레드 개수를 설정한다. 기본 설정은 마이그레이션 센터가 실행된 시스템의 논리 CPU 개수 * 3이다. 설정값 범위는 1 ~ 논리 CPU 개수 * 3을 권장한다. |
+| Execution Thread                          | 데이터 마이그레이션 실행 시 수행할 최대 스레드 개수를 설정한다. 기본 설정은 마이그레이션 센터가 실행된 시스템의 논리 CPU 개수 * 3이다. 설정값 범위는 1~논리 CPU 개수 * 3을 권장한다. |
 | Migration Target                          | 마이그레이션 대상을 선택한다. <br />- Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />- Object: 데이터베이스 객체만 |
 | **Object Options**                        |                                                              |
 | Foreign Key Migration                     | 마이그레이션 대상에 외래 키 제약 조건 포함 여부를 설정한다. 기본 설정은 No이다. |
@@ -1605,10 +1605,10 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 
 |      | PostgreSQL| Altibase| 주의 사항                                                    |
 | :--: | :------- | :-------- | :----------------------------------------------------------- |
-|   1   | SMALLINT | SMALLINT | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 SMALLINT는 **-32,768** ~ 32,767이고 Altibase는 **-32,767** ~ 32,767이다. |
-|   2   | INTEGER | INTEGER | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 INTEGER는 **-2,147,483,648** ~ 2,147,483,647이고 Altibase는 **-2,147,483,647** ~ 2,147,483,647이다. |
-|   3   | BIGINT | BIGINT | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 BIGINT는 **-9,223,372,036,854,775,808** ~ 9,223,372,036,854,775,807이고 Altibase는 **-9,223,372,036,854,775,807** ~ 9,223,372,036,854,775,807이다. |
-|   4           | NUMERIC (DECIMAL) | NUMERIC | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL은 Precision: 1 ~ 1,000, Scale: 0 ~ _precision_ 이고 Altibase는 Precision: 1 ~ 38, Scale: -84 ~ 128이다. <br />또한, Altibase는 Infinity와 -Infinity 그리고 NaN을 표현할 수 없기 때문에 해당 값들에서 데이터 손실이 발생할 수 있다.|
+|   1   | SMALLINT | SMALLINT | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 SMALLINT는 **-32,768**~32,767이고 Altibase는 **-32,767**~32,767이다. |
+|   2   | INTEGER | INTEGER | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 INTEGER는 **-2,147,483,648**~2,147,483,647이고 Altibase는 **-2,147,483,647**~2,147,483,647이다. |
+|   3   | BIGINT | BIGINT | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 BIGINT는 **-9,223,372,036,854,775,808**~9,223,372,036,854,775,807이고 Altibase는 **-9,223,372,036,854,775,807**~9,223,372,036,854,775,807이다. |
+|   4           | NUMERIC (DECIMAL) | NUMERIC | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL은 Precision: 1~1,000, Scale: 0~_precision_ 이고 Altibase는 Precision: 1~38, Scale: -84~128이다. <br />또한, Altibase는 Infinity와 -Infinity 그리고 NaN을 표현할 수 없기 때문에 해당 값들에서 데이터 손실이 발생할 수 있다. |
 |   5   | REAL | REAL |  |
 |   6  | DOUBLE PRECISION | DOUBLE |  |
 |  7   | MONEY | VARCHAR(30) | 데이터 타입 MONEY는 Altibase에서 문자형 데이터 타입 VARCHAR(30)으로 변환된다.<br>MONEY의 형식이 천단위 구분자가 쉼표(,)이고 소숫점 구분자가 마침표(.)라면 Reconcile 단계에서 숫자형 데이터 타입 NUMERIC(20,2)으로 변환할 수 있다.|
@@ -2156,6 +2156,8 @@ Altibase는 기본적으로 빈 문자열을 NULL로 처리한다. 즉, 원본 �
 >
 >  Altibase는 고정 길이의 공백으로 구성된 문자열과  NULL을 빈 문자열과 구분한다. 따라서, 위 표에서 **빈 문자열**로 표시된 항목만 마이그레이션 시 빈 문자열 처리 옵션의 영향을 받는다.
 
+
+
 #### 빈 문자열 처리 옵션
 
 Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 처리 옵션을 제공한다. 이 옵션은 메뉴 **Migration > Migration Options** 경로를 통해 설정할 수 있다.
@@ -2164,7 +2166,7 @@ Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 
 
 다음은 Object Options 에서 설정할 수 있는 빈 문자열 처리 옵션이다.
 
-![](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-object-options.png)
+![](media/MigrationCenter/empty-string-object-options.png)
 
 아래의 옵션을 설정하여 빈 문자열이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼 테이블을 마이그레이션할 때 생성할 CREATE 문을 조정할 수 있다.
 
@@ -2221,7 +2223,7 @@ Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 
 
 다음은 Data Options 에서 설정할 수 있는 빈 문자열 처리 옵션이다.
 
-![](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_trunk/kor/media/MigrationCenter/empty-string-data-options.png)
+![](media/MigrationCenter/empty-string-data-options.png)
 
 아래의 옵션을 설정하여 데이터 마이그레이션 중 발견된 빈 문자열을 사용자가 정의한 값으로 변경할 수 있다.
 
@@ -2571,7 +2573,7 @@ NULL;
 END;
 ~~~
 
-***Altibase 6.3.1 / Altibase 6.5.1.0.0 ~ 6.5.1.3.7***
+***Altibase 6.3.1 / Altibase 6.5.1.0.0~6.5.1.3.7***
 
 - 저장 프로시저 블록의 선언부 앞에 DECLARE가 있으면 AS 또는 IS로 변경하고 생략된 경우 그대로 적용한다.
 
@@ -7944,7 +7946,7 @@ JRE 10 이하 버전의 JDBC 드라이버에서 javax.xml.bind 모듈을 참조�
 
 마이그레이션 센터 내 해당 데이터베이스 연결정보의 인코딩 옵션에 대상 데이터베이스에 설정된 문자 집합 값(예, KSC5601)을 넣어야 한다. Altibase 캐릭터 셋 확인 방법은 다음과 같다.
 
-- Altibase 4.3.9 \~ 5.1.5 버전
+- Altibase 4.3.9~5.1.5 버전
 
   ~~~sql
   SELECT VALUE1 FROM V$PROPERTY WHERE NAME = 'NLS_USE';

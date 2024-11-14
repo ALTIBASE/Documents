@@ -373,13 +373,13 @@ Since Migration Center is bundled with the JRE 8 for the 64-bit Microsoft Window
 ##### Source Database
 
 - Altibase: 4.3.9 or later
-- Oracle Database: 9i ~ 11g
-- Microsoft SQL Server: 2005 ~ 2012
-- Oracle MySQL: 5.0 - 5.7
+- Oracle Database: 9i-11g
+- Microsoft SQL Server: 2005-2012
+- Oracle MySQL: 5.0-5.7
 - Informix: 11.50
 - Oracle TimesTen: 7.0, 11.2
-- CUBRID: 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset)
-- Tibero: 4sp1 ~ 6
+- CUBRID: 8.4.1-9.3.5 (ISO-8859-1, UTF-8 charset)
+- Tibero: 4sp1-6
 - PostgreSQL: 9.5.3
 
 ##### JDBC Driver
@@ -1981,6 +1981,8 @@ However, if there is a column where the **default value is an empty string and a
 > [!note]
 >
 > Altibase distinguishes between strings composed of fixed-length spaces and NULL from empty strings. Therefore, only the items marked as **Empty String** in the table above are affected by the empty string handling options during migration.
+
+
 #### Empty String Handling Options
 
 Migration Center offers empty string handling options to prevent data loss. These options can be set via the menu **Migration > Migration Options**.
@@ -1989,7 +1991,7 @@ Migration Center offers empty string handling options to prevent data loss. Thes
 
  Empty string handling options that can be set in the Object Options are below:
 
-![](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_trunk/eng/media/MigrationCenter/empty-string-object-options.png)
+![](media/MigrationCenter/empty-string-object-options.png)
 
 By configuring the options below, users can adjust the CREATE statement generated when migrating a table with columns where the default value is an empty string and a NOT NULL constraint is set.
 
@@ -2046,7 +2048,7 @@ These options can be applied individually or in combination, providing flexibili
 
 The empty string handling options that can be set in Data Options are below:
 
-![](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Tools/Altibase_trunk/eng/media/MigrationCenter/empty-string-data-options.png)
+![](media/MigrationCenter/empty-string-data-options.png)
 
 By configuring the options below, users can change empty strings discovered during data migration to a user-defined value.
 
@@ -2386,7 +2388,7 @@ NULL;
 END;
 ```
 
-***Altibase 6.3.1.0.0 ~ 6.5.1.3.7 or below***
+***Altibase 6.3.1.0.0-6.5.1.3.7 or below***
 
 ###### Description
 
@@ -7692,7 +7694,7 @@ Altibase version 5.1.5 or lower does not support globalization, so JDBC does not
 
 You must include the character set value (for example, KSC5601) set in the destination database in the encoding option of the corresponding database connection information in the Migration Center. Here's how to check the Altibase character set.
 
-- Version 4.3.9 \~ 5.1.5:  
+- Version 4.3.9-5.1.5:  
   SELECT VALUE1 FROM V\$PROPERTY WHERE NAME = 'NLS_USE';
 
 - Version 5.3.3 or later:  
