@@ -582,13 +582,13 @@ CLI 모드로 사용하는 또다른 이유는 GUI 모드가 허용되지 않는
 
 PSM Converter for File은 오라클의 PL/SQL을 Altibase PSM으로 변환한다. 이 도구는 오라클 PL/SQL 구문이 들어있는 SQL 파일을 읽어서 Altibase PSM으로 전환한 다음, 결과를 미리 정의한 SQL 파일에 기록한다. 이 파일은 HTML 형식의 보고서 파일과 함께 제공된다. 이 도구의 기능은 내부적으로 마이그레이션 조정 단계에서의 "PSM Converter"와 동일하다. 이 도구의 변환 규칙에 대한 상세한 내용은 "D. 부록: PSM 변환기 규칙 목록"을 참고하기 바란다.
 
-PSM Converter for File는 메인 메뉴의 Tools -\> PSM Converter for File로 실행할 수 있다.
+PSM Converter for File는 메인 메뉴의 Tools → PSM Converter for File로 실행할 수 있다.
 
 #### Generate Migration Error Report
 
 Generate Migration Error Report는 Migration Center에서 발생하는 문제를 보고하는 유틸리티이다. 프로젝트를 연 후에, 이 도구를 실행하면 로그 파일, 리비전 번호 같은 문제 추적 정보를 수집하여 zip 파일을 생성한다. 사용자는 이 zip 파일을 첨부하여 Altibase 고객서비스포털에 고객 등록 정보와 함께 보내기만 하면 된다.
 
-이 툴은 메인 메뉴의 Tools -\> Generate Migration Error Report로 실행할 수 있다.
+이 툴은 메인 메뉴의 Tools → Generate Migration Error Report로 실행할 수 있다.
 
 
 
@@ -610,7 +610,8 @@ Generate Migration Error Report는 Migration Center에서 발생하는 문제를
 
 3. 프로젝트 구축
 4. 프로젝트 조정
-5. 프로젝트 검증
+5. 프로젝트 실행
+6. 프로젝트 검증
 
 #### Migration Center 시작
 
@@ -882,21 +883,24 @@ diff 명령을 통해 원본과 대상 데이터베이스간 다른 데이터가
 객체 정보를 수집하는 방법은 "Build User" 또는 "Build Table" 중에서 선택할 수 있다.
 
 - Build User
+  
   원본 데이터베이스에 접속한 사용자의 이관 가능한 모든 객체 정보를 수집한다.
-
+  
 - Build Table
+  
   원본 데이터베이스에 접속한 사용자의 테이블들로부터 이관할 테이블 목록을 직접 구성한다. 선택된 테이블과 그에 종속된 제약 조건 및 인덱스의 객체 정보를 수집한다.
-  이관 가능한 객체 타입에 대한 자세한 정보는 "B.부록: 마이그레이션 가능한 데이터베이스 객체"를 참고한다.
+
+이관 가능한 객체 타입에 대한 자세한 정보는 "B.부록: 마이그레이션 가능한 데이터베이스 객체"를 참고한다.
 
 구축 단계를 시작하면, 테이블의 레코드 개수를 수집하는 방법을 결정할 "Table Counting Method" 대화상자가 나타난다. 사용자는 다음 중 한 가지 방법을 선택할 수 있다.
 
 - Approximate Counting Method
   원본 데이터베이스의 통계값을 참조하여 테이블의 레코드 개수를 가져온다. 통계값의 정확도에 따라 레코드 개수의 정확도가 달라진다.
-
 - Exact Counting Method
   원본 데이터베이스의 모든 테이블을 대상으로 count 함수를 수행하여 정확한 테이블의 레코드 개수를 가져온다.
-  두 가지 방법 중에 "Approximate Counting Method"가 "Exact Counting Method"보다 빠르지만, 보다 정확한 테이블 레코드 개수를 수집하려면 후자를 선택하는 것이 좋다.
-  하지만 사용자가 이 대화상자에서 어떤 방법을 선택하더라도 데이터베이스 스키마와 데이터 마이그레이션에는 전혀 영향을 미치지 않는다. 다만 Migration Center GUI 모드의 실행 단계에서 제공되는 데이터 마이그레이션 진행률의 정확도에만 영향을 미친다. 이는 데이터 마이그레이션 진행률이 경과된 시간과 함께 (이전된 레코드 개수/수집된 전체 레코드 개수) 백분율로 표시되기 때문이다. 사용자는 이 데이터를 기반으로 마이그레이션에 소요될 전체 시간을 추정할 수 있다.
+
+두 가지 방법 중에 "Approximate Counting Method"가 "Exact Counting Method"보다 빠르지만, 보다 정확한 테이블 레코드 개수를 수집하려면 후자를 선택하는 것이 좋다.
+하지만 사용자가 이 대화상자에서 어떤 방법을 선택하더라도 데이터베이스 스키마와 데이터 마이그레이션에는 전혀 영향을 미치지 않는다. 다만 Migration Center GUI 모드의 실행 단계에서 제공되는 데이터 마이그레이션 진행률의 정확도에만 영향을 미친다. 이는 데이터 마이그레이션 진행률이 경과된 시간과 함께 (이전된 레코드 개수/수집된 전체 레코드 개수) 백분율로 표시되기 때문이다. 사용자는 이 데이터를 기반으로 마이그레이션에 소요될 전체 시간을 추정할 수 있다.
 
 구축 단계를 수행하는 방법은 3장에서 "[프로젝트 구축](#프로젝트-구축)" 절을 참고하도록 한다.
 
@@ -1019,27 +1023,26 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
 
 #### 내부 동작
 
-실행 단계는 GUI 모드에서 한 번의 마우스 클릭 또는 CLI 모드에서 하나의 커맨드만으로도 실행될 수 있다. 실행 단계 수행 방법은 "[프로젝트 실행](#프로젝트-실행)" 또는 "[CLI 모드로 실행, 검증 단계 수행](#executing_runStep_inCLImode)" 절을 참고한다.
+실행 단계는 GUI 모드에서 한 번의 마우스 클릭 또는 CLI 모드에서 하나의 커맨드만으로도 실행될 수 있다. 실행 단계 수행 방법은 3장 또는 4장의 "[프로젝트 실행](#프로젝트-실행)" 절을 참고한다.
 
-내부적으로, 이 과정은 데이터베이스 객체 종속성을 피하기 위해 초기화 단계,  PreSchema 단계, 테이블 및 데이터 단계, PostSchema 단계의 네 단계로 구성된다.  예를 들어, 인덱스 객체는 테이블 및 데이터 단계가 완료된 후 PostSchema 단계에서 마이그레이션 된다. 왜냐하면, 보통 인덱스가 없는 상태에서 데이터를 삽입하는 것이  인덱스가 있는 경우보다 더 빠르기 때문이다. 각 단계별 상세 동작은 다음과 같다:
+내부적으로, 이 과정은 데이터베이스 객체 종속성을 피하기 위해 초기화 단계,  PreSchema 단계, 테이블 및 데이터 단계, PostSchema 단계의 네 단계로 구성된다.  예를 들어, 인덱스 객체는 테이블 및 데이터 단계가 완료된 후 PostSchema 단계에서 마이그레이션 된다. 왜냐하면, 보통 인덱스가 없는 상태에서 데이터를 삽입하는 것이  인덱스가 있는 경우보다 더 빠르기 때문이다.
 
-1. 초기화 단계: TableCondition.properties 파일에 기록된 WHERE 절의 유효성 검사를 원본 DB를 대상으로 수행한다.
-   
-2. PreSchema: sequence 객체 마이그레이션
+각 단계별 상세 동작은 다음과 같다:
 
+1. 초기화: TableCondition.properties 파일에 기록된 WHERE 절의 유효성 검사를 원본 DB를 대상으로 수행한다.
+2. PreSchema: 시퀀스 객체 마이그레이션
 3. Table & Data: 테이블 객체 및 데이터 마이그레이션
-
 4. PostSchema:
 
    1. Queue: 큐 객체 마이그레이션
 
    2. Constraints: 유니크, 프라이머리 키, 외래 키, 및 check 제약 조건 등의 제약 조건 마이그레이션
    
-3. Index: 인덱스 객체 마이그레이션
+   3. Index: 인덱스 객체 마이그레이션
    
-4. Synonym: PRIVATE 시노님 객체 마이그레이션
+   4. Synonym: PRIVATE 시노님 객체 마이그레이션
    
-5. Procedures, Functions, Materialized Views, Views, Typesets 및 Triggers: DBMS 및 버전에 따라 상이함
+   5. Procedures, Functions, Materialized Views, Views, Typesets 및 Triggers: DBMS 및 버전에 따라 상이함
 
 ### 검증 단계
 
@@ -1130,7 +1133,7 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
 | **Data Files**                            |                                                              |
 | File Encoding                             | 스크립트와 데이터 파일 출력에 사용될 인코딩 문자 집합을 지정한다. |
 
-<br/>
+
 
 # B.부록: 마이그레이션 가능한 데이터베이스 객체
 
@@ -1346,25 +1349,23 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 프로젝트 트리 창에서 마우스 오른쪽 버튼을 클릭하고 Reconcile 메뉴를 선택한다. 또는 Migration 메뉴에서 Reconcile을 선택한다. 이 단계는 Build 단계를 마쳐야 수행할 수 있다.
 
-<div align="left">
-    <img src="media/MigrationCenter/datatypemapping-step-1.png">
-</div>
+![](media/MigrationCenter/datatypemapping-step-1.png)
+
 
 **2. Data Type Mapping**
 
 Reconcile 메뉴를 선택하면 아래와 같이 Reconcile 창이 뜬다. 사용자는 이 창에서 Migration Center의 기본 데이터 타입 매핑 테이블을 확인할 수 있고 "1. Data Type Mapping"에서 대상 데이터베이스의 데이터 타입을 변경할 수 있다. 변경하고 싶은 데이터 타입을 선택하고 오른쪽 하단의 Change 버튼을 클릭한다.
 
-<div align="left">
-    <img src="media/MigrationCenter/datatypemapping-step-2.png">
-</div>
+![](media/MigrationCenter/datatypemapping-step-2.png)
+
 
 **3. Change Mapping Type**
 
 Change 버튼을 클릭하면 아래의 창이 뜬다. Change Mapping Type 창의 Destination DB Data Type에서 변경할 데이터 타입을 선택한다. 데이터 타입에 따라 필요 시 Precision과 Scale을 입력하고 OK 버튼을 클릭한다. 
 
-<div align="left">
-    <img src="media/MigrationCenter/datatypemapping-step-3.png">
-</div>
+![](media/MigrationCenter/datatypemapping-step-3.png)
+
+
 
 ### 기본 데이터 타입 매핑 테이블
 
@@ -1380,7 +1381,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |      | 원본          | 대상              | 주의 사항                                                    |
 | :--: | :------------ | :---------------- | :----------------------------------------------------------- |
 |  1   | CHAR          | CHAR              | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Oracle에서 문자 길이로 정의된 칼럼의 경우 자동으로 바이트 길이로 변환된다. |
-|  2   | NCHAR         | NCHAR             | 원본 및 대상 데이터베이스의 NCHAR 칼럼의 명시적인 크기는 같다(예. NCHAR(10) -\> NCHAR(10)). 그러나, 오라클 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 사용되는 바이트의 개수로 정의되는 반면, Altibase의 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 저장되는 문자의 개수로 정의된다. 이는 Altibase에서 생성되는 NCHAR 칼럼이 필요에 따라 오라클보다 2배 또는 3배 정도 클 것이라는 의미이므로, 이런 점을 유의하도록 한다. |
+|  2   | NCHAR         | NCHAR             | 원본 및 대상 데이터베이스의 NCHAR 칼럼의 명시적인 크기는 같다(예. NCHAR(10) → NCHAR(10)). 그러나, 오라클 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 사용되는 바이트의 개수로 정의되는 반면, Altibase의 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 저장되는 문자의 개수로 정의된다. 이는 Altibase에서 생성되는 NCHAR 칼럼이 필요에 따라 오라클보다 2배 또는 3배 정도 클 것이라는 의미이므로, 이런 점을 유의하도록 한다. |
 |  3   | VARCHAR2      | VARCHAR 또는 CLOB | 오라클에서 문자 길이로 정의한 VARCHAR2는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. |
 |  4   | NVARCHAR2     | NVARCHAR          | NCHAR와 같은 이유로, 칼럼 크기가 서로 다르다.                |
 |  5   | LONG          | CLOB              |                                                              |
@@ -2384,8 +2385,6 @@ OF XMLTYPE WITH OBJECT ID DEFAULT /* [TODO] RULE-11005 : XMLType view should be 
 AS SELECT * FROM t1;
 ~~~
 
-
-
 #### RULE-11006
 
 ###### 타입
@@ -2411,8 +2410,6 @@ CREATE OR REPLACE VIEW v1_1
 OF type1 UNDER v1 /* [TODO] RULE-11006 : An object view must be converted manually */
 AS SELECT * FROM t1;
 ~~~
-
-
 
 #### RULE-11007
 
@@ -7589,7 +7586,7 @@ CREATE VIEW v_r40022 AS SELECT SYS_CONTEXT('USERENV', 'INSTANCE_NAME', 100) FROM
 CREATE VIEW v_r40022 AS SELECT SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'), 0, 100) FROM dual;
 ~~~
 
-<br/>
+
 
 # F.부록: FAQ
 
@@ -7612,7 +7609,7 @@ OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 3�
   - 메모리 사용량을 낮추도록 성능 프로퍼티 값 변경
 
     1. 프로젝트를 연다.
-    2. 메뉴 Migration -\> Migration Options를 클릭한다.
+    2. 메뉴 Migration → Migration Options를 클릭한다.
     3. Batch Size와 Thread Count의 값을 낮춘다.
 
   - 프로그램이 사용할 수 있는 최대 메모리 크기 증가
@@ -7736,6 +7733,8 @@ bat, sh에서 설정된 최대 메모리 할당값(`-Xmx`) 자바 옵션이 시�
 
 bat, sh에서 -Xms -Xmx 값을 사용자 환경에 맞춰 변경한 뒤, Migration Center를 재실행한다.
 
+
+
 ### Oracle
 
 #### 오류 메시지 'ORA-01652 unable to extend temp segment by 128 in tablespace TEMP'가 출력된다.
@@ -7840,6 +7839,8 @@ Oracle JDBC 드라이버 호환성 문제
 
 MigrationCenter의 Oracle용 JDBC 드라이버 파일을 사용중인 Oracle DBMS의 JDBC 드라이버 파일로 교체한다.
 
+
+
 ### MS-SQL
 
 #### MS-SQL 연결정보를 등록할 때, “Test” 버튼을 누르면 접속에 실패하는 오류 메시지가 출력될 수 있다.
@@ -7933,7 +7934,7 @@ JRE 10 이하 버전의 JDBC 드라이버에서 javax.xml.bind 모듈을 참조�
 
 예) mssql-jdbc-7.2.2.***jre11***.jar
 
-<br/>
+
 
 ### Altibase
 
@@ -7989,7 +7990,7 @@ BLOB, byte, nibble 데이터타입을 가진 테이블은 aexport와 iloader를 
 
 프로젝트를 열고 메뉴 Migration - Migration Option을 클릭하여 Batch Execution을 'No'로 선택한 뒤, 데이터 이관을 수행한다.
 
-<br/>
+
 
 ### Informix
 
@@ -8022,7 +8023,7 @@ Informix 연결 속성에 IFX_USE_STRENC=true 를 추가한다.
 
 https://m.blog.naver.com/PostView.nhn?blogId=jangkeunna&logNo=70146227929&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
 
-<br/>
+
 
 ### MySQL
 
@@ -8038,7 +8039,7 @@ https://m.blog.naver.com/PostView.nhn?blogId=jangkeunna&logNo=70146227929&proxyR
 
 1. 프로젝트를 연다.
 
-2. 메뉴 Migration -\> Migration Options를 클릭한다.
+2. 메뉴 Migration → Migration Options를 클릭한다.
 
 3. Batch Execution의 값을 No로 변경한다.
 
@@ -8064,7 +8065,7 @@ MySQL과 Altibase 간 국가별 문자 집합의 글자 당 바이트 수가 서
 
 3. Destination DB Data Type으로 NVARCHAR를 선택하고 Precision을 빈칸으로 둔 뒤, 저장한다.
 
-<br/>
+
 
 ### PostgreSQL
 
@@ -8077,6 +8078,8 @@ PostgreSQL에 시퀀스를 사용하는 세션이 있는 상태에서 마이그�
 `해결 방법`
 
 마이그레이션을 수행하기 전에 PostgreSQL에 연결된 모든 애플리케이션 세션을 종료해야 한다.
+
+
 
 ### TimesTen
 
@@ -8120,7 +8123,7 @@ Native library를 사용하는 TimesTen type 2 JDBC driver를 로딩한 상태�
 
 마이그레이션 센터를 완전히 종료 후 재시작하여 데이터베이스 연결 등록을 하거나 연결 정보를 수정한다.
 
-<br/>
+
 
 ### Tibero
 
