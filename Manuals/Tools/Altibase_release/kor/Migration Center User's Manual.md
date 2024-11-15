@@ -7616,9 +7616,10 @@ OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 3�
 
   2. JVM 내 heap 최대 크기를 정하는 옵션 -Xmx의 값을 기존 값보다 높게 설정한다.
 
-  > [!note]
-  >
-  > Windows 32 bit machine에서는 OS dependency로 인해 Xmx 값을 최대 1.5 GB까지 설정할 수 있다.
+     > [!note]
+     >
+     > Windows 32 bit machine에서는 OS dependency로 인해 Xmx 값을 최대 1.5 GB까지 설정할 수 있다.
+  
 
 **\<PermGen space\>**
 
