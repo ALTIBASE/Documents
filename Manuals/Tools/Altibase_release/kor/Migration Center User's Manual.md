@@ -1314,7 +1314,6 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 ### PostgreSQL to Altibase
 
-다음은 PostgreSQL에서 Altibase로 마이그레이션할 때 지원하는 데이터베이스 객체와 주의 사항 그리고 지원하지 않는 객체를 설명한 표이다.
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
 | Table                  |                   O                   |                   O                    | 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다.<br />PostgreSQL은 테이블에 생성할 수 있는 최대 칼럼의 개수가 1,600개이고 Altibase는 1,024개이므로, 마이그레이션 수행 시 주의해야 한다. |
@@ -1608,7 +1607,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |   1   | SMALLINT | SMALLINT | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 SMALLINT는 **-32,768**~32,767이고 Altibase는 **-32,767**~32,767이다. |
 |   2   | INTEGER | INTEGER | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 INTEGER는 **-2,147,483,648**~2,147,483,647이고 Altibase는 **-2,147,483,647**~2,147,483,647이다. |
 |   3   | BIGINT | BIGINT | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 BIGINT는 **-9,223,372,036,854,775,808**~9,223,372,036,854,775,807이고 Altibase는 **-9,223,372,036,854,775,807**~9,223,372,036,854,775,807이다. |
-|   4           | NUMERIC (DECIMAL) | NUMERIC | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL은 Precision: 1~1,000, Scale: 0~_precision_ 이고 Altibase는 Precision: 1~38, Scale: -84~128이다. <br />또한, Altibase는 Infinity와 -Infinity 그리고 NaN을 표현할 수 없기 때문에 해당 값들에서 데이터 손실이 발생할 수 있다. |
+|   4           | NUMERIC (DECIMAL) | NUMERIC | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL은 Precision: 1~1,000, Scale: 0~*precision* 이고 Altibase는 Precision: 1~38, Scale: -84~128이다. <br />또한, Altibase는 Infinity와 -Infinity 그리고 NaN을 표현할 수 없기 때문에 해당 값들에서 데이터 손실이 발생할 수 있다. |
 |   5   | REAL | REAL |  |
 |   6  | DOUBLE PRECISION | DOUBLE |  |
 |  7   | MONEY | VARCHAR(30) | 데이터 타입 MONEY는 Altibase에서 문자형 데이터 타입 VARCHAR(30)으로 변환된다.<br>MONEY의 형식이 천단위 구분자가 쉼표(,)이고 소숫점 구분자가 마침표(.)라면 Reconcile 단계에서 숫자형 데이터 타입 NUMERIC(20,2)으로 변환할 수 있다.|
@@ -2107,27 +2106,68 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 
 #### PostgreSQL to Altibase
 
-| Expression Type | 원본(PostgreSQL)          | 대상(Altibase)          | 특이사항 |
-| :-------------- | :------------------------ | :---------------------- | :------- |
-| 함수            | current_role              | USER_NAME()             |          |
-|                 | current_schema            | USER_NAME()             |          |
-|                 | current_user              | USER_NAME()             |          |
-|                 | session_user              | USER_NAME()             |          |
-|                 | user                      | USER_NAME()             |          |
-|                 | ceiling(expression)       | CEIL(number)            |          |
-|                 | random()                  | RANDOM(0)/2147483647    |          |
-|                 | bit_length(string)        | 8*OCTET_LENGTH(expr)    |          |
-|                 | reverse(str)              | REVERSE_STR(expr)       |          |
-|                 | strpos(string, substring) | INSTR (expr, substring) |          |
-|                 | clock_timestamp()         | SYSDATE                 |          |
-|                 | current_date              | SYSDATE                 |          |
-|                 | current_time              | SYSDATE                 |          |
-|                 | current_timestamp         | SYSDATE                 |          |
-|                 | localtime                 | SYSDATE                 |          |
-|                 | localtimestamp            | SYSDATE                 |          |
-|                 | now()                     | SYSDATE                 |          |
-|                 | statement_timestamp()     | SYSDATE                 |          |
-|                 | transaction_timestamp()   | SYSDATE                 |          |
+<table>
+        <tr>        
+        <th>Expression Type</th> <th>원본(PostgreSQL)</th><th>대상(Altibase)</th><th>특이사항</th>
+    </tr>   
+    <tr>
+        <td rowspan="19">함수</td><td>current_role</td><td>USER_NAME()</td><td></td>
+    </tr>
+    <tr>
+        <td >current_schema</td><td>USER_NAME()</td><td></td>
+    </tr>
+        <tr>
+        <td >current_user</td><td>USER_NAME()</td><td></td>
+    </tr>
+    <tr>
+        <td >session_user</td><td>USER_NAME()</td><td></td>
+    </tr>
+    <tr>
+        <td >user</td><td>USER_NAME()</td><td></td>
+    </tr>
+    <tr>
+        <td >ceiling(expression)</td><td>CEIL(number)</td><td></td>
+    </tr>
+    <tr>
+        <td >random()</td><td>RANDOM(0)/2147483647</td><td></td>
+    </tr>
+    <tr>
+        <td >bit_length(string)</td><td>8*OCTET_LENGTH(expr)</td><td></td>
+    </tr>
+    <tr>
+        <td >reverse(str)</td><td>REVERSE_STR(expr)</td><td></td>
+    </tr>
+    <tr>
+        <td >strpos(string, substring)</td><td>INSTR (expr, substring)</td><td></td>
+    </tr>
+    <tr>
+        <td >clock_timestamp()</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >current_date</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >current_time</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >current_timestamp</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >localtime</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >localtimestamp</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >now()</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >statement_timestamp()</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >transaction_timestamp()</td><td>SYSDATE</td><td></td>
+    </tr>
+</table>
 
 아래는 변환 예제이다.
 
