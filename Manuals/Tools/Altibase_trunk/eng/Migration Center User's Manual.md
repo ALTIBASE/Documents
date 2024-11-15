@@ -154,14 +154,14 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Expression Conversion Rules](#expression-conversion-rules)
 - [Appendix F: FAQ](#appendix-f-faq)
   - [Common](#common)
-  - [Oracle](#oracle-2)
-  - [MS-SQL](#ms-sql-2)
-  - [Altibase](#altibase-2)
-  - [Informix](#informix-2)
-  - [MySQL](#mysql-2)
-  - [PostgreSQL](#postgresql-2)
-  - [TimesTen](#timesten-2)
-  - [Tibero](#tibero-2)
+  - [Oracle](#oracle-1)
+  - [MS-SQL](#ms-sql-1)
+  - [Altibase](#altibase-1)
+  - [Informix](#informix-1)
+  - [MySQL](#mysql-1)
+  - [PostgreSQL](#postgresql-1)
+  - [TimesTen](#timesten-1)
+  - [Tibero](#tibero-1)
 
 
 
