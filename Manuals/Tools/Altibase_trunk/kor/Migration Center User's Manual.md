@@ -1607,7 +1607,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |   1   | SMALLINT | SMALLINT | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 SMALLINT는 **-32,768**~32,767이고 Altibase는 **-32,767**~32,767이다. |
 |   2   | INTEGER | INTEGER | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 INTEGER는 **-2,147,483,648**~2,147,483,647이고 Altibase는 **-2,147,483,647**~2,147,483,647이다. |
 |   3   | BIGINT | BIGINT | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 BIGINT는 **-9,223,372,036,854,775,808**~9,223,372,036,854,775,807이고 Altibase는 **-9,223,372,036,854,775,807**~9,223,372,036,854,775,807이다. |
-|   4           | NUMERIC (DECIMAL) | NUMERIC | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL은 Precision: 1~1,000, Scale: 0~*precision* 이고 Altibase는 Precision: 1~38, Scale: -84~128이다. <br />또한, Altibase는 Infinity와 -Infinity 그리고 NaN을 표현할 수 없기 때문에 해당 값들에서 데이터 손실이 발생할 수 있다. |
+|   4           | NUMERIC (DECIMAL) | NUMERIC | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL은 Precision: 1\~1,000, Scale: 0~*precision* 이고 Altibase는 Precision: 1\~38, Scale: -84~128이다. <br />또한, Altibase는 Infinity와 -Infinity 그리고 NaN을 표현할 수 없기 때문에 해당 값들에서 데이터 손실이 발생할 수 있다. |
 |   5   | REAL | REAL |  |
 |   6  | DOUBLE PRECISION | DOUBLE |  |
 |  7   | MONEY | VARCHAR(30) | 데이터 타입 MONEY는 Altibase에서 문자형 데이터 타입 VARCHAR(30)으로 변환된다.<br>MONEY의 형식이 천단위 구분자가 쉼표(,)이고 소숫점 구분자가 마침표(.)라면 Reconcile 단계에서 숫자형 데이터 타입 NUMERIC(20,2)으로 변환할 수 있다.|
