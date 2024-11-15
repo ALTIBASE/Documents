@@ -1603,9 +1603,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 
 #### PostgreSQL to Altibase
 
-다음은 PostgreSQL와 Altibase의 데이터 타입의 차이와 마이그레이션 시 주의해야 할 사항을 나타낸 표이다.
-
-|      | PostgreSQL| Altibase| 주의 사항                                                    |
+|      | 원본 | 대상 | 주의 사항                                                    |
 | :--: | :------- | :-------- | :----------------------------------------------------------- |
 |   1   | SMALLINT | SMALLINT | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 SMALLINT는 **-32,768**~32,767이고 Altibase는 **-32,767**~32,767이다. |
 |   2   | INTEGER | INTEGER | PostgreSQL과 Altibase의 표현 범위 차이로 마이그레이션 시 데이터 손실이 발생할 수 있다. PostgreSQL의 INTEGER는 **-2,147,483,648**~2,147,483,647이고 Altibase는 **-2,147,483,647**~2,147,483,647이다. |
@@ -7602,43 +7600,43 @@ CREATE VIEW v_r40022 AS SELECT SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'), 0
 
 OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 3가지 경우로 나눌 수 있다.
 
-- `<Java heap space>`
+**\<Java heap space\>**
 
-  상황에 따라 아래 작성된 두 가지 방법을 선택해 적용한다.
+상황에 따라 아래 작성된 두 가지 방법을 선택해 적용한다.
 
-  - 메모리 사용량을 낮추도록 성능 프로퍼티 값 변경
+- 메모리 사용량을 낮추도록 성능 프로퍼티 값 변경
 
-    1. 프로젝트를 연다.
-    2. 메뉴 Migration → Migration Options를 클릭한다.
-    3. Batch Size와 Thread Count의 값을 낮춘다.
+  1. 프로젝트를 연다.
+  2. 메뉴 Migration → Migration Options를 클릭한다.
+  3. Batch Size와 Thread Count의 값을 낮춘다.
 
-  - 프로그램이 사용할 수 있는 최대 메모리 크기 증가
-
-    1. 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
-
-    2. JVM 내 heap 최대 크기를 정하는 옵션 -Xmx의 값을 기존 값보다 높게 설정한다.
-
-    > [!note]
-    >
-    > Windows 32 bit machine에서는 OS dependency로 인해 Xmx 값을 최대 1.5 GB까지 설정할 수 있다.
-
-- `<PermGen space>`
+- 프로그램이 사용할 수 있는 최대 메모리 크기 증가
 
   1. 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
 
-  2. JVM 내 permanent generation space의 최대 크기를 정하는 옵션 -XX:MaxPermSize의 값을 기존 값보다 크게 설정한다.
+  2. JVM 내 heap 최대 크기를 정하는 옵션 -Xmx의 값을 기존 값보다 높게 설정한다.
 
-- `<Metaspace>`
+  > [!note]
+  >
+  > Windows 32 bit machine에서는 OS dependency로 인해 Xmx 값을 최대 1.5 GB까지 설정할 수 있다.
 
-  사용중인 JVM의 버전이 Java 8 이상인 경우, Metaspace의 공간 부족이 원인일 수 있다. Java 8부터 구현된 Metaspace는 PermGen (permanent generation space)의 대체제이다.
+**\<PermGen space\>**
 
-  1. 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
+1. 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
 
-  2. JVM 내 permanent generation space의 최대 크기를 정하는 옵션 -XX:MaxPermSize를
-     metaspace의 최대 크기를 정하는 옵션으로 변경한 뒤, 기존 값보다 높게 수정한다.
-     - 변경 전 : -XX:MaxPermSize=128m
+2. JVM 내 permanent generation space의 최대 크기를 정하는 옵션 -XX:MaxPermSize의 값을 기존 값보다 크게 설정한다.
 
-     - 변경 후 : -XX:MaxMetaspaceSize=256m
+**\<Metaspace\>**
+
+사용중인 JVM의 버전이 Java 8 이상인 경우, Metaspace의 공간 부족이 원인일 수 있다. Java 8부터 구현된 Metaspace는 PermGen (permanent generation space)의 대체제이다.
+
+1. 실행 파일(migcenter.bat 또는 migcenter.sh)을 편집기로 연다.
+
+2. JVM 내 permanent generation space의 최대 크기를 정하는 옵션 -XX:MaxPermSize를
+   metaspace의 최대 크기를 정하는 옵션으로 변경한 뒤, 기존 값보다 높게 수정한다.
+   - 변경 전 : -XX:MaxPermSize=128m
+
+   - 변경 후 : -XX:MaxMetaspaceSize=256m
 
 - 참고
 
@@ -7675,7 +7673,9 @@ Altibase는 다른 칼럼과는 달리 LOB 칼럼에 데이터를 입력할 경�
 
 KSC5601 한글 데이터는 UTF8로 표기될 수 있다. 따라서 각각의 문자 집합은 서로 호환된다. 
 
-Note: 데이터 길이가 더 길어질 수 있으므로 테이블 객체 이관 시 문자형 타입 칼럼은 사이즈를 늘려야 한다.
+> [!note]
+>
+> 데이터 길이가 더 길어질 수 있으므로 테이블 객체 이관 시 문자형 타입 칼럼은 사이즈를 늘려야 한다.
 
 `사례 2 : 원본 데이터베이스 KSC5601에서 대상 데이터베이스 GB231280` `이관 불가능`
 
@@ -7707,7 +7707,7 @@ JVM에서 64-bit libXrender.so 파일을 요청했지만, OS에 해당 패키지
 
 `원인`
 
-주로 64비트 장비에  32비트 JRE를 설치한 뒤, 이를 사용하여 자바 프로그램을 실행하려 할 때 발생한다.
+주로 64비트 장비에 32비트 JRE를 설치한 뒤, 이를 사용하여 자바 프로그램을 실행하려 할 때 발생한다.
 
 `해결 방법`
 
@@ -8053,17 +8053,19 @@ MySQL은 데이터 타입 NCHAR, NVARCHAR을 지원하지 않는다. 대신 CHAR
 
 해당 현상은 정상적인 동작이다.
 
-Note: 기본 DataType Map에서 MySQL의 NVARCHAR가 Altibase의 NVARCHAR(10666)으로 매핑되어있다.
-
-MySQL과 Altibase 간 국가별 문자 집합의 글자 당 바이트 수가 서로 다를 경우, 이에 대한 고려 없이 이관을 수행하면 제한 바이트 수 초과로 스키마를 생성하지 못하는 상황이 발생할 수도 있다. 이러한 상황을 피하기 위해, 마이그레이션 센터는 기본적으로 NVARCHAR의 크기를 고정하였다.
-
-만약 해당 테이블 칼럼의 데이터 크기가 크지 않다면, 아래와 같은 절차를 수행하여 원본 데이터베이스의 크기를 그대로 이관할 수 있다.
-
-1. Reconcile 단계: Data Type Mapping에서 NVARCHAR 행 클릭 
-
-2. Change 버튼을 클릭
-
-3. Destination DB Data Type으로 NVARCHAR를 선택하고 Precision을 빈칸으로 둔 뒤, 저장한다.
+> [!note]
+>
+> 기본 DataType Map에서 MySQL의 NVARCHAR가 Altibase의 NVARCHAR(10666)으로 매핑되어있다.
+>
+> MySQL과 Altibase 간 국가별 문자 집합의 글자 당 바이트 수가 서로 다를 경우, 이에 대한 고려 없이 이관을 수행하면 제한 바이트 수 초과로 스키마를 생성하지 못하는 상황이 발생할 수도 있다. 이러한 상황을 피하기 위해, 마이그레이션 센터는 기본적으로 NVARCHAR의 크기를 고정하였다.
+>
+> 만약 해당 테이블 칼럼의 데이터 크기가 크지 않다면, 아래와 같은 절차를 수행하여 원본 데이터베이스의 크기를 그대로 이관할 수 있다.
+>
+> 1. Reconcile 단계: Data Type Mapping에서 NVARCHAR 행 클릭 
+>
+> 2. Change 버튼을 클릭
+>
+> 3. Destination DB Data Type으로 NVARCHAR를 선택하고 Precision을 빈칸으로 둔 뒤, 저장한다.
 
 
 
