@@ -1869,6 +1869,7 @@ Altibase는 이중화 부가 기능으로 다음의 기능을 제공한다. 이�
 ##### 구문
 
 ```
+CREATE REPLICATION replication_name OPTIONS RECOVERY ...;
 ALTER REPLICATION replication_name SET RECOVERY {ENABLE|DISABLE};
 ```
 
@@ -1909,8 +1910,8 @@ Alter success.
 ##### 구문
 
 ```
-ALTER REPLICATION replication_name 
-SET OFFLINE ENABLE WITH 'log_dir';
+CREATE REPLICATION replication_name OPTIONS OFFLINE 'log_dir' ...;
+ALTER REPLICATION replication_name SET OFFLINE ENABLE WITH 'log_dir';
 ALTER REPLICATION replication_name SET OFFLINE DISABLE;
 ALTER REPLICATION replication_name START WITH OFFLINE;
 ```

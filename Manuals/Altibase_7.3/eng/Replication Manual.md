@@ -1754,6 +1754,7 @@ The status of replication option can be confirmed by the value of the OPTIONS co
 ##### Syntax
 
 ```
+CREATE REPLICATION replication_name OPTIONS RECOVERY ...;
 ALTER REPLICATION replication_name SET RECOVERY {ENABLE|DISABLE};
 ```
 
@@ -1794,8 +1795,8 @@ Alter success.
 ##### Syntax
 
 ```
-ALTER REPLICATION replication_name 
-SET OFFLINE ENABLE WITH 'log_dir';
+CREATE REPLICATION replication_name OPTIONS OFFLINE 'log_dir' ...;
+ALTER REPLICATION replication_name SET OFFLINE ENABLE WITH 'log_dir';
 ALTER REPLICATION replication_name SET OFFLINE DISABLE;
 ALTER REPLICATION replication_name START WITH OFFLINE;
 ```
