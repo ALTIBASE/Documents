@@ -7321,9 +7321,11 @@ CREATE VIEW v_r40022 AS SELECT SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'), 0
 #### 데이터 이관 중에 OutOfMemoryError가 발생한다.
 
 `원인`
+
 다수의 쓰레드들이 대상 데이터베이스에 배치작업으로 데이터를 삽입하는 과정에서 메모리가 부족하여 발생할 수 있다.
 
 `해결 방법`
+
 OutOfMemoryError에서 출력한 에러 메시지에 따라 아래와 같이 3가지 경우로 나눌 수 있다.
 
 **\<Java heap space\>**
