@@ -140,7 +140,6 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [DB to File 마이그레이션 옵션](#db-to-file-마이그레이션-옵션)
 - [B.부록: 마이그레이션 가능한 데이터베이스 객체](#b부록-마이그레이션-가능한-데이터베이스-객체)
   - [Altibase to Altibase](#altibase-to-altibase)
-  - [Altibase to Oracle](#altibase-to-oracle)
   - [CUBRID to Altibase](#cubrid-to-altibase)
   - [Informix to Altibase](#informix-to-altibase)
   - [MySQL to Altibase](#mysql-to-altibase)
@@ -503,8 +502,6 @@ Migration Center 프로젝트는 마이그레이션의 모든 면을 기술하�
 #### 기본 개념
 
 Migration Center를 사용하여 마이그레이션을 수행하는 전반적인 과정은 "준비(Prepare)", "구축(Build)", "조정(Reconcile)", "실행(Run)" 및 "검증(Data Validation)" 의 다섯 단계로 구성된다.
-
-![](media/MigrationCenter/0e1eca129799717d226a7ee6a611eba8.jpg)
 
 ##### 준비(Prepare) 단계
 
@@ -1164,26 +1161,6 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | Materialized View      |               부분 지원               |                   X                    | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.               |
 | Trigger                |               부분 지원               |                   X                    | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.               |
 
-### Altibase to Oracle
-
-| 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
-| :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    |                                                              |
-| Primary Key 제약       |                   O                   |                   O                    |                                                              |
-| Unique 제약            |                   O                   |                   O                    |                                                              |
-| Check 제약             |                   O                   |                   O                    |                                                              |
-| Foreign Key 제약       |                   O                   |                   O                    |                                                              |
-| Index                  |                   O                   |                   O                    |                                                              |
-| Sequence               |                   O                   |                   X                    |                                                              |
-| Queue                  |                   X                   |                   X                    | 변환 가능한 객체가 없기 때문에, build 단계에서 자동으로 제외된다. |
-| Private Synonym        |               부분 지원               |                   X                    | 다른 schema 내의 객체를 참조하는 시노님도 마이그레이션된다.  |
-| Procedure              |               부분 지원               |                   X                    | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.               |
-| Function               |               부분 지원               |                   X                    | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.               |
-| Package                |               부분 지원               |                   X                    | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.               |
-| View                   |               부분 지원               |                   X                    | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.               |
-| Materialized View      |               부분 지원               |                   X                    | 별도의 변환작업 없이 원본 DDL 그대로 수행된다. 참고로 migration을 위해서는 베이스 테이블에 primary key가 있어야 한다. |
-| Trigger                |               부분 지원               |                   X                    | 별도의 변환작업 없이 원본 DDL 그대로 수행된다.               |
-
 ### CUBRID to Altibase
 
 | 데이터베이스 객체 유형   | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
@@ -1554,30 +1531,6 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  20  | CLOB       | CLOB              |                                                              |
 |  21  | ENUM       | VARCHAR(3200)     | Altibase가 지원하지 않는 데이터 타입이다. CUBRID의 열거형 문자열 상수들은 Altibase의 VARCHAR 타입으로 임의 변경하여 마이그레이션을 수행한다. |
 |  22  | COLLECTION | VARCHAR(3200)     | Altibase가 지원하지 않는 데이터 타입이다. CUBRID의 COLLECTION 타입은 Altibase의 VARCHAR 타입으로 임의 변경하여 마이그레이션을 수행한다. |
-
-#### Altibase to Oracle
-
-|      | 원본     | 대상          | 주의 사항                                                    |
-| :--: | :------- | :------------ | :----------------------------------------------------------- |
-|  1   | CHAR     | CHAR          | Altibase의 CHAR 칼럼이 Oracle의 CHAR 최대 크기인 2,000바이트(또는 글자)를 초과하면 Oracle의 데이터 타입을 CLOB으로 변환한다. 이는 Altibase와 오라클 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. Altibase의 CHAR 최대 크기는 32,000바이트로 오라클의 최대 크기보다 크다. |
-|  2   | NCHAR    | NCHAR         | Altibase NCHAR의 최대 크기는 32000바이트, Oracle NCHAR의 최대 크기는 2000 bytes이므로 데이터 손실이 발생할 수 있다. |
-|  3   | VARCHAR  | VARCHAR2      | Altibase의 VARCHAR 칼럼이 Oracle의 VARCHAR2 최대 크기인 4,000바이트(또는 글자)를 초과하면 Oracle의 데이터 타입을 CLOB으로 변환한다. 이는 오라클과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. Altibase의 VARCHAR 최대 크기는 32,000바이트로, Oracle보다 크다. |
-|  4   | NVARCHAR | NVARCHAR2     | Altibase NVARCHAR의 최대 크기는 32000바이트, Oracle NVARCHAR2의 최대 크기는 4000 bytes이므로 데이터 손실이 발생할 수 있다. |
-|  5   | SMALLINT | NUMBER        |                                                              |
-|  6   | INTEGER  | NUMBER        |                                                              |
-|  7   | BIGINT   | NUMBER        |                                                              |
-|  8   | REAL     | BINARY_FLOAT  |                                                              |
-|  9   | DOUBLE   | BINARY_DOUBLE |                                                              |
-|  10  | FLOAT    | FLOAT         |                                                              |
-|  11  | NUMERIC  | NUMBER        |                                                              |
-|  12  | DATE     | TIMESTAMP     |                                                              |
-|  13  | BIT      | CHAR          | CHAR의 최대크기는 2,000바이트, BIT는 64,000비트 즉, 8,000바이트이므로 데이터 손실이 발생할 수 있다. |
-|  14  | VARBIT   | VARCHAR2      | VARCHAR2 의 최대크기는 4,000 바이트 , VARBIT는 64,000비트 즉, 8,000바이트이므로 데이터 손실이 발생할 수 있다. |
-|  15  | BYTE     | RAW           | BYTE의 최대 크기는 32,000, RAW의 최대 크기는 2,000 바이트이므로 데이터 손실이 발생할 수 있다. |
-|  16  | VARBYTE  | RAW           | VARBYTE의 최대 크기는 32,000, RAW의 최대 크기는 2,000 바이트이므로 데이터 손실이 발생할 수 있다. |
-|  17  | NIBBLE   | RAW           |                                                              |
-|  18  | BLOB     | BLOB          |                                                              |
-|  19  | CLOB     | CLOB          |                                                              |
 
 #### Tibero to Altibase
 
@@ -2043,35 +1996,6 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 | CUBRID의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval ( <br />c1 INTEGER DEFAULT 123, <br />c2 CHARACTER VARYING (50) DEFAULT 'test', <br />c3 INTEGER, <br />c4 CHARACTER VARYING (100) DEFAULT 'USER', <br />c5 CHARACTER VARYING (100) DEFAULT 'CURRENT_USER', <br />c6 CHARACTER VARYING(100) DEFAULT ' ', <br />c7 DATE DEFAULT DATE'2008-10-31', <br />c8 TIME DEFAULT TIME'1:15', <br />c9 TIMESTAMP DEFAULT TIMESTAMP'10/31', <br />c10 DATETIME DEFAULT DATETIME'01:15:45 PM 2008-10-31' ); | CREATE TABLE TESTTBL_4_DEFVAL ( <br />C1 INTEGER DEFAULT 123, <br />C2 VARCHAR (50) DEFAULT 'test', <br />C3 INTEGER, <br />C4 VARCHAR (100) DEFAULT USER_ID(), <br />C5 VARCHAR (100) DEFAULT USER_ID(), <br />C6 VARCHAR (100) DEFAULT ' ', <br />C7 DATE /\* DEFAULT '10/31/2008' \*/, <br />C8 DATE /\* DEFAULT '01:15:00 AM' \*/, <br />C9 DATE /\* DEFAULT '12:00:00 AM 10/31/2016' \*/, <br />C10 DATE /\* DEFAULT '01:15:45.000 PM 10/31/2008' \*/ ); |
-
-#### Altibase to Oracle
-
-<table>
-    <tr>        
-        <th>Expression Type</th> <th>원본(Altibase)</th><th>대상(Oracle)</th><th>특이사항</th>
-    </tr>
-    <tr>
-        <td>문자형을 위한 문자열</td><td>"</td><td></td><td></td>
-    </tr>
-    <tr>
-    <td rowspan="4">함수</td><td>DB_TIMEZONE()</td><td>DBTIMEZONE</td><td>Altibase 6.3.1.0.0 이상에서 지원됨</td>
-    </tr>
-    <tr>
-        <td >SYS_GUID_STR()</td><td>SYS_GUID()</td><td>Altibase 6.3.1.0.0 이상에서 지원됨</td>
-    </tr> 
-    <tr>
-        <td>USER_ID()</td><td>UID</td><td></td>
-    </tr>
-    <tr>
-        <td>USER_NAME()</td><td>USER</td><td></td>
-    </tr>
-</table>
-
-아래는 변환 예제이다.
-
-| Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                           | Oracle의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CREATE TABLE testtbl_4_defval <br />( c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL, <br />c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT SQRT(144) + 72, <br />c6 DATE DEFAULT TO_DATE('1999-12-01 PM', 'YYYY-MM-DD AM'), <br />c7 VARCHAR(100) DEFAULT DB_TIMEZONE(), <br />c8 VARCHAR(100) DEFAULT SYS_GUID_STR(), <br />c9 VARCHAR(100) DEFAULT USER_ID(), <br />c10 VARCHAR(100) DEFAULT USER_NAME() ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 NUMBER (10) DEFAULT 123 ,<br />C2 VARCHAR2 (50) DEFAULT 'test' ,<br />C3 NUMBER (10) ,<br />C4 CHAR (10) ,<br />C5 NUMBER (10) DEFAULT SQRT(144) + 72 ,<br />C6 TIMESTAMP  DEFAULT TO_DATE('1999-12-01 PM', 'YYYY-MM-DD AM') ,<br />C7 VARCHAR2 (100) DEFAULT DBTIMEZONE ,<br />C8 VARCHAR2 (100) DEFAULT SYS_GUID() ,<br />C9 VARCHAR2 (100) DEFAULT UID ,<br />C10 VARCHAR2 (100) DEFAULT USER ); |
 
 #### Tibero to Altibase
 

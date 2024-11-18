@@ -125,7 +125,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [DB to File Migration Options](#db-to-file-migration-options)
 - [Appendix B: Migratable Database Objects](#appendix-b-migratable-database-objects)
   - [Altibase to Altibase](#altibase-to-altibase)
-  - [Altibase to Oracle](#altibase-to-oracle)
   - [CUBRID to Altibase](#cubrid-to-altibase)
   - [Informix to Altibase](#informix-to-altibase)
   - [MySQL to Altibase](#mysql-to-altibase)
@@ -456,8 +455,6 @@ The Migration Center project is a basic work unit that describes all aspects of 
 #### Basic Concept
 
 The overall process of Migration Center consists of five steps: Prepare, Build, Reconcile, Run, and Data Validation.
-
-![](media/MigrationCenter/0e1eca129799717d226a7ee6a611eba8.jpg)
 
 ##### Prepare Step
 
@@ -1120,26 +1117,6 @@ Objects in the source database that Migration Center does not migrate automatica
 | Materialized View      |         Partly yes         |              X              | The original DDL statement is performed without any additional conversion. |
 | Trigger                |         Partly yes         |              X              | The original DDL statement is performed without any additional conversion. |
 
-### Altibase to Oracle // QQ: Altibase to Oracle 내용 다 삭제해야 하는 것 아닌지..?
-
-| Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
-| :--------------------- | :------------------------: | :-------------------------: | :----------------------------------------------------------- |
-| Table                  |             O              |              O              |                                                              |
-| Primary Key Constraint |             O              |              O              |                                                              |
-| Unique Constraint      |             O              |              O              |                                                              |
-| Check Constraint       |             O              |              O              |                                                              |
-| Foreign Key Constraint |             O              |              O              |                                                              |
-| Index                  |             O              |              O              |                                                              |
-| Sequence               |             O              |              X              |                                                              |
-| Queue                  |             X              |              X              | It is automatically excluded since from the build step since there are no convertible objects. |
-| Private Synonym        |         Partly Yes         |              X              | Synonyms that refer to objects in other schemas are also migrated. |
-| Procedure              |         Partly Yes         |              X              | The original DDL statement is performed without any additional conversion. |
-| Function               |         Partly Yes         |              X              | The original DDL statement is performed without any additional conversion. |
-| Package                |         Partly Yes         |              X              | The original DDL statement is performed without any additional conversion. |
-| View                   |         Partly Yes         |              X              | The original DDL statement is performed without any additional conversion. |
-| Materialized View      |         Partly Yes         |              X              | The original DDL statement is performed without any additional conversion. Note that the primary key must exist in the base table for migration. |
-| Trigger                |         Partly Yes         |              X              | The original DDL statement is performed without any additional conversion. |
-
 ### CUBRID to Altibase
 
 | Database Object Type            | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
@@ -1507,30 +1484,6 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  20  | CLOB       | CLOB            |                                                              |
 |  21  | ENUM       | VARCHAR(3200)   | This is the data which is not supported by Altibase. The constants of enumeration character sting in CUBRID implement migration through arbitrarily converting them into VARCHAR type of Altibase. |
 |  22  | COLLECTION | VARCHAR(3200)   | This is the data type that Altibase does not support. The COLLECTION data type of CUBRID is converted as the VARCHAR data type of Altibase and the value of the former is also converted as string for the later during migrating. |
-
-#### Altibase to Oracle
-
-|      | Source   | Destination   | Notice                                                       |
-| :--: | :------- | :------------ | :----------------------------------------------------------- |
-|  1   | CHAR     | CHAR          | If Altibase's CHAR legnth exceeds 2,000 bytes, the maximum size of Oracle's CHAR, it is converted to Oracle's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Altibase and Oracle. Altibase's CHAR maximum size is 32,000 bytes, which is larger than Oracle. |
-|  2   | NCHAR    | NCHAR         | The potential data loss can be occurred since the maximum size of Altibase NCHAR is 32000 bytes and the maximum size of of Oracle NCHAR is 2000 bytes. |
-|  3   | VARCHAR  | VARCHAR2      | If Altibase's VARCHAR legnth exceeds 4,000 bytes, the maximum size of Oracle's VARCHAR2, it is converted to Oracle's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Altibase and Oracle. Altibase's VARCHAR maximum size is 32,000 bytes, which is larger than Oracle. |
-|  4   | NVARCHAR | NVARCHAR2     | The potential data loss can be occurred since the maximum size of Altibase NVARCHAR is 32000 bytes and the maximum size of of Oracle NVARCHAR is 4000 bytes or characters. |
-|  5   | SMALLINT | NUMBER        |                                                              |
-|  6   | INTEGER  | NUMBER        |                                                              |
-|  7   | BIGINT   | NUMBER        |                                                              |
-|  8   | REAL     | BINARY_FLOAT  |                                                              |
-|  9   | DOUBLE   | BINARY_DOUBLE |                                                              |
-|  10  | FLOAT    | FLOAT         |                                                              |
-|  11  | NUMERIC  | NUMBER        |                                                              |
-|  12  | DATE     | TIMESTAMP     |                                                              |
-|  13  | BIT      | CHAR          | The potential data loss can be occurred since the maximum size of CHAR is 2000 bytes, and the maximum size of BIT is 64000 bits, that is, 8000 bytes. |
-|  14  | VARBIT   | VARCHAR2      | The potential data loss can be occurred since the maximum size of VARCHAR2 is 4000 bytes, and the maximum size of VARBIT is 64000 bits, that is, 8000 bytes. |
-|  15  | BYTE     | RAW           | The potential data loss can be occurred since the maximum size of BYTE is 32000 bytes, and the maximum size of RAW is 2000 bytes. |
-|  16  | VARBYTE  | RAW           | The potential data loss can be occurred since the maximum size of VARBYTE is 32000 bytes, and the maximum size of RAW is 2000 bytes. |
-|  17  | NIBBLE   | RAW           |                                                              |
-|  18  | BLOB     | BLOB          |                                                              |
-|  19  | CLOB     | CLOB          |                                                              |
 
 #### Tibero to Altibase
 
@@ -2021,38 +1974,6 @@ The following is an example of the conversion.
 | CUBRID CREATE TABLE Statement                                                                                                                                                                                                                                                                                                                                                                                                                                                | Altibase CREATE TABLE Statement                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval ( <br />c1 INTEGER DEFAULT 123, <br />c2 CHARACTER VARYING (50) DEFAULT 'test', <br />c3 INTEGER, <br />c4 CHARACTER VARYING (100) DEFAULT 'USER', <br />c5 CHARACTER VARYING (100) DEFAULT 'CURRENT_USER', <br />c6 CHARACTER VARYING(100) DEFAULT ' ', <br />c7 DATE DEFAULT DATE'2008-10-31', <br />c8 TIME DEFAULT TIME'1:15', <br />c9 TIMESTAMP DEFAULT TIMESTAMP'10/31', <br />c10 DATETIME DEFAULT DATETIME'01:15:45 PM 2008-10-31' ); | CREATE TABLE TESTTBL_4_DEFVAL ( <br />C1 INTEGER DEFAULT 123, <br />C2 VARCHAR (50) DEFAULT 'test', <br />C3 INTEGER, <br />C4 VARCHAR (100) DEFAULT USER_ID(), <br />C5 VARCHAR (100) DEFAULT USER_ID(), <br />C6 VARCHAR (100) DEFAULT ' ', <br />C7 DATE /\* DEFAULT '10/31/2008' \*/, <br />C8 DATE /\* DEFAULT '01:15:00 AM' \*/, <br />C9 DATE /\* DEFAULT '12:00:00 AM 10/31/2016' \*/, <br />C10 DATE /\* DEFAULT '01:15:45.000 PM 10/31/2008' \*/ ); |
-
-#### Altibase to Oracle
-
-<table>
-    <tr>        
-        <th>Expression Type</th> <th>Source(Altibase)</th><th>Destination(Oracle)</th><th>Remarks</th>
-    </tr>
-    <tr>
-        <td>String for Character
-type</td><td>"</td><td></td><td></td>
-    </tr>
-    <tr>
-    <td rowspan="4">Function</td><td>DB_TIMEZONE()</td><td>DBTIMEZONE</td><td>Supported in Altibase
-6.3.1.0.0 or above</td>
-    </tr>
-    <tr>
-        <td >SYS_GUID_STR()</td><td>SYS_GUID()</td><td>Supported in Altibase
-6.3.1.0.0 or above</td>
-    </tr> 
-    <tr>
-        <td>USER_ID()</td><td>UID</td><td></td>
-    </tr>
-    <tr>
-        <td>USER_NAME()</td><td>USER</td><td></td>
-    </tr>
-</table>
-
-The following is an example of the conversion.
-
-| Altibase Table Creation SQL statements                                                                                                                                                                                                                                                                                                                                                                                                          | Oracle Table Creation SQL statements                                                                                                                                                                                                                                                                                                                                                                                                         |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CREATE TABLE testtbl_4_defval <br />( c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL, <br />c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT SQRT(144) + 72, <br />c6 DATE DEFAULT TO_DATE('1999-12-01 PM', 'YYYY-MM-DD AM'), <br />c7 VARCHAR(100) DEFAULT DB_TIMEZONE(), <br />c8 VARCHAR(100) DEFAULT SYS_GUID_STR(), <br />c9 VARCHAR(100) DEFAULT USER_ID(), <br />c10 VARCHAR(100) DEFAULT USER_NAME() ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 NUMBER (10) DEFAULT 123 ,<br />C2 VARCHAR2 (50) DEFAULT 'test' ,<br />C3 NUMBER (10) ,<br />C4 CHAR (10) ,<br />C5 NUMBER (10) DEFAULT SQRT(144) + 72 ,<br />C6 TIMESTAMP  DEFAULT TO_DATE('1999-12-01 PM', 'YYYY-MM-DD AM') ,<br />C7 VARCHAR2 (100) DEFAULT DBTIMEZONE ,<br />C8 VARCHAR2 (100) DEFAULT SYS_GUID() ,<br />C9 VARCHAR2 (100) DEFAULT UID ,<br />C10 VARCHAR2 (100) DEFAULT USER ); |
 
 #### Tibero to Altibase
 
@@ -8061,17 +7982,7 @@ This exception arises from the Java classloader when a TimesTen Type 2 JDBC driv
 
 ##### Solution
 
-마이그레이션 센터를 완전히 종료 후 재시작하여 데이터베이스 연결 등록을 하거나 연결 정보를 수정한다.
-
-Completely exit and restart the Migration Center before registering or modify the database connection. QQ: 솔루션의 정확한 뜻이 다음 두 가지 중 어떤 것인지 확인이 필요합니다.
-
-1.
-
-두가지 해결 방법이 있음. 1.종료 재시작하여 데이터베이스 연결 등록하기, 2. (종료-재시작 없이) 연결정보 수정하기
-
- 2.
-
-완전 종료 후 재시작은 공통으로 필요한 사항이고, 이후 연결 등록을 다시 하거나 연결 정보를 수정함.
+First, exit and restart the Migration Center completely. Then, register the database connections or modify the database connection information as needed.
 
 ### Tibero
 
