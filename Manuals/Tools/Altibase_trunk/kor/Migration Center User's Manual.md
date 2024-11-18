@@ -1952,7 +1952,6 @@ Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 
     </tr>
   </thead>
   <tbody>
-    <!-- Replace Default Empty String: Yes -->
     <tr style="background-color: white;">
       <td rowspan="2">Yes</td>
         <td>EMPTY_STRING</td>
@@ -1964,7 +1963,6 @@ Migration Center에서는 데이터 유실을 방지하기 위해 빈 문자열 
       <td>No</td>
       <td><code>C1 CHAR(10) DEFAULT 'EMPTY_STRING' NOT NULL</code></td>
     </tr>
-    <!-- Replace Default Empty String: No -->
     <tr style="background-color: white;">
       <td rowspan="2">No</td>
       <td>N/A</td>

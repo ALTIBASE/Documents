@@ -193,34 +193,24 @@ This manual is organized as follows:
 
 - Chapter 1: Introduction  
   This chapter introduces Migration Center and explains how to install it.
-
 - Chapter 2: Getting Started  
   This chapter describes the key concepts in migration, how to use Migration Center in GUI and CLI modes, and tools provided for user convenience.
-
 - Chapter 3: GUI Mode Quick Guide  
   This chapter provides a quick step guide for GUI mode users who are new to Migration Center.
-
 - Chapter 4: CLI Mode Quick Guide  
   This chapter provides a quick step guide for CLI mode users who are new to Migration Center.
-
 - Chapter 5: Migration Center Internals  
   This chapter describes the main steps of Migration Center, namely the Build, Reconcile, Run, and Data Validation steps.
-
 - Appendix A: Migration Options  
   This appendix describes the Migration Center options.
-
 - Appendix B: Migratable Database Objects  
   This appendix provides the table that shows what database objects can be migrated using Migration Center.
-
 - Appendix C: Data Type Mapping  
   This appendix explains how to check and customize the default data type mapping for an existing project. In addition, it provides default data type mapping tables
-
 - Appendix D: Mapping Default Values  
   This appendix provides the mapping table for default values according to which Migration Center converts source database default values to comply with Altibase.
-
 - Appendix E: PSM Converter Rule List  
   This chapter describes the rules for converting PSM convertes to DDL SQL statements when migrating from Oracle to Altibase.
-
 - Appendix F: FAQ
 
 #### Documentation Conventions
@@ -270,25 +260,15 @@ The following table describes the printing conventions used in the code examples
 For more detailed information, please refer to the following documents.
 
 - Installation Guide
-
 - Getting Started Guide
-
 - Administrator’s Manual
-
 - Replication Manual
-
 - Precompiler User’s Manual
-
 - API User’s Manual
-
 - Altibase C Interface Manual
-
 - iSQL User’s Manual
-
 - Utilities Manual
-
 - General Reference
-
 - Error Message Reference
 
 #### Altibase Welcomes Your Comments and Feedbacks
@@ -312,9 +292,7 @@ Thank you. We always welcome your feedbacks and suggestions.
 This chapter introduces Migration Center and explains how to install it. This chapter consists of the following sections:
 
 - Overview
-
 - System Requirements
-
 - Installation and Uninstallation
 
 ### Overview
@@ -344,11 +322,8 @@ This section discusses the system requirements for Migration Center and compatib
 ##### GUI Mode
 
 - CPU: Pentium III 800MHz or better
-
 - Main memory: 512MB or more
-
 - Disk: 150MB or more free space
-
 - Screen resolution: 1024x800 pixels or higher
 
 ##### CLI Mode
@@ -392,25 +367,19 @@ Please note that for legal reasons, the Microsoft SQL Server JDBC driver file, M
 Users can download the appropriate JDBC driver file from the following site:
 
 1. Microsoft does not support the JDBC driver for SQL Server 2005 according to the Microsoft Support Lifecycle(MSL) policy, and it also does not provide download link. Therefore, users should use the JDBC driver included in the database product they are using.
-
 2. Microsoft JDBC Driver for SQL Server 2008, for 2008 R2, for 2012 can be downloaded from the link below. Since Migration Center has been tested with JDBC driver version 6.0 and JRE 7 environment, it is recommended for users to use the same driver version and JRE version. Also in Linux OS, the value of JAVA_HOME environment variable must be set to the path where the JRE 7 or later is installed. If you want to use a version other than JDBC Driver 6.0, you need to check the driver version, compatible SQL Server version, and supported JRE version in the Microsoft JDBC Driver for SQL Server Support Matrix.  
    Download Microsoft JDBC Driver for SQL Server:  
    <https://docs.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-2017>  
    Microsoft JDBC Driver for SQL Server Support Matrix:  
    <https://docs.microsoft.com/en-us/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server-support-matrix?view=sql-server-2017>
-
 3. Oracle MySQL Connector/J  
    <http://dev.mysql.com/downloads/connector/j/>
-
 4. Informix JDBC Driver  
    <http://www14.software.ibm.com/webapp/download/search.jsp?go=y&rs=ifxjdbc>
-
 5. Oracle TimesTen  
    <http://www.oracle.com/technetwork/database/database-technologies/timesten/downloads/index.html>
-
 6. CUBRID  
    <http://www.cubrid.org/?mid=downloads&item=jdbc_driver>
-
 7. Tibero  
    <https://technet.tmaxsoft.com/>
 
@@ -433,9 +402,7 @@ This chapter describes the key concepts in migration, how to use Migration Cente
 This chapter consists of the following sections:
 
 - Understanding Migration Center
-
 - Understanding User Interface
-
 - Tools
 
 ### Understanding Migration Center
@@ -443,7 +410,6 @@ This chapter consists of the following sections:
 This section explains the terminology and overall process of Migration Center.
 
 - Terms
-
 - Basic Concept
 
 #### Terms
@@ -536,8 +502,6 @@ To execute this tool, select ”PSM Converter for File” from “Tools” in th
 
 To execute this tool, select “Generate Migration Error Report” from “Tools” in the main menu.
 
-
-
 # 3. GUI Mode Quick Guide
 
 This chapter provides a quick step guide for users new to Migration Center.
@@ -547,21 +511,15 @@ This chapter provides a quick step guide for users new to Migration Center.
 The users can easily perform migration in GUI mode with this quick step guide. The overall process is listed below.
 
 1. Start Migration Center
-
 2. Prepare the project
-   
    1. Register source and destination database connections 
    2. Create a project 
    3. Open the project 
    4. Connect to source and destination databases 
    5. Set migration options
-
 3. Build the project
-
 4. Reconcile the project
-
 5. Run the project
-
 6. Validate the project
 
 #### Starting Migration Center
@@ -571,49 +529,32 @@ Double-click the “migcenter.bat” icon in the Migration Center folder on Micr
 #### Registering a Database Connection
 
 1. From the “Database” menu, select the “Add Database Connection” submenu, or click the “Add Database Connection” icon in the main toolbar. 
-
 2. Fill in all the input fields of the “Add Database Connection” dialog box:
-   
    1. DB Product: The database system name 
-   
    2. Connection Name: A unique database connection name to be used for Migration Center projects
-   
    3. IP: The Internet Protocol (IP) address of the database server
-   
    4. Port: The port number of the database server or SSL port number of the Altibase server
-   
    5. User: The valid user ID for the database
-   
    6. Password: The password corresponding to the user ID for the database.
-   
    7. JDBC Driver:  The JDBC driver path to be used to connect to the database.
-   
    8. Encoding: The default character set used on the client.
-   
    9. IP Version: The IP protocol version used in this connection.
-   
    10. Property: The JDBC driver property to be used in this connection.   
        If connecting with SSL, set ssl_enable = true as shown below, and * path_to_keystore, path_to_truststore, and password * are set according to each authentication environment.
-
 ```
 ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&truststore_url=path_to_truststore&truststore_password=password 
 ```
-
 3. Click the “Test” button at the bottom of the dialog box to check the input information before adding this connection to the connection list.
-
 4. If the connection test is successful, click the “OK” button at the bottom of the dialog box to add the connection to the connection list. Then, close the “Add Database Connection” dialog box.
 
 #### Creating the Project
 
 1. From the “Project” menu, select the “Create Project” submenu, or click the “Create Project” icon in the main toolbar.
-
 2. Fill in the input fields in the “New Project” dialog box:
-   
    1. Project Name: A migration project name that is unique in Migration Center and meaningful to the user.
    2. Project Path: The folder path where migration project files will be stored. This value cannot be edited by users.
    3. Source Database: A database that contains database objects to be migrated in this project.
    4. Destination Database: An Altibase database to copy database objects from the source database and store them. This input field is mandatory, even if the project is configured for “DB to File” migration.
-
 3. Click the “OK” button at the bottom of the “New Project” dialog box.
 
 #### Opening the Project
@@ -633,13 +574,9 @@ Establishing connections with the source and destination databases is essential 
 The Build step is indispensable to migration, yet simple to execute. 
 
 1. Click "Build User" or "Build Table" from the "Migration" menu or the main toolbar.
-
 2. A dialog box asking how to fetch records from each table in the source database appears. Select the desired method and click “OK”. For further information about the available options and explanations thereof, refer to [Internal Activities](#internal-activities).
-
 3. If "Build Table" has been selected, a dialog box shows up to list the names of migration target tables. When clicking the"![](media/MigrationCenter/f614c334dace127d00b84a2951b20ff2.png)" button, you can choose migration target tables with name search. After completing configuring the table list, click the "Build" button to proceed with the build step.
-
 4. A “Build” dialog box displaying the build progress appears. At completion, a “Report” button appears at the bottom. 
-
 5. If you click “Report”, an HTML report file is created in the project directory and the “Build Report” dialog box appears. This dialog box provides a link to the HTML report file. Once the “Report” button is clicked and an HTML report file is created, the “Build Report” submenu from the “Report” menu is activated. The user can open the “Build Report” dialog box at any time with this menu item.
 
 #### Reconciling the Project
@@ -647,23 +584,15 @@ The Build step is indispensable to migration, yet simple to execute.
 The Reconcile step is very important because it determines how to execute the Run step, and it requires some knowledge of both source and destination databases. For further information about this step, please refer to Migration Center Internals. The following is a simple guide:
 
 1. From the “Migration” menu, select “Reconcile”, or click the “Reconcile” icon in the main toolbar.
-
 2. Change or confirm the default data type mapping.
-
 3. Specify the Altibase tablespaces to which the source database is to be migrated.
-
 4. Change or confirm how to migrate partitioned tables in the source database to Altibase.
-
 5. Specify the Altibase tablespace to which each table or index in the source database is to be migrated.
-
 6. Check the SELECT statement for fetching data from each table of the source database, and make changes if necessary. 
-
 > [!tip]
 >
 > When extracting data from the source database, users can selectively migrate only the data that meets specific conditions. Please refer to [5.Migration Center Internals - "Select Editing" Step](#select-editing-step) for more information.
-
 7. Check whether the DDL SQL statements to be used during the schema migration process is correct, and make changes if necessary.
-
 8. Click the “Report” button to generate a report for this step.
 
 #### Running the Project
@@ -697,8 +626,6 @@ The following is a simple guide for using filesync.
 9. The “Data Validation” dialog box appears and filesync is executed. At completion, a “Report” button appears at the bottom. 
 10. Check that data difference has been solved in the report.
 
-
-
 # 4. CLI Mode Quick Guide
 
 This chapter provides a quick step guide for CLI mode users who are new to Migration Center.
@@ -708,17 +635,11 @@ This chapter provides a quick step guide for CLI mode users who are new to Migra
 The user can easily perform migration in CLI mode with this quick step guide. The overall process is listed below.
 
 1. Prepare the project
-   
    1. Register database connection information and project
-   
    2. Set migration options
-
 2. Build the project 
-
 3. Reconcile the project 
-
 4. Run the project 
-
 5. Validate the project
 
 #### Prepare the Project
@@ -787,8 +708,6 @@ To verify the data migrated properly in the "Run" step, input the diff command a
 
 To match the different data between the source and destination databases using the diff command, input filesync command and the path of the target project.
 
-
-
 # 5. Migration Center Internals
 
 This chapter describes the main steps of Migration Center, namely the Build, Reconcile, Run, and Data Validation steps. This chapter consists of the following sections:
@@ -808,18 +727,12 @@ The information gathered in this step is used throughout the entire migration pr
 
 #### Output
 
-- Build reports
-
+- Build reports  
   Several data volume analysis reports based on the current status of the source and destination databases are output in HTML format and stored in the project folder.
-
-- SQL Data Definition Language (DDL) script
-
+- SQL Data Definition Language (DDL) script  
   A file containing database object creation statements (DDLs) collected from the source database, whether or not Migration Center is supported, created in the project folder and named SrcDbObj_Create.sql. This file is intended for user reference only and is not used at any stage of the Migration Center.
-
-- BuildReport4Unsupported.html
-
-  It is one of the files summarizing the build results and shows the CREATE statements of objects not automatically migrated by the Migration Center. Objects that are not supported by Migration Center must be manually converted by the user, and this file can be referenced for conversion operations.
-
+- BuildReport4Unsupported.html  
+  It is one of the files summarizing the build results and shows the CREATE statements of objects not automatically migrated by the Migration Center. Objects that are not supported by Migration Center must be manually converted by the user, and this file can be referenced for conversion operations.  
   Non-automatic migration object types depend on the source database and can be found at [Appendix B: Migratable Database Objects](#appendix-b-migratable-database-objects). In case of Oracle to Altibase migration, this file is not created because all of Oracle database object types defined in the appendix table are supported for automatic migration. On the other hand, in case of MySQL to Altibase migration, if the source database has any database object type such as stored procedures, stored functions, views, and trigger objects, the CREATE statement of the unsupported database object is recorded at this file for user's reference.
 
 #### Internal Activities
@@ -828,28 +741,21 @@ This step consists of two internal activities; collecting information about data
 
 The collecting information can be started as either "Build User" or "Build Table".
 
-- Build User
-
+- Build User  
   This collects all migratable object information of the user connected to the source database
-
-- Build Table
-
+- Build Table  
   This configures a list of tables to be migrated among the tables of the user connected to the source database. Plus, this collects object information of the selected tables, and constraints and indexes dependent on the selected tables.
 
 For more information on the object types that can be migrated, refer to the "Appendix B: Migratable Database Objects".
 
 When the user starts the build step, the "Table Counting Method" dialog box appears. The user can choose one of the following options:
 
-- Approximate Counting Method
-
+- Approximate Counting Method  
   This retrieves the number of table records by referring to the statistical value of the source database. This value is affected by the accuracy of the statistical value.
-
-- Exact Counting Method
-
+- Exact Counting Method  
   This retrieves the exact number of table records by executing the COUNT function on every table in the source database.
 
 Of the two methods, the approximate counting method performs faster whereas, the exact counting method yields more accurate results.
-
 The method chosen does not affect the database schema and data migration. It only affects the accuracy of the data migration progress percentage provided at the Run step in GUI mode. This is because the data migration progress is displayed as the time elapsed and the percentage of (number of migrated records / total number of records). With this, the user can estimate the total amount of time required to complete data migration. 
 
 For more detailed information about how to execute the Build step, please refer to [Building the Project](#Building-the-project).
@@ -868,11 +774,9 @@ For more detailed information about tablespaces in Altibase databases, please re
 
 - Reconcile reports: Several reports that specify which database objects to migrate and how to migrate them in the project folder.
 - SQL Data Definition Language (DDL) scripts: Sample SQL files to create and drop database objects in the destination database are provided in the project folder for user convenience. However, these files are not used in any step.
-  
   - DbObj_Create.sql: A SQL script file for creating database objects to be migrated. 
   - DbObj_Drop.sql: A SQL script file for dropping database objects having the same names as those to be migrated. 
 - PL/SQL conversion reports: Several reports generated by the PL/SQL Converter.
-  
   - sqlconv.html: A HTML report that compares the difference between source and converted PL/SQL. 
   - sqlconv_src.sql: A report that contains the input PL/SQL statements to be converted in text format. 
   - sqlconv_dest.sql: A report that contains converted PL/SQL statements and comments listing the applied conversion rules in text format.
@@ -916,18 +820,14 @@ The file is structured with "Source Database Table Name"=WHERE clause pairs, and
 Conditions can be modified during the Reconcile step using "Select Editing" or manually edited after Reconcile step is complete, with the following constraints:
 
 - The WHERE clause must be written on a single line.
-
 -  If there are SQL syntax differences between the source and target databases, the [DEST] section should include the WHERE clause for the target database table.
-
-  - Example
-
+  - Example  
     ```
     DATE_TEST=WHERE C2 > DATE'2023-12-02'
     ...
     [DEST]
     DATE_TEST=WHERE C2 > TO_DATE('2023-12-02', 'YYYY-MM-DD');
     ```
-
 
 Refer to the guidance at the top of the file for more details on editing and restrictions.
 
@@ -978,21 +878,13 @@ Internally, this process consists of three steps to avoid database object depend
 Each step performs the following:
 
 1. Initialization: To the source database, performs validation of the WHERE clauses recorded in the TableCondition.properties file.
-
 2. PreSchema: Migrates sequence objects
-
 3. Table & Data: Migrates table objects and data
-
 4. PostSchema:
-
    1. Queue: Migrates queue objects
-
    2. Constraints: Migrates constraints, namely unique, primary key, foreign key, and check constraints
-
    3. Index: Migrates index objects
-
    4. Synonym: Migrates private synonym objects
-
    5. Procedures, functions, materialized views, views, typesets and triggers: Depends on the database management system and its version
 
 ### Data Validation Step
@@ -1021,8 +913,6 @@ Internally, the Data Validation step is executed as below.
 
 The data to be validated is fetched from the source and destination databases and compared. If a difference in data is detected and “Write to CSV” in the “Data Validation Options” submenu is set to “Yes”, the different data is stored in CSV format files in the validation folder. Regardless of the option, summary information is always output to the Data Validation report.
 
-
-
 # Appendix A: Migration Options
 
 Migration Options affect the migration project. They can be edited by selecting the “Migration Option” menu item from the Migration menu in GUI mode. Migration Options can usually be edited right after the project is created. 
@@ -1030,7 +920,6 @@ Migration Options affect the migration project. They can be edited by selecting 
 The primary option is the Migration Type: either “DB to DB” or “DB to File”. 
 
 - DB to DB Migration Options
-
 - DB to File Migration Options
 
 ### DB to DB Migration Options
@@ -1085,8 +974,6 @@ The stored files can be migrated to the database (Altibase) to be saved using iS
 | Default '' (Empty String) Not Null Column | Defines how to modify the column definition when an empty string is set as the default value and a NOT NULL constraint is applied <br />- Replace Default Empty String: Setting this option to 'Yes' allows to replace the default empty string with a user-defined value. The default setting is 'No'.<br />- Replacement Default Value: Specifies the string to be used as the new default value. This option is only enabled when Replace Default Empty String is set to 'Yes'.<br />- Remove Not Null: Setting this option to 'Yes' removes the NOT NULL constraint from the column where the empty string is the default value. The default setting is 'No'. |
 | **Data Files**                            |                                                              |
 | File Encoding                             | Specifies the encoding character set to be used for scripts and data files. |
-
-
 
 # Appendix B: Migratable Database Objects
 
@@ -1265,8 +1152,6 @@ Objects in the source database that Migration Center does not migrate automatica
 >
 > PostgreSQL objects not recorded in the above table(e.g., Exclusion constraints, Types, Enums, etc.) are excluded from the migration target because there are no objects corresponding to Altibase.
 
-
-
 # Appendix C: Data Type Mapping
 
 Migration Center’s policy for mapping data types between heterogeneous databases is to minimize the loss of data. However, the user may wish to customize the way that data is mapped, even if it incurs the loss or corruption of data. To satisfy this requirement, Migration Center also allows the user to edit the data type mapping table.
@@ -1303,7 +1188,7 @@ These tables describe the basic data type mapping tables between heterogeneous d
 
 Since Migration Center 7.11, if a table's column length of a source database exceeds the maximum range of the data type mapped to the target database, the data type of the target database can be automatically converted to a data type with a larger range than the default mapping table. For instance, the following data types can be changed to CLOB if necessary in order to minimize data loss.
 
-- CHAR   
+- CHAR
 - VARCHAR or VARCHAR2, LVARCHAR, TT_VARCHAR
 
 #### Oracle to Altibase
@@ -1746,16 +1631,11 @@ Prior to migrating data, Migration Center creates a table identical to the sourc
 
 Default values of most of the original database are compatible with the target database without any modifications. However, Migration Center converts source database default values according to the policy of the target database system for the following exceptions.
 
-- The CHARACTER data type with an empty string as the default value
-
+- The CHARACTER data type with an empty string as the default value  
   Altibase treats empty strings (`''`) as NULL, meaning that no default value is assigned. For columns where the default value is an empty string and a NOT NULL constraint is present, refer to the [Empty String Handling Options](#empty-string-handling-options) section.
-
-- The DATE data type with a string expression as the default value
-
+- The DATE data type with a string expression as the default value  
   Since the default format for the DATE data type differs among source databases, Migration Center specifies a comment which includes the DEFAULT keyword in the CREATE TABLE statement, instead of the default value. If necessary, the user must manually set the default value later on, by referring to the comment. However, if the source database is the one among the MySQL, TimesTen or CUBRID, Migration Center automatically converts default values as shown below. 
-
-- The default value specified with a function
-
+- The default value specified with a function  
   A function which is listed in the following table is converted accordingly, only if the function is exclusively specified as the default value in the source database. Other functions or expressions of a complex form are converted without being changed. If necessary, the user must manually change them later on. 
 
 #### Oracle to Altibase
@@ -2104,7 +1984,6 @@ However, if there is a column where the **default value is an empty string and a
 >
 > Altibase distinguishes between strings composed of fixed-length spaces and NULL from empty strings. Therefore, only the items marked as **Empty String** in the table above are affected by the empty string handling options during migration.
 
-
 #### Empty String Handling Options
 
 Migration Center offers empty string handling options to prevent data loss. These options can be set via the menu **Migration > Migration Options**.
@@ -2139,7 +2018,6 @@ These options can be applied individually or in combination, providing flexibili
     </tr>
   </thead>
   <tbody>
-    <!-- Replace Default Empty String: Yes -->
     <tr style="background-color: white;">
       <td rowspan="2">Yes</td>
         <td>EMPTY_STRING</td>
@@ -2151,7 +2029,6 @@ These options can be applied individually or in combination, providing flexibili
       <td>No</td>
       <td><code>C1 CHAR(10) DEFAULT 'EMPTY_STRING' NOT NULL</code></td>
     </tr>
-    <!-- Replace Default Empty String: No -->
     <tr style="background-color: white;">
       <td rowspan="2">No</td>
       <td>N/A</td>
@@ -2187,9 +2064,7 @@ Migration Center provides DDL SQL texts for creating PSM type database objects w
 The PSM converter uses rules to convert DDL SQL texts, and these rules fall into the following three categories:
 
 - `CONVERTED`: Convertible
-
 - `REMOVED`:  Inconvertible, but may be removable
-
 - `TODO`: Neither convertible nor removable
 
 If a TODO rule is applied to a PSM object, then it will show up in the To-do list pane. If not, then it will show up in the Done list pane. 
@@ -7477,8 +7352,6 @@ CREATE VIEW v_r40022 AS SELECT SYS_CONTEXT('USERENV', 'INSTANCE_NAME', 100) FROM
 CREATE VIEW v_r40022 AS SELECT SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'), 0, 100) FROM dual;
 ```
 
-<br/>
-
 # Appendix F: FAQ
 
 ### Common
@@ -7497,13 +7370,13 @@ According to the error message output from OutOfMemoryError, there are two cases
 
 Depending on the situation, you can choose between the two methods below.
 
-- Change performance property values to reduce memory usage
-1. Open the project. 
-2. Click the menu "Migration" → "Migration Options". 
-3. Lower the Batch Size and Thread Count values
-- Increase the maximum amount of memory the program can use
-1. Open the executable file (migcenter.bat or migcenter.sh) with the editor. 
-2. Set the value of the option '-Xmx' that sets the maximum heap size in the JVM to be higher than the existing value.
+- Change performance property values to reduce memory usage  
+  1. Open the project.   
+  2. Click the menu "Migration" → "Migration Options".   
+  3. Lower the Batch Size and Thread Count values
+- Increase the maximum amount of memory the program can use  
+  1. Open the executable file (migcenter.bat or migcenter.sh) with the editor.   
+  2. Set the value of the option '-Xmx' that sets the maximum heap size in the JVM to be higher than the existing value.
 
 > [!note]
 >
@@ -7518,21 +7391,14 @@ Depending on the situation, you can choose between the two methods below.
 
 If the version of the JVM you are using is Java 8 or higher, the lack of space in Metaspace may be the cause. Metaspace, implemented since Java 8, is a replacement for PermGen (permanent generation space).
 
-* Open the executable file (migcenter.bat or migcenter.sh) with an editor.
+1. Open the executable file (migcenter.bat or migcenter.sh) with an editor.
+2. Change '-XX: MaxPermSize', which is the option to set the maximum size of permanent generation space in JVM, to an option that determines the maximum size of the metaspace, and modify it higher than the existing value.  
+   - Before change: -XX:MaxPermSize=128m  
+   - After change: -XX:MaxMetaspaceSize=256 m
 
-* Option to set the maximum size of permanent generation space in JVM
-  Change '-XX: MaxPermSize' to an option that determines the maximum size of the metaspace, and modify it higher than the existing value.
-  
-  * Before change: -XX:MaxPermSize=128m
-  
-  - After change: -XX:MaxMetaspaceSize=256 m
-  
-
-References:
-
-- <https://dzone.com/articles/java-8-permgen-metaspace>
-
-- <https://www.infoq.com/articles/Java-PERMGEN-Removed>
+- References
+  - <https://dzone.com/articles/java-8-permgen-metaspace>
+  - <https://www.infoq.com/articles/Java-PERMGEN-Removed>
 
 #### The NOT NULL constraint on a table column whose data type is LOB is not migrated.
 
@@ -7554,7 +7420,8 @@ After the migration, execute an SQL statement that adds a NOT NULL constraint to
 
 #### Database Character Set Notes
 
-Generally, it is recommended to use the same DB character set of the source database and target database.  
+Generally, it is recommended to use the same DB character set of the source database and target database. 
+
 If you need to specify different character sets because of special circumstances, you should check whether each DB character set is compatible. If you migrate data between incompatible character sets, the data may be corrupted.
 
 ##### Example
@@ -7788,10 +7655,10 @@ The path to the java.security file depends on the Java version:
 - Java 10 and earlier: `$JAVA_HOME/jre/lib/security`
 - Java 11 and later: `$JAVA_HOME/conf/security`
 
-~~~java
+```java
 //jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, 
 jdk.tls.disabledAlgorithms=SSLv3, RC4, DES, MD5withRSA, 
-~~~
+```
 
 If using TLS 1.2 or later is mandatory, refer to [KB3135244 - TLS 1.2 support for Microsoft SQL Server](https://support.microsoft.com/en-us/topic/kb3135244-tls-1-2-support-for-microsoft-sql-server-e4472ef8-90a9-13c1-e4d8-44aad198cdbe) to update Windows, MS-SQL server, and the MS-SQL JDBC driver file.
 
@@ -7825,7 +7692,6 @@ You must include the character set value (for example, KSC5601) set in the desti
   ```sql
   SELECT VALUE1 FROM V$PROPERTY WHERE NAME = 'NLS_USE';
   ```
-  
 - Version 5.3.3 or later:  
   ```sql
   SELECT NLS_CHARACTERSET FROM V$NLS_PARAMETERS;
@@ -7905,9 +7771,7 @@ If you find that the MySQL JDBC driver returns a null value when importing data 
 You need to replace the driver with version 5.0.8 of MySQL Connector/J([link](https://dev.mysql.com/downloads/connector/j/5.0.html)). If the same happens in the retry, cancel Batch Execution by following the procedure below.
 
 1. Open the project.
-
 2. Click the menu "Migration" → "Migration Options".
-
 3. Change the value of "Batch Execution" to "No".
 
 #### Data types CHAR and VARCHAR are changed to NCHAR and NVARCHAR.
@@ -7996,19 +7860,14 @@ This error occurs because the database user account used to connect to the Migra
 
 Grant the required DICTIONARY query privileges to the database user account.
 
-- For Tibero 4 or below:
-
+- For Tibero 4 or below:  
   Tibero version 4 or below does not have system privileges for DICTIONARY, so grant the SELECT ANY TABLE privilege. This privilege allows querying objects in any schema.
-
-  ```
+  ```sql
   GRANT SELECT ANY TABLE TO user_name;
   ```
-
-- For Tibero 5 or above:
-
+- For Tibero 5 or above:  
   Grant the SELECT ANY DICTIONARY privilege. This privilege allows querying objects in the DICTIONARY owned by SYS, SYSCAT, and SYSGIS.
-
-  ```
+  ```sql
   GRANT SELECT ANY DICTIONARY TO user_name;
   ```
 
