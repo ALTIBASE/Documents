@@ -168,7 +168,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 # Preface
 
-This manual describes Adapter for JDBC, an utility replicating modified data in Altibase to other database supporting JDBC.
+This manual describes how to use Migration Center to perform database migration to ALTIBASE.
 
 #### Audience
 
