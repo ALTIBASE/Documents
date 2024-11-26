@@ -102,7 +102,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 # Table Of Contents
 
-- [Preface](#preface)	
+- [Preface](#preface)
   - [About This Manual](#about-this-manual)
 - [1. Introduction](#1-introduction)
   - [Hybrid DBMS Concept](#hybrid-dbms-concept)
@@ -3687,7 +3687,7 @@ Altibase performs ping pong checkpoints for memory databases, alternating the wr
 > Tablespace Name-{Ping Pong Number}-{File Number}
 > ```
 >
-> Ping Pong Number identifies the two checkpoint image files alternately used during ping-pong checkpoint operations. It is either 0 or 1. This number allows users to identify the stable checkpoint image file used for memory database backup or recovery.
+> Ping Pong Number identifies the two checkpoint image files alternately used during ping pong checkpoint operations. It is either 0 or 1. This number allows users to identify the stable checkpoint image file used for memory database backup or recovery.
 >
 > File Number indicates the sequential order of checkpoint image files, starting from 0 and incrementing by 1. A new file number is assigned whenever the size of a checkpoint image exceeds the specified limit and a new file is created.
 >
@@ -4258,7 +4258,7 @@ CHECKPOINT PATH ‘Checkpoint Image File Path List’
 SPLIT EACH integer [K/M/G]
 ```
 
-The checkpoint image file path attribute only applies to memory tablespaces. Altibase uses ping-pong checkpointing for high-performance transaction processing in memory tablespaces. For ping-pong checkpointing, at least two sets of checkpoint images are created on disk. Each checkpoint image can be divided into several files and saved in that form. The size of the files into which the checkpoint image is divided can be specified using the SPLIT EACH clause. These files can be stored in different paths in order to distribute the expense of disk I/O. The user can freely specify the size of the files into which the checkpoint image is divided and the path where the checkpoint images are saved. The user can add or change paths for saving checkpoint image files, but cannot change the size of the files into which the checkpoint image is divided once it has been set.
+The checkpoint image file path attribute only applies to memory tablespaces. Altibase uses ping pong checkpointing for high-performance transaction processing in memory tablespaces. For ping pong checkpointing, at least two sets of checkpoint images are created on disk. Each checkpoint image can be divided into several files and saved in that form. The size of the files into which the checkpoint image is divided can be specified using the SPLIT EACH clause. These files can be stored in different paths in order to distribute the expense of disk I/O. The user can freely specify the size of the files into which the checkpoint image is divided and the path where the checkpoint images are saved. The user can add or change paths for saving checkpoint image files, but cannot change the size of the files into which the checkpoint image is divided once it has been set.
 
 ##### Volatile Tablespace Attributes
 
@@ -6711,15 +6711,15 @@ Set COMMIT_WRITE_WAIT_MODE and LOG_BUFFER_TYPE to 1 and 1, respectively. With th
 
 Checkpointing stores content of the main memory database to backup data files on a regular basis. The purpose of checkpointing is to minimize the time taken to recover a database from a system failure.
 
-Altibase uses fuzzy and ping-pong checkpointing methods to securely back up and manage databases.
+Altibase uses fuzzy and ping pong checkpointing methods to securely back up and manage databases.
 
 #### Checkpointing Memory Databases
 
-Altibase prioritizes transaction performance and database stability by implementing fuzzy checkpointing and ping-pong checkpointing together for checkpointing memory databases. 
+Altibase prioritizes transaction performance and database stability by implementing fuzzy checkpointing and ping pong checkpointing together for checkpointing memory databases. 
 
 A fuzzy checkpoint allows other transactions to proceed during the checkpoint process. When performing a fuzzy checkpoint, checkpoint image files may contain a mixture of committed and uncommitted transaction data. The name "fuzzy checkpoint" originates from this state.
 
-A ping-pong checkpoint alternates writing dirty pages between two checkpoint image files during the checkpoint process. The checkpoint image file that fully reflects the dirty pages and is the most recently written is referred to as the stable checkpoint image file.
+A ping pong checkpoint alternates writing dirty pages between two checkpoint image files during the checkpoint process. The checkpoint image file that fully reflects the dirty pages and is the most recently written is referred to as the stable checkpoint image file.
 
 General databases implement the Write Ahead Logging (WAL) protocol which writes log records to disk before applying the modified data page to disk, in order to ensure database consistency. The database server controls concurrency with logs by acquiring the latch in the checkpoint target page to implement the WAL protocol. Degradation of other transactions can occur throughout this process.
 

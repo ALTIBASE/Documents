@@ -6909,7 +6909,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | CM_Multiplexing                        | The memory that is used for saving session information for communication |
 | CM_NetworkInterface                    | The memory that is used for saving information about individual communication nodes |
 | Condition_Variable                     | The memory used to manage condition variables for multithreaded control |
-| Database_Link              | The memory that is used by Database Link                     |
+| Database_Link                          | The memory that is used by Database Link                     |
 | Dynamic Module Loader                  | The memory used when loading shared libraries                |
 | External_Procedure                     | The memory used by external procedures                       |
 | External_Procedure_Agent               | The Memory used by the external procedure agent              |
