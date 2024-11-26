@@ -2707,12 +2707,12 @@ For more detailed information, please refer to the *[Log Analyzer User's Manual]
 
 This flag indicates whether to use the recovery and offline options, which are extra replication features. The replication option types are as in the following. Each option is controlled by binary number and expressed as a decimal number. If more than two options are used, the sum of the binary numbers of each option is returned as decimal numbers.
 
-- 0(00000): Do not use the recovery or offline option
-- 1(00001): Use the recovery option 
-- 2(00010): Use the offline option 
-- 4(00100): Use the gapless option 
-- 8(01000): Use the parallel applier option 
-- 16(10000): Use the replication transaction grouping option
+- 0(00000000): Do not use the recovery or offline option
+- 1(00000001): Use the recovery option 
+- 2(00000010): Use the offline option 
+- 4(00000100): Use the gapless option 
+- 8(00001000): Use the parallel applier option 
+- 16(00010000): Use the replication transaction grouping option
 - 32(00100000): For internal use
 - 64(01000000): Use the meta logging option
 
@@ -6909,7 +6909,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | CM_Multiplexing                        | The memory that is used for saving session information for communication |
 | CM_NetworkInterface                    | The memory that is used for saving information about individual communication nodes |
 | Condition_Variable                     | The memory used to manage condition variables for multithreaded control |
-| DatabaseLink                           | The memory that is used by Database Link                     |
+| Database_Link              | The memory that is used by Database Link                     |
 | Dynamic Module Loader                  | The memory used when loading shared libraries                |
 | External_Procedure                     | The memory used by external procedures                       |
 | External_Procedure_Agent               | The Memory used by the external procedure agent              |
@@ -6964,7 +6964,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | Replication_Control                    | The memory that is used by the Replication Manager           |
 | Replication_Data                       | The memory that is used for processing XLOGs                 |
 | Replication_Executor                   | Not currently used                                           |
-| Replication_Met                        | The memory used by meta cache                             |
+| Replication_Met                        | The memory used by meta cache                                |
 | Replication_Module_Property            | Not currently used                                           |
 | Replication_Network                    | The memory that is used for communication for replication    |
 | Replication_Receiver                   | The memory that is used by the replication Receiver          |
@@ -7001,7 +7001,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | Storage_Memory_Utility                 | The memory that is used when the Storage Manager Tool is used |
 | Storage_Tablespace                     | The memory that is used for managing and allocating tablespace nodes |
 | SYSTEM                                 | The memory allocated directly by the operating system using the malloc function |
-| Tablespace_Free_Extent_Pool | The memory that is used for managing free extent pools of tablespaces |
+| Tablespace_Free_Extent_Pool            | The memory that is used for managing free extent pools of tablespaces |
 | Temp_Memory                            | The memory that is used when allocating temporary space      |
 | Thread_Stack                           | The memory used by the thread stack when the thread is created |
 | Timer_Manager                          | The memory for the timer manager, which uses the timer thread when checking the system time |

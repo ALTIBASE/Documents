@@ -102,6 +102,8 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 # Table Of Contents
 
+- [Preface](#preface)	
+  - [About This Manual](#about-this-manual)
 - [1. Introduction](#1-introduction)
   - [Hybrid DBMS Concept](#hybrid-dbms-concept)
   - [Altibase Features](#altibase-features)
@@ -196,7 +198,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 ### About This Manual
 
-  This manual explains the concepts, components, and basic use of Altibase
+This manual explains the concepts, components, and basic use of Altibase
 
 #### Audience
 
@@ -502,11 +504,11 @@ Double Write refers to the process of writing pages twice to prevent data corrup
 
 ##### Double Write in Disk Databases
 
-In Altibase, differences in page size between the Altibase system and the underlying file system may result in incomplete pages if the server abnormally terminates during disk I/O operations.
+If the page size of the Altibase system is different the physical page size of the file system, and if the Altibase server terminates abnormally during the disk I/O, the page may be corrupted.
 
-To prevent such issues, Altibase saves a copy of the page to a Double Write file on the disk before writing it to its original location. Upon system restart, Altibase compares the contents of the Double Write file with the actual page content to restore any corrupted pages.
+To avoid this, Altibase saves the same image to a "double-write file" on the disk and then saves the page back to its original location when the page is flushed. Furthermore, when the Altibase server is restarted, it compares the contents of the double-write file with that of the actual page, and restores any corrupted pages.
 
-While the Double Write feature enhances data integrity by compensating for disk-related issues, it may impact system performance. Users have the option to disable this feature for performance optimization.
+The double write function in disk database compensates for disk errors, but can degrade the system's performance. This feature may not be used by the user for performance.
 
 ##### Double Write in Memory Databases
 
@@ -3671,7 +3673,7 @@ Because a continuous memory space is divided into pages, a table can be thought 
 
 However, because the purpose of memory tablespace is to provide faster access to data than managing large amounts of data, the concept of segments and extents is not necessary. Therefore, tables in a memory tablespace are managed using lists of pages. 
 
-The data in memory tables is physically stored in checkpoint image files when checkpointing occurs. While the primary purpose of data files in disk databases is to store objects, the checkpoint image files in memory databases are used for object backup. Although checkpoint image files are not directly required for database operations, they are essential for reducing restart, backup, and recovery times.
+Memory tables are physically backed up in checkpoint image files when checkpointing occurs. While the primary purpose of data files in disk databases is to store objects, the checkpoint image files in memory databases are used for object backup. Although checkpoint image files are not directly required for database operations, they are essential for reducing restart, backup, and recovery times.
 
 Altibase performs ping pong checkpoints for memory databases, alternating the writing of dirty pages between two checkpoint image files. To distribute disk I/O costs, checkpoint images can be divided into multiple smaller files. For more detailed information about checkpoints, refer to [Checkpointing](#checkpointing) in Chapter 8.
 
@@ -5133,23 +5135,23 @@ The estimated size of each data type is shown in the following table.
 
 (P = Precision, V = Value length)
 
-| Data Type | Estimated Column Size              |
-| --------- | ---------------------------------- |
-| INTEGER   | 4                                  |
-| SMALLINT  | 2                                  |
-| BIGINT    | 8                                  |
-| DATE      | 8                                  |
-| DOUBLE    | 8                                  |
-| CHAR      | 2 + P                              |
-| VARCHAR   | 22 + V                             |
-| NCHAR     | 2+(P*2) - UTF8<br>2+(P\*3) - UTF16   |
+| Data Type | Estimated Column Size                 |
+| --------- | ------------------------------------- |
+| INTEGER   | 4                                     |
+| SMALLINT  | 2                                     |
+| BIGINT    | 8                                     |
+| DATE      | 8                                     |
+| DOUBLE    | 8                                     |
+| CHAR      | 2+P                                   |
+| VARCHAR   | 22+V                                  |
+| NCHAR     | 2+(P*2) - UTF8<br>2+(P\*3) - UTF16    |
 | NVARCHAR  | 22+(V\*2) - UTF8<br>22+(V\*3) - UTF16 |
-| BIT       | 4 + (P/8)                          |
-| VARBIT    | 22 + (P/8)                         |
-| BYTE      | 2+P                                |
-| VARBYTE   | 22+V                               |
-| FLOAT     | 3 + (P+2)/2                        |
-| NUMERIC   | 3 + (P+2)/2                        |
+| BIT       | 4+(P/8)                               |
+| VARBIT    | 22+(P/8)                              |
+| BYTE      | 2+P                                   |
+| VARBYTE   | 22+V                                  |
+| FLOAT     | 3+(P+2)/2                             |
+| NUMERIC   | 3+(P+2)/2                             |
 
 In the above table, P (Precision) indicates the size of the column determined when the table is created. Data longer than P cannot be inserted into a column of the corresponding data type. V (Value) is the actual length of the inserted data, so V cannot be greater than P. 
 
@@ -5348,7 +5350,6 @@ In Altibase, the size of a disk table can be calculated on the basis of the data
         <td>6+(V+2)/2</td>
     </tr>
 </table>
-
 In the above table, P (Precision) indicates the maximum size of the column, which is set when the table is created. Data longer than P cannot be inserted into a column of that type. Additionally, for fixed-length columns, such as those of type CHAR, NCHAR, BIT, etc., space equal to P is always occupied, and therefore the length of the column is fixed regardless of the actual length of the data.
 
 V (Value) denotes the actual length of the inserted data, which of course cannot be greater than P. In addition, the amount of space occupied by variable-length columns, such as those of type VARCHAR, NVARCHAR, VARBIT, VARBYTE, etc., varies according to the length of the data. Therefore, the column size can vary depending on the size of the data.
@@ -6808,7 +6809,7 @@ When the checkpoint scale is set to Single, the method of recording checkpoint i
 
   ⑤ Delete the existing checkpoint image file.
 
-- **더블 라이트**
+- **Double Write**
 
   This method is applied when dirty pages are 50% or less of the checkpoint image file:
 
