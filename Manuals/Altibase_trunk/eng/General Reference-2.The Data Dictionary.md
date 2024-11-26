@@ -104,6 +104,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
+
 - [1. The Data Dictionary](#1-the-data-dictionary)
   - [Meta Tables](#meta-tables)
   - [SYS_AUDIT\_](#sys_audit_)
@@ -2707,14 +2708,12 @@ For more detailed information, please refer to the *[Log Analyzer User's Manual]
 
 This flag indicates whether to use the recovery and offline options, which are extra replication features. The replication option types are as in the following. Each option is controlled by binary number and expressed as a decimal number. If more than two options are used, the sum of the binary numbers of each option is returned as decimal numbers.
 
-- 0(00000000): Do not use the recovery or offline option
-- 1(00000001): Use the recovery option 
-- 2(00000010): Use the offline option 
-- 4(00000100): Use the gapless option 
-- 8(00001000): Use the parallel applier option 
-- 16(00010000): Use the replication transaction grouping option
-- 32(00100000): For internal use
-- 64(01000000): Use the meta logging option
+- 0(00000): Do not use the recovery or offline option
+- 1(00001): Use the recovery option 
+- 2(00010): Use the offline option 
+- 4(00100): Use the gapless option 
+- 8(01000): Use the parallel applier option 
+- 16(10000): Use the replication transaction grouping option
 
 ##### INVALID_RECOVERY
 
@@ -4310,6 +4309,7 @@ Performance views are identified by the prefix V$. The following table lists all
 | V\$MEM_BTREE_NODEPOOL                 | Information about node pools for memory BTREE Indices        |
 | V\$MEM_RTREE_HEADER                   | Information about headers of memory RTREE indexes            |
 | V\$MEM_RTREE_NODEPOOL                 | Information about node pools for memory RTREE indexes        |
+| V$MEM_STABLE                 | Information about the stable checkpoint image file        |
 | V\$MEM_TABLESPACES                    | Information about tablespaces created in memory              |
 | V\$MEM_TABLESPACE_CHECKPOINT_PATHS    | Information about the location of DB files in which to record checkpointing details during checkpointing |
 | V\$MEM_TABLESPACE_STATUS_DESC         | Internal information about the status of memory tablespaces  |
@@ -6786,6 +6786,7 @@ This view displays information about log anchors.
 | OLDEST_LFGID              | INTEGER     | Not used(0)                                                  |
 | OLDEST_LOGFILE_NO         | INTEGER     | When restart recovery is performed, the log file number from which disk-related redo will begin |
 | OLDEST_LOGFILE_OFFSET     | INTEGER     | When restart recovery is performed, the log file offset from which disk-related redo will begin |
+| CHECKPOINT_SCALE | VARCHAR(12) | The current checkpoint scale configuration of the database |
 
 #### Column Information
 
@@ -6805,6 +6806,13 @@ This indicates whether Archivelog mode is enabled for the database.
     performing media recovery.
 
 -   NOARCHIVE: In this mode, unnecessary log files are deleted.
+
+##### CHECKPOINT_SCALE
+
+This indicates the current checkpoint scale setting of the database.
+
+- PAIR: Refer to [Checkpoint Scale Pair](링크 수정).
+- SINGLE: Refer to [Checkpoint Scale Single](링크 수정).
 
 ### V\$LOCK_WAIT
 
@@ -6900,7 +6908,11 @@ This is the name of the module being used by Altibase. This column contains the 
 | CM_Multiplexing                        | The memory that is used for saving session information for communication |
 | CM_NetworkInterface                    | The memory that is used for saving information about individual communication nodes |
 | Condition_Variable                     | The memory used to manage condition variables for multithreaded control |
-| Database_Link                          | The memory that is used by Database Link                     |
+| DatabaseLink                           | The memory that is used by Database Link                     |
+| Disaster_recovery                      | The memory used by disaster recovery                         |
+| Disaster_recovery_Control              | The memory used by the role manager in disaster recovery     |
+| Disaster_recovery_Executor             | The memory used during disaster recovery                     |
+| Disaster_recovery_Storage              | Not currently used                                           |
 | Dynamic Module Loader                  | The memory used when loading shared libraries                |
 | External_Procedure                     | The memory used by external procedures                       |
 | External_Procedure_Agent               | The Memory used by the external procedure agent              |
@@ -6944,9 +6956,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | Query_Prepare                          | The memory that is used for preparing queries for execution  |
 | Query_PSM_Concurrent_Execute           | The memory that is used for executing the DBMS_CONCURRENT_EXEC package |
 | Query_PSM_Execute                      | The memory that is used for executing PSM (Persistent Stored Module) |
-| Query_PSM_Internal_Execute             | Not currently used                                           |
 | Query_PSM_Node                         | The memory that is used for managing PSM array variables     |
-| Query_PSM_Varray                       | The memory that is used for VARRAY in PSM                    |
 | Query_Sequence                         | The memory that is used for managing sequences               |
 | Query_Transaction                      | The memory that is used for executing triggers               |
 | Remote_Call_Client                     | Not currently used                                           |
@@ -6955,7 +6965,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | Replication_Control                    | The memory that is used by the Replication Manager           |
 | Replication_Data                       | The memory that is used for processing XLOGs                 |
 | Replication_Executor                   | Not currently used                                           |
-| Replication_Met                        | The memory used by meta cache                                |
+| Replication_Met                        | The memory used by meta cache                             |
 | Replication_Module_Property            | Not currently used                                           |
 | Replication_Network                    | The memory that is used for communication for replication    |
 | Replication_Receiver                   | The memory that is used by the replication Receiver          |
@@ -6964,9 +6974,8 @@ This is the name of the module being used by Altibase. This column contains the 
 | Replication_Storage                    | The memory that is used to apply XLOGs                       |
 | Replication_Sync                       | The memory that is used for synchronization in replication   |
 | RESERVED                               | Allocated, but not allocated when using the TLSF memory manager |
-| Shared Meta                            | Not currently used                                           |
 | Socket_Manager                         | Not currently used                                           |
-| SQL_Plan_Cache_Control                 | The memory that is used for the SQL Plan Cache               |
+| SQL Plan Cache Control                 | The memory that is used for the SQL Plan Cache               |
 | Storage_DataPort                       | Memory that is used for executing DataPort                   |
 | Storage_Disk_Buffer                    | The memory that is used by the Disk Buffer Manager           |
 | Storage_Disk_Collection                | The memory that is used for performing Direct-Path Insert and LOB calculations for disk tables |
@@ -6992,7 +7001,7 @@ This is the name of the module being used by Altibase. This column contains the 
 | Storage_Memory_Utility                 | The memory that is used when the Storage Manager Tool is used |
 | Storage_Tablespace                     | The memory that is used for managing and allocating tablespace nodes |
 | SYSTEM                                 | The memory allocated directly by the operating system using the malloc function |
-| Tablespace_Free_Extent_Pool            | The memory that is used for managing free extent pools of tablespaces |
+| Tablespace Free Extent Pool            | The memory that is used for managing free extent pools of tablespaces |
 | Temp_Memory                            | The memory that is used when allocating temporary space      |
 | Thread_Stack                           | The memory used by the thread stack when the thread is created |
 | Timer_Manager                          | The memory for the timer manager, which uses the timer thread when checking the system time |
@@ -7208,7 +7217,7 @@ This is the number of times the node that was used in the index was deleted and 
 
 ##### FREE_REQ_COUNT
 
-This is the number of return requests that have been made to the node pool for nodes that were used for BTREE indexes and then deleted. This is the cumulative number since the system was started
+This is the number of return requests that have been made to the node pool for nodes that were used for BTREE indexes and then deleted. This is the cumulative number since the system was started.
 
 ### V\$MEM_RTREE_HEADER
 
@@ -7315,6 +7324,33 @@ This is the number of return requests that have been made to the node pool for n
 
 This is the number of nodes that were being used by RTREE indexes and are waiting to be deleted.
 
+### V\$MEM_STABLE
+
+This view shows information about the stable checkpoint image file of the memory tablespaces.
+
+| Column name | Type         | Description                                 |
+| ----------- | ------------ | ------------------------------------------- |
+| SPACE_ID    | INTEGER      | The tablespace identifier              |
+| SPACE_NAME  | VARCHAR(512) | The name of the tablespace             |
+| FILE_NUM    | INTEGER      | The file number of the stable checkpoint image file |
+| CURRENT_DB  | INTEGER      | The ping-pong number of the stable checkpoint image file |
+
+#### Column Information
+
+##### FILE_NUM
+
+This indicates the file number of the stable checkpoint image file.
+
+If checkpoint scale is set to PAIR, the value of FILE_NUM is always 0. This is bacause all stable checkpoint image files in the tablespace share the same ping-pong number. Thus, the number for other files can be inferred from file number 0. 
+
+Otherwise, if checkpoint scale is set to SINGLE, it displays the file numbers for all stable checkpoint image files.
+
+The checkpoint scale setting can be checked in the CHECKPOINT_SCALE column of the V$LOG view.
+
+##### CURRENT_DB
+
+This indicates the ping-pong number of the stable checkpoint image file.
+
 ### V\$MEM_TABLESPACES
 
 This view shows information about tablespaces that exist in memory.
@@ -7336,7 +7372,7 @@ This view shows information about tablespaces that exist in memory.
 | ALLOC_PAGE_COUNT    | BIGINT       | The total number of pages in the tablespace                  |
 | FREE_PAGE_COUNT     | BIGINT       | The number of free pages in the tablespace                   |
 | RESTORE_TYPE        | BIGINT       | How to load the tablespace into memory                       |
-| CURRENT_DB          | INTEGER      | A set of files that are the target for ping pong checkpointing |
+| CURRENT_DB          | INTEGER      | The ping-pong number of the stable checkpoint image file. |
 | HIGH_LIMIT_PAGE     | BIGINT       | The maximum number of pages that the tablespace can have     |
 | PAGE_COUNT_PER_FILE | BIGINT       | The number of pages per database image file                  |
 | PAGE_COUNT_IN_DIS K | INTEGER      | The number of pages that exist on disk                       |
@@ -7403,7 +7439,12 @@ This indicates how the tablespace is loaded into memory. It can have the followi
 
 ##### CURRENT_DB
 
-This is the database image file group into which dirty pages (changed pages) are downloaded during checkpointing. It can be 0 or 1.
+This indicates the ping-pong number of the stable checkpoint image file in the tablespace.
+
+If checkpoint scale is set to PAIR,  the value of this column is either 0 or 1.
+If checkpoint scale is set to SINGLE, the value of this column is -1. In this case, the ping-pong number of the stable checkpoint image file can be verified in the V$MEM_STABLE view.
+
+The checkpoint scale setting can be checked in the CHECKPOINT_SCALE column of the V$LOG view.
 
 ##### HIGH_LIMIT_PAGE
 
