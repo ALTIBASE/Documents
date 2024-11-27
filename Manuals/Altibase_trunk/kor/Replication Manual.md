@@ -2235,47 +2235,52 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 -   REPLICATION_UPDATE_REPLACE
 -   REPLICATION_META_ITEM_COUNT_DIFF_ENABLE
 
-# 4.이중화 환경에서 DDL 문 수행하기
+# 4.이중화 환경에서 DDL 문 수행
 
-## 이중화와 DDL 문 수행 개요
+## 개요
 
-기본적으로 이중화 대상 테이블이나 파티션(이하 '이중화 대상')에서 DDL 문을 수행하려면, 먼저 해당 이중화 대상을 이중화 객체에서 제거해야 한다. 이는 DDL 문이 이중화 대상의 메타 정보를 변경하여 이중화 서버 간에 데이터 불일치가 발생할 수 있기 때문이다. 그러나 Altibase는 운영의 효율성을 위해 이중화 대상을 제거하지 않고도 DDL 문을 수행할 수 있는 방법을 제공한다. 
+ Altibase는 지역서버에 발생한 트랜잭션 로그를 상대편 서버에 전송하여 데이터를 일치시키는 형태의 네트워크 기반의 이중화 기법을 제공한다. 다만, DDL 작업은 로그를 전송하지 않는다. 이는 DDL 문이 이중화 대상의 메타 정보를 변경하여 이중화 서버 간에 데이터 불일치가 발생할 수 있기 때문이다.  따라서 일반적으로 이중화 환경에서 DDL 문을 수행하려면 먼저 해당 이중화 대상을 이중화 객체에서 제거한 후 각각의 노드에서  DDL 작업을 수행해야 한다.
 
-이중화 관련 프로퍼티의 설정에 따라 수행할 수 있는 DDL 문이 다르기 때문에 사용자는 수행하고자 하는 DDL 문에 맞게 프로퍼티를 설정해야 한다.
+그러나 Altibase는 운영의 효율성을 위해 이중화 대상을 제거하지 않고도 DDL 문을 수행할 수 있는 방법을 제공한다.
+
+만약 일반적인 DDL 문 수행 절차를 알고싶다면 [B.부록: 일반적인 DDL 문 수행 절차](#b부록-일반적인-DDL-문-수행-절차)을 참고한다.
 
 ### DDL 문 수행 관련 프로퍼티
 
 이중화 대상에 DDL 문을 수행할 때 설정해야 하는 프로퍼티는 다음과 같다.
 
 | 프로퍼티                       | 설명                                                         | 기본값 |
-| ------------------------------ | ------------------------------------------------------------ | ------ |
+|:------------------------------ |:------------------------------------------------------------ |:------:|
 | `REPLICATION_DDL_ENABLE`       | 이중화 대상에 DDL 문을 수행할 수 있게 한다. 이중화 대상에 DDL 문을 수행하려면 이 값을 1로 설정해야 한다. | 0      |
 | `REPLICATION_DDL_ENABLE_LEVEL` | 이중화 대상에 수행할 DDL 문의 레벨을 결정한다.               | 0      |
 | `REPLICATION_SQL_APPLY_ENABLE` | [SQL 반영 모드](#부록-C-sql-반영-모드)를 활성화한다.         | 0      |
 
 ### 제약사항
 
-- 이중화 대상이 다음과 같은 이중화 객체에 속할 경우, DDL 문을 수행할 수 없다. 
+이중화 대상이 다음과 같은 이중화 객체에 속할 경우, DDL 문을 수행할 수 없다.
 
   - [복구 옵션](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication%20Manual.md#%EB%B3%B5%EA%B5%AC-%EC%98%B5%EC%85%98recovery-option)이 설정된 이중화 객체
 
-    이 경우 이중화 객체를 삭제 후 DDL 문을 수행한 뒤 다시 이중화 객체를 생성해야 한다. 
+    이 경우 이중화 객체를 삭제한 후 DDL 문을 수행한 뒤 다시 이중화 객체를 생성해야 한다. 
 
   - EAGER 모드로 동작 중인 이중화 객체
 
     이 경우 [B.부록 : 이중화 대상 DDL 문 수행](#기본-이중화-대상-DDL-문-수행-방법)을 참고한다.
+    
+### 주의사항
 
-- 이중화 대상에 DDL 문을 수행할 때 해당 테이블은 잠금(LOCK) 상태가 된다. 이 때 송신 쓰레드가 이중화 로그를 전송할 경우, 수신 쓰레드는 잠금 상태가 되어 대상 테이블에 트랜잭션 접근을 제한한다. QQ: 내용확인 필요
-
-
+이중화 대상에 DDL 문을 수행할 때 해당 테이블은 잠금(LOCK) 상태가 된다. 이 때 송신 쓰레드가 수행 중인 DDL 문 이외의 이중화 로그를 전송할 경우, 수신 쓰레드는 잠금 상태가 되어 대상 테이블에 트랜잭션 접근이 제한될 수 있다.
 
 ## 수행할 수 있는 DDL 문
 
-이 절에서는 `REPLICATION_DDL_ENABLE_LEVEL` 프로퍼티 값에 따라 레벨 1과 레벨 0으로 나누어 이중화 대상에 수행할 수 있는 DDL 문을 소개한다. 또한, DDL 문 수행 시 프로퍼티 설정에 영향을 받지 않는 구문도 다룬다.
+이 절에서는 이중화 환경에서 수행할 수 있는 DDL 문을 소개한다.
+이중화 환경에서 DDL 문 수행 가능 여부는 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티의 설정 값에 따라 달라진다. 따라서 사용자는 수행하려는 DDL 문에 맞게 이 프로퍼티를 설정해야 한다.
+`REPLICATION_DDL_ENABLE_LEVEL` 프로퍼티는 0과 1 두 가지 레벨로 설정할 수 있다. 
+또한, 이 절에서는 프로퍼티 설정에 영향을 받지 않고 항상 수행 가능한 DDL 문도 설명한다.
 
 ### DDL 문 레벨 1
 
-`REPLICATION_DDL_ENABLE_LEVEL`이 1로 설정된 경우 수행 가능한 DDL 문이다. 아래의 구문들은 이중화 대상의 메타 정보를 변경하므로, **변경된 메타 정보를 상대 서버에 반영하기 위해 SQL 반영 모드를 활성화**해야 한다.
+다음은 `REPLICATION_DDL_ENABLE_LEVEL`이 1로 설정된 경우 수행 가능한 DDL 문이다. DDL 문 레벨을 1로 설정하면 보다 수행할 수 있는 DDL 문의 범위가 넓어진다. 다만, 아래에 소개된 구문을 수행하려면 반드시 **SQL 반영 모드를 활성화**해야 한다..
 
 > [!tip]
 >
@@ -2308,12 +2313,12 @@ ALTER TABLE table_name DROP COLUMN column_name;
 
 다음과 같은 칼럼은 삭제할 수 없다.
 
-- 프라이머리 키가 설정된 칼럼
+- 프라이머리 키
 - 압축 칼럼
 
 #### 파티션 연산
 
-파티션을 분할, 병합 또는 삭제할 수 있다.
+파티션을 분할, 합병 또는 삭제할 수 있다. 파티션 연산으로 생성/삭제된 파티션은 자동으로 이중화 대상 파티션으로 추가/삭제된다.
 
 ```sql
 ALTER TABLE table_name SPLIT PARTITION .....;
@@ -2324,12 +2329,9 @@ ALTER TABLE table_name DROP PARTITION partiton_name;
 파티션 연산을 수행할 때는 다음과 같은 사항을 주의해야 한다.
 
 - **지역 서버와 원격 서버 모두에서 이중화를 중지**해야 한다.
-- 파티션 연산으로 생성/삭제된 파티션은 자동으로 이중화 대상 파티션으로 추가/삭제된다.
-- 이중화 대상 파티션에 파티션 연산 구문을 수행할때, 원격 서버에도 같은 이름으로 파티션 연산 구문을 수행해야 한다. QQ: 이건 꼭 파티션 연산이어서가 아니라 모든 이중화 대상 DDL 문 수행에 필요한 것 아닌지?
-- **파티션 병합**
-  - 병합하려는 파티션은 모두 이중화 대상이어야 한다.
-- **파티션 삭제**
-  - 이중화 대상인 파티션이 최소 2개 이상이어야 한다.
+- 수행하려는 구문에 입력된 파티션 이름이 지역 서버와 원격 서버에서 모두 같아야 한다.
+- 파티션을 합병하려면 합병하려는 파티션이 모두 이중화 대상이어야 한다.
+- 파티션을 삭제하려면 이중화 대상인 파티션이 최소 2개 이상 있어야 한다.
 
 #### 테이블 제약조건 추가, 변경 및 삭제
 
@@ -2351,7 +2353,7 @@ DROP INDEX index_name;
 
 ### DDL 문 레벨 0
 
-#### 제약조건이 없는 칼럼 추가와 삭제
+#### 제약조건이 없는 칼럼 추가
 
 ```sql
 ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE );
@@ -2360,17 +2362,19 @@ ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE );
 다음과 같은 칼럼은 추가할 수 없다.
 
 - 압축 칼럼
-- 외래 키를 추가할 수 없다.
+- 외래 키
 - [제약조건](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Administrator's%20Manual.md#%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4)이 있는 칼럼
 
-```
+#### 제약조건이 없는 칼럼 삭제
+
+```sql
 ALTER TABLE table_name DROP COLUMN column_name;
 ```
 
 다음과 같은 칼럼은 삭제할 수 없다.
 
 - 압축 칼럼
-- 프라이머리 키가 설정된 칼럼
+- 프라이머리 키
 - [제약조건](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Administrator's%20Manual.md#%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4)이 있는 칼럼
 - 함수 기반 인덱스에 사용된 칼럼
 
@@ -2397,7 +2401,7 @@ TRUNCATE TABLE table_name;
 
 다음과 같은 데이터를 가진 테이블은 삭제할 수 없다.
 
-- 압축 칼럼을 가진 테이블
+- 압축 칼럼
 
 #### 인덱스 생성과 삭제
 
@@ -2453,6 +2457,8 @@ DROP TRIGGER
 ```
 
 - 이 구문을 수행하려면 `REPLICATION_DDL_SYNC` 설정이 0이어야 한다.
+
+
 
 ## 수행 방법
 
@@ -2586,48 +2592,48 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
         </tr>     
         <tr>       
             <td>서비스 이전 확인</td>       
-            <td><code>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</code></td>       
-            <td><code>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</code></td>       
-            <td><code>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</code></td>     
+            <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>       
+            <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>       
+            <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>     
         </tr>     
         <tr>       
             <td rowspan="3">프로퍼티 설정</td>       
             <td>DDL 문 수행 활성화</td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>     
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>     
         </tr>     
         <tr>       
             <td>DDL 문 수행 레벨 설정</td>       
             <td>-</td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>     
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>     
         </tr>     
         <tr>       
             <td>SQL 반영 모드 활성화</td>       
             <td>-</td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_MODE = 1;</code></td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_MODE = 1;</code></td>     
+            <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_MODE = 1;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_MODE = 1;</td>     
         </tr>     
         <tr>       
             <td>세션의 이중화 모드 설정</td>       
             <td></td>       
-            <td><code>ALTER SESSION SET REPLICATION_MODE = DEFAULT;</code></td>       
-            <td><code>ALTER SESSION SET REPLICATION_MODE = DEFAULT;</code></td>       
-            <td><code>ALTER SESSION SET REPLICATION_MODE = DEFAULT;</code></td>     
+            <td>ALTER SESSION SET REPLICATION_MODE = DEFAULT;</td>       
+            <td>ALTER SESSION SET REPLICATION_MODE = DEFAULT;</td>       
+            <td>ALTER SESSION SET REPLICATION_MODE = DEFAULT;</td>     
         </tr>     
         <tr>       
-            <td rowspan="3">DDL 문 수행</td>       
+            <td rowspan="5">DDL 문 수행</td>       
             <td>이중화 갭 해소</td>       
-            <td><code>ALTER REPLICATION replication_name FLUSH;</code></td>       
-            <td><code>ALTER REPLICATION replication_name FLUSH;</code></td>       
-            <td><code>ALTER REPLICATION replication_name FLUSH;</code></td>     
+            <td>ALTER REPLICATION replication_name FLUSH;</td>       
+            <td>ALTER REPLICATION replication_name FLUSH;</td>       
+            <td>ALTER REPLICATION replication_name FLUSH;</td>     
         </tr>     
         <tr>       
             <td>이중화 중지</td>       
             <td>-</td>       
             <td>-</td>       
-            <td><code>ALTER REPLICATON replication_name STOP;</code></td>     
+            <td>ALTER REPLICATON replication_name STOP;</td>     
         </tr>     
         <tr>       
             <td>DDL 문 수행</td>       
@@ -2636,43 +2642,42 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
             <td>DDL 문 수행</td>     
         </tr>     
         <tr>       
-            <td rowspan="2"></td>       
             <td>이중화 시작</td>       
             <td>-</td>       
             <td>-</td>       
-            <td><code>ALTER REPLICATON replication_name START;</code></td>     
+            <td>ALTER REPLICATON replication_name START;</td>     
         </tr>     
         <tr>       
             <td>이중화 갭 해소</td>       
-            <td><code>ALTER REPLICATION replication_name FLUSH;</code></td>       
-            <td><code>ALTER REPLICATION replication_name FLUSH;</code></td>       
-            <td><code>ALTER REPLICATION replication_name FLUSH;</code></td>     
+            <td>ALTER REPLICATION replication_name FLUSH;</td>       
+            <td>ALTER REPLICATION replication_name FLUSH;</td>       
+            <td>ALTER REPLICATION replication_name FLUSH;</td>     
         </tr>     
         <tr>       
             <td>SQL 반영 모드 동작 확인</td>       
             <td></td>       
             <td>-</td>       
-            <td><code>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</code></td>       
-            <td><code>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</code></td>     
+            <td>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>       
+            <td>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>     
         </tr>     
         <tr>       
             <td rowspan="3">프로퍼티 설정 원복</td>       
             <td>DDL 문 수행 비활성화</td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>     
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>     
         </tr>     
         <tr>       
             <td>DDL 문 수행 레벨 설정</td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>     
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>     
         </tr>     
         <tr>       
             <td>SQL 반영 모드 비활성화</td>       
             <td>-</td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>       
-            <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>     
+            <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>     
         </tr>     
         <tr>       
             <td rowspan="2">서비스 분배</td>       
@@ -2683,6 +2688,7 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
         </tr>   
     </tbody> 
 </table>
+
 ## 예제
 
 ### DDL 문 레벨 1 예제
@@ -2714,67 +2720,67 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
     <tr>
       <td rowspan="3">프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 활성화</td>
       <td></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
       <td></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
       <td rowspan="4">DDL 문 수행</td>
       <td>이중화 갭 해소</td>
       <td></td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
       <td></td>
-      <td><code>ALTER TABLE T1 MODIFY COLUMN ( c2 CHAR(10) );</code></td>
+      <td>ALTER TABLE T1 MODIFY COLUMN ( c2 CHAR(10) );</td>
     </tr>
     <tr>
       <td>이중화 갭 해소</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
-      <td><code>ALTER TABLE T1 MODIFY COLUMN ( c2 CHAR(10) );</code></td>
+      <td>ALTER TABLE T1 MODIFY COLUMN ( c2 CHAR(10) );</td>
       <td></td>
     </tr>
     <tr>
       <td>SQL 반영 모드 동작 확인</td>
       <td></td>
       <td></td>
-      <td><code>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</code></td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
     </tr>
     <tr>
       <td rowspan="3">프로퍼티 원복</td>
       <td>DDL 문 수행 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 비활성화</td>
       <td></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -2809,72 +2815,72 @@ Active1을 지역 서버로 간주한다.
     <tr>
       <td>서비스 이전 확인</td>
       <td></td>
-      <td><code>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</code></td>
+      <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
     </tr>
     <tr>
       <td rowspan="3">프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
       <td></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
       <td rowspan="4">DDL 문 수행</td>
       <td>이중화 갭 해소</td>
       <td></td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
       <td></td>
-      <td><code>ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );</code></td>
+      <td>ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );</td>
     </tr>
     <tr>
       <td>이중화 갭 해소</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
-      <td><code>ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );</code></td>
+      <td>ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );</td>
       <td></td>
     </tr>
     <tr>
       <td>SQL 반영 모드 동작 확인</td>
       <td></td>
-      <td><code>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</code></td>
-      <td><code>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</code></td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
     </tr>
     <tr>
       <td rowspan="3">프로퍼티 설정 원복</td>
       <td>DDL 문 수행 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -2912,67 +2918,67 @@ Active1을 지역 서버로 간주한다.
     <tr>
       <td rowspan="3">프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 활성화</td>
       <td></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
       <td></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
       <td rowspan="4">DDL 문 수행</td>
       <td>이중화 갭 해소</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
-      <td><code>ALTER TABLE T1 ADD CONSTRAINT T1_CHECK CHECK ( c2 &lt; 10 );</code></td>
+      <td>ALTER TABLE T1 ADD CONSTRAINT T1_CHECK CHECK ( c2 &lt; 10 );</td>
       <td></td>
     </tr>
     <tr>
       <td>이중화 갭 해소</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
       <td></td>
-      <td><code>ALTER TABLE T1 ADD CONSTRAINT T1_CHECK CHECK ( c2 &lt; 10 );</code></td>
+      <td>ALTER TABLE T1 ADD CONSTRAINT T1_CHECK CHECK ( c2 &lt; 10 );</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 동작 확인</td>
       <td></td>
       <td></td>
-      <td><code>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</code></td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
     </tr>
     <tr>
       <td rowspan="3">프로퍼티 원복</td>
       <td>DDL 문 수행 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 비활성화</td>
       <td></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -3007,72 +3013,72 @@ Active1을 지역 서버로 간주한다.
     <tr>
       <td>서비스 이전 확인</td>
       <td></td>
-      <td><code>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</code></td>
+      <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
     </tr>
     <tr>
       <td rowspan="3">프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
       <td></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
       <td rowspan="4">DDL 문 수행</td>
       <td>이중화 갭 해소</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
-      <td><code>ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 &lt; 10 );</code></td>
+      <td>ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 &lt; 10 );</td>
       <td></td>
     </tr>
     <tr>
       <td>이중화 갭 해소</td>
       <td></td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
       <td></td>
-      <td><code>ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 &lt; 10 );</code></td>
+      <td>ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 &lt; 10 );</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 동작 확인</td>
       <td></td>
-      <td><code>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</code></td>
-      <td><code>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</code></td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
     </tr>
     <tr>
       <td rowspan="3">프로퍼티 설정 원복</td>
       <td>DDL 문 수행 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -3108,72 +3114,72 @@ Active1을 지역 서버로 간주한다.
     <tr>
       <td rowspan="3">프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 활성화</td>
       <td></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
       <td></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
       <td rowspan="5">DDL 문 수행</td>
       <td>이중화 갭 해소</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
     <tr>
       <td>이중화 중지</td>
-      <td><code>ALTER REPLICATION rep1 STOP;</code></td>
+      <td>ALTER REPLICATION rep1 STOP;</td>
       <td></td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
-      <td><code>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</code></td>
-      <td><code>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</code></td>
+      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
+      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
     </tr>
     <tr>
       <td>이중화 시작</td>
-      <td><code>ALTER REPLICATION rep1 START;</code></td>
+      <td>ALTER REPLICATION rep1 START;</td>
       <td></td>
     </tr>
     <tr>
       <td>이중화 갭 해소</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
     <tr>
       <td>SQL 반영 모드 동작 확인</td>
       <td></td>
       <td></td>
-      <td><code>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</code></td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
     </tr>
     <tr>
       <td rowspan="3">프로퍼티 설정 원복</td>
       <td>DDL 문 수행 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 비활성화</td>
       <td></td>
-      <td><code>REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>
+      <td>REPLICATION_SQL_APPLY_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -3208,77 +3214,77 @@ Active1을 지역 서버로 간주한다.
     <tr>
       <td>서비스 이전 확인</td>
       <td></td>
-      <td><code>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</code></td>
+      <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
     </tr>
     <tr>
       <td rowspan="3">프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
       <td></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
       <td rowspan="5">DDL 문 수행</td>
       <td>이중화 갭 해소</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
     <tr>
       <td>이중화 중지</td>
-      <td><code>ALTER REPLICATION rep1 STOP;</code></td>
-      <td><code>ALTER REPLICATION rep1 STOP;</code></td>
+      <td>ALTER REPLICATION rep1 STOP;</td>
+      <td>ALTER REPLICATION rep1 STOP;</td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
-      <td><code>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</code></td>
-      <td><code>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</code></td>
+      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
+      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
     </tr>
     <tr>
       <td>이중화 시작</td>
-      <td><code>ALTER REPLICATION rep1 START;</code></td>
-      <td><code>ALTER REPLICATION rep1 START;</code></td>
+      <td>ALTER REPLICATION rep1 START;</td>
+      <td>ALTER REPLICATION rep1 START;</td>
     </tr>
     <tr>
       <td>이중화 갭 해소</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 동작 확인</td>
       <td></td>
-      <td><code>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</code></td>
-      <td><code>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</code></td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
     </tr>
     <tr>
       <td rowspan="3">프로퍼티 설정 원복</td>
       <td>DDL 문 수행 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -3315,40 +3321,40 @@ Active1을 지역 서버로 간주한다.
     <tr>
       <td>프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
       <td rowspan="4">DDL 문 수행</td>
       <td>이중화 갭 제거</td>
       <td></td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
       <td></td>
-      <td><code>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</code></td>
+      <td>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</td>
     </tr>
     <tr>
       <td>이중화 갭 제거</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
-      <td><code>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</code></td>
+      <td>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</td>
       <td></td>
     </tr>
     <tr>
       <td>프로퍼티 설정 원복</td>
       <td>DDL 문 수행 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -3383,55 +3389,55 @@ Active1을 지역 서버로 간주하고 두 Active 서버에 DDL 문을 수행�
     <tr>
       <td>서비스 이전 확인</td>
       <td></td>
-      <td><code>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</code></td>
+      <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
     </tr>
     <tr>
       <td rowspan="3">프로퍼티 설정</td>
       <td>관리자 모드 설정</td>
       <td></td>
-      <td><code>ALTER SYSTEM SET ADMIN_MODE = 1;</code></td>
+      <td>ALTER SYSTEM SET ADMIN_MODE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
       <td rowspan="4">DDL 문 수행</td>
       <td>이중화 갭 제거</td>
       <td></td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
       <td></td>
-      <td><code>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</code></td>
+      <td>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</td>
     </tr>
     <tr>
       <td>이중화 갭 제거</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
-      <td><code>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</code></td>
+      <td>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</td>
       <td></td>
     </tr>
     <tr>
       <td rowspan="2">프로퍼티 설정 원복</td>
       <td>관리자 모드 설정 해제</td>
       <td></td>
-      <td><code>ALTER SYSTEM SET ADMIN_MODE = 0;</code></td>
+      <td>ALTER SYSTEM SET ADMIN_MODE = 0;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -3449,9 +3455,7 @@ Active1을 지역 서버로 간주하고 두 Active 서버에 DDL 문을 수행�
 
 DDL 문 복제는 지역 서버에서 이중화 대상에 DDL 문을 수행했을 때 원격 서버로도 DDL 문을 복제하는 기능이다. 이 기능은 DDL 문 복제 프로퍼티를 활성화하여 사용할 수 있다.
 
-DDL 문 복제를 수행하면 트랜잭션은 동기식[^3]으로 동작하여, 주 트랜잭션 또는 복제 트랜잭션 중 하나에서 DDL 문이 실패하면 해당 DDL 문은 실패한다. 또한, 원격 서버의 이중화 대상 테이블도 잠금 상태가 되어 트랜잭션 접근이 제한된다.
-
-[^3]: 요청을 보낸 후 해당 요청의 응답을 받아야 다음 동작을 실행하는 방식을 의미한다.  QQ:  내용확인 필요
+DDL 문 복제를 수행하면 트랜잭션은 동기식으로 동작하여, 주 트랜잭션 또는 복제 트랜잭션 중 하나에서 DDL 문이 실패하면 해당 DDL 문은 실패한다. 또한, 지역 서버와 원격 서버의 이중화 대상 테이블은 잠금 상태가 되어 트랜잭션 접근이 제한된다.
 
 이 기능은 Altibase 7.1.0.x.x 부터 지원한다. (7.1 매뉴얼에만 추가)
 
@@ -3468,11 +3472,9 @@ DDL 문 복제를 수행하면 트랜잭션은 동기식[^3]으로 동작하여,
 
 DDL 문 복제 기능을 사용하기 위해서는 아래의 조건을 만족해야 한다.
 
-1.  Active-Standby 환경을 구성해야 한다.
-2. 지역 서버와 원격 서버에서 이중화가 모두 시작되어 있어야 한다.
-3. 지역 서버와 원격 서버에서 다음의 이중화 객체의 속성이 모두 같아야 한다.
-   - 이중화 프로토콜 버전
-   - DDL 문을 수행할 이중화 대상의 이름과 소유자
+- 지역 서버와 원격 서버에서 이중화가 모두 시작되어 있어야 한다.
+- 지역 서버와 원격 서버의 이중화 프로토콜 버전이 모두 같아야 한다.
+- 지역 서버와 원격 서버에서 DDL 문을 수행할 이중화 대상의 이름과 소유자가 모두 같아야 한다.
 
 ### 제약 사항
 
@@ -3488,7 +3490,7 @@ DDL 문 복제 기능을 사용하기 위해서는 아래의 조건을 만족해
 
 이 절에서는 DDL 문 복제를 수행하는 방법에 대하여 설명한다. 보다 자세한 절차는 [예제](#예제)를 참고한다.
 
-아래 수행 방법에서는 DDL을 수행할 서버를 지역 서버로, DDL 복제가 자동으로 수행되는 서버를 원격 서버로 간주한다. 또한, 이중화는 두 서버에서 모두 시작한 상태라고 가정한다.
+아래 수행 방법에서는 DDL 문을 수행할 서버를 지역 서버로, DDL 문 복제가 수행되는 서버를 원격 서버로 간주한다. 또한, 이중화는 두 서버에서 모두 시작한 상태라고 가정한다.
 
 **Step 1. 서비스 이전**
 
@@ -3504,7 +3506,9 @@ DDL 문 복제 기능을 사용하기 위해서는 아래의 조건을 만족해
 
 **Step 2. 프로퍼티 설정**
 
-이중화 쌍을 이루는 모든 서버에서 복제하고자 하는 DDL 문에 맞게 프로퍼티 설정을 변경한다. `REPLICATION_DDL_ENABLE_LEVEL` 은 [수행할 수 있는 DDL 문](#수행할-수-있는-DDL-문)을 참고하여 설정한다.
+지역 서버와 원격 서버에 DDL 문 수행에 필요한 프로퍼티를 설정한다.
+
+`REPLICATION_DDL_ENABLE_LEVEL` 은 [수행할 수 있는 DDL 문](#수행할-수-있는-DDL-문)을 참고하여 설정한다.
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
@@ -3594,48 +3598,48 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
     <tr>
       <td rowspan="2">프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 복제 활성화</td>
-      <td><code>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</code></td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
       <td></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
       <td>이중화 갭 해소</td>
       <td>원격 서버의 이중화 갭 해소</td>
       <td></td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
     <tr>
       <td></td>
       <td>지역 서버의 이중화 갭 해소</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
       <td></td>
-      <td><code>DDL 문 수행</code></td>
+      <td>DDL 문 수행</td>
       <td></td>
     </tr>
     <tr>
       <td rowspan="2">프로퍼티 설정 원복</td>
       <td>DDL 문 수행 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>DDL 문 복제 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -3652,7 +3656,7 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
 
 아래의 모든 예제는 DDL 문 복제 수행 조건을 만족하는 환경을 전제한다.
 
-### 예제 1
+### 예제 1 : TRUNCATE 문 복제
 
 다음은 이중화 객체 *rep1* 에 이중화 대상으로 추가된 테이블 *T1*을 TRUNCATE 하는 예제이다.
 
@@ -3675,48 +3679,48 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
     <tr>
       <td rowspan="2">프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 복제 활성화</td>
-      <td><code>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</code></td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
       <td></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
       <td>이중화 갭 해소</td>
       <td>원격 서버의 이중화 갭 해소</td>
       <td></td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
     <tr>
       <td></td>
       <td>지역 서버의 이중화 갭 해소</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
       <td></td>
-      <td><code>TRUNCATE TABLE t1;</code></td>
+      <td>TRUNCATE TABLE t1;</td>
       <td></td>
     </tr>
     <tr>
       <td rowspan="2">프로퍼티 설정 원복</td>
       <td>DDL 문 수행 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>DDL 문 복제 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -3727,7 +3731,7 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
   </tbody>
 </table>
 
-### 예제 2
+### 예제 2: NOT NULL 제약조건 설정
 
 다음은 이중화 객체 *rep1* 에 이중화 대상으로 추가된 테이블 *T1*의 칼럼 *C1*에 NOT NULL 제약조건을 설정하는 예제이다.
 
@@ -3750,62 +3754,62 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
     <tr>
       <td rowspan="4">프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 활성화</td>
       <td></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 복제 활성화</td>
-      <td><code>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</code></td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
       <td></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
       <td></td>
     </tr>
     <tr>
       <td>이중화 갭 해소</td>
       <td></td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
       <td></td>
-      <td><code>ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );</code></td>
+      <td>ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );</td>
       <td></td>
     </tr>
     <tr>
       <td rowspan="4">프로퍼티 설정 원복</td>
       <td>DDL 문 수행 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 비활성화</td>
       <td></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>DDL 문 복제 비활성화</td>
-      <td><code>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</code></td>
-      <td><code>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</code></td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -3816,7 +3820,7 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
   </tbody>
 </table>
 
-### 예제 3
+### 예제 3: 삼중화 환경에서 DDL 문 복제 수행
 
 다음은 삼중화 환경에서 이중화 대상 테이블에 NOT NULL 제약조건을 가진 칼럼을 추가하는 예제이다.
 
@@ -3852,32 +3856,32 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
     <tr>
       <td rowspan="4">프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 활성화</td>
       <td></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 복제 활성화</td>
-      <td><code>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</code></td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
       <td></td>
-      <td><code>ALTER SESSION SET REPLICATION = DEFAULT;</code></td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
       <td></td>
       <td></td>
     </tr>
@@ -3885,46 +3889,46 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
       <td rowspan="2">이중화 갭 해소</td>
       <td>원격서버</td>
       <td></td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;<br>ALTER REPLICATION rep3 FLUSH;</code></td>
-      <td><code>ALTER REPLICATION rep2 FLUSH;<br>ALTER REPLICATION rep3 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;<br>ALTER REPLICATION rep3 FLUSH;</td>
+      <td>ALTER REPLICATION rep2 FLUSH;<br>ALTER REPLICATION rep3 FLUSH;</td>
     </tr>
     <tr>
       <td>지역서버</td>
-      <td><code>ALTER REPLICATION rep1 FLUSH;<br>ALTER REPLICATION rep2 FLUSH;</code></td>
+      <td>ALTER REPLICATION rep1 FLUSH;<br>ALTER REPLICATION rep2 FLUSH;</td>
       <td></td>
       <td></td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
       <td></td>
-      <td><code>ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );</code></td>
+      <td>ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );</td>
       <td></td>
       <td></td>
     </tr>
     <tr>
       <td rowspan="4">프로퍼티 설정 원복</td>
       <td>DDL 문 수행 비활성화</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>DDL 문 수행 레벨 설정</td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
     </tr>
     <tr>
       <td>SQL 반영 모드 비활성화</td>
       <td></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>
-      <td><code>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</code></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
     </tr>
     <tr>
       <td>DDL 문 복제 비활성화</td>
-      <td><code>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</code></td>
-      <td><code>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</code></td>
-      <td><code>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</code></td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -5266,13 +5270,7 @@ V\$REPGAP 퍼포먼스 뷰의 REP_GAP칼럼 값으로 Replication Gap을 확인�
 
 네, 가능합니다.
 
-
-
-
-
-# B.부록: 이중화 대상 DDL 문 수행
-
-## 기본 이중화 대상 DDL 문 수행 방법
+# B.부록: 일반적인 DDL 문 수행 절차
 
 이 절에서는 프로퍼티를 설정하지 않고 이중화 대상에 DDL 문을 수행하는 방법을 소개한다.
 
@@ -5285,7 +5283,7 @@ V\$REPGAP 퍼포먼스 뷰의 REP_GAP칼럼 값으로 Replication Gap을 확인�
 
 이 절에서는 이중화 대상 서버 모두 동시에 서비스가 중지가 가능한 경우와 불가능한 경우, 두 경우에 어떻게 이중화 대상에 DDL 문을 수행하는 지 설명한다.
 
-#### 이중화 대상 서버의 서비스를 동시에 중지할 수 있는 환경
+## 이중화 대상 서버의 서비스를 동시에 중지할 수 있는 환경
 
 이중화 대상 서버를 같은 시점에 모두 운영 중지할 수 있는 환경에서는 다음과 같은 단계로 이중화 대상에 DDL 문을 수행할 수 있다.
 
@@ -5392,35 +5390,35 @@ ALTER REPLICATION replication_name START;
     	</tr>
         <tr>
       		<td>세션 확인</td>
-      		<td><code>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</code></td>
+      		<td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
       		<td></td>
     	</tr>
         <tr>
       		<td>관리자 모드 설정</td>
-      		<td><code>ALTER SYSTEM SET ADMIN_MODE = 1;</code></td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 1;</td>
       		<td></td>
     	</tr>
         <tr>
       		<td>이중화 갭 해소</td>
-      		<td><code>ALTER REPLICATION replication_name FLUSH;</code></td>
+      		<td>ALTER REPLICATION replication_name FLUSH;</td>
       		<td></td>
     	</tr>
         <tr>
       		<td>이중화 갭 해소 확인</td>
-      		<td><code>SELECT REP_NAME, REP_GAP FROM V$REPGAP;</code></td>
+      		<td>SELECT REP_NAME, REP_GAP FROM V$REPGAP;</td>
       		<td></td>
     	</tr>                          
         <tr>
             <td>이중화 중지</td>
             <td></td>
-      		<td><code>ALTER REPLICATION replication_name STOP;</code></td>
+      		<td>ALTER REPLICATION replication_name STOP;</td>
             <td></td>
     	</tr>
         <tr>
             <td>이중화 대상 삭제</td>
 			<td></td>
-      		<td><code>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</code></td>
-      		<td><code>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</code></td>
+      		<td>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</td>
+      		<td>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</td>
     	</tr>
         <tr>
             <td>DDL 문 수행</td>
@@ -5431,24 +5429,24 @@ ALTER REPLICATION replication_name START;
         <tr>
             <td>이중화 대상 원복</td>
       		<td></td>
-      		<td><code>	ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</code></td>
-			<td><code>	ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</code></td>
+      		<td>	ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</td>
+			<td>	ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</td>
     	</tr>
         <tr>
             <td>이중화 재시작</td>
       		<td></td>
-      		<td><code>ALTER REPLICATION replication_name START;</code></td>
+      		<td>ALTER REPLICATION replication_name START;</td>
             <td></td>
     	</tr>
         <tr>
             <td rowspan="3">사후 작업</td>
       		<td>이중화 갭 해소</td>
-      		<td><code>ALTER REPLICATION replication_name FLUSH;</code></td>
+      		<td>ALTER REPLICATION replication_name FLUSH;</td>
             <td></td>
     	</tr>
         <tr>
       		<td>관리자 모드 해제</td>
-      		<td><code>ALTER SYSTEM SET ADMIN_MODE = 0;</code></td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 0;</td>
             <td></td>
     	</tr>
         <tr>
@@ -5479,35 +5477,35 @@ ALTER REPLICATION replication_name START;
     	</tr>
         <tr>
       		<td>세션 확인</td>
-      		<td><code>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</code></td>
-      		<td><code>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</code></td>
+      		<td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+      		<td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
     	</tr>
         <tr>
       		<td>관리자 모드 설정</td>
-      		<td><code>ALTER SYSTEM SET ADMIN_MODE = 1;</code></td>
-      		<td><code>ALTER SYSTEM SET ADMIN_MODE = 1;</code></td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 1;</td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 1;</td>
     	</tr>
         <tr>
       		<td>이중화 갭 해소</td>
-      		<td><code>ALTER REPLICATION replication_name FLUSH;</code></td>
-      		<td><code>ALTER REPLICATION replication_name FLUSH;</code></td>
+      		<td>ALTER REPLICATION replication_name FLUSH;</td>
+      		<td>ALTER REPLICATION replication_name FLUSH;</td>
     	</tr>
         <tr>
       		<td>이중화 갭 해소 확인</td>
-      		<td><code>SELECT REP_NAME, REP_GAP FROM V$REPGAP;</code></td>
-      		<td><code>SELECT REP_NAME, REP_GAP FROM V$REPGAP;</code></td>
+      		<td>SELECT REP_NAME, REP_GAP FROM V$REPGAP;</td>
+      		<td>SELECT REP_NAME, REP_GAP FROM V$REPGAP;</td>
     	</tr>     
         <tr>
             <td>이중화 중지</td>
             <td></td>
-      		<td><code>ALTER REPLICATION replication_name STOP;</code></td>
-            <td><code>ALTER REPLICATION replication_name STOP;</code></td>
+      		<td>ALTER REPLICATION replication_name STOP;</td>
+            <td>ALTER REPLICATION replication_name STOP;</td>
     	</tr>
         <tr>
             <td>이중화 대상 삭제</td>
 			<td></td>
-      		<td><code>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</code></td>
-      		<td><code>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</code></td>
+      		<td>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</td>
+      		<td>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</td>
     	</tr>
         <tr>
             <td>DDL 문 수행</td>
@@ -5518,25 +5516,25 @@ ALTER REPLICATION replication_name START;
         <tr>
             <td>이중화 대상 원복</td>
       		<td></td>
-      		<td><code>	ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</code></td>
-			<td><code>	ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</code></td>
+      		<td>	ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</td>
+			<td>	ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</td>
     	</tr>
         <tr>
             <td>이중화 재시작</td>
       		<td></td>
-      		<td><code>ALTER REPLICATION replication_name START;</code></td>
-            <td><code>ALTER REPLICATION replication_name START;</code></td>
+      		<td>ALTER REPLICATION replication_name START;</td>
+            <td>ALTER REPLICATION replication_name START;</td>
     	</tr>
         <tr>
             <td rowspan="3">사후 작업</td>
       		<td>이중화 갭 해소</td>
-      		<td><code>ALTER REPLICATION replication_name FLUSH;</code></td>
-            <td><code>ALTER REPLICATION replication_name FLUSH;</code></td>
+      		<td>ALTER REPLICATION replication_name FLUSH;</td>
+            <td>ALTER REPLICATION replication_name FLUSH;</td>
     	</tr>
         <tr>
       		<td>관리자 모드 해제</td>
-      		<td><code>ALTER SYSTEM SET ADMIN_MODE = 0;</code></td>
-            <td><code>ALTER SYSTEM SET ADMIN_MODE = 0;</code></td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 0;</td>
+            <td>ALTER SYSTEM SET ADMIN_MODE = 0;</td>
     	</tr>
         <tr>
       		<td>서비스 시작</td>
@@ -5546,7 +5544,7 @@ ALTER REPLICATION replication_name START;
 	</tbody>
 </table>
 
-#### 이중화 대상 서버의 서비스를 동시에 중지할 수 없는 환경
+## 이중화 대상 서버의 서비스를 동시에 중지할 수 없는 환경
 
 이중화 대상 서버가 모두 서비스 중인 상태에서 두 서버를 동시에 중지할 수 없는 경우, 서비스를 한쪽 서버로 이관하고 DDL 문 수행을 각 서버에서 순차적으로 수행해야 한다. 
 
@@ -5654,38 +5652,38 @@ Active1 서버에서 수행한 **Step 1**부터 **Step 7** 작업을 Active2 서
         <tr>
             <td rowspan="6">Active1 사전 작업</td>
       		<td>이중화 갭 해소</td>
-      		<td><code>ALTER REPLICATION replication_name FLUSH;</code></td>
+      		<td>ALTER REPLICATION replication_name FLUSH;</td>
       		<td></td>
     	</tr>
         <tr>
       		<td>Active1 이중화 갭 해소 확인</td>
-      		<td><code>SELECT REP_NAME, REP_GAP FROM V$REPGAP;</code></td>
+      		<td>SELECT REP_NAME, REP_GAP FROM V$REPGAP;</td>
       		<td></td>
     	</tr>
         <tr>
       		<td>Active1 이중화 중지</td>
-      		<td><code>ALTER REPLICATION replication_name STOP;</code></td>
+      		<td>ALTER REPLICATION replication_name STOP;</td>
       		<td></td>
     	</tr>
         <tr>
       		<td>Active2로 서비스 이전</td>
-      		<td>Active2로 서비스 이전</code></td>
+      		<td>Active2로 서비스 이전</td>
       		<td></td>
     	</tr>
         <tr>
       		<td>Active2로 서비스 이전 확인</td>
       		<td></td>
-      		<td><code>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</code></td>
+      		<td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
     	</tr>
         <tr>
       		<td>관리자 모드 설정</td>
-      		<td><code>ALTER SYSTEM SET ADMIN_MODE = 1;	</code></td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 1;	</td>
       		<td></td>
     	</tr>
         <tr>
             <td>Active1 이중화 대상 삭제</td>
 			<td></td>
-      		<td><code>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</code></td>
+      		<td>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</td>
       		<td></td>
     	</tr>
         <tr>
@@ -5697,57 +5695,57 @@ Active1 서버에서 수행한 **Step 1**부터 **Step 7** 작업을 Active2 서
         <tr>
             <td>Active1 이중화 대상 원복</td>
       		<td></td>
-      		<td><code>ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</code></td>
+      		<td>ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</td>
 			<td></td>
     	</tr>
         <tr>
             <td>Active1 이중화 재시작</td>
       		<td></td>
-      		<td><code>ALTER REPLICATION replication_name START;</code></td>
+      		<td>ALTER REPLICATION replication_name START;</td>
             <td></td>
     	</tr>
         <tr>
             <td rowspan="2">Active1 사후 작업</td>
       		<td>이중화 갭 해소</td>
-      		<td><code>ALTER REPLICATION replication_name FLUSH;</code></td>
-            <td><code>ALTER REPLICATION replication_name FLUSH;</code></td>
+      		<td>ALTER REPLICATION replication_name FLUSH;</td>
+            <td>ALTER REPLICATION replication_name FLUSH;</td>
     	</tr>
         <tr>
       		<td>관리자 모드 해제</td>
-      		<td><code>ALTER SYSTEM SET ADMIN_MODE = 0;</code></td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 0;</td>
             <td></td>
     	</tr>
 		<tr>
         	<td rowspan="5">Active2 사전 작업</td>
   			<td>Active2 서버 이중화 시작</td>
   			<td></td>
-  			<td><code>ALTER REPLICATION replication_name START;</code></td>
+  			<td>ALTER REPLICATION replication_name START;</td>
 		</tr>
  	   <tr>
   			<td>Active2 이중화 갭 해소</td>
  	 		<td></td>
-	  		<td><code>ALTER REPLICATION replication_name FLUSH;</code></td>
+	  		<td>ALTER REPLICATION replication_name FLUSH;</td>
 		</tr>
 		<tr>
             <td>Active2 이중화 중지</td>
             <td></td>
-            <td><code>ALTER REPLICATION replication_name STOP;</code></td>
+            <td>ALTER REPLICATION replication_name STOP;</td>
 		</tr>
     	<tr>
   			<td>Active1로 서비스 이전</td>
-  			<td>Active1로 서비스 이전</code></td>
+  			<td>Active1로 서비스 이전</td>
   			<td></td>
 		</tr>
  	   <tr>
            <td>Active2 관리자 모드 설정</td>
            <td></td>
-           <td><code>ALTER SYSTEM SET ADMIN_MODE = 1;</code></td>
+           <td>ALTER SYSTEM SET ADMIN_MODE = 1;</td>
 		</tr>
 	    <tr>
 	        <td>Active2 이중화 대상 삭제</td>
 			<td></td>
 	  		<td></td>
-	  		<td><code>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</code></td>
+	  		<td>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</td>
 		</tr>
  	   <tr>
            <td>Active2 DDL 문 수행</td>
@@ -5759,28 +5757,28 @@ Active1 서버에서 수행한 **Step 1**부터 **Step 7** 작업을 Active2 서
         	<td>Active2 이중화 대상 원복</td>
   			<td></td>
   			<td></td>
-			<td><code>ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</code></td>
+			<td>ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</td>
 		</tr>
     	<tr>
         	<td>Active2 이중화 재시작</td>
   			<td></td>
   			<td></td>
-        	<td><code>ALTER REPLICATION replication_name START;</code></td>
+        	<td>ALTER REPLICATION replication_name START;</td>
 		</tr>
     	<tr>
         	<td rowspan="3">Active2 사후 작업</td>
   			<td>이중화 갭 해소</td>
   			<td></td>
-        	<td><code>ALTER REPLICATION replication_name FLUSH;</code></td>
+        	<td>ALTER REPLICATION replication_name FLUSH;</td>
 		</tr>
     	<tr>
   			<td>관리자 모드 해제</td>
   			<td></td>
-        	<td><code>ALTER SYSTEM SET ADMIN_MODE = 0;</code></td>
+        	<td>ALTER SYSTEM SET ADMIN_MODE = 0;</td>
 		</tr>
     	<tr>
   			<td>Active1 이중화 시작</td>
-  			<td><code>ALTER REPLICATION replication_name START;	 </code></td>
+  			<td>ALTER REPLICATION replication_name START;	 </td>
         	<td></td>
 		</tr>
     	<tr>
@@ -5797,45 +5795,43 @@ Active1 서버에서 수행한 **Step 1**부터 **Step 7** 작업을 Active2 서
 
 ## SQL 반영 모드
 
-SQL 반영 모드는 지역 서버와 원격 서버의 메타 정보가 달라져도 이중화를 유지하기 위해 XLog를 SQL 문으로 변환하여 복제하는 모드이다. 이 모드는 이중화 대상에 DDL 문을 수행하거나 DDL 문 복제 및 오프라인 옵션 기능을 사용할 때 등 다양한 경우에 필요하다.
+SQL 반영 모드는 지역 서버와 원격 서버의 메타 정보가 달라져도 이중화를 유지하기 위해 XLog를 SQL 문으로 변환하여 주 트랜잭션을 복제하는 기능이다. 이 기능은 이중화 대상에 DDL 문을 수행하거나 DDL 문 복제 및 오프라인 옵션 기능을 사용할 때 등 다양한 경우에 필요하다.
 
 일반적으로 이중화 메타 정보가 일치하지 않으면 이중화가 시작되지 않으며, 메타 정보가 변경되면 이중화가 중단된다. 그러나 SQL 반영 모드를 사용하면 메타 정보가 달라도 이중화를 시작하고 지속할 수 있다.
 
 **SQL 반영 모드를 활성화하면 이중화는 속도가 현저히 느려지므로 사용 후 바로 비활성화해야 한다.** 만약 그렇지 않으면 트랜잭션 처리 지연으로 데이터 불일치가 발생할 수 있다.
 
-###### SQL 반영 모드 동작 조건
+### SQL 반영 모드 동작 조건
 
 SQL 반영 모드는 다음의 메타 정보 하나 이상이 지역 서버와 원격 서버에서 서로 다를 때 동작한다. 
 
-- 칼럼 정보가 다를 때
+#### 칼럼 정보가 다를 때
 
-  - 이중화 대상 칼럼의 데이터 타입이 다를 때 
+- 이중화 대상 칼럼의 데이터 타입이 다를 때
 
-  - 이중화 대상 칼럼의 데이터 타입은 같지만 size, precision, scale이 다를 때
+- 이중화 대상 칼럼의 데이터 타입은 같지만 size, precision, scale이 다를 때
 
+#### 제약조건이 다를 때
 
-- 제약조건이 다를 때
+- 이중화 대상의 CHECK 제약조건의 condition이 다를 때
 
-  - 이중화 대상의 CHECK 제약조건의 condition이 다를 때
+- 이중화 대상의 CHECK 제약조건의 이름이 다를 때
 
-  - 이중화 대상의 CHECK 제약조건의 이름이 다를 때
+- 이중화 대상 칼럼의 NOT NULL/NULL 제약조건이 다를 때 
 
-  - 이중화 대상 칼럼의 NOT NULL/NULL 제약조건이 다를 때 
+#### 인덱스 정보가 다를 때
 
+- 유일 키 인덱스의 구성 정보가 다를 때
 
-- 인덱스 정보가 다를 때
+- 유일 키 인덱스가 이중화 대상 칼럼과 이중화 대상이 아닌 칼럼으로 구성되었을 때
 
-  - 유일 키 인덱스의 구성 정보가 다를 때
+- 함수 기반 인덱스의 구성 정보가 다를 때
 
-  - 유일 키 인덱스가 이중화 대상 칼럼과 이중화 대상이 아닌 칼럼으로 구성되었을 때
+- 함수 기반 인덱스가 이중화 대상 칼럼과 이중화 대상이 아닌 칼럼으로 구성되었을 때
 
-  - 함수 기반 인덱스의 구성 정보가 다를 때
+#### 파티션 정보가 다를 때
 
-  - 함수 기반 인덱스가 이중화 대상 칼럼과 이중화 대상이 아닌 칼럼으로 구성되었을 때
-
-
-- 파티션 정보가 다를 때
-  - 이중화 쌍의 파티션 수가 다를 때
+- 이중화 쌍의 파티션 수가 다를 때
 
 ###### SQL 반영 모드 설정
 
@@ -5855,5 +5851,5 @@ SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'REPLICATION_SQL_APPLY_ENABLE';
 
 ###### 제약 사항
 
-- LAZY 이중화 모드만 지원한다.
-- 암호화 칼럼을 가진 이중화 대상 테이블에는 동작하지 않는다. 
+- EAGER 모드 이중화는 지원하지 않는다
+- 암호화 칼럼이 있는 이중화 대상 테이블에는 동작하지 않는다. 
