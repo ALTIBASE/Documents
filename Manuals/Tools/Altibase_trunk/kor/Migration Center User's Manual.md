@@ -169,7 +169,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 - [F.부록: FAQ](#f부록-faq)
   - [DBMS 공통](#dbms-공통)
   - [Oracle](#oracle-1)
-  - [MS-SQL](#mssql-1)
+  - [MS-SQL](#ms-sql)
   - [Altibase](#altibase-1)
   - [Informix](#informix-1)
   - [MySQL](#mysql-1)
@@ -1222,7 +1222,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  16  | NCLOB         | NVARCHAR(10666)   | Altibase에는 오라클 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다. |
 |  17  | ROWID         | VARCHAR(18)       | 오라클의 ROWID는 문자형 데이터 타입으로 변환한다. Altibase는 ROWID라는 데이터 타입을 지원하지 않는다. |
 
-#### MS SQL Server to Altibase
+#### MS-SQL Server to Altibase
 
 |      | 원본             | 대상             | 주의 사항                                                    |
 | :--- | :--------------- | :--------------- | :----------------------------------------------------------- |
@@ -1680,11 +1680,11 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval<br /> ( c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL,<br /> c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT SQRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER ); | CREATE TABLE TESTTBL_4_DEFVAL<br /> ( C1 NUMBER (38, 0) DEFAULT 123, <br />C2 VARCHAR (50) DEFAULT 'test', <br />C3 NUMBER (38, 0), <br />C4 CHAR (10), <br />C5 NUMBER (38, 0) DEFAULT SQRT(144) + 72, <br />C6 DATE /\* DEFAULT '97/04/21' \*/, <br />C7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />C8 VARCHAR (100) DEFAULT DB_TIMEZONE(), <br />C9 VARCHAR (100) DEFAULT SYS_GUID_STR(), <br />C10 VARCHAR (100) DEFAULT USER_ID(), <br />C11 VARCHAR (100) DEFAULT USER_NAME() ); |
 
-#### MS SQL Server to Altibase
+#### MS-SQL Server to Altibase
 
 <table>
     <tr>        
-        <th>Expression Type</th> <th>원본(MS SQL Server)</th><th>대상(Altibase)</th><th>특이사항</th>
+        <th>Expression Type</th> <th>원본(MS-SQL Server)</th><th>대상(Altibase)</th><th>특이사항</th>
     </tr>
     <tr>
         <td>문자형을 위한 문자열</td><td>"</td><td></td><td></td>
@@ -1705,8 +1705,8 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 
 아래는 변환 예제이다.
 
-| MS SQL Server의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                              | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                      |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| MS-SQL Server의 테이블 생성 SQL문                            | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval <br />( c1 BIT DEFAULT 0, <br />c2 INT DEFAULT 2 + 3, <br />c3 VARCHAR(50) DEFAULT 'test', <br />c4 INT DEFAULT NULL, <br />c5 NCHAR(10) DEFAULT '', <br />c6 FLOAT DEFAULT sqrt(12 \* 12), <br />c7 DATE DEFAULT 'December 5, 1985', <br />c8 DATE DEFAULT getdate(), <br />c9 DATETIME DEFAULT CURRENT_TIMESTAMP,<br /> c10 INT DEFAULT len('test'), ); | CREATE TABLE TESTTBL_4_DEFVAL<br /> ( C1 CHAR (1) DEFAULT (0), <br />C2 INTEGER DEFAULT (2)+(3), <br />C3 VARCHAR (50) DEFAULT 'test', <br />C4 INTEGER, <br />C5 NCHAR (10), <br />C6 VARCHAR (310) DEFAULT sqrt((12)\*(12)), <br />C7 DATE /\* DEFAULT 'December 5, 1985' \*/, <br />C8 DATE DEFAULT SYSDATE, <br />C9 DATE DEFAULT SYSDATE, <br />C10 INTEGER DEFAULT LENGTH('test') ); |
 
 #### MySQL to Altibase

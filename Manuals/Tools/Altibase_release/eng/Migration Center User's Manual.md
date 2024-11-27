@@ -154,7 +154,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 - [Appendix F: FAQ](#appendix-f-faq)
   - [Common](#common)
   - [Oracle](#oracle-1)
-  - [MS-SQL](#ms-sql-1)
+  - [MS-SQL](#ms-sql)
   - [Altibase](#altibase-1)
   - [Informix](#informix-1)
   - [MySQL](#mysql-1)
@@ -1213,7 +1213,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  16  | NCLOB         | NVARCHAR(10666) | There is no compatible data type in Altibase for the Oracle NCLOB, so the data is stored in NVARCHAR with the maximum precision. This may cause data loss during data migration when the actual data precision exceeds the NVARCHAR maximum size. |
 |  17  | ROWID         | VARCHAR(18)     | Oracle's ROWID converts to a character data type. Altibase does not support the data type ROWID. |
 
-#### Microsoft SQL Server to Altibase
+#### MS-SQL Server to Altibase
 
 |      | Source           | Destination      | Notice                                                       |
 | :--: | :--------------- | :--------------- | :----------------------------------------------------------- |
@@ -1675,7 +1675,7 @@ The following is an example of the conversion.
 |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval<br /> ( c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL,<br /> c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT SQRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER ); | CREATE TABLE TESTTBL_4_DEFVAL<br /> ( C1 NUMBER (38, 0) DEFAULT 123, <br />C2 VARCHAR (50) DEFAULT 'test', <br />C3 NUMBER (38, 0), <br />C4 CHAR (10), <br />C5 NUMBER (38, 0) DEFAULT SQRT(144) + 72, <br />C6 DATE /\* DEFAULT '97/04/21' \*/, <br />C7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />C8 VARCHAR (100) DEFAULT DB_TIMEZONE(), <br />C9 VARCHAR (100) DEFAULT SYS_GUID_STR(), <br />C10 VARCHAR (100) DEFAULT USER_ID(), <br />C11 VARCHAR (100) DEFAULT USER_NAME() ); |
 
-#### MS SQL Server to Altibase
+#### MS-SQL Server to Altibase
 
 <table>
     <tr>        
@@ -1705,8 +1705,8 @@ Type</td><td>'December 5, 1985'</td><td>/* DEFAULT 'December 5, 1985' */</td><td
 
 The following is an example of the conversion.
 
-| MS SQL CREATE TABLE Statement                                                                                                                                                                                                                                                                                                                                                           | Altibase CREATE TABLE Statement                                                                                                                                                                                                                                                                                                                                                            |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| MS-SQL CREATE TABLE Statement                                | Altibase CREATE TABLE Statement                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval <br />( c1 BIT DEFAULT 0, <br />c2 INT DEFAULT 2 + 3, <br />c3 VARCHAR(50) DEFAULT 'test', <br />c4 INT DEFAULT NULL, <br />c5 NCHAR(10) DEFAULT '', <br />c6 FLOAT DEFAULT sqrt(12 \* 12), <br />c7 DATE DEFAULT 'December 5, 1985', <br />c8 DATE DEFAULT getdate(), <br />c9 DATETIME DEFAULT CURRENT_TIMESTAMP,<br /> c10 INT DEFAULT len('test'), ); | CREATE TABLE TESTTBL_4_DEFVAL<br /> ( C1 CHAR (1) DEFAULT (0), <br />C2 INTEGER DEFAULT (2)+(3), <br />C3 VARCHAR (50) DEFAULT 'test', <br />C4 INTEGER, <br />C5 NCHAR (10), <br />C6 VARCHAR (310) DEFAULT sqrt((12)\*(12)), <br />C7 DATE /\* DEFAULT 'December 5, 1985' \*/, <br />C8 DATE DEFAULT SYSDATE, <br />C9 DATE DEFAULT SYSDATE, <br />C10 INTEGER DEFAULT LENGTH('test') ); |
 
 #### MySQL to Altibase
