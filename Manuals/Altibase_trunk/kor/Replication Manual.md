@@ -299,8 +299,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 여러분의 의견에 항상 감사드립니다.
 
-1.이중화 개요
-===========
+# 1.이중화 개요
 
 이 장에서는 이중화와 관련한 용어 및 방식 등 이중화에 대한 기초 지식을 알려준다.
 
@@ -555,8 +554,7 @@ Altibase에서 제공하는 이중화 부가 기능은 아래와 같다. 부가 
 > 
 > 이중화 객체에서 이중화 대상 테이블 또는 파티션을 삭제할 때에는 추가할 때 지정한 그대로 명시해야 한다. 예를 들어, 한 파티션드 테이블의 모든 파티션을 이중화 대상으로 추가했어도, 파티션드 테이블을 지정해서 이중화 대상에서 제외시키는 것은 불가능하고 파티션을 각각 지정해서 제외시킬 수 있다.
 
-2.이중화 관리
-===========
+# 2.이중화 관리
 
 이 장에서는 이중화 구동 순서와 이중화 구동 중 발생 가능한 여러 가지 장애 상황에 대하여 Altibase 이중화 기능이 어떻게 동작하는지에 대해서 설명한다.
 
@@ -973,8 +971,7 @@ Lazy 모드에서 병렬 이중화하는 방법은 [이중화 부가기능](#sql
 
 -   V\$REPSYNC
 
-3.이중화 사용
-===========
+# 3.이중화 사용
 
 ### 이중화 사용 조건 
 
@@ -2074,11 +2071,11 @@ REP1                                      1
 
    *`여러 개의 IP 주소 설정 예시`*
 
-   ~~~bash
+   ```bash
    $ vi altibase.properties
    REPLICATION_SENDER_IP = 10.0.0.1
    REPLICATION_SENDER_IP = 0000:0000:0000:0000:0000:ffff:1400:0001
-   ~~~
+   ```
 
 3. Altibase 서버를 재시작한다.
 
@@ -2112,26 +2109,26 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
   `A 서버`
 
-  ~~~sql
+  ```sql
   CREATE REPLICATION rep1 WITH '10.0.0.2', 30300 FROM user1.t1 TO user1.t1;
   CREATE REPLICATION rep2 WITH '20.0.0.2', 30300 FROM user1.t2 TO user1.t2;  
-  ~~~
+  ```
 
   `B 서버`
 
-  ~~~sql
+  ```sql
   CREATE REPLICATION rep1 WITH '10.0.0.1', 30300 FROM user1.t1 TO user1.t1;
   CREATE REPLICATION rep2 WITH '20.0.0.1', 30300 FROM user1.t2 TO user1.t2;
-  ~~~
+  ```
 
 - ***REPLICATION_SENDER_IP 설정***
 
   A 서버의 altibase.properties 설정은 아래와 같다.
 
-  ~~~bash
+  ```bash
   REPLICATION_SENDER_IP = 10.0.0.1
   REPLICATION_SENDER_IP = 20.0.0.1
-  ~~~
+  ```
 
 - ***송신자 IP 주소 설정 상태***
 
@@ -2143,7 +2140,7 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
   이중화 객체 REP1, REP2의 원격 서버 B (PEER_IP)와 통신할 수 있는 A 서버의 송신자 IP 주소로 10.0.0.1(SENDER_IP)가 선택되었다. REPLICATION_SENDER_IP의 첫 번째 IP 주소로 모두 통신이 가능하여 두 번째 IP 주소가 사용되지 않은 것을 볼 수 있다. 
 
-  ~~~sql
+  ```sql
   -- A 서버 송신자 정보 조회
   -- REP1, REP2 모두 SENDER_IP가 REPLICATION_SENDER_IP의 첫 번째 IP 주소가 선택
   iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT FROM V$REPSENDER;
@@ -2152,7 +2149,7 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
   REP1                  10.0.0.1              56016       10.0.0.2              30300       
   REP2                  10.0.0.1              56511       20.0.0.2              30300       
   2 row selected.
-  ~~~
+  ```
 
   `망 분리가 된 경우`
 
@@ -2160,7 +2157,7 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
   이중화 객체 REP1의 A 서버의 송신자 IP 주소로 10.0.0.1(SENDER_IP)가 선택되었고 이중화 객체 REP2의 SENDER_IP는 REPLICATION_SENDER_IP의 두 번째 값인 20.0.0.1 이 선택되었다. REPLICATION_SENDER_IP의 첫 번째 값 10.0.0.1로 B 서버의 20.0.0.2와 통신을 시도하였으나 실패하고 두 번째 IP 주소로 재시도하여 선택된 것이다. 
 
-  ~~~sql
+  ```sql
   -- A 서버 송신자 정보 조회
   -- REP1의 SENDER_IP는 REPLICATION_SENDER_IP의 첫 번째 IP 주소 선택, REP2의 SENDER_IP는 두 번째 IP 주소 선택
   iSQL> SELECT REP_NAME, SENDER_IP, SENDER_PORT, PEER_IP, PEER_PORT FROM V$REPSENDER;
@@ -2169,9 +2166,7 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
   REP1                  10.0.0.1              56016       10.0.0.2              30300       
   REP2                  20.0.0.1              56511       20.0.0.2              30300
   2 row selected.
-  ~~~
-
-  
+  ```
 
 ### 이중화 관련 프로퍼티
 
@@ -2458,8 +2453,6 @@ DROP TRIGGER
 
 - 이 구문을 수행하려면 `REPLICATION_DDL_SYNC` 설정이 0이어야 한다.
 
-
-
 ## 수행 방법
 
 이 절에서는 이중화 대상에 DDL 문을 수행하는 절차를 설명한다. **권장 순서와 다르게 진행하면 데이터 불일치가 발생할 수 있다.**
@@ -2689,11 +2682,12 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
     </tbody> 
 </table>
 
+
 ## 예제
 
 ### DDL 문 레벨 1 예제
 
-#### 예제 1
+#### 예제 1 : 칼럼 변경
 
 다음은 이중화 객체 *rep1* 에 이중화 대상으로 추가된 테이블 *T1*의 칼럼  *c2*의 데이터 타입을 CHAR(5)에서 현재 칼럼보다 더 넓은 범위의 데이터 타입인 CHAR(10)으로 변경하는 예제이다.
 
@@ -2891,7 +2885,8 @@ Active1을 지역 서버로 간주한다.
   </tbody>
 </table>
 
-#### 예제 2
+
+#### 예제 2 : 데이터 타입 변경
 
 다음은 이중화 객체 *rep1* 에 이중화 대상으로 추가된 테이블 *T1*의 칼럼  *c2*에 CHECK 제약조건을 추가하여 현재 칼럼보다 좁은 범위의 데이터 타입으로 변경하는 예제이다.
 
@@ -3089,7 +3084,8 @@ Active1을 지역 서버로 간주한다.
   </tbody>
 </table>
 
-#### 예제 3
+
+#### 예제 3 : 파티션 분할
 
 다음은 이중화 객체 *rep1* 에 이중화 대상으로 추가된 테이블 *T1*의 파티션 *P1*과 *P2*를 파티션 *P3*과 *P4*로 분할하는 예제이다.
 
@@ -3294,9 +3290,11 @@ Active1을 지역 서버로 간주한다.
     </tr>
   </tbody>
 </table>
+
+
 ### DDL 문 레벨 0 예제
 
-#### 예제 1
+#### 예제 1 : 칼럼 추가
 
 다음은 이중화 객체 *rep1* 에 이중화 대상으로 추가된 테이블 *T1*에 INTEGER 데이터 타입을 가지는 *i3* 칼럼을 추가하는 예제이다.
 
@@ -3453,7 +3451,7 @@ Active1을 지역 서버로 간주하고 두 Active 서버에 DDL 문을 수행�
 
 ## 개요
 
-DDL 문 복제는 지역 서버에서 이중화 대상에 DDL 문을 수행했을 때 원격 서버로도 DDL 문을 복제하는 기능이다. 이 기능은 DDL 문 복제 프로퍼티를 활성화하여 사용할 수 있다.
+DDL 문 복제는 지역 서버에서 이중화 대상에 DDL 문을 수행했을 때 원격 서버로도 DDL 문을 복제하는 기능이다.
 
 DDL 문 복제를 수행하면 트랜잭션은 동기식으로 동작하여, 주 트랜잭션 또는 복제 트랜잭션 중 하나에서 DDL 문이 실패하면 해당 DDL 문은 실패한다. 또한, 지역 서버와 원격 서버의 이중화 대상 테이블은 잠금 상태가 되어 트랜잭션 접근이 제한된다.
 
@@ -3461,12 +3459,11 @@ DDL 문 복제를 수행하면 트랜잭션은 동기식으로 동작하여, 주
 
 ### DDL 문 복제 프로퍼티
 
-이중화 대상에 DDL 문 복제를 수행할 때 설정해야 하는 프로퍼티는 다음과 같다.
+DDL 문 복제는 DDL 문 복제 프로퍼티를 활성화하여 사용할 수 있다.
 
-| 프로퍼티               | 설명                                                         | 기본값 |
-| ---------------------- | ------------------------------------------------------------ | ------ |
-| REPLICATION_DDL_ENABLE | 이중화 대상에 DDL 문을 수행할 수 있게 한다. 이중화 대상에 DDL 문을 수행하려면 이 값을 1로 설정해야 한다. | 0      |
-| REPLICATION_DDL_SYNC   | 이중화 대상에 DDL 문 복제를 활성화 한다.                     | 0      |
+| 프로퍼티             | 설명                                     | 기본값 |
+| -------------------- | ---------------------------------------- | ------ |
+| REPLICATION_DDL_SYNC | 이중화 대상에 DDL 문 복제를 활성화 한다. | 0      |
 
 ### 수행 조건
 
@@ -3478,13 +3475,18 @@ DDL 문 복제 기능을 사용하기 위해서는 아래의 조건을 만족해
 
 ### 제약 사항
 
-다음과 같은 이중화 객체에 포함된 이중화 대상에는 DDL 문 복제를 수행할 수 없다.
+다음과 같은 이중화 객체 또는 이중화 대상에는 DDL 문 복제를 수행할 수 없다.
 
-- EAGER 모드 이중화 객체에 속한 이중화 대상
+- EAGER 모드 이중화 객체
 - 글로벌 논파티션드 인덱스가 있는 파티션드 테이블
-- [PROPAGATION 롤](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication Manual.md#propagation-롤) 이 지정된 이중화 객체에 포함된 이중화 대상
-- [복구 옵션](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication Manual.md#복구-옵션recovery-option)을 설정한 이중화 객체에 속한 이중화 대상
-- 인덱스 파티션 재구축, 권한 부여/회수, 트리거 생성/삭제 구문은 사용할 수 없다.
+- [PROPAGATION 롤](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication Manual.md#propagation-롤) 이 지정된 이중화 객체
+- [복구 옵션](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication Manual.md#복구-옵션recovery-option)을 설정한 이중화 객체
+
+다음과 같은 구문은 DDL 문 복제로 복제할 수 없다.
+
+- 인덱스 파티션 재구축
+- 권한 부여/회수
+- 트리거 생성/삭제
 
 ## 수행 방법
 
@@ -3577,7 +3579,7 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
 
 서비스를 원래대로 분배한다.
 
-##### 작업 절차 표
+### 작업 절차 표
 
 <table>
   <thead>
@@ -3649,6 +3651,7 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
     </tr>
   </tbody>
 </table>
+
 
 ## 예제
 
@@ -3731,7 +3734,8 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
   </tbody>
 </table>
 
-### 예제 2: NOT NULL 제약조건 설정
+
+### 예제 2 : NOT NULL 제약조건 설정
 
 다음은 이중화 객체 *rep1* 에 이중화 대상으로 추가된 테이블 *T1*의 칼럼 *C1*에 NOT NULL 제약조건을 설정하는 예제이다.
 
@@ -3820,7 +3824,8 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
   </tbody>
 </table>
 
-### 예제 3: 삼중화 환경에서 DDL 문 복제 수행
+
+### 예제 3 : 삼중화 환경에서 DDL 문 복제 수행
 
 다음은 삼중화 환경에서 이중화 대상 테이블에 NOT NULL 제약조건을 가진 칼럼을 추가하는 예제이다.
 
@@ -5058,8 +5063,7 @@ catch (PDOException $ex) {
 }
 ```
 
-7.시퀀스 이중화
-=============
+# 7.시퀀스 이중화
 
 Altibase는 기본적으로 테이블 객체만 이중화를 지원한다. 따라서 시퀀스 이중화란 시퀀스 자체의 복제가 아니라 시퀀스 이중화만을 위한 전용 테이블을 생성하여 사용하는 방식이다.
 
@@ -5166,8 +5170,6 @@ ALTER SEQUENCE user_name.seq_name DISABLE SYNC TABLE;
 |                                                              | iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1001<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ---------------------- <br/>1002<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1003<br/> 1 row selected. |
 | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ<br/> -------------------<br/> 2001<br/> 1 row selected. | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ <br/>---------------------- <br/>2001<br/> 1 row selected. |
 
-
-
 # 8.이중화 롤(ROLE)
 
 이중화 롤은 이중화에 롤(ROLE)을 부여하여 특별한 기능을 하도록 시스템을 구성하는 데 사용한다. 
@@ -5201,8 +5203,6 @@ ALTER SEQUENCE user_name.seq_name DISABLE SYNC TABLE;
 * 이중화 전파는 단 방향으로만 구성해야한다. 
 * 전파의 방향에 Cycle이 생성되는 경우, 로그의 변경사항이 무한정 재적용되는 상황을 만들 수 있으므로 주의해야한다. 
 * PROPAGABLE LOGGING을 사용한 수신자는 로그를 남길때 PK 등의 추가 정보를 더 남기므로, PROPAGABLE LOGGING를 지정하지 않은 수신자보다 트랜잭션 성능이 떨어질 수 있다. 
-
-
 
 # A.부록: FAQ
 
@@ -5457,6 +5457,7 @@ ALTER REPLICATION replication_name START;
 	</tbody>
 </table>
 
+
 ###### Active-Active 환경
 
 <table>
@@ -5543,6 +5544,7 @@ ALTER REPLICATION replication_name START;
     	</tr>                   
 	</tbody>
 </table>
+
 
 ## 이중화 대상 서버의 서비스를 동시에 중지할 수 없는 환경
 
@@ -5634,8 +5636,6 @@ ALTER REPLICATION replication_name START;
 ##### Step 8: Active2 서버 DDL 문 수행
 
 Active1 서버에서 수행한 **Step 1**부터 **Step 7** 작업을 Active2 서버에서도 수행한다.
-
-
 
 ##### 작업 절차 표
 
@@ -5851,5 +5851,5 @@ SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'REPLICATION_SQL_APPLY_ENABLE';
 
 ###### 제약 사항
 
-- EAGER 모드 이중화는 지원하지 않는다
-- 암호화 칼럼이 있는 이중화 대상 테이블에는 동작하지 않는다. 
+- EAGER 모드 이중화는 지원하지 않는다.
+- 암호화 칼럼이 있는 이중화 대상 테이블에는 동작하지 않는다.
