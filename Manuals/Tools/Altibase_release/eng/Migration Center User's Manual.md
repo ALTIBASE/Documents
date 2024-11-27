@@ -125,7 +125,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [DB to File Migration Options](#db-to-file-migration-options)
 - [Appendix B: Migratable Database Objects](#appendix-b-migratable-database-objects)
   - [Altibase to Altibase](#altibase-to-altibase)
-  - [Altibase to Oracle](#altibase-to-oracle)
   - [CUBRID to Altibase](#cubrid-to-altibase)
   - [Informix to Altibase](#informix-to-altibase)
   - [MySQL to Altibase](#mysql-to-altibase)
@@ -154,12 +153,14 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Expression Conversion Rules](#expression-conversion-rules)
 - [Appendix F: FAQ](#appendix-f-faq)
   - [Common](#common)
-  - [Oracle](#oracle)
-  - [MS-SQL](#ms-sql)
-  - [Altibase](#altibase)
-  - [Informix](#informix)
-  - [MySQL](#mysql)
-  - [TimesTen](#timesten)
+  - [Oracle](#oracle-1)
+  - [MS-SQL](#ms-sql-1)
+  - [Altibase](#altibase-1)
+  - [Informix](#informix-1)
+  - [MySQL](#mysql-1)
+  - [PostgreSQL](#postgresql-1)
+  - [TimesTen](#timesten-1)
+  - [Tibero](#tibero-1)
 
 
 
@@ -167,7 +168,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 # Preface
 
-This manual describes Adapter for JDBC, an utility replicating modified data in Altibase to other database supporting JDBC.
+This manual describes how to use Migration Center to perform database migration to ALTIBASE.
 
 #### Audience
 
@@ -192,34 +193,24 @@ This manual is organized as follows:
 
 - Chapter 1: Introduction  
   This chapter introduces Migration Center and explains how to install it.
-
 - Chapter 2: Getting Started  
   This chapter describes the key concepts in migration, how to use Migration Center in GUI and CLI modes, and tools provided for user convenience.
-
 - Chapter 3: GUI Mode Quick Guide  
   This chapter provides a quick step guide for GUI mode users who are new to Migration Center.
-
 - Chapter 4: CLI Mode Quick Guide  
   This chapter provides a quick step guide for CLI mode users who are new to Migration Center.
-
 - Chapter 5: Migration Center Internals  
   This chapter describes the main steps of Migration Center, namely the Build, Reconcile, Run, and Data Validation steps.
-
 - Appendix A: Migration Options  
   This appendix describes the Migration Center options.
-
 - Appendix B: Migratable Database Objects  
   This appendix provides the table that shows what database objects can be migrated using Migration Center.
-
 - Appendix C: Data Type Mapping  
   This appendix explains how to check and customize the default data type mapping for an existing project. In addition, it provides default data type mapping tables
-
 - Appendix D: Mapping Default Values  
   This appendix provides the mapping table for default values according to which Migration Center converts source database default values to comply with Altibase.
-
 - Appendix E: PSM Converter Rule List  
   This chapter describes the rules for converting PSM convertes to DDL SQL statements when migrating from Oracle to Altibase.
-
 - Appendix F: FAQ
 
 #### Documentation Conventions
@@ -269,25 +260,15 @@ The following table describes the printing conventions used in the code examples
 For more detailed information, please refer to the following documents.
 
 - Installation Guide
-
 - Getting Started Guide
-
 - Administrator’s Manual
-
 - Replication Manual
-
 - Precompiler User’s Manual
-
 - API User’s Manual
-
 - Altibase C Interface Manual
-
 - iSQL User’s Manual
-
 - Utilities Manual
-
 - General Reference
-
 - Error Message Reference
 
 #### Altibase Welcomes Your Comments and Feedbacks
@@ -304,16 +285,14 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 
 Thank you. We always welcome your feedbacks and suggestions.
 
-<br/>
+
 
 # 1. Introduction
 
 This chapter introduces Migration Center and explains how to install it. This chapter consists of the following sections:
 
 - Overview
-
 - System Requirements
-
 - Installation and Uninstallation
 
 ### Overview
@@ -343,11 +322,8 @@ This section discusses the system requirements for Migration Center and compatib
 ##### GUI Mode
 
 - CPU: Pentium III 800MHz or better
-
 - Main memory: 512MB or more
-
 - Disk: 150MB or more free space
-
 - Screen resolution: 1024x800 pixels or higher
 
 ##### CLI Mode
@@ -391,31 +367,25 @@ Please note that for legal reasons, the Microsoft SQL Server JDBC driver file, M
 Users can download the appropriate JDBC driver file from the following site:
 
 1. Microsoft does not support the JDBC driver for SQL Server 2005 according to the Microsoft Support Lifecycle(MSL) policy, and it also does not provide download link. Therefore, users should use the JDBC driver included in the database product they are using.
-
 2. Microsoft JDBC Driver for SQL Server 2008, for 2008 R2, for 2012 can be downloaded from the link below. Since Migration Center has been tested with JDBC driver version 6.0 and JRE 7 environment, it is recommended for users to use the same driver version and JRE version. Also in Linux OS, the value of JAVA_HOME environment variable must be set to the path where the JRE 7 or later is installed. If you want to use a version other than JDBC Driver 6.0, you need to check the driver version, compatible SQL Server version, and supported JRE version in the Microsoft JDBC Driver for SQL Server Support Matrix.  
    Download Microsoft JDBC Driver for SQL Server:  
    <https://docs.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-2017>  
    Microsoft JDBC Driver for SQL Server Support Matrix:  
    <https://docs.microsoft.com/en-us/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server-support-matrix?view=sql-server-2017>
-
 3. Oracle MySQL Connector/J  
    <http://dev.mysql.com/downloads/connector/j/>
-
 4. Informix JDBC Driver  
    <http://www14.software.ibm.com/webapp/download/search.jsp?go=y&rs=ifxjdbc>
-
 5. Oracle TimesTen  
    <http://www.oracle.com/technetwork/database/database-technologies/timesten/downloads/index.html>
-
 6. CUBRID  
    <http://www.cubrid.org/?mid=downloads&item=jdbc_driver>
-
 7. Tibero  
    <https://technet.tmaxsoft.com/>
 
 ### Installation and Uninstallation
 
-Migration Center can be downloaded from Altibase’s Customer Center at http://altibase.com/support-center/en/. 
+Migration Center can be downloaded from [Altibase’s Customer Center](http://altibase.com/support-center/en/). 
 
 Migration Center is provided in zip or tar.gz file format. This file contains the executable file and some JDBC drivers.
 
@@ -423,7 +393,7 @@ To install, simply unzip the file. The generated directory contains the projects
 
 To uninstall, simply delete the Migration Center directory.
 
-<br/>
+
 
 # 2. Getting Started
 
@@ -432,9 +402,7 @@ This chapter describes the key concepts in migration, how to use Migration Cente
 This chapter consists of the following sections:
 
 - Understanding Migration Center
-
 - Understanding User Interface
-
 - Tools
 
 ### Understanding Migration Center
@@ -442,7 +410,6 @@ This chapter consists of the following sections:
 This section explains the terminology and overall process of Migration Center.
 
 - Terms
-
 - Basic Concept
 
 #### Terms
@@ -454,8 +421,6 @@ The Migration Center project is a basic work unit that describes all aspects of 
 #### Basic Concept
 
 The overall process of Migration Center consists of five steps: Prepare, Build, Reconcile, Run, and Data Validation.
-
-![](media/MigrationCenter/0e1eca129799717d226a7ee6a611eba8.jpg)
 
 ##### Prepare Step
 
@@ -517,17 +482,17 @@ The DB Properties pane displays information about the source and destination dat
 
 The primary reason for using the CLI mode is to perform a fast "run" step. The "run" step, which takes the most time during the migration, creates the converted schema in the "Reconcile" step and migrates the data from the source database into the target database. Performing the "run" step in the CLI mode on the server where the database is installed, can increase the data transfer speed by reducing the communication cost compared to executing the "run" step in the GUI mode on the client computer.
 
-Users can take advantage of both the convenience of GUI mode and the fast performance of CLI mode when you execute only the "Run" and "Validate" steps are performed in CLI mode after executing from "Start" to "Reconcile" in GUI mode
+Users can take advantage of both the convenience of GUI mode and the fast performance of CLI mode when you execute only the "Run" and "Validate" steps are performed in CLI mode after executing from "Start" to "Reconcile" in GUI mode.
 
 Another reason to use in CLI mode is to perform the migration in an environment where GUI mode is not allowed. Although the entire migration process can be performed in CLI mode, it also has limitations of character-based interface. For example, user is allowed to perform "Reconcile" step only with the default value in CLI mode.
 
 ### Tools
 
-This section introduces how to use two types of utilities included in the Migration Center
+This section introduces how to use two types of utilities included in the Migration Center.
 
 #### PSM Converter for File
 
-“PSM Converter for File” converts Oracle PL/SQL to Altibase PSM in independent file units. This tool reads a SQL file that contains Oracle PL/SQL statements, converts it into Altibase PSM, and then writes the results in a predefined SQL file. This file is provided with an HTMLformatted report file. This tool’s functionality is equivalent to the PSM Converter in the Reconcile step. For more detailed information about conversion rules, please refer to PSM Converter Rule List.
+“PSM Converter for File” converts Oracle PL/SQL to Altibase PSM in independent file units. This tool reads a SQL file that contains Oracle PL/SQL statements, converts it into Altibase PSM, and then writes the results in a predefined SQL file. This file is provided with an HTML formatted report file. This tool’s functionality is equivalent to the PSM Converter in the Reconcile step. For more detailed information about conversion rules, please refer to PSM Converter Rule List.
 
 To execute this tool, select ”PSM Converter for File” from “Tools” in the main menu.
 
@@ -536,8 +501,6 @@ To execute this tool, select ”PSM Converter for File” from “Tools” in th
 “Generate Migration Error Report” reports problems that arise in Migration Center. If a project is opened, and this tool is executed, it collects problem tracking information (namely, log files and revision number information) and creates it as a zip file. The user only needs to attach the zip file to an email and send it to Altibase’s Customer Support with the user’s client registration information.
 
 To execute this tool, select “Generate Migration Error Report” from “Tools” in the main menu.
-
-<br/>
 
 # 3. GUI Mode Quick Guide
 
@@ -548,21 +511,15 @@ This chapter provides a quick step guide for users new to Migration Center.
 The users can easily perform migration in GUI mode with this quick step guide. The overall process is listed below.
 
 1. Start Migration Center
-
 2. Prepare the project
-   
    1. Register source and destination database connections 
    2. Create a project 
    3. Open the project 
    4. Connect to source and destination databases 
    5. Set migration options
-
 3. Build the project
-
 4. Reconcile the project
-
 5. Run the project
-
 6. Validate the project
 
 #### Starting Migration Center
@@ -572,49 +529,32 @@ Double-click the “migcenter.bat” icon in the Migration Center folder on Micr
 #### Registering a Database Connection
 
 1. From the “Database” menu, select the “Add Database Connection” submenu, or click the “Add Database Connection” icon in the main toolbar. 
-
 2. Fill in all the input fields of the “Add Database Connection” dialog box:
-   
    1. DB Product: The database system name 
-   
    2. Connection Name: A unique database connection name to be used for Migration Center projects
-   
    3. IP: The Internet Protocol (IP) address of the database server
-   
    4. Port: The port number of the database server or SSL port number of the Altibase server
-   
    5. User: The valid user ID for the database
-   
    6. Password: The password corresponding to the user ID for the database.
-   
    7. JDBC Driver:  The JDBC driver path to be used to connect to the database.
-   
    8. Encoding: The default character set used on the client.
-   
    9. IP Version: The IP protocol version used in this connection.
-   
    10. Property: The JDBC driver property to be used in this connection.   
        If connecting with SSL, set ssl_enable = true as shown below, and * path_to_keystore, path_to_truststore, and password * are set according to each authentication environment.
-
 ```
 ssl_enable=true&keystore_url=path_to_keystore&keystore_password=password&truststore_url=path_to_truststore&truststore_password=password 
 ```
-
 3. Click the “Test” button at the bottom of the dialog box to check the input information before adding this connection to the connection list.
-
 4. If the connection test is successful, click the “OK” button at the bottom of the dialog box to add the connection to the connection list. Then, close the “Add Database Connection” dialog box.
 
 #### Creating the Project
 
 1. From the “Project” menu, select the “Create Project” submenu, or click the “Create Project” icon in the main toolbar.
-
 2. Fill in the input fields in the “New Project” dialog box:
-   
    1. Project Name: A migration project name that is unique in Migration Center and meaningful to the user.
    2. Project Path: The folder path where migration project files will be stored. This value cannot be edited by users.
    3. Source Database: A database that contains database objects to be migrated in this project.
    4. Destination Database: An Altibase database to copy database objects from the source database and store them. This input field is mandatory, even if the project is configured for “DB to File” migration.
-
 3. Click the “OK” button at the bottom of the “New Project” dialog box.
 
 #### Opening the Project
@@ -631,16 +571,12 @@ Establishing connections with the source and destination databases is essential 
 
 #### Building the Project
 
-The Build step is indispensible to migration, yet simple to execute. 
+The Build step is indispensable to migration, yet simple to execute. 
 
 1. Click "Build User" or "Build Table" from the "Migration" menu or the main toolbar.
-
-2. A dialog box asking how to fetch records from each table in the source database appears. Select the desired method and click “OK”. For further information about the available options and explanations thereof, refer to Internal Activities.
-
+2. A dialog box asking how to fetch records from each table in the source database appears. Select the desired method and click “OK”. For further information about the available options and explanations thereof, refer to [Internal Activities](#internal-activities).
 3. If "Build Table" has been selected, a dialog box shows up to list the names of migration target tables. When clicking the"![](media/MigrationCenter/f614c334dace127d00b84a2951b20ff2.png)" button, you can choose migration target tables with name search. After completing configuring the table list, click the "Build" button to proceed with the build step.
-
 4. A “Build” dialog box displaying the build progress appears. At completion, a “Report” button appears at the bottom. 
-
 5. If you click “Report”, an HTML report file is created in the project directory and the “Build Report” dialog box appears. This dialog box provides a link to the HTML report file. Once the “Report” button is clicked and an HTML report file is created, the “Build Report” submenu from the “Report” menu is activated. The user can open the “Build Report” dialog box at any time with this menu item.
 
 #### Reconciling the Project
@@ -648,19 +584,15 @@ The Build step is indispensible to migration, yet simple to execute.
 The Reconcile step is very important because it determines how to execute the Run step, and it requires some knowledge of both source and destination databases. For further information about this step, please refer to Migration Center Internals. The following is a simple guide:
 
 1. From the “Migration” menu, select “Reconcile”, or click the “Reconcile” icon in the main toolbar.
-
 2. Change or confirm the default data type mapping.
-
 3. Specify the Altibase tablespaces to which the source database is to be migrated.
-
 4. Change or confirm how to migrate partitioned tables in the source database to Altibase.
-
 5. Specify the Altibase tablespace to which each table or index in the source database is to be migrated.
-
 6. Check the SELECT statement for fetching data from each table of the source database, and make changes if necessary. 
-
+> [!tip]
+>
+> When extracting data from the source database, users can selectively migrate only the data that meets specific conditions. Please refer to [5.Migration Center Internals - "Select Editing" Step](#select-editing-step) for more information.
 7. Check whether the DDL SQL statements to be used during the schema migration process is correct, and make changes if necessary.
-
 8. Click the “Report” button to generate a report for this step.
 
 #### Running the Project
@@ -694,8 +626,6 @@ The following is a simple guide for using filesync.
 9. The “Data Validation” dialog box appears and filesync is executed. At completion, a “Report” button appears at the bottom. 
 10. Check that data difference has been solved in the report.
 
-<br/>
-
 # 4. CLI Mode Quick Guide
 
 This chapter provides a quick step guide for CLI mode users who are new to Migration Center.
@@ -705,44 +635,38 @@ This chapter provides a quick step guide for CLI mode users who are new to Migra
 The user can easily perform migration in CLI mode with this quick step guide. The overall process is listed below.
 
 1. Prepare the project
-   
    1. Register database connection information and project
-   
    2. Set migration options
-
 2. Build the project 
-
 3. Reconcile the project 
-
 4. Run the project 
-
 5. Validate the project
 
 #### Prepare the Project
 
-The source/ destination database connection information and project registration are essential to perform migration. It is possible to register the project in CLI mode, but it is recommended to register in user-friendly in GUI mode.
+The source/destination database connection information and project registration are essential to perform migration. It is possible to register the project in CLI mode, but it is recommended to register in user-friendly in GUI mode.
 
 To register the database connection information and projects in CLI mode, you must explicitly register it in Migration Center after modifying the registration file(register.xml). What you need to input in the registration file is the project name and the source / destination database connection information to be used in the project. Multiple projects can be registered at once.
 
 The registration file must be located in the directory where the Migration Center is installed. Please refer to the comments and samples in the "register.xml" file for more details.
 
-##### Register database connection information and project
+##### Registering database connection information and project
 
 ```
 % ./migcenter.sh register register.xml
 ```
 
-The source / destination database connection information and the project recorded in the registration file (register.xml) is to be registered in the Migration Center. The input project name should be unique, and the database connection information should be able to connect to the target database before registrations. When the project is successfully registered, the project name folder is automatically created and source/ destination database connect information is stored in Migration Center.
+The source/destination database connection information and the project recorded in the registration file (register.xml) is to be registered in the Migration Center. The input project name should be unique, and the database connection information should be able to connect to the target database before registrations. When the project is successfully registered, the project name folder is automatically created and source/destination database connect information is stored in Migration Center.
 
 If either the project recorded in the registration file or the registration of the database connection information fails, all project and database connection registration recorded in the registration file are canceled.
 
 The user can use a name other than "register.xml" as the name of the registration file.
 
-##### Set Migration Options
+##### Setting Migration Options
 
 The "options.xml" file is automatically created in the project folder when the project is registered. You can modify the options in the options.xml file directly in CLI mode. For details of the options, refer to the "Appendix A: Migration Options".
 
-#### Build the Project
+#### Building the Project
 
 ```
 % ./migcenter.sh build project_path
@@ -750,7 +674,7 @@ The "options.xml" file is automatically created in the project folder when the p
 
 To perform the "Build" step, input the build command and the path of the target project. The number of table records in the source database is collected using the Approximate Counting Method by default.
 
-#### Reconcile the Project
+#### Reconciling the Project
 
 ```
 % ./migcenter.sh reconcile project_path
@@ -758,7 +682,11 @@ To perform the "Build" step, input the build command and the path of the target 
 
 To perform the "Reconcile" step, input the reconcile command and the path of the target project. In CLI mode, user is not allowed to tune the "Reconcile" step due to the limit of character-based interface.
 
-#### Run the Project
+> [!tip]
+>
+> When extracting data from the source database, users can selectively migrate only the data that meets specific conditions. Please refer to [5.Migration Center Internals - "Select Editing" Step](#select-editing-step) for more information.
+
+#### Running the Project
 
 ```
 % ./migcenter.sh run project_path
@@ -766,7 +694,7 @@ To perform the "Reconcile" step, input the reconcile command and the path of the
 
 To perform the "Run" step, input the run command and the path of the target project.
 
-#### Validate the Project
+#### Validating the Project
 
 ```
 % ./migcenter.sh diff project_path
@@ -779,8 +707,6 @@ To verify the data migrated properly in the "Run" step, input the diff command a
 ```
 
 To match the different data between the source and destination databases using the diff command, input filesync command and the path of the target project.
-
-<br/>
 
 # 5. Migration Center Internals
 
@@ -801,18 +727,12 @@ The information gathered in this step is used throughout the entire migration pr
 
 #### Output
 
-- Build reports
-
+- Build reports  
   Several data volume analysis reports based on the current status of the source and destination databases are output in HTML format and stored in the project folder.
-
-- SQL Data Definition Language (DDL) script
-
+- SQL Data Definition Language (DDL) script  
   A file containing database object creation statements (DDLs) collected from the source database, whether or not Migration Center is supported, created in the project folder and named SrcDbObj_Create.sql. This file is intended for user reference only and is not used at any stage of the Migration Center.
-
-- BuildReport4Unsupported.html
-
-  It is one of the files summarizing the build results and shows the CREATE statements of objects not automatically migrated by the Migration Center. Objects that are not supported by Migration Center must be manually converted by the user, and this file can be referenced for conversion operations.
-
+- BuildReport4Unsupported.html  
+  It is one of the files summarizing the build results and shows the CREATE statements of objects not automatically migrated by the Migration Center. Objects that are not supported by Migration Center must be manually converted by the user, and this file can be referenced for conversion operations.  
   Non-automatic migration object types depend on the source database and can be found at [Appendix B: Migratable Database Objects](#appendix-b-migratable-database-objects). In case of Oracle to Altibase migration, this file is not created because all of Oracle database object types defined in the appendix table are supported for automatic migration. On the other hand, in case of MySQL to Altibase migration, if the source database has any database object type such as stored procedures, stored functions, views, and trigger objects, the CREATE statement of the unsupported database object is recorded at this file for user's reference.
 
 #### Internal Activities
@@ -821,23 +741,24 @@ This step consists of two internal activities; collecting information about data
 
 The collecting information can be started as either "Build User" or "Build Table".
 
-- Build User: Collects all migratable object information of the user connected to the source database
-
-- Build Table: Configure a list of tables to be migrated among the tables of the user connected to the source database. And collects object information of the selected tables, and constraints and indexes dependent on the selected tables
+- Build User  
+  This collects all migratable object information of the user connected to the source database
+- Build Table  
+  This configures a list of tables to be migrated among the tables of the user connected to the source database. Plus, this collects object information of the selected tables, and constraints and indexes dependent on the selected tables.
 
 For more information on the object types that can be migrated, refer to the "Appendix B: Migratable Database Objects".
 
 When the user starts the build step, the "Table Counting Method" dialog box appears. The user can choose one of the following options:
 
-- Approximate Counting Method:  Retrieves the number of table records by referring to the statistical value of the source database. This value is affected by the accuracy of the statistical value
-
-- Exact Counting Method:  Retrieves the exact number of table records by executing the COUNT function on every table in the source database
+- Approximate Counting Method  
+  This retrieves the number of table records by referring to the statistical value of the source database. This value is affected by the accuracy of the statistical value.
+- Exact Counting Method  
+  This retrieves the exact number of table records by executing the COUNT function on every table in the source database.
 
 Of the two methods, the approximate counting method performs faster whereas, the exact counting method yields more accurate results.
-
 The method chosen does not affect the database schema and data migration. It only affects the accuracy of the data migration progress percentage provided at the Run step in GUI mode. This is because the data migration progress is displayed as the time elapsed and the percentage of (number of migrated records / total number of records). With this, the user can estimate the total amount of time required to complete data migration. 
 
-For more detailed information about how to execute the Build step, please refer to Building the Project.
+For more detailed information about how to execute the Build step, please refer to [Building the Project](#Building-the-project).
 
 ### Reconcile Step
 
@@ -852,22 +773,17 @@ For more detailed information about tablespaces in Altibase databases, please re
 #### Output
 
 - Reconcile reports: Several reports that specify which database objects to migrate and how to migrate them in the project folder.
-
 - SQL Data Definition Language (DDL) scripts: Sample SQL files to create and drop database objects in the destination database are provided in the project folder for user convenience. However, these files are not used in any step.
-  
   - DbObj_Create.sql: A SQL script file for creating database objects to be migrated. 
   - DbObj_Drop.sql: A SQL script file for dropping database objects having the same names as those to be migrated. 
-  - DbObj_Unsupported.sql: A SQL script file for creating unsupported database objects.
-
 - PL/SQL conversion reports: Several reports generated by the PL/SQL Converter.
-  
   - sqlconv.html: A HTML report that compares the difference between source and converted PL/SQL. 
   - sqlconv_src.sql: A report that contains the input PL/SQL statements to be converted in text format. 
   - sqlconv_dest.sql: A report that contains converted PL/SQL statements and comments listing the applied conversion rules in text format.
 
 #### Internal Activities
 
-Although the Reconcile step is very important and can get complicated, the wizard is as easy to use as a UI. For further information about how to start the Reconcile step, please refer to Reconciling the Project in Chapter 3.
+Although the Reconcile step is very important and can get complicated, the wizard is as easy to use as a UI. For further information about how to start the Reconcile step, please refer to [Reconciling the Project](#Reconciling-the-project) in Chapter 3.
 
 ##### Reconcile Wizard Dialog Box
 
@@ -893,13 +809,43 @@ The “Object to Tablespace Mapping” step maps each table and index by draggin
 
 The “Select Editing” step enables the user to edit the SELECT statement for fetching data from a table in the source database. The user can add hints or WHERE clauses, and immediately check the edited statement. Click the “Restore” button to undo changes. 
 
+The name of modified table in the SELECT statement is recorded in pairs with WHERE clause in the TableCondition.properties file. This file is automatically generated during the final stage of Reconcile, and it can be edited by the user.
+
+###### TableCondition.properties
+
+To selectively migrate specific data from tables in the source database, the "TableCondition.properties" file is provided. Users can input conditions in this file to filter data for migration. Tables not included in this file will have all data migrated from the source to the target tables.
+
+The file is structured with "Source Database Table Name"=WHERE clause pairs, and it is automatically generated after completing the Reconcile step. The WHERE clauses in this file are added to SELECT statements when retrieving data from the source tables. Additionally, the same WHERE clause is used when verifying the number of migrated records in the target table after Execution step. The number of migrated data can be viewed in the RunReport4Summary.html file.
+
+Conditions can be modified during the Reconcile step using "Select Editing" or manually edited after Reconcile step is complete, with the following constraints:
+
+- The WHERE clause must be written on a single line.
+-  If there are SQL syntax differences between the source and target databases, the [DEST] section should include the WHERE clause for the target database table.
+  - Example  
+    ```
+    DATE_TEST=WHERE C2 > DATE'2023-12-02'
+    ...
+    [DEST]
+    DATE_TEST=WHERE C2 > TO_DATE('2023-12-02', 'YYYY-MM-DD');
+    ```
+
+Refer to the guidance at the top of the file for more details on editing and restrictions.
+
 ##### "Unacceptable Name" Step
 
-The "Unacceptable Name" step shows objects that violate the unquoted object name rules in the target database. This includes objects with special characters or spaces in the name, and creation fails during the run phase. If the user selects the "Use Double-quoted Identifier" check box, the user can avoid creating objects by wrapping only the problem names in double quotes."
+The "Unacceptable Name" step shows objects that violate the unquoted object name rules in the target database. This includes objects with special characters or spaces in the name, and creation fails during the run step. If the user selects the "Use Double-quoted Identifier" check box, the user can avoid creating objects by wrapping only the problem names in double quotes("").
 
 ##### “SQL Editing” Step
 
-The “SQL Editing” step allows the user to view and edit the DDL statements for schema migration. The user can refer to the source DDL, and directly edit the DDL statements that Migration Center will apply on the destination database. SQL statements for creating procedures, functions, triggers, and views are all displayed in PSM type. Tick the check box to select which object type within the PSM category to edit. These objects are displayed in the “Done” or “To-Do” list pane. If an object requires user confirmation, it is displayed in the todo list; otherwise, it is displayed in the done list. Click an object name in a list to view its source and destination DDL. Edit the DDL statement of an object belonging to the to-do list, then click the “Save” button, and the object will move to the done list. The migration of an object in the done list can unexpectedly fail in the Run step. In this case, the user must check the “Missing Cause” in the Run report, find the error cause, and manually migrate the object. DDL statements of PSM objects can be output as a file for users who prefer text editors. This functionality and instructions on its use are provided in the offline pane of the PSM object type. For Oracle or TimesTen to Altibase migration, the PL/SQL Converter converts the DDL statement of the PSM type object to an Altibase-compatible format. Please note that although most of the syntax is converted, statements containing semantic logic are not converted. 
+The “SQL Editing” step allows the user to view and edit the DDL statements for schema migration. The user can refer to the source DDL, and directly edit the DDL statements that Migration Center will apply on the destination database. SQL statements for creating procedures, functions, triggers, and views are all displayed in PSM type. 
+
+Tick the check box to select which object type within the PSM category to edit. These objects are displayed in the “Done” or “To-Do” list pane. If an object requires user confirmation, it is displayed in the todo list; otherwise, it is displayed in the done list. Click an object name in a list to view its source and destination DDL. Edit the DDL statement of an object belonging to the to-do list, then click the “Save” button, and the object will move to the done list. 
+
+The migration of an object in the done list can unexpectedly fail in the Run step. In this case, the user must check the “Missing Cause” in the Run report, find the error cause, and manually migrate the object.
+
+DDL statements of PSM objects can be output as a file for users who prefer text editors. This functionality and instructions on its use are provided in the offline pane of the PSM object type. For Oracle or TimesTen to Altibase migration, the PL/SQL Converter converts the DDL statement of the PSM type object to an Altibase-compatible format. 
+
+Please note that although most of the syntax is converted, statements containing semantic logic are not converted. 
 
 > [!caution]
 >
@@ -925,24 +871,20 @@ Data that failed to be migrated is collected in the “db2db” or “db2file”
 
 #### Internal Activities
 
-The user can execute the Run step with a single mouse click in GUI mode, or a single command in CLI mode. For further information, please refer to Running the Project or Executing the Run and Data Validation Steps in CLI Mode.
+The user can execute the Run step with a single mouse click in GUI mode, or a single command in CLI mode. For further information, please refer to [Running the Project](#running-the-project) in Chapter 3 or Chapter 4.
 
-Internally, this process consists of three steps to avoid database object dependencies: the PreSchema, Table & Data, and PostSchema steps. For example, index objects are migrated in the PostSchema step, after the Table & Data step is completed. This is because it is usually faster to insert data without an index, than with an index. Each step performs the following:
+Internally, this process consists of three steps to avoid database object dependencies: Initialization, the PreSchema, Table & Data, and PostSchema steps. For example, index objects are migrated in the PostSchema step, after the Table & Data step is completed. This is because it is usually faster to insert data without an index, than with an index. 
 
-1. PreSchema: Migrates sequence objects
+Each step performs the following:
 
-2. Table & Data: Migrates table objects and data
-
-3. PostSchema:
-   
+1. Initialization: To the source database, performs validation of the WHERE clauses recorded in the TableCondition.properties file.
+2. PreSchema: Migrates sequence objects
+3. Table & Data: Migrates table objects and data
+4. PostSchema:
    1. Queue: Migrates queue objects
-   
    2. Constraints: Migrates constraints, namely unique, primary key, foreign key, and check constraints
-   
    3. Index: Migrates index objects
-   
    4. Synonym: Migrates private synonym objects
-   
    5. Procedures, functions, materialized views, views, typesets and triggers: Depends on the database management system and its version
 
 ### Data Validation Step
@@ -971,8 +913,6 @@ Internally, the Data Validation step is executed as below.
 
 The data to be validated is fetched from the source and destination databases and compared. If a difference in data is detected and “Write to CSV” in the “Data Validation Options” submenu is set to “Yes”, the different data is stored in CSV format files in the validation folder. Regardless of the option, summary information is always output to the Data Validation report.
 
-<br/>
-
 # Appendix A: Migration Options
 
 Migration Options affect the migration project. They can be edited by selecting the “Migration Option” menu item from the Migration menu in GUI mode. Migration Options can usually be edited right after the project is created. 
@@ -980,7 +920,6 @@ Migration Options affect the migration project. They can be edited by selecting 
 The primary option is the Migration Type: either “DB to DB” or “DB to File”. 
 
 - DB to DB Migration Options
-
 - DB to File Migration Options
 
 ### DB to DB Migration Options
@@ -993,7 +932,7 @@ Object and table data of the source database to be migrated are migrated directl
 | Migration Target                             | Specifies the targets for migration: <br />\- Object & Data: Database objects and table data<br />\- Object: Database objects only |
 | **Object Options**                           |                                                              |
 | Foreign Key Migration                        | Specifies whether or not to include foreign key constraints in migration target. This option is set to 'No' by default. |
-| PSM Migration                                | Specifies whether or not to include PSM objects such as procedures, functions, materialized views, views, typesets, and triggers in migration target. This option is set to 'No' by default.<br /> |
+| PSM Migration                                | Specifies whether or not to include PSM objects such as procedures, functions, materialized views, views, typesets, and triggers in migration target. This option is set to 'No' by default. |
 | Drop Existing Objects                        | Specifies whether or not to recreate the database object before migration. <br />When this option is set to 'Yes', DROP and CREATE will be executed on migration target objects in target database. When this option is set to 'No', migration will be executed without dropping the database objects. This option is set to 'No' by default. |
 | Keep Partition Table                         | Specifies whether or not to maintain partitioned tables.<br />When this option is set to 'Yes', partitioned tables in the the source database will be migrated as partitioned tables. In this case, additional work is required for the partitioned tables in the reconcile stage's '5. Partitioned Table Conversion'. When this option is set to 'No', target partitioned tables will be migrated as non-partitioned tables. This option is set to 'No' by default. |
 | Use Double-quoted Identifier                 | Specifies whether or not to use double quotation marks for schema and object names. This option is set to 'No' by default. |
@@ -1008,7 +947,7 @@ Object and table data of the source database to be migrated are migrated directl
 | File Encoding                                | Specifies the encoding character set to be used when logging the insert-failed data into files. This option is available only when the Log Insert-failed Data option is enabled. The default value is UTF8. |
 | Replace Empty String Data                    | Specifies how to replace empty string data encountered during data migration with a user-defined string.<br />- Replace Empty Strings in Not Null: Setting this option to 'Yes' allows to replace empty string data with a user-defined string. The default setting is 'No'.<br/>- Replacement String: Specifies the string that will replace the empty string. This option is only enabled when Replace Empty Strings in Not Null is set to 'Yes'.<br />- Apply to Nullable Columns: Setting this option to 'Yes' allows to replace empty string data in columns **without a NOT NULL constraint** with the value specified in Replacement String. The default setting is 'No'. |
 | **Data Validation Options**                  |                                                              |
-| Operation                                    | Specifies the operation to be executed in the data validation stage: <br />DIFF: Check data difference between the source and the target databases. <br/>FILESYNC: Apply the CSV file created as a result of DIFF operation to the target database. |
+| Operation                                    | Specifies the operation to be executed in the data validation stage: <br />- DIFF: Check data difference between the source and the target databases. <br/>- FILESYNC: Apply the CSV file created as a result of DIFF operation to the target database. |
 | Write to CSV                                 | Specifies whether or not to write the inconsistent data to the CSV file. |
 | Include LOB                                  | Specifies whether or not to include LOB data when writing inconsistent data to the CSV file. |
 | Data Sampling                                | Specifies whether or not to use data sampling feature.<br />When this option is set to 'Yes', to decrease the data validation time, only sample data will be validated. When this option is set to 'No', each data will be validated. This option is set to 'Yes' by default. |
@@ -1036,13 +975,11 @@ The stored files can be migrated to the database (Altibase) to be saved using iS
 | **Data Files**                            |                                                              |
 | File Encoding                             | Specifies the encoding character set to be used for scripts and data files. |
 
-<br/>
-
 # Appendix B: Migratable Database Objects
 
-This section will provide guidlines and explanation in regards to the migratable database objects depending on the "build" step.
+This section will provide guidelines and explanation in regards to the migratable database objects depending on the "Build" step.
 
-Objects in the source database that Migration Center does not migrate automatically must be converted manually by the user. Starting with Migration Center 7.11, the CREATE statement of an object is written to the two files below in the Build phase, so users can refer to these files for conversion.
+Objects in the source database that Migration Center does not migrate automatically must be converted manually by the user. Starting with Migration Center 7.11, the CREATE statement of an object is written to the two files below in the Build step, so users can refer to these files for conversion.
 
 - SrcDbObj_Create.sql
 - BuildReport4Unsupported.html
@@ -1051,7 +988,7 @@ Objects in the source database that Migration Center does not migrate automatica
 
 | Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
 | :--------------------- | :------------------------: | :-------------------------: | :----------------------------------------------------------- |
-| Table                  |             O              |              O              | The comments specified in the bales and columns are migrated as well. |
+| Table                  |             O              |              O              | The comments specified in the tables and columns are migrated as well. |
 | Primary Key Constraint |             O              |              O              |                                                              |
 | Unique Constraint      |             O              |              O              |                                                              |
 | Check Constraint       |             O              |              O              |                                                              |
@@ -1060,48 +997,28 @@ Objects in the source database that Migration Center does not migrate automatica
 | Sequence               |             O              |              X              |                                                              |
 | Queue                  |             O              |              X              |                                                              |
 | Private Synonym        |         Partly yes         |              X              | Synonyms that refer to objects in other schemas are also migrated |
-| Procedure              |         Partly yes         |              X              | The original DDL is performed without any additional conversion. |
-| Function               |         Partly yes         |              X              | The original DDL is performed without any additional conversion. |
-| Package                |         Partly yes         |              X              | The original DDL is performed without any additional conversion. |
-| View                   |         Partly yes         |              X              | The original DDL is performed without any additional conversion. |
-| Materialized View      |         Partly yes         |              X              | The original DDL is performed without any additional conversion. |
-| Trigger                |         Partly yes         |              X              | The original DDL is performed without any additional conversion. |
-
-### Altibase to Oracle
-
-| Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
-| :--------------------- | :------------------------: | :-------------------------: | :----------------------------------------------------------- |
-| Table                  |             O              |              O              |                                                              |
-| Primary Key Constraint |             O              |              O              |                                                              |
-| Unique Constraint      |             O              |              O              |                                                              |
-| Check Constraint       |             O              |              O              |                                                              |
-| Foreign Key Constraint |             O              |              O              |                                                              |
-| Index                  |             O              |              O              |                                                              |
-| Sequence               |             O              |              X              |                                                              |
-| Queue                  |             X              |              X              | It is automatically excluded since from the build phase since there are no convertible objects |
-| Private Synonym        |         Partly Yes         |              X              | Synonyms that refer to objects in other schemas are also migrated. |
-| Procedure              |         Partly Yes         |              X              | The original DDL is performed without any additional conversion. |
-| Function               |         Partly Yes         |              X              | The original DDL is performed without any additional conversion. |
-| Package                |         Partly Yes         |              X              | The original DDL is performed without any additional conversion. |
-| View                   |         Partly Yes         |              X              | The original DDL is performed without any additional conversion. |
-| Materialized View      |         Partly Yes         |              X              | The original DDL is performed without any additional conversion. Note that the primary key must exist in the base table for migration |
-| Trigger                |         Partly Yes         |              X              | The original DDL is performed without any additional conversion. |
+| Procedure              |         Partly yes         |              X              | The original DDL statement is performed without any additional conversion. |
+| Function               |         Partly yes         |              X              | The original DDL statement is performed without any additional conversion. |
+| Package                |         Partly yes         |              X              | The original DDL statement is performed without any additional conversion. |
+| View                   |         Partly yes         |              X              | The original DDL statement is performed without any additional conversion. |
+| Materialized View      |         Partly yes         |              X              | The original DDL statement is performed without any additional conversion. |
+| Trigger                |         Partly yes         |              X              | The original DDL statement is performed without any additional conversion. |
 
 ### CUBRID to Altibase
 
 | Database Object Type            | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
 | :------------------------------ | :------------------------: | :-------------------------: | :----------------------------------------------------------- |
-| Table                           |             O              |              O              | The comments specified in tables and columns are migrated as well |
+| Table                           |             O              |              O              | The comments specified in tables and columns are migrated as well. |
 | Primary Key Constraint          |             O              |              O              |                                                              |
 | Unique Constraint               |             O              |              O              |                                                              |
 | Foreign Key Constraint          |             O              |              O              |                                                              |
-| Index                           |             O              |              O              | Reverse index and prefix length index of CUBRID are not supported in Altibase. Since the reverse index takes a method of reversely inserting key values when creating an index, it is not supported by Altibase migration whereas prefix length index takes a method of partially indexing specific key values and so, it is converted as a general index in Altibase when migrating. |
+| Index                           |             O              |              O              | Reverse index and Prefix length index of CUBRID are not supported in Altibase. Since the reverse index takes a method of reversely inserting key values when creating an index, it is not supported by Altibase migration whereas prefix length index takes a method of partially indexing specific key values and so, it is converted as a general index in Altibase when migrating. |
 | auto_increment Column Attribute |             O              |              O              | it is migrated to the sequence.                              |
 | Serial                          |             O              |              X              | It is migrated to the sequence.                              |
-| Procedure                       |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
-| Function                        |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
-| View                            |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
-| Trigger                         |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Procedure                       |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Function                        |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| View                            |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Trigger                         |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
 
 ### Informix to Altibase
 
@@ -1116,10 +1033,10 @@ Objects in the source database that Migration Center does not migrate automatica
 | Serial Column Type     |             O              |              O              | It is migrated to the sequence.                              |
 | Sequence               |             O              |              X              |                                                              |
 | Private Synonym        |         Partly yes         |              X              | Only synonyms that refer to objects in the same schema are migrated. |
-| Procedure              |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
-| Function               |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
-| View                   |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
-| Trigger                |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Procedure              |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Function               |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| View                   |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Trigger                |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
 
 ### MySQL to Altibase
 
@@ -1132,23 +1049,23 @@ Objects in the source database that Migration Center does not migrate automatica
 | Foreign Key Constraint          |             O              |              O              |                                                              |
 | Index                           |             O              |              O              |                                                              |
 | auto_increment Column Attribute |             O              |              O              | It is migrated to the sequence.                              |
-| Procedure                       |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
-| Function                        |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
-| View                            |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
-| Trigger                         |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Procedure                       |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Function                        |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| View                            |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Trigger                         |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
 
 ### Oracle to Altibase
 
 | Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
 | :--------------------- | :------------------------: | :-------------------------: | :----------------------------------------------------------- |
-| Table                  |             O              |              O              | To migrate a temporary table from an Oracle database (source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace. Also, the comments specified in tables and columns are migrated as well. |
+| Table                  |             O              |              O              | To migrate a temporary table from an Oracle database(source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace. Also, the comments specified in tables and columns are migrated as well. |
 | Primary Key Constraint |             O              |              O              |                                                              |
 | Unique Constraint      |             O              |              O              |                                                              |
 | Check Constraint       |             O              |              O              |                                                              |
 | Foreign Key Constraint |             O              |              O              |                                                              |
 | Index                  |             O              |              O              |                                                              |
 | Sequence               |             O              |              X              |                                                              |
-| Private Synonym        |         Partly yes         |              X              | Only snonyms that refer to objects in the same schema are migrated. |
+| Private Synonym        |         Partly yes         |              X              | Only synonyms that refer to objects in the same schema are migrated. |
 | Procedure              |         Partly yes         |              X              | Converts object creation statements according to the rules defined in the PSM converter and attempts migration. |
 | Function               |         Partly yes         |              X              | Converts object creation statements according to the rules defined in the PSM converter and attempts migration. |
 | Package                |         Partly yes         |              X              | Converts object creation statements according to the rules defined in the PSM converter and attempts migration. |
@@ -1169,20 +1086,20 @@ Objects in the source database that Migration Center does not migrate automatica
 | Identity Column Attribute |             O              |              O              | It is migrated to the sequence                               |
 | Sequence                  |             O              |              X              | SQL Server 2012 Support                                      |
 | Private Synonym           |         Partly yes         |              X              | Only synonyms that refer to objects in the same schema are migrated. |
-| Procedure                 |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
-| Function                  |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
-| View                      |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
-| Trigger                   |             X              |              X              | In the build phase, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Procedure                 |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Function                  |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| View                      |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+| Trigger                   |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
 
 ### TimesTen to Altibase
 
 | Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
 | :--------------------- | :------------------------: | :-------------------------: | :----------------------------------------------------------- |
-| Table                  |             O              |              O              | To migrate a temporary table from an TimesTen database (source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace.<br/>Also, the comments specified in tables and columns are migrated as well. |
+| Table                  |             O              |              O              | To migrate a temporary table from an TimesTen database(source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace.<br/>Also, the comments specified in tables and columns are migrated as well. |
 | Primary Key Constraint |             O              |              O              |                                                              |
 | Unique Constraint      |             O              |              O              |                                                              |
 | Foreign Key Constraint |             O              |              O              |                                                              |
-| Index                  |             O              |              O              | The index ordering(ASC/DESC) or size of TimesTen(the original database) is not provided. Thus, the index ordering is set as the default value(ASC), and the size is not displayed when migrating. Among the three indexes(hash, range, bitmap) provided by Times ten, the hash•range index is converted into B-tree index of Altibase and the bitmap index is skipped when migrating. Furthermore, if the indexed column has unique constraints or is the primary key, the target index migration fails since Altibase does not allow creating an index on those constrained column(s). |
+| Index                  |             O              |              O              | The index ordering(ASC/DESC) or size of TimesTen(source database) is not provided. Thus, the index ordering is set as the default value(ASC), and the size is not displayed when migrating. Among the three indexes(hash, range, bitmap) provided by Times ten, the hash•range index is converted into B-tree index of Altibase and the bitmap index is skipped when migrating. Furthermore, if the indexed column has unique constraints or is the primary key, the target index migration fails since Altibase does not allow creating an index on those constrained column(s). A list of nonmigratable indexes that are filtered during the build step can be found in the Missing tab of the Build Report. |
 | Sequence               |             O              |              X              |                                                              |
 | Private Synonym        |         Partly yes         |              X              | Only synonyms that refer to objects in the same schema are migrated. |
 | Procedure              |         Partly yes         |              X              | TimesTen 11.2 support                                        |
@@ -1196,7 +1113,7 @@ Objects in the source database that Migration Center does not migrate automatica
 
 | Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
 | :--------------------- | :------------------------: | :-------------------------: | :----------------------------------------------------------- |
-| Table                  |             O              |              O              | To migrate a temporary table from an Tibero database (source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace. <br/>Also, the comments specified in tables and columns are migrated as well. |
+| Table                  |             O              |              O              | To migrate a temporary table from an Tibero database(source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace. <br/>Also, the comments specified in tables and columns are migrated as well. |
 | Primary Key Constraint |             O              |              O              |                                                              |
 | Unique Constraint      |             O              |              O              |                                                              |
 | Check Constraint       |             O              |              O              |                                                              |
@@ -1217,11 +1134,9 @@ Objects in the source database that Migration Center does not migrate automatica
 
 ### PostgreSQL to Altibase
 
-The following table describes supported database objects, precautions, and unsupported objects when migrating from PostgreSQL to Altibase.
-
 | Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
 | :--------------------- | :------------------------: | :-------------------------: | :----------------------------------------------------------- |
-| Table                  |             O              |              O              | the comments specified in columns are migrated. <br />Since the maximum number of columns that can be created in a table is 1,600 for PostgreSQL, and 1,024 for Altibase, must be careful when performing migration. |
+| Table                  |             O              |              O              | The comments specified in columns are migrated. <br />Since the maximum number of columns that can be created in a table is 1,600 for PostgreSQL, and 1,024 for Altibase, must be careful when performing migration. |
 | Primary Key Constraint |             O              |              O              |                                                              |
 | Unique Constraint      |             O              |              O              |                                                              |
 | Check Constraint       |             O              |              O              |                                                              |
@@ -1237,8 +1152,6 @@ The following table describes supported database objects, precautions, and unsup
 >
 > PostgreSQL objects not recorded in the above table(e.g., Exclusion constraints, Types, Enums, etc.) are excluded from the migration target because there are no objects corresponding to Altibase.
 
-
-
 # Appendix C: Data Type Mapping
 
 Migration Center’s policy for mapping data types between heterogeneous databases is to minimize the loss of data. However, the user may wish to customize the way that data is mapped, even if it incurs the loss or corruption of data. To satisfy this requirement, Migration Center also allows the user to edit the data type mapping table.
@@ -1253,23 +1166,21 @@ The user can change the data type mapping table in the reconcile stage as shown 
 
 Right-click in the project tree window and select the Reconcile menu. Or select Reconcile from the Migration menu. You must complete the Build step before you can perform this step.
 
-<div align="left"><img src="media/MigrationCenter/datatypemapping-step-1.png"></div>
+![](media/MigrationCenter/datatypemapping-step-1.png)
 
 **2. Data Type Mapping**
 
 *Reconcile* menu is clicked, the Reconcile window appears as shown below. In this window, users can view the default data type mapping table of Migration Center and change the data type of the target database in "1. Data Type Mapping". Select the data type you want to change and click the *Change* button at the bottom right.
 
-<div align="left">
-    <img src="media/MigrationCenter/datatypemapping-step-2.png">
-</div>
+![](media/MigrationCenter/datatypemapping-step-2.png)
+
 
 **3. Change Mapping Type**
 
 *Change* button is clicked, the following window appears. In the "Change Mapping Type" window, select the data type to change in the Destination DB Data Type. Depending on the data type, enter Precision and Scale if necessary, and click the *OK* button.
 
-<div align="left">
-    <img src="media/MigrationCenter/datatypemapping-step-3.png">
-</div>
+![](media/MigrationCenter/datatypemapping-step-3.png)
+
 
 ### Default Data Type Mapping Tables
 
@@ -1277,7 +1188,7 @@ These tables describe the basic data type mapping tables between heterogeneous d
 
 Since Migration Center 7.11, if a table's column length of a source database exceeds the maximum range of the data type mapped to the target database, the data type of the target database can be automatically converted to a data type with a larger range than the default mapping table. For instance, the following data types can be changed to CLOB if necessary in order to minimize data loss.
 
-- CHAR   
+- CHAR
 - VARCHAR or VARCHAR2, LVARCHAR, TT_VARCHAR
 
 #### Oracle to Altibase
@@ -1285,7 +1196,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |      | Source        | Destination     | Notice                                                       |
 | :--: | :------------ | :-------------- | :----------------------------------------------------------- |
 |  1   | CHAR          | CHAR            | CHAR type columns defined with character length in Oracle are automatically converted to CHAR type columns with byte length in Altibase, because in Altibase, CHAR type columns can be defined only with byte length. |
-|  2   | NCHAR         | NCHAR           | The explicit sizes of the source and destination NCHAR columns are the same, e.g. NCHAR(10) -> NCHAR(10). <br/>However, in the Oracle JDBC driver, the size of a national character column is defined as the number of bytes used, whereas in the Altibase JDBC driver, the size of a national character column is defined as the number of characters that are stored. Please note that this means that the resultant column in Altibase will be two or three times as large as necessary. |
+|  2   | NCHAR         | NCHAR           | The explicit sizes of the source and destination NCHAR columns are the same, e.g. NCHAR(10) → NCHAR(10). <br/>However, in the Oracle JDBC driver, the size of a national character column is defined as the number of bytes used, whereas in the Altibase JDBC driver, the size of a national character column is defined as the number of characters that are stored. Please note that this means that the resultant column in Altibase will be two or three times as large as necessary. |
 |  3   | VARCHAR2      | VARCHAR         | VARCHAR2 defined as character length in Oracle is converted into bytes in Altibase. Altibase's VARCHAR can be defined only in bytes. |
 |  4   | NVARCHAR2     | NVARCHAR        | The column sizes differ, for the same reason as NCHAR.       |
 |  5   | LONG          | CLOB            |                                                              |
@@ -1318,7 +1229,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  10  | FLOAT            | VARCHAR(310)     | There is no compatible data type in Altibase for Microsoft SQL FLOAT type, so VARCHAR(310) is mapped to prevent data loss. |
 |  11  | REAL             | FLOAT            |                                                              |
 |  12  | DATE             | DATE             |                                                              |
-|  13  | DATETIME2        | DATE             | A fraction of time can be loss due to difference in scale. Scale of DATETIME2 type of Microsoft SQL Server is hundreds of nanoseconds (7 digits), whereas the scale of DATE type of Altibase is only microseconds(6 digits). |
+|  13  | DATETIME2        | DATE             | A fraction of time can be loss due to difference in scale. Scale of DATETIME2 type of Microsoft SQL Server is hundreds of nanoseconds(7 digits), whereas the scale of DATE type of Altibase is only microseconds(6 digits). |
 |  14  | DATETIME         | DATE             |                                                              |
 |  15  | SMALLDATETIME    | DATE             |                                                              |
 |  16  | CHAR             | CHAR             |                                                              |
@@ -1336,45 +1247,39 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 
 #### MySQL to Altibase
 
-|      | Source                          | Destination    | Notice                                                       |
-| :--: | :------------------------------ | :------------- | :----------------------------------------------------------- |
-|  1   | TINYINT                         | SMALLINT       |                                                              |
-|  2   | TINYINT UNSIGNED                | SMALLINT       |                                                              |
-|  3   | SMALLINT                        | INTEGER        |                                                              |
-|  4   | SMALLINT UNSIGNED               | INTEGER        |                                                              |
-|  5   | MEDIUMINT                       | INTEGER        |                                                              |
-|  6   | MEDIUMINT UNSIGNED              | INTEGER        |                                                              |
-|  7   | INT (INTEGER)                   | INTEGER        | Please note that the minimum value of Altibase INT type (-2,147,483,647) is greater than the minimum value of MySQL INT type (- 2,147,483,648). |
-|  8   | INT UNSIGNED                    | BIGINT         |                                                              |
-|  9   | BIGINT                          | BIGINT         | Please note that the minimum value of Altibase BIGINTINT type (-9,223,372,036,854,775,807) is greater than the minimum value of MySQL BIGINT type (-9,223,372,036,854,775,808). |
-|  10  | BIGINT UNSIGNED                 | NUMERIC(20,0)  | There is no compatible data type in Altibase for MySQL BIGINT UNSIGNED type, so NUMERIC type is used to prevent any data loss. |
-|  11  | DECIMAL (NUMERIC)               | VARCHAR(70)    | There is no compatible data type in Altibase for MySQL DECIMAL type, so VARCHAR type is used to prevent any data loss. |
-|  12  | FLOAT                           | FLOAT          |                                                              |
-|  13  | DOUBLE                          | DOUBLE         |                                                              |
-|  14  | BIT                             | VARBIT         |                                                              |
-|  15  | DATETIME                        | DATE           | Time parts are set to ‘0'                                    |
-|  16  | DATE                            | DATE           |                                                              |
-|  17  | TIMESTAMP                       | DATE           | Except TIMEZONE                                              |
-|  18  | CHAR                            | CHAR           |                                                              |
-|  19  | VARCHAR                         | VARCHAR        | If the MySQL's VARCHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it  is converted to Altibase's CLOB data type. This is to prevent data loss that may occur during migration due to the maximum size difference between MySQL and Altibase data types. MySQL's maximum value for VARCHAR is 65,536 bytes, larger than Altibase. |
-|  20  | CHAR with National Character    |                | The data type of Altibase varies depending on the character set of MySQL and Altibase. |
-|      |                                 | CHAR           | 1. If the character set of MySQL and Altibase is the same Unicode, it is converted to CHAR.<br />2. Even when MySQL's character set is not Unicode, it is converted to CHAR. |
-|      |                                 | NCHAR          | If the character set of MySQL is Unicode and the character set of Altibase is not Unicode, it is converted to NCHAR. |
-|  21  | VARCHAR with National Character |                | The data type of Altibase varies depending on the character set of MySQL and Altibase. |
-|      |                                 | VARCHAR        | 1. If the character set of MySQL and Altibase is the same Unicode, it is converted to VARCHAR.<br />2. Even when MySQL's character set is not Unicode, it is converted to VARCHAR. |
-|      |                                 | NVARCHAR       | If the character set of MySQL is Unicode and the character set of Altibase is not Unicode, it is converted to NVARCHAR. |
-|  22  | BINARY                          | BYTE           |                                                              |
-|  23  | VARBINARY                       | BLOB           |                                                              |
-|  24  | TINYBLOB                        | BLOB           |                                                              |
-|  25  | MEDIUMBLOB                      | BLOB           |                                                              |
-|  26  | BLOB                            | BLOB           |                                                              |
-|  27  | LONGBLOB                        | BLOB           |                                                              |
-|  28  | TINYTEXT                        | VARCHAR(255)   |                                                              |
-|  29  | TEXT                            | CLOB           |                                                              |
-|  30  | MEDIUMTEXT                      | CLOB           |                                                              |
-|  31  | LONGTEXT                        | CLOB           |                                                              |
-|  32  | ENUM                            | VARCHAR(10666) | There is no compatible data type in Altibase for MySQL ENUM type, so VARCHAR is used to prevent data loss. |
-|  33  | SET                             | VARCHAR(10666) | There is no compatible data type in Altibase for MySQL SET type, so VARCHAR is used to prevent data loss. |
+|      | Source             | Destination                 | Notice                                                       |
+| :--: | :----------------- | :-------------------------- | :----------------------------------------------------------- |
+|  1   | TINYINT            | SMALLINT                    |                                                              |
+|  2   | TINYINT UNSIGNED   | SMALLINT                    |                                                              |
+|  3   | SMALLINT           | INTEGER                     |                                                              |
+|  4   | SMALLINT UNSIGNED  | INTEGER                     |                                                              |
+|  5   | MEDIUMINT          | INTEGER                     |                                                              |
+|  6   | MEDIUMINT UNSIGNED | INTEGER                     |                                                              |
+|  7   | INT (INTEGER)      | INTEGER                     | Please note that the minimum value of Altibase INT type (-2,147,483,647) is greater than the minimum value of MySQL INT type (- 2,147,483,648). |
+|  8   | INT UNSIGNED       | BIGINT                      |                                                              |
+|  9   | BIGINT             | BIGINT                      | Please note that the minimum value of Altibase BIGINTINT type (-9,223,372,036,854,775,807) is greater than the minimum value of MySQL BIGINT type (-9,223,372,036,854,775,808). |
+|  10  | BIGINT UNSIGNED    | NUMERIC(20,0)               | There is no compatible data type in Altibase for MySQL BIGINT UNSIGNED type, so NUMERIC type is used to prevent any data loss. |
+|  11  | DECIMAL (NUMERIC)  | VARCHAR(70)                 | There is no compatible data type in Altibase for MySQL DECIMAL type, so VARCHAR type is used to prevent any data loss. |
+|  12  | FLOAT              | FLOAT                       |                                                              |
+|  13  | DOUBLE             | DOUBLE                      |                                                              |
+|  14  | BIT                | VARBIT                      |                                                              |
+|  15  | DATETIME           | DATE                        | Time parts are set to ‘0'                                    |
+|  16  | DATE               | DATE                        |                                                              |
+|  17  | TIMESTAMP          | DATE                        | Except TIMEZONE                                              |
+|  18  | CHAR               | CHAR or NCHAR               | The data type of Altibase varies depending on the character set of MySQL and Altibase.<br/>\- When MySQL's character set is Unicode<br/>\- If Altibase's character set is Unicode, it is converted to CHAR<br/>\- If Altibase's character set is not Unicode, it is converted to NCHAR |
+|  19  | VARCHAR            | VARCHAR or NVARCHAR or CLOB | The data type of Altibase varies depending on the character set of MySQL and Altibase.<br/>\- If MySQL's character set of VARCHAR column is Unicode<br/>\- If Altibase's character set is Unicode, it is converted to VARCHAR<br/>\- If Altibase's character set is not Unicode, it is converted to NVARCHAR<br><br/>If the MySQL's VARCHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it  is converted to Altibase's CLOB data type. This is to prevent data loss that may occur during migration due to the maximum size difference between MySQL and Altibase data types. MySQL's maximum value for VARCHAR is 65,536 bytes, larger than Altibase. |
+|  22  | BINARY             | BYTE                        |                                                              |
+|  23  | VARBINARY          | BLOB                        |                                                              |
+|  24  | TINYBLOB           | BLOB                        |                                                              |
+|  25  | MEDIUMBLOB         | BLOB                        |                                                              |
+|  26  | BLOB               | BLOB                        |                                                              |
+|  27  | LONGBLOB           | BLOB                        |                                                              |
+|  28  | TINYTEXT           | VARCHAR(255)                |                                                              |
+|  29  | TEXT               | CLOB                        |                                                              |
+|  30  | MEDIUMTEXT         | CLOB                        |                                                              |
+|  31  | LONGTEXT           | CLOB                        |                                                              |
+|  32  | ENUM               | VARCHAR(10666)              | There is no compatible data type in Altibase for MySQL ENUM type, so VARCHAR is used to prevent data loss. |
+|  33  | SET                | VARCHAR(10666)              | There is no compatible data type in Altibase for MySQL SET type, so VARCHAR is used to prevent data loss. |
 
 #### Informix 11.5 to Altibase
 
@@ -1396,7 +1301,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  14  | DATETIME      | DATE        |                                                              |
 |  15  | BOOLEAN       | CHAR(1)     |                                                              |
 |  16  | CHAR          | CHAR        | If Informix's CHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's CHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Informix and Altibase data types. Informix's maximum value for CHAR is 32,767 bytes, larger than Altibase. |
-|  17  | NCHAR         | NCHAR       | The user should note that data loss can occur due to the maximum precision of NCHAR data type at Informix (32,767) being greater than that of Altibase (32,000). |
+|  17  | NCHAR         | NCHAR       | The user should note that data loss can occur due to the maximum precision of NCHAR data type at Informix(32,767) being greater than that of Altibase(32,000). |
 |  18  | VARCHAR       | VARCHAR     |                                                              |
 |  19  | NVARCHAR      | NVARCHAR    |                                                              |
 |  20  | LVARCHAR      | VARCHAR     | If Informix's LVARCHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Informix and Altibase data types. Informix's maximum value for LVARCHAR is 32,767 bytes, larger than Altibase. |
@@ -1423,7 +1328,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  11  | NVARCHAR2     | NVARCHAR        | The maximum size of VARCHAR2 of TimesTen is 2,097,152 bytes, which is greater than the maximum VARCHAR size of Altibase, which is 32,000; thus, the potential data loss can be occurred. |
 |  12  | ROWID         | VARCHAR(18)     |                                                              |
 |  13  | TIME          | DATE            |                                                              |
-|  14  | TIMESTAMP     | DATE            | The maximum TIMESTAMP scale of TimesTen takes nanoseconds (9digits), which is greater than the maximum DATE scale microseconds (6digits) of Altibase; thus, the potential data loss can be occurred. |
+|  14  | TIMESTAMP     | DATE            | The maximum TIMESTAMP scale of TimesTen takes nanoseconds(9 digits), which is greater than the maximum DATE scale microseconds(6 digits) of Altibase; thus, the potential data loss can be occurred. |
 |  15  | TT_BIGINT     | BIGINT          | The minimum size of TT_BIGINT in TimesTen is -9,223,372,036,854,775,808 which is smaller than the minimum BIGINT size of Altibase, which is 9,223,372,036,854,775,807; thus, the potential data loss can be occurred. |
 |  16  | TT_CHAR       | CHAR            |                                                              |
 |  17  | TT_DATE       | DATE            |                                                              |
@@ -1434,60 +1339,36 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  22  | TT_SMALLINT   | SMALLINT        | The potential data loss can be occurred since the minimum TT_SMALLINT size (-32,768) of TimesTen is smaller than the minimum SMALLINT size(-32,767) of Altibase. |
 |  23  | TT_TIMESTAMP  | DATE            | The maximum scale of TT_TIMESTAMP in TimesTen is nanoseconds (7 digits), which is greater than the maximum scale of DATE in Altibase that is microseconds (6 digits); thus, the potential data loss can be occurred. |
 |  24  | TT_TINYINT    | SMALLINT        |                                                              |
-|  25  | TT_VARCHAR    | VARCHAR         | If TimesTen's TT_VARCHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between TimesTen and Altibase data types. TimesTen's maximum value for TT_VARCHAR is 4,194,304bytes, larger than Altibase. |
+|  25  | TT_VARCHAR    | VARCHAR or CLOB | If TimesTen's TT_VARCHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between TimesTen and Altibase data types. TimesTen's maximum value for TT_VARCHAR is 4,194,304bytes, larger than Altibase. |
 |  26  | VARBINARY     | BLOB            |                                                              |
-|  27  | VARCHAR2      | VARCHAR         | 1. If TimesTen's VARCHAR2 legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between TimesTen and Altibase data types. TimesTen's maximum value for VARCHAR2 is 4,194,304bytes, larger than Altibase.<br />2. VARCHAR2 defined as character length in TimesTen is converted into bytes in Altibase. Altibase's VARCHAR can be defined only in bytes. |
+|  27  | VARCHAR2      | VARCHAR or CLOB | 1. If TimesTen's VARCHAR2 legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between TimesTen and Altibase data types. TimesTen's maximum value for VARCHAR2 is 4,194,304bytes, larger than Altibase.<br />2. VARCHAR2 defined as character length in TimesTen is converted into bytes in Altibase. Altibase's VARCHAR can be defined only in bytes. |
 
 #### CUBRID to Altibase
 
-|      | Source     | Destination   | Notice                                                       |
-| :--: | :--------- | :------------ | :----------------------------------------------------------- |
-|  1   | SHORT      | SMALLINT      | The minimum SHORT value of CURBID is - 32,768, which is smaller than the minimum value(-32,767) of SMALLINT in Altibase; thus the potential data loss can be occurred. |
-|  2   | INTEGER    | INTEGER       | The minimum value of CUBRID( - 2,147,483,648) is smaller than that of the Altibase( -2,147,483,647); thus the potential data loss can be occurred. |
-|  3   | BIGINT     | BIGINT        | The minimum value of CUBRID(- 9,223,372,036,854,775,808) is smaller than that of the Altibase ( -9,223,372,036,854,775,807);thus the potential data loss can be occurred. |
-|  4   | NUMERIC    | NUMERIC       |                                                              |
-|  5   | FLOAT      | REAL          |                                                              |
-|  6   | DOUBLE     | DOUBLE        |                                                              |
-|  7   | MONETARY   | DOUBLE        |                                                              |
-|  8   | DATE       | DATE          |                                                              |
-|  9   | TIME       | DATE          |                                                              |
-|  10  | TIMESTAMP  | DATE          |                                                              |
-|  11  | DATETIME   | DATE          |                                                              |
-|  12  | CHAR       | CHAR          | If CUBRID's CHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's CHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between CUBRID and Altibase data types. CUBRID's maximum value for CHAR is 1,073,741,823 bytes, larger than Altibase. |
-|  13  | VARCHAR    | VARCHAR       | If CUBRID's VARCHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between CUBRID and Altibase data types. CUBRID's maximum value for VARCHAR is 1,073,741,823 bytes, larger than Altibase. |
-|  14  | NCHAR      | NCHAR         | Since the maximum size of NCHAR type in CUBRID is 1,073,741,823 bytes, which is greater than that of the Altibase( 16,000bytes), potential data loss can be occurred. |
-|  15  | VARCHAR    | NVARCHAR      | The maximum size of VARCHAR type in CUBRID is 1,073,741,823 bytes and it is greater than the maximum NVARCHAR type of Altibase,which is 16,000 bytes; thus, potential data loss can be occured. |
-|  16  | STRING     | VARCHAR       | The potential data loss can be occured since the maximum VARCHAR size of CUBRID is greater than that of Altiabse, which is 32,000 bytes with the identical data type. |
-|  17  | BIT        | BLOB          |                                                              |
-|  18  | VARBIT     | BLOB          |                                                              |
-|  19  | BLOB       | BLOB          |                                                              |
-|  20  | CLOB       | CLOB          |                                                              |
-|  21  | ENUM       | VARCHAR(3200) | This is the data which is not supported by Altibase. The constants of enumeration character sting in CUBRID implement migration through arbitrarily converting them into VARCHAR type of Altibase. |
-|  22  | COLLECTION | VARCHAR(3200) | This is the data type that Altibase does not support. The COLLECTION data type of CUBRID is converted as the VARCHAR data type of Altibase and the value of the former is also converted as string for the later during migrating. |
-
-#### Altibase to Oracle
-
-|      | Source   | Destination   | Notice                                                       |
-| :--: | :------- | :------------ | :----------------------------------------------------------- |
-|  1   | CHAR     | CHAR          | If Altibase's CHAR legnth exceeds 2,000 bytes, the maximum size of Oracle's CHAR, it is converted to Oracle's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Altibase and Oracle. Altibase's CHAR maximum size is 32,000 bytes, which is larger than Oracle. |
-|  2   | NCHAR    | NCHAR         | The potential data loss can be occurred since the maximum size of Altibase NCHAR is 32000 bytes and the maximum size of of Oracle NCHAR is 2000 bytes. |
-|  3   | VARCHAR  | VARCHAR2      | If Altibase's VARCHAR legnth exceeds 4,000 bytes, the maximum size of Oracle's VARCHAR2, it is converted to Oracle's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between Altibase and Oracle. Altibase's VARCHAR maximum size is 32,000 bytes, which is larger than Oracle. |
-|  4   | NVARCHAR | NVARCHAR2     | The potential data loss can be occurred since the maximum size of Altibase NVARCHAR is 32000 bytes and the maximum size of of Oracle NVARCHAR is 4000 bytes or characters. |
-|  5   | SMALLINT | NUMBER        |                                                              |
-|  6   | INTEGER  | NUMBER        |                                                              |
-|  7   | BIGINT   | NUMBER        |                                                              |
-|  8   | REAL     | BINARY_FLOAT  |                                                              |
-|  9   | DOUBLE   | BINARY_DOUBLE |                                                              |
-|  10  | FLOAT    | FLOAT         |                                                              |
-|  11  | NUMERIC  | NUMBER        |                                                              |
-|  12  | DATE     | TIMESTAMP     |                                                              |
-|  13  | BIT      | CHAR          | The potential data loss can be occurred since the maximum size of CHAR is 2000 bytes, and the maximum size of BIT is 64000 bits, that is, 8000 bytes. |
-|  14  | VARBIT   | VARCHAR2      | The potential data loss can be occurred since the maximum size of VARCHAR2 is 4000 bytes, and the maximum size of VARBIT is 64000 bits, that is, 8000 bytes. |
-|  15  | BYTE     | RAW           | The potential data loss can be occurred since the maximum size of BYTE is 32000 bytes, and the maximum size of RAW is 2000 bytes. |
-|  16  | VARBYTE  | RAW           | The potential data loss can be occurred since the maximum size of VARBYTE is 32000 bytes, and the maximum size of RAW is 2000 bytes. |
-|  17  | NIBBLE   | RAW           |                                                              |
-|  18  | BLOB     | BLOB          |                                                              |
-|  19  | CLOB     | CLOB          |                                                              |
+|      | Source     | Destination     | Notice                                                       |
+| :--: | :--------- | :-------------- | :----------------------------------------------------------- |
+|  1   | SHORT      | SMALLINT        | The minimum SHORT value of CURBID is - 32,768, which is smaller than the minimum value(-32,767) of SMALLINT in Altibase; thus the potential data loss can be occurred. |
+|  2   | INTEGER    | INTEGER         | The minimum value of CUBRID( - 2,147,483,648) is smaller than that of the Altibase( -2,147,483,647); thus the potential data loss can be occurred. |
+|  3   | BIGINT     | BIGINT          | The minimum value of CUBRID(- 9,223,372,036,854,775,808) is smaller than that of the Altibase ( -9,223,372,036,854,775,807);thus the potential data loss can be occurred. |
+|  4   | NUMERIC    | NUMERIC         |                                                              |
+|  5   | FLOAT      | REAL            |                                                              |
+|  6   | DOUBLE     | DOUBLE          |                                                              |
+|  7   | MONETARY   | DOUBLE          |                                                              |
+|  8   | DATE       | DATE            |                                                              |
+|  9   | TIME       | DATE            |                                                              |
+|  10  | TIMESTAMP  | DATE            |                                                              |
+|  11  | DATETIME   | DATE            |                                                              |
+|  12  | CHAR       | CHAR or CLOB    | If CUBRID's CHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's CHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between CUBRID and Altibase data types. CUBRID's maximum value for CHAR is 1,073,741,823 bytes, larger than Altibase. |
+|  13  | VARCHAR    | VARCHAR or CLOB | If CUBRID's VARCHAR legnth exceeds 32,000 bytes, the maximum size of Altibase's VARCHAR, it is converted to Altibase's data type to CLOB. This is to prevent data loss that may occur during migration due to the maximum size difference between CUBRID and Altibase data types. CUBRID's maximum value for VARCHAR is 1,073,741,823 bytes, larger than Altibase. |
+|  14  | NCHAR      | NCHAR           | Since the maximum size of NCHAR type in CUBRID is 1,073,741,823 bytes, which is greater than that of the Altibase( 16,000bytes), potential data loss can be occurred. |
+|  15  | VARCHAR    | NVARCHAR        | The maximum size of VARCHAR type in CUBRID is 1,073,741,823 bytes and it is greater than the maximum NVARCHAR type of Altibase,which is 16,000 bytes; thus, potential data loss can be occured. |
+|  16  | STRING     | VARCHAR         | The potential data loss can be occured since the maximum VARCHAR size of CUBRID is greater than that of Altiabse, which is 32,000 bytes with the identical data type. |
+|  17  | BIT        | BLOB            |                                                              |
+|  18  | VARBIT     | BLOB            |                                                              |
+|  19  | BLOB       | BLOB            |                                                              |
+|  20  | CLOB       | CLOB            |                                                              |
+|  21  | ENUM       | VARCHAR(3200)   | This is the data which is not supported by Altibase. The constants of enumeration character sting in CUBRID implement migration through arbitrarily converting them into VARCHAR type of Altibase. |
+|  22  | COLLECTION | VARCHAR(3200)   | This is the data type that Altibase does not support. The COLLECTION data type of CUBRID is converted as the VARCHAR data type of Altibase and the value of the former is also converted as string for the later during migrating. |
 
 #### Tibero to Altibase
 
@@ -1503,7 +1384,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  8   | BINARY DOUBLE | DOUBLE          | Special values such as NaN (Not a Number) and INF (Infinity) are not supported by Altibase. So, these values are not migrated. |
 |  9   | DATE          | DATE            |                                                              |
 |  10  | TIME          | DATE            |                                                              |
-|  11  | TIMESTAMP     | DATE            | A small amount of data loss may occur due to the difference in scale. In Tibero, the scale of a timestamp value is nanoseconds (9 digits), whereas in Altibase, the scale of a timestamp value is microseconds (6 digits). |
+|  11  | TIMESTAMP     | DATE            | A small amount of data loss may occur due to the difference in scale. In Tibero, the scale of a timestamp value is nanoseconds(9 digits), whereas in Altibase, the scale of a timestamp value is microseconds(6 digits). |
 |  12  | RAW           | BLOB            |                                                              |
 |  13  | LONG RAW      | BLOB            |                                                              |
 |  14  | BLOB          | BLOB            |                                                              |
@@ -1511,9 +1392,51 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  16  | NCLOB         | NVARCHAR(10666) | There is no compatible data type in Altibase for the Tibero NCLOB, so the data is stored in NVARCHAR with the maximum precision. This may cause data loss during data migration when the actual data precision exceeds the NVARCHAR maximum size. |
 |  17  | ROWID         | VARCHAR(18)     | Tibero's ROWID converts to a character data type. Altibase does not support the data type ROWID. |
 
+#### PostgreSQL to Altibase
+
+|      | Source                      | Destination       | Notice                                                       |
+| ---- | --------------------------- | ----------------- | ------------------------------------------------------------ |
+| 1    | SMALLINT                    | SMALLINT          | Due to differences in range between PostgreSQL and Altibase, data loss may occur during migration. PostgreSQL's SMALLINT range is **-32,768** to 32,767, whereas Altibase's range is **-32,767** to 32,767. |
+| 2    | INTEGER                     | INTEGER           | Due to differences in range between PostgreSQL and Altibase, data loss may occur during migration. PostgreSQL's INTEGER range is **-2,147,483,648** to 2,147,483,647, while Altibase's range is **-2,147,483,647** to 2,147,483,647. |
+| 3    | BIGINT                      | BIGINT            | Due to differences in range between PostgreSQL and Altibase, data loss may occur during migration. PostgreSQL's BIGINT range is **-9,223,372,036,854,775,808** to 9,223,372,036,854,775,807, whereas Altibase's range is **-9,223,372,036,854,775,807** to 9,223,372,036,854,775,807. |
+| 4    | NUMERIC (DECIMAL)           | NUMERIC           | Differences in precision and scale between PostgreSQL and Altibase may cause data loss. PostgreSQL supports precision from 1 to 1,000 and scale from 0 to *precision*, while Altibase supports precision from 1 to 38 and scale from -84 to 128. Additionally, Altibase does not support Infinity, -Infinity, or NaN, which may lead to data loss if these values are present. |
+| 5    | REAL                        | REAL              |                                                              |
+| 6    | DOUBLE PRECISION            | DOUBLE            |                                                              |
+| 7    | MONEY                       | VARCHAR(30)       | The MONEY data type in PostgreSQL is converted to VARCHAR(30) in Altibase. If the format of MONEY values uses commas (,) as thousands separators and periods (.) as decimal separators, these values can be converted to NUMERIC(20,2) during the Reconcile step. |
+| 8    | CHARACTER CHAR              | CHAR              |                                                              |
+| 9    | CHARACTER VARYING VARCHAR   | VARCHAR 또는 CLOB | Depending on character set compatibility, the Migration Center automatically adjusts column lengths. If the column length is under 32,000 bytes, VARCHAR is used; if it exceeds 32,000 bytes, CLOB is used. Note that 32,000 bytes is the maximum length for VARCHAR in Altibase. |
+| 10   | TEXT                        | CLOB              | PostgreSQL's TEXT is converted to CLOB in Altibase.          |
+| 11   | BOOLEAN                     | CHAR(1)           | PostgreSQL's BOOLEAN is converted to CHAR(1) in Altibase, with true stored as 't', false as 'f', and unknown as null. |
+| 12   | DATE                        | DATE              | -infinity and infinity, stored in PostgreSQL's DATE, are converted to 21506-12-03 and 11567-08-17, respectively. PostgreSQL internally represents -infinity as 292269055-12-03 and infinity as 292278994-08-17. |
+| 13   | TIME WITH TIME ZONE         | DATE              | Altibase does not support time-only data types; therefore, TIME WITH TIME ZONE is converted to DATE, with the time zone information lost. |
+| 14   | TIME WITHOUT TIME ZONE      | DATE              | As Altibase does not support time-only data types, TIME WITHOUT TIME ZONE is converted to DATE. |
+| 15   | TIMESTAMP WITH TIME ZONE    | DATE              | Time zone information is lost, with -infinity and infinity converted to 11567-08-17 and 21506-12-03, respectively, in Altibase. |
+| 16   | TIMESTAMP WITHOUT TIME ZONE | DATE              | PostgreSQL's TIMESTAMP WITHOUT TIME ZONE values of -infinity and infinity are converted to 11567-08-17 08:00:00.0 and 21506-12-03 08:00:00.0, respectively, in Altibase. |
+| 17   | INTERVAL                    | VARCHAR(100)      | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 18   | CIDR                        | VARCHAR(43)       | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 19   | INET                        | VARCHAR(43)       | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 20   | MACADDR                     | VARCHAR(17)       | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 21   | BIT                         | BIT or CLOB       | PostgreSQL BIT columns are converted to BIT if their length is within 64,000 bits. If they exceed 64,000 bits, they are converted to CLOB to avoid data loss due to the maximum length limit in Altibase (64,000 bits), compared to PostgreSQL’s maximum of 83,886,080 bits. |
+| 22   | BIT VARYING                 | VARBIT or CLOB    | PostgreSQL BIT VARYING columns are converted to VARBIT if their length is within 64,000 bits; otherwise, they are converted to CLOB to prevent data loss. PostgreSQL BIT VARYING has a maximum length of 83,886,080 bits, exceeding the 64,000-bit limit in Altibase. |
+| 23   | XML                         | CLOB              | There is no compatible data type in Altibase, so CLOB type is used to prevent any data loss. |
+| 24   | JSON                        | CLOB              | There is no compatible data type in Altibase, so CLOB type is used to prevent any data loss. |
+| 25   | JSONB                       | BLOB              | There is no compatible data type in Altibase, so BLOB type is used to prevent any data loss. |
+| 26   | ENUM                        | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 27   | UUID                        | VARCHAR(36)       | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 28   | ARRAY                       | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 29   | COMPOSITE                   | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 30   | RANGE                       | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 31   | POINT                       | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 32   | LINE                        | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 33   | LSEG                        | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 34   | BOX                         | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 35   | PATH                        | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 36   | POLYGON                     | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 37   | CIRCLE                      | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+
 ### Automatic Correction of Character Column Length Considering Heterogeneous Character Set
 
-When the character sets of the source and destination databases are different during migration, character data types (CHAR, VARCHAR) require length conversion.
+When the character sets of the source and destination databases are different during migration, character data types(CHAR, VARCHAR) require length conversion.
 For example, if the source database is set to the MS949 character set that requires a maximum of 2 bytes per character storage, and the target database is set to the UTF8 character set that requires 3 bytes per character, the character data of the target database is required to migrate without truncation. The size of the type should be 1.5 times the original.
 
 Migration Center automatically performs this length conversion, and the length correction formula for character data types is as follows.
@@ -1641,7 +1564,52 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 | ZHT16MSWIN950  | 2                        |
 | ZHT32EUC       | 4                        |
 
-<br/>
+##### PostgreSQL
+
+| Character Set  | Max. Bytes Per Character |
+| -------------- | ------------------------ |
+| BIG5           | 2                        |
+| EUC_CN         | 3                        |
+| EUC_JP         | 3                        |
+| EUC_JIS_2004   | 3                        |
+| EUC_KR         | 3                        |
+| EUC_TW         | 3                        |
+| GB18030        | 4                        |
+| GBK            | 2                        |
+| ISO_8859_5     | 1                        |
+| ISO_8859_6     | 1                        |
+| ISO_8859_7     | 1                        |
+| ISO_8859_8     | 1                        |
+| JOHAB          | 3                        |
+| KOI8R          | 1                        |
+| KOI8U          | 1                        |
+| LATIN1         | 1                        |
+| LATIN2         | 1                        |
+| LATIN3         | 1                        |
+| LATIN4         | 1                        |
+| LATIN5         | 1                        |
+| LATIN6         | 1                        |
+| LATIN7         | 1                        |
+| LATIN8         | 1                        |
+| LATIN9         | 1                        |
+| LATIN10        | 1                        |
+| MULE_INTERNAL  | 4                        |
+| SJIS           | 2                        |
+| SHIFT_JIS_2004 | 2                        |
+| SQL_ASCII      | 1                        |
+| UHC            | 2                        |
+| UTF8           | 4                        |
+| WIN866         | 1                        |
+| WIN874         | 1                        |
+| WIN1250        | 1                        |
+| WIN1251        | 1                        |
+| WIN1252        | 1                        |
+| WIN1253        | 1                        |
+| WIN1254        | 1                        |
+| WIN1255        | 1                        |
+| WIN1256        | 1                        |
+| WIN1257        | 1                        |
+| WIN1258        | 1                        |
 
 # Appendix D: Mapping Default Values
 
@@ -1663,19 +1631,14 @@ Prior to migrating data, Migration Center creates a table identical to the sourc
 
 Default values of most of the original database are compatible with the target database without any modifications. However, Migration Center converts source database default values according to the policy of the target database system for the following exceptions.
 
-- The CHARACTER data type with an empty string as the default value
-
+- The CHARACTER data type with an empty string as the default value  
   Altibase treats empty strings (`''`) as NULL, meaning that no default value is assigned. For columns where the default value is an empty string and a NOT NULL constraint is present, refer to the [Empty String Handling Options](#empty-string-handling-options) section.
-
-- The DATE data type with a string expression as the default value
-
+- The DATE data type with a string expression as the default value  
   Since the default format for the DATE data type differs among source databases, Migration Center specifies a comment which includes the DEFAULT keyword in the CREATE TABLE statement, instead of the default value. If necessary, the user must manually set the default value later on, by referring to the comment. However, if the source database is the one among the MySQL, TimesTen or CUBRID, Migration Center automatically converts default values as shown below. 
-
-- The default value specified with a function
-
+- The default value specified with a function  
   A function which is listed in the following table is converted accordingly, only if the function is exclusively specified as the default value in the source database. Other functions or expressions of a complex form are converted without being changed. If necessary, the user must manually change them later on. 
 
-#### Oracle Database to Altibase
+#### Oracle to Altibase
 
 <table>
     <tr>        
@@ -1892,38 +1855,6 @@ The following is an example of the conversion.
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval ( <br />c1 INTEGER DEFAULT 123, <br />c2 CHARACTER VARYING (50) DEFAULT 'test', <br />c3 INTEGER, <br />c4 CHARACTER VARYING (100) DEFAULT 'USER', <br />c5 CHARACTER VARYING (100) DEFAULT 'CURRENT_USER', <br />c6 CHARACTER VARYING(100) DEFAULT ' ', <br />c7 DATE DEFAULT DATE'2008-10-31', <br />c8 TIME DEFAULT TIME'1:15', <br />c9 TIMESTAMP DEFAULT TIMESTAMP'10/31', <br />c10 DATETIME DEFAULT DATETIME'01:15:45 PM 2008-10-31' ); | CREATE TABLE TESTTBL_4_DEFVAL ( <br />C1 INTEGER DEFAULT 123, <br />C2 VARCHAR (50) DEFAULT 'test', <br />C3 INTEGER, <br />C4 VARCHAR (100) DEFAULT USER_ID(), <br />C5 VARCHAR (100) DEFAULT USER_ID(), <br />C6 VARCHAR (100) DEFAULT ' ', <br />C7 DATE /\* DEFAULT '10/31/2008' \*/, <br />C8 DATE /\* DEFAULT '01:15:00 AM' \*/, <br />C9 DATE /\* DEFAULT '12:00:00 AM 10/31/2016' \*/, <br />C10 DATE /\* DEFAULT '01:15:45.000 PM 10/31/2008' \*/ ); |
 
-#### Altibase to Oracle
-
-<table>
-    <tr>        
-        <th>Expression Type</th> <th>Source(Altibase)</th><th>Destination(Oracle)</th><th>Remarks</th>
-    </tr>
-    <tr>
-        <td>String for Character
-type</td><td>"</td><td></td><td></td>
-    </tr>
-    <tr>
-    <td rowspan="4">Function</td><td>DB_TIMEZONE()</td><td>DBTIMEZONE</td><td>Supported in Altibase
-6.3.1.0.0 or above</td>
-    </tr>
-    <tr>
-        <td >SYS_GUID_STR()</td><td>SYS_GUID()</td><td>Supported in Altibase
-6.3.1.0.0 or above</td>
-    </tr> 
-    <tr>
-        <td>USER_ID()</td><td>UID</td><td></td>
-    </tr>
-    <tr>
-        <td>USER_NAME()</td><td>USER</td><td></td>
-    </tr>
-</table>
-
-The following is an example of the conversion.
-
-| Altibase Table Creation SQL statements                                                                                                                                                                                                                                                                                                                                                                                                          | Oracle Table Creation SQL statements                                                                                                                                                                                                                                                                                                                                                                                                         |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CREATE TABLE testtbl_4_defval <br />( c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL, <br />c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT SQRT(144) + 72, <br />c6 DATE DEFAULT TO_DATE('1999-12-01 PM', 'YYYY-MM-DD AM'), <br />c7 VARCHAR(100) DEFAULT DB_TIMEZONE(), <br />c8 VARCHAR(100) DEFAULT SYS_GUID_STR(), <br />c9 VARCHAR(100) DEFAULT USER_ID(), <br />c10 VARCHAR(100) DEFAULT USER_NAME() ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 NUMBER (10) DEFAULT 123 ,<br />C2 VARCHAR2 (50) DEFAULT 'test' ,<br />C3 NUMBER (10) ,<br />C4 CHAR (10) ,<br />C5 NUMBER (10) DEFAULT SQRT(144) + 72 ,<br />C6 TIMESTAMP  DEFAULT TO_DATE('1999-12-01 PM', 'YYYY-MM-DD AM') ,<br />C7 VARCHAR2 (100) DEFAULT DBTIMEZONE ,<br />C8 VARCHAR2 (100) DEFAULT SYS_GUID() ,<br />C9 VARCHAR2 (100) DEFAULT UID ,<br />C10 VARCHAR2 (100) DEFAULT USER ); |
-
 #### Tibero to Altibase
 
 <table>
@@ -1961,6 +1892,77 @@ The following is an example of the conversion.
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval( <br />c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL, <br />c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT QRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER ); | CREATE TABLE TESTTBL_4_DEFVAL(  <br />C1  NUMBER (38, 0)  DEFAULT 123,    <br />C2  VARCHAR (50)    DEFAULT 'test',    <br />C3  NUMBER (38, 0),    <br />C4  CHAR (10),    <br />C5  NUMBER (38, 0)  DEFAULT SQRT(144) + 72,   <br />C6  DATE /\* DEFAULT '97/04/21' \*/,    <br />C7  DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'),    <br />C8  VARCHAR (100)   DEFAULT DB_TIMEZONE(),    <br />C9  VARCHAR (100)   DEFAULT SYS_GUID_STR(),<br />C10 VARCHAR (100)   DEFAULT USER_ID(), <br />C11 VARCHAR (100)   DEFAULT USER_NAME() ); |
 
+#### PostgreSQL to Altibase
+
+<table>
+    <tr>        
+        <th>Expression Type</th> <th>Source(PostgreSQL)</th><th>Destination(Altibase)</th><th>Remarks</th>
+    </tr>   
+    <tr>
+        <td rowspan="19">Function</td><td>current_role</td><td>USER_NAME()</td><td></td>
+    </tr>
+    <tr>
+        <td >current_schema</td><td>USER_NAME()</td><td></td>
+    </tr>
+        <tr>
+        <td >current_user</td><td>USER_NAME()</td><td></td>
+    </tr>
+    <tr>
+        <td >session_user</td><td>USER_NAME()</td><td></td>
+    </tr>
+    <tr>
+        <td >user</td><td>USER_NAME()</td><td></td>
+    </tr>
+    <tr>
+        <td >ceiling(expression)</td><td>CEIL(number)</td><td></td>
+    </tr>
+    <tr>
+        <td >random()</td><td>RANDOM(0)/2147483647</td><td></td>
+    </tr>
+    <tr>
+        <td >bit_length(string)</td><td>8*OCTET_LENGTH(expr)</td><td></td>
+    </tr>
+    <tr>
+        <td >reverse(str)</td><td>REVERSE_STR(expr)</td><td></td>
+    </tr>
+    <tr>
+        <td >strpos(string, substring)</td><td>INSTR (expr, substring)</td><td></td>
+    </tr>
+    <tr>
+        <td >clock_timestamp()</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >current_date</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >current_time</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >current_timestamp</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >localtime</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >localtimestamp</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >now()</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >statement_timestamp()</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >transaction_timestamp()</td><td>SYSDATE</td><td></td>
+    </tr>
+</table>
+
+The following is an example of the conversion.
+
+| PostgreSQL CREATE TABLE Statement                            | Altibase CREATE TABLE Statement                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| CREATE TABLE testtbl_4_defval ( c1 VARCHAR(50) DEFAULT current_role, c2 VARCHAR(50) DEFAULT current_schema, c3 VARCHAR(50) DEFAULT current_user, c4 VARCHAR(50) DEFAULT session_user, c5 VARCHAR(50) DEFAULT user, c6 INTEGER DEFAULT ceiling(-95.3), c7 DOUBLE PRECISION DEFAULT random(), c8 INTEGER DEFAULT bit_length('abc'), c9 VARCHAR(50) DEFAULT reverse('reverse'), c10 INTEGER DEFAULT strpos('high', 'ig'), c11 timestamp with time zone DEFAULT clock_timestamp(), c12 date DEFAULT current_date, c13 time with time zone DEFAULT current_time, c14 timestamp with time zone DEFAULT current_timestamp, c15 time DEFAULT localtime, c16 timestamp DEFAULT localtimestamp, c17 timestamp with time zone DEFAULT now(), c18 timestamp with time zone DEFAULT transaction_timestamp() ); | CREATE TABLE TESTTBL_4_DEFVAL ( C1 VARCHAR (50) DEFAULT USER_NAME() ,C2 VARCHAR (50) DEFAULT USER_NAME() ,C3 VARCHAR (50) DEFAULT USER_NAME() ,C4 VARCHAR (50) DEFAULT USER_NAME() ,C5 VARCHAR (50) DEFAULT USER_NAME() ,C6 INTEGER DEFAULT CEIL('-95.3') ,C7 DOUBLE DEFAULT (RANDOM(0)/2147483647) ,C8 INTEGER DEFAULT 8*OCTET_LENGTH('abc') ,C9 VARCHAR (50) DEFAULT REVERSE_STR('reverse') ,C10 INTEGER DEFAULT INSTR('high', 'ig') ,C11 DATE DEFAULT SYSDATE ,C12 DATE DEFAULT SYSDATE ,C13 DATE DEFAULT SYSDATE ,C14 DATE DEFAULT SYSDATE ,C15 DATE DEFAULT SYSDATE ,C16 DATE DEFAULT SYSDATE ,C17 DATE DEFAULT SYSDATE ,C18 DATE DEFAULT SYSDATE ); |
+
 ### Empty String as a Default Value
 
 Each database vendor handles empty strings as follows:
@@ -1981,7 +1983,6 @@ However, if there is a column where the **default value is an empty string and a
 > [!note]
 >
 > Altibase distinguishes between strings composed of fixed-length spaces and NULL from empty strings. Therefore, only the items marked as **Empty String** in the table above are affected by the empty string handling options during migration.
-
 
 #### Empty String Handling Options
 
@@ -2017,7 +2018,6 @@ These options can be applied individually or in combination, providing flexibili
     </tr>
   </thead>
   <tbody>
-    <!-- Replace Default Empty String: Yes -->
     <tr style="background-color: white;">
       <td rowspan="2">Yes</td>
         <td>EMPTY_STRING</td>
@@ -2029,7 +2029,6 @@ These options can be applied individually or in combination, providing flexibili
       <td>No</td>
       <td><code>C1 CHAR(10) DEFAULT 'EMPTY_STRING' NOT NULL</code></td>
     </tr>
-    <!-- Replace Default Empty String: No -->
     <tr style="background-color: white;">
       <td rowspan="2">No</td>
       <td>N/A</td>
@@ -2065,9 +2064,7 @@ Migration Center provides DDL SQL texts for creating PSM type database objects w
 The PSM converter uses rules to convert DDL SQL texts, and these rules fall into the following three categories:
 
 - `CONVERTED`: Convertible
-
 - `REMOVED`:  Inconvertible, but may be removable
-
 - `TODO`: Neither convertible nor removable
 
 If a TODO rule is applied to a PSM object, then it will show up in the To-do list pane. If not, then it will show up in the Done list pane. 
@@ -7355,13 +7352,11 @@ CREATE VIEW v_r40022 AS SELECT SYS_CONTEXT('USERENV', 'INSTANCE_NAME', 100) FROM
 CREATE VIEW v_r40022 AS SELECT SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'), 0, 100) FROM dual;
 ```
 
-<br/>
-
 # Appendix F: FAQ
 
 ### Common
 
-#### FAQ 1. OutOfMemoryError occurs during data transfer.
+#### OutOfMemoryError occurs during data transfer.
 
 ##### Cause
 
@@ -7375,13 +7370,13 @@ According to the error message output from OutOfMemoryError, there are two cases
 
 Depending on the situation, you can choose between the two methods below.
 
-- Change performance property values to reduce memory usage
-1. Open the project. 
-2. Click the menu "Migration" -> "Migration Options". 
-3. Lower the Batch Size and Thread Count values
-- Increase the maximum amount of memory the program can use
-1. Open the executable file (migcenter.bat or migcenter.sh) with the editor. 
-2. Set the value of the option '-Xmx' that sets the maximum heap size in the JVM to be higher than the existing value.
+- Change performance property values to reduce memory usage  
+  1. Open the project.   
+  2. Click the menu "Migration" → "Migration Options".   
+  3. Lower the Batch Size and Thread Count values
+- Increase the maximum amount of memory the program can use  
+  1. Open the executable file (migcenter.bat or migcenter.sh) with the editor.   
+  2. Set the value of the option '-Xmx' that sets the maximum heap size in the JVM to be higher than the existing value.
 
 > [!note]
 >
@@ -7396,18 +7391,14 @@ Depending on the situation, you can choose between the two methods below.
 
 If the version of the JVM you are using is Java 8 or higher, the lack of space in Metaspace may be the cause. Metaspace, implemented since Java 8, is a replacement for PermGen (permanent generation space).
 
-* Open the executable file (migcenter.bat or migcenter.sh) with an editor.
+1. Open the executable file (migcenter.bat or migcenter.sh) with an editor.
+2. Change '-XX: MaxPermSize', which is the option to set the maximum size of permanent generation space in JVM, to an option that determines the maximum size of the metaspace, and modify it higher than the existing value.  
+   - Before change: -XX:MaxPermSize=128m  
+   - After change: -XX:MaxMetaspaceSize=256 m
 
-* Option to set the maximum size of permanent generation space in JVM
-  Change '-XX: MaxPermSize' to an option that determines the maximum size of the metaspace, and modify it higher than the existing value.
-- - Before change: -XX:MaxPermSize=128m
-  - After change: -XX:MaxMetaspaceSize=256 m
-
-References:
-
-- <https://dzone.com/articles/java-8-permgen-metaspace>
-
-- <https://www.infoq.com/articles/Java-PERMGEN-Removed>
+- References
+  - <https://dzone.com/articles/java-8-permgen-metaspace>
+  - <https://www.infoq.com/articles/Java-PERMGEN-Removed>
 
 #### The NOT NULL constraint on a table column whose data type is LOB is not migrated.
 
@@ -7429,7 +7420,8 @@ After the migration, execute an SQL statement that adds a NOT NULL constraint to
 
 #### Database Character Set Notes
 
-Generally, it is recommended to use the same DB character set of the source database and target database.  
+Generally, it is recommended to use the same DB character set of the source database and target database. 
+
 If you need to specify different character sets because of special circumstances, you should check whether each DB character set is compatible. If you migrate data between incompatible character sets, the data may be corrupted.
 
 ##### Example
@@ -7479,7 +7471,7 @@ After installing a new JRE that matches the bit value of the device, change JAVA
 sudo apt-get install libXrender1
 ```
 
-##### References:
+##### References
 
 - http://www.jmeter-archive.org/Bug-in-running-Jmeter-on-Ubuntu-12-04-td5722692.html
 - https://www.spigotmc.org/threads/bungeecord-not-starting-up-on-java-8.24652/ 
@@ -7488,7 +7480,7 @@ sudo apt-get install libXrender1
 
 ##### Cause
 
-This is an error that can occur when the maximum memory allocation value (-Xmx) set in bat and sh is lager than the memory allocated by the system. In particular, this error is frequently reported in Window O/S 32 bit
+This is an error that can occur when the maximum memory allocation value (-Xmx) set in bat and sh is lager than the memory allocated by the system. In particular, this error is frequently reported in Window O/S 32 bit.
 
 ##### Solution
 
@@ -7496,7 +7488,7 @@ Change the value of -Xms -Xmx in bat and sh according to the user environment, a
 
 ### Oracle
 
-#### FAQ 1. The error message 'ORA-01652 unable to extend temp segment by 128 in tablespace TEMP' is printed.
+#### The error message 'ORA-01652 unable to extend temp segment by 128 in tablespace TEMP' is printed.
 
 ##### Cause
 
@@ -7506,7 +7498,7 @@ This error is caused by a lack of Oracle's temporary tablespace space during lar
 
 The temporary table space for the connected user must be extended.
 
-#### FAQ 2. During the Run phase, error message 'Fetch data from source database has been failed. Stream has already been closed' is printed and migration of some data is failed.
+#### During the Run step, error message 'Fetch data from source database has been failed. Stream has already been closed' is printed and migration of some data is failed.
 
 ##### Cause
 
@@ -7557,12 +7549,12 @@ Increase the maximum memory size that the program can use.
 
 During a large amount of data migration, there are several cases in which there are multiple SQLException related to fetch or bind in Oracle. In this case, if only one of the tables is successful in table mode, the error caused by OOM can be suspected.
 
-Example) 
-
+```
 Caused by: java.sql.SQLException: Fail to convert to internal representation
 at oracle.jdbc.driver.CharCommonAccessor.getBigDecimal(CharCommonAccessor.java:414)
 
 Invalid column type: getCLOB not implemented for class oracle.jdbc.driver.T4CVarcharAccessor
+```
 
 ##### Cause
 
@@ -7572,10 +7564,11 @@ Various malfunctions are possible after the OOM occurs inside the Oracle JDBC dr
 
 Refer to OutOfMemoryError in the Common section.
 
-#### NullPointerException may occur during the build phase.
+#### NullPointerException may occur during the build step.
 
-When the source database is Oracle 9i, 10, the following NullPointerException may occur during the build phase due to Oracle JDBC driver compatibility error:
+When the source database is Oracle 9i, 10, the following NullPointerException may occur during the build step due to Oracle JDBC driver compatibility error:
 
+```
 Fail to retrieve Source DDL: java.lang.NullPointerException
 at oracle.jdbc.driver.T4C8Oall.getNumRows(T4C8Oall.java:1046)
 at oracle.jdbc.driver.T4CPreparedStatement.executeForRows(T4CPreparedStatement.java:1047)
@@ -7585,6 +7578,7 @@ at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStat
 at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3652)
 at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1207)
 at com.altibase.migLib.meta.SrcDbMeta_Oracle_9_0_0_0.getSrcDdlDbmsMetaData(SrcDbMeta_Oracle_9_0_0_0.java:2251)
+```
 
 ##### Cause
 
@@ -7602,9 +7596,9 @@ Replace the JDBC driver file for Oracle in MigrationCenter with the JDBC driver 
 
 During registering MS-SQL connection information, when "Test" button is clicked, the following error message may be displayed:
 
-- “Migration Center can support MS-SQL user who has a single schema only.”
+- `Migration Center can support MS-SQL user who has a single schema only.`
 
-- “User doesn't have appropriate schema in target database.”
+- `User doesn't have appropriate schema in target database.`
 
 Registration is not allowed because the schema relationship of the user of the connection information is incompatible with Altibase. 
 
@@ -7661,10 +7655,10 @@ The path to the java.security file depends on the Java version:
 - Java 10 and earlier: `$JAVA_HOME/jre/lib/security`
 - Java 11 and later: `$JAVA_HOME/conf/security`
 
-~~~java
+```java
 //jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, 
 jdk.tls.disabledAlgorithms=SSLv3, RC4, DES, MD5withRSA, 
-~~~
+```
 
 If using TLS 1.2 or later is mandatory, refer to [KB3135244 - TLS 1.2 support for Microsoft SQL Server](https://support.microsoft.com/en-us/topic/kb3135244-tls-1-2-support-for-microsoft-sql-server-e4472ef8-90a9-13c1-e4d8-44aad198cdbe) to update Windows, MS-SQL server, and the MS-SQL JDBC driver file.
 
@@ -7680,7 +7674,7 @@ This error occurs because the JDBC driver designed for JRE 10 or earlier referen
 
 Use a JDBC driver file that is compatible with the Java version running the Migration Center.
 
-Example) mssql-jdbc-7.2.2.**jre11**.jar
+Example) mssql-jdbc-7.2.2.***jre11***.jar
 
 ### Altibase
 
@@ -7695,10 +7689,13 @@ Altibase version 5.1.5 or lower does not support globalization, so JDBC does not
 You must include the character set value (for example, KSC5601) set in the destination database in the encoding option of the corresponding database connection information in the Migration Center. Here's how to check the Altibase character set.
 
 - Version 4.3.9-5.1.5:  
-  SELECT VALUE1 FROM V\$PROPERTY WHERE NAME = 'NLS_USE';
-
+  ```sql
+  SELECT VALUE1 FROM V$PROPERTY WHERE NAME = 'NLS_USE';
+  ```
 - Version 5.3.3 or later:  
-  SELECT NLS_CHARACTERSET FROM V\$NLS_PARAMETERS;
+  ```sql
+  SELECT NLS_CHARACTERSET FROM V$NLS_PARAMETERS;
+  ```
 
 #### In the Reconcile step, "Tablespace to Tablespace Mapping" does not show a specific tablespace.
 
@@ -7718,7 +7715,7 @@ The Altibase JDBC driver of the corresponding version cannot return the BLOB, by
 
 ##### Solution
 
-Tables with BLOB, byte, and nibble data types are migrated using aexport and iloader.
+Tables with BLOB, byte, and nibble data types are migrated using aexport and iLoader.
 
 #### Some data of bit, varbit, and nibble data types migrated from Altibase 6.1.1 and earlier versions do not match the original database.
 
@@ -7736,8 +7733,7 @@ Open the project, click the menu Migration-Migration Option, select 'No' for Bat
 
 The following SQLException occurred while fetching from Informix during data migration. This is an exception that occurs when retrieving this value when a byte of a multi-byte character is input to the Informix DB while being cut off.
 
-Example) 
-
+```
 java.sql.SQLException: Encoding or code set not supported.
 at com.informix.util.IfxErrMsg.getSQLException(IfxErrMsg.java:412)
 at com.informix.jdbc.IfxChar.fromIfx(IfxChar.java:235)
@@ -7748,6 +7744,7 @@ at com.informix.jdbc.IfxResultSet.a(IfxResultSet.java:666)
 at com.informix.jdbc.IfxResultSet.b(IfxResultSet.java:638)
 at com.informix.jdbc.IfxResultSet.getString(IfxResultSet.java:724)
 at com.altibase.migLib.run.databinder.DataBinder.getValuesFromSrc(DataBinder.java:445)
+```
 
 ##### Cause
 
@@ -7757,7 +7754,7 @@ If an Informix DB is entered with bytes of multi-byte characters truncated, an e
 
 Add IFX_USE_STRENC = true to Informix connection properties.
 
-##### References:
+##### References
 
 https://m.blog.naver.com/PostView.nhn?blogId=jangkeunna&logNo=70146227929&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
 
@@ -7771,12 +7768,10 @@ If you find that the MySQL JDBC driver returns a null value when importing data 
 
 ##### Solution
 
-You need to replace the driver with version 5.0.8 of MySQL Connector / J (link). If the same happens in the retry, cancel Batch Execution by following the procedure below.
+You need to replace the driver with version 5.0.8 of MySQL Connector/J([link](https://dev.mysql.com/downloads/connector/j/5.0.html)). If the same happens in the retry, cancel Batch Execution by following the procedure below.
 
 1. Open the project.
-
-2. Click the menu "Migration" -> "Migration Options".
-
+2. Click the menu "Migration" → "Migration Options".
 3. Change the value of "Batch Execution" to "No".
 
 #### Data types CHAR and VARCHAR are changed to NCHAR and NVARCHAR.
@@ -7789,15 +7784,27 @@ MySQL does not support NCHAR or NVARCHAR data types. Instead, it allows for user
 
 This phenomenon is normal.
 
-###### Note:
+> [!note]
+>
+> In the default DataType Map of Migration Center, MySQL's NVARCHAR is mapped to NVARCHAR (10666) in Altibase. If the number of bytes per character in the national character set between MySQL and Altibase is different, performing the escalation without consideration of this may cause the schema not to be generated beyond the limit byte count. To avoid this situation, the Migration Center basically fixed the size of the NVARCHAR.
+>
+> If the data size of the corresponding table column is not large, you can transfer the size of the source database as it is by following the procedure below.
+>
+> 1. Reconcile step: Click on "NVARCHAR" row in "Data Type Mapping" 
+> 2. Click the "Change" button 
+> 3. Select 'NVARCHAR' as Destination DB Data Type, leave Precision blank, and save
 
-In the default DataType Map of Migration Center, MySQL's NVARCHAR is mapped to NVARCHAR (10666) in Altibase. If the number of bytes per character in the national character set between MySQL and Altibase is different, performing the escalation without consideration of this may cause the schema not to be generated beyond the limit byte count. To avoid this situation, the Migration Center basically fixed the size of the NVARCHAR.
+### PostgreSQL
 
-If the data size of the corresponding table column is not large, you can transfer the size of the source database as it is by following the procedure below.
+#### The starting value of the sequence migrated to Altibase is set higher than the intended value.
 
-1. Reconcile step: Click on "NVARCHAR" row in "Data Type Mapping" 
-2. Click the "Change" button 
-3. Select 'NVARCHAR' as Destination DB Data Type, leave Precision blank, and save
+##### Cause
+
+This issue may occur when a migration is performed while there are active sessions using sequences in PostgreSQL. PostgreSQL sequences are cached on a per-session basis, and a number of values are pre-generated each time a session connects, based on the 'CACHE * INCREMENT BY' setting. For example, if a sequence is created with START WITH 1, INCREMENT BY 1, and CACHE 100, performing SELECT NEXTVAL('seq_name') will return 1 in the first session, but 101 in the second session. Due to this caching behavior of PostgreSQL sequences, when migrating to Altibase, the starting value (START WITH) of the sequence is increased by 'CACHE * INCREMENT BY * (number of sessions - 1) + START WITH'.
+
+##### Solution
+
+Before performing the migration, all application sessions connected to PostgreSQL must be terminated.
 
 ### TimesTen
 
@@ -7830,3 +7837,41 @@ This message is output when the DSN value entered in the connection information 
 ##### Solution
 
 Enter the DSN registered in the server into the DSN field.
+
+#### When registering a database connection, when clicking the "Test" button, "Problems with loading native library/missing methods: Native Library /path/libttJdbcCS.so already loaded in another classloader" is displayed.
+
+##### Cause
+
+This exception arises from the Java classloader when a TimesTen Type 2 JDBC driver, which relies on a native library, is loaded, and the .so file is then reloaded. This scenario often occurs when performing a connection test, switching to a different JDBC driver, and testing again. According to the Java Native Interface (JNI) specification, native libraries can only be loaded once in a JVM session. For more details, refer to the [JNI Specification - Library Version](https://docs.oracle.com/javase/1.5.0/docs/guide/jni/spec/invocation.html#library_version).
+
+##### Solution
+
+First, exit and restart the Migration Center completely. Then, register the database connections or modify the database connection information as needed.
+
+### Tibero
+
+#### When registering a database connection, when clicking the "Test" button, 'Specified schema object was not found at: SELECT value FROM V$VERSION WHERE NAME = 'PRODUCT_MAJOR' OR NAME = 'TB_MAJOR' Please review your settings and correct any errors.' is displayed.
+
+##### Cause
+
+This error occurs because the database user account used to connect to the Migration Center does not have the necessary privilege to query the DICTIONARY for checking the DB version.
+
+##### Solution
+
+Grant the required DICTIONARY query privileges to the database user account.
+
+- For Tibero 4 or below:  
+  Tibero version 4 or below does not have system privileges for DICTIONARY, so grant the SELECT ANY TABLE privilege. This privilege allows querying objects in any schema.
+  ```sql
+  GRANT SELECT ANY TABLE TO user_name;
+  ```
+- For Tibero 5 or above:  
+  Grant the SELECT ANY DICTIONARY privilege. This privilege allows querying objects in the DICTIONARY owned by SYS, SYSCAT, and SYSGIS.
+  ```sql
+  GRANT SELECT ANY DICTIONARY TO user_name;
+  ```
+
+##### Reference
+
+- [https://www.tmaxtibero.com/img/service/pdf/manual/Tibero_4_SP1_Administrator's_Guide_v2.1.4.pdf](https://www.tmaxtibero.com/img/service/pdf/manual/Tibero_4_SP1_Administrator's_Guide_v2.1.4.pdf)
+- https://technet.tmaxsoft.com/upload/download/online/tibero/pver-20220224-000002/tibero_admin/chapter_security.html#sect_so_privilege
