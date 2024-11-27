@@ -1047,12 +1047,28 @@ Alter success.
 
 ### 데이터 타입
 
-Altibase의 데이터가 OTHER DATABASE에 JDBC를 이용하여 적용될 때, JAVA의
-String형으로 변환 하여 적용된다. 단, DATE 타입은 JAVA의 Timestamp형으로 변환
-되어 적용 된다.
-
-지원하는 데이터 타입은 FLOAT, NUMERIC, DOUBLE, REAL, BIGINT, INTEGER, SMALLINT,
+지원하는 데이터 타입은 NUMERIC, FLOAT, DOUBLE, REAL, BIGINT, INTEGER, SMALLINT,
 DATE, CHAR, VARCHAR, NCHAR, NVARCHAR, CLOB, BLOB이다.
+
+Altibase의 데이터가 OTHER DATABASE에 JDBC를 이용하여 적용될 때, 각 데이터 타입은
+각각 대응되는 JAVA의 자료형으로 변환 하여 적용된다.
+| Altibase 자료형 | JAVA 자료형      |
+| --------------- | ---------------- |
+| NUMERIC         | BigDecimal       |
+| FLOAT           | BigDecimal       |
+| DOUBLE          | double           |
+| REAL            | float            |
+| BIGINT          | long             |
+| INTEGER         | int              |
+| SMALLINT        | short            |
+| DATE            | Timestamp        |
+| CHAR            | String           |
+| VARCHAR         | String           |
+| NCHAR           | String           |
+| NVARCHAR        | String           |
+| CLOB            | String or char[] |
+| BLOB            | byte[]           |
+
 
 ### Adapter for JDBC 유틸리티
 
