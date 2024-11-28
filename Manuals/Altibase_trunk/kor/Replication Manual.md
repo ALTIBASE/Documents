@@ -222,7 +222,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 - B. 부록 이중화 대상 DDL 문 수행
     이 장은 프로퍼티 설정 변경 없이 이중화 대상에 DDL 문을 수행하는 방법에 대해 설명한다.
     
-- C. SQL 반영 모드  
+- C.  부록 SQL 반영 모드  
     이 장은 다양한 이중화 작업에 쓰이는 SQL 반영 모드에 대해 설명한다. 
     
 
@@ -491,9 +491,9 @@ LAZY 모드는 지역 서버에서 이중화 대상 테이블에 대한 DML을 �
 
 ##### EAGER 모드
 
-EAGER 모드는 지역 서버에서 발생한 주 트랜잭션과 관련된 모든 로그가 원격 서버에서도 정상적으로 반영된 것을 확인한 후에 지역 서버에서 커밋을 수행하고, 동시에 원격 서버에서도 복제 트랜잭션의 커밋을 수행하는 트랜잭션 동기화<sup>1</sup> 방식이다.
+EAGER 모드는 지역 서버에서 발생한 주 트랜잭션과 관련된 모든 로그가 원격 서버에서도 정상적으로 반영된 것을 확인한 후에 지역 서버에서 커밋을 수행하고, 동시에 원격 서버에서도 복제 트랜잭션의 커밋을 수행하는 트랜잭션 동기화[^1]방식이다.
 
-[<sup>1</sup>] 트랜잭션 동기화: 지역 서버에서 주 트랜잭션이 성공적으로 수행되었다 하더라도 원격 서버에서 데이터 충돌이 발생하면, 주 트랜잭션을 커밋할 수 없는 상태가 된다. 이 때에는 사용자가 명시적으로 그 트랜잭션을 철회 (롤백)해야, 다음 트랜잭션을 수행할 수 있게 된다. 그렇게 하지 않으면, 다음 트랜잭션을 Commit 할 수가 없기 때문에 변경 작업을 반영할 수 없게 된다. 서버 내부적으로 트랜잭션을 커밋하는 경우 (Autocommit 모드에서 또는 세션 종료시)에, 데이터 충돌에 의해 주 트랜잭션의 커밋이 실패한다면 자동으로 철회 한다. 결과적으로, 데이터 충돌을
+[^1]: 트랜잭션 동기화: 지역 서버에서 주 트랜잭션이 성공적으로 수행되었다 하더라도 원격 서버에서 데이터 충돌이 발생하면, 주 트랜잭션을 커밋할 수 없는 상태가 된다. 이 때에는 사용자가 명시적으로 그 트랜잭션을 철회 (롤백)해야, 다음 트랜잭션을 수행할 수 있게 된다. 그렇게 하지 않으면, 다음 트랜잭션을 Commit 할 수가 없기 때문에 변경 작업을 반영할 수 없게 된다. 서버 내부적으로 트랜잭션을 커밋하는 경우 (Autocommit 모드에서 또는 세션 종료시)에, 데이터 충돌에 의해 주 트랜잭션의 커밋이 실패한다면 자동으로 철회 한다. 결과적으로, 데이터 충돌을
 발생시킨 주 트랜잭션과 복제트랜잭션은 모두 철회되어, 이중화에 의한 데이터 불일치가 발생하지 않도록 동작한다.
 
 EAGER 모드의 이점은 트랜잭션을 동기화 하기 때문에 트랜잭션을 병렬로 복제할 수 있다는 점이다. 그러므로, EAGER 모드로 이중화를 수행할 때는 다수의 송신 쓰레드가 병렬로 복제를 수행한다. 병렬 쓰레드의 개수는 REPLICATION_EAGER_PARALLEL_FACTOR 프로퍼티로 설정할 수 있다.
@@ -757,9 +757,9 @@ FROM user_name.table_name TO user_name.table_name;
 
 - 2: Slave로서 동작하는 경우
 
-- 이중화 객체를 생성할 때 양쪽 서버에서 모두 Master 또는 Slave를 지정하지 않거나 서로 다르게 지정한 경우에만, 이중화 시작시 handshaking<sup>2</sup>에 성공하고 나머지 경우에는 실패한다. 즉, 한 서버는 Master로 지정하고 다른 한 서버는 어떠한 지정도 하지 않은 경우 이중화 시작 시 다음과 같은 오류 메시지를 볼 수 있다.
+- 이중화 객체를 생성할 때 양쪽 서버에서 모두 Master 또는 Slave를 지정하지 않거나 서로 다르게 지정한 경우에만, 이중화 시작시 handshaking[^2]에 성공하고 나머지 경우에는 실패한다. 즉, 한 서버는 Master로 지정하고 다른 한 서버는 어떠한 지정도 하지 않은 경우 이중화 시작 시 다음과 같은 오류 메시지를 볼 수 있다.
   
-  [<sup>2</sup>] Handshaking 은 다른 쪽 서버가 살아있는지 또는 이중화를 시작하기 전에 지역 서버와 원격 서버 간의 복제할 객체 (테이블)에 대한 정보가 일치하는지를 확인하는 과정이다.
+[^2]: Handshaking 은 다른 쪽 서버가 살아있는지 또는 이중화를 시작하기 전에 지역 서버와 원격 서버 간의 복제할 객체 (테이블)에 대한 정보가 일치하는지를 확인하는 과정이다.
 
 ```
 iSQL> ALTER REPLICATION rep1 START
@@ -2234,7 +2234,7 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
 ## 개요
 
- Altibase는 지역서버에 발생한 트랜잭션 로그를 상대편 서버에 전송하여 데이터를 일치시키는 형태의 네트워크 기반의 이중화 기법을 제공한다. 다만, DDL 작업은 로그를 전송하지 않는다. 이는 DDL 문이 이중화 대상의 메타 정보를 변경하여 이중화 서버 간에 데이터 불일치가 발생할 수 있기 때문이다.  따라서 일반적으로 이중화 환경에서 DDL 문을 수행하려면 먼저 해당 이중화 대상을 이중화 객체에서 제거한 후 각각의 노드에서  DDL 작업을 수행해야 한다.
+ Altibase는 지역 서버에 발생한 트랜잭션 로그를 상대편 서버에 전송하여 데이터를 일치시키는 형태의 네트워크 기반의 이중화 기법을 제공한다. 다만, DDL 작업은 로그를 전송하지 않는다. 이는 DDL 문이 이중화 대상의 메타 정보를 변경하여 이중화 서버 간에 데이터 불일치가 발생할 수 있기 때문이다.  따라서 일반적으로 이중화 환경에서 DDL 문을 수행하려면 먼저 해당 이중화 대상을 이중화 객체에서 제거한 후 각각의 노드에서  DDL 작업을 수행해야 한다.
 
 그러나 Altibase는 운영의 효율성을 위해 이중화 대상을 제거하지 않고도 DDL 문을 수행할 수 있는 방법을 제공한다.
 
@@ -2471,7 +2471,7 @@ DROP TRIGGER
 
 **Step 2. 프로퍼티 설정**
 
-이중화 쌍을 이루는 모든 서버에서 수행하고자 하는 DDL 문에 맞게 프로퍼티 설정을 변경한다.
+지역 서버와 원격 서버에서 수행하고자 하는 DDL 문에 맞게 프로퍼티 설정을 변경한다.
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
@@ -2481,47 +2481,30 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 1;
 
 **Step 3. 세션의 이중화 모드 설정**
 
-이중화 쌍을 이루는 서버의 세션의 이중화 모드를 `DEFAULT`로 설정한다. 
-
-QQ: "이중화 모드"는Lazy/Eager이랑 헷갈릴 가능성이 있음.세션의 이중화 모드라는 개념은 매뉴얼에 없음. 아래 설명 추가했는데 맞는지 확인 필요
+지역 서버와 원격 서버에서 세션의 이중화 모드[^3]를 `DEFAULT`로 설정하여 이중화 객체의 설정을 따르도록 한다.
 
 ```sql
 ALTER SESSION SET REPLICATION_MODE = DEFAULT;
 ```
 
-세션의 이중화 모드는 트랜잭션이 수행되는 세션의 이중화 수행 여부를 설정한다. 세션의 이중화 모드가 `DEFAULT`여야 해당 세션에서 수행하는 트랜잭션이 이중화를 수행할 수 있다.
+[^3]: 세션의 이중화 모드를 `DEFAULT`로 설정하면, 이중화 객체에 설정된 모드(`LAZY` 또는 `EAGER`)에 따라 이중화가 수행된다. 반면, `NONE`으로 설정하면 모든 이중화가 비활성화된다.
 
 **Step 4. DDL 문 수행**
 
-이중화 쌍을 이루는 모든 서버에서 동일한 DDL 문을 수행한다. DDL 문을 수행하고자 하는 대상이 테이블 혹은 칼럼인지, 파티션인지에 따라 절차가 다른 것에 주의한다.
+지역 서버와 원격 서버에서 동일한 DDL 문을 수행한다.
 
-###### 테이블 혹은 칼럼 대상
+|DDL 문 수행 대상| 주의 사항 |
+|--------------|----------------|
+|테이블/칼럼|이중화 중지 및 재시작 단계 불필요|
+|파티션|이중화 중지 및 재시작 단계 필요|
 
-1. DDL 문 수행 전, 남아있는 이중화 갭을 반영한다.
-
-   ```sql
-   ALTER REPLICATION replication_name FLUSH;
-   ```
-
-2. DDL 문을 수행한다.
-
-3. DDL 문 수행 후 생긴 이중화 갭을 반영한다.
+1. DDL 문 수행 전, 남아있는 이중화 갭을 해소한다.
 
    ```sql
    ALTER REPLICATION replication_name FLUSH;
    ```
 
-###### 파티션 대상
-
-파티션에 DDL 문을 수행하려면 이중화를 중지한 후 DDL 문을 수행하고 다시 이중화를 시작해야 한다.
-
-1. DDL 문 수행 전, 남아있는 이중화 갭을 반영한다.
-
-   ```sql
-   ALTER REPLICATION replication_name FLUSH;
-   ```
-
-2. 이중화를 중지한다.
+2. 파티션이 이중화 대상인 경우, DDL 문 수행 전 이중화를 중지한다.
 
    ```sql
    ALTER REPLICATON replication_name STOP;
@@ -2529,16 +2512,16 @@ ALTER SESSION SET REPLICATION_MODE = DEFAULT;
 
 3. DDL 문 수행한다.
 
-4. DDL 문 수행 후 생긴 이중화 갭을 반영한다.
-
-   ```sql
-   ALTER REPLICATION replication_name FLUSH;
-   ```
-
-5. 이중화를 다시 시작한다.
+4. 이파티션이 이중화 대상인 경우, DDL 문 수행 후 이중화를 다시 시작한다.
 
    ``` sql
    ALTER REPLICATON replication_name START;
+   ```
+
+5. DDL 문 수행 후 생긴 이중화 갭을 해소한다.
+
+   ```sql
+   ALTER REPLICATION replication_name FLUSH;
    ```
 
 **Step 5. SQL 반영 모드 동작 여부 확인**
@@ -2647,7 +2630,7 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
             <td>ALTER REPLICATION replication_name FLUSH;</td>     
         </tr>     
         <tr>       
-            <td>SQL 반영 모드 동작 확인</td>       
+            <td>SQL 반영 모드 동작 여부 확인</td>       
             <td></td>       
             <td>-</td>       
             <td>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>       
@@ -2681,6 +2664,7 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
         </tr>   
     </tbody> 
 </table>
+
 
 
 ## 예제
@@ -2755,7 +2739,7 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
       <td></td>
     </tr>
     <tr>
-      <td>SQL 반영 모드 동작 확인</td>
+      <td>SQL 반영 모드 동작 여부 확인</td>
       <td></td>
       <td></td>
       <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
@@ -2784,6 +2768,7 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
     </tr>
   </tbody>
 </table>
+
 
 
 ##### Active-Active 환경 
@@ -2855,7 +2840,7 @@ Active1을 지역 서버로 간주한다.
       <td></td>
     </tr>
     <tr>
-      <td>SQL 반영 모드 동작 확인</td>
+      <td>SQL 반영 모드 동작 여부 확인</td>
       <td></td>
       <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
       <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
@@ -2884,6 +2869,7 @@ Active1을 지역 서버로 간주한다.
     </tr>
   </tbody>
 </table>
+
 
 
 #### 예제 2 : 데이터 타입 변경
@@ -2954,7 +2940,7 @@ Active1을 지역 서버로 간주한다.
       <td>ALTER TABLE T1 ADD CONSTRAINT T1_CHECK CHECK ( c2 &lt; 10 );</td>
     </tr>
     <tr>
-      <td>SQL 반영 모드 동작 확인</td>
+      <td>SQL 반영 모드 동작 여부 확인</td>
       <td></td>
       <td></td>
       <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
@@ -3054,7 +3040,7 @@ Active1을 지역 서버로 간주한다.
       <td>ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 &lt; 10 );</td>
     </tr>
     <tr>
-      <td>SQL 반영 모드 동작 확인</td>
+      <td>SQL 반영 모드 동작 여부 확인</td>
       <td></td>
       <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
       <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
@@ -3156,7 +3142,7 @@ Active1을 지역 서버로 간주한다.
       <td></td>
     </tr>
     <tr>
-      <td>SQL 반영 모드 동작 확인</td>
+      <td>SQL 반영 모드 동작 여부 확인</td>
       <td></td>
       <td></td>
       <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
@@ -3261,7 +3247,7 @@ Active1을 지역 서버로 간주한다.
       <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
     <tr>
-      <td>SQL 반영 모드 동작 확인</td>
+      <td>SQL 반영 모드 동작 여부 확인</td>
       <td></td>
       <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
       <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
@@ -3482,7 +3468,7 @@ DDL 문 복제 기능을 사용하기 위해서는 아래의 조건을 만족해
 - [PROPAGATION 롤](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication Manual.md#propagation-롤) 이 지정된 이중화 객체
 - [복구 옵션](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication Manual.md#복구-옵션recovery-option)을 설정한 이중화 객체
 
-다음과 같은 구문은 DDL 문 복제로 복제할 수 없다.
+다음과 같은 구문은 DDL 문 복제를 수행할 수 없다.
 
 - 인덱스 파티션 재구축
 - 권한 부여/회수
@@ -3518,7 +3504,7 @@ ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
 ALTER SESSION SET REPLICATION_DDL_SYNC=1;
 ```
 
-원격 서버에 다음과 같이 프로퍼티를 설정한다.
+원격 서버에 다음과 같이 프로퍼티를 추가로 설정한다.
 
 ```sql
 ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 1;
@@ -3526,19 +3512,17 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 1;
 
 **Step 3. 세션의 이중화 모드 설정**
 
-이중화 쌍을 이루는 서버의 세션의 이중화 모드를 `DEFAULT`로 설정한다.
+지역 서버와 원격 서버에서 세션의 이중화 모드[^3]를 `DEFAULT`로 설정하여 이중화 객체의 설정을 따르도록 한다.
 
 ```sql
 ALTER SESSION SET REPLICATION_MODE = DEFAULT;
 ```
 
-세션의 이중화 모드는 트랜잭션이 수행되는 세션의 이중화 수행 여부를 설정한다. 세션의 이중화 모드가 `DEFAULT`여야 해당 세션에서 수행하는 트랜잭션이 이중화를 수행할 수 있다.
-
 **Step 4. DDL 문 수행**
 
-이중화 쌍을 이루는 모든 서버에서 동일한 DDL 문을 수행한다.
+지역 서버와 원격 서버에서 동일한 DDL 문을 수행한다.
 
-1. DDL 문 수행 전, 이중화 쌍을 이루는 모든 서버에서 다음 쿼리를 수행하여 남아있는 이중화 갭을 모두 반영한다.
+1. DDL 문 수행 전, 지역 서버와 원격 서버에서 다음 쿼리를 수행하여 남아있는 이중화 갭을 모두 반영한다.
 
    ```sql
    ALTER REPLICATION replication_name FLUSH;
@@ -3592,21 +3576,36 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
   </thead>
   <tbody>
     <tr>
+      <td rowspan="2">서비스 이전</td>
       <td>서비스 이전</td>
-      <td></td>
       <td></td>
       <td>지역 서버로 서비스 이전</td>
     </tr>
     <tr>
-      <td rowspan="2">프로퍼티 설정</td>
+        <td>서비스 이전 확인</td>
+        <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+        <td></td>
+    </tr>
+    <tr>
+      <td rowspan="4">프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
       <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
       <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
     </tr>
     <tr>
+      <td>DDL 문 수행 레벨 설정</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+    </tr>
+    <tr>
+      <td>SQL 반영 모드 활성화</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+    </tr>
+    <tr>
       <td>DDL 문 복제 활성화</td>
       <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
-      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
@@ -3640,8 +3639,8 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
     </tr>
     <tr>
       <td>DDL 문 복제 비활성화</td>
-      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
-      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -3651,6 +3650,7 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
     </tr>
   </tbody>
 </table>
+
 
 
 ## 예제
@@ -3688,7 +3688,7 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
     <tr>
       <td>DDL 문 복제 활성화</td>
       <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
-      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
@@ -3722,8 +3722,8 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
     </tr>
     <tr>
       <td>DDL 문 복제 비활성화</td>
-      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
-      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -3774,7 +3774,7 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
     <tr>
       <td>DDL 문 복제 활성화</td>
       <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
-      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
@@ -3880,8 +3880,8 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
     <tr>
       <td>DDL 문 복제 활성화</td>
       <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
-      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
-      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
@@ -3898,7 +3898,7 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
       <td>ALTER REPLICATION rep2 FLUSH;<br>ALTER REPLICATION rep3 FLUSH;</td>
     </tr>
     <tr>
-      <td>지역서버</td>
+      <td>지역 서버</td>
       <td>ALTER REPLICATION rep1 FLUSH;<br>ALTER REPLICATION rep2 FLUSH;</td>
       <td></td>
       <td></td>
@@ -5795,43 +5795,43 @@ Active1 서버에서 수행한 **Step 1**부터 **Step 7** 작업을 Active2 서
 
 ## SQL 반영 모드
 
-SQL 반영 모드는 지역 서버와 원격 서버의 메타 정보가 달라져도 이중화를 유지하기 위해 XLog를 SQL 문으로 변환하여 주 트랜잭션을 복제하는 기능이다. 이 기능은 이중화 대상에 DDL 문을 수행하거나 DDL 문 복제 및 오프라인 옵션 기능을 사용할 때 등 다양한 경우에 필요하다.
+SQL 반영 모드는 **지역 서버와 원격 서버의 메타 정보가 다를 때에도 이중화를 유지**하기 위해 사용된다. SQL 반영 모드를 활성화하면 XLog를 SQL 문으로 변환하여 주 트랜잭션을 복제하여 이중화를 수행한다. 이 기능은 이중화 대상에 DDL 문을 수행하거나 DDL 문 복제 및 오프라인 옵션 기능을 사용할 때 등 다양한 경우에 필요하다.
 
-일반적으로 이중화 메타 정보가 일치하지 않으면 이중화가 시작되지 않으며, 메타 정보가 변경되면 이중화가 중단된다. 그러나 SQL 반영 모드를 사용하면 메타 정보가 달라도 이중화를 시작하고 지속할 수 있다.
-
-**SQL 반영 모드를 활성화하면 이중화는 속도가 현저히 느려지므로 사용 후 바로 비활성화해야 한다.** 만약 그렇지 않으면 트랜잭션 처리 지연으로 데이터 불일치가 발생할 수 있다.
+SQL 반영 모드를 활성화하면 이중화는 속도가 현저히 느려지므로 **사용 후 바로 비활성화해야 한다.** 만약 그렇지 않으면 트랜잭션 처리 지연으로 데이터 불일치가 발생할 수 있다.
 
 ### SQL 반영 모드 동작 조건
 
-SQL 반영 모드는 다음의 메타 정보 하나 이상이 지역 서버와 원격 서버에서 서로 다를 때 동작한다. 
+SQL 반영 모드는 아래와 같은 경우에 동작한다:
 
-#### 칼럼 정보가 다를 때
+#### 칼럼 정보 불일치
 
-- 이중화 대상 칼럼의 데이터 타입이 다를 때
+- 데이터 타입이 다름.
 
-- 이중화 대상 칼럼의 데이터 타입은 같지만 size, precision, scale이 다를 때
+- 데이터 타입은 같지만 size, precision, scale이 다름.
 
-#### 제약조건이 다를 때
 
-- 이중화 대상의 CHECK 제약조건의 condition이 다를 때
+#### 제약조건 불일치
 
-- 이중화 대상의 CHECK 제약조건의 이름이 다를 때
+- CHECK 제약조건의 조건(condition)이 다름.
 
-- 이중화 대상 칼럼의 NOT NULL/NULL 제약조건이 다를 때 
+- CHECK 제약조건의 이름이 다름.
 
-#### 인덱스 정보가 다를 때
+- 칼럼의 NOT NULL/NULL 제약조건이 다름.
 
-- 유일 키 인덱스의 구성 정보가 다를 때
 
-- 유일 키 인덱스가 이중화 대상 칼럼과 이중화 대상이 아닌 칼럼으로 구성되었을 때
+#### 인덱스 정보 불일치
 
-- 함수 기반 인덱스의 구성 정보가 다를 때
+- 유일 키 인덱스의 구성 정보가 다름.
 
-- 함수 기반 인덱스가 이중화 대상 칼럼과 이중화 대상이 아닌 칼럼으로 구성되었을 때
+- 유일 키 인덱스 중 이중화 대상이 아닌 칼럼으로 구성된 유일 키 인덱스가 있음
 
-#### 파티션 정보가 다를 때
+- 함수 기반 인덱스의 구성 정보가 다름.
 
-- 이중화 쌍의 파티션 수가 다를 때
+- 함수 기반 인덱스 중 이중화 대상이 아닌 칼럼으로 구성된 함수 기반 인덱스가 있음
+
+#### 파티션 정보 불일치
+
+- 이중화 쌍의 파티션 수가 다름.
 
 ###### SQL 반영 모드 설정
 
