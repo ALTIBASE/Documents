@@ -1047,12 +1047,11 @@ Alter success.
 
 ### 데이터 타입
 
-지원하는 데이터 타입은 NUMERIC, FLOAT, DOUBLE, REAL, BIGINT, INTEGER, SMALLINT,
-DATE, CHAR, VARCHAR, NCHAR, NVARCHAR, CLOB, BLOB이다.
+Altibase의 데이터가 JDBC를 이용해 다른 데이터베이스에서 적용될 때, 각 데이터 타입은 대응되는 Java 자료형으로 변환된다.
 
-Altibase의 데이터가 OTHER DATABASE에 JDBC를 이용하여 적용될 때, 각 데이터 타입은
-각각 대응되는 JAVA의 자료형으로 변환 하여 적용된다.
-| Altibase 자료형 | JAVA 자료형      |
+다음은 서로 대응되는 Altibase와 Java 자료형을 나타낸 표이다.
+
+| Altibase 자료형 | Java 자료형      |
 | --------------- | ---------------- |
 | NUMERIC         | BigDecimal       |
 | FLOAT           | BigDecimal       |
