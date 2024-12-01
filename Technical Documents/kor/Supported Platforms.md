@@ -30,7 +30,7 @@
 
 Altibase가 지원하는 OS 정보를 안내합니다.
 
-아래 표에 명시되지 않은 OS에 대한 Altibase의 호환성 정보는 [Altibase 고객 지원 센터](http://support.altibase.com/kr/)로 문의해 주시기를 바랍니다.
+아래 표에 명시되지 않은 OS에 대한 Altibase의 호환성 정보는 [Altibase 고객 지원 센터](http://support.altibase.com/kr/)로 문의해 주시기 바랍니다.
 
 # Altibase 7.3
 
@@ -47,18 +47,18 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | 운영 체제                                                    | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항   |
 | :----------------------------------------------------------- | :-----------: | :-----------------: | :-------------------- |
 | **Unix**                                                     |               |                     |                       |
-| AIX 6.1 TL9                                                  |       ✅       |          ✅          |                       |
-| AIX 7.1                                                      |       ✅       |          ✅          |                       |
 | AIX 7.2                                                      |       ✅       |          ✅          |                       |
+| AIX 7.1                                                      |       ✅       |          ✅          |                       |
+| AIX 6.1 TL9                                                  |       ✅       |          ✅          |                       |
 | HP-UX Itanium (IA-64) 11.31                                  |       ✅       |          ✅          |                       |
 | **Linux (x86-64) - Red Hat 계열**                            |               |                     |                       |
-| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33* |
-| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33* |
 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33* |
+| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33* |
+| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33* |
 | **Linux (x86-64) - Debian 계열**                             |               |                     |                       |
-| Ubuntu 12                                                    |       ✅       |          ✅          | *- glibc 2.17 ~ 2.33* |
-| Ubuntu 16                                                    |       ✅       |          ✅          | *- glibc 2.23 ~ 2.33* |
 | Ubuntu 18                                                    |       ✅       |          ✅          | *- glibc 2.27 ~ 2.33* |
+| Ubuntu 16                                                    |       ✅       |          ✅          | *- glibc 2.23 ~ 2.33* |
+| Ubuntu 12                                                    |       ✅       |          ✅          | *- glibc 2.17 ~ 2.33* |
 | **Linux on Power**                                           |               |                     |                       |
 | POWER7 w/Red Hat Enterprise Linux 6.5                        |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33* |
 | **Linux on Power** **(Little Endian)**                       |               |                     |                       |
@@ -73,18 +73,18 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | 운영 체제                                                    | PDO 드라이버<br/>PDO_ALTIBASE-1.x.x for PHP 5.3.3, 7.1.20 | PDO 드라이버<br />PDO_ALTIBASE-2.x.x for PHP 8.1.8 | altiMon | Adapter for JDBC | Adapter for Oracle | 소프트웨어 요구사항 |
 | :----------------------------------------------------------- | :-------------------------------------------------------: | :------------------------------------------------: | :-----: | :--------------: | :----------------: | :------------------ |
 | **Unix**                                                     |                                                           |                                                    |         |                  |                    |                     |
-| AIX 6.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          |                     |
-| AIX 7.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          |                     |
 | AIX 7.2                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          |                     |
+| AIX 7.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          |                     |
+| AIX 6.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          |                     |
 | HP-UX Itanium (IA-64) 11.31                                  |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ❌          |                     |
 | **Linux (x86-64) - Red Hat 계열**                            |                                                           |                                                    |         |                  |                    |                     |
-| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
-| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
+| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
+| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
 | **Linux (x86-64) - Debian 계열**                             |                                                           |                                                    |         |                  |                    |                     |
-| Ubuntu 12                                                    |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
-| Ubuntu 16                                                    |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
 | Ubuntu 18                                                    |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
+| Ubuntu 16                                                    |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
+| Ubuntu 12                                                    |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                     |
 | **Linux on Power**                                           |                                                           |                                                    |         |                  |                    |                     |
 | POWER7 w/ Red Hat Enterprise Linux 6.5                       |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ❌          |                     |
 | **Linux on Power (Little Endian)**                           |                                                           |                                                    |         |                  |                    |                     |
@@ -111,25 +111,25 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | 운영 체제                                                    | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항                                    |
 | :----------------------------------------------------------- | :-----------: | :-----------------: | :----------------------------------------------------- |
 | **AIX on IBM Power Systems**                                 |               |                     |                                                        |
-| AIX 6.1 TL3 <br />AIX 6.1 TL9                                |       ✅       |          ✅          |                                                        |
-| AIX 7.1                                                      |       ✅       |          ✅          |                                                        |
 | AIX 7.2 TL2                                                  |       ✅       |          ✅          | *- Altibase 7.1.0.4.7 이상*                            |
+| AIX 7.1                                                      |       ✅       |          ✅          |                                                        |
+| AIX 6.1 TL3 <br />AIX 6.1 TL9                                |       ✅       |          ✅          |                                                        |
 | HP-UX Itanium (IA-64) 11.31                                  |       ✅       |          ✅          |                                                        |
 | **Linux (x86-64) - Red Hat 계열**                            |               |                     |                                                        |
-| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33*                                  |
-| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33*                                  |
 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33*                                  |
+| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33*                                  |
+| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33*                                  |
 | **Linux (x86-64) - Debian 계열**                             |               |                     |                                                        |
-| Ubuntu 12                                                    |       ✅       |          ✅          | *- glibc 2.17 ~ 2.33*                                  |
-| Ubuntu 16                                                    |       ✅       |          ✅          | *- glibc 2.23 ~ 2.33*<br />- *Altibase 7.1.0.7.2 이상* |
 | Ubuntu 18                                                    |       ✅       |          ✅          | *- glibc 2.27 ~ 2.33*<br />- *Altibase 7.1.0.7.2 이상* |
+| Ubuntu 16                                                    |       ✅       |          ✅          | *- glibc 2.23 ~ 2.33*<br />- *Altibase 7.1.0.7.2 이상* |
+| Ubuntu 12                                                    |       ✅       |          ✅          | *- glibc 2.17 ~ 2.33*                                  |
 | **Linux on Power**                                           |               |                     |                                                        |
 | POWER7 w/ Red Hat Enterprise Linux 6.5                       |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33*                                  |
 | **Linux on Power** **(Little Endian)**                       |               |                     |                                                        |
 | POWER8(LE) w/ Red Hat Enterprise Linux 7.2                   |       ✅       |          ✅          | *- glibc 2.17 ~ 2.33*<br />- *Altibase 7.1.0.0.8 이상* |
 | **Microsoft Windows (x64)**                                  |               |                     |                                                        |
-| Microsoft Windows 2008                                       |       ❌       |          ✅          | *- Altibase 클라이언트 7.1.0.4.5 이상*                 |
 | Microsoft Windows 10                                         |       ❌       |          ✅          |                                                        |
+| Microsoft Windows 2008                                       |       ❌       |          ✅          | *- Altibase 클라이언트 7.1.0.4.5 이상*                 |
 
 
 
@@ -138,18 +138,18 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | 운영 체제                                                    | PDO 드라이버<br/>PDO_ALTIBASE-1.x.x for PHP 5.3.3, 7.1.20 | PDO 드라이버<br />PDO_ALTIBASE-2.x.x for PHP 8.1.8 | altiMon | Adapter for JDBC | Adapter for Oracle | 소프트웨어 요구사항                                          |
 | :----------------------------------------------------------- | :-------------------------------------------------------: | :------------------------------------------------: | :-----: | :--------------: | :----------------: | :----------------------------------------------------------- |
 | **Unix**                                                     |                                                           |                                                    |         |                  |                    |                                                              |
-| AIX 6.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          |                                                              |
-| AIX 7.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.1.9 이상*                        |
 | AIX 7.2 TL2                                                  |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.1.9 이상*                        |
+| AIX 7.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.1.9 이상*                        |
+| AIX 6.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          |                                                              |
 | HP-UX Itanium (IA-64) 11.31                                  |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ❌          |                                                              |
 | **Linux (x86-64) - Red Hat 계열**                            |                                                           |                                                    |         |                  |                    |                                                              |
-| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                                                              |
-| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                                                              |
 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                                                              |
+| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                                                              |
+| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                                                              |
 | **Linux (x86-64) - Debian 계열**                             |                                                           |                                                    |         |                  |                    |                                                              |
-| Ubuntu 12                                                    |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                                                              |
-| Ubuntu 16                                                    |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.7.2 이상*                        |
 | Ubuntu 18                                                    |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.7.2 이상*                        |
+| Ubuntu 16                                                    |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.7.2 이상*                        |
+| Ubuntu 12                                                    |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ✅          |                                                              |
 | **Linux on Power**                                           |                                                           |                                                    |         |                  |                    |                                                              |
 | POWER7 w/ Red Hat Enterprise Linux 6.5                       |                             ✅                             |                         ✅                          |    ✅    |        ✅         |         ❌          |                                                              |
 | **Linux on Power (Little Endian)**                           |                                                           |                                                    |         |                  |                    |                                                              |
@@ -176,32 +176,32 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | 운영 체제                                                    | Altibase 서버 | Altibase 클라이언트<br />32비트 | Altibase 클라이언트 <br />64비트 | 소프트웨어 요구사항                                    |
 | :----------------------------------------------------------- | :-----------: | :-----------------------------: | :------------------------------: | :----------------------------------------------------- |
 | **UNIX**                                                     |               |                                 |                                  |                                                        |
-| AIX 6.1 TL3<br />AIX 6.1 TL9                                 |       ✅       |                ✅                |                ✅                 |                                                        |
-| AIX 7.1                                                      |       ✅       |                ✅                |                ✅                 |                                                        |
 | AIX 7.2                                                      |       ✅       |                ✅                |                ✅                 |                                                        |
+| AIX 7.1                                                      |       ✅       |                ✅                |                ✅                 |                                                        |
+| AIX 6.1 TL3<br />AIX 6.1 TL9                                 |       ✅       |                ✅                |                ✅                 |                                                        |
 | HP-UX Itanium (IA-64) 11.31                                  |       ✅       |                ✅                |                ✅                 |                                                        |
-| Solaris 10 (Sun SPARC)                                       |       ✅       |                ✅                |                ✅                 |                                                        |
 | Solaris 11 (Sun SPARC)                                       |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.4.2 이상*                            |
+| Solaris 10 (Sun SPARC)                                       |       ✅       |                ✅                |                ✅                 |                                                        |
 | **Linux (x86-64) - Red Hat 계열**                            |               |                                 |                                  |                                                        |
-| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |       ✅       |                ✅                |                ✅                 | *- glibc 2.12 ~ 2.33*                                  |
-| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |       ✅       |                ✅                |                ✅                 | *- glibc 2.12 ~ 2.33*                                  |
 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |       ✅       |                ✅                |                ✅                 | *- glibc 2.12 ~ 2.33*                                  |
+| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |       ✅       |                ✅                |                ✅                 | *- glibc 2.12 ~ 2.33*                                  |
+| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |       ✅       |                ✅                |                ✅                 | *- glibc 2.12 ~ 2.33*                                  |
 | **Linux (x86-64) - Debian 계열**                             |               |                                 |                                  |                                                        |
 | Ubuntu 12                                                    |       ✅       |                ✅                |                ✅                 | *- glibc 2.17 ~ 2.33*                                  |
 | **Linux on Power**                                           |               |                                 |                                  |                                                        |
-| POWER7 w/ Red Hat Enterprise Linux 6.5                       |       ✅       |                ✅                |                ✅                 | *- glibc 2.12 ~ 2.33*                                  |
 | POWER8 w/ Red Hat Enterprise Linux 7.1                       |       ✅       |                ✅                |                ✅                 | *- glibc 2.12 ~ 2.33*                                  |
+| POWER7 w/ Red Hat Enterprise Linux 6.5                       |       ✅       |                ✅                |                ✅                 | *- glibc 2.12 ~ 2.33*                                  |
 | **Linux on Power (Little Endian)**                           |               |                                 |                                  |                                                        |
-| POWER8(LE) w/ Red Hat Enterprise Linux 7.2                   |       ✅       |                ✅                |                ✅                 | *- glibc 2.17 ~ 2.33*<br />*- Altibase 6.5.1.4.5 이상* |
 | POWER9(LE) w/ Red Hat Enterprise Linux 7.6                   |       ✅       |                ✅                |                ✅                 | *- glibc 2.17 ~ 2.33*<br />*- Altibase 6.5.1.7.6 이상* |
+| POWER8(LE) w/ Red Hat Enterprise Linux 7.2                   |       ✅       |                ✅                |                ✅                 | *- glibc 2.17 ~ 2.33*<br />*- Altibase 6.5.1.4.5 이상* |
 | **Microsoft Windows (x64)**                                  |               |                                 |                                  |                                                        |
-| Microsoft Windows Server 2008                                |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
-| Microsoft Windows Server 2012                                |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
-| Microsoft Windows Server 2016                                |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
 | Microsoft Windows Server 2019                                |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
-| Microsoft Windows 7                                          |       ✅       |                ✅                |                ✅                 |                                                        |
-| Microsoft Windows 8                                          |       ✅       |                ✅                |                ✅                 |                                                        |
+| Microsoft Windows Server 2016                                |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
+| Microsoft Windows Server 2012                                |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
+| Microsoft Windows Server 2008                                |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
 | Microsoft Windows 10                                         |       ✅       |                ✅                |                ✅                 | *- Altibase  6.5.1.6.2 이상*                           |
+| Microsoft Windows 8                                          |       ✅       |                ✅                |                ✅                 |                                                        |
+| Microsoft Windows 7                                          |       ✅       |                ✅                |                ✅                 |                                                        |
 
 
 
@@ -210,24 +210,24 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | 운영 체제                                                    | PDO 드라이버<br/>PDO_ALTIBASE-1.x.x for PHP 5.3.3, 7.1.20 | PDO 드라이버<br />PDO_ALTIBASE-2.x.x for PHP 8.1.8 | Adapter for JDBC | Adapter for Oracle | 소프트웨어 요구사항                                          |
 | :----------------------------------------------------------- | :-------------------------------------------------------: | :------------------------------------------------: | :--------------: | :----------------: | :----------------------------------------------------------- |
 | **Unix**                                                     |                                                           |                                                    |                  |                    |                                                              |
-| AIX 5.3                                                      |                             ❌                             |                         ❌                          |        ❌         |         ✅          |                                                              |
-| AIX 6.1                                                      |                             ❌                             |                         ❌                          |        ✅         |         ✅          |                                                              |
-| AIX 7.1                                                      |                             ❌                             |                         ❌                          |        ✅         |         ✅          |                                                              |
 | AIX 7.2                                                      |                             ❌                             |                         ❌                          |        ✅         |         ✅          |                                                              |
+| AIX 7.1                                                      |                             ❌                             |                         ❌                          |        ✅         |         ✅          |                                                              |
+| AIX 6.1                                                      |                             ❌                             |                         ❌                          |        ✅         |         ✅          |                                                              |
+| AIX 5.3                                                      |                             ❌                             |                         ❌                          |        ❌         |         ✅          |                                                              |
 | HP-UX Itanium (IA-64) 11.31                                  |                             ❌                             |                         ❌                          |        ✅         |         ❌          |                                                              |
-| Solaris 10 (Sun SPARC)                                       |                             ❌                             |                         ❌                          |        ✅         |         ✅          | - *Adapter for Oracle : 6.5.1.9.3 이상*                      |
 | Solaris 11 (Sun SPARC)                                       |                             ❌                             |                         ❌                          |        ✅         |         ✅          | - *Adapter for JDBC : 6.5.1.4.2 이상*<br />- *Adapter for Oracle : 6.5.1.9.3 이상* |
+| Solaris 10 (Sun SPARC)                                       |                             ❌                             |                         ❌                          |        ✅         |         ✅          | - *Adapter for Oracle : 6.5.1.9.3 이상*                      |
 | **Linux (x86-64) - Red Hat 계열**                            |                                                           |                                                    |                  |                    |                                                              |
-| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |                             ✅                             |                         ✅                          |        ✅         |         ✅          |                                                              |
-| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |                             ✅                             |                         ✅                          |        ✅         |         ✅          |                                                              |
 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |                             ✅                             |                         ✅                          |        ✅         |         ✅          |                                                              |
+| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |                             ✅                             |                         ✅                          |        ✅         |         ✅          |                                                              |
+| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |                             ✅                             |                         ✅                          |        ✅         |         ✅          |                                                              |
 | **Linux (x86-64) - Debian 계열**                             |                                                           |                                                    |                  |                    |                                                              |
 | Ubuntu 12                                                    |                             ✅                             |                         ✅                          |        ✅         |         ✅          |                                                              |
 | **Linux on Power**                                           |                                                           |                                                    |                  |                    |                                                              |
-| POWER7 w/ Red Hat Enterprise Linux 6.5                       |                             ✅                             |                         ✅                          |        ✅         |         ❌          |                                                              |
 | POWER8 w/ Red Hat Enterprise Linux 7.1                       |                             ✅                             |                         ✅                          |        ✅         |         ❌          |                                                              |
+| POWER7 w/ Red Hat Enterprise Linux 6.5                       |                             ✅                             |                         ✅                          |        ✅         |         ❌          |                                                              |
 | **Linux on Power (Little Endian)**                           |                                                           |                                                    |                  |                    |                                                              |
-| POWER8(LE) w/ Red Hat Enterprise Linux 7.2                   |                             ✅                             |                         ✅                          |        ✅         |         ❌          |                                                              |
 | POWER9(LE) w/ Red Hat Enterprise Linux 7.6                   |                             ✅                             |                         ✅                          |        ✅         |         ❌          |                                                              |
+| POWER8(LE) w/ Red Hat Enterprise Linux 7.2                   |                             ✅                             |                         ✅                          |        ✅         |         ❌          |                                                              |
 | **Microsoft Windows (x64)**                                  |                                                           |                                                    |                  |                    |                                                              |
 | ALL                                                          |                             ❌                             |                         ❌                          |        ❌         |         ❌          |                                                              |
