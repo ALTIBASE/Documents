@@ -33,10 +33,10 @@ New Features
 -   **재현 빈도** : Always
 
 -   **설명** : V\$DISK\_BTREE\_HEADER, V\$MEM\_BTREE\_HEADER 에 인덱스의
-    상태 정보를 나타내는 INDEX\_STATUS 컬럼이 추가되었습니다.
+    상태 정보를 나타내는 INDEX\_STATUS 칼럼이 추가되었습니다.
 
     또한 V\$MEM\_BTREE\_HEADER에 인덱스의 일관성 여부를 나타내는
-    IS\_CONSISTENT 컬럼도 추가되었습니다.
+    IS\_CONSISTENT 칼럼도 추가되었습니다.
 
 -   **재현 방법**
 
@@ -52,10 +52,10 @@ New Features
 
     -   Performance view
         -   V\$DISK\_BTREE\_HEADER
-            -   INDEX\_STATUS 컬럼 추가 : 인덱스의 상태를 표시
+            -   INDEX\_STATUS 칼럼 추가 : 인덱스의 상태를 표시
         -   V\$MEM\_BTREE\_HEADER
-            -   INDEX\_STATUS 컬럼 추가 :인덱스의 상태를 표시
-            -   IS\_CONSISTENT 컬럼 추가 : 인덱스의 일관성 여부를 표시
+            -   INDEX\_STATUS 칼럼 추가 :인덱스의 상태를 표시
+            -   IS\_CONSISTENT 칼럼 추가 : 인덱스의 일관성 여부를 표시
     -   Property
     -   Compile Option
     -   Error Code
@@ -156,7 +156,7 @@ Fixed Bugs
     
     1. TO_CHAR 함수의 2번째 인자로 숫자 형식이나 날짜 형식이 있는 경우
     2. TO_CHAR 함수의 1번째 인자가 Numeric 타입이 아닌 경우
-    3. TO_CHAR 함수의 1번째 인자의 컬럼이 서브쿼리의 뷰에 존재하며, 뷰 머징이 되지 않고 Pushdown되는 경우
+    3. TO_CHAR 함수의 1번째 인자의 칼럼이 서브쿼리의 뷰에 존재하며, 뷰 머징이 되지 않고 Pushdown되는 경우
     4. 서브쿼리의 타겟절에서 TO_CHAR 함수를 사용하고 ALIAS를 지정하며, 이 ALIAS를 메인쿼리의 조건절에서 사용할 때, TO_CHAR 함수가 사용된 뷰로 Pushdown 되는 경우
     
 - **재현 방법**
