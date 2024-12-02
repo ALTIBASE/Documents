@@ -113,7 +113,7 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | **AIX on IBM Power Systems**                                 |               |                     |                                                        |
 | AIX 7.2 TL2                                                  |       ✅       |          ✅          | *- Altibase 7.1.0.4.7 이상*                            |
 | AIX 7.1                                                      |       ✅       |          ✅          |                                                        |
-| AIX 6.1 TL3 <br />AIX 6.1 TL9                                |       ✅       |          ✅          |                                                        |
+| AIX 6.1 TL9 <br />AIX 6.1 TL3                                |       ✅       |          ✅          |                                                        |
 | HP-UX Itanium (IA-64) 11.31                                  |       ✅       |          ✅          |                                                        |
 | **Linux (x86-64) - Red Hat 계열**                            |               |                     |                                                        |
 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33*                                  |
@@ -178,7 +178,7 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | **UNIX**                                                     |               |                                 |                                  |                                                        |
 | AIX 7.2                                                      |       ✅       |                ✅                |                ✅                 |                                                        |
 | AIX 7.1                                                      |       ✅       |                ✅                |                ✅                 |                                                        |
-| AIX 6.1 TL3<br />AIX 6.1 TL9                                 |       ✅       |                ✅                |                ✅                 |                                                        |
+| AIX 6.1 TL9<br />AIX 6.1 TL3                                 |       ✅       |                ✅                |                ✅                 |                                                        |
 | HP-UX Itanium (IA-64) 11.31                                  |       ✅       |                ✅                |                ✅                 |                                                        |
 | Solaris 11 (Sun SPARC)                                       |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.4.2 이상*                            |
 | Solaris 10 (Sun SPARC)                                       |       ✅       |                ✅                |                ✅                 |                                                        |
