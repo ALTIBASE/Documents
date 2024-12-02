@@ -49,7 +49,7 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | **Unix**                                                     |               |                     |                       |
 | AIX 7.2                                                      |       ✅       |          ✅          |                       |
 | AIX 7.1                                                      |       ✅       |          ✅          |                       |
-| AIX 6.1 TL9                                                  |       ✅       |          ✅          |                       |
+| AIX 6.1 TL9 이상                                             |       ✅       |          ✅          |                       |
 | HP-UX Itanium (IA-64) 11.31                                  |       ✅       |          ✅          |                       |
 | **Linux (x86-64) - Red Hat 계열**                            |               |                     |                       |
 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33* |
@@ -111,9 +111,9 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | 운영 체제                                                    | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항                                    |
 | :----------------------------------------------------------- | :-----------: | :-----------------: | :----------------------------------------------------- |
 | **AIX on IBM Power Systems**                                 |               |                     |                                                        |
-| AIX 7.2 TL2                                                  |       ✅       |          ✅          | *- Altibase 7.1.0.4.7 이상*                            |
+| AIX 7.2 TL2 이상                                             |       ✅       |          ✅          | *- Altibase 7.1.0.4.7 이상*                            |
 | AIX 7.1                                                      |       ✅       |          ✅          |                                                        |
-| AIX 6.1 TL9 <br />AIX 6.1 TL3                                |       ✅       |          ✅          |                                                        |
+| AIX 6.1 TL3 이상                                             |       ✅       |          ✅          |                                                        |
 | HP-UX Itanium (IA-64) 11.31                                  |       ✅       |          ✅          |                                                        |
 | **Linux (x86-64) - Red Hat 계열**                            |               |                     |                                                        |
 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33*                                  |
@@ -138,7 +138,7 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | 운영 체제                                                    | PDO 드라이버<br/>PDO_ALTIBASE-1.x.x for PHP 5.3.3, 7.1.20 | PDO 드라이버<br />PDO_ALTIBASE-2.x.x for PHP 8.1.8 | altiMon | Adapter for JDBC | Adapter for Oracle | 소프트웨어 요구사항                                          |
 | :----------------------------------------------------------- | :-------------------------------------------------------: | :------------------------------------------------: | :-----: | :--------------: | :----------------: | :----------------------------------------------------------- |
 | **Unix**                                                     |                                                           |                                                    |         |                  |                    |                                                              |
-| AIX 7.2 TL2                                                  |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.1.9 이상*                        |
+| AIX 7.2 TL2 이상                                             |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.1.9 이상*                        |
 | AIX 7.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.1.9 이상*                        |
 | AIX 6.1                                                      |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ✅          |                                                              |
 | HP-UX Itanium (IA-64) 11.31                                  |                             ❌                             |                         ❌                          |    ✅    |        ✅         |         ❌          |                                                              |
@@ -178,7 +178,7 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | **UNIX**                                                     |               |                                 |                                  |                                                        |
 | AIX 7.2                                                      |       ✅       |                ✅                |                ✅                 |                                                        |
 | AIX 7.1                                                      |       ✅       |                ✅                |                ✅                 |                                                        |
-| AIX 6.1 TL9<br />AIX 6.1 TL3                                 |       ✅       |                ✅                |                ✅                 |                                                        |
+| AIX 6.1 TL3 이상                                             |       ✅       |                ✅                |                ✅                 |                                                        |
 | HP-UX Itanium (IA-64) 11.31                                  |       ✅       |                ✅                |                ✅                 |                                                        |
 | Solaris 11 (Sun SPARC)                                       |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.4.2 이상*                            |
 | Solaris 10 (Sun SPARC)                                       |       ✅       |                ✅                |                ✅                 |                                                        |
@@ -200,8 +200,8 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | Microsoft Windows Server 2012                                |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
 | Microsoft Windows Server 2008                                |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
 | Microsoft Windows 10                                         |       ✅       |                ✅                |                ✅                 | *- Altibase  6.5.1.6.2 이상*                           |
-| Microsoft Windows 8                                          |       ✅       |                ✅                |                ✅                 |                                                        |
-| Microsoft Windows 7                                          |       ✅       |                ✅                |                ✅                 |                                                        |
+| Microsoft Windows 8                                          |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
+| Microsoft Windows 7                                          |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
 
 
 
