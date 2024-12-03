@@ -1,5 +1,4 @@
-General Reference-1.Data Types & Altibase Properties
-================
+# General Reference-1.Data Types & Altibase Properties
 
 #### Trunk
 
@@ -3625,6 +3624,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>SYSTEM</td>
   </tr>
   <tr>
+  <td>CHECKPOINT_SCALE_SINGLE_DW_BUFFER_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
   <td>COMMIT_WRITE_WAIT_MODE</td>
   <td>BOTH</td>
   </tr>
@@ -3653,10 +3656,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   </tr>
   <tr>
   <td>SNAPSHOT_DISK_UNDO_THRESHOLD</td>
-  <td>SYSTEM</td>
-  </tr>
-  <tr>
-  <td>CHECKPOINT_SCALE_SINGLE_DW_BUFFER_SIZE</td>
   <td>SYSTEM</td>
   </tr>
   <tr>
@@ -10602,6 +10601,30 @@ Unsigned Integer
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
+#### CHECKPOINT_SCALE_SINGLE_DW_BUFFER_SIZE (단위: 바이트)
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+524288000 (500 MByte)
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[1 MByte, 2 Gbyte]
+
+##### 설명
+
+체크포인트 스케일이 싱글이고 더블 라이트 동작을 수행할 때 사용하는 더블 라이트 버퍼와 더블 라이트 이미지 파일의 크기를 설정하는 프로퍼티이다.
+
+이 프로퍼티는 가장 큰 체크포인트 이미지 파일 크기의 절반으로 설정해야 한다.
+
 #### COMMIT_WRITE_WAIT_MODE 
 
 ##### 데이터 타입
@@ -10829,30 +10852,6 @@ Unsigned Integer
 스냅샷 설정(BEGIN SNAPSHOT) 이후 디스크에서 사용할 수 있는 임계치(Threshold)를 설정하는 프로퍼티이다.
 
 현재까지 사용된 디스크 언두 테이블스페이스의 크기는 프로퍼티 SYS_UNDO_FILE_MAX_SIZE 에서 몇 퍼센트를 사용하는지 확인하고, 설정한 임계치를 초과하면 스냅샷(shapshot)은 자동으로 중지된다.
-
-#### CHECKPOINT_SCALE_SINGLE_DW_BUFFER_SIZE (단위: 바이트)
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-524288000 (500 MByte)
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[1 MByte, 2 Gbyte]
-
-##### 설명
-
-체크포인트 스케일이 싱글이고 더블 라이트 동작을 수행할 때 사용하는 더블 라이트 버퍼와 더블 라이트 이미지 파일의 크기를 설정하는 프로퍼티이다.
-
-이 프로퍼티는 가장 큰 체크포인트 이미지 파일 크기의 절반으로 설정해야 한다.
 
 ### 이중화 프로퍼티
 
