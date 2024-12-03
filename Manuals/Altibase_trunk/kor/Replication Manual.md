@@ -1310,13 +1310,13 @@ iSQL> ALTER REPLICATION rep1 ADD TABLE FROM sys.employees TO sys.employees;
 Alter success.
 ```
 
--   TIMER_THREAD_RESOLUTION 프로퍼티의 값이 1000000 마이크로 초로 설정되어 있는 경우, 이중화 송신자 별로 WAIT_NEW_LOG이벤트에 대한 대기 누적시간(초)을 알고 싶다면, 다음 쿼리를 실행한다.
+-   TIMER_THREAD_RESOLUTION 프로퍼티의 값이 1000000 마이크로 초로 설정되어 있는 경우, 이중화 송신자 별로 WAIT_NEW_LOG이벤트에 대한 대기 누적시간(초)을 알고 싶다면, 다음 구문을 실행한다.
 
 ```
 iSQL> SELECT rep_name, avg(WAIT_NEW_LOG)/1000000 FROM x$repsender_statistics WHERE wait_new_log > 0 GROUP BY rep_name ORDER BY rep_name;
 ```
 
--   TIMER_THREAD_RESOLUTION 프로퍼티의 값이 1000000 마이크로 초로 설정되어 있는 경우, 이중화 수신자 별로 INSERT_ROW이벤트에 대한 대기 누적시간(초)을 알고 싶다면, 다음 쿼리를 실행한다.
+-   TIMER_THREAD_RESOLUTION 프로퍼티의 값이 1000000 마이크로 초로 설정되어 있는 경우, 이중화 수신자 별로 INSERT_ROW이벤트에 대한 대기 누적시간(초)을 알고 싶다면, 다음 구문을 실행한다.
 
 ```
 iSQL> SELECT rep_name, avg(INSERT_ROW)/1000000 FROM x$repreceiver_statistics WHERE recv_xlog > 0 GROUP BY rep_name ORDER BY rep_name;
@@ -2234,9 +2234,9 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
 ## 개요
 
- Altibase는 지역 서버에 발생한 트랜잭션 로그를 상대편 서버에 전송하여 데이터를 일치시키는 형태의 네트워크 기반의 이중화 기법을 제공한다. 다만, DDL 작업은 로그를 전송하지 않는다. 이는 DDL 문이 이중화 대상의 메타 정보를 변경하여 이중화 서버 간에 데이터 불일치가 발생할 수 있기 때문이다.  따라서 일반적으로 이중화 환경에서 DDL 문을 수행하려면 먼저 해당 이중화 대상을 이중화 객체에서 제거한 후 각각의 노드에서  DDL 작업을 수행해야 한다.
+ Altibase는 지역 서버에 발생한 트랜잭션 로그를 상대편 서버에 전송하여 데이터를 일치시키는 형태의 네트워크 기반의 이중화 기법을 제공한다. 그러나 DDL 작업으로 발생한 트랜잭션 로그는 전송하지 않는다. 이는 DDL 문이 이중화 대상의 메타 정보를 변경하여 이중화 서버 간에 데이터 불일치가 발생할 수 있기 때문이다.  따라서 일반적으로 이중화 환경에서 DDL 문을 수행하려면 먼저 해당 이중화 대상을 이중화 객체에서 제거한 후 각각의 노드에서  DDL 작업을 수행해야 한다.
 
-그러나 Altibase는 운영의 효율성을 위해 이중화 대상을 제거하지 않고도 DDL 문을 수행할 수 있는 방법을 제공한다.
+다만 Altibas 이중화는 운영의 효율성을 위해 이중화 대상을 제거하지 않고도 DDL 문을 수행할 수 있는 방법을 제공한다.
 
 만약 일반적인 DDL 문 수행 절차를 알고싶다면 [B.부록: 일반적인 DDL 문 수행 절차](#b부록-일반적인-DDL-문-수행-절차)을 참고한다.
 
@@ -2260,7 +2260,7 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
   - EAGER 모드로 동작 중인 이중화 객체
 
-    이 경우 [B.부록 : 이중화 대상 DDL 문 수행](#기본-이중화-대상-DDL-문-수행-방법)을 참고한다.
+    이 경우 [B.부록: 일반적인 DDL 문 수행 절차](#b부록-일반적인-ddl-문-수행-절차)를 참고한다.
     
 ### 주의사항
 
@@ -2275,7 +2275,7 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
 ### DDL 문 레벨 1
 
-다음은 `REPLICATION_DDL_ENABLE_LEVEL`이 1로 설정된 경우 수행 가능한 DDL 문이다. DDL 문 레벨을 1로 설정하면 보다 수행할 수 있는 DDL 문의 범위가 넓어진다. 다만, 아래에 소개된 구문을 수행하려면 반드시 **SQL 반영 모드를 활성화**해야 한다..
+다음은 `REPLICATION_DDL_ENABLE_LEVEL`이 1로 설정된 경우 수행 가능한 DDL 문이다. 다만, 아래에 소개된 구문을 수행하려면 반드시 **[SQL 반영 모드](#C부록-SQL-반영-모드)를 활성화**해야 한다.
 
 > [!tip]
 >
@@ -2433,8 +2433,6 @@ ALTER TABLE table_name COMPACT PARTITION partition_name
 ALTER INDEX REBUILD PARTITION
 ```
 
-- 이 구문을 수행하려면 `REPLICATION_DDL_SYNC` 설정이 0이어야 한다.
-
 #### 권한 부여 및 회수
 
 ```sql
@@ -2442,16 +2440,12 @@ GRANT OBJECT
 REVOKE OBJECT
 ```
 
-- 이 구문을 수행하려면 `REPLICATION_DDL_SYNC` 설정이 0이어야 한다.
-
 #### 트리거 생성/삭제
 
 ```sql
 CREATE TRIGGER
 DROP TRIGGER
 ```
-
-- 이 구문을 수행하려면 `REPLICATION_DDL_SYNC` 설정이 0이어야 한다.
 
 ## 수행 방법
 
@@ -2463,7 +2457,7 @@ DROP TRIGGER
 
 2. 서비스가 모두 지역 서버로 이전되었는지 확인한다.
 
-   원격 서버에서 아래 조회 쿼리의 결과가 0이 나와야 한다.
+   원격 서버에서 아래 조회 구문의 결과가 0이 나와야 한다.
 
    ```sql
    SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();
@@ -2504,15 +2498,15 @@ ALTER SESSION SET REPLICATION_MODE = DEFAULT;
    ALTER REPLICATION replication_name FLUSH;
    ```
 
-2. 파티션이 이중화 대상인 경우, DDL 문 수행 전 이중화를 중지한다.
+2. (파티션 대상) DDL 문 수행 전 이중화를 중지한다.
 
    ```sql
    ALTER REPLICATON replication_name STOP;
    ```
 
-3. DDL 문 수행한다.
+3. DDL 문을 수행한다.
 
-4. 이파티션이 이중화 대상인 경우, DDL 문 수행 후 이중화를 다시 시작한다.
+4. (파티션 대상) DDL 문 수행 후 이중화를 다시 시작한다.
 
    ``` sql
    ALTER REPLICATON replication_name START;
@@ -2526,7 +2520,7 @@ ALTER SESSION SET REPLICATION_MODE = DEFAULT;
 
 **Step 5. SQL 반영 모드 동작 여부 확인**
 
-원격 서버에서 SQL 반영 모드가 정상적으로 동작하는지 확인한다. 아래 조회 쿼리의 결과는 0이 나와야 한다.
+원격 서버에서 SQL 반영 모드가 정상적으로 동작하는지 확인한다. 아래 조회 구문의 결과는 0이 나와야 한다.
 
 ```sql
 SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
@@ -3461,14 +3455,14 @@ DDL 문 복제 기능을 사용하기 위해서는 아래의 조건을 만족해
 
 ### 제약 사항
 
-다음과 같은 이중화 객체 또는 이중화 대상에는 DDL 문 복제를 수행할 수 없다.
+다음과 같은 이중화 객체 또는 대상에는 DDL 문 복제를 수행할 수 없다.
 
 - EAGER 모드 이중화 객체
 - 글로벌 논파티션드 인덱스가 있는 파티션드 테이블
 - [PROPAGATION 롤](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication Manual.md#propagation-롤) 이 지정된 이중화 객체
 - [복구 옵션](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication Manual.md#복구-옵션recovery-option)을 설정한 이중화 객체
 
-다음과 같은 구문은 DDL 문 복제를 수행할 수 없다.
+다음의 구문은 DDL 문 복제를 수행할 수 없다.
 
 - 인덱스 파티션 재구축
 - 권한 부여/회수
@@ -3486,7 +3480,7 @@ DDL 문 복제 기능을 사용하기 위해서는 아래의 조건을 만족해
 
 2. 서비스가 모두 지역 서버로 이전되었는지 확인한다.
 
-   원격 서버에서 아래 조회 쿼리의 결과가 0이 나와야 한다.
+   원격 서버에서 아래 조회 구문의 결과가 0이 나와야 한다.
 
    ```sql
    SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();
@@ -3522,7 +3516,7 @@ ALTER SESSION SET REPLICATION_MODE = DEFAULT;
 
 지역 서버와 원격 서버에서 동일한 DDL 문을 수행한다.
 
-1. DDL 문 수행 전, 지역 서버와 원격 서버에서 다음 쿼리를 수행하여 남아있는 이중화 갭을 모두 반영한다.
+1. DDL 문 수행 전, 지역 서버와 원격 서버에서 다음 구문을 수행하여 남아있는 이중화 갭을 모두 반영한다.
 
    ```sql
    ALTER REPLICATION replication_name FLUSH;
@@ -3532,7 +3526,7 @@ ALTER SESSION SET REPLICATION_MODE = DEFAULT;
 
 **Step 5. SQL 반영 모드 동작 여부 확인**
 
-원격 서버에서 SQL 반영 모드가 정상적으로 동작하는지 확인한다. 아래 조회 쿼리의 결과는 0이 나와야 한다.
+원격 서버에서 SQL 반영 모드가 정상적으로 동작하는지 확인한다. 아래 조회 구문의 결과는 0이 나와야 한다.
 
 ```sql
 SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
@@ -5795,9 +5789,9 @@ Active1 서버에서 수행한 **Step 1**부터 **Step 7** 작업을 Active2 서
 
 ## SQL 반영 모드
 
-SQL 반영 모드는 **지역 서버와 원격 서버의 메타 정보가 다를 때에도 이중화를 유지**하기 위해 사용된다. SQL 반영 모드를 활성화하면 XLog를 SQL 문으로 변환하여 주 트랜잭션을 복제하여 이중화를 수행한다. 이 기능은 이중화 대상에 DDL 문을 수행하거나 DDL 문 복제 및 오프라인 옵션 기능을 사용할 때 등 다양한 경우에 필요하다.
+SQL 반영 모드는 **지역 서버와 원격 서버의 메타 정보가 다를 때에도 이중화를 유지**하기 위해 사용된다. SQL 반영 모드를 활성화하면 XLog를 SQL 문으로 변환하여 주 트랜잭션을 복제하여 이중화를 수행한다. 이 기능은 이중화 대상에 DDL 문을 수행하는 다양한 경우에 필요하다.
 
-SQL 반영 모드를 활성화하면 이중화는 속도가 현저히 느려지므로 **사용 후 바로 비활성화해야 한다.** 만약 그렇지 않으면 트랜잭션 처리 지연으로 데이터 불일치가 발생할 수 있다.
+SQL 반영 모드를 활성화하면 이중화는 속도가 현저히 느려지므로 **사용 후 바로 비활성화해야 한다.** 만약 그렇지 않으면 트랜잭션 처리가 지연되어 데이터 불일치가 발생할 수 있다.
 
 ### SQL 반영 모드 동작 조건
 
@@ -5833,7 +5827,7 @@ SQL 반영 모드는 아래와 같은 경우에 동작한다:
 
 - 이중화 쌍의 파티션 수가 다름.
 
-###### SQL 반영 모드 설정
+### SQL 반영 모드 설정
 
 SQL 반영 모드를 사용하려면 수신자의 `REPLICATION_SQL_APPLY_ENABLE` 프로퍼티를 1로 설정해야 한다.
 
@@ -5843,13 +5837,17 @@ SQL 반영 모드를 사용하려면 수신자의 `REPLICATION_SQL_APPLY_ENABLE`
 ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
 ```
 
-설정이 잘 되었는지 확인하려면, 수신자 서버에서 다음 쿼리를 실행한다. 
+설정이 잘 되었는지 확인하려면, 수신자 서버에서 다음 구문을 실행한다.
 
 ```sql
 SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'REPLICATION_SQL_APPLY_ENABLE';
 ```
 
-###### 제약 사항
+올바르게 설정을 마쳤다면 `VALUE1`의 값이 1이어야 한다.
+
+
+
+### 제약 사항
 
 - EAGER 모드 이중화는 지원하지 않는다.
 - 암호화 칼럼이 있는 이중화 대상 테이블에는 동작하지 않는다.
