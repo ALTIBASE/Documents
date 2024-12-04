@@ -49,7 +49,7 @@ For specific operating system not listed in the tables below, please contact the
 | **Unix**                                                     |                 |                 |                       |
 | AIX 7.2                                                      |        ✅        |        ✅        |                       |
 | AIX 7.1                                                      |        ✅        |        ✅        |                       |
-| AIX 6.1 TL9                                                  |        ✅        |        ✅        |                       |
+| AIX 6.1 TL9 or later                                         |        ✅        |        ✅        |                       |
 | HP-UX Itanium (IA-64) 11.31                                  |        ✅        |        ✅        |                       |
 | **Linux (x86-64) - Red Hat-based**                           |                 |                 |                       |
 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |        ✅        |        ✅        | *- glibc 2.12 ~ 2.33* |
@@ -66,7 +66,6 @@ For specific operating system not listed in the tables below, please contact the
 | **Microsoft Windows (x64)**                                  |                 |                 |                       |
 | Microsoft Windows 10                                         |        ❌        |        ✅        |                       |
 
-<br/>
 
 ## Altibase 7.3 Library & Tools
 
@@ -93,7 +92,6 @@ For specific operating system not listed in the tables below, please contact the
 | ALL                                                          |                            ❌                             |                        ❌                         |    ❌    |        ❌         |         ❌          |                       |
 
 
-
 # Altibase 7.1
 
 ## Altibase 7.1 Server & Client
@@ -109,9 +107,9 @@ For specific operating system not listed in the tables below, please contact the
 | Operating System                                             | Altibase Server | Altibase Client | Software Requirements                                    |
 | :----------------------------------------------------------- | :-------------: | :-------------: | :------------------------------------------------------- |
 | **AIX on IBM Power Systems**                                 |                 |                 |                                                          |
-| AIX 7.2 TL2                                                  |        ✅        |        ✅        | *- Altibase 7.1.0.4.7 or later*                          |
+| AIX 7.2 TL2 or later                                         |        ✅        |        ✅        | *- Altibase 7.1.0.4.7 or later*                          |
 | AIX 7.1                                                      |        ✅        |        ✅        |                                                          |
-| AIX 6.1 TL9<br>AIX 6.1 TL3                                   |        ✅        |        ✅        |                                                          |
+| AIX 6.1 TL3 or later                                         |        ✅        |        ✅        |                                                          |
 | HP-UX Itanium (IA-64) 11.31                                  |        ✅        |        ✅        |                                                          |
 | **Linux (x86-64) - Red Hat-based**                           |                 |                 |                                                          |
 | Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |        ✅        |        ✅        | *- glibc 2.12 ~ 2.33*                                    |
@@ -130,13 +128,12 @@ For specific operating system not listed in the tables below, please contact the
 | Microsoft Windows 2008                                       |        ❌        |        ✅        | *- Altibase Client 7.1.0.4.5 or later*                   |
 
 
-
 ## Altibase 7.1 Library & Tools
 
 | Operating System                                             | PDO Driver<br />PDO_ALTIBASE-1.x.x for PHP 5.3.3, 7.1.20 | PDO Driver<br />PDO_ALTIBASE-2.x.x for PHP 8.1.8 | altiMon | Adapter for JDBC | Adapter for Oracle | Software Requirements                                        |
 | :----------------------------------------------------------- | :------------------------------------------------------: | :----------------------------------------------: | :-----: | :--------------: | :----------------: | :----------------------------------------------------------- |
 | **Unix**                                                     |                                                          |                                                  |         |                  |                    |                                                              |
-| AIX 7.2 TL2                                                  |                            ❌                             |                        ❌                         |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.1.9 or later*                    |
+| AIX 7.2 TL2 or later                                         |                            ❌                             |                        ❌                         |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.1.9 or later*                    |
 | AIX 7.1                                                      |                            ❌                             |                        ❌                         |    ✅    |        ✅         |         ✅          | - *altiMon : Altibase 7.1.0.1.9 or later*                    |
 | AIX 6.1                                                      |                            ❌                             |                        ❌                         |    ✅    |        ✅         |         ✅          |                                                              |
 | HP-UX Itanium (IA-64) 11.31                                  |                            ❌                             |                        ❌                         |    ✅    |        ✅         |         ❌          |                                                              |
@@ -156,7 +153,6 @@ For specific operating system not listed in the tables below, please contact the
 | ALL                                                          |                            ❌                             |                        ❌                         |    ❌    |        ❌         |         ❌          |                                                              |
 
 
-
 # Altibase 6.5.1
 
 ## Altibase 6.5.1 Server & Client
@@ -174,7 +170,7 @@ For specific operating system not listed in the tables below, please contact the
 | **UNIX**                                                     |                 |                             |                             |                                                          |
 | AIX 7.2                                                      |        ✅        |              ✅              |              ✅              |                                                          |
 | AIX 7.1                                                      |        ✅        |              ✅              |              ✅              |                                                          |
-| AIX 6.1 TL9<br>AIX 6.1 TL3                                   |        ✅        |              ✅              |              ✅              |                                                          |
+| AIX 6.1 TL3 or later                                         |        ✅        |              ✅              |              ✅              |                                                          |
 | HP-UX Itanium (IA-64) 11.31                                  |        ✅        |              ✅              |              ✅              |                                                          |
 | Solaris 11 (Sun SPARC)                                       |        ✅        |              ✅              |              ✅              | *- Altibase 6.5.1.4.2 or later*                          |
 | Solaris 10 (Sun SPARC)                                       |        ✅        |              ✅              |              ✅              |                                                          |
@@ -196,9 +192,8 @@ For specific operating system not listed in the tables below, please contact the
 | Microsoft Windows Server 2012                                |        ✅        |              ✅              |              ✅              | *- Altibase 6.5.1.7.7 or later*                          |
 | Microsoft Windows Server 2008                                |        ✅        |              ✅              |              ✅              | *- Altibase 6.5.1.7.7 or later*                          |
 | Microsoft Windows 10                                         |        ✅        |              ✅              |              ✅              | *- Altibase  6.5.1.6.2 or later*                         |
-| Microsoft Windows 8                                          |        ✅        |              ✅              |              ✅              |                                                          |
-| Microsoft Windows 7                                          |        ✅        |              ✅              |              ✅              |                                                          |
-
+| Microsoft Windows 8                                          |        ✅        |              ✅              |              ✅              | *- Altibase 6.5.1.7.7 or later*                          |
+| Microsoft Windows 7                                          |        ✅        |              ✅              |              ✅              | *- Altibase 6.5.1.7.7 or later*                          |
 
 
 ## Altibase 6.5.1 Library & Tools

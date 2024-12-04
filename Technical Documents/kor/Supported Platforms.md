@@ -67,7 +67,6 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | Microsoft Windows 10                                         |       ❌       |          ✅          |                       |
 
 
-
 ## Altibase 7.3 Library & Tools
 
 | 운영 체제                                                    | PDO 드라이버<br/>PDO_ALTIBASE-1.x.x for PHP 5.3.3, 7.1.20 | PDO 드라이버<br />PDO_ALTIBASE-2.x.x for PHP 8.1.8 | altiMon | Adapter for JDBC | Adapter for Oracle | 소프트웨어 요구사항 |
@@ -93,7 +92,6 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | ALL                                                          |                             ❌                             |                         ❌                          |    ❌    |        ❌         |         ❌          |                     |
 
 
-
 # Altibase 7.1
 
 ## Altibase 7.1 Server & Client
@@ -106,7 +104,6 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 > - 아래 표에서 Altibase의 패치 버전이 따로 명시되어 있지 않으면, Altibase 7.1의 모든 버전에서 지원함을 의미합니다.
 > - 아래 표에서 운영 체제의 마이너 버전이 따로 명시되어 있지 않으면, 해당 메이저 버전의 모든 마이너 버전을 지원함을 의미합니다.
 >
-
 
 | 운영 체제                                                    | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항                                    |
 | :----------------------------------------------------------- | :-----------: | :-----------------: | :----------------------------------------------------- |
@@ -130,7 +127,6 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | **Microsoft Windows (x64)**                                  |               |                     |                                                        |
 | Microsoft Windows 10                                         |       ❌       |          ✅          |                                                        |
 | Microsoft Windows 2008                                       |       ❌       |          ✅          | *- Altibase 클라이언트 7.1.0.4.5 이상*                 |
-
 
 
 ## Altibase 7.1 Library & Tools
@@ -158,7 +154,6 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | ALL                                                          |                             ❌                             |                         ❌                          |    ❌    |        ❌         |         ❌          |                                                              |
 
 
-
 # Altibase 6.5.1
 
 ## Altibase 6.5.1 Server & Client
@@ -170,8 +165,6 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 > - Altibase 서버는 64비트만 지원합니다.
 > - 아래 표에서 Altibase의 패치 버전이 따로 명시되어 있지 않으면, Altibase 6.5.1의 모든 버전에서 지원함을 의미합니다.
 > - 아래 표에서 운영 체제의 마이너 버전이 따로 명시되어 있지 않으면, 해당 메이저 버전의 모든 마이너 버전을 지원함을 의미합니다.
->
-
 
 | 운영 체제                                                    | Altibase 서버 | Altibase 클라이언트<br />32비트 | Altibase 클라이언트 <br />64비트 | 소프트웨어 요구사항                                    |
 | :----------------------------------------------------------- | :-----------: | :-----------------------------: | :------------------------------: | :----------------------------------------------------- |
@@ -202,7 +195,6 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | Microsoft Windows 10                                         |       ✅       |                ✅                |                ✅                 | *- Altibase  6.5.1.6.2 이상*                           |
 | Microsoft Windows 8                                          |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
 | Microsoft Windows 7                                          |       ✅       |                ✅                |                ✅                 | *- Altibase 6.5.1.7.7 이상*                            |
-
 
 
 ## Altibase 6.5.1 Library & Tools
