@@ -568,6 +568,14 @@ This property specifies the interval when re-attempting for the number of times 
 
 -   0: Immediately re-attempt without any interval.
 
+##### ADAPTER_LOB_TYPE_SUPPORT
+
+This property determines whether LOB data types are supported.
+
+- Default Value: 0
+- 0: LOB data types are not supported.
+- 1: LOB data types are supported.
+
 #### Other Database Properties
 
 The following properties must be set in order to use Other DB, which is the target to send data from jdbcAdapter.
@@ -624,7 +632,13 @@ Multiple transactions can be processed at once. Even if commit execution is perf
 
 -   Range: 1 – 32767
 
+-   Enabling the `OTHER_DATABASE_GROUP_COMMIT` property enhances performance.
+
+-   This property currently applies only to `INSERT` and `DELETE` statements.
+
 -   In order to turn off Batch DML, this property should be set to 1.
+
+-   If LOB data is modified using the LOB interface, the Batch DML feature does not function.
 
 ##### OTHER_DATABASE_ERROR_RETRY_COUNT (Unit: count)
 
@@ -640,6 +654,8 @@ This indicates the number of retry attempts if an error occurs when applying to 
 
 This indicates retry invervals between error accurances when applying records.
 
+Note that XLog containing LOB data is excluded from retries if an error occurs.
+
 -   Default Value: 0
 
 -   Range: 0 \~ 65535
@@ -648,7 +664,9 @@ This indicates retry invervals between error accurances when applying records.
 
 ##### OTHER_DATABASE_SKIP_ERROR 
 
-This determines whether to discard writing the relevant records if it fails to record even though retry was attempted as much as OTHER_DATABASE_ERROR_RETRY_TIME at invervals of OTHER_DATABASE_ERROR_RETRY_COUNT.
+This determines whether to discard writing the relevant records if it fails to record even though retry was attempted as much as OTHER_DATABASE_ERROR_RETRY_TIME at intervals of OTHER_DATABASE_ERROR_RETRY_COUNT.
+
+For errors during LOB-related XLog processing, the record is not abandoned, and the adapter shuts down regardless of this property’s value.
 
 -   Default Value: 1
 -   0: Error message is not output as terminating Adapter. (Discard writing the relevant records.)
@@ -751,6 +769,19 @@ In general, if a data definition language (DDL) is executed on a replication tar
 
 For other DDLs that can be executed, please refer to Execution DDL Statements on Replication Target Tables in the *Replication Manual.*
 
+#### LOB Data Type Constraints
+
+- LOB data types are supported starting from Adapter for JDBC version 7.1.0.7.0.
+- To use LOB data types, set the `ADAPTER_LOB_TYPE_SUPPORT` property to `1`.
+- Tables containing LOB data types are subject to restrictions related to the following properties. For detailed information, please refer to each property's description.
+  - OTHER_DATABASE_ERROR_RETRY_COUNT
+  - OTHER_DATABASE_SKIP_ERROR
+  - OTHER_DATABASE_BATCH_DML_MAX_SIZE
+- When modifying LOB data using SELECT FOR UPDATE on the Altibase server, it is recommended to perform the operation after committing the transaction.
+- If a commit is not performed, LOB data modified with SELECT FOR UPDATE may not be replicated under the following circumstances: 
+  - If an error occurs during replication of data modified prior to executing SELECT FOR UPDATE.
+  - If SKIP occurs due to the `OTHER_DATABASE_SKIP_ERROR`, `OTHER_DATABASE_SKIP_INSERT`, or `OTHER_DATABASE_SKIP_UPDATE` properties during replication of data modified prior to executing SELECT FOR UPDATE.
+
 ### Startup and Shutdown
 
 This section describes how to start and stop jdbcAdapter.
@@ -802,9 +833,27 @@ Alter success.
 
 ### Data Types
 
-When Altibase data is applied to other db using JDBC, it is converted to JAVA String type and applied. However, the DATE type is converted to JAVA Timestamp type and applied.
+Adapter for JDBC supports the following Altibase data types:
 
-The supported data types are FLOAT, NUMERIC, DOUBLE, REAL, BIGINT, INTEGER, SMALLINT, DATE, CHAR, VARCHAR, NCHAR, and NVARCHAR.
+- Numeric Data Type
+  - NUMERIC
+  - FLOAT
+  - DOUBLE
+  - REAL
+  - BIGINT
+  - INTEGER
+  - SMALLINT
+- Date Data Type
+  - DATE
+- Character Data Type
+  - CHAR
+  - VARCHAR
+  - NCHAR
+  - NVARCHAR
+  - CLOB
+  - BLOB
+
+To use CLOB or BLOB data type through Adapter for JDBC, users should set the property `ADAPTER_LOB_TYPE_SUPPORT` to 1. For more detailed information, please refer to [LOB Data Type Constraints](#LOB-Data-Type-Constraints)
 
 ### Adapter for JDBC Utility
 
