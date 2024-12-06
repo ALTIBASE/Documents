@@ -1066,11 +1066,10 @@ Adapter for JDBC가 지원하는 Altibase의 데이터 타입은 다음과 같�
   - VARCHAR
   - NCHAR
   - NVARCHAR
-  - CLOB[^1]
-  - BLOB[^1]
+  - CLOB
+  - BLOB
 
-[^1]:  Adapter for JDBC를 통해 LOB 데이터 타입을 사용하려면  `ADAPTER_LOB_TYPE_SUPPORT` 프로퍼티의 값을 1로 설정해야 한다. CLOB, BLOB 타입 지원에 대한 구체적인 사항은 [LOB 데이터 타입 제약 사항](#lob-데이터-타입-제약-사항)을 참고한다.
-
+Adapter for JDBC를 통해 CLOB 또는 BLOB 데이터 타입을 사용하려면  `ADAPTER_LOB_TYPE_SUPPORT` 프로퍼티의 값을 1로 설정해야 한다. 구체적인 제약 사항은 [LOB 데이터 타입 제약 사항](#lob-데이터-타입-제약-사항)을 참고한다.
 
 ### Adapter for JDBC 유틸리티
 
