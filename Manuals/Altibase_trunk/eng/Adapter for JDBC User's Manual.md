@@ -129,7 +129,7 @@ Preface
 
 ### About This Manual
 
-This manual describes Adapter for JDBC, a utility replicating modified data in Altibase to other databases supporting JDBC.
+This manual describes Adapter for JDBC, a utility replicating modified data in Altibase to other database supporting JDBC.
 
 #### Audience
 
@@ -243,15 +243,15 @@ This chapter describes the concept of Adapter for JDBC and the structure of oper
 
 ### Adapter for JDBC
 
-Altibase's Adapter for JDBC(jdbcAdapter) is a utility which applies modified data in Altibase to other databases supporting JDBC. jdbcAdapter has been implemented with Altibase Log Analysis API.
+Altibase's Adapter for JDBC(jdbcAdapter) is a utility which applies modified data in Altibase to other database supporting JDBC. jdbcAdapter has been implemented with Altibase Log Analysis API.
 
 #### Structure and Concepts
 
-In order to replicate modified data in Altibase to other databases, Altibase, jdbcAdapter, and other databases, which support JDBC, should be installed in the first place shown in Figure 1-1.
+In order to replicate modified data in Altibase to other database, Altibase, jdbcAdapter, and other database, which supports JDBC, should be installed in the first place shown in Figure 1-1.
 
-jjdbcAdapter has been implemented with integration of Altibase Log Analysis API(ALA) and Java database connectivity (JDBC). The ALA utility receives data that has been modified in Altibase whereas JDBC is used to send the data to other databases. Refer to the L*og Analyzer User's Manual* for detailed information on ALA.
+jdbcAdapter has been implemented with integration of Altibase Log Analysis API(ALA) and Java data base connectivity (JDBC). The ALA utility receives data that has been modified in Altibase whereas JDBC is used to send the data to other database. Refer to the L*og Analyzer User's Manual* for detailed information on ALA.
 
-The following figure demonstrates how jdbcAdapter replicates from Altibase to other databases.
+The following figure demonstrates how jdbcAdapter replicates from Altibase to other database.
 
 ![](media/JdbcAdapter/393be36ba2993e10814984902a9f57c2.png)
 
@@ -259,8 +259,8 @@ The following figure demonstrates how jdbcAdapter replicates from Altibase to ot
 
 1.  XLogs within Altibase server creates XLog and meta information, and sends them to XLog collector. The meta information is only exchanged when handshaking takes place.
 2.  The XLog collector existing within jdbcAdapter uses ALA to provide XLog and meta information to the user. If the call to ALA fails, a trace log will be written to the trc directory.
-3.  jdbcAdapter uses ALA to covert data to apply obtained data to other databases. 
-4.  jdbcAdapter applies modified data to other databases using JDBC through JNI.
+3.  jdbcAdapter uses ALA to covert data to apply obtained data to other database. 
+4.  jdbcAdapter applies modified data to other database using JDBC through JNI.
 
 #### Terms
 
@@ -551,7 +551,7 @@ This property specifies additional operation on all errors of Adapter.
 
 -   Range: 0 \~ 65535
 
--   0: An error message is output as terminating Adapter
+-   0: An error message is output as terminating Adapter.
 
 -   1 or more: "Re-start Adapter and apply sync target DBMS access/record " is executed for the specified number of times. If it exceeds the specified counts, the error message is output as terminating Adapter.
 
@@ -659,16 +659,16 @@ This indicates retry intervals between error occurrences when applying records.
 
 -   0: Immediately retry without any intervals
 
-##### OTHER_DATABASE_SKIP_ERROR ???
+##### OTHER_DATABASE_SKIP_ERROR
 
 This determines whether to discard writing the relevant records if it fails to record even though retry was attempted as much as OTHER_DATABASE_ERROR_RETRY_TIME at intervals of OTHER_DATABASE_ERROR_RETRY_COUNT.
 
 For errors during LOB-related XLog processing, the record is not abandoned, and the adapter shuts down regardless of this property’s value.
 
 -   Default Value: 1
--   0: Error message is not output as terminating Adapter. (Discard writing the relevant records.)
+-   0: Error message is output as terminating Adapter. (Do not discard writing the relevant records.)
     However, the record in which the error included in dbms_skip_error_include.list has occurred is abandoned and the next record is reflected.
--   1: Write from the next records. (Do not discard writing the relevant records.)
+-   1: Write from the next records. (Discard writing the relevant records.)
     However, the adpater is terminated for records in which errors included in dbms_skip_error_exclude.list have occurred.
 
 The error values included in dbms_skip_error_include.list and dbms_skip_error_exclude.list are SQLSTATE standard error values.
@@ -1037,11 +1037,11 @@ When using jdbcAdapter, DDL that is performing replication must be executed in t
 | No                                                           | Active Server                                                | jdbcAdapter                                                  | Standby Server                                           |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------------------------- |
 | 1. Create schema on both servers                             | CREATE TABLE T1 ( C1 INTEGER PRIMARY KEY, C2 SMALLINT );     |                                                              | CREATE TABLE T1 ( C1 INTEGER PRIMARY KEY, C2 SMALLINT ); |
-| 2. Creating replication with ANALYSIS                        | CREATE REPLICATION ala FOR ANALYSIS WITH 'Standby IP', Standby Port FROM SYS.T1 TO SYS T1; |                                                              |                                                          |
+| 2. Create replication with ANALYSIS                          | CREATE REPLICATION ala FOR ANALYSIS WITH 'Standby IP', Standby Port FROM SYS.T1 TO SYS T1; |                                                              |                                                          |
 | 3. Start the jdbcAdapter                                     |                                                              | \$ oaUtility start                                           |                                                          |
 | 4. Start the replication                                     | ALTER REPLICATION ala START;                                 |                                                              |                                                          |
 | 5. Flush syntax to remove replication gaps                   | ALTER REPLICATION ALA FLUSH ALL;                             |                                                              |                                                          |
-| 6. Setting property values related to replication for DDL execution | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1; |                                                              |                                                          |
+| 6. Set property values related to replication for DDL execution | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1; |                                                              |                                                          |
 | 7. Execute DDL on the active server                          |                                                              | Adapter termination (due to DDL log processing)              |                                                          |
 | 8. Check the jdbcAdapter trc log                             | SELECT REP_NAME, STATUS FROM V\$REPSENDER; Query to check STATUS 2 | 'Log Record : Meta change xlog was arrived, adapter will be finished' Check trc log message |                                                          |
 | 9. Execute DDL on the standby server                         |                                                              |                                                              | DDL                                                      |
