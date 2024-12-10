@@ -130,7 +130,7 @@ Preface
 
 ### About This Manual
 
-This manual describes Adapter for JDBC, an utility replicating modified data in Altibase to other database supporting JDBC.
+This manual describes Adapter for JDBC, a utility replicating modified data in Altibase to other database supporting JDBC.
 
 #### Audience
 
@@ -244,13 +244,13 @@ This chapter describes the concept of Adapter for JDBC and the structure of oper
 
 ### Adapter for JDBC
 
-Altibase's Adapter for JDBC(jdbcAdapter) is an utility which applies modified data in Altibase to other database supporing JDBC. jdbcAdapter has been implimented with Altibase Log Analysis API.
+Altibase's Adapter for JDBC(jdbcAdapter) is a utility which applies modified data in Altibase to other database supporting JDBC. jdbcAdapter has been implemented with Altibase Log Analysis API.
 
 #### Structure and Concepts
 
-In order to replicate modified data in Altibase to other databse, Altibase, jdbcAdapter, and other database, which supports JDBC, should be installed in the first place shown in Figure1-1.
+In order to replicate modified data in Altibase to other database, Altibase, jdbcAdapter, and other database, which supports JDBC, should be installed in the first place shown in Figure 1-1.
 
-jjdbcAdapter has been implimented with integration of Altibase Log Analysis API(ALA) and Java data base connectivity (JDBC). The ALA utility receives data that has been modified in Altibase whereas JDBC is used to send the data to other database. Refer to the L*og Analyzer User's Manual* for detailed information on ALA.
+jjdbcAdapter has been implemented with integration of Altibase Log Analysis API(ALA) and Java data base connectivity (JDBC). The ALA utility receives data that has been modified in Altibase whereas JDBC is used to send the data to other database. Refer to the L*og Analyzer User's Manual* for detailed information on ALA.
 
 The following figure demonstrates how jdbcAdapter replicates from Altibase to other database.
 
@@ -273,7 +273,7 @@ An XLog is a logical log converted from a physical log. It stores transaction hi
 
 XLog Sender analyzes active redologs and converts them into XLog form to send to XLog collector.
 
-XLog sender is mainly responsible for handsaking and XLog transmission.
+XLog sender is mainly responsible for handshaking and XLog transmission.
 
 ##### XLog Collector
 
@@ -295,21 +295,21 @@ This chapter describes how to install and configure the Adapter for JDBC.
 
 ### Pre-installation Tasks
 
-The following system requirements should be satisfied in order to install and run jdbcAdapter. Also, there are some required configuration for jdbcAdapter to propery performs. 
+The following system requirements should be satisfied in order to install and run jdbcAdapter. Also, there are some required configurations for jdbcAdapter to properly performs. 
 
 For detailed information about system requirements, please contact Altibase's Customer Support site (http://support.altibase.com/en/).
 
 #### OS
 
-jdbcAdapter is currenly only supported in the following OS:
+jdbcAdapter is currently only supported in the following OS:
 
 -   LINUX : x86-64bit
 
-#### Datbase Versions
+#### Database Versions
 
 -   Altibase : Version 6.3.1 or later
 
--   OTHER DB : JDBC 4.1 or earlier version of other database
+-   OTHER DB : JDBC 4.1 or earlier versions of other database
 
 #### Database Character Set
 
@@ -321,15 +321,15 @@ The data for a language not supported by the database character set can be store
 
 #### Installing JDBC Driver
 
-In order to use jdbcAdapter, JDBC driver should be installed on a machine in which jdbcAdapter will be operating. At this point, JDBC driver should be provided by a verder of the replication target database. For example, if the database to be replicated is Oracle DB, go to the Oracle website. Download and install the version of the JDBC driver that matches the ORacel database server version.
+In order to use jdbcAdapter, JDBC driver should be installed on a machine in which jdbcAdapter will be operating. At this point, JDBC driver should be provided by a vendor of the replication target database. For example, if the database to be replicated is Oracle DB, go to the Oracle website. Download and install the version of the JDBC driver that matches the Oracel database server version.
 
 #### Installation JRE
 
-jdbcAdapter is an application program running in JRE 7 or above versions; thus, JRE 7 or higher version should be installed in which jdbcAdapter will be performed. 
+jdbcAdapter is an application program running in JRE 7 or above versions; thus, JRE 7 or higher versions should be installed in which jdbcAdapter will be performed. 
 
-If the JDBC driver for the remote database to which jdbcAdapter will connect is running on  JRE version 7 or above, a version of the JRE compatible to the JDBC driver should be installed. 
+If the JDBC driver for the remote database to which jdbcAdapter will connect is running on  JRE version 7 or above, a version of the JRE compatible with the JDBC driver should be installed. 
 
-After installing JRE, environment variables, such as JAVA_HOME and CLASSPATH should be installed. The following is an example of specifying environment variables for JRE in UNIX operation system.
+After installing JRE, environment variables, such as JAVA_HOME and CLASSPATH should be installed. The following is an example of specifying environment variables for JRE in the UNIX operation system.
 
 ```
 $ export JAVA_HOME=The path in which export JAVA_HOME=JRE is installed.
@@ -340,17 +340,17 @@ $ export LD_LIBRARY_PATH=$JAVA_HOME/jre/lib/amd64/server:${ LD_LIBRARY_PATH )
 
 ### Installation
 
-jdbcAdapter installer can be executed in GUI mode if DISPLAY environment variables are propery configured. jdbcAdapter installation is described in this manual with an assumption that the installation is being executed in GUI mode. Also, it is possible to install jdbcAdapter in text mode if the appropriate DISPLAY settings have not been properly made or the GUI mode cannot be used..
+jdbcAdapter installer can be executed in GUI mode if DISPLAY environment variables are properly configured. jdbcAdapter installation is described in this manual with an assumption that the installation is being executed in GUI mode. Also, it is possible to install jdbcAdapter in text mode if the appropriate DISPLAY settings have not been properly made or the GUI mode cannot be used.
 
 #### Installing jdbcAdapter
 
-It is recommended to install jdbcAdapter on other user's account rather than Altibase server account of the original DB.
+It is recommended to install jdbcAdapter on another user's account rather than Altibase server account of the original DB.
 
-1.  The first task is to determine the version of jdbcAdapter installer suitable for the operating system in which jdbc Adapte will run. The naming convention for jdbcAdapter installer is shown as follows. The jdbcAdapter version must be the same as the version of Altibase with which it will be run.
+1.  The first task is to determine the version of jdbcAdapter installer suitable for the operating system in which jdbcAdapter will run. The naming convention for jdbcAdapter installer is shown as follows. The jdbcAdapter version must be the same as the version of Altibase with which it will be run.
 
 ![](media/JdbcAdapter/11213ffd1f6e3397ef5ed537b1159eee.png)
 
-2. When the installer is executed, the dialog box appears. Verify that the version of jdbcAdapter to be installed then click "Forward".
+2. When the installer is executed, the dialog box appears. Verify the version of jdbcAdapter to be installed then click "Forward".
   
 3. Select the dircetory in which jdbcAdapter will be installed in the next dialog box. A jdbcAdapter directory will be created within the home directory of the user account.
   
@@ -361,13 +361,13 @@ It is recommended to install jdbcAdapter on other user's account rather than Alt
 -   ALA_REPLICATION_NAME: This is the name of a replication object existing in Altibase.
 -   ALA_XLOG_POOL_SIZE: This is used to specify the maximum size of XLog pool. The default value is set to 100,000 XLogs. 
 -   ALA_SOCKET_TYPE: This is used to set the communication socket type used by ALA. jdbcAdapter supports TCP/IP and UNIX Domain Socket.
--   ALA_LOGGING_ACTIVE:This is used to specify for ALA whether or not to write trace logs. If the value of this propery is 1, trace logs are written. The default value is 1.
+-   ALA_LOGGING_ACTIVE:This is used to specify for ALA whether or not to write trace logs. If the value of this property is 1, trace logs are written. The default value is 1.
 
 5. Altibase property configuration should be implemented in the following dialog box. Refer to the *Properties for Checking Constraints* described later in this chapter for detailed information.
 
--   ALTIBASE_USER: This is the name of user account accessing to Altibase.
+-   ALTIBASE_USER: This is the name of user account accessing Altibase.
 
--   ALTIBASE_PASSWORD: This is the password for the user account accessing to Altibase.
+-   ALTIBASE_PASSWORD: This is the password for the user account accessing Altibase.
 
 -   ALTIBASE_IP: This is the IP address of the server on which Altibase is installed. Assuming that Altibase and jdbcAdapter work on the same machine, the default value of this property is 127.0.0.1.
   
@@ -376,7 +376,7 @@ It is recommended to install jdbcAdapter on other user's account rather than Alt
 6. Other DB properties should also be properly configured in order to use jdbcAdapter. Refer to the *Properties for DML* and *JDBC Properties* for detailed information on properties.
 
 -   OTHER_DATABASE_USER: This is the name of a user account with which to access the Other DB.
--   OTHER_DATABASE_PASSWORD: This is the password corresponding to the user account accessing to other database which is the target database.
+-   OTHER_DATABASE_PASSWORD: This is the password corresponding to the user account accessing other database, which is the target database.
 -   OTHER_ DATABASE_SKIP_INSERT: If "Yes" is selected, INSERT statement executed in Altibase will not be performed in Other DB. 
 -   OTHER_DATABASE_SKIP_UPDATE: If "Yes" is selected, UPDATE statement executed in Altibase will not be performed in Other DB. 
 -   OTHER_DATABASE_SKIP_DELETE: If "Yes" is selected, DELETE statement executed in Altibase will not be performed in Other DB. 
@@ -386,15 +386,15 @@ It is recommended to install jdbcAdapter on other user's account rather than Alt
 -   OTHER_DATABASE_JDBC_MAX_HEAP_SIZE : This property determines the maximum size of Heap used in JVM. 
 -   OTHER_DATABASE_JDBC_DRIVER_PATH :  This property specifies JDBC driver path for Other DB. 
 -   OTHER_DATABASE_JDBC_DRIVER_CLASS : This property sets the name for Other DB JDBC driver class. 
--   OTHER_DATABASE_JDBC_CONNECTION_URL : This property specifies the connecion URL of Other DB.
+-   OTHER_DATABASE_JDBC_CONNECTION_URL : This property specifies the connection URL of Other DB.
 
-7. Once all of the property settings pertaining to the use of jdbcAdapter, a dialog box showing specified values will appear. Then, verify if every property is propery specified,  and click "Forwawrd" to proceed to the next
+7. Once all of the property settings pertaining to the use of jdbcAdapter, a dialog box showing specified values will appear. Then, verify if every property is properly specified,  and click "Forward" to proceed to the next
 8. Click “Forward” in the “Ready to Install” dialog box to start installation.
 9. While the jdbcAdapter is being installed, the following two environment variables are set. In order for the new environment variable to be applied to the system, the user must log out and log in again.
 
--   JDBC_ADAPTER_HOME:  This enviroment variable will have jdbcAdapter home directory specified in previous step before the installation process as a value.
+-   JDBC_ADAPTER_HOME:  This environment variable will have jdbcAdapter home directory specified in previous step before the installation process as a value.
   
--   PATH: $JDBC_ADAPTER_HOME/bin path is included in this envrionment variable.
+-   PATH: $JDBC_ADAPTER_HOME/bin path is included in this environment variable.
 
 10. A completion dialog box will appear after the installation is successfully completed.
 
@@ -404,7 +404,7 @@ It is recommended to install jdbcAdapter on other user's account rather than Alt
 
 After installing jdbcAdapter, it is required to configure environment variables, add a library path, and set the database and national character sets. 
 
-Refer to the "Configuration" section described later in this chapter for more detailed information on configuring the environment variables. .
+Refer to the "Configuration" section described later in this chapter for more detailed information on configuring the environment variables.
 
 -   JDBC_ADAPTER_HOME  
     This environment variable is automatically set when installing jdbcAdapter
@@ -412,12 +412,12 @@ Refer to the "Configuration" section described later in this chapter for more de
 -   ALTIBASE_NLS_USE  
     The character set used in Altibase is specified in this environment variable. Refer to the Getting Started Guide for more detailed information on the character set.
 
-#### Confirmation on Installation Directory
+#### Confirmation of Installation Directory
 
-After jdbcAdapeter installation is complete, verify the bin, conf, msg and trc directories have been created under $JDBC_ADAPTER_HOME directory. The role and structure of each directory is as follows.
+After jdbcAdapter installation is complete, verify the bin, conf, msg, and trc directories have been created under $JDBC_ADAPTER_HOME directory. The role and structure of each directory is as follows.
 
 -   bin directory  
-    The executable and internally used files of contains jdbcAdapter (Adapter for JDBC) and oaUtility (Adapter for JDBC utility) are located in this directory.
+    The executable and internally used files of jdbcAdapter (Adapter for JDBC) and oaUtility (Adapter for JDBC utility) are located in this directory.
     
 -   conf directory  
     This directory is located in jdbcAdapter.conf file storing jdbcAdapter property configuration.
@@ -438,7 +438,7 @@ This is an environment variable specifying the directory in which jdbcAdapter wa
 
 #### ALTIBASE_NLS_USE
 
-This envronment variable specifies the character set used in Altibase for use in ALA. Refer to *Getting Started Guide*> Multilingual Support for more information on the character set.
+This environment variable specifies the character set used in Altibase for use in ALA. Refer to *Getting Started Guide*> Multilingual Support for more information on the character set.
 
 ### Properties
 
@@ -446,7 +446,7 @@ jdbcAdapter properties are used by ALTIBASE Log Analyzer and JDBC, and they are 
 
 The property file is jdbcAdapter.conf located in $JDBC_ADPATER_HOME/conf directory. 
 
-The properties used in jdbcAdapter are classified as in the following
+The properties used in jdbcAdapter are classified as the following:
 
 -   Properties for ALA 
 -   Properties for verifying constraints 
@@ -455,11 +455,11 @@ The properties used in jdbcAdapter are classified as in the following
 
 #### ALA Properties
 
-The following property should be configured in order for jdbcAdapter to appropriately use Altibase Log Analyzer (ALA). Refer to *Log Analyzer User’s Manual* for detailed information.
+The following properties should be configured for jdbcAdapter to appropriately use Altibase Log Analyzer (ALA). Refer to *Log Analyzer User’s Manual* for detailed information.
 
 ##### ALA_SENDER_IP
 
-This is a property specifying the IP address of Xlog sender. This property enables Altibase to set the IP address of server equiptment on which Altibase has been installed.
+This is a property specifying the IP address of Xlog sender. This property enables Altibase to set the IP address of server equipment on which Altibase has been installed.
 
 -   Default Value: 127.0.0.1
 
@@ -478,11 +478,8 @@ This property specifies the port number for XLog collector to receive XLog. This
 
 -   Range: 0 \~ 65535
 
--   0: The adapter waits until the sender of the ALA replication object attempts to connect.
+-   0: The adapter waits until the sender of the ALA replication object attempts to connect(Depends on the value of the REPLICATION_SENDER_SLEEP_TIMEOUT attribute of the Altibase server).
 
-
-(Depends on the value of the REPLICATION_SENDER_SLEEP_TIMEOUT attribute of the Altibase server).
-    
 -   1 or more: Adapter attempts to connect directly to the replication sender with the corresponding port number
 
 ##### ALA_RECEIVE_XLOG_TIMEOUT (Unit: Second)
@@ -495,11 +492,11 @@ This is a property specifying the waiting time for XLog collector to receive XLo
 
 ##### ALA_REPLICATION_NAME
 
-This property specifies the name of replication object which is used as XLog sender. The name is identical to that of the replication object created within Altibase.
+This property specifies the name of the replication object which is used as XLog sender. The name is identical to that of the replication object created within Altibase.
 
 ##### ALA_SOCKET_TYPE
 
-This is is a property specifying the socket type which will be used by Altibase Log Analyzer. However, to use Unix Domain socket, Altibase and jdbcAapter should be located on the same machine.
+This is a property specifying the socket type which will be used by Altibase Log Analyzer. However, to use Unix Domain socket, Altibase and jdbcAapter should be located on the same machine.
 
 -   TCP: Use of TCP/IP socket (Default value)
 
@@ -519,7 +516,7 @@ When the ALA Sender performs a Sync operation on the original DB, the commit is 
 
 ##### ALA_LOGGING_ACTIVE
 
-This propery determines whether to allow Altibase Log Analyzer to output trace logs.
+This property determines whether to allow Altibase Log Analyzer to output trace logs.
 
 -   0: Do not output the trace log.
 
@@ -529,35 +526,35 @@ This propery determines whether to allow Altibase Log Analyzer to output trace l
 
 ##### ALTIBASE_USER
 
-This property specifies the name of user account with which to access Altibase.
+This property specifies the name of the user account with which to access Altibase.
 
 ##### ALTIBASE_PASSWORD
 
-This property specifies the password of user account wich which to access Altibase.
+This property specifies the password of the user account with which to access Altibase.
 
 ##### ALTIBASE_IP
 
-This property specifies the IP address of server machine on which Altibase is installed. 
+This property specifies the IP address of the server machine on which Altibase is installed. 
 
 -   Default Value: 127.0.0.1
 
 ##### ALTIBASE_PORT
 
-This property specifies the number of a port at which Altibase listens. 
+This property specifies the number of ports at which Altibase listens. 
 
 -   Range: 1024 – 65535
 
 ##### ADAPTER_ERROR_RESTART_COUNT (Unit: count)
 
-This property specifies additioal operation on all errors of Adapter.
+This property specifies additional operation on all errors of Adapter.
 
 -   Default Value: 0
 
 -   Range: 0 \~ 65535
 
--   0: An error message is output as terminating Adapter
+-   0: An error message is output as terminating Adapter.
 
--   1 or more: "Re-start Adapter and apply sync target DBMS access/record " is executed for specified number of times. If it exceeds the specified counts, error message is output as terminating Adapter.
+-   1 or more: "Re-start Adapter and apply sync target DBMS access/record " is executed for the specified number of times. If it exceeds the specified counts, the error message is output as terminating Adapter.
 
 ##### ADAPTER_ERROR_RESTART_INTERVAL (Unit: count)
 
@@ -589,7 +586,7 @@ This specifies the maximum size of Heap JVM uses.
 
 -   Range: 0 – 10240
 
--   This property should be set to 0 to let JVM to automaically set the maximum size of Heap.
+-   This property should be set to 0 to let JVM to automatically set the maximum size of Heap.
 
 ##### OTHER_DATABASE_JDBC_DRIVER_PATH 
 
@@ -605,11 +602,11 @@ The connection URL of other DB is specified by this property.
 
 #### DML-Related Properties
 
-The following properties are used to set whether DML statements excuted in Altibase will also be executed in the other DB.
+The following properties are used to set whether DML statements executed in Altibase will also be executed in the other DB.
 
 ##### OTHER_DATABASE_GROUP_COMMIT
 
-Multiple transactions can be processed at once. Even if commit execution is performed in the original Altibase server, the Target DB postpone to commit untill certain amount of transactaions are acculumated. Therefore, the overall performance can be improved, but the response time of individual transactions might be postponed.
+Multiple transactions can be processed at once. Even if commit execution is performed in the original Altibase server, the Target DB postpones to commit until certain amount of transactions are accumulated. Therefore, the overall performance can be improved, but the response time of individual transactions might be postponed.
 
 -   Default Value: 1
 
@@ -639,7 +636,7 @@ This indicates the number of retry attempts if an error occurs when applying to 
 
 ##### OTHER_DATABASE_ERROR_RETRY_INTERVAL (Unit: second)
 
-This indicates retry invervals between error accurances when applying records.
+This indicates retry intervals between error occurrences when applying records.
 
 -   Default Value: 0
 
@@ -649,39 +646,39 @@ This indicates retry invervals between error accurances when applying records.
 
 ##### OTHER_DATABASE_SKIP_ERROR 
 
-This determines whether to discard writing the relevant records if it fails to record even though retry was attempted as much as OTHER_DATABASE_ERROR_RETRY_TIME at invervals of OTHER_DATABASE_ERROR_RETRY_COUNT.
+This determines whether to discard writing the relevant records if it fails to record even though retry was attempted as much as OTHER_DATABASE_ERROR_RETRY_TIME at intervals of OTHER_DATABASE_ERROR_RETRY_COUNT.
 
 -   Default Value: 1
--   0: Error message is not output as terminating Adapter. (Discard writing the relevant records.)
+-   0: Error message is output as terminating Adapter. (Do not discard writing the relevant records.)
     However, the record in which the error included in dbms_skip_error_include.list has occurred is abandoned and the next record is reflected.
--   1: Write from the next records. (Do not discard wriing the relevant records.)
+-   1: Write from the next records. (Discard writing the relevant records.)
     However, the adpater is terminated for records in which errors included in dbms_skip_error_exclude.list have occurred.
 
 The error values included in dbms_skip_error_include.list and dbms_skip_error_exclude.list are SQLSTATE standard error values.
 
 ##### OTHER_DATABASE_SKIP_INSERT
 
-This property determines whether the INSERT statement performed in Altibase is also executed in other DB to which data is sent. If this proerty is set to 1, the INSERT statement performed in Altibase is not executed in other DB.
+This property determines whether the INSERT statement performed in Altibase is also executed in other DB to which data is sent. If this property is set to 1, the INSERT statement performed in Altibase is not executed in other DB.
 
 -   Default Value: 0
 
 -   0: Do not omit statement execution. Thus, the statement execution is normally executed.
 
--   1: Omit statement exection.
+-   1: Omit statement execution.
 
 ##### OTHER_DATABASE_SKIP_UPDATE
 
-This is a property determines whether the UPDATE statement executed in Altibase is also execued in other DB to which data is sent. If this property is set to 1, the UPDATE statement executed in Altibase is not executed in other DB.
+This property determines whether the UPDATE statement executed in Altibase is also executed in other DB to which data is sent. If this property is set to 1, the UPDATE statement executed in Altibase is not executed in other DB.
 
 -   Default Value: 0
 
--   0: Do not omit statement excution. That is, the statement execution is normally executed.
+-   0: Do not omit statement execution. That is, the statement execution is normally executed.
 
 -   1: Omit statement execution.
 
 ##### OTHER_DATABASE_SKIP_DELETE
 
-This property determines whether the DELETE statement executed in Altibas eis also executed in other DB which is the target database to which data is sent. If this property is set to 1, the DELETE statement executed in Altibase is not executed in other DB.
+This property determines whether the DELETE statement executed in Altibase is also executed in other DB which is the target database to which data is sent. If this property is set to 1, the DELETE statement executed in Altibase is not executed in other DB.
 
 -   Default Value: 0
 
@@ -716,12 +713,12 @@ There are several constraints in order to properly use jdbcAdapter. jdbcAdapter 
 #### Prerequisite 
 
 -   If there is a conflict in input/modify/delete operation in the target DB(Other DB), the operation is canceled and the message is left in the error log file or ignored according to the setting. 
--   The error ocurred during the replication can be partially revoked. That is to say, if there is replication data while inputting multiple data, the rest of the data is completed except the replication data. 
+-   The error occurred during the replication can be partially revoked. That is to say, if there is replication data while inputting multiple data, the rest of the data is completed except the replication data. 
 -   The replication speed might be slower than the service speed
 
 #### Data Constraints
 
--   Primary key is required in the table to be replicated.
+-   A primary key is required in the table to be replicated.
 
 -   To be replicated, primary key of the table cannot be modified.
 -   Tables to be replicated on both servers must have the same order and primary key constraints.
@@ -732,7 +729,7 @@ The maximum number of possible XLog Senders and replicated connections in Altiba
 
 #### Allowed DDL Statements
 
-Generally, replication target table cannot execute the data definition language (DDL). However, the following DDLs can be executed regardless of XLog Sender. Refer to Executing DDL Statements on Replication Target Tables in the *Replication Manual* for more information on other allowed DDL statements.
+Generally, the replication target table cannot execute the data definition language (DDL). However, the following DDLs can be executed regardless of XLog Sender. Refer to Executing DDL Statements on Replication Target Tables in the *Replication Manual* for more information on other allowed DDL statements.
 
 -   ALTER INDEX SET PERSISTENT = ON/OFF
 
@@ -843,7 +840,7 @@ oaUtility {stop}
 
 ##### Description
 
-This option forcbily terminates jdbcAdapter which is currently processing.
+This option forcibly terminates jdbcAdapter which is currently processing.
 
 #### oaUtility status
 
@@ -981,7 +978,7 @@ This starts replication through the specified offline path. Offline replication 
 
 If environment variables or properties are modified after jdbcAdapter has been run, jdbcAdapter should be restarted in order to apply the modifications.
 
-#### What happens if data is not property applied to Altibase DB?
+#### What happens if data is not properly applied to Altibase DB?
 
 If jdbcAdapter fails to apply data to Altibase DB, only log messages are left and the next data is applied. The log messages are written to a trace log file located in $JDBC_ADAPTER_HOME/trc directory.
 
@@ -992,16 +989,16 @@ When using jdbcAdapter, DDL that is performing replication must be executed in t
 | No                                                           | Active Server                                                | jdbcAdapter                                                  | Standby Server                                           |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------------------------- |
 | 1. Create schema on both servers                             | CREATE TABLE T1 ( C1 INTEGER PRIMARY KEY, C2 SMALLINT );     |                                                              | CREATE TABLE T1 ( C1 INTEGER PRIMARY KEY, C2 SMALLINT ); |
-| 2. Creating replication with ANALYSIS                        | CREATE REPLICATION ala FOR ANALYSIS WITH 'Standby IP', Standby Port FROM SYS.T1 TO SYS T1; |                                                              |                                                          |
+| 2. Create replication with ANALYSIS                          | CREATE REPLICATION ala FOR ANALYSIS WITH 'Standby IP', Standby Port FROM SYS.T1 TO SYS T1; |                                                              |                                                          |
 | 3. Start the jdbcAdapter                                     |                                                              | \$ oaUtility start                                           |                                                          |
 | 4. Start the replication                                     | ALTER REPLICATION ala START;                                 |                                                              |                                                          |
 | 5. Flush syntax to remove replication gaps                   | ALTER REPLICATION ALA FLUSH ALL;                             |                                                              |                                                          |
-| 6. Setting property values related to replication for DDL execution | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1; |                                                              |                                                          |
+| 6. Set property values related to replication for DDL execution | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1; |                                                              |                                                          |
 | 7. Execute DDL on the active server                          |                                                              | Adapter termination (due to DDL log processing)              |                                                          |
 | 8. Check the jdbcAdapter trc log                             | SELECT REP_NAME, STATUS FROM V\$REPSENDER; Query to check STATUS 2 | 'Log Record : Meta change xlog was arrived, adapter will be finished' Check trc log message |                                                          |
 | 9. Execute DDL on the standby server                         |                                                              |                                                              | DDL                                                      |
-| 10.Restart jdbcAdapter                                       |                                                              | \$ oaUtility start                                           |                                                          |
-| 11.Stop and restart replication (optional)                   | (optional) ALTER REPLICATION ALA STOP; ALTER REPLICATION ALA START; |                                                              |                                                          |
+| 10. Restart jdbcAdapter                                      |                                                              | \$ oaUtility start                                           |                                                          |
+| 11. Stop and restart replication (optional)                  | (optional) ALTER REPLICATION ALA STOP; ALTER REPLICATION ALA START; |                                                              |                                                          |
 | 12. Check for data replication                               | DML (Service)                                                |                                                              | Verify data replication                                  |
-| 13.Setting property values related to replication to stop DDL | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; |                                                              |                                                          |
+| 13. Set property values related to replication to stop DDL   | ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0; |                                                              |                                                          |
 
