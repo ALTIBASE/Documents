@@ -4175,7 +4175,7 @@ dumpla는 loganchor의 내용을 다음과 같은 섹션으로 구분하여 출�
 | --------------------------- | ------------------------------------------ | ------------------------------------------------------------ |
 | Tablespace ID               | 0 \~ unsigned int 타입의 최대값            | 테이블스페이스 식별자                                        |
 | Tablespace Name             | 문자열 ex) SYS_TBS_MEM_DIC                 | 테이블스페이스 이름                                          |
-| New Database File ID        | 0 \~ unsigned int 타입의 최대값            | 테이블스페이스에서 새로 파일이 추가될 때 파일이 가지게 될 파일의 식별자 |
+| New Database File ID        | 0 \~ unsigned int 타입의 최대값            | 테이블스페이스에 새로운 파일이 추가될 때 파일이 가지게 될 파일의 식별자 |
 | Extent Management           | FREE EXTENT BITMAP TABLESPACE              | 디스크 테이블스페이스의 extent가 어떤 방식으로 관리되는지를 나타낸다. 현재는 FREE EXTENT BITMAP TABLESPACE만 지원한다. FREE EXTENT BITMAP TABLESPACE를 enable하면, 디스크 테이블스페이스의 free extents를 관리하는데 bitmaps을 사용한다. |
 | Tablespace Status           | 아래 TABLESPACE ATTRIBUTE 설명 참조        | 테이블스페이스의 현재 상태를 나타낸다.                       |
 | Tablespace Type             | 0 \~ 8 아래 TABLESPACE ATTRIBUTE 설명 참조 | 테이블스페이스의 타입                                        |
