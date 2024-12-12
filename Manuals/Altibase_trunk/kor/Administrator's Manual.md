@@ -1,5 +1,4 @@
-Administrator’s Manual
-======================
+# Administrator’s Manual
 
 #### Trunk
 
@@ -208,8 +207,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 <br>
 
-서문
-====
+# 서문
 
 ### 이 매뉴얼에 대하여
 
@@ -368,8 +366,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 여러분의 의견에 항상 감사드립니다.
 
-1.Altibase 소개
-=============
+# 1.Altibase 소개
 
 이 장에서는 Altibase를 처음 접하는 사용자들을 위해서 Hybrid DBMS의 등장 배경과 Altibase의 구조 및 특징에 대해서 설명한다.
 
@@ -705,8 +702,7 @@ Altibase 서버의 환경 설정을 위한 파일이며 Altibase 서버의 운�
 
 데이터 저장 관리 모듈, 질의 처리 모듈, Altibase 서버 메인 모듈, 그리고 함수 실행이나 데이터 타입과 관련된 오류 메시지를 수록한 파일이다.
 
-2.Altibase 구성요소
-=================
+# 2.Altibase 구성요소
 
 이 장에서는 Altibase의 주요 구성요소에 대해서 설명한다. 사용자는 Altibase 패키지 설치 후에 실행 바이너리 부문과 프로그래밍 라이브러리 부문 등의 구성요소에 대해서 확인할 수 있다.
 
@@ -1046,8 +1042,7 @@ Altibase의 응용 프로그램을 작성할 때 필요한 구성 요소들로�
 
 이에 대해서는 *[Getting Started Guide](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Getting%20Started%20Guide.md)*에서 자세히 설명한다.
 
-3.데이터베이스 생성
-=================
+# 3.데이터베이스 생성
 
 Altibase 설치 후에 데이터베이스 관리자는 사용자 데이터 발생량을 예측하여 데이터베이스를 생성하고 관리해야 한다. 이 장에서는 데이터베이스 생성시에 알고 있어야 할 주요사항들에 대해서 설명하고 있다.
 
@@ -1227,8 +1222,7 @@ CREATE DATABASE 구문을 수행할 때 지정하지 않은 속성들은 Altibas
 
 프로퍼티에 대한 보다 자세한 내용은 *General Reference*를 참조하기 바란다.
 
-4.Altibase 구동 및 종료
-=====================
+# 4.Altibase 구동 및 종료
 
 데이터베이스를 생성 후 서비스를 제공하기 위해서는 서버를 서비스 단계까지 구동하여야 한다. 이 장에서는 데이터베이스 구동과 종료 시에 참고할 사항들을 설명하고 있다.
 
@@ -1411,8 +1405,7 @@ ISQL_CONNECTION = TCP, SERVER = 127.0.0.1, PORT_NO = 20300
 $
 ```
 
-5.데이터베이스 객체 및 권한
-=========================
+# 5.데이터베이스 객체 및 권한
 
 이 장에서는 Altibase 데이터베이스 내의 객체 관리 및 권한 관리 방법에 대해서 설명한다.
 
@@ -3527,8 +3520,7 @@ REVOKE DELETE ON sys.employees FROM role2;
 
 -   REVOKE
 
-6.테이블스페이스
-==============
+# 6.테이블스페이스
 
 이 장에서는 관리자가 알아야할 테이블스페이스의 개념, 테이블스페이스 구조와 그 사용을 위해서 지원되는 기능에 대해서 설명하고, 효율적인 테이블스페이스 관리를 위해서 관리자들이 알아야 할 정보를 전달한다.
 
