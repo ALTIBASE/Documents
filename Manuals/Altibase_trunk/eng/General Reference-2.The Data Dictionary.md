@@ -6812,8 +6812,8 @@ This indicates whether Archivelog mode is enabled for the database.
 
 This indicates the current checkpoint scale setting of the database.
 
-- PAIR: Refer to [Checkpoint Scale Pair](링크 수정).
-- SINGLE: Refer to [Checkpoint Scale Single](링크 수정).
+- PAIR: Refer to [Checkpoint Scale Pair](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Administrator%E2%80%99s%20Manual.md#checkpoint-scale-pair).
+- SINGLE: Refer to [Checkpoint Scale Single](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Administrator%E2%80%99s%20Manual.md#checkpoint-scale-pair).
 
 ### V\$LOCK_WAIT
 

@@ -3844,7 +3844,7 @@ This section provides information about the tablespace. The contents of this sec
 | Checkpoint Path Count        | The number of checkpoint paths                               | The number of checkpoint image file paths. This applies only to memory tablespaces. |
 | Autoextend Mode              | AutoExtend \|Non-AutoExtend                                  | Indicates whether the tablespace extends in size automatically. This applies only to memory tablespaces |
 | Shared Memory Key            | From 0 (zero) to the maximum value of the unsigned int type  | The shared memory key for a database that resides in shared memory. This applies only to memory tablespaces |
-| Stable Checkpoint Image Num. | 0\|1                                                         | The ping-pong number corresponding to the set of checkpoint image files that is stable after checkpointing. This applies only to memory tablespaces. |
+| Stable Checkpoint Image Num. | 0\|1                                                         | The ping pong number corresponding to the set of checkpoint image files that is stable after checkpointing. This applies only to memory tablespaces. |
 | Init Size                    | From 0 (zero) to the maximum value of the unsigned int type  | The initial size (MB) of the tablespace                      |
 | Next Size                    | From 0 (zero) to the maximum value of the unsigned int type  | The increment by which the tablespace automatically increases in size (MB) |
 | Maximum Size                 | From 0 (zero) to the maximum value of the unsigned int type  | The maximum size of the tablespace.                          |
@@ -3897,7 +3897,7 @@ This section indicates the checkpoint image information for a memory tablespace.
 | ----------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
 | Tablespace ID                       | From 0 (zero) to the maximum value of the unsigned int type | The identifier of the tablespace                             |
 | File Number                         | From 0 (zero) to the maximum value of the unsigned int type | The file number                                              |
-| Stable Single Checkpoint Image Num. | 0\|1                                                        | The ping-pong number for stable checkpoint image files after checkpointing. This applies only when the checkpoint scale is set to SINGLE. |
+| Stable Single Checkpoint Image Num. | 0\|1                                                        | The ping pong number for stable checkpoint image files after checkpointing. This applies only when the checkpoint scale is set to SINGLE. |
 | Create LSN                          | \< FileNo, Offset\>                                         | The LSN that was current at the time at which the data file was created |
 | Create On Disk (PingPong 0)         | Created\|None                                               | Whether the set of checkpointing files identified by #0 has been created |
 | Create On Disk (PingPong 1)         | Created\|None                                               | Whether the set of checkpointing files identified by #1 has been created |
