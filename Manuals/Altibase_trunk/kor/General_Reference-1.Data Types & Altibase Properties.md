@@ -2544,7 +2544,7 @@ LOB(Large Object) 데이터 타입은 대용량 데이터를 저장할 수 있�
 
 LOB 데이터 타입은 이미지, 동영상 파일들과 같은 이진 데이터를 저장하는 BLOB(Binary Large Object)과 문자열 데이터를 저장하는 CLOB(Character Large Object)으로 구분된다.
 
-#### LOB의 특징
+#### Altibase LOB의 특징
 
 Altibase가 제공하는 LOB은 다음과 같은 특징이 있다.
 
@@ -2608,14 +2608,123 @@ CLOB은 문자형 대용량 데이터를 저장하기 위한 문자형 데이터
 
 FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/VARIABLE 옵션”과 “IN ROW 절”을 참고한다.
 
+#### Temporary LOB
+
+1안)Temporary LOB 은 LOB 데이터를 저장, 삽입, 삭제, 변경하기 위해 임시 저장공간(Temporary LOB)을 생성하여 처리하는 기능을 말한다.
+
+2안) Temporary LOB은 LOB 데이터를 저장, 삽입, 삭제 또는 변경할 때 사용되는 임시 메모리 저장 공간을 의미한다. 
+
+Temporary LOB을 사용하기 위해서는 TEMPORARY_LOB_ENABLE 프로퍼티를 활성화해야 사용 할 수 있다.
+
+##### 특징
+
+- 실행시점(Execution)에 메모리 영역에 Temporary LOB을 생성
+- LOB 컬럼 단위로 Temporary LOB을 생성
+- 트랜잭션 Temporary LOB 과 세션 Temporary LOB으로 분류
+
+##### 트랜잭션 Temporary LOB
+
+트랜잭션 Temporary LOB은 트랜잭션 생명주기에 의존적인 Temporary LOB을 말한다. LOB 변환이 발생하는 함수를 사용하거나, PSM 내에서 LOB 타입을 이용하는 경우 트랜잭션 Temporary LOB이 생성된다.(단, PSM 내에서 Associative ARRAY, VARRAY, PACKAGE 변수로 LOB 타입을 이용하는 경우는 제외)
+
+* LOB 변환이 발생하는 함수
+  * TO_CLOB
+  * TO_BLOB
+  * CLOB을 인자로 받는 SUBSTR
+  * CLOB을 인자로 받는 CONCAT
+
+###### 예제
+
+```sql
+iSQL> CREATE TABLE t1(c1 clob);
+Create success.
+ 
+iSQL> AUTOCOMMIT OFF;
+Set autocommit off success.
+ 
+iSQL> INSERT INTO t1 VALUES (TO_CLOB('ABCD'));
+1 row inserted.
+ 
+iSQL> SELECT type, open_count FROM V$TEMPORARY_LOBS;
+TYPE                 OPEN_COUNT
+---------------------------------------------
+0                    1
+1 row selected.
+ 
+iSQL> COMMIT;
+Commit success.
+ 
+iSQL> SELECT type, open_count FROM V$TEMPORARY_LOBS;
+TYPE                 OPEN_COUNT
+---------------------------------------------
+No rows selected.
+```
+
+##### 세션 Temporary LOB
+
+세션 Temporary LOB은 세션 생명주기에 의존적인 Temporary LOB을 말한다. PSM 내에서 아래의 경우에서 LOB 타입이 이용될 경우, 세션 Temporary LOB이 생성된다.
+
+* Associative ARRAY
+* VARRAY
+* PACKAGE 변수
+
+###### 예제
+
+```sql
+iSQL> CREATE OR REPLACE PACKAGE pkg1
+    2 AS
+    3     V1 CLOB;
+    4     PROCEDURE PROC1;
+    5 END;
+    6 /
+Create success.
+ 
+iSQL> CREATE OR REPLACE PACKAGE BODY pkg1
+    2 AS
+    3     PROCEDURE proc1
+    4     AS
+    5         V2 CLOB;
+    6     BEGIN
+    7         V1 := 'pkg spec session clob';
+    8         V2 := 'pkg body session clob';
+    9         PRINTLN(V1);
+    10         PRINTLN(V2);
+    11     END;
+    12 END;
+    13 /
+Create success.
+ 
+iSQL> SELECT type, open_count FROM v$temporary_lobs;
+TYPE                 OPEN_COUNT
+---------------------------------------------
+No rows selected.
+ 
+iSQL> EXEC pkg1.proc1;
+pkg spec session clob
+pkg body session clob
+Execute success.
+ 
+iSQL> SELECT type, open_count FROM v$temporary_lobs;
+TYPE                 OPEN_COUNT
+---------------------------------------------
+1                    2
+1 row selected.
+```
+
+트랜잭션 Temporary LOB 과 세션 Temporary LOB 비교
+
+| 비교     | 트랜잭션 Temporary LOB                                       | 세션 Temporary LOB                                           |
+| :------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| 생명주기 | 트랜잭션                                                     | 세션                                                         |
+| 정리시점 | 트랜잭션 종료시 정리                                         | 세션 종료 시 정리                                            |
+| 사용성   | 세션 사용성을 제외한 모든 구문에서 다음과 같이 사용한 경우</br>- TO_CLOB</br>- TO_BLOB</br>- CLOB 을 인자로 받는 SUBSTR</br>- CLOB 을 인자로 받는 CONCAT</br>- PSM 내에서 LOB 타입의 변수 | PSM 내에서 아래의 유형으로 LOB 타입이 이용될 때</br>- ASSOCIATIVE ARRAY</br>- VARRAY</br>- PACKAGE 변수 |
+
 #### 제한 사항
 
 - 커서에서 LOB 타입 칼럼을 사용할 수 없다.
 - 휘발성 테이블스페이스 또는 디스크 임시 테이블스페이스에 LOB 타입 칼럼을 사용할 수 없다.
 - 폐기된 테이블스페이스의 LOB 타입 칼럼은 접근할 수 없다.
 - 파티션 키 칼럼은 대소 비교가 가능해야 하기 때문에 LOB 타입 칼럼은 파티션 키 칼럼으로 사용될 수 없다.
--  LOB 타입 칼럼에는 인덱스를 생성할 수 없다.
-
+- LOB 타입 칼럼에는 인덱스를 생성할 수 없다.
 
 ### 공간 데이터 타입
 
@@ -15748,6 +15857,58 @@ Unsigned Integer
 
 LISTAGG 함수가 반환하는 VARCHAR  타입의 크기를 지정한다. Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
+#### MEMORY_TEMPLOB_MAX_ALLOC_SIZE (단위: 바이트)
+
+##### 데이터 타입
+
+Unsigned Long
+
+##### 기본값
+
+2147483648 (2G)
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[16777216(16M), 2<sup>64</sup>]
+
+##### 설명
+
+Temporary LOB을 사용할 때, 저장하는 총 메모리의 크기를 제한하기 위한 프로퍼티이다. 이 설정값을 초과하여 메모리 할당을 요청한 경우, 메모리 할당이 실패하며 그 트랜잭션은 오류로 처리된다.
+
+> 주의: Temporary LOB은 MEM_MAX_DB_SIZE와는 별도의 메모리 공간을 사용하므로 메모리 사용량에 대한 주의가 필요하다.
+
+#### MEMORY_TEMPLOB_MAX_PIECE_SIZE (단위: 바이트)
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1048576 (1M)
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[32768(32K), 1048576(1M)]
+
+##### 설명
+
+1안)
+
+Temporary LOB을 사용할 때 데이터를 분할하여 저장할 메모리 크기를 지정한다. 이 값이 클수록 대용량 Temporary LOB 의 처리가 빨라지나, 낭비되는 메모리 공간이 증가할 수 있어 공간 사용 측면에서는 효율성이 떨어진다. 만약 Temporary LOB 을 사용하는 개별 데이터의 사이즈가 작고 그 수가 많은 경우라면, 이 값을 작게 설정하면 메모리 효율은 증가한다.
+
+2안) gpt 활용..
+
+Temporary LOB 사용시 데이터를 분할 저장하기 위해 할당할 메모리 크기를 지정하는 프로퍼티 이다. 이 값을 크게 설정하면 대용량 Temporary LOB의 처리 속도가 향상되지만, 낭비되는 메모리 공간이 증가할 수 있어 메모리 효율이 떨어질 수 있다. 반면, Temporary LOB을 사용하는 개별 데이터의 크기가 작고 그 수가 많은 경우, 이 값을 작게 설정하면 메모리 효율을 높일 수 있다. 
+
 #### MSG_QUEUE_PERMISSION
 
 ##### 데이터 타입
@@ -16236,6 +16397,31 @@ Unsigned Integer
 이 프로퍼티는 SYS_CONNECT_BY_PATH_PRECISION 함수가 반환하는 VARCHAR 타입의 크기를 지정한다.
 
 Altibase 운영 중에 ALTER SYSTEM 구문으로 이 프로퍼티의 값을 변경할 수 있다.
+
+#### TEMPORARY_LOB_ENABLE
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+1
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 1]
+
+##### 설명
+
+Temporary LOB을 사용하기 위한 설정을 하는 프로퍼티이다.
+
+* 0: Temporary LOB을 사용하지 않음
+* 1: Temporary LOB을 사용함 (기본값)
 
 #### VARRAY_MEMORY_MAXIMUM
 

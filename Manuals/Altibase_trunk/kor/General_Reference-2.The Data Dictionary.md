@@ -4563,6 +4563,7 @@ iSQL> SELECT * FROM V$TAB;
 | V\$TRACELOG                           | 트레이스 로깅 정보                                           |
 | V\$TRANSACTION                        | 트랜잭션 객체 정보                                           |
 | V\$TRANSACTION_MGR                    | Altibase 트랜잭션 관리자 정보                                |
+| V$TEMPORARY_LOBS                      | Temporary LOB의 정보                                         |
 | V\$TSSEGS                             | 모든 TSS 세그먼트들의 정보                                   |
 | V\$TXSEGS                             | 바인딩된 트랜잭션 세그먼트들의 정보                          |
 | V\$UDSEGS                             | 모든 언두 세그먼트들의 정보                                  |
@@ -11617,6 +11618,39 @@ CREATE TABLESPACE 구문에 정의된 테이블스페이스의 이름이다.
 -   0: LOG COMPRESS 수행 안한다.
 
 -   1: LOG COMPRESS 수행한다.
+
+### V$TEMPORARY_LOBS
+
+Temporary LOB의 정보를 보여준다.
+
+| Column name  | Type   | Description                                       |
+| :----------- | :----- | :------------------------------------------------ |
+| TYPE         | BIGINT | Temporary LOB의 유형 정보                         |
+| ID           | BIGINT | 생성된 LOB의 유형에 따라 트랜잭션 ID 또는 세션 ID |
+| ALLOCED_SIZE | BIGINT | 생성된 Temporary LOB의 사이즈                     |
+| OPEN_COUNT   | BIGINT | 생성된 Temporary LOB의 갯수                       |
+
+#### 컬럼정보
+
+##### TYPE
+
+Temporary LOB의 유형 정보를 나타낸다.
+
+* 0 : 트랜잭션 Temporary LOB
+
+- 1 : 세션 Temporary LOB
+
+##### ID
+
+생성된 Temporary LOB의 유형에 따라 트랜잭션 또는 세션 식별 정보를 나타낸다.
+
+##### ALLOCED_SIZE
+
+생성된 Temporary LOB 의 사이즈를 나타낸다.
+
+##### OPEN_COUNT
+
+생성된 Temporary LOB 의 갯수를 나타낸다.
 
 ### V\$TIME_ZONE_NAMES
 
