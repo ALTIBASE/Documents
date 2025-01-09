@@ -2610,29 +2610,28 @@ FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/V
 
 #### Temporary LOB
 
-1안)Temporary LOB 은 LOB 데이터를 저장, 삽입, 삭제, 변경하기 위해 임시 저장공간(Temporary LOB)을 생성하여 처리하는 기능을 말한다.
-
-2안) Temporary LOB은 LOB 데이터를 저장, 삽입, 삭제 또는 변경할 때 사용되는 임시 메모리 저장 공간을 의미한다. 
-
-Temporary LOB을 사용하기 위해서는 TEMPORARY_LOB_ENABLE 프로퍼티를 활성화해야 사용 할 수 있다.
+Temporary LOB 은 대규모 텍스트 또는 바이너리 데이터를 처리하기 위해 사용되는 임시적인 LOB 이다. Temporary LOB을 사용하기 위해서는 TEMPORARY_LOB_ENABLE 프로퍼티를 활성화해야 사용 할 수 있다. V$TEMPORARY_LOBS를 통해 현재 사용중인 Temporary LOB의 정보를 조회할 수 있다.
 
 ##### 특징
 
-- 실행시점(Execution)에 메모리 영역에 Temporary LOB을 생성
-- LOB 컬럼 단위로 Temporary LOB을 생성
-- 트랜잭션 Temporary LOB 과 세션 Temporary LOB으로 분류
+- 실행시점(Execution)에 메모리 영역에 Temporary LOB이 생성된다.
+- 특정 세션이나 트랜잭션 동안에만 존재하며, 해당 세션 또는 트랜잭션이 종료되면 자동으로 삭제된다.
 
-##### 트랜잭션 Temporary LOB
+##### Temporary LOB 유형
 
-트랜잭션 Temporary LOB은 트랜잭션 생명주기에 의존적인 Temporary LOB을 말한다. LOB 변환이 발생하는 함수를 사용하거나, PSM 내에서 LOB 타입을 이용하는 경우 트랜잭션 Temporary LOB이 생성된다.(단, PSM 내에서 Associative ARRAY, VARRAY, PACKAGE 변수로 LOB 타입을 이용하는 경우는 제외)
+Temporary LOB 의 유형별 설명은 아래의 표를 참고한다.
 
-* LOB 변환이 발생하는 함수
-  * TO_CLOB
-  * TO_BLOB
-  * CLOB을 인자로 받는 SUBSTR
-  * CLOB을 인자로 받는 CONCAT
+- 트랜잭션 Temporary LOB: 트랜잭션 생명주기에 의존적인 Temporary LOB
 
-###### 예제
+- 세션 Temporary LOB : 세션 생명주기에 의존적인 Temporary LOB
+
+| 비교     | 트랜잭션 Temporary LOB                                       | 세션 Temporary LOB                                           |
+| :------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| 생명주기 | 트랜잭션                                                     | 세션                                                         |
+| 정리시점 | 트랜잭션 종료시 정리                                         | 세션 종료 시 정리                                            |
+| 사용법   | 세션 Temporary LOB이 생성되는 경우를 제외한 모든 구문에서 다음과 같이 사용한 경우</br>- TO_CLOB</br>- TO_BLOB</br>- CLOB 을 인자로 받는 SUBSTR</br>- CLOB 을 인자로 받는 CONCAT</br>- PSM 내에서 LOB 타입의 변수 | PSM 내에서 아래의 유형으로 LOB 타입을 사용한 경우</br>- ASSOCIATIVE ARRAY</br>- VARRAY</br>- PACKAGE 변수 |
+
+###### 예제 - 트랜잭션 Temporary LOB
 
 ```sql
 iSQL> CREATE TABLE t1(c1 clob);
@@ -2659,15 +2658,7 @@ TYPE                 OPEN_COUNT
 No rows selected.
 ```
 
-##### 세션 Temporary LOB
-
-세션 Temporary LOB은 세션 생명주기에 의존적인 Temporary LOB을 말한다. PSM 내에서 아래의 경우에서 LOB 타입이 이용될 경우, 세션 Temporary LOB이 생성된다.
-
-* Associative ARRAY
-* VARRAY
-* PACKAGE 변수
-
-###### 예제
+###### 예제 - 세션 Temporary LOB
 
 ```sql
 iSQL> CREATE OR REPLACE PACKAGE pkg1
@@ -2693,7 +2684,7 @@ iSQL> CREATE OR REPLACE PACKAGE BODY pkg1
     13 /
 Create success.
  
-iSQL> SELECT type, open_count FROM v$temporary_lobs;
+iSQL> SELECT type, open_count FROM V$TEMPORARY_LOBS;
 TYPE                 OPEN_COUNT
 ---------------------------------------------
 No rows selected.
@@ -2703,20 +2694,12 @@ pkg spec session clob
 pkg body session clob
 Execute success.
  
-iSQL> SELECT type, open_count FROM v$temporary_lobs;
+iSQL> SELECT type, open_count FROM V$TEMPORARY_LOBS;
 TYPE                 OPEN_COUNT
 ---------------------------------------------
 1                    2
 1 row selected.
 ```
-
-트랜잭션 Temporary LOB 과 세션 Temporary LOB 비교
-
-| 비교     | 트랜잭션 Temporary LOB                                       | 세션 Temporary LOB                                           |
-| :------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| 생명주기 | 트랜잭션                                                     | 세션                                                         |
-| 정리시점 | 트랜잭션 종료시 정리                                         | 세션 종료 시 정리                                            |
-| 사용성   | 세션 사용성을 제외한 모든 구문에서 다음과 같이 사용한 경우</br>- TO_CLOB</br>- TO_BLOB</br>- CLOB 을 인자로 받는 SUBSTR</br>- CLOB 을 인자로 받는 CONCAT</br>- PSM 내에서 LOB 타입의 변수 | PSM 내에서 아래의 유형으로 LOB 타입이 이용될 때</br>- ASSOCIATIVE ARRAY</br>- VARRAY</br>- PACKAGE 변수 |
 
 #### 제한 사항
 
