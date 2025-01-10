@@ -2610,7 +2610,7 @@ FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/V
 
 #### Temporary LOB
 
-Temporary LOB 은 대규모 텍스트 또는 바이너리 데이터를 처리하기 위해 사용되는 임시적인 LOB 이다. Temporary LOB을 사용하기 위해서는 TEMPORARY_LOB_ENABLE 프로퍼티를 활성화해야 사용 할 수 있다. V$TEMPORARY_LOBS를 통해 현재 사용중인 Temporary LOB의 정보를 조회할 수 있다.
+Temporary LOB 은 대규모 텍스트 또는 바이너리 데이터를 처리하기 위해 사용되는 임시 LOB 이다. TEMPORARY_LOB_ENABLE 프로퍼티를 1로 설정하여 Temporary LOB을 사용할 수 있다. 현재 사용중인 Temporary LOB의 정보는 V$TEMPORARY_LOBS를 통해 조회할 수 있다.
 
 ##### 특징
 
