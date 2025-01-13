@@ -297,7 +297,7 @@ For more detailed information, please refer to the *Utilities Manual*.
     Among the database servers that are connected in replication, this is a replication node that is actively providing service to users and on which change operations related to master transacitons take place. 
     
 -   **Standby Server:**  
-    This is a replication node on which change transactions are not occurring. (It may be queried using SELECT DML statements).
+    This is a replication node on which change transactions are not occurring. (It may be queried using SELECT statements).
     
 -   **Sender:**  
     This is a thread that sends information about changes made to data caused by a transaction to a remote server. It changes logs that result from the execution of DML statements on replication target tables on the local server into XLog form so that they contain information about the actual (physical) changes made to the data and sends the resultant XLogs to the remote server.
