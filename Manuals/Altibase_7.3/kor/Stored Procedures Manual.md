@@ -4916,7 +4916,7 @@ DECLARE
  CURSOR c1(pname VARCHAR(40), pno INTEGER) IS
   SELECT empno, ename, job, sal
   FROM emp
-  WHERE eame = pname;
+  WHERE ename = pname;
 BEGIN
  OPEN c1;
  ......
@@ -5261,7 +5261,7 @@ ENO         E_FIRSTNAME           E_LASTNAME
 
 ### 커서 속성
 
-저장 프로시저 내에서 커서와 관련된 수행 도중 커서의 상태를 파악하기 위해서
+저장 프로시저 내에서 커서와 관련된 작업 수행 도중 커서의 상태를 파악하기 위해서
 Altibase가 관리하고 있는 속성값들을 참조할 수 있다.
 
 #### 구문
