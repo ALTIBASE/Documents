@@ -4423,8 +4423,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>PASSWORD_VERIFY_FUNCTION</td>
   </tr>
   <tr>
-  <td rowspan="30">E</td>
-  <td rowspan="30">&nbsp;</td>
+  <td rowspan="33">E</td>
+  <td rowspan="33">&nbsp;</td>
   <td>ACCESS_LIST</td>
   <td rowspan="2">&nbsp;</td>
   </tr>
@@ -4473,6 +4473,14 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <tr>
   <td>LISTAGG_PRECISION</td>
   <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MEMORY_TEMPLOB_MAX_ALLOC_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MEMORY_TEMPLOB_PIECE_SIZE</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>MSG_QUEUE_PERMISSION</td>
@@ -4532,6 +4540,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <tr>
   <td>SERIAL_EXECUTE_MODE</td>
   <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>TEMPORARY_LOB_ENABLE</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>VARRAY_MEMORY_MAXIMUM</td>
@@ -15864,7 +15876,7 @@ Temporary LOB을 사용할 때, 저장하는 총 메모리의 크기를 제한�
 
 > 주의: Temporary LOB은 MEM_MAX_DB_SIZE와는 별도의 메모리 공간을 사용하므로 메모리 사용량에 대한 주의가 필요하다.
 
-#### MEMORY_TEMPLOB_MAX_PIECE_SIZE (단위: 바이트)
+#### MEMORY_TEMPLOB_PIECE_SIZE (단위: 바이트)
 
 ##### 데이터 타입
 
@@ -15876,7 +15888,7 @@ Unsigned Integer
 
 ##### 속성
 
-변경 가능, 단일 값
+읽기 전용, 단일 값
 
 ##### 값의 범위
 
