@@ -180,13 +180,11 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   
   이 장에서는  DBeaver와 Altibase를 연동하고 이용하는 방법을 설명한다.
 
-- 제 2장 SQuirreL SQL 클라이언트  
-  이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을 설치하고 Altibase JDBC를 통해 Altibase와 연동하는 방법을 설명한다.
-
-- 제 3장 Hibernate
-
-- 제 4장 OpenLDAP  
+- 제 2장 OpenLDAP  
   이 장에서는 OpenLDAP과 Altibase를 연동하는 방법을 설명한다.
+
+- 제 3장 Oracle GoldenGate  
+  이 장에서는 Oracle GoldenGate와 Altibase를 연동하는 방법을 설명한다.
 
 #### 문서화 규칙
 
@@ -629,241 +627,9 @@ Auto commit off를 상시 기본 설정으로 사용하고 싶다면,
 
 
 
-2.SQuirreL SQL 클라이언트
-=======================
-
-이 장에서는 SQuirreL SQL Client와 Altibase Plugin for SQuirreL SQL을 설치하고
-Altibase JDBC를 통해 Altibase와 연동하는 방법을 설명한다.
-
-### Altibase Plugin for SQuirreL SQL Client 설치
-
-Altibase Plugin for SQuirreL SQL Client(이하 Altibase Plugin) 은 Altibase에
-접속하여 SQuirreL SQL Client를 사용하기 위한 Plugin이다. Altibase Plugin은
-SQuirreL SQL Client의 공식 Plugin이 아니기 때문에, SQuirreL SQL Client와 별도로
-사용자가 직접 다운로드 받아 설치해야 한다.
-
-#### 시스템 요구사항
-
-Altibase plugin을 설치하고 실행하기 위해 필요한 소프트웨어 요구사항과 Altibase
-Plugin과 호환되는 데이터베이스 관리 시스템을 열거한다.
-
-| 소프트웨어 요구사항             | SQuirreL SQL Client 3.7.1 또는 3.8.0 | SQuirreL SQL Client 3.8.1 또는 3.9.0 |
-| ------------------------------- | ------------------------------------ | ------------------------------------ |
-| 호환 가능한 데이터베이스 시스템 | Altibase 6.5.1 또는 그 이상의 버전   | Altibase 6.5.1 또는 그 이상의 버전   |
-| 호환 가능한 Java                | Java 1.8.0                           | Java 1.8.0 또는 그 이상의 버전       |
-
-### Altibase Plugin 설치 및 제거
-
-Altibase Plugin을 사용하기 위한 설치 및 준비 방법과 제거 방법에 대해서 기술한다.
-
-#### 설치 절차
-
-1. SQuirreL SQL Client 다운로드: <http://squirrel-sql.sourceforge.net/> 에서
-   SQuirreL SQL Client를 다운로드하여 설치한다.
-
-2. Altibase Plugin 다운로드: <http://support.altibase.com> 다운로드 항목에서
-   altibase4squirrel.zip 을 다운 받은 후 압축을 푼다. 압축 해제된 파일들 중
-   altibase4squirrel.jar(Altibase Plugin) 파일을, 설치한 SQuirreL SQL Client
-   디렉토리의 plugins 하위 디렉토리에 복사한다.(예, C:\\Program
-   Files\\squirrel-sql-3.8.0\\plugins\\altibase4squirrel.jar)
-
-3. SQuirreL SQL Client 실행: 이제 Altibase Plugin을 사용할 준비가 완료되었다.
-   SQuirreL SQL Client를 실행시키면 altibase4squirrel.jar가 자동으로 로딩된다.
-   Plugin 로딩은 SQuirreL SQL Client 수행 후 , 메인 메뉴 중 ‘플러그인-요약’ 을
-   클릭하여 확인 가능하다. SQurreL SQL Client 구동은 Windows는
-   squirrel-sql.bat를, Linux는 squirrel-sql.sh 를 실행시킨다. SQuirreL SQL
-   Client 구동에 대한 자세한 내용은 SQuirreL SQL Client 매뉴얼을 참조한다.
-
-#### 제거
-
-Altibase Plugin의 제거는 SQuirreL SQL Client 프로그램을 종료한 후, SQuirreL SQL
-Client plugin 디렉토리에서 altibase4squirrel.jar를 삭제하면 된다.
-
-### Altibase Plugin 특징
-
-Altibase Plugin의 특징은 다음과 같다.
-
-#### Altibase 전용 객체(Object)
-
-Altibase의 database 객체를 SQuirreL SQL Client Object Tree에서 보여준다.
-
-보여주는 객체는 다음과 같다.
-
-| 객체 유형 | 종 류                                                        |
-| ----- | ---------------------------------------------------------- |
-| Table | Table, Queue, Materialized View, System Table, System View |
-| PSM   | Stored Procedure, Function, Packages, Trigger              |
-| 기타    | Index, Sequence, Synonym, Library, Job                     |
-
-#### Table 및 종속 객체(Constraint, Index, Trigger)
-
-Table 객체에 대해 해당 테이블에 종속된 Constraint, Index, Trigger 객체를
-테이블의 하위 객체로 표현한다.
-
-![](media/3rdPartyConnector/85f132e53314078bd6229a6374fb9a1c.png)
-
-#### 객체 상세정보
-
-데이터베이스 객체에 대한 상세 정보를 보여준다. 예를 들어 Index, Sequence,
-Synonym, Constraint등이 객체들에 대해 상세 정보를 지원한다.
-
-![](media/3rdPartyConnector/c30b56fb95983fa1d3eb88ceb07727b3.png)
-
-#### Source View
-
-PSM 객체 타입 및 필요한 객체들에 대해 다음의 객체 생성 DDL을 보여준다.
-
-: Stored Procedure, Function, Package, Typeset, Trigger, Library, Synonym,
-View, Materialized View
-
-![](media/3rdPartyConnector/261713767eebd46dd3fd3eda2a5dae5e.png)
-
-#### PSM DDL grammar 지원
-
-SQuirreL SQL Client의 SQL editor에서 Altibase PSM DDL grammar를 지원한다.
-altibase.jar를 설치하지 않은 경우, SQuirreL SQL Client 자체 parser로는 Altibase
-PSM 생성 DDL을 파싱할 수 없어 실패하게 된다.
-
-![](media/3rdPartyConnector/a5866d7d28e7835da07f497853b8fbfa.png)
-
-### SQuirreL SQL Client 설치
-
-이 장에서는 SQuirreL SQL Client를 설치하는 방법을 설명한다.
-
-#### 설치 절차
-
-1. 아래 링크에서 자신의 시스템에 설치 가능한 SQuirreL SQL Client를 다운받는다.  
-   [http://squirrel-sql.sourceforge.net/#installation](http://squirrel-sql.sourceforge.net/#installation )
-
-2. 다운로드 받은 "squirrel-sql-3.7.1-standard.jar"을 더블 클릭하여 설치를
-   시작한다.
-
-### Altibase JDBC 드라이버 등록
-
-#### 등록 방법
-
-1. SQuirreL SQL Client를 설치한 디렉토리의 "squirrel-sql.bat"를 더블 클릭하여
-   프로그램을 구동시킨다.
-
-2. Drivers -\> New Driver를 클릭하여 Altibase JDBC driver를 등록한다. Drivers
-   메뉴가 비활성화 되어 있다면 Windows -\> View Drivers를 클릭하여 활성화
-   시킨다.
-
-3. Add Driver 창의 Driver항목에 아래와 같이 입력한다.
-   
-   ```
-   Name: Altibase
-   Example URL:jdbc:Altibase://<host>:<port>/<database>
-   ```
-
-4. 하단의 Extra Class Path 탭의 "Add" 버튼을 클릭하여 접속에 사용할 Altibase
-   JDBC driver file을 선택한다.
-   ![](media/3rdPartyConnector/7a7832fac4ae08eb6ef0be8384a4adf2.jpg)
-   
-   파일 선택 후\` "List Drivers" 버튼을 눌러, 하단의 Class Name 콤보 박스에
-   "Altibase.jdbc.driver.AltibaseDriver"가 추가되었는지 확인한다.  
-   ![](media/3rdPartyConnector/50892767215a171c63c70f850c053d13.jpg)
-
-5. "OK" 버튼을 눌러 Altibase JDBC driver 등록을 완료한다
-
-### Altibase와 연동
-
-#### 데이터베이스 접속 정보 등록
-
-1. 메인 메뉴의 Aliases -\> New Alias를 클릭하여 접속할 데이터베이스 정보를
-   등록한다. Aliases 메뉴가 비활성화되어 있으면, Windows -\> View Aliases를
-   클릭하여 활성화시킨다.
-
-2. 아래 정보를 입력한다.
-   
-   Name: 데이터베이스 접속 이름
-   
-   Driver: 앞서 등록한 Altibase를 선택한다.
-   
-   URL: 접속할 host, port, databasename을 입력한다
-   
-   User Name: 접속에 이용할 데이터베이스 사용자 이름
-   
-   Password: 접속에 이용할 데이터베이스 사용자의 암호
-
-3. 입력완료 후 하단의 "Test" 버튼을 눌러 입력한 접속정보가 올바른지 확인한다.
-   
-   ![](media/3rdPartyConnector/02f87a256d46f95418fcce98840808bf.jpg)
-
-#### 데이터베이스 사용
-
-1. 메인 메뉴의 Aliases -\> Connect를 클릭하여 접속창을 연다.
-
-![](media/3rdPartyConnector/3843e6b7c58b308e9dd87c8530ef0ac0.jpg)
-
-2. "Connect" 버튼을 눌러 등록된 데이터베이스에 접속한다.
-
-#### Objects
-
-접속에 성공하면 아래와 같이 두 개의 탭으로 구성된 창이 열린다. Object창이
-기본으로 선택되는데, 연결된 데이터베이스에 존재하는 객체 및 상세정보를 볼 수
-있다.
-
-![](media/3rdPartyConnector/e237ba850cfd9b27b05f7b324676f944.jpg)
-
-#### SQL
-
-상단의 2개 탭 중 SQL을 선택하여 사용자가 쿼리를 입력하고 실행할 수 있다.
-
-![](media/3rdPartyConnector/9282c65c5cdf53f32d920ae18dfbe692.jpg)
-
-### FAQ
-
-#### 최신 버전의 JDK 설치 후 SQuirreL SQL 클라이언트 실행시 "Your Java Virtual Machine must be at least 1.6 to run SQuirrel 3.x and above" 메시지가 표시되며 구동이 실패합니다.
-
-SQuirreL SQL 클라이언트가 최신 Java 버전을 인지하지 못해 발생하는 오류이다.
-
-squirrel-sql.bat 또는 squirrel-sql.sh 파일에서 JavaVersionChecker 라인을 찾아 사용할 JDK 버전을 추가한다. 예를 들어 OpenJDK 18 버전을 사용할 경우, JavaVersionChecker 라인 끝에 18을 추가 및 저장 후, SQuirreL SQL 클라이언트를 수행하면 정상적으로 구동된다. 
-
-`$JAVACMD -cp "$UNIX_STYLE_HOME/lib/versioncheck.jar" JavaVersionChecker 1.6 1.7 1.8 18`
-
-다만 Java 9 버전 이상을 사용할 경우 SQuirreL SQL 클라이언트 3.8.1 또는 3.9.0 버전을 설치해야 한다.
-
-참조: https://sourceforge.net/p/squirrel-sql/bugs/1347/
-
-#### LOB 데이터 조회가 안됩니다.
-
-SQuirreL SQL 클라이언트에서 LOB 데이터는 SQL 탭 또는 Objects 탭에서 조회할 수 있다.
-
-| SQL                                               | Objects                                               |
-| ------------------------------------------------- | ----------------------------------------------------- |
-| ![](media/3rdPartyConnector/squirrel_lob_sql.jpg) | ![](media/3rdPartyConnector/squirrel_lob_objtree.jpg) |
-
-##### SQuirreL SQL 클라이언트에서 LOB 데이터 조회를 위한 설정
-
-이 설정은 LOB 데이터를 SQL 탭에서 조회하거나 Objects 탭에서 조회하거나 공통적으로 필요한 설정이다.
-
-1. Data Type Controls 설정을 변경한다.<br>
-   'File -> Global Preferences -> Data Type Controls 탭'에서 BLOB 또는 CLOB의 "Read contents when table is first loaded" 옵션을 체크한다.
-
-![](media/3rdPartyConnector/squirrel_lob_view.jpg)
-
-2. 세션 프로퍼티에서 autocommit 모드를 false로 변경한다.<br>
-   알티베이스에서 LOB 데이터는 반드시 명시적으로 트랜잭션을 관리해야 한다. 이를 적용하기 위해 File -> New Session Properties -> SQL 탭에서 "Auto Commit SQL" 체크 박스를 해제한다.
-
-![](media/3rdPartyConnector/squirrel_lob_autocommit.jpg)
-
-##### **Objects 탭에서 LOB 데이터 조회 시 추가로 필요한 설정**
-
-1. 아래 버전에 해당하는 알티베이스 JDBC Driver를 사용한다.
-   - Altibase 7.1.0.7.2 이상
-   - Altibase 7.2.0.0.2 이상
-
-2. JDBC 연결 속성에 getcolumns_return_jdbctype=true를 추가한다.<br>
-   새로운 드라이버를 지정하는 Drivers -> Add Driver에서 추가 또는 기존 접속 정보를 변경하는 Aliases -> Modify the selected Alias에서 변경할 수 있다.
-
-![](media/3rdPartyConnector/squirrel_lob_add_driver.jpg)
-
-![](media/3rdPartyConnector/squirrel_lob_alias.jpg)
-
 <br>
 
-3.OpenLDAP
+2.OpenLDAP
 ========
 
 이 장은 openLDAP과 Altibase를 연동하는 방법을 설명한다.
@@ -1201,7 +967,7 @@ $ isql -s localhost -u ldap -p ldap -f testdb_data.sql
 
 <br>
 
-4.Oracle GoldenGate
+3.Oracle GoldenGate
 =========
 
 ### Oracle GoldenGate 소개
