@@ -1,5 +1,44 @@
-Altibase 7.1.0.10.0 Patch Notes
-================================
+# Altibase 7.1.0.10.0 Patch Notes
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [New Features](#new-features)
+    - [BUG-48885 통계 잠금 기능 추가](#bug-48885)
+    - [BUG-51057 Updateable Dynaset 지원](#bug-51057)
+    - [BUG-51068 KEYSET DRIVEN 커서의 읽기 성능 개선](#bug-51068)
+    - [BUG-51199 Red Hat Linux 9 지원](#bug-51199)
+- [Fixed Bugs](#fixed-bugs)
+    - [BUG-50650 체크포인트 수행 중 내부적으로 Memory recovery LSN이 갱신되지 않은 상태에서 서버가 종료된 경우, 서버 재시작에 실패할 수 있습니다.](#bug-50650)
+    - [BUG-50757 증분 백업에서 extend 와 change tracking 이 동시에 수행되는 경우 서버가 비정상 종료할 수 있습니다.](#bug-50757)
+    - [BUG-50867 테이블스페이스를 오프라인으로 변경하는 로직의 오류를 수정합니다.](#bug-50867)
+    - [BUG-50978 트리거 생성시 권한 검사 로직의 오류를 수정합니다.](#bug-50978)
+    - [BUG-51012 SQLColumns함수에서 SchemaName(스키마 이름) 인자에 NULL이 전달될 경우, 잘못된 데이터가 반환됩니다.](#bug-51012)
+    - [BUG-51013 ODBC 드라이버를 이용하여 다이너셋(dynaset) 테스트를 수행할 때, Altibase 데이터베이스에 연결이 성공했으나 다이너셋을 지원하지 않는다는 오류가 발생합니다.](#bug-51013)
+    - [BUG-51203 V$DISK_UNDO_USAGE와 같은 모니터링 쿼리에 대한 조회가 장시간 수행되는 경우의 동작을 개선합니다.](#bug-51203)
+    - [BUG-51041  디스크 테이블에서 DML 을 수행하는 중에 내부적으로테이블 정보를 기록하는 페이지가 깨진 경우, 서버가 비정상 종료되는 문제가 있습니다.](#bug-51041)
+    - [BUG-51048 SQL_CURSOR_KEYSET_DRIVEN 커서로 SQLExecute, SQLFetch를 반복 수행하는 경우, 맨 처음 레코드만 반환됩니다.](#bug-51048)
+    - [BUG-51050 트리거가 설정된 테이블에서 다중 테이블 갱신(Multiple Table Update)을 수행하는 경우, 잘못된 메모리에 접근할 수 있습니다.](#bug-51050)
+    - [BUG-51056 Volatile 테이블에서 inplace update 수행 로직의 오류를 수정합니다.](#bug-51056)
+    - [BUG-51063 메모리 인덱스가 존재하는 테이블에서 inplace update 수행시  오류를 수정합니다.](#bug-51063)
+    - [BUG-51065 이중화 SQL 반영 모드일때, 파티션 SPLIT 전 수행한 DELETE 문이 이중화되지 않습니다.](#bug-51065)
+    - [BUG-51133 SQL의 Prepare 단계에서 생성된 메모리를 해제하는 과정에서 잘못된 메모리 참조의 오류로 서버가 비정상 종료 할 수 있습니다.](#bug-51133)
+    - [BUG-51138 iloader 에서 1개 파일이 2,147,483,647 건을 초과하는 데이터를 export/import 수행시 오류메시지를 출력하도록 개선되었습니다.](#bug-51138)
+    - [BUG-51144 COLLECT_DBMS_STATS를 ON으로 설정한 후 aexport를 수행할 때, ERR-31014 : Index not found 오류가 발생하는 경우가 있습니다.](#bug-51144)
+    - [BUG-51158 Prepared Statement 의 batchUpdate를 사용하여 CLOB 칼럼 처리 중 **[ERR-110C5: LobCursor already closed]** 오류가 발생하는 문제를 수정합니다.](#bug-51158)
+    - [BUG-51160 jdbcAdapter 를 이용하여 Oracle 에 데이터 입력할 때, executeBatch() 함수를 수행하는 과정에서 오류가 발생했을 때의 동작 개선](#bug-51160)
+    - [BUG-51163 2,147,483,647 보다 큰 TableOID 값을 가지는 테이블을 ALTER REPLICATION ... ADD TABLE 구문으로 이중화 대상 테이블에 추가할 때, ERR-21010 Value overflow 오류가 발생합니다.](#bug-51163)
+    - [BUG-51165 Prepared Statement 의 batchUpdate를 사용하여 CLOB 칼럼 처리 중, updatedRowCount가 0인 파라미터 세트가 포함되면 잘못된 동작이 발생합니다.](#bug-51165)
+    - [BUG-51189 이중화 DDL 의 동작 변경](#bug-51189)
+    - [BUG-51214 SYS 계정으로 개별 오브젝트에 대한 권한 부여시 에러가 발생합니다.](#bug-51214)
+    - [BUG-51216 내부적으로 익스텐트 리스트 탐색 시 리스트 순회가 종료되지 않을 수 있는 현상에 대한 수정](#bug-51216)
+  - [Changes](#changes)
+    - [Version Info](#version-info)
+    - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
+    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 New Features
 ============
@@ -643,14 +682,7 @@ Fixed Bugs
 -   **변경사항**
 
     -   Performance view
-        -   PreparedStatement의 setXXX 메서드(setNull, setObject 등)에서
-            targetSqlType을 java.sql.Types.CLOB 또는
-            java.sql.Types.BLOB으로 지정하고 executeUpdate를 연속으로
-            수행하는 경우, 첫 번째 executeUpdate에서 서버 에러가
-            발생하면 두 번째 executeUpdate에서 (내부적으로 동일한 LOB
-            업데이트가 두 번 수행되면서 정상적으로 업데이트는
-            되었지만) "LobCursor  already closed" 에러가 발생함.
-
+        
     -   Property
     -   Compile Option
     -   Error Code
