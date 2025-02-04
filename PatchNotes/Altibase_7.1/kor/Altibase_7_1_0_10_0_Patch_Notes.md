@@ -157,7 +157,7 @@ New Features
 
 -   **재현 빈도** : Unknown
 
--   **설명** : glibc 3.34 이상의 환경에서 발생하던 호환성 문제가 해결되었습니다. 이제 Red Hat Linux 9 에서도 Altibase를 사용할 수 있습니다.  
+-   **설명** : glibc 2.34 이상의 환경에서 발생하던 호환성 문제가 해결되었습니다. 이제 Red Hat Linux 9 에서도 Altibase를 사용할 수 있습니다.  
 
 -   **재현 방법**
     -   **재현 절차**
