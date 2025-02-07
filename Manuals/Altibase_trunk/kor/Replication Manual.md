@@ -2236,52 +2236,53 @@ IP 주소가 2개씩 구성된 서버에서 송신자 IP 주소 설정 기능을
 
 ## 개요
 
-Altibase는 네트워크 기반의 이중화 기법을 통해 지역 서버에서 발생한 트랜잭션 로그를 상대 서버로 전송하여 데이터를 동기화한다. 그러나 DDL 작업으로 생성된 트랜잭션 로그는 전송되지 않는다. 이는 DDL 문이 이중화 대상의 메타 정보를 변경하여 이중화 서버 간 데이터 불일치를 초래할 수 있기 때문이다.
+Altibase는 네트워크 기반의 이중화 기법을 활용하여 지역 서버에서 발생한 트랜잭션 로그를 상대 서버로 전송함으로써 데이터를 동기화한다. 그러나 DDL 작업으로 생성된 트랜잭션 로그는 전송되지 않는다. 이는 DDL 문이 이중화 대상의 메타 정보를 변경하여 서버 간 데이터 불일치를 초래할 수 있기 때문이다.
 
-따라서 일반적으로 이중화 환경에서 DDL 문을 수행하려면, 먼저 해당 대상을 이중화 객체에서 제거한 후, 각 이중화 노드에서 DDL 작업을 개별적으로 수행해야 한다. 일반적인 DDL 문 수행 절차에 대한 자세한 내용은 [B.부록: 일반적인 DDL 문 수행 절차](#b부록-일반적인-DDL-문-수행-절차)을 참고한다.
+따라서 일반적으로 이중화 환경에서 DDL 문을 수행하려면, 먼저 해당 대상을 이중화 객체에서 제거한 후, 각 이중화 노드에서 DDL 작업을 개별적으로 수행해야 한다. 일반적인 DDL 문 수행 절차에 대한 자세한 내용은 [B.부록: 일반적인 DDL 문 수행 절차](#b부록-일반적인-DDL-문-수행-절차)를 참고하면 된다.
 
-이 장에서는 Altibas 이중화는 운영의 이중화 대상을 제거하지 않고도 DDL 문을 수행할 수 있는 효율적인 방법을 소개한다.
+이 장에서는 Altibase 이중화 환경에서 이중화 대상을 제거하지 않고도 DDL 문을 안전하고 효율적으로 수행할 수 있는 방법을 소개한다.
 
 
 ### DDL 문 수행 관련 프로퍼티
 
-기본적으로 이중화 대상에는 몇 가지 DDL 문을 제외하고는 DDL 문을 수행할 수 없다. 따라서 DDL 문을 수행하려면 관련 설정을 활성화해야 한다. 
+기본적으로 이중화 대상에는 일부 DDL 문을 제외하고 DDL 문을 수행할 수 없다. 따라서 DDL 문을 실행하려면 관련 설정을 활성화해야 한다. 
 
 이중화 대상에 DDL 문을 수행하기 위해 설정해야 할 주요 프로퍼티는 다음과 같다.
 
 | 프로퍼티                       | 설명                                                         | 기본값 |
 |:------------------------------ |:------------------------------------------------------------ |:------:|
-| REPLICATION_DDL_ENABLE       | DDL 문 수행을 활성화하는 프로퍼티이다.<br />이 프로퍼티를 활성화하면 이중화 대상에서 DDL 문을 수행할 수 있다. DDL 문을 수행하려면 이 값을 `1`로 설정해야 한다. | 0      |
+| REPLICATION_DDL_ENABLE       | DDL 문 수행을 활성화하는 프로퍼티이다.<br />DDL 문 수행을 활성화하는 프로퍼티이다. 이 값을 `1`로 설정하면 이중화 대상에 DDL 문을 수행할 수 있다. | 0      |
 | REPLICATION_DDL_ENABLE_LEVEL | 이중화 대상에 수행할 수 있는 DDL 문의 종류를 설정하는 프로퍼티이다.      | 0      |
 | REPLICATION_SQL_APPLY_ENABLE | [SQL 반영 모드](#부록-C-sql-반영-모드)를 활성화하는 프로퍼티이다. | 0      |
 
 ### 제약사항
 
-관련 설정을 활성화하더라도, 다음과 같은 이중화 객체에 속한 이중화 대상에는 DDL 문을 수행할 수 없다.
+관련 설정을 활성화하더라도 다음과 같은 이중화 객체에 속한 이중화 대상에는 DDL 문을 수행할 수 없다.
 
   - [복구 옵션](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication%20Manual.md#%EB%B3%B5%EA%B5%AC-%EC%98%B5%EC%85%98recovery-option)이 설정된 이중화 객체
 
-    이 경우에는 먼저 이중화 객체를 삭제한 후 DDL 문을 수행하고, 다시 이중화 객체를 생성해야 한다. 
+    먼저 이중화 객체를 삭제한 후 DDL 문을 수행하고, 이후 다시 이중화 객체를 생성해야 한다. 
 
-  - EAGER 모드로 동작 중인 이중화 객체
+  - EAGER 모드로 동작하는 이중화 객체
 
-    이러한 상황에서는 [B.부록: 일반적인 DDL 문 수행 절차](#b부록-일반적인-ddl-문-수행-절차)를 참고한다.
+    이러한 경우 [B.부록: 일반적인 DDL 문 수행 절차](#b부록-일반적인-ddl-문-수행-절차)를 참고해야 한다.
     
 ### 주의사항
 
-DDL 문을 수행하면 대상 테이블은 잠금(LOCK) 상태가 된다. 이 상태에서 주 트랜잭션이 발생하면, 수신 쓰레드는 잠금 상태의 테이블에 복제 트랜잭션을 적용할 수 없다.
+- DDL 문을 수행하면 대상 테이블이 잠금(LOCK) 상태가 된다. 이 상태에서 주 트랜잭션이 발생하면, 수신 쓰레드는 잠금된 테이블에 복제 트랜잭션을 적용할 수 없다.
+
+- **현재 칼럼보다 범위가 넓어질 때는 주 트랜잭션이 발생하지 않는 서버에서 먼저 DDL문을 수행해야 한다.**
+- **현재 칼럼보다 범위가 좁아질 때는 주 트랜잭션이 발생하는 서버에서 먼저 DDL 문을 수행해야 한다.**
 
 ## 수행할 수 있는 DDL 문
 
-이 절에서는 이중화 대상에 수행할 수 있는 DDL 문에 대해 설명한다.
-
-이중화 대상에 수행할 수 있는 DDL 문은 REPLICATION_DDL_ENABLE_LEVEL 프로퍼티의 설정 값에 따라 달라지며, 이 프로퍼티의 값은 0 또는 1로 설정할 수 있다. 
+이중화 대상에 수행할 수 있는 DDL 문은 `REPLICATION_DDL_ENABLE_LEVEL` 프로퍼티의 설정 값에 따라 달라지며, 이 값은 0 또는 1로 설정할 수 있다. 
 
 사용자는 수행하려는 DDL 문에 적합하게 이 프로퍼티를 설정해야 한다.
 
 ### DDL 문 레벨 1
 
-다음은 `REPLICATION_DDL_ENABLE_LEVEL`이 1일 때, 즉 DDL 문 레벨 1에서 수행할 수 있는 DDL 문이다. 
+다음은 `REPLICATION_DDL_ENABLE_LEVEL`이 1일 때 수행할 수 있는 DDL 문이다. 
 
 단, 아래에 소개된 구문을 수행하려면 **[SQL 반영 모드](#C부록-SQL-반영-모드)를 반드시 활성화**해야 한다.
 
@@ -2404,7 +2405,7 @@ ALTER TABLE table_name TRUNCATE PARTITION partition_name;
 TRUNCATE TABLE table_name;
 ```
 
-다음과 같은 칼럼을 가진 테이블은 삭제할 수 없다.
+다음과 같은 칼럼을 가진 테이블의 데이터는 삭제할 수 없다.
 
 - 압축 칼럼
 
@@ -2427,41 +2428,41 @@ DROP INDEX index_name;
 #### 디스크 인덱스 AGING
 
 ```sql
-ALTER INDEX index_name AGING
+ALTER INDEX index_name AGING;
 ```
 
 #### 빈 페이지 반환
 
 ```sql
-ALTER TABLE table_name COMPACT
-ALTER TABLE table_name COMPACT PARTITION partition_name
+ALTER TABLE table_name COMPACT;
+ALTER TABLE table_name COMPACT PARTITION partition_name;
 ```
 
 #### 인덱스 파티션 재구축
 
 ```sql
-ALTER INDEX REBUILD PARTITION
+ALTER INDEX REBUILD PARTITION index_partition_name;
 ```
 
 #### 권한 부여 및 회수
 
 ```sql
-GRANT OBJECT
-REVOKE OBJECT
+GRANT OBJECT ...;
+REVOKE OBJECT ...;
 ```
 
 #### 트리거 생성 및 삭제
 
 ```sql
-CREATE TRIGGER
-DROP TRIGGER
+CREATE TRIGGER ...;
+DROP TRIGGER ...;
 ```
 
-## 수행 방법
+## DDL 문 수행 방법
 
-이 절에서는 이중화 대상에 DDL 문을 수행하는 절차를 설명한다. **권장 순서와 다르게 진행하면 데이터 불일치가 발생할 수 있다.**
+이중화 대상에 DDL 문 레벨 1과 DDL 문 레벨 2에 해당하는 DDL 문을 수행하는 절차를 설명한다. **권장 순서와 다르게 진행하면 데이터 불일치가 발생할 수 있다.**
 
-**Step 1. 서비스 이전**
+#### **Step 1. 서비스 이전**
 
 1. 서비스를 DDL 문을 수행하는 지역 서버로 모두 이전한다.
 
@@ -2473,7 +2474,7 @@ DROP TRIGGER
    SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();
    ```
 
-**Step 2. 프로퍼티 설정**
+#### **Step 2. 프로퍼티 설정**
 
 지역 서버와 원격 서버에서 수행하고자 하는 DDL 문에 맞게 프로퍼티 설정을 변경한다.
 
@@ -2483,7 +2484,7 @@ ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
 ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 1;
 ```
 
-**Step 3. 세션의 이중화 모드 설정**
+#### **Step 3. 세션의 이중화 모드 설정**
 
 지역 서버와 원격 서버에서 세션의 이중화 모드[^3]를 `DEFAULT`로 설정하여 이중화 객체의 설정을 따르도록 한다.
 
@@ -2493,14 +2494,9 @@ ALTER SESSION SET REPLICATION_MODE = DEFAULT;
 
 [^3]: 세션의 이중화 모드를 `DEFAULT`로 설정하면, 이중화 객체에 설정된 모드(`LAZY` 또는 `EAGER`)에 따라 이중화가 수행된다. 반면, `NONE`으로 설정하면 모든 이중화가 비활성화된다.
 
-**Step 4. DDL 문 수행**
+#### **Step 4. DDL 문 수행**
 
 지역 서버와 원격 서버에서 동일한 DDL 문을 수행한다.
-
-|DDL 문 수행 대상| 주의 사항 |
-|--------------|----------------|
-|테이블/칼럼|이중화 중지 및 재시작 단계 불필요|
-|파티션|이중화 중지 및 재시작 단계 필요|
 
 1. DDL 문 수행 전, 남아있는 이중화 갭을 해소한다.
 
@@ -2522,13 +2518,13 @@ ALTER SESSION SET REPLICATION_MODE = DEFAULT;
    ALTER REPLICATON replication_name START;
    ```
 
-5. DDL 문 수행 후 생긴 이중화 갭을 해소한다.
+5. DDL 문 수행으로 이중화 갭을 해소한다.
 
    ```sql
    ALTER REPLICATION replication_name FLUSH;
    ```
 
-**Step 5. SQL 반영 모드 동작 여부 확인**
+#### **Step 5. SQL 반영 모드 동작 여부 확인**
 
 원격 서버에서 SQL 반영 모드가 정상적으로 동작하는지 확인한다. 아래 조회 구문의 결과는 0이 나와야 한다.
 
@@ -2536,9 +2532,9 @@ ALTER SESSION SET REPLICATION_MODE = DEFAULT;
 SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
 ```
 
-**Step 6. 프로퍼티 설정 원복**
+#### **Step 6. 프로퍼티 설정 원복**
 
-DDL 문 수행에 필요한 프로퍼티들은 DDL 문 수행이 끝나는 즉시 기본값으로 변경한다.
+Step 2.에서 변경한 프로퍼티들의 값은 DDL 문 수행이 끝나는 즉시 기본값으로 변경한다.
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
@@ -2546,17 +2542,17 @@ ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
 ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
 ```
 
-**Step 7. 서비스 분배**
+#### **Step 7. 서비스 분배**
 
 서비스를 원래대로 분배한다.
 
-##### 작업 절차 표
+#### **작업 절차 표**
 
 <table>   
     <thead>     
         <tr>       
             <th>작업 절차</th>       
-            <th>상세</th>       
+            <th>작업 상세</th>       
             <th>DDL 문 레벨 0</th>       
             <th>DDL 문 레벨 1 : 테이블 혹은 칼럼 대상</th>       
             <th>DDL 문 레벨 1 : 파티션 대상</th>     
@@ -2564,7 +2560,7 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
     </thead>   
     <tbody>     
         <tr>       
-            <td rowspan="2">서비스 이전</td>       
+            <td rowspan="2">Step 1. 서비스 이전</td>       
             <td>서비스 이전</td>       
             <td>서비스를 DDL 문을 수행하는 지역 서버로 이전한다.</td>       
             <td>서비스를 DDL 문을 수행하는 지역 서버로 이전한다.</td>       
@@ -2577,7 +2573,7 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
             <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>     
         </tr>     
         <tr>       
-            <td rowspan="3">프로퍼티 설정</td>       
+            <td rowspan="3">Step 2. 프로퍼티 설정</td>       
             <td>DDL 문 수행 활성화</td>       
             <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>       
             <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>       
@@ -2596,14 +2592,14 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
             <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_MODE = 1;</td>     
         </tr>     
         <tr>       
-            <td>세션의 이중화 모드 설정</td>       
+            <td>Step 3. 세션의 이중화 모드 설정</td>       
             <td></td>       
             <td>ALTER SESSION SET REPLICATION_MODE = DEFAULT;</td>       
             <td>ALTER SESSION SET REPLICATION_MODE = DEFAULT;</td>       
             <td>ALTER SESSION SET REPLICATION_MODE = DEFAULT;</td>     
         </tr>     
         <tr>       
-            <td rowspan="5">DDL 문 수행</td>       
+            <td rowspan="5">Step 4. DDL 문 수행</td>       
             <td>이중화 갭 해소</td>       
             <td>ALTER REPLICATION replication_name FLUSH;</td>       
             <td>ALTER REPLICATION replication_name FLUSH;</td>       
@@ -2634,14 +2630,14 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
             <td>ALTER REPLICATION replication_name FLUSH;</td>     
         </tr>     
         <tr>       
-            <td>SQL 반영 모드 동작 여부 확인</td>       
+            <td>Step 5. SQL 반영 모드 동작 여부 확인</td>       
             <td></td>       
             <td>-</td>       
             <td>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>       
             <td>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>     
         </tr>     
         <tr>       
-            <td rowspan="3">프로퍼티 설정 원복</td>       
+            <td rowspan="3">Step 6. 프로퍼티 설정 원복</td>       
             <td>DDL 문 수행 비활성화</td>       
             <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>       
             <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>       
@@ -2660,7 +2656,7 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
             <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>     
         </tr>     
         <tr>       
-            <td rowspan="2">서비스 분배</td>       
+            <td rowspan="2">Step 7. 서비스 분배</td>       
             <td>서비스 분배</td>       
             <td>서비스를 원래대로 분배한다.</td>       
             <td>서비스를 원래대로 분배한다.</td>       
@@ -2671,23 +2667,26 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
 
 
 
-## 예제
+
+## DDL 문 수행 예제
 
 ### DDL 문 레벨 1 예제
 
-#### 예제 1 : 칼럼 변경
+#### 예제 1 : 칼럼의 데이터 타입 변경 CHAR(5) -> CHAR(10)
 
-다음은 이중화 객체 *rep1* 에 이중화 대상으로 추가된 테이블 *T1*의 칼럼  *c2*의 데이터 타입을 CHAR(5)에서 현재 칼럼보다 더 넓은 범위의 데이터 타입인 CHAR(10)으로 변경하는 예제이다.
+다음은 이중화 객체 *rep1* 에 속한 이중화 대상 테이블 *T1*의 칼럼 *c2*의 데이터 타입을 CHAR(5)에서 CHAR(10)으로, 현재보다 넓은 범위의 데이터 타입으로 변경하는 예제이다.
 
-현재 칼럼보다 범위가 넓어질 때는 주 트랜잭션이 발생하지 않는 서버에서 먼저 DDL문을 수행한다.
+> [!IMPORTANT]
+>
+> **현재 칼럼보다 범위가 넓어질 때는 주 트랜잭션이 발생하지 않는 서버에서 먼저 DDL문을 수행해야 한다.**
 
 ##### Active-Standby 환경 
 
 <table>
   <thead>
-    <tr>
+    <tr>      
       <th>작업 절차</th>
-      <th>상세</th>
+      <th>작업 상세</th>
       <th>Active</th>
       <th>Standby</th>
     </tr>
@@ -2697,7 +2696,7 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
       <td>서비스 이전</td>
       <td></td>
       <td>Active-Standby 환경이므로 이전할 서비스가 없다.</td>
-      <td>-</td>
+      <td></td>
     </tr>
     <tr>
       <td rowspan="3">프로퍼티 설정</td>
@@ -2715,40 +2714,40 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
       <td></td>
       <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
     </tr>
-    <tr>
+    <tr>    
       <td>세션의 이중화 모드 설정</td>
       <td></td>
       <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
-      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td></td>
     </tr>
-    <tr>
+    <tr>           
       <td rowspan="4">DDL 문 수행</td>
-      <td>이중화 갭 해소</td>
-      <td></td>
-      <td>ALTER REPLICATION rep1 FLUSH;</td>
-    </tr>
-    <tr>
       <td>DDL 문 수행</td>
       <td></td>
       <td>ALTER TABLE T1 MODIFY COLUMN ( c2 CHAR(10) );</td>
-    </tr>
+    </tr>     
     <tr>
-      <td>이중화 갭 해소</td>
+      <td>DDL 문 수행 전 이중화 갭 해소</td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
-    </tr>
+    </tr>       
     <tr>
       <td>DDL 문 수행</td>
       <td>ALTER TABLE T1 MODIFY COLUMN ( c2 CHAR(10) );</td>
       <td></td>
     </tr>
     <tr>
+      <td>DDL 문 수행 후 이중화 갭 해소</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>      
+    <tr>       
       <td>SQL 반영 모드 동작 여부 확인</td>
       <td></td>
       <td></td>
       <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
     </tr>
-    <tr>
+    <tr>                  
       <td rowspan="3">프로퍼티 원복</td>
       <td>DDL 문 수행 비활성화</td>
       <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
@@ -2764,7 +2763,7 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
       <td></td>
       <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
     </tr>
-    <tr>
+    <tr>                  
       <td>서비스 분배</td>
       <td></td>
       <td>Active-Standby 환경이므로 분배할 서비스가 없다.</td>
@@ -2775,15 +2774,16 @@ ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
 
 
 
+
 ##### Active-Active 환경 
 
-Active1을 지역 서버로 간주한다.
+Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 가정한다.
 
 <table>
   <thead>
     <tr>
       <th>작업 절차</th>
-      <th>상세</th>
+      <th>작업 상세</th>
       <th>Active1</th>
       <th>Active2</th>
     </tr>
@@ -2823,8 +2823,8 @@ Active1을 지역 서버로 간주한다.
       <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
-      <td rowspan="4">DDL 문 수행</td>
-      <td>이중화 갭 해소</td>
+      <td rowspan="6">DDL 문 수행</td>
+      <td>DDL 문 수행 전 이중화 갭 해소</td>
       <td></td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
@@ -2834,7 +2834,12 @@ Active1을 지역 서버로 간주한다.
       <td>ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );</td>
     </tr>
     <tr>
-      <td>이중화 갭 해소</td>
+      <td>DDL 문 수행 후 이중화 갭 해소</td>
+      <td></td>        
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+    </tr>
+    <tr>
+      <td>DDL 문 수행 전 이중화 갭 해소</td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
@@ -2843,6 +2848,11 @@ Active1을 지역 서버로 간주한다.
       <td>ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );</td>
       <td></td>
     </tr>
+    <tr>
+      <td>DDL 문 수행 후 이중화 갭 해소</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>      
     <tr>
       <td>SQL 반영 모드 동작 여부 확인</td>
       <td></td>
@@ -2876,11 +2886,14 @@ Active1을 지역 서버로 간주한다.
 
 
 
-#### 예제 2 : 데이터 타입 변경
 
-다음은 이중화 객체 *rep1* 에 이중화 대상으로 추가된 테이블 *T1*의 칼럼  *c2*에 CHECK 제약조건을 추가하여 현재 칼럼보다 좁은 범위의 데이터 타입으로 변경하는 예제이다.
+#### 예제 2 : 테이블 제약조건 추가 - CHECK
 
-현재 칼럼보다 범위가 좁아질 때는 주 트랜잭션이 발생하는 서버에서 먼저 DDL 문을 수행한다.
+다음은 이중화 객체 *rep1* 에 속한 이중화 대상 테이블 *T1*의 칼럼 *c2*에 CHECK 제약조건을 추가하여 현재 칼럼보다 좁은 범위로 변경하는 예제이다.
+
+> [!IMPORTANT]
+>
+> **현재 칼럼보다 범위가 좁아질 때는 주 트랜잭션이 발생하는 서버에서 먼저 DDL 문을 수행한다.**
 
 ##### Active-Standby 환경
 
@@ -2888,7 +2901,7 @@ Active1을 지역 서버로 간주한다.
   <thead>
     <tr>
       <th>작업 절차</th>
-      <th>상세</th>
+      <th>작업 상세</th>
       <th>Active</th>
       <th>Standby</th>
     </tr>
@@ -2975,9 +2988,10 @@ Active1을 지역 서버로 간주한다.
 </table>
 
 
+
 ##### Active-Active 환경
 
-Active1을 지역 서버로 간주한다.
+Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 가정한다.
 
 <table>
   <thead>
@@ -3023,8 +3037,8 @@ Active1을 지역 서버로 간주한다.
       <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
-      <td rowspan="4">DDL 문 수행</td>
-      <td>이중화 갭 해소</td>
+      <td rowspan="6">DDL 문 수행</td>
+      <td>DDL 문 수행 전 이중화 갭 해소</td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
@@ -3034,7 +3048,12 @@ Active1을 지역 서버로 간주한다.
       <td></td>
     </tr>
     <tr>
-      <td>이중화 갭 해소</td>
+      <td>DDL 문 수행 후 이중화 갭 해소</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>      
+    <tr>
+      <td>DDL 문 수행 전 이중화 갭 해소</td>
       <td></td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
@@ -3043,6 +3062,11 @@ Active1을 지역 서버로 간주한다.
       <td></td>
       <td>ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 &lt; 10 );</td>
     </tr>
+    <tr>
+      <td>DDL 문 수행 후 이중화 갭 해소</td>
+      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+    </tr>      
     <tr>
       <td>SQL 반영 모드 동작 여부 확인</td>
       <td></td>
@@ -3075,9 +3099,10 @@ Active1을 지역 서버로 간주한다.
 </table>
 
 
+
 #### 예제 3 : 파티션 분할
 
-다음은 이중화 객체 *rep1* 에 이중화 대상으로 추가된 테이블 *T1*의 파티션 *P1*과 *P2*를 파티션 *P3*과 *P4*로 분할하는 예제이다.
+다음은 이중화 객체 *rep1*에 속한 이중화 대상 테이블 *T1*의 파티션 *P2*를 파티션 *P3*과 *P4*로 분할하는 예제이다.
 
 ##### Active-Standby 환경
 
@@ -3117,10 +3142,14 @@ Active1을 지역 서버로 간주한다.
       <td>세션의 이중화 모드 설정</td>
       <td></td>
       <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
-      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td></td>
     </tr>
     <tr>
-      <td rowspan="5">DDL 문 수행</td>
+      <td rowspan="6">DDL 문 수행</td>
+      <td>DDL 문 수행</td>
+      <td></td>
+      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>           </tr> 
+    <tr>      
       <td>이중화 갭 해소</td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
@@ -3133,18 +3162,18 @@ Active1을 지역 서버로 간주한다.
     <tr>
       <td>DDL 문 수행</td>
       <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
-      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
+      <td></td>
     </tr>
     <tr>
       <td>이중화 시작</td>
       <td>ALTER REPLICATION rep1 START;</td>
       <td></td>
     </tr>
-    <tr>
+    <tr>      
       <td>이중화 갭 해소</td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
-    </tr>
+    </tr>       
     <tr>
       <td>SQL 반영 모드 동작 여부 확인</td>
       <td></td>
@@ -3177,9 +3206,10 @@ Active1을 지역 서버로 간주한다.
 </table>
 
 
+
 ##### Active-Active 환경 
 
-Active1을 지역 서버로 간주한다.
+Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 가정한다.
 
 <table>
   <thead>
@@ -3225,31 +3255,56 @@ Active1을 지역 서버로 간주한다.
       <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
-      <td rowspan="5">DDL 문 수행</td>
+      <td rowspan="10">DDL 문 수행</td>
       <td>이중화 갭 해소</td>
-      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
     <tr>
       <td>이중화 중지</td>
-      <td>ALTER REPLICATION rep1 STOP;</td>
+      <td></td>
       <td>ALTER REPLICATION rep1 STOP;</td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
-      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
+      <td></td>
       <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
     </tr>
     <tr>
       <td>이중화 시작</td>
-      <td>ALTER REPLICATION rep1 START;</td>
+      <td></td>
       <td>ALTER REPLICATION rep1 START;</td>
     </tr>
     <tr>
       <td>이중화 갭 해소</td>
-      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
+    <tr>
+      <td>이중화 갭 해소</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>      
+    <tr>
+      <td>이중화 중지</td>
+      <td>ALTER REPLICATION rep1 STOP;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>DDL 문 수행</td>
+      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>이중화 시작</td>
+      <td>ALTER REPLICATION rep1 START;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>이중화 갭 해소</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>      
     <tr>
       <td>SQL 반영 모드 동작 여부 확인</td>
       <td></td>
@@ -3282,11 +3337,12 @@ Active1을 지역 서버로 간주한다.
 </table>
 
 
+
 ### DDL 문 레벨 0 예제
 
 #### 예제 1 : 칼럼 추가
 
-다음은 이중화 객체 *rep1* 에 이중화 대상으로 추가된 테이블 *T1*에 INTEGER 데이터 타입을 가지는 *i3* 칼럼을 추가하는 예제이다.
+다음은 이중화 객체 *rep1*의 이중화 대상 테이블 *T1*에 *i3* 칼럼을 추가하는 예제이다.
 
 ##### Active-Standby 환경
 
@@ -3314,16 +3370,12 @@ Active1을 지역 서버로 간주한다.
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
+      <td></td>        
       <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
-      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td></td>
     </tr>
     <tr>
       <td rowspan="4">DDL 문 수행</td>
-      <td>이중화 갭 제거</td>
-      <td></td>
-      <td>ALTER REPLICATION rep1 FLUSH;</td>
-    </tr>
-    <tr>
       <td>DDL 문 수행</td>
       <td></td>
       <td>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</td>
@@ -3338,6 +3390,11 @@ Active1을 지역 서버로 간주한다.
       <td>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</td>
       <td></td>
     </tr>
+    <tr>
+      <td>이중화 갭 제거</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>      
     <tr>
       <td>프로퍼티 설정 원복</td>
       <td>DDL 문 수행 비활성화</td>
@@ -3352,6 +3409,7 @@ Active1을 지역 서버로 간주한다.
     </tr>
   </tbody>
 </table> 
+
 
 
 ##### Active-Active 환경 
