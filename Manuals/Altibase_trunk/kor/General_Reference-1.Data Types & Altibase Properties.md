@@ -2628,7 +2628,7 @@ Temporary LOB 의 유형별 설명은 아래의 표를 참고한다.
 | 비교     | 트랜잭션 Temporary LOB                                       | 세션 Temporary LOB                                           |
 | :------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
 | 생명주기 | 트랜잭션                                                     | 세션                                                         |
-| 정리시점 | 트랜잭션 종료시 정리                                         | 세션 종료 시 정리                                            |
+| 정리시점 | 트랜잭션 종료시 정리                                         | - 세션 종료 시 정리</br>- ALTER SESSION SET FREE TEMPORARY LOB 구문으로 정리 |
 | 사용법   | 세션 Temporary LOB이 생성되는 경우를 제외한 모든 구문에서 다음과 같이 사용한 경우</br>- TO_CLOB</br>- TO_BLOB</br>- CLOB 을 인자로 받는 SUBSTR</br>- CLOB 을 인자로 받는 CONCAT</br>- PSM 내에서 LOB 타입의 변수 | PSM 내에서 아래의 유형으로 LOB 타입을 사용한 경우</br>- ASSOCIATIVE ARRAY</br>- VARRAY</br>- PACKAGE 변수 |
 
 ###### 예제 - 트랜잭션 Temporary LOB
@@ -2699,6 +2699,14 @@ TYPE                 OPEN_COUNT
 ---------------------------------------------
 1                    2
 1 row selected.
+
+iSQL> ALTER SESSION SET FREE TEMPORARY LOB;
+Alter success.
+ 
+iSQL> SELECT type, open_count FROM V$TEMPORARY_LOBS;
+MANAGER_TYPE         OPEN_COUNT
+---------------------------------------------
+No rows selected.
 ```
 
 #### 제한 사항

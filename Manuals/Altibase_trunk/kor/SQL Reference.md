@@ -564,9 +564,9 @@ DCL(Data Control Language) 문은 데이터를 제어하는데 사용된다.
 
 ##### 세션 제어문
 
-| SQL 문        | 설명                 |
-| ------------- | -------------------- |
-| ALTER SESSION | 세션의 프로퍼티 변경 |
+| SQL 문        | 설명                                        |
+| ------------- | ------------------------------------------- |
+| ALTER SESSION | 세션의 프로퍼티 변경, 세션에 대한 제어 처리 |
 
 [표 1‑6] 세션 제어문 목록
 
@@ -16118,7 +16118,9 @@ CREATE REPLICATION 구문으로 이중화 생성 후 이중화의 동작을 제�
 
 ![alter_session_image246](media/SQL/alter_session_image246.gif)
 
-[set_transaction_clause::=](#set_transaction)
+**[set_transaction_clause::=](#set_transaction)**
+
+**set_free_temporary_lob_clause::=**
 
 **alter_session_set_clause::=**
 
@@ -16139,7 +16141,11 @@ CREATE REPLICATION 구문으로 이중화 생성 후 이중화의 동작을 제�
 *alter_session_set_clause*
 
 alter_session_set_clause 절의 property_name과 property\_ value에 관한 자세한
-내용은 Altibase 매뉴얼 중 *General Reference*의 Altibase 프로퍼티 장을 참조한다.
+내용은 *General Reference*의 Altibase 프로퍼티 장을 참조한다.
+
+*set_free_temporary_lob*
+
+세션에 생성된 세션 Temporary LOB을 정리하는 구문이다. 
 
 *replication_mode_set_clause*
 
@@ -16489,7 +16495,7 @@ AUTOCOMMIT 모드 시에 이 문장을 수행할 수 없다.
 
 #### 예제
 
-다음 구문은 트랜잭션이 이전에 수행한 모든 명령들을 데이터베이스에 반영한다..
+다음 구문은 트랜잭션이 이전에 수행한 모든 명령들을 데이터베이스에 반영한다.
 
 ```
 iSQL> COMMIT;
