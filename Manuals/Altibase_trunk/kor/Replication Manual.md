@@ -3145,11 +3145,7 @@ Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 
       <td></td>
     </tr>
     <tr>
-      <td rowspan="6">DDL 문 수행</td>
-      <td>DDL 문 수행</td>
-      <td></td>
-      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>           </tr> 
-    <tr>      
+      <td rowspan="5">DDL 문 수행</td>
       <td>이중화 갭 해소</td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
@@ -3162,7 +3158,7 @@ Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 
     <tr>
       <td>DDL 문 수행</td>
       <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
-      <td></td>
+      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
     </tr>
     <tr>
       <td>이중화 시작</td>
@@ -3255,56 +3251,31 @@ Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 
       <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
-      <td rowspan="10">DDL 문 수행</td>
+      <td rowspan="5">DDL 문 수행</td>
       <td>이중화 갭 해소</td>
-      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
     </tr>
     <tr>
       <td>이중화 중지</td>
-      <td></td>
+      <td>ALTER REPLICATION rep1 STOP;</td>
       <td>ALTER REPLICATION rep1 STOP;</td>
     </tr>
     <tr>
       <td>DDL 문 수행</td>
-      <td></td>
+      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
       <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
     </tr>
     <tr>
       <td>이중화 시작</td>
-      <td></td>
+      <td>ALTER REPLICATION rep1 START;</td>
       <td>ALTER REPLICATION rep1 START;</td>
     </tr>
     <tr>
       <td>이중화 갭 해소</td>
-      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH</td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
-    </tr>
-    <tr>
-      <td>이중화 갭 해소</td>
-      <td>ALTER REPLICATION rep1 FLUSH;</td>
-      <td></td>
-    </tr>      
-    <tr>
-      <td>이중화 중지</td>
-      <td>ALTER REPLICATION rep1 STOP;</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>DDL 문 수행</td>
-      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>이중화 시작</td>
-      <td>ALTER REPLICATION rep1 START;</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>이중화 갭 해소</td>
-      <td>ALTER REPLICATION rep1 FLUSH;</td>
-      <td></td>
-    </tr>      
+    </tr>    
     <tr>
       <td>SQL 반영 모드 동작 여부 확인</td>
       <td></td>
@@ -3414,7 +3385,7 @@ Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 
 
 ##### Active-Active 환경 
 
-Active1을 지역 서버로 간주하고 두 Active 서버에 DDL 문을 수행하는 절차이다.
+Active1을 DDL 문 수행 중에 주 트랜잭션이 발생하는 지역 서버로 가정한다.
 
 <table>
   <thead>
@@ -3438,23 +3409,19 @@ Active1을 지역 서버로 간주하고 두 Active 서버에 DDL 문을 수행�
       <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
     </tr>
     <tr>
-      <td rowspan="3">프로퍼티 설정</td>
-      <td>관리자 모드 설정</td>
-      <td></td>
-      <td>ALTER SYSTEM SET ADMIN_MODE = 1;</td>
-    </tr>
-    <tr>
+      <td>프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
       <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
-      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>        
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
+      <td></td>        
       <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
       <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
     </tr>
     <tr>
-      <td rowspan="4">DDL 문 수행</td>
+      <td rowspan="6">DDL 문 수행</td>
       <td>이중화 갭 제거</td>
       <td></td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
@@ -3466,6 +3433,11 @@ Active1을 지역 서버로 간주하고 두 Active 서버에 DDL 문을 수행�
     </tr>
     <tr>
       <td>이중화 갭 제거</td>
+      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+    </tr>      
+    <tr>
+      <td>이중화 갭 제거</td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
     </tr>
@@ -3475,12 +3447,12 @@ Active1을 지역 서버로 간주하고 두 Active 서버에 DDL 문을 수행�
       <td></td>
     </tr>
     <tr>
-      <td rowspan="2">프로퍼티 설정 원복</td>
-      <td>관리자 모드 설정 해제</td>
+      <td>이중화 갭 제거</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
       <td></td>
-      <td>ALTER SYSTEM SET ADMIN_MODE = 0;</td>
-    </tr>
+    </tr>      
     <tr>
+      <td>프로퍼티 설정 원복</td>
       <td>DDL 문 수행 비활성화</td>
       <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
       <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
@@ -3495,31 +3467,32 @@ Active1을 지역 서버로 간주하고 두 Active 서버에 DDL 문을 수행�
 </table>
 
 
+
 # 5.DDL 문 복제
 
 ## 개요
 
-DDL 문 복제는 지역 서버에서 이중화 대상에 DDL 문을 수행했을 때 원격 서버로도 DDL 문을 복제하는 기능이다.
+DDL 문 복제는 지역 서버에서 이중화 대상에 수행된 DDL 문을 원격 서버로도 동일하게 복제하는 기능이다.
 
-DDL 문 복제를 수행하면 트랜잭션은 동기식으로 동작하여, 주 트랜잭션 또는 복제 트랜잭션 중 하나에서 DDL 문이 실패하면 해당 DDL 문은 실패한다. 또한, 지역 서버와 원격 서버의 이중화 대상 테이블은 잠금 상태가 되어 트랜잭션 접근이 제한된다.
+DDL 문 복제를 수행하면 트랜잭션은 동기식으로 동작하여, 주 트랜잭션 또는 복제 트랜잭션 중 하나에서 DDL 문이 실패할 경우 해당 DDL 문은 실패한다. 또한, 지역 서버와 원격 서버의 이중화 대상 테이블이 잠금 상태가 되어 트랜잭션 접근이 제한된다.
 
 이 기능은 Altibase 7.1.0.x.x 부터 지원한다. (7.1 매뉴얼에만 추가)
 
 ### DDL 문 복제 프로퍼티
 
-DDL 문 복제는 DDL 문 복제 프로퍼티를 활성화하여 사용할 수 있다.
+DDL 문 복제는 관련 프로퍼티를 활성화하여 사용할 수 있다.
 
-| 프로퍼티             | 설명                                     | 기본값 |
-| -------------------- | ---------------------------------------- | ------ |
-| REPLICATION_DDL_SYNC | 이중화 대상에 DDL 문 복제를 활성화 한다. | 0      |
+| 프로퍼티             | 설명                            | 기본값 |
+| -------------------- | ------------------------------- | ------ |
+| REPLICATION_DDL_SYNC | DDL 문 복제 기능을 활성화 한다. | 0      |
 
 ### 수행 조건
 
-DDL 문 복제 기능을 사용하기 위해서는 아래의 조건을 만족해야 한다.
+DDL 문 복제 기능을 사용하려면 다음 조건을 만족해야 한다.
 
-- 지역 서버와 원격 서버에서 이중화가 모두 시작되어 있어야 한다.
-- 지역 서버와 원격 서버의 이중화 프로토콜 버전이 모두 같아야 한다.
-- 지역 서버와 원격 서버에서 DDL 문을 수행할 이중화 대상의 이름과 소유자가 모두 같아야 한다.
+- 지역 서버와 원격 서버에서 이중화가 모두 시작된 상태여야 한다.
+- 지역 서버와 원격 서버의 이중화 프로토콜 버전이 같아야 한다.
+- 지역 서버와 원격 서버에서 DDL 문을 수행할 이중화 대상의 이름과 소유자가 같아야 한다.
 
 ### 제약 사항
 
@@ -3527,7 +3500,7 @@ DDL 문 복제 기능을 사용하기 위해서는 아래의 조건을 만족해
 
 - EAGER 모드 이중화 객체
 - 글로벌 논파티션드 인덱스가 있는 파티션드 테이블
-- [PROPAGATION 롤](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication Manual.md#propagation-롤) 이 지정된 이중화 객체
+- [PROPAGATION 롤](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication Manual.md#propagation-롤)이 지정된 이중화 객체
 - [복구 옵션](https://github.com/ALTIBASE/Documents/blob/a67047d5a6acf777906f34286029a5af24821213/Manuals/Altibase_trunk/kor/Replication Manual.md#복구-옵션recovery-option)을 설정한 이중화 객체
 
 다음의 구문은 DDL 문 복제를 수행할 수 없다.
@@ -3536,55 +3509,58 @@ DDL 문 복제 기능을 사용하기 위해서는 아래의 조건을 만족해
 - 권한 부여/회수
 - 트리거 생성/삭제
 
-## 수행 방법
+## DDL 문 복제 수행 방법
 
 이 절에서는 DDL 문 복제를 수행하는 방법에 대하여 설명한다. 보다 자세한 절차는 [예제](#예제)를 참고한다.
 
-아래 수행 방법에서는 DDL 문을 수행할 서버를 지역 서버로, DDL 문 복제가 수행되는 서버를 원격 서버로 간주한다. 또한, 이중화는 두 서버에서 모두 시작한 상태라고 가정한다.
+아래 수행 방법에서는 DDL 문을 수행할 서버를 지역 서버, DDL 문 복제가 수행되는 서버를 원격 서버로 가정한다. 또한, 이중화는 두 서버에서 모두 시작한 상태라고 가정한다.
 
-**Step 1. 서비스 이전**
+#### Step 1. 서비스 이전
 
-1. 서비스를 DDL 문을 수행하는 지역 서버로 모두 이전한다.
+1. 서비스를 DDL 문을 수행하는 지역 서버로 이전한다.
 
-2. 서비스가 모두 지역 서버로 이전되었는지 확인한다.
+2. 서비스가 정상적으로 이전되었는지 확인한다.
 
-   원격 서버에서 아래 조회 구문의 결과가 0이 나와야 한다.
+   원격 서버에서 아래 조회 구문을 실행하여 결과가 0인지 확인한다.
 
    ```sql
    SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();
    ```
 
-**Step 2. 프로퍼티 설정**
+#### Step 2. 프로퍼티 설정
 
-지역 서버와 원격 서버에 DDL 문 수행에 필요한 프로퍼티를 설정한다.
+지역 서버와 원격 서버에서 DDL 문 수행에 필요한 프로퍼티를 설정한다. 
 
-`REPLICATION_DDL_ENABLE_LEVEL` 은 [수행할 수 있는 DDL 문](#수행할-수-있는-DDL-문)을 참고하여 설정한다.
+`REPLICATION_DDL_SYNC` 설정 시 지역 서버에서는 `ALTER SESSION`, 원격 서버에서는 `ALTER SYSTEM`을 사용해야 한다는 점에 주의한다.
+
+- 지역 서버에서 변경해야 할 프로퍼티
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
-ALTER SESSION SET REPLICATION_DDL_SYNC=1;
+ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
 ```
 
-원격 서버에 다음과 같이 프로퍼티를 추가로 설정한다.
+- 원격 서버에서 변경해야 할 프로퍼티
 
 ```sql
-ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 1;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+ALTER SYSTEM SET REPLICATION_DDL_SYNC=1;
+ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
 ```
 
-**Step 3. 세션의 이중화 모드 설정**
+#### Step 3. 세션의 이중화 모드 설정
 
-지역 서버와 원격 서버에서 세션의 이중화 모드[^3]를 `DEFAULT`로 설정하여 이중화 객체의 설정을 따르도록 한다.
+지역 서버에서 세션의 이중화 모드[^3]를 `DEFAULT`로 설정하여 이중화 객체의 설정을 따르도록 한다.
 
 ```sql
 ALTER SESSION SET REPLICATION_MODE = DEFAULT;
 ```
 
-**Step 4. DDL 문 수행**
+#### Step 4. DDL 문 수행
 
-지역 서버와 원격 서버에서 동일한 DDL 문을 수행한다.
-
-1. DDL 문 수행 전, 지역 서버와 원격 서버에서 다음 구문을 수행하여 남아있는 이중화 갭을 모두 반영한다.
+1. DDL 문을 수행하기 전, 지역 서버와 원격 서버에서 다음 구문을 실행하여 남아있는 이중화 갭을 모두 반영한다.
 
    ```sql
    ALTER REPLICATION replication_name FLUSH;
@@ -3592,19 +3568,19 @@ ALTER SESSION SET REPLICATION_MODE = DEFAULT;
 
 2. 지역 서버에서 DDL 문을 수행한다.
 
-**Step 5. SQL 반영 모드 동작 여부 확인**
+#### Step 5. SQL 반영 모드 동작 여부 확인
 
-원격 서버에서 SQL 반영 모드가 정상적으로 동작하는지 확인한다. 아래 조회 구문의 결과는 0이 나와야 한다.
+원격 서버에서 SQL 반영 모드가 동작하는지 확인한다. 아래 조회 구문을 실행하여 결과가 0인지 확인한다.
 
 ```sql
 SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
 ```
 
-**Step 6. 프로퍼티 설정 원복**
+#### Step 6. 프로퍼티 설정 원복
 
-DDL 문 복제에 필요한 프로퍼티들은 DDL 문 복제가 끝나는 즉시 기본값으로 변경해야 한다.
+DDL 문 복제에 사용된 프로퍼티들은 DDL 문 복제가 끝나는 즉시 기본값으로 변경해야 한다.
 
-지역 서버에서 다음과 같이 프로퍼티를 기본값으로 원복한다.
+- 지역 서버에서 기본값으로 원복
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; 
@@ -3612,20 +3588,20 @@ ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
 ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
 ```
 
-원격 서버에서 다음과 같이 프로퍼티를 기본값으로 원복한다.
+- 원격 서버에서 기본값으로 원복
 
 ```sql
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
 ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
-ALTER SYSTEM SET REPLICAION_SQL_APPLY_MODE = 0;
-ALTER SESSION SET REPLICATION_DDL_SYNC=0;
+ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
+ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 ```
 
-**Step 7. 서비스 분배**
+#### Step 7. 서비스 분배
 
 서비스를 원래대로 분배한다.
 
-### 작업 절차 표
+#### 작업 절차 표
 
 <table>
   <thead>
@@ -3661,48 +3637,67 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
     </tr>
     <tr>
       <td>SQL 반영 모드 활성화</td>
-      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+      <td></td>
       <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
     </tr>
     <tr>
       <td>DDL 문 복제 활성화</td>
       <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
-      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
     </tr>
     <tr>
       <td>세션의 이중화 모드 설정</td>
       <td></td>
       <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
-      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td></td>
     </tr>
     <tr>
-      <td>이중화 갭 해소</td>
-      <td>원격 서버의 이중화 갭 해소</td>
+      <td rowspan="4">DDL 문 수행</td>
+      <td>이중화 갭 해소(원격서버)</td>
       <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>        
+    </tr>        
+    <tr>
+      <td>이중화 갭 해소(지역서버)</td>
       <td>ALTER REPLICATION rep1 FLUSH;</td>
-    </tr>
-    <tr>
       <td></td>
-      <td>지역 서버의 이중화 갭 해소</td>
-      <td>ALTER REPLICATION rep1 FLUSH;</td>
-      <td></td>
-    </tr>
-    <tr>
+    </tr> 
+    <tr>      
+      <td>DDL 문 수행</td>
       <td>DDL 문 수행</td>
       <td></td>
-      <td>DDL 문 수행</td>
-      <td></td>
     </tr>
+     <tr>
+      <td>이중화 갭 해소(지역서버)</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>  
     <tr>
-      <td rowspan="2">프로퍼티 설정 원복</td>
+      <td>SQL 반영 모드 동작 여부 확인</td>
+      <td></td>
+      <td></td>
+      <td>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+    </tr>      
+    <tr>
+      <td rowspan="4">프로퍼티 설정 원복</td>
       <td>DDL 문 수행 비활성화</td>
       <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
       <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
     </tr>
     <tr>
+      <td>DDL 문 수행 레벨 비활성화</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+    </tr>    
+    <tr>
+      <td>SQL 반영 모드 비활성화</td>
+      <td></td>
+      <td>ALTER SESSION SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+    </tr>      
+    <tr>
       <td>DDL 문 복제 비활성화</td>
       <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
-      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
     </tr>
     <tr>
       <td>서비스 분배</td>
@@ -3715,7 +3710,8 @@ ALTER SESSION SET REPLICATION_DDL_SYNC=0;
 
 
 
-## 예제
+
+## DDL 문 복제 예제
 
 이 절에서는 DDL 문 복제 프로퍼티를 활성화하여 이중화 대상에 DDL 문을 수행하는 세 가지 예제를 소개한다. DDL 문 복제는 Active-Standby 환경에서만 수행할 수 있기 때문에, Active-Active 환경 예제는 제공하지 않는다.
 
