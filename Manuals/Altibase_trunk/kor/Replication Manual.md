@@ -4038,6 +4038,123 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 
 
 
+<table>
+  <thead>
+    <tr>
+      <th>작업 절차</th>
+      <td>상세</td>        
+      <th>지역 서버</th>
+      <th>원격 서버 1</th>
+      <th>원격 서버 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> 서비스 이전</td>
+      <td></td>
+      <td></td>        
+      <td>지역 서버로 서비스 이전</td>
+      <td>지역 서버로 서비스 이전</td>
+    </tr>
+    <tr>
+      <td rowspan="4">프로퍼티 설정</td>
+      <td>DDL 문 수행 활성화</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>DDL 문 수행 레벨 설정</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+    </tr>
+    <tr>
+      <td>SQL 반영 모드 활성화</td>
+      <td></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>DDL 문 복제 활성화</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+    </tr>
+    <tr>
+      <td>세션의 이중화 모드 설정</td>
+      <td></td>        
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="4">DDL 문 수행</td>
+      <td>이중화 갭 해소</td>
+      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;<br>ALTER REPLICATION rep3 FLUSH;</td>
+      <td>ALTER REPLICATION rep2 FLUSH;<br>ALTER REPLICATION rep3 FLUSH;</td>
+    </tr>
+    <tr>
+      <td>이중화 갭 해소</td>
+      <td>ALTER REPLICATION rep1 FLUSH;<br>ALTER REPLICATION rep2 FLUSH;</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>DDL 문 수행</td>
+      <td>ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>이중화 갭 해소</td>
+      <td>ALTER REPLICATION rep1 FLUSH;<br>ALTER REPLICATION rep2 FLUSH;</td>
+      <td></td>
+      <td></td>
+    </tr> 
+    <tr>
+      <td>SQL 반영 모드 동작 여부 확인</td>
+      <td></td>
+      <td></td>        
+      <td>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+      <td>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+    </tr>      
+    <tr>
+      <td rowspan="4">프로퍼티 설정 원복</td>
+      <td>DDL 문 수행 비활성화</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>DDL 문 수행 레벨 설정</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+    </tr>
+    <tr>
+      <td>SQL 반영 모드 비활성화</td>
+      <td></td>        
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>DDL 문 복제 비활성화</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
+    </tr>
+    <tr>
+      <td>서비스 분배</td>
+      <td></td>        
+      <td>원격 서버 1과 원격 서버 2로 서비스 분배</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
 # 6.Fail-Over
 
 데이터베이스 시스템을 운영 하는 도중, 장애가 발생하였을 때 이를 극복하고 장애에 관계없이 서비스를 계속할 수 있도록 Fail-Over 기능을 제공한다. 이 장은 Altibase에서 지원하는 Fail-Over의 기능과 사용 방법에 대해 설명한다.
