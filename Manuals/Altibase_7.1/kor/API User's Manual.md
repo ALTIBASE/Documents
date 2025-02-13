@@ -157,6 +157,8 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
   - Altibase EF Core 데이터 타입
 
+  - 예제
+  
     
 
 
@@ -3936,62 +3938,68 @@ class ArrayBind
 
 
 
-# Altibase EF Core
+# 7. Altibase EF Core(Altibase.EntityFrameworkCore)
 
 ## Altibase EF Core 개요
 
-Altibase EF Core는 마이크로소프트의 Entity Framework Core (이하 EF Core) 3.1의 기능을 Altibase 데이터베이스와 연동하여 사용할 수 있도록 구현한 것이다.
+Entity Framework Core(이하 EF Core)는 .NET 개발자들이 관계형 데이터베이스와 상호 작용할 수 있도록 도와주는 객체 관계 매핑(ORM) 프레임워크이다. EF Core는 데이터베이스 스키마와 클래스 모델간의 매핑을 자동화하여, SQL을 작성하지 않고도 데이터베이스와 상호 작용 할 수 있도록 한다. EF Core에 관한 자세한 내용은 [마이크로소프트의 Entity Framework Core](https://learn.microsoft.com/ko-kr/ef/core/)를 참고한다.
 
-EF Core는 .NET 개발자들이 관계형 데이터베이스와 상호 작용할 수 있도록 도와주는 객체 관계 매핑(ORM) 프레임워크이다. EF Core는 데이터베이스 스키마와 클래스 모델간의 매핑을 자동화하여, SQL을 작성하지 않고도 데이터베이스와 상호 작용 할 수 있도록 한다.
-
-EF Core에 관한 보다 자세한 내용은 마이크로소프트의 [EF Core 문서](https://learn.microsoft.com/ko-kr/ef/core/)를 참고한다.
+Altibase EF Core(Altibase.EntityFrameworkCore)는 EF Core 3.1과 Altibase 데이터베이스와 연동할 수 있도록 구현한 것이다.
 
 ### 요구사항
 
 - Altibase ADO.NET 드라이버
-- Altibase 7.3.0.0.5 이상
+- Altibase 7.1.0.10.0 이상
 - .NET Core 3.1
 
 ### 지원 OS
 
 Altibase ADO.NET과 동일한 OS를 지원한다.
 
-Altibase ADO.NET 지원 OS
-
-## Altibase EF Core 사용
+## Altibase EF Core 사용법
 
 EF Core 개발자가 Altibase EF Core를 사용하여 개발할 때 알아야 할 사용 방법에 대해 설명한다.
 
 ### Dotnet EF 설치
 
-dotnet CLI에서 EF Core의 기능을 사용하기 위한 확장 기능을 설치한다.
+dotnet CLI에서 EF Core의 기능을 사용하기 위해 dotnet ef 를 설치한다.
 
-dotnet ef를 통해서 마이그레이션, 데이터베이스 업데이트, 스캐폴드와 같은 명령을 수행할 수 있다.
+dotnet ef를 이용해서 마이그레이션, 데이터베이스 업데이트, 스캐폴드와 같은 명령을 수행할 수 있다.
 
-```
+```sh
 dotnet tool install --global dotnet-ef --version 3.1
 ```
 
 ### Altibase EF Core 패키지 설치
 
-[NuGet 사이트](https://www.nuget.org/packages/Altibase.EntityFrameworkCore )를 통해  Altibase.Data.AltibaseClient와 Altibase.EntityFrameworkCore를 제공한다. !!!링크깨짐
+Altibase EF Core 패키지를 사용하려면, Altibase ADO.NET 패키지가 설치되어 있어야 한다.
 
-```
-/* Altibase ADO.NET NuGet 패키지 설치 */
+dotnet CLI에서 아래의 명령어로 Altibase.EntityFrameworkCore를 설치한다.
+
+또한, [NuGet 사이트](https://www.nuget.org/packages/Altibase.EntityFrameworkCore )를 통해서도 다운로드 할 수 있다.
+
+```sh
+## Altibase ADO.NET 패키지 설치
 dotnet add package Altibase.Data.AltibaseClient
-/* Altibase EF Core NuGet 패키지 설치 */
+## Altibase EF Core 패키지 설치
 dotnet add package Altibase.EntityFrameworkCore
 ```
 
-### DbContext
+### Altibase EF Core 패키지 사용 선언
+
+```c#
+using Altibase.EntityFrameworkCore;
+```
+
+### DbContext 정의
 
 DbContext는 EF Core의 핵심 클래스이며, 데이터베이스와의 연결을 관리하고 쿼리 및 명령을 처리한다.
 
-```
+```c#
 public class SampleContext : DbContext
 {
     public DbSet<SampleTable> SampleTables { get; set; }
-    // 연결설정
+    // 연결 설정
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
     optionsBuilder.UseAltibase("Server=127.0.0.1;port=20300;User=sys;Password=manager");
@@ -4006,25 +4014,24 @@ public class SampleContext : DbContext
 
 #### 연결 설정
 
-DbContext의 OnConfiguring 함수 재정의를 통해서 연결 설정을 할 수 있다.
+DbContext의 OnConfiguring 함수를 사용하여 Altibase 서버와 연결 설정을 할 수 있다.
 
-```
+연결 문자열(Connection String)은 UseAltibase()의 인자로 전달하며, 추가할 수 있는 연결 속성(Properties)은 [ADO.NET의 연결 속성](#연결-속성-정보)을 참고 한다.
+
+```c#
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 {
-    // 연결설정
+    // 연결 설정
     optionsBuilder.UseAltibase("Server=127.0.0.1;port=20300;User=sys;Password=manager");
 }
 ```
 
-UseAltibase에 전달되는 Connection String의 Property는 ADO.NET과 동일하다.
+### 엔티티 클래스(모델) 정의
 
-Altibase ADO.NET 연결 설정
+데이터베이스 테이블과 매핑되는 엔티티(Entity) 클래스를 정의 한다.
 
-### 엔티티 클래스(모델)
-
-데이터베이스 테이블과 매핑되는 클래스를 정의 한다.
-
-```
+```c#
+//SampleTable 클래스
 public class SampleTable
 {
     public int C1 { get; set; }
@@ -4032,22 +4039,22 @@ public class SampleTable
 }
 ```
 
-##### 마이그레이션 및 데이터베이스 업데이트
+### 마이그레이션 생성 및 데이터베이스 업데이트
 
 EF Core의 마이그레이션 기능을 사용하면 모델 변경 사항을 데이터베이스에 반영할 수 있다.
 
-```
-// 마이그레이션 생성
+```sh
+## 마이그레이션 생성
 dotnet ef migrations add InitialCreate
-// 마이그레이션 데이터베이스에 반영
+## 마이그레이션 데이터베이스에 반영
 dotnet ef database update
 ```
 
-**CRUD(Create/Read/Update/Delete) 작업**
+### CRUD(Create/Read/Update/Delete) 작업
 
 - 생성(Create) 
 
-  ```
+  ```c#
   using var context = new SampleContext();
   context.SampleTables.Add(new SampleTable { C1 = 1, C2 = "A"});
   context.SampleTables.Add(new SampleTable { C1 = 2, C2 = "B" });
@@ -4057,14 +4064,14 @@ dotnet ef database update
 
 - 읽기(Read)
 
-  ```
+  ```c#
   using var context = new SampleContext();
   var sampleTables = context.SampleTables.ToList()
   ```
 
 - 업데이트(Update)
 
-  ```
+  ```c#
   using var context = new SampleContext();
   var updateRow = context.SampleTables.Single(s => s.C1 == 2);
   updateRow.C2 = "X";
@@ -4073,59 +4080,16 @@ dotnet ef database update
 
 - 삭제(Delete)
 
-  ```
+  ```c#
   using var context = new SampleContext();
   var deleteRow = context.SampleTables.Single(s => s.C1 == 3);
   context.SampleTables.Remove(deleteRow);
   context.SaveChanges();
   ```
 
-### Altibase EF Core 데이터 타입
+### Altibase EF Core 사용시 주의 사항
 
-Altibase EF Core에서 지원되는 C# Type과 Altibase Database Type과의 관계를 표기한다.
-
-**마이그레이션**
-
-| .NET Core | Altibase의 데이터타입 |
-| :-------- | :-------------------- |
-| bool      | SMALLINT              |
-| byte      | SMALLINT              |
-| char      | CHAR(2)               |
-| short     | SMALLINT              |
-| ushort    | INTEGER               |
-| int       | INTEGER               |
-| uint      | BIGINT                |
-| long      | BIGINT                |
-| ulong     | NUMERIC               |
-| decimal   | NUMERIC               |
-| float     | REAL                  |
-| double    | DOUBLE                |
-| string    | VARCHAR               |
-| byte[]    | VARBYTE               |
-| DateTime  | DATE                  |
-
-**스캐폴드**
-
-| Altibase의 데이터타입 | .NET Core |
-| :-------------------- | :-------- |
-| CHAR                  | char      |
-| SMALLINT              | short     |
-| INTEGER               | int       |
-| BIGINT                | long      |
-| NUMERIC               | decimal   |
-| REAL                  | float     |
-| DOUBLE                | double    |
-| VARCHAR               | string    |
-| VARBYTE               | byte[]    |
-| DATE                  | DateTime  |
-
- 
-
-##### Altibase EF Core 사용시 주의사항
-
-Altibase EF Core에서 지원되지 않거나, 사용시 주의할 사항을 기재한다.
-
-##### "" Double Quotes
+#### "" Double Quotes
 
 Altibase EF Core 마이그레이션을 통해서 스키마 생성시 Object Name(Table, Column, Index..)에 ""(Double Quotes)를 사용하도록 되어 있다.
 
@@ -4133,64 +4097,17 @@ Altibase 데이터베이스의 경우 ""(Double Quotes)가 없을 경우에는 �
 
 따라서 Altibase EF Core를 통해서 생성된 Object를 별도의 Driver(ISQL, JDBC, SQLCLI)에서 사용시에는 ""(Double Quotes)를 사용해야 정상적으로 인식된다.
 
-##### Database 생성 및 삭제
+#### ValueGeneration 속성
 
-Altibase EFCore에서는 데이터베이스 생성 삭제를 할 수 없다.
-
-Altibase의 경우 현재 isql을 통해서만 데이터베이스 생성 및 삭제를 실행 할 수 있기 때문에 EF Core에서의 제어는 지원하지 않는다.
-
-아래는 사용할 수 없는 예제이다.
-
-###### dotnet ef
-
-```
-dotnet ef database drop 
-```
-
-###### API
-
-```
-var databaseCreator = context.Database.GetService<IRelationalDatabaseCreator>();``databaseCreator.Create(); 
-```
-
- 
-
-##### Migrations script
-
-dotnet ef의 migrations script 기능은 지원하지 않는다. 
-
-```
-dotnet ef migrations script
-```
-
-##### HasDefaultValueSql API 
-
-Altibase EF Core에서는 HasDefaultValueSql은 지원하지 않는다.
-
-```
-protected override void OnModelCreating(ModelBuilder modelBuilder){
-    modelBuilder.Entity<DefaultValue>()
-                    .Property(b => b.ShortCol)
-                    .HasDefaultValueSql("select MOD(10, 3) from dual");
-    modelBuilder.Entity<DefaultValue>()
-                    .Property(b => b.CharCol)
-                    .HasDefaultValueSql("select CONCAT('A', 'B') from dual");
-}
-```
-
-##### ValueGeneration 속성
-
-`ValueGenerated` 속성은 Entity Framework Core (EF Core)에서 데이터베이스 열의 값이 어떻게 생성되는지를 정의하는 데 사용된다. 
+`ValueGenerated` 속성은 EF Core에서 데이터베이스 열의 값이 어떻게 생성되는지를 정의하는 데 사용된다. 
 
 자세한 내용은 링크 참조 ([ValueGenerated Enum (Microsoft.EntityFrameworkCore.Metadata) | Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.metadata.valuegenerated?view=efcore-8.0))
 
-Altibase EF Core에는 ValueGeneration 속성값은 Never로 고정되어 동작한다.
+Altibase EF Core에서는 ValueGenerated 속성이 항상 "Never"로 설정되며, 그 외의 값은 지원하지 않는다. 따라서, 사용자가 별도로 ValueGenerationConvention 속성값을 변경하면 안된다.
 
-또한 Never이외의 동작은 현재 지원되지 않으므로, 사용자가 별도로 ValueGenerationConvention 속성값을 변경하여서 안된다.
+아래의 설정은 지원하지 않는다.
 
-아래와 같은 속성을 설정하여서는 안된다.
-
-```
+```c#
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<MyEntity>()
@@ -4213,11 +4130,98 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 
-### 샘플(Sample)
+### 지원하지 않는 기능
 
-##### CRUD
+#### Database 생성 및 삭제
 
+Altibase EF Core에서는 데이터베이스 생성 및 삭제를 할 수 없다. Altibase의 경우 현재 isql을 통해서만 데이터베이스 생성 및 삭제를 실행 할 수 있기 때문에 EF Core 를 이용한 제어는 지원하지 않는다.
+
+##### dotnet ef를 이용한 데이터베이스 생성 및 삭제
+
+아래의 명령어는 사용할 수 없다.
+
+```sh
+dotnet ef database create
+dotnet ef database drop 
 ```
+
+##### API를 이용한 데이터베이스 생성 및 삭제
+
+아래의 예제는 지원하지 않는다.
+
+```c#
+var databaseCreator = context.Database.GetService<IRelationalDatabaseCreator>();
+databaseCreator.Create();  //데이터베이스 생성
+databaseCreator.Delete();  //데이터베이스 삭제
+```
+
+#### Migrations script
+
+dotnet ef의 migrations script 기능은 지원하지 않는다. 
+
+```c#
+dotnet ef migrations script
+```
+
+#### HasDefaultValueSql API 
+
+Altibase EF Core에서는 HasDefaultValueSql은 지원하지 않는다.
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder){
+    modelBuilder.Entity<DefaultValue>()
+                    .Property(b => b.ShortCol)
+                    .HasDefaultValueSql("select MOD(10, 3) from dual");
+    modelBuilder.Entity<DefaultValue>()
+                    .Property(b => b.CharCol)
+                    .HasDefaultValueSql("select CONCAT('A', 'B') from dual");
+}
+```
+
+## Altibase EF Core 데이터 타입
+
+Altibase EF Core에서 지원되는 C# Type과 Altibase Database Type과의 관계를 표기한다.
+
+### **마이그레이션**
+
+| .NET Core | Altibase의 데이터타입 |
+| :-------- | :-------------------- |
+| bool      | SMALLINT              |
+| byte      | SMALLINT              |
+| char      | CHAR(2)               |
+| short     | SMALLINT              |
+| ushort    | INTEGER               |
+| int       | INTEGER               |
+| uint      | BIGINT                |
+| long      | BIGINT                |
+| ulong     | NUMERIC               |
+| decimal   | NUMERIC               |
+| float     | REAL                  |
+| double    | DOUBLE                |
+| string    | VARCHAR               |
+| byte[]    | VARBYTE               |
+| DateTime  | DATE                  |
+
+### **스캐폴드**
+
+| Altibase의 데이터타입 | .NET Core |
+| :-------------------- | :-------- |
+| CHAR                  | char      |
+| SMALLINT              | short     |
+| INTEGER               | int       |
+| BIGINT                | long      |
+| NUMERIC               | decimal   |
+| REAL                  | float     |
+| DOUBLE                | double    |
+| VARCHAR               | string    |
+| VARBYTE               | byte[]    |
+| DATE                  | DateTime  |
+
+## Altibase EF Core 예제
+
+### CRUD
+
+```c#
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -4246,17 +4250,22 @@ namespace efcore_sample
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            //Create
             using var context = new SampleContext();
             context.SampleTables.Add(new SampleTable { C1 = 1, C2 = "A"});
             context.SampleTables.Add(new SampleTable { C1 = 2, C2 = "B" });
             context.SampleTables.Add(new SampleTable { C1 = 3, C2 = "C" });
             var resultCnt = context.SaveChanges();
             Console.WriteLine("insert row count=" + resultCnt);
+            
+            //Read
             Console.WriteLine("select SampleTable");
             foreach(SampleTable st in context.SampleTables.ToList())
             {
                 Console.WriteLine("C1="+st.C1+", C2="+st.C2);
             }
+            
+            //Update
             var updateRow = context.SampleTables.Single(s => s.C1 == 2);
             updateRow.C2 = "X";
             resultCnt = context.SaveChanges();
@@ -4266,6 +4275,8 @@ namespace efcore_sample
             {
                 Console.WriteLine("C1=" + st.C1 + ", C2=" + st.C2);
             }
+            
+            //Delete
             var deleteRow = context.SampleTables.Single(s => s.C1 == 3);
             context.SampleTables.Remove(deleteRow);
             resultCnt = context.SaveChanges();
@@ -4278,8 +4289,12 @@ namespace efcore_sample
         }
     }
 }
- 
-// 결과 출력
+
+```
+
+**실행 결과**
+
+```sh
 Hello World!
 insert row count=3
 select SampleTable
@@ -4297,11 +4312,11 @@ C1=1, C2=A
 C1=2, C2=X
 ```
 
-##### LOB  
+### LOB  
 
-###### CLob
+#### CLOB
 
-```
+```c#
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -4352,8 +4367,11 @@ namespace efcore_sample
         }
     }
 }
- 
-// 결과 출력
+```
+
+**실행 결과**
+
+```sh
 CLob Sample!
 insert row count=3
 select ClobTable
@@ -4362,9 +4380,9 @@ C1=2, C2=OPQRSTU
 C1=3, C2=VWXYz
 ```
 
-###### BLob
+#### BLOB
 
-```
+```c#
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -4419,9 +4437,11 @@ namespace efcore_sample
         }
     }
 }
- 
- 
-// 결과 출력
+```
+
+**실행 결과**
+
+```sh
 BLob Sample!
 insert row count=3
 select BlobTable
@@ -4430,9 +4450,9 @@ C1=2, C2={0x11 0x22 0x33 0x44 0x55 }
 C1=3, C2={0x99 0x88 0x77 }
 ```
 
-##### 트랜잭션
+### 트랜잭션
 
-```
+```c#
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -4479,9 +4499,11 @@ namespace efcore_sample
         }
     }
 }
- 
- 
-// 결과 출력
+```
+
+**실행 결과**
+
+```sh
 Transaction Sample!
 insert row count=3
 select TranTable
