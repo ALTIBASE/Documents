@@ -1,10 +1,48 @@
-Altibase 7.3.0.0.9 Patch Notes
-================================
+# Altibase 7.3.0.0.9 Patch Notes
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [New Features](#new-features)
+    - [BUG-51057 Updateable Dynaset 지원](#bug-51057)
+    - [BUG-51068 KEYSET DRIVEN 커서의 읽기 성능 개선](#bug-51068)
+    - [BUG-51199 Red Hat Linux 9 지원](#bug-51199)
+    - [BUG-51204 이중화 DDL 동작 개선](#bug-51204)
+    - [BUG-51281 이중화의 부가옵션으로 META LOGGING 기능 개선](#bug-51281)
+- [Fixed Bugs](#fixed-bugs)
+    - [BUG-50178 증분 백업을 사용할 때 데드락 상황을 방지하도록 개선되었습니다.](#bug-50178)
+    - [BUG-50757 증분 백업에서 extend 와 change tracking 이 동시에 수행되는 경우 서버가 비정상 종료할 수 있습니다.](#bug-50757)
+    - [BUG-50867 테이블스페이스를 오프라인으로 변경하는 로직에 오류가 있습니다.](#bug-50867)
+    - [BUG-50978 트리거 생성시 권한 검사 로직의 오류를 수정합니다.](#bug-50978)
+    - [BUG-51048 SQL_CURSOR_KEYSET_DRIVEN 커서로 SQLExecute, SQLFetch를 반복 수행하는 경우, 맨 처음 레코드만 반환됩니다.](#bug-51048)
+    - [BUG-51050 트리거가 설정된 테이블에서 다중 테이블 갱신(Multiple Table Update)을 수행하는 경우, 잘못된 메모리에 접근할 수 있습니다.](#bug-51050)
+    - [BUG-51056 Volatile 테이블에서 inplace update 수행 로직의 오류를 수정합니다.](#bug-51056)
+    - [BUG-51063 메모리 인덱스가 존재하는 테이블에서 inplace update 수행시 오류를 수정합니다.](#bug-51063)
+    - [BUG-51065 이중화 SQL 반영 모드일때, 파티션 SPLIT 전 수행한 DELETE 문이 이중화되지 않습니다.](#bug-51065)
+    - [BUG-51118 서버 설치시 지정한 Transaction log directory경로(LOG\_DIR)가 altibase.properties 파일에 반영되지 않습니다.](#bug-51118)
+    - [BUG-51133 SQL의 Prepare 단계에서 생성된 메모리를 해제하는 과정에서 잘못된 메모리 참조의 오류로 서버가 비정상 종료 할 수 있습니다.](#bug-51133)
+    - [BUG-51138 iloader 에서 1개 파일이 2,147,483,647 건을 초과하는 데이터를 export/import 수행할 경우 발생하는 오동작문제를 개선합니다.](#bug-51138)
+    - [BUG-51144 COLLECT_DBMS_STATS를 ON으로 설정한 후 aexport를 수행할 때, ERR-31014 : Index not found 오류가 발생하는 경우가 있습니다.](#bug-51144)
+    - [BUG-51154 특정 상황에서 FULL OUTER JOIN 사용시 DB Hang 문제 수정](#bug-51154)
+    - [BUG-51158 Prepared Statement 의 batchUpdate를 사용하여 CLOB 칼럼 처리 중 **[ERR-110C5: LobCursor already closed]** 오류가 발생하는 문제를 수정합니다.](#bug-51158)
+    - [BUG-51160 jdbcAdapter 를 이용하여 Oracle 에 데이터 입력할 때, executeBatch() 함수를 수행하는 과정에서 오류가 발생했을 때의 동작 개선](#bug-51160)
+    - [BUG-51163 2,147,483,647 보다 큰 TableOID 값을 가지는 테이블을 ALTER REPLICATION ... ADD TABLE 구문으로 이중화 대상 테이블에 추가할 때, ERR-21010 Value overflow 오류가 발생합니다.](#bug-51163)
+    - [BUG-51165 Prepared Statement 의 batchUpdate를 사용하여 CLOB 칼럼 처리 중, updatedRowCount가 0인 파라미터 세트가 포함될 경우의 동작을 개선합니다.](#bug-51165)
+    - [BUG-51203 V$DISK_UNDO_USAGE와 같은 모니터링 쿼리에 대한 조회가 장시간 수행되는 경우의 동작을 개선합니다.](#bug-51203)
+    - [BUG-51214 SYS 계정으로 개별 오브젝트에 대한 권한 부여시 에러가 발생합니다.](#bug-51214)
+    - [BUG-51216 내부적으로 익스텐트 리스트 탐색 시 리스트 순회가 종료되지 않을 수 있는 현상에 대한 수정](#bug-51216)
+- [Changes](#changes)
+    - [Version Info](#version-info)
+    - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
+    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 New Features
-------------
+============
 
-### BUG-51057 Updateable Dynaset 지원
+### BUG-51057<a name=bug-51057></a> Updateable Dynaset 지원
 
 -   **module** : mm-win-odbc
 
@@ -31,7 +69,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-51068 KEYSET DRIVEN 커서의 읽기 성능 개선
+### BUG-51068<a name=bug-51068></a> KEYSET DRIVEN 커서의 읽기 성능 개선
 
 -   **module** : mm-cli
 
@@ -58,7 +96,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-51199 Red Hat Linux 9 지원
+### BUG-51199<a name=bug-51199></a> Red Hat Linux 9 지원
 
 -   **module** : id
 
@@ -67,9 +105,8 @@ New Features
 -   **재현 빈도** : Unknown
 
 -   **설명** :  glibc 2.34 이상의 환경에서 발생하던 호환성 문제가
-    해결되었습니다. 이제 Red Hat Linux 9 에서도 Altibase를 사용할 수
-    있습니다.
-
+    해결되었습니다. 이제 Red Hat Linux 9 에서도 Altibase를 사용할 수 있습니다.
+    
 -   **재현 방법**
 
     -   **재현 절차**
@@ -87,7 +124,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-51204 이중화 DDL 동작 개선
+### BUG-51204<a name=bug-51204></a> 이중화 DDL 동작 개선
 
 -   **module** : rp
 -   **Category** : Other
@@ -95,15 +132,12 @@ New Features
 -   **설명** : 
     -   이중화 대상 테이블에 ADD TABLE 시 오류 수정
         -   이중화 갭이 존재하는 상태에서 이중화 대상 테이블에 ADD TABLE을 수행할 때, **[ERR-11058 : The row already exists in a unique index.]** 에러로 실패하는 문제가 해결되었습니다.
-
+        -   이중화 갭이 존재하는 상태에서 이중화 대상 테이블에 ADD TABLE을 수행한 다음 이중화를 시작할 때, **[ERR-11058 : The row already exists in a unique index.]** 에러로 실패하는 문제가 해결되었습니다
     -   이중화 대상 테이블에 SPLIP/MERGE PARTITION 후 사용자가 신규로 생성된 파티션을 DROP하는 경우의 오동작을 수정합니다.
     -   이중화 대상 테이블에 SPLIT/MERGE/DROP PARTITION 의 DDL을 수행할때 동작 변경
         -   LOCK TABLE ... IN EXCLUSIVE MODE UNTIL NEXT DDL 구문을 사용하지 않아도 이중화 대상인 테이블에 SPLIT/MERGE/DROP PARTITION이 수행 가능하게 수정 되었습니다. 
 
-        -   이중화 테이블에 DROP PARTITION을 수행할 때, 기존에는 삭제할 PARTITION의 값을 이중화한 후 DROP PARTITION이 수행되었는데, 이제 DROP PARTITION의 값은 이중화를 포기하도록 수정되었습니다.
-    -   이중화의 부가옵션으로 META LOGGING 기능 추가
-        -   기존에는 ALA(Altibase Log Analyzer)에서만 사용가능하던 META LOGGING 옵션이, 이제 일반 이중화에서도 사용하도록 개선되었습니다. 이 기능의 추가됨에 따라 dbms_metadata 패키지의 업데이트가 필요합니다. 
-    
+        -   이중화 테이블에 DROP PARTITION을 수행할 때, 기존에는 삭제할 PARTITION의 갭(데이터 변경사항)을 이중화한 후 DROP PARTITION이 수행되었는데, 이제 DROP PARTITION의 갭(데이터 변경사항)은 이중화를 포기하도록 수정되었습니다.
 -   **재현 방법**
     -   **재현 절차**
 
@@ -117,10 +151,35 @@ New Features
     -   Compile Option
     -   Error Code
 
-Fixed Bugs
-----------
+### BUG-51281<a name=bug-51281></a> 이중화의 부가옵션으로 META LOGGING 기능 개선
 
-### BUG-50178 증분 백업을 사용할 때 데드락 상황을 방지하도록 개선되었습니다.
+-   **module** : rp
+
+-   **Category** : Enhancement
+
+-   **재현 빈도** : Always
+
+-   **설명** : 기존에는 JDBC Adapter와 OraAdapter에서만 사용가능하던 META LOGGING 옵션이, 이제 일반 이중화에서도 사용하도록 개선되었습니다. 이 기능의 추가됨에 따라 dbms_metadata 패키지가 업데이트 되었습니다.
+
+-   **재현 방법**
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+Fixed Bugs
+==========
+
+### BUG-50178<a name=bug-50178></a> 증분 백업을 사용할 때 데드락 상황을 방지하도록 개선되었습니다.
 
 -   **module** : sm\_resource
 
@@ -146,7 +205,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50757 증분 백업에서 extend 와 change tracking 이 동시에 수행되는 경우 서버가 비정상 종료할 수 있습니다.
+### BUG-50757<a name=bug-50757></a> 증분 백업에서 extend 와 change tracking 이 동시에 수행되는 경우 서버가 비정상 종료할 수 있습니다.
 
 -   **module** : sm\_resource
 
@@ -160,23 +219,10 @@ Fixed Bugs
 
     -   **재현 절차**
 
-            insert into t0 values (...)
-            alter database backup incremental level 0 database with tag '1';
-
     -   **수행 결과**
-
-            insert into t0 values (...)
-            success.
-            alter database backup incremental level 1 database with tag '1';
-            [ERR-50032 : Client unable to establish connection. (Failed to invoke the connect() system function, errno=111)]
-
+    
     -   **예상 결과**
-
-            insert into t0 values (...)
-            success.
-            alter database backup incremental level 0 database with tag '1';
-            Alter success.
-
+    
 -   **Workaround**
 
 -   **변경사항**
@@ -186,7 +232,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50867 테이블스페이스를 오프라인으로 변경하는 로직에 오류가 있습니다.
+### BUG-50867<a name=bug-50867></a> 테이블스페이스를 오프라인으로 변경하는 로직에 오류가 있습니다.
 
 -   **module** : sm\_collection
 
@@ -213,7 +259,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50978 트리거 생성시 권한 검사 로직의 오류를 수정합니다.
+### BUG-50978<a name=bug-50978></a> 트리거 생성시 권한 검사 로직의 오류를 수정합니다.
 
 -   **module** : qp-ddl-dcl-execute
 
@@ -240,7 +286,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51048 SQL_CURSOR_KEYSET_DRIVEN 커서로 SQLExecute, SQLFetch를 반복 수행하는 경우, 맨 처음 레코드만 반환됩니다.
+### BUG-51048<a name=bug-51048></a> SQL_CURSOR_KEYSET_DRIVEN 커서로 SQLExecute, SQLFetch를 반복 수행하는 경우, 맨 처음 레코드만 반환됩니다.
 
 -   **module** : mm-cli
 
@@ -273,7 +319,7 @@ Fixed Bugs
             - **Cause**: Failed to add the PROWID to the hash table due to an internal error.
             - **Action**: Contact Altibase's Support Center ([http://support.altibase.com](http://support.altibase.com/)).
 
-### BUG-51050 트리거가 설정된 테이블에서 다중 테이블 갱신(Multiple Table Update)을 수행하는 경우, 잘못된 메모리에 접근할 수 있습니다.
+### BUG-51050<a name=bug-51050></a> 트리거가 설정된 테이블에서 다중 테이블 갱신(Multiple Table Update)을 수행하는 경우, 잘못된 메모리에 접근할 수 있습니다.
 
 -   **module** : qp
 
@@ -300,7 +346,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51056 Volatile 테이블에서 inplace update 수행 로직의 오류를 수정합니다.
+### BUG-51056<a name=bug-51056></a> Volatile 테이블에서 inplace update 수행 로직의 오류를 수정합니다.
 
 -   **module** : sm\_page
 
@@ -326,7 +372,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51063 메모리 인덱스가 존재하는 테이블에서 inplace update 수행시 오류를 수정합니다.
+### BUG-51063<a name=bug-51063></a> 메모리 인덱스가 존재하는 테이블에서 inplace update 수행시 오류를 수정합니다.
 
 -   **module** : sm-mem-index
 
@@ -353,7 +399,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51065 이중화 SQL 반영 모드일때, 파티션 SPLIT 전 수행한 DELETE 문이 이중화되지 않습니다.
+### BUG-51065<a name=bug-51065></a> 이중화 SQL 반영 모드일때, 파티션 SPLIT 전 수행한 DELETE 문이 이중화되지 않습니다.
 
 -   **module** : rp
 
@@ -380,7 +426,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51118 서버 설치시 지정한 Transaction log directory경로(LOG\_DIR)가 altibase.properties 파일에 반영되지 않습니다.
+### BUG-51118<a name=bug-51118></a> 서버 설치시 지정한 Transaction log directory경로(LOG\_DIR)가 altibase.properties 파일에 반영되지 않습니다.
 
 -   **module** : installer
 
@@ -409,7 +455,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51133 SQL의 Prepare 단계에서 생성된 메모리를 해제하는 과정에서 잘못된 메모리 참조의 오류로 서버가 비정상 종료 할 수 있습니다.
+### BUG-51133<a name=bug-51133></a> SQL의 Prepare 단계에서 생성된 메모리를 해제하는 과정에서 잘못된 메모리 참조의 오류로 서버가 비정상 종료 할 수 있습니다.
 
 -   **module** : qp-select
 
@@ -436,7 +482,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51138 iloader 에서 1개 파일이 2,147,483,647 건을 초과하는 데이터를 export/import 수행할 경우 발생하는 오동작문제를 개선합니다.
+### BUG-51138<a name=bug-51138></a> iloader 에서 1개 파일이 2,147,483,647 건을 초과하는 데이터를 export/import 수행할 경우 발생하는 오동작문제를 개선합니다.
 
 -   **module** : ux-iloader
 
@@ -469,7 +515,7 @@ Fixed Bugs
             - **Cause** : The datafile contains more records than the allowed limit (2,147,483,647).
             - **Action** : Split the datafile into smaller files and retry.
 
-### BUG-51144 COLLECT_DBMS_STATS를 ON으로 설정한 후 aexport를 수행할 때, ERR-31014 : Index not found 오류가 발생하는 경우가 있습니다.
+### BUG-51144<a name=bug-51144></a> COLLECT_DBMS_STATS를 ON으로 설정한 후 aexport를 수행할 때, ERR-31014 : Index not found 오류가 발생하는 경우가 있습니다.
 
 -   **module** : ux-aexport
 
@@ -531,7 +577,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51154 특정 상황에서 FULL OUTER JOIN 사용시 DB Hang 문제 수정
+### BUG-51154<a name=bug-51154></a> 특정 상황에서 FULL OUTER JOIN 사용시 DB Hang 문제 수정
 
 -   **module** : qp-select-pvo
 
@@ -558,7 +604,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51158 Prepared Statement 의 batchUpdate를 사용하여 CLOB 칼럼 처리 중 **[ERR-110C5: LobCursor already closed]** 오류가 발생하는 문제를 수정합니다.
+### BUG-51158<a name=bug-51158></a> Prepared Statement 의 batchUpdate를 사용하여 CLOB 칼럼 처리 중 **[ERR-110C5: LobCursor already closed]** 오류가 발생하는 문제를 수정합니다.
 
 -   **module** : mm-jdbc
 
@@ -569,13 +615,12 @@ Fixed Bugs
 -   **설명** : Prepared Statement를 사용하여 CLOB 컬럼에 대해 executeUpdate()를 연속으로 수행하는 과정에서 Primary Key 중복으로 인한 오류 등의 서버 에러가 발생하면, 그 다음 executeUpdate()에서 **[ERR-110C5: LobCursor already closed]** 오류가 발생하던 문제를 수정했습니다.
 
 -   **재현 방법**
-
     -   **재현 절차**
-
+    
     -   **수행 결과**
-
+    
     -   **예상 결과**
-
+    
 -   **Workaround**
 
 -   **변경사항**
@@ -586,7 +631,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51160 jdbcAdapter 를 이용하여 Oracle 에 데이터 입력할 때, executeBatch() 함수를 수행하는 과정에서 오류가 발생했을 때의 동작 개선
+### BUG-51160<a name=bug-51160></a> jdbcAdapter 를 이용하여 Oracle 에 데이터 입력할 때, executeBatch() 함수를 수행하는 과정에서 오류가 발생했을 때의 동작 개선
 
 -   **module** : rp-jdbcAdapter
 
@@ -613,7 +658,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51163 2,147,483,647 보다 큰 TableOID 값을 가지는 테이블을 ALTER REPLICATION ... ADD TABLE 구문으로 이중화 대상 테이블에 추가할 때, ERR-21010 Value overflow 오류가 발생합니다.
+### BUG-51163<a name=bug-51163></a> 2,147,483,647 보다 큰 TableOID 값을 가지는 테이블을 ALTER REPLICATION ... ADD TABLE 구문으로 이중화 대상 테이블에 추가할 때, ERR-21010 Value overflow 오류가 발생합니다.
 
 -   **module** : rp
 -   **Category** : Functional Error
@@ -634,7 +679,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51165 Prepared Statement 의 batchUpdate를 사용하여 CLOB 칼럼 처리 중, updatedRowCount가 0인 파라미터 세트가 포함될 경우의 동작을 개선합니다.
+### BUG-51165<a name=bug-51165></a> Prepared Statement 의 batchUpdate를 사용하여 CLOB 칼럼 처리 중, updatedRowCount가 0인 파라미터 세트가 포함될 경우의 동작을 개선합니다.
 
 -   **module** : mm-jdbc
 
@@ -662,7 +707,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51203 V$DISK_UNDO_USAGE와 같은 모니터링 쿼리에 대한 조회가 장시간 수행되는 경우의 동작을 개선합니다.
+### BUG-51203<a name=bug-51203></a> V$DISK_UNDO_USAGE와 같은 모니터링 쿼리에 대한 조회가 장시간 수행되는 경우의 동작을 개선합니다.
 
 -   **module** : sm-disk-collection
 
@@ -699,7 +744,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51214 SYS 계정으로 개별 오브젝트에 대한 권한 부여시 에러가 발생합니다.
+### BUG-51214<a name=bug-51214></a> SYS 계정으로 개별 오브젝트에 대한 권한 부여시 에러가 발생합니다.
 
 -   **module** : qp-ddl-dcl-pvo
 
@@ -743,7 +788,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51216 내부적으로 익스텐트 리스트 탐색 시 리스트 순회가 종료되지 않을 수 있는 현상에 대한 수정
+### BUG-51216<a name=bug-51216></a> 내부적으로 익스텐트 리스트 탐색 시 리스트 순회가 종료되지 않을 수 있는 현상에 대한 수정
 
 -   **module** : sm-disk-collection
 
@@ -775,35 +820,8 @@ Fixed Bugs
             - **Cause** : Concurrency conflict may occur when retrieving and updating the Extent Directory Page List simultaneously.
             - **Action**: Retry the operation. If the error persists, please contact Altibase support.
 
-### BUG-51281 DBMS\_METADATA 패키지에 META\_LOGGING에 관한 구문을 추가해야 합니다.
-
--   **module** :
-
--   **Category** : Other
-
--   **재현 빈도** : Always
-
--   **설명** :
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
 Changes
--------
+=======
 
 ### Version Info
 
