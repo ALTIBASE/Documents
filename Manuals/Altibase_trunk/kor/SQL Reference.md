@@ -16120,7 +16120,9 @@ CREATE REPLICATION 구문으로 이중화 생성 후 이중화의 동작을 제�
 
 **[set_transaction_clause::=](#set_transaction)**
 
-**set_free_temporary_lob_clause::=**
+**set_free_temporary_lob_clause::=** 
+
+![alter_session_set_free_temporary_lob](media/SQL/alter_session_set_free_temporary_lob.gif)
 
 **alter_session_set_clause::=**
 
@@ -16138,18 +16140,23 @@ CREATE REPLICATION 구문으로 이중화 생성 후 이중화의 동작을 제�
 
 현재 세션(Session)의 속성을 변경하는 구문이다.
 
-*alter_session_set_clause*
+##### *alter_session_set_clause*
 
 alter_session_set_clause 절의 property_name과 property\_ value에 관한 자세한
 내용은 *General Reference*의 Altibase 프로퍼티 장을 참조한다.
 
-*set_free_temporary_lob*
+##### *set_transaction_clause*
 
-세션에 생성된 세션 Temporary LOB을 정리하는 구문이다. 
+현재 세션에서 수행되는 트랜잭션에 read only, read/write 또는 고립화 수준(isolation level)을 설정할 수 있다. 자세한
+내용은 이 매뉴얼의 [SET TRANSACTION](#set_transaction) 구문을 참조한다.
 
-*replication_mode_set_clause*
+##### *set_free_temporary_lob_clause*
 
-*replication*\_*mode_set_clause*는 현재 세션에서 수행하는 트랜잭션을 위한 이중화
+현재 세션에 생성된 세션 Temporary LOB을 정리하는 구문이다. 
+
+##### *replication_mode_set_clause*
+
+현재 세션에서 수행하는 트랜잭션을 위한 이중화
 모드 속성을 설정하는 절이다.
 
 DEFAULT를 명시하면 이중화는 이중화 객체 생성시 기본모드로 채택된 모드로 동작할
@@ -16158,7 +16165,7 @@ DEFAULT를 명시하면 이중화는 이중화 객체 생성시 기본모드로 
 
 이중화 모드에 대한 보다 자세한 내용은 *Replication Manual*을 참조한다.
 
-*dblink_session \_close_clause*
+##### *dblink_session _close_clause*
 
 사용자가 서버에 접속하면 서버에는 세션이 생성된다. 이 세션에서 데이터베이스
 링크를 사용하면, 데이터베이스 링크 작업을 위한 데이터베이스 링크 세션이
@@ -16169,16 +16176,11 @@ DEFAULT를 명시하면 이중화는 이중화 객체 생성시 기본모드로 
 
 이 경우 이 절을 사용하여 데이터베이스 링크 세션을 정리할 수 있다.
 
-*set_transaction_clause*
-
-현재 세션에서 수행되는 트랜잭션에 read only, read/write 또는 고립화 수준(isolation level)을 설정할 수 있다. 자세한
-내용은 이 매뉴얼의 [SET TRANSACTION](#set_transaction) 구문을 참조한다.
-
 #### 예제
 
-\<질의\> 현재 세션은 그냥두고 데이터베이스 링크 세션만 종료한다.
+- 현재 세션은 그냥두고 데이터베이스 링크 세션만 종료한다.
 
-```
+```sql
 iSQL> ALTER SESSION CLOSE DATABASE LINK ALL;
 ```
 
