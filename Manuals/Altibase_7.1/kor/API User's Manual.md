@@ -3944,7 +3944,7 @@ class ArrayBind
 
 Entity Framework Core(이하 EF Core)는 .NET 개발자들이 관계형 데이터베이스와 상호 작용할 수 있도록 도와주는 객체 관계 매핑(ORM) 프레임워크이다. EF Core는 데이터베이스 스키마와 클래스 모델간의 매핑을 자동화하여, SQL을 작성하지 않고도 데이터베이스와 상호 작용 할 수 있도록 한다. EF Core에 관한 자세한 내용은 [마이크로소프트의 Entity Framework Core](https://learn.microsoft.com/ko-kr/ef/core/)를 참고한다.
 
-Altibase EF Core(Altibase.EntityFrameworkCore)는 EF Core 3.1과 Altibase 데이터베이스와 연동할 수 있도록 구현한 것이다.
+Altibase EF Core(Altibase.EntityFrameworkCore)는 EF Core 3.1의 기능을 Altibase 데이터베이스와 연동하여 사용할 수 있도록 구현한 것이다.
 
 ### 요구사항
 
@@ -4089,19 +4089,21 @@ dotnet ef database update
 
 ### Altibase EF Core 사용시 주의 사항
 
-#### "" Double Quotes
+#### 객체이름에 큰따옴표("")
 
-Altibase EF Core 마이그레이션을 통해서 스키마 생성시 Object Name(Table, Column, Index..)에 ""(Double Quotes)를 사용하도록 되어 있다.
+Altibase EF Core 마이그레이션을 통해서 스키마가를 생성하면, 객체(테이블, 컬럼, 인덱스 등)의 이름에 자동으로 큰따옴표("")가 추가된다.
 
-Altibase 데이터베이스의 경우 ""(Double Quotes)가 없을 경우에는 대문자기반으로 인식하고, ""(Double Quotes)를 사용할 시에는 대소문자를 구분한다.
+Altibase 데이터베이스는 기본적으로 큰따옴표("")가 없는 경우는 대문자 기반으로 인식하고, 큰따옴표("")를 사용한 경우에만 대소문자를 구분한다.
 
-따라서 Altibase EF Core를 통해서 생성된 Object를 별도의 Driver(ISQL, JDBC, SQLCLI)에서 사용시에는 ""(Double Quotes)를 사용해야 정상적으로 인식된다.
+따라서 Altibase EF Core를 통해서 생성된 객체를 ISQL, JDBC, SQLCLI 등에서 사용할 때에는, 큰따옴표("")를 사용해야 정상적으로 인식된다.
+
+> 주의 : 큰따옴표를 붙이지 않는 경우, 객체 이름이 인식되지 않을 수 있다.
 
 #### ValueGeneration 속성
 
 `ValueGenerated` 속성은 EF Core에서 데이터베이스 열의 값이 어떻게 생성되는지를 정의하는 데 사용된다. 
 
-자세한 내용은 링크 참조 ([ValueGenerated Enum (Microsoft.EntityFrameworkCore.Metadata) | Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.metadata.valuegenerated?view=efcore-8.0))
+자세한 설명은 [ValueGenerated Enum (Microsoft.EntityFrameworkCore.Metadata) | Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.metadata.valuegenerated?view=efcore-8.0) 를 참고한다.
 
 Altibase EF Core에서는 ValueGenerated 속성이 항상 "Never"로 설정되며, 그 외의 값은 지원하지 않는다. 따라서, 사용자가 별도로 ValueGenerationConvention 속성값을 변경하면 안된다.
 
