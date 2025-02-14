@@ -4115,14 +4115,14 @@ transaction.Commit();
 
 ### LOB  데이터
 
- Altibase EF Core에서 LOB은 아래의 타입으로 지원된다. LOB 데이터를 처리하기 위해서는 컬럼타입을 명시적으로 지정해야 한다. 자세한 예제는 Altibase EF Core 예제의 CLOB, BLOB 예제를 참고 한다.
+ Altibase EF Core에서 LOB은 아래의 타입으로 지원된다. LOB 데이터를 처리하기 위해서는 칼럼타입을 명시적으로 지정해야 한다. 자세한 예제는 Altibase EF Core 예제의 CLOB, BLOB 예제를 참고 한다.
 
-| .NET Core | Altibase 데이터타입 |
-| --------- | ------------------- |
-| string    | CLOB                |
-| byte[]    | BLOB                |
+| .NET Core | Altibase 데이터 타입 |
+| --------- | -------------------- |
+| string    | CLOB                 |
+| byte[]    | BLOB                 |
 
-#### CLOB 컬럼의 지정
+#### CLOB 칼럼의 지정
 
 ```c#
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -4130,13 +4130,13 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 modelBuilder.Entity(
 eb =>
 {
-//C2 컬럼의 타입을 clob으로 지정한다.
+//C2 칼럼의 타입을 clob으로 지정한다.
 eb.Property(b => b.C2).HasColumnType("clob");
 });
 }
 ```
 
-#### BLOB 컬럼의 지정
+#### BLOB 칼럼의 지정
 
 ```c#
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -4144,7 +4144,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 modelBuilder.Entity(
 eb =>
 {
-    //C2 컬럼의 타입을 BLOB으로 지정한다.
+    //C2 칼럼의 타입을 BLOB으로 지정한다.
 eb.Property(b => b.C2).HasColumnType("blob");
 });
 }
@@ -4154,7 +4154,7 @@ eb.Property(b => b.C2).HasColumnType("blob");
 
 #### Altibase 객체 이름과 큰따옴표("")의 사용
 
-Altibase EF Core 마이그레이션을 통해서 스키마를 생성하면, 객체(테이블, 컬럼, 인덱스 등)의 이름에 자동으로 큰따옴표("")가 추가된다.
+Altibase EF Core 마이그레이션을 통해서 스키마를 생성하면, 객체(테이블, 칼럼, 인덱스 등)의 이름에 자동으로 큰따옴표("")가 추가된다.
 
 Altibase 데이터베이스는 기본적으로 큰따옴표("")가 없는 경우는 대문자 기반으로 인식하고, 큰따옴표("")를 사용한 경우에만 대소문자를 구분한다.
 
@@ -4245,27 +4245,27 @@ protected override void OnModelCreating(ModelBuilder modelBuilder){
 
 ## Altibase EF Core 데이터 타입
 
-Altibase EF Core에서 지원되는 C# Type과 Altibase Database Type과의 관계를 표기한다.
+Altibase EF Core에서 지원되는 .Net Core의 데이터 타입과 Altibase 데이터 타입과의 관계를 표기한다.
 
 ### **마이그레이션**
 
-| .NET Core | Altibase의 데이터타입 |
-| :-------- | :-------------------- |
-| bool      | SMALLINT              |
-| byte      | SMALLINT              |
-| char      | CHAR(2)               |
-| short     | SMALLINT              |
-| ushort    | INTEGER               |
-| int       | INTEGER               |
-| uint      | BIGINT                |
-| long      | BIGINT                |
-| ulong     | NUMERIC               |
-| decimal   | NUMERIC               |
-| float     | REAL                  |
-| double    | DOUBLE                |
-| string    | VARCHAR               |
-| byte[]    | VARBYTE               |
-| DateTime  | DATE                  |
+| .NET Core | Altibase의 데이터 타입 |
+| :-------- | :--------------------- |
+| bool      | SMALLINT               |
+| byte      | SMALLINT               |
+| char      | CHAR(2)                |
+| short     | SMALLINT               |
+| ushort    | INTEGER                |
+| int       | INTEGER                |
+| uint      | BIGINT                 |
+| long      | BIGINT                 |
+| ulong     | NUMERIC                |
+| decimal   | NUMERIC                |
+| float     | REAL                   |
+| double    | DOUBLE                 |
+| string    | VARCHAR                |
+| byte[]    | VARBYTE                |
+| DateTime  | DATE                   |
 
 ### **스캐폴드**
 
