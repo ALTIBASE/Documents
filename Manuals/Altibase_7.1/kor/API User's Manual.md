@@ -4087,17 +4087,80 @@ dotnet ef database update
   context.SaveChanges();
   ```
 
+### 트랜잭션의 사용
+
+트랙잰션은 Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction 인터페이스를 통해서 제어한다. 자세한 설명은 https://learn.microsoft.com/ko-kr/ef/core/saving/transactions 를 참고한다.
+
+```c#
+IDbContextTransaction transaction = context.Database.BeginTransaction();
+context.TranTables.Add(new TranTable { C1 = 1, C2 = "ABCD" });
+context.TranTables.Add(new TranTable { C1 = 2, C2 = "EFG" });
+context.TranTables.Add(new TranTable { C1 = 3, C2 = "HIJ" });
+var resultCnt = context.SaveChanges();
+Console.WriteLine("insert row count=" + resultCnt);
+transaction.Commit();
+```
+
+* DbContext.Database.BeginTransaction()
+
+  : 트랜잭션을 시작한다.
+
+* IDbContextTransaction.commit()
+
+  : 변경 내용을 DB에 커밋한다.
+
+* IDbContextTransaction.rollback()
+
+  : 변경 내용을 롤백한다.
+
+### LOB  데이터
+
+ Altibase EF Core에서 LOB은 아래의 타입으로 지원된다. LOB 데이터를 처리하기 위해서는 컬럼타입을 명시적으로 지정해야 한다. 자세한 예제는 Altibase EF Core 예제의 CLOB, BLOB 예제를 참고 한다.
+
+| .NET Core | Altibase 데이터타입 |
+| --------- | ------------------- |
+| string    | CLOB                |
+| byte[]    | BLOB                |
+
+#### CLOB 컬럼의 지정
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+modelBuilder.Entity(
+eb =>
+{
+//C2 컬럼의 타입을 clob으로 지정한다.
+eb.Property(b => b.C2).HasColumnType("clob");
+});
+}
+```
+
+#### BLOB 컬럼의 지정
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+modelBuilder.Entity(
+eb =>
+{
+    //C2 컬럼의 타입을 BLOB으로 지정한다.
+eb.Property(b => b.C2).HasColumnType("blob");
+});
+}
+```
+
 ### Altibase EF Core 사용시 주의 사항
 
-#### 객체이름에 큰따옴표("")
+#### Altibase 객체 이름과 큰따옴표("")의 사용
 
-Altibase EF Core 마이그레이션을 통해서 스키마가를 생성하면, 객체(테이블, 컬럼, 인덱스 등)의 이름에 자동으로 큰따옴표("")가 추가된다.
+Altibase EF Core 마이그레이션을 통해서 스키마를 생성하면, 객체(테이블, 컬럼, 인덱스 등)의 이름에 자동으로 큰따옴표("")가 추가된다.
 
 Altibase 데이터베이스는 기본적으로 큰따옴표("")가 없는 경우는 대문자 기반으로 인식하고, 큰따옴표("")를 사용한 경우에만 대소문자를 구분한다.
 
 따라서 Altibase EF Core를 통해서 생성된 객체를 ISQL, JDBC, SQLCLI 등에서 사용할 때에는, 큰따옴표("")를 사용해야 정상적으로 인식된다.
 
-> 주의 : 큰따옴표를 붙이지 않는 경우, 객체 이름이 인식되지 않을 수 있다.
+> 주의 : 큰따옴표("")를 붙이지 않는 경우, 객체 이름이 인식되지 않을 수 있다.
 
 #### ValueGeneration 속성
 
