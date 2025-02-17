@@ -4014,7 +4014,7 @@ public class SampleContext : DbContext
 
 #### 연결 설정
 
-DbContext의 OnConfiguring 함수를 사용하여 Altibase 서버와 연결 설정을 할 수 있다.
+DbContext의 OnConfiguring 함수를 재정의하여 Altibase 서버와 연결 설정을 할 수 있다.
 
 연결 문자열(Connection String)은 UseAltibase()의 인자로 전달하며, 추가할 수 있는 연결 속성(Properties)은 [ADO.NET의 연결 속성](#연결-속성-정보)을 참고 한다.
 
