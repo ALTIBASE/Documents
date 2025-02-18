@@ -149,18 +149,14 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [Altibase ADO.NET 데이터 타입](#Altibase-ADONET-데이터-타입)
   - [Altibase ADO.NET 예제](#Altibase-ADONET-예제)
   
-- 7.Altibase EF Core
-
-  - Altibase EF Core 개요
-
-  - Altibase EF Core 사용
-
-  - Altibase EF Core 데이터 타입
-
-  - 예제
+- [7.Altibase EF Core(Altibase.EntityFrameworkCore)](#7-altibase-ef-corealtibaseentityframeworkcore)
+- [Altibase EF Core 개요](#altibase-ef-core-개요)
   
-    
-
+- [Altibase EF Core 사용법](#altibase-ef-core-사용법)
+  
+- [Altibase EF Core 데이터 타입](#altibase-ef-core-데이터-타입)
+  
+- [Altibase EF Core 예제](#altibase-ef-core-예제)
 
 
 
@@ -223,6 +219,10 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 - 제 6장 Altibase ADO.NET
 
   이 장은 .NET Core 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버인 Altibase ADO.NET의 사용 방법과 Altibase ADO.NET으로 사용할 수 있는 ADO.NET API를 소개한다.
+  
+- 제 7장 Altibase EF Core(Altibase.EntityFrameworkCore)
+
+  이 장은 Altibase EF Core의 사용법을 소개한다. Altibase EF Core는 EF Core 3.1의 기능을 Altibase 데이터베이스와 연동하여 사용할 수 있도록 구현한 것이다.
 
 ### 문서화 규칙
 
@@ -3958,7 +3958,7 @@ Altibase ADO.NET과 동일한 OS를 지원한다.
 
 ## Altibase EF Core 사용법
 
-EF Core 개발자가 Altibase EF Core를 사용하여 개발할 때 알아야 할 사용 방법에 대해 설명한다.
+EF Core 개발자가 Altibase EF Core를 사용하여 개발할 때 알아야 할 사용법에 대해 설명한다.
 
 ### Dotnet EF 설치
 
