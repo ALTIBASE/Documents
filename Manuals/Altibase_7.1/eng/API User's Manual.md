@@ -4033,7 +4033,7 @@ In Altibase EF Core, LOB is supported by the following types. To handle LOB data
 ```c#
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
-    modelBuilder.Entity<YourEntity>(eb =>
+    modelBuilder.Entity<MyEntity>(eb =>
     {
         // Specify the type of the C2 column as CLOB.
         eb.Property(b => b.C2).HasColumnType("clob");
@@ -4046,7 +4046,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 ```c#
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
-    modelBuilder.Entity<YourEntity>(eb =>
+    modelBuilder.Entity<MyEntity>(eb =>
     {
         // Specify the type of the C2 column as BLOB.
         eb.Property(b => b.C2).HasColumnType("blob");

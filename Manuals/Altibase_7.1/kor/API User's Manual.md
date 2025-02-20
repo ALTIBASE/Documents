@@ -4128,11 +4128,11 @@ transaction.Commit();
 ```c#
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
-	modelBuilder.Entity<YourEntity>(eb =>
-	{
-		//C2 칼럼의 타입을 clob으로 지정한다.
-		eb.Property(b => b.C2).HasColumnType("clob");
-	});
+    modelBuilder.Entity<MyEntity>(eb =>
+    {
+        //C2 칼럼의 타입을 clob으로 지정한다.
+        eb.Property(b => b.C2).HasColumnType("clob");
+    });
 }
 ```
 
@@ -4141,11 +4141,11 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 ```c#
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
-	modelBuilder.Entity<YourEntity>(eb =>
-	{
-	  	//C2 칼럼의 타입을 BLOB으로 지정한다.
-		eb.Property(b => b.C2).HasColumnType("blob");
-	});
+    modelBuilder.Entity<MyEntity>(eb =>
+    {
+        //C2 칼럼의 타입을 BLOB으로 지정한다.
+        eb.Property(b => b.C2).HasColumnType("blob");
+    });
 }
 ```
 
