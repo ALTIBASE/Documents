@@ -150,13 +150,14 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [Altibase ADO.NET 예제](#Altibase-ADONET-예제)
   
 - [7.Altibase EF Core(Altibase.EntityFrameworkCore)](#7-altibase-ef-corealtibaseentityframeworkcore)
-- [Altibase EF Core 개요](#altibase-ef-core-개요)
-  
-- [Altibase EF Core 사용법](#altibase-ef-core-사용법)
-  
-- [Altibase EF Core 데이터 타입](#altibase-ef-core-데이터-타입)
-  
-- [Altibase EF Core 예제](#altibase-ef-core-예제)
+  - [Altibase EF Core 개요](#altibase-ef-core-개요)
+
+  - [Altibase EF Core 사용법](#altibase-ef-core-사용법)
+
+  - [Altibase EF Core 데이터 타입](#altibase-ef-core-데이터-타입)
+
+  - [Altibase EF Core 예제](#altibase-ef-core-예제)
+
 
 
 
@@ -4002,7 +4003,7 @@ public class SampleContext : DbContext
     // 연결 설정
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-    optionsBuilder.UseAltibase("Server=127.0.0.1;port=20300;User=sys;Password=manager");
+    	optionsBuilder.UseAltibase("Server=127.0.0.1;port=20300;User=sys;Password=manager");
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -4127,12 +4128,11 @@ transaction.Commit();
 ```c#
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
-modelBuilder.Entity(
-eb =>
-{
-//C2 칼럼의 타입을 clob으로 지정한다.
-eb.Property(b => b.C2).HasColumnType("clob");
-});
+	modelBuilder.Entity<YourEntity>(eb =>
+	{
+		//C2 칼럼의 타입을 clob으로 지정한다.
+		eb.Property(b => b.C2).HasColumnType("clob");
+	});
 }
 ```
 
@@ -4141,12 +4141,11 @@ eb.Property(b => b.C2).HasColumnType("clob");
 ```c#
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
-modelBuilder.Entity(
-eb =>
-{
-    //C2 칼럼의 타입을 BLOB으로 지정한다.
-eb.Property(b => b.C2).HasColumnType("blob");
-});
+	modelBuilder.Entity<YourEntity>(eb =>
+	{
+	  	//C2 칼럼의 타입을 BLOB으로 지정한다.
+		eb.Property(b => b.C2).HasColumnType("blob");
+	});
 }
 ```
 
@@ -4162,7 +4161,7 @@ Altibase 데이터베이스는 기본적으로 큰따옴표("")가 없는 경우
 
 > 주의 : 큰따옴표("")를 붙이지 않는 경우, 객체 이름이 인식되지 않을 수 있다.
 
-#### ValueGeneration 속성
+#### ValueGenerated 속성
 
 `ValueGenerated` 속성은 EF Core에서 데이터베이스 열의 값이 어떻게 생성되는지를 정의하는 데 사용된다. 
 
