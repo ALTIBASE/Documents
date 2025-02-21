@@ -126,7 +126,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Setting User Resource Limit Values](#Setting-User-Resource-Limit-Values)
   - [Setting Kernel Parameters for Different Operating Systems (OS)](#Setting-Kernel-Parameters-for-Different-Operating-Systems-OS)
   - [Configuration of THP (Transparent Huge Pages)](#Configuration-of-THP-Transparent-Huge-Pages)
-  - [Red Hat Enterprise Linux 8](#red-hat-enterprise-linux-8)
+  - [Red Hat Enterprise Linux 9](#red-hat-enterprise-linux-9)
   - [Checking DISK Configuration](#Checking-DISK-Configuration)
   - [OS Patch](#os-patch)
 
@@ -1690,53 +1690,8 @@ It is advised to set the HTP option to never in order to run the Altibase operat
 
 3. Confirm whether the THP option is never or not. 
 
-### Red Hat Enterprise Linux 8
-
-To run client tools such as iSQL and iLoader, the ncurses library (including tinfo) version 5 is required. However, in RHEL 8, the version of this library has been changed to 6. Therefore, during the installation, Altibase automatically creates symbolic links for libncurses.so.5 and libtinfo.so.5 in the $ALTIBASE_HOME/lib directory. If these symbolic links are not created or are lost, users can manually create them by following the procedure below.
-
-1. Check the ncurses and tinfo library files.
-
-   ```bash
-   % ls -l /usr/lib64/| grep -e libncurses.so -e libtinfo.so
-   -rw-r--r--   1 root root       31 Jan 16  2019 libncurses.so
-   lrwxrwxrwx.  1 root root       17 Jan 16  2019 libncurses.so.6 -> libncurses.so.6.1*
-   -rwxr-xr-x.  1 root root   216912 Jan 16  2019 libncurses.so.6.1*                 # ncurses library file
-   lrwxrwxrwx   1 root root       13 Jan 16  2019 libtinfo.so -> libtinfo.so.6*
-   lrwxrwxrwx.  1 root root       15 Jan 16  2019 libtinfo.so.6 -> libtinfo.so.6.1*
-   -rwxr-xr-x.  1 root root   208616 Jan 16  2019 libtinfo.so.6.1*                   # tinfo library file
-   ```
-
-2. If libncurses.so.5 and libtinfo.so.5 files do not exist, create symbolic links in the $ALTIBASE_HOME/lib.
-
-   ```bash
-   % ln -s /usr/lib64/libncurses.so.6.1 $ALTIBASE_HOME/lib/libncurses.so.5
-   % ln -s /usr/lib64/libtinfo.so.6.1 $ALTIBASE_HOME/lib/libtinfo.so.5
-   ```
-
-3. Check the created symbolic links.
-
-   ```bash
-   % ls -l $ALTIBASE_HOME/lib | grep -e libncurses.so.5 -e libtinfo.so.5
-   lrwxrwxrwx   1 user user       17 May  7 16:44 libncurses.so.5 -> /usr/lib64/libncurses.so.6*
-   lrwxrwxrwx   1 user user       15 May  7 16:51 libtinfo.so.5 -> /usr/lib64/libtinfo.so.6*
-   ```
-
-- If libncurses.so.5 file does not exist, the following error occurs when iSQL is executed.
-
-  ```bash
-  % isql
-  isql: error while loading shared libraries: libtinfo.so.5: cannot open shared object file: No such file or directory
-  ```
-
-  ```bash
-  % server create utf8 utf8
-  /home/dev02/altibase_home/bin/isql: error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory
-  ```
-
-- In RHEL 8, the ncurses (including tinfo) library version has been changed to 6.1.
-  The ncurses library guarantees both source-level compatibility (API) and binary compatibility (ABI) from ncurses 5 to ncurses 6.2. 
-
-  Reference : [Announcing ncurses 6.2 (invisible-island.net)](https://invisible-island.net/ncurses/announce.html#h2-release-notes)
+### Red Hat Enterprise Linux 9
+Altibase has supported RHEL 9 since Altibase version 7.3.0.0.9.
 
 ### Checking Disk Configuration
 

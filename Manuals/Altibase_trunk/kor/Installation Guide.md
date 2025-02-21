@@ -137,7 +137,6 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [사용자 계정의 리소스 한계 값 확인](#사용자-계정의-리소스-한계-값-확인)
   - [OS별 커널 파라미터 설정](#os별-커널-파라미터-설정)
   - [THP 설정 확인 및 비활성화 방법](#thp-설정-확인-및-비활성화-방법)
-  - [Red Hat Enterprise Linux 8](#red-hat-enterprise-linux-8)
   - [디스크 구성 상태 확인](#디스크-구성-상태-확인)
   - [OS Patch](#os-patch)
 
@@ -1716,55 +1715,6 @@ Altibase의 운영을 위해서 THP 옵션을 never로 설정할 것을 권고�
 2. 시스템을 재시작한다.
 
 3. THP 옵션이 never 인지 확인한다.
-
-### Red Hat Enterprise Linux 8
-
-클라이언트 툴인 iSQL과 iLoader를 실행하려면 ncurses (tinfo 포함) 5 버전 라이브러리가 필요하다. 그러나 RHEL 8에서 이 라이브러리의 버전이 6으로 변경되었다. 따라서 Altibase는 설치 과정에서 자동으로 $ALTIBASE_HOME/lib 디렉토리에 libncurses.so.5와 libtinfo.so.5 심볼릭 링크를 생성한다. 하지만 만약 이 심볼릭 링크가 생성되지 않거나 유실된 경우, 사용자가 아래 절차에 따라 수동으로 생성할 수 있다.
-
-
-1. ncurses와 tinfo 라이브러리 파일을 확인한다.
-
-   ```bash
-   % ls -l /usr/lib64/| grep -e libncurses.so -e libtinfo.so
-   -rw-r--r--   1 root root       31 Jan 16  2019 libncurses.so
-   lrwxrwxrwx.  1 root root       17 Jan 16  2019 libncurses.so.6 -> libncurses.so.6.1*
-   -rwxr-xr-x.  1 root root   216912 Jan 16  2019 libncurses.so.6.1*                 # ncurses 라이브러리 파일
-   lrwxrwxrwx   1 root root       13 Jan 16  2019 libtinfo.so -> libtinfo.so.6*
-   lrwxrwxrwx.  1 root root       15 Jan 16  2019 libtinfo.so.6 -> libtinfo.so.6.1*
-   -rwxr-xr-x.  1 root root   208616 Jan 16  2019 libtinfo.so.6.1*                   # tinfo 라이브러리 파일
-   ```
-
-2. libncurses.so.5, libtinfo.so.5 파일이 없는 경우 $ALTIBASE_HOME/lib에 심볼릭 링크를 생성한다.
-
-   ```bash
-   % ln -s /usr/lib64/libncurses.so.6.1 $ALTIBASE_HOME/lib/libncurses.so.5
-   % ln -s /usr/lib64/libtinfo.so.6.1 $ALTIBASE_HOME/lib/libtinfo.so.5
-   ```
-
-3. 생성한 심볼릭 링크를 확인한다.
-
-   ```bash
-   % ls -l $ALTIBASE_HOME/lib | grep -e libncurses.so.5 -e libtinfo.so.5
-   lrwxrwxrwx   1 user user       17 May  7 16:44 libncurses.so.5 -> /usr/lib64/libncurses.so.6*
-   lrwxrwxrwx   1 user user       15 May  7 16:51 libtinfo.so.5 -> /usr/lib64/libtinfo.so.6*
-   ```
-
-- libncurses.so.5 파일이 없는 경우 iSQL 수행 시 아래와 같은 에러가 발생한다.
-
-  ```bash
-  % isql
-  isql: error while loading shared libraries: libtinfo.so.5: cannot open shared object file: No such file or directory
-  ```
-
-  ```bash
-  % server create utf8 utf8
-  /home/dev02/altibase_home/bin/isql: error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory
-  ```
-
-- RHEL 8 에서 ncurses (tinfo 포함) 라이브러리 버전이 6.1 로 변경되었다.
-  ncurses 라이브러리는  ncurses 5 ~ ncurses 6.2 까지 소스 레벨의 호환성(API)와 바이너리 호환성 (ABI)를 동시에 보장한다. 
-
-  참고 : [Announcing ncurses 6.2 (invisible-island.net)](https://invisible-island.net/ncurses/announce.html#h2-release-notes)
 
 ### 디스크 구성 상태 확인
 
