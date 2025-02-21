@@ -137,7 +137,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Altibase ADO.NET API](#Altibase-ADONET-API)
   - [Altibase ADO.NET Data Types](#Altibase-ADONET-Data-Types)
   - [Altibase ADO.NET Examples](#Altibase-ADONET-Examples)
-- [7.Altibase EF Core(Altibase.EntityFrameworkCore)](#7altibase-entity-framework-corealtibaseentityframeworkcore)
+- [7.Altibase EF Core(Altibase.EntityFrameworkCore)](#7altibase-ef-corealtibaseentityframeworkcore)
   - [Altibase EF Core Overview](#altibase-ef-core-overview)
   - [Using the Altibase EF Core](#using-the-altibase-ef-core)
   - [Altibase EF Core Data Types](#altibase-ef-core-data-types)
