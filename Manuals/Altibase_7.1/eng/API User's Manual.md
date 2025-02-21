@@ -3921,7 +3921,7 @@ public class SampleContext : DbContext
 
 You can configure the connection to the Altibase server by overriding the `OnConfiguring` function of `DbContext`.
 
-The connection string is passed as an argument to `UseAltibase()`. For additional connection properties, refer to [ADO.NET Connection Properties](#연결-속성-정보).
+The connection string is passed as an argument to `UseAltibase()`. For additional connection properties, refer to [ADO.NET Connection Properties](#setting-connection-properties).
 
 ```c#
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -3995,7 +3995,7 @@ dotnet ef database update
 
 ### Using Transactions
 
-Transactions are controlled through the `Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction` interface. For more details, refer to https://learn.microsoft.com/ko-kr/ef/core/saving/transactions.
+Transactions are controlled through the `Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction` interface. For more details, refer to https://learn.microsoft.com/en-us/ef/core/saving/transactions.
 
 ```c#
 IDbContextTransaction transaction = context.Database.BeginTransaction();
