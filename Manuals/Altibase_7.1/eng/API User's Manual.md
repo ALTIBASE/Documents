@@ -193,7 +193,7 @@ This manual is organized as follows:
 
   This chapter introduces Altibase ADO.NET, a driver that enables access to the Altibase server from .NET Core-based application, and ADO.NET APIs implemented in Altibase ADO.NET.
   
-- Chapter 7: Altibase Entity Framework Core
+- Chapter 7: Altibase EF Core(Altibase.EntityFrameworkCore)
 
   This chapter introduces how to use Altibase EF Core. Altibase EF Core is designed to integrate the features of EF Core 3.1 with the Altibase database.
 
