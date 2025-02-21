@@ -3844,7 +3844,7 @@ class ArrayBind
 
 
 
-# 7.Altibase Entity Framework Core(Altibase.EntityFrameworkCore)
+# 7.Altibase EF Core(Altibase.EntityFrameworkCore)
 
 ## Altibase EF Core Overview
 
