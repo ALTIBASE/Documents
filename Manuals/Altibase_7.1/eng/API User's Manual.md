@@ -137,6 +137,12 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Altibase ADO.NET API](#Altibase-ADONET-API)
   - [Altibase ADO.NET Data Types](#Altibase-ADONET-Data-Types)
   - [Altibase ADO.NET Examples](#Altibase-ADONET-Examples)
+- [7.Altibase EF Core(Altibase.EntityFrameworkCore)](#7altibase-entity-framework-corealtibaseentityframeworkcore)
+  - [Altibase EF Core Overview](#altibase-ef-core-overview)
+  - [Using the Altibase EF Core](#using-the-altibase-ef-core)
+  - [Altibase EF Core Data Types](#altibase-ef-core-data-types)
+  - [Altibase EF Core Examples](#altibase-ef-core-examples)
+
 
 
 
@@ -186,6 +192,10 @@ This manual is organized as follows:
 - Chapter 6: Altibase ADO.NET
 
   This chapter introduces Altibase ADO.NET, a driver that enables access to the Altibase server from .NET Core-based application, and ADO.NET APIs implemented in Altibase ADO.NET.
+  
+- Chapter 7: Altibase Entity Framework Core
+
+  This chapter introduces how to use Altibase EF Core. Altibase EF Core is designed to integrate the features of EF Core 3.1 with the Altibase database.
 
 ### Documentation Conventions
 
@@ -3831,3 +3841,642 @@ class ArrayBind
  }
 }
 ~~~
+
+
+
+# 7.Altibase Entity Framework Core(Altibase.EntityFrameworkCore)
+
+## Altibase EF Core Overview
+
+Entity Framework Core (EF Core) is an object-relational mapping (ORM) framework that helps .NET developers interact with relational databases. EF Core automates the mapping between database schemas and class models, enabling database operations without writing SQL. For more details about EF Core, refer to [Microsoft's Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/).
+
+Altibase EF Core (Altibase.EntityFrameworkCore) is an implementation that allows the use of EF Core 3.1 features with the Altibase database.
+
+### Requirements
+
+- Altibase ADO.NET Driver
+- Altibase 7.1.0.10.0 or higher
+- .NET Core 3.1
+
+### Supported OS
+
+The supported operating systems are the same as those compatible with Altibase ADO.NET.
+
+## Using the Altibase EF Core
+
+### Installing Dotnet EF
+
+To use EF Core functionalities with the dotnet CLI, install `dotnet-ef`.
+
+With `dotnet-ef`, you can execute commands such as migrations, database updates, and scaffolding.
+
+```sh
+dotnet tool install --global dotnet-ef --version 3.1
+```
+
+### Installing Altibase EF Core Package
+
+To use the Altibase EF Core package, you must first install the Altibase ADO.NET package.
+
+Install `Altibase.EntityFrameworkCore` using the following dotnet CLI commands:
+
+You can also download it from [NuGet](https://www.nuget.org/packages/Altibase.EntityFrameworkCore).
+
+```sh
+## Install Altibase ADO.NET Package
+dotnet add package Altibase.Data.AltibaseClient
+
+## Install Altibase EF Core Package
+dotnet add package Altibase.EntityFrameworkCore
+```
+
+### Declaring Altibase EF Core Package
+
+```c#
+using Altibase.EntityFrameworkCore;
+```
+
+### Defining DbContext
+
+`DbContext` is the core class of EF Core, managing database connections and handling queries and commands.
+
+```c#
+public class SampleContext : DbContext
+{
+    public DbSet<SampleTable> SampleTables { get; set; }
+    // Connection Configuration
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+    optionsBuilder.UseAltibase("Server=127.0.0.1;port=20300;User=sys;Password=manager");
+    }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // Model Configuration
+        modelBuilder.Entity<SampleTable>().HasKey(c => c.C1);
+    }
+}
+```
+
+#### Connection Configuration
+
+You can configure the connection to the Altibase server by overriding the `OnConfiguring` function of `DbContext`.
+
+The connection string is passed as an argument to `UseAltibase()`. For additional connection properties, refer to [ADO.NET Connection Properties](#연결-속성-정보).
+
+```c#
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+{
+    // Connection Configuration
+    optionsBuilder.UseAltibase("Server=127.0.0.1;port=20300;User=sys;Password=manager");
+}
+```
+
+### Defining Entity Classes (Models)
+
+Define entity classes that map to database tables.
+
+```c#
+// SampleTable class
+public class SampleTable
+{
+    public int C1 { get; set; }
+    public string C2 { get; set; }
+}
+```
+
+### Creating Migrations and Updating the Database
+
+Using EF Core migration feature, model changes can be applied to the database.
+
+```sh
+## Create a Migration
+dotnet ef migrations add InitialCreate
+
+## Apply the Migration to the Database
+dotnet ef database update
+```
+
+### CRUD(Create/Read/Update/Delete) task
+
+- Create 
+
+  ```c#
+  using var context = new SampleContext();
+  context.SampleTables.Add(new SampleTable { C1 = 1, C2 = "A"});
+  context.SampleTables.Add(new SampleTable { C1 = 2, C2 = "B" });
+  context.SampleTables.Add(new SampleTable { C1 = 3, C2 = "C" });
+  context.SaveChanges();
+  ```
+
+- Read
+
+  ```c#
+  using var context = new SampleContext();
+  var sampleTables = context.SampleTables.ToList()
+  ```
+
+- Update
+
+  ```c#
+  using var context = new SampleContext();
+  var updateRow = context.SampleTables.Single(s => s.C1 == 2);
+  updateRow.C2 = "X";
+  context.SaveChanges();
+  ```
+
+- Delete
+
+  ```c#
+  using var context = new SampleContext();
+  var deleteRow = context.SampleTables.Single(s => s.C1 == 3);
+  context.SampleTables.Remove(deleteRow);
+  context.SaveChanges();
+  ```
+
+### Using Transactions
+
+Transactions are controlled through the `Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction` interface. For more details, refer to https://learn.microsoft.com/ko-kr/ef/core/saving/transactions.
+
+```c#
+IDbContextTransaction transaction = context.Database.BeginTransaction();
+context.TranTables.Add(new TranTable { C1 = 1, C2 = "ABCD" });
+context.TranTables.Add(new TranTable { C1 = 2, C2 = "EFG" });
+context.TranTables.Add(new TranTable { C1 = 3, C2 = "HIJ" });
+var resultCnt = context.SaveChanges();
+Console.WriteLine("insert row count=" + resultCnt);
+transaction.Commit();
+```
+
+- DbContext.Database.BeginTransaction()
+
+  : Starts a transaction.
+
+- IDbContextTransaction.Commit()
+
+  : Commits the changes to the database.
+
+- IDbContextTransaction.Rollback()
+
+  : Rolls back the changes.
+
+### LOB Data
+
+In Altibase EF Core, LOB is supported by the following types. To handle LOB data, you must explicitly specify the column type. For detailed examples, refer to the CLOB and BLOB examples in the Altibase EF Core samples.
+
+| .NET Core | Altibase Data Type |
+| --------- | ------------------ |
+| string    | CLOB               |
+| byte[]    | BLOB               |
+
+#### Specifying a CLOB Column
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<MyEntity>(eb =>
+    {
+        // Specify the type of the C2 column as CLOB.
+        eb.Property(b => b.C2).HasColumnType("clob");
+    });
+}
+```
+
+#### Specifying a BLOB Column
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<MyEntity>(eb =>
+    {
+        // Specify the type of the C2 column as BLOB.
+        eb.Property(b => b.C2).HasColumnType("blob");
+    });
+}
+```
+
+### Precautions When Using Altibase EF Core
+
+#### Object Names and Double Quotes in Altibase
+
+When creating a schema through Altibase EF Core migrations, double quotes ("") are automatically added to the names of objects (tables, columns, indexes, etc.).
+
+By default, Altibase recognizes object names without double quotes as uppercase and only distinguishes case sensitivity when double quotes are used.
+
+Therefore, when using objects created via Altibase EF Core in ISQL, JDBC, SQLCLI, etc., double quotes must be used for proper recognition.
+
+> **Note**: If double quotes ("") are not used, the object names may not be recognized.
+
+#### ValueGeneration Convention
+
+The `ValueGenerated` property is used in EF Core to define how the value of a database column is generated.
+
+For a detailed explanation, refer to [ValueGenerated Enum (Microsoft.EntityFrameworkCore.Metadata) | Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.metadata.valuegenerated?view=efcore-8.0).
+
+In Altibase EF Core, the `ValueGenerated` property is always set to "Never," and other values are not supported. Therefore, users should not modify the `ValueGenerationConvention` property value.
+
+The following configurations are not supported:
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<MyEntity>()
+        .Property(e => e.Id)
+        .ValueGeneratedOnAdd();
+}
+
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<MyEntity>()
+        .Property(e => e.Timestamp)
+        .ValueGeneratedOnAddOrUpdate();
+}
+
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<MyEntity>()
+        .Property(e => e.LastUpdated)
+        .ValueGeneratedOnUpdate();
+}
+```
+
+### Unsupported Features
+
+#### Database Creation and Deletion
+
+Altibase EF Core does not support database creation or deletion. In Altibase, database creation and deletion can currently only be executed through `isql`, so the control via EF Core is not supported.
+
+##### Database Creation and Deletion Using dotnet ef
+
+The following commands cannot be used:
+
+```sh
+dotnet ef database create
+dotnet ef database drop
+```
+
+##### Database Creation and Deletion Using API
+
+The following example is not supported:
+
+```c#
+var databaseCreator = context.Database.GetService<IRelationalDatabaseCreator>();
+databaseCreator.Create();  //Create database
+databaseCreator.Delete();  //Delete database
+```
+
+#### Migrations Script
+
+The migrations script feature of dotnet ef is not supported.
+
+```sh
+dotnet ef migrations script
+```
+
+#### HasDefaultValueSql API
+
+The `HasDefaultValueSql` method is not supported in Altibase EF Core.
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder){
+    modelBuilder.Entity<DefaultValue>()
+                    .Property(b => b.ShortCol)
+                    .HasDefaultValueSql("select MOD(10, 3) from dual");
+    modelBuilder.Entity<DefaultValue>()
+                    .Property(b => b.CharCol)
+                    .HasDefaultValueSql("select CONCAT('A', 'B') from dual");
+}
+```
+
+## Altibase EF Core Data Types
+
+This section outlines the relationship between .NET Core data types and Altibase data types supported by Altibase EF Core.
+
+### Migration
+
+| .NET Core | Altibase Data Types |
+| :-------- | :------------------ |
+| bool      | SMALLINT            |
+| byte      | SMALLINT            |
+| char      | CHAR(2)             |
+| short     | SMALLINT            |
+| ushort    | INTEGER             |
+| int       | INTEGER             |
+| uint      | BIGINT              |
+| long      | BIGINT              |
+| ulong     | NUMERIC             |
+| decimal   | NUMERIC             |
+| float     | REAL                |
+| double    | DOUBLE              |
+| string    | VARCHAR             |
+| byte[]    | VARBYTE             |
+| DateTime  | DATE                |
+
+### Scaffolding
+
+| Altibase Data Types | .NET Core |
+| :------------------ | :-------- |
+| CHAR                | char      |
+| SMALLINT            | short     |
+| INTEGER             | int       |
+| BIGINT              | long      |
+| NUMERIC             | decimal   |
+| REAL                | float     |
+| DOUBLE              | double    |
+| VARCHAR             | string    |
+| VARBYTE             | byte[]    |
+| DATE                | DateTime  |
+
+## Altibase EF Core Examples
+
+### CRUD
+
+```c#
+using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Altibase.EntityFrameworkCore;
+namespace efcore_sample
+{
+    public class SampleTable
+    {
+        public int C1 { get; set; }
+        public string C2 { get; set; }
+    }
+    public class SampleContext : DbContext
+    {
+        public DbSet<SampleTable> SampleTables { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseAltibase("Server=127.0.0.1;port=20300;User=sys;Password=manager");
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<SampleTable>().HasKey(c => c.C1);
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+            //Create
+            using var context = new SampleContext();
+            context.SampleTables.Add(new SampleTable { C1 = 1, C2 = "A"});
+            context.SampleTables.Add(new SampleTable { C1 = 2, C2 = "B" });
+            context.SampleTables.Add(new SampleTable { C1 = 3, C2 = "C" });
+            var resultCnt = context.SaveChanges();
+            Console.WriteLine("insert row count=" + resultCnt);
+
+            //Read
+            Console.WriteLine("select SampleTable");
+            foreach(SampleTable st in context.SampleTables.ToList())
+            {
+                Console.WriteLine("C1="+st.C1+", C2="+st.C2);
+            }
+
+            //Update
+            var updateRow = context.SampleTables.Single(s => s.C1 == 2);
+            updateRow.C2 = "X";
+            resultCnt = context.SaveChanges();
+            Console.WriteLine("update row count=" + resultCnt);
+            Console.WriteLine("select SampleTable");
+            foreach (SampleTable st in context.SampleTables.ToList())
+            {
+                Console.WriteLine("C1=" + st.C1 + ", C2=" + st.C2);
+            }
+
+            //Delete
+            var deleteRow = context.SampleTables.Single(s => s.C1 == 3);
+            context.SampleTables.Remove(deleteRow);
+            resultCnt = context.SaveChanges();
+            Console.WriteLine("delete row count=" + resultCnt);
+            Console.WriteLine("select SampleTable");
+            foreach (SampleTable st in context.SampleTables.ToList())
+            {
+                Console.WriteLine("C1=" + st.C1 + ", C2=" + st.C2);
+            }
+        }
+    }
+}
+
+```
+
+**Result:**
+
+```sh
+Hello World!
+insert row count=3
+select SampleTable
+C1=1, C2=A
+C1=2, C2=B
+C1=3, C2=C
+update row count=1
+select SampleTable
+C1=1, C2=A
+C1=3, C2=C
+C1=2, C2=X
+delete row count=1
+select SampleTable
+C1=1, C2=A
+C1=2, C2=X
+```
+
+### LOB  
+
+#### CLOB
+
+```c#
+using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Altibase.EntityFrameworkCore;
+namespace efcore_sample
+{
+    public class CLobTable
+    {
+        public int C1 { get; set; }
+        public string C2 { get; set; }
+    }
+    public class CLobContext : DbContext
+    {
+        public DbSet<CLobTable> CLobTables { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseAltibase("Server=127.0.0.1;port=20300;User=sys;Password=manager");
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CLobTable>().HasKey(c => c.C1);
+
+            modelBuilder.Entity<CLobTable>(
+                eb =>
+                {
+                    eb.Property(b => b.C2).HasColumnType("clob");
+                });
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("CLob Sample!");
+            using var context = new CLobContext();
+            context.CLobTables.Add(new CLobTable { C1 = 1, C2 = "ABCDEFGHIJKLMN"});
+            context.CLobTables.Add(new CLobTable { C1 = 2, C2 = "OPQRSTU" });
+            context.CLobTables.Add(new CLobTable { C1 = 3, C2 = "VWXYz" });
+            var resultCnt = context.SaveChanges();
+            Console.WriteLine("insert row count=" + resultCnt);
+            Console.WriteLine("select ClobTable");
+            foreach(CLobTable ct in context.CLobTables.ToList())
+            {
+                Console.WriteLine("C1="+ct.C1+", C2="+ct.C2);
+            }
+        }
+    }
+}
+```
+
+**Result:**
+
+```sh
+CLob Sample!
+insert row count=3
+select ClobTable
+C1=1, C2=ABCDEFGHIJKLMN
+C1=2, C2=OPQRSTU
+C1=3, C2=VWXYz
+```
+
+#### BLOB
+
+```c#
+using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Altibase.EntityFrameworkCore;
+namespace efcore_sample
+{
+    public class BLobTable
+    {
+        public int C1 { get; set; }
+        public byte[] C2 { get; set; }
+    }
+    public class BLobContext : DbContext
+    {
+        public DbSet<BLobTable> BLobTables { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseAltibase("Server=127.0.0.1;port=20300;User=sys;Password=manager");
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BLobTable>().HasKey(c => c.C1);
+            modelBuilder.Entity<BLobTable>(
+                eb =>
+                {
+                    eb.Property(b => b.C2).HasColumnType("blob");
+                });
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("BLob Sample!");
+            using var context = new BLobContext();
+            context.BLobTables.Add(new BLobTable { C1 = 1, C2 = new byte[] { 0x01, 0x02, 0x03, 0x04 }  });
+            context.BLobTables.Add(new BLobTable { C1 = 2, C2 = new byte[] { 0x11, 0x22, 0x33, 0x44, 0x55 }  });
+            context.BLobTables.Add(new BLobTable { C1 = 3, C2 = new byte[] { 0x99, 0x88, 0x77 } });
+            var resultCnt = context.SaveChanges();
+            Console.WriteLine("insert row count=" + resultCnt);
+            Console.WriteLine("select BlobTable");
+            foreach(BLobTable ct in context.BLobTables.ToList())
+            {
+                Console.Write("C1="+ct.C1+", C2={");
+                foreach(byte b in ct.C2)
+                {
+                    Console.Write("0x{0:X} ", b);
+                }
+                Console.WriteLine("}");
+            }
+        }
+    }
+}
+```
+
+**Result:**
+
+```sh
+BLob Sample!
+insert row count=3
+select BlobTable
+C1=1, C2={0x1 0x2 0x3 0x4 }
+C1=2, C2={0x11 0x22 0x33 0x44 0x55 }
+C1=3, C2={0x99 0x88 0x77 }
+```
+
+### Transaction
+
+```c#
+using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Altibase.EntityFrameworkCore;
+namespace efcore_sample
+{
+    public class TranTable
+    {
+        public int C1 { get; set; }
+        public string C2 { get; set; }
+    }
+    public class TranContext : DbContext
+    {
+        public DbSet<TranTable> TranTables { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseAltibase("Server=127.0.0.1;port=20300;User=sys;Password=manager");
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TranTable>().HasKey(c => c.C1);
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Transaction Sample!");
+            using var context = new TranContext();
+            using var transaction = context.Database.BeginTransaction();
+            context.TranTables.Add(new TranTable { C1 = 1, C2 = "ABCD"  });
+            context.TranTables.Add(new TranTable { C1 = 2, C2 = "EFG"  });
+            context.TranTables.Add(new TranTable { C1 = 3, C2 = "HIJ" });
+            var resultCnt = context.SaveChanges();
+            Console.WriteLine("insert row count=" + resultCnt);
+            transaction.Commit();
+            Console.WriteLine("select TranTable");
+            foreach(TranTable tt in context.TranTables.ToList())
+            {
+                Console.WriteLine("C1="+tt.C1+", C2="+tt.C2);
+            }
+        }
+    }
+}
+```
+
+**Result:**
+
+```sh
+Transaction Sample!
+insert row count=3
+select TranTable
+C1=1, C2=ABCD
+C1=2, C2=EFG
+C1=3, C2=HIJ
+```
