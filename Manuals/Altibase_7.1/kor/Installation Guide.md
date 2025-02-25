@@ -1650,7 +1650,7 @@ Posix AIO는 AIX가 제공하는 디스크 처리 성능 개선 항목으로 수
 
 ##### 설정 방법
 
-/proc/sys/kernel 경로에 sem, shmmax, shmmni, swapiness 등의 파일에 설정한다. . RedHat 7.2 이상에서는 /etc/systemd/loginid.conf에서 RemoveIPC 설정값을 확인한다.
+/proc/sys/kernel 경로에 sem, shmmax, shmmni, swapiness 등의 파일에 설정한다. RedHat 7.2 이상에서는 /etc/systemd/loginid.conf에서 RemoveIPC 설정값을 확인한다.
 
 ##### 권장 값
 
@@ -1778,7 +1778,9 @@ libncurses.so.5, libtinfo.so.5 심볼릭 링크가 없는 경우 다음과 같�
 
   참고 : [Announcing ncurses 6.2 (invisible-island.net)](https://invisible-island.net/ncurses/announce.html#h2-release-notes)
 
-​	
+### Red Hat Enterprise Linux 9
+
+Altibase 7.1.0.10.0 부터 RHEL 9을 지원한다.
 
 ### 디스크 구성 상태 확인
 

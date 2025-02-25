@@ -1745,6 +1745,10 @@ For RHEL 8, symbolic links for libncurses.so.5 and libtinfo.so.5 must be created
 
   Reference : [Announcing ncurses 6.2 (invisible-island.net)](https://invisible-island.net/ncurses/announce.html#h2-release-notes)
 
+### Red Hat Enterprise Linux 9
+
+Altibase has supported RHEL 9 since Altibase version 7.1.0.10.0.
+
 ### Checking Disk Configuration
 
 Redo log files and data files generally experience disk I/O in Altibase. To minimize performance loss due to disk I/O, we recommend that you segregate redo log files and data files onto a separate physical disk.
