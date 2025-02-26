@@ -2284,9 +2284,10 @@ Altibase는 네트워크 기반의 이중화 기법을 활용하여 지역 서�
 
 - DDL 문을 수행하면 대상 테이블이 잠금(LOCK) 상태가 된다. 이 상태에서 주 트랜잭션이 발생하면, 수신 쓰레드는 잠금된 테이블에 복제 트랜잭션을 적용할 수 없다.
 
-- **DDL 문을 수행하기 전**에 **이중화 갭**을 **해소**해야 한다. 이중화 갭이 있는 상태에서 DDL 문을 수행하면 데이터 불일치가 발생할 수 있다.
+- **DDL 문을 수행하기 전**에 **이중화 갭**을 **해소**해야 한다. 이중화 갭이 있는 상태에서 DDL 문을 수행하면 이중화 성능에 영향을 줄 수 있다.
 
 - **현재 칼럼보다 범위가 넓어질 때는 주 트랜잭션이 발생하지 않는 서버에서 먼저 DDL문을 수행해야 한다.**
+
 - **현재 칼럼보다 범위가 좁아질 때는 주 트랜잭션이 발생하는 서버에서 먼저 DDL 문을 수행해야 한다.**
 
 ## 수행할 수 있는 DDL 문
@@ -2301,7 +2302,7 @@ Altibase는 네트워크 기반의 이중화 기법을 활용하여 지역 서�
 
 > [!IMPORTANT]
 >
-> DDL 문 레벨 1에 속한 구문을 수행하려면, **반드시** **[SQL 반영 모드](#C부록-SQL-반영-모드)를 활성화**해야 한다.
+> DDL 문 레벨 1에 속한 구문을 수행하려면, **반드시** **[SQL 반영 모드](#C부록-SQL-반영-모드)를 활성화**해야 한다. SQL 반영 모드는 이중화 수신자 쪽에서 수행한다.
 >
 
 > [!tip]
@@ -2544,10 +2545,12 @@ ALTER REPLICATION replication_name FLUSH;
 
 #### **Step 5. SQL 반영 모드 동작 여부 확인**
 
-원격 서버에서 SQL 반영 모드가 동작하는지 확인한다. 아래 조회 구문을 실행하여 결과가 `0`인지 확인한다.
+원격 서버에서 모든 이중화 객체에서 SQL 반영 모드가 동작하는지 확인한다. 이중화 대상 서버에서 DDL 문이 정상적으로 수행되었으면, SQL 반영 모드로 동작 중인 이중화 객체가 없어야 한다. 
+
+다음 조회 구문을 실행하여 SQL_APPLY_TABLE_COUNT 값이 `0`인지 확인한다.
 
 ```sql
-SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
+SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
 ```
 
 이 절차는 SQL 반영 모드를 활성화한 경우에만 수행한다.
@@ -2650,8 +2653,8 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
         <tr>       
             <td colspan="2">Step 5. SQL 반영 모드 동작 여부 확인</td>        
             <td>-</td>       
-            <td>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>       
-            <td>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>     
+            <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>       
+            <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>     
         </tr>     
         <tr>       
             <td rowspan="3">Step 6. 프로퍼티 설정 원복</td>       
@@ -2680,6 +2683,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
         </tr>   
     </tbody> 
 </table>
+
 
 
 
@@ -5677,10 +5681,12 @@ ALTER REPLICATION replication_name START;
 
 ### Step 11: SQL 반영 모드 동작 여부 확인
 
-모든 이중화 서버에서 SQL 반영 모드가 동작하는지 확인한다. 아래 조회 구문을 실행하여 결과가 `0`인지 확인한다.
+모든 이중화 객체에서 SQL 반영 모드가 동작하는지 확인한다. 이중화 대상 서버에서 DDL 문이 정상적으로 수행되었으면, SQL 반영 모드로 동작 중인 이중화 객체가 없어야 한다. 
+
+다음 조회 구문을 실행하여 SQL_APPLY_TABLE_COUNT 값이 `0`인지 확인한다.
 
 ~~~sql
-SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
+SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
 ~~~
 
 ### Step 12: SQL 반영 모드 해제
@@ -5818,8 +5824,8 @@ Active1, Active2의 서비스를 원래대로 분배한다.
     	</tr>        
         <tr>
             <td colspan="2">SQL 반영 모드 동작 여부 확인</td>
-      		<td>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
-            <td>SELECT SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>          
+      		<td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+            <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>          
     	</tr>
         <tr>
             <td colspan="2">SQL 반영 모드 해제</td>
@@ -5855,7 +5861,7 @@ SQL 반영 모드는 **지역 서버와 원격 서버의 메타 정보가 다를
 
 ### 주의 사항
 
-SQL 반영 모드를 활성화하면 이중화 속도가 현저히 느려지므로 **사용 후 바로 비활성화해야 한다.** 이를 준수하지 않으면 트랜잭션 처리가 지연되어 데이터 불일치가 발생할 수 있다.
+SQL 반영 모드를 활성화하면 이중화 속도가 현저히 느려지므로 **사용 후 바로 비활성화해야 한다.**
 
 ## SQL 반영 모드 동작 조건
 
@@ -5893,9 +5899,11 @@ SQL 반영 모드는 다음과 같은 경우에 동작한다.
 
 ## SQL 반영 모드 설정
 
-SQL 반영 모드를 사용하려면 수신자의 `REPLICATION_SQL_APPLY_ENABLE` 프로퍼티를 1로 설정해야 한다.
+SQL 반영 모드는 **이중화 수신자 쪽에서 설정**한다. 
 
 #### 설정 방법
+
+수신자 서버에서 다음 문장을 수행하여 SQL 반영 모드를 활성화한다.
 
 ```sql
 ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
