@@ -1072,28 +1072,47 @@ SYS 사용자만이 이중화 객체를 생성할 수 있다.
 
 - ***replication_name***  
   생성될 이중화 객체의 이름을 명시한다. 지역 서버와 원격 서버에 동일한 이름을 설정해야 한다.
+  
 - ***FOR ANALYSIS \| FOR ANALYSIS PROPAGATION***  
   log analyzer 용 이중화를 생성한다. 자세한 설명은 *Log Analyzer User’s Manual*을 참고한다.
+  
 - ***FOR PROPAGABLE LOGGING \| FOR PROPAGATION***  
   이중화 수신자가 전송받은 로그를 복제하기 위해 FOR PROPAGABLE LOGGING을 사용하여 로그를 기록한 후, 복제된 로그가 다른 원격 서버로 전송하기 위해 FOR PROPAGATION을 사용한다. 
+  
 - ***AS MASTER 또는 AS SLAVE***  
   해당 서버가 Master 인지 Slave 인지를 지정한다. 만약 아무것도 지정하지 않으면 기존의 REPLICATION_INSERT_REPLACE 또는 REPLICATION_UPDATE_REPLACE 프로퍼티를 사용하는 방식과 동일하다. Handshaking시 다음의 조합일 경우에만 성공한다: 0과 0, 1과 2, 또는 2와 1. 다른 조합은 실패할 것이다. (0: 지정하지 않은 경우, 1: Master, 2: Slave)
+  
 - ***remote_host_ip | remote_host_name***  
   원격 서버의 IP 주소값 이나 호스트 이름
+  
 - ***remote_host_port_no***  
   원격 서버 수신 쓰레드의 포트 번호. 즉, 원격 서버의 Altibase 프로퍼티의 REPLICATION_PORT_NO에 해당하는 값이다.
+  
 - ***conn_type***  
   원격 서버와의 통신 방법(TCP/ IB)을 지정할 수 있으며, 기본값은 TCP이다. 인피니밴드(Infiniband)를 사용하려면 IB로 지정한다.
+  
+  > 주의:
+  >
+  >  인피니밴드를 사용하면 HBT(HeartBeat Thread)를 통한 네트워크 장애 감지가 되지 않는 제약이 있다.
+  
+  > 참고:
+  >
+  > HBT(HeartBeat Thread)란, Altibase 이중화에서 송수신 스레드간에 통신 장애를 감지하기 위해 상대 호스트의 상태를 주기적으로 검사하는 스레드를 말한다.
+  
 - ***ib_latency***  
   rsocket의 RDMA_LATENCY 옵션값을 지정할 수 있으며, 기본값은 0이다. conn_type이 IB인 경우에만 입력 가능하다.
+  
   - 이 값이 1이면 CPU 자원을 소모하더라도, 적은 대기 시간을 사용한다.
   
 - ***user_name***  
   이중화할 테이블의 소유자 이름
+  
 - ***table_name***  
   이중화할 테이블 이름
+  
 - ***partition_name***  
   이중화할 파티션 이름
+  
 - ***option_name***  
   이중화 객체에 대한 부가 기능 이름. 지원하는 부가 기능에 대한 자세한 설명은 [이중화 부가 기능](#sql-반영-모드)에서 설명한다.
 
