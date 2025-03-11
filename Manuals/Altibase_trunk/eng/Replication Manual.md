@@ -1043,7 +1043,7 @@ When creating a replication object, one of the LAZY and EAGER modes can be selec
   
   This function cannot be used with recovery option.
   
-- ***as master or as slave***  
+- ***AS MASTER or AS SLAVE***  
   This specifies whether the server is the Master or the Slave. If not specified, the value specified using the REPLICATION_INSERT_REPLACE or REPLICATION_UPDATE_REPLACE property will be used. When attempting to perform handshaking, the following combinations of values will be successful: 0 with 0, 1 with 2, and 2 with 1. Other combinations will fail. (0 = not set; 1 = Master; 2 = Slave)
   
 - ***remote_host_ip***  
@@ -1053,11 +1053,18 @@ When creating a replication object, one of the LAZY and EAGER modes can be selec
   This is the port number at which the remote server Receiver thread listens. More specifically, this is the port number specified in REPLICATION_PORT_NO in the altibase.properties file on the remote server.
   
 - ***conn_type***  
-  This is the communication method with a remote server (TCP/InfiniBand). The default value is TCP.
+  This is the communication method with a remote server (TCP/IB). The default value is TCP. To use InfiniBand, specify IB.
 
+  > [!CAUTION]
+  >
+  > * To use InfiniBand, set the IB_ENABLE property value to 1.
+  > * When using InfiniBand, physical network failures are not detected.
+  
 - ***ib_latency***  
-  This is the RDMA_LATENCY option value for rsocket. It can be only inserted when conn_type is IB
+  This is the RDMA_LATENCY option value for rsocket, the default value is 0. It can be only inserted when *conn_type* is IB.
 
+  - If this value is set to 1, it uses lower latency at the cost of consuming CPU resources.
+  
 - ***user_name***  
   This is the name of the owner of the table to be replicated.
 

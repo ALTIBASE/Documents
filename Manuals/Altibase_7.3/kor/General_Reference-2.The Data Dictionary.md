@@ -2862,7 +2862,7 @@ SYS_REPLICATIONS_
 
 - TCP
 - Unix Domain
-- InfiniBand(IB)
+- IB : Used for InfiniBand communication.
 
 ##### IB_LATENCY
 
