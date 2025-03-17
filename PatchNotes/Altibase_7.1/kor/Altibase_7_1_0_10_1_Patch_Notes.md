@@ -1,0 +1,134 @@
+Altibase 7.1.0.10.1 Patch Notes
+===============================
+
+Fixed Bugs
+----------
+
+### BUG-51170 SM 모듈의 condition wait 의 Spurious wakeup 대응 코드 보완
+
+-   **module** : sm\_resource
+
+-   **Category** : Fatal
+
+-   **재현 빈도** : Rare
+
+-   **설명** : pthread_cond_wait, pthread_cond_timewait 에서 spurious wakup 대응 코드를 보완하여, 의도하지 않은 동작을 수행하지 않도록 수정합니다.
+
+-   **재현 방법**
+    -   **재현 절차**
+    
+    -   **수행 결과**
+    
+    -   **예상 결과**
+    
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-51366 송신자가 currentSN을 읽어오는 과정에서 동시성 문제로 인해 partial read가 발생 할 수 있습니다.
+
+-   **module** : sm
+-   **Category** : Functional Error
+-   **재현 빈도** : Rare
+-   **설명** : 송신자가 currentSN을 읽어오는 과정에서 동시성 문제로 Partial Read가 발생하여, 이중화가 비정상적으로 중지되는 문제가 있었습니다. 이를 해결하기 위해 동시성 문제를 수정하여 partial read 가 발생하지 않도록 개선하였습니다.
+-   **재현 방법**
+-   **재현 절차**
+    
+-   **수행 결과**
+    
+-   **예상 결과**
+-   **Workaround**
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-51372 이중화 중 특정 상황에서 LOB 로그가 Skip되지 않습니다.
+
+-   **module** : rp-sender
+
+-   **Category** : Functional Error
+
+-   **재현 빈도** : Rare
+
+-   **설명** : 이중화 재시작이 발생하는 시점에서 특정 순서로 LOB 관련
+    로그가 기록된 경우,  특정 LOB 로그는 Skip되었는데 나머지 LOB
+    로그가 Skip되지 않아 Receiver에서 Transaction not begun 오류가
+    발생합니다.
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+Changes
+-------
+
+### Version Info
+
+| altibase version | database binary version | meta version | cm protocol version | replication protocol version |
+| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- |
+| 7.1.0.10.1       | 6.5.1                   | 8.12.1       | 7.1.7               | 7.4.7                        |
+
+> Altibase 7.1 패치 버전별 히스토리는 [Version_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
+
+### 호환성
+
+#### Database binary version
+
+데이터베이스 바이너리 버전은 변경되지 않았다.
+
+> 데이터베이스 바이너리 버전은 데이터베이스 이미지 파일과 로그파일의
+> 호환성을 나타낸다. 이 버전이 다른 경우의 패치(업그레이드 포함)는
+> 데이터베이스를 재구성해야 한다.
+
+#### Meta Version
+
+메타 버전은 변경되지 않았다.
+
+> 패치를 롤백하려는 경우,
+> [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation%20Guide.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를
+> 참고한다.
+
+#### CM protocol Version
+
+통신 프로토콜 버전은 변경되지 않았다.
+
+#### Replication protocol Version
+
+Replication 프로토콜 버전은 변경되지 않았다.
+
+### 프로퍼티
+
+#### 추가된 프로퍼티
+
+#### 변경된 프로퍼티
+
+#### 삭제된 프로퍼티
+
+### 성능 뷰
+
+#### 추가된 성능 뷰
+
+#### 변경된 성능 뷰
+
+#### 삭제된 성능 뷰
