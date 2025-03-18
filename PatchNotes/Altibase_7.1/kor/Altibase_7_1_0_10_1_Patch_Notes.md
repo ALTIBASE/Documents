@@ -30,12 +30,12 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51366 송신자가 currentSN을 읽어오는 과정에서 동시성 문제로 인해 partial read가 발생 할 수 있습니다.
+### BUG-51366 송신자가 currentSN을 읽는 과정에서 동시성 문제로 인해 partial read가 발생 할 수 있습니다.
 
 -   **module** : sm
 -   **Category** : Functional Error
 -   **재현 빈도** : Rare
--   **설명** : 송신자가 currentSN을 읽어오는 과정에서 동시성 문제로 Partial Read가 발생하여, 이중화가 비정상적으로 중지되는 문제가 있었습니다. 이를 해결하기 위해 동시성 문제를 수정하여 partial read 가 발생하지 않도록 개선하였습니다.
+-   **설명** : 송신자가 currentSN을 읽는 과정에서 동시성 문제로 Partial Read가 발생하면 잘못된 값을 읽을 수 있으며, 이로 인해 이중화가 비정상적으로 중지될 수 있습니다. 이를 방지하기 위해 동시성 문제를 수정하여 Partial Read가 발생하지 않도록 개선하였습니다.
 -   **재현 방법**
 -   **재현 절차**
     
@@ -50,7 +50,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51372 이중화 중 특정 상황에서 LOB 로그가 Skip되지 않습니다.
+### BUG-51372 이중화 재 시작시 LOB 트랜잭션 로그 처리 오류 수정
 
 -   **module** : rp-sender
 
@@ -58,19 +58,15 @@ Fixed Bugs
 
 -   **재현 빈도** : Rare
 
--   **설명** : 이중화 재시작이 발생하는 시점에서 특정 순서로 LOB 관련
-    로그가 기록된 경우,  특정 LOB 로그는 Skip되었는데 나머지 LOB
-    로그가 Skip되지 않아 Receiver에서 Transaction not begun 오류가
-    발생합니다.
-
+-   **설명** : 이중화 재시작이 발생하는 시점에서 송신자가 LOB 트랜잭션 로그를 전송할 때, 이미 처리된 로그를 제외하는 로직에 문제가 있었습니다. 이로 인해 전송되지 않아야 할 일부 LOB 트랜잭션 로그가 잘못 전송되었으며, 그 결과 수신자에서 **"Transaction has not begun."** 오류가 발생하는 문제가 있었습니다. 이를 해결하기 위해 해당 로직을 개선하여, 불필요한 LOB 트랜잭션 로그가 전송되지 않도록 조치하였습니다.
+    
 -   **재현 방법**
-
     -   **재현 절차**
-
+    
     -   **수행 결과**
-
+    
     -   **예상 결과**
-
+    
 -   **Workaround**
 
 -   **변경사항**
