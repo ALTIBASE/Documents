@@ -4,6 +4,7 @@
 
 | altibase version      | database binary version | meta version | cm protocol version | replication protocol version | Bug#                                                         |
 | :-------------------- | :---------------------: | :----------: | :-----------------: | :--------------------------: | ------------------------------------------------------------ |
+| 7.1.0.10.1~           |          6.5.1          |    8.12.1    |        7.1.7        |            7.4.7             |                                                              |
 | ***7.1.0.10.0***      |          6.5.1          | ***8.12.1*** |        7.1.7        |            7.4.7             | [BUG-48885](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/Altibase_7_1_0_10_0_Patch_Notes.md#bug-48885) |
 | 7.1.0.8.6 ~ 7.1.0.9.9 |          6.5.1          |    8.11.1    |        7.1.7        |            7.4.7             |                                                              |
 | ***7.1.0.8.5***       |          6.5.1          | ***8.11.1*** |        7.1.7        |            7.4.7             | [BUG-50109 ](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/kor/Altibase_7_1_0_8_5_Patch_Notes.md#bug-50109-%EC%9D%B4%EC%A4%91%ED%99%94-%EB%B6%80%EA%B0%80%EA%B8%B0%EB%8A%A5%EC%9C%BC%EB%A1%9C-receive%5C_only-%EC%98%B5%EC%85%98-%EC%A0%9C%EA%B3%B5) |
