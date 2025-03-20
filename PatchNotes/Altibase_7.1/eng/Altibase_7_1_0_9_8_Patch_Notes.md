@@ -34,12 +34,12 @@ mm-jdbc
 
 Functionality
 
-#### 재현 빈도 
+#### Reproducibility 
 
 Always
 
 
-#### 설명 
+#### Description 
 
 The connection property `socket_immediate_close` has been added to control the activation of the SO_LINGER TCP socket option.
 
@@ -48,17 +48,17 @@ The connection property `socket_immediate_close` has been added to control the a
 
 The default value is **false**, and this connection property is supported starting from Altibase JDBC driver version 7.1.0.9.8 and above.
 
-#### 재현 방법
+#### How to reproduce this bug
 
--   **재현 절차**
+-   **Reproduction conditions**
 
--   **수행 결과**
+-   **Actual Results**
 
--   **예상 결과**
+-   **Expected Results**
 
 #### Workaround
 
-#### 변경사항
+#### Changes
 
 -   Performance view
 -   Property
@@ -77,19 +77,19 @@ mm-jdbc
 
 Functionality
 
-#### 재현 빈도
+#### Reproducibility
 
 Rare
 
-#### 설명 
+#### Description 
 
 Fixed an issue where the cursor would not close immediately after calling `ResultSet.close()` if there was remaining data to fetch from the Altibase server. This could result in a `Fetch Timeout` error due to server settings.
 
 To resolve this bug, update to Altibase JDBC Driver version 7.1.0.7.8 or later.
 
-#### 재현 방법
+#### How to reproduce this bug
 
-- **재현 절차**
+- **Reproduction conditions**
 
   ```
   iSQL> create table t1 (c1 int);
@@ -98,7 +98,7 @@ To resolve this bug, update to Altibase JDBC Driver version 7.1.0.7.8 or later.
   [altibase.properties]
   FETCH_TIMEOUT = 5 
   
-  [Altibase 클라이언트]
+  [Altibase Client Side]
   sStmt.setFetchSize(1);
   ResultSet sRs = sStmt.executeQuery("SELECT * FROM t1");
   if (sRs.next())
@@ -114,13 +114,13 @@ To resolve this bug, update to Altibase JDBC Driver version 7.1.0.7.8 or later.
   }
   ```
 
-- **수행 결과**
+- **Actual Results**
 
   ```bash
-  [Altibase 클라이언트]
+  [Altibase Client Side]
   Exception in thread "main" java.sql.SQLException: Communication link failure: There was no response from the server, and the channel has reached end-of-stream.
   
-  [Altibase 서버]
+  [Altibase Server Side]
   [2024/06/03 09:51:01 4EF][PID:26603][Thread-139699788171328][LWP-26592]
   [Notify : Fetch Timeout] Session Closed by Server : Session ID = 2
       CLIENT_INFO           => TCP 192.168.1.48:54096(PID : 2065530879)
@@ -130,7 +130,7 @@ To resolve this bug, update to Altibase JDBC Driver version 7.1.0.7.8 or later.
       Caused by Query       => SELECT * FROM t1
   ```
 
-- **예상 결과**
+- **Expected Results**
 
   ```
   1
@@ -138,14 +138,14 @@ To resolve this bug, update to Altibase JDBC Driver version 7.1.0.7.8 or later.
 
 #### Workaround
 
-#### 변경사항
+#### Changes
 
 -   Performance view
 -   Property
 -   Compile Option
 -   Error Code
 
-### BUG-50969 altibase\_stmt\_bind\_param 함수의 두 번째 인자의 메모리 주소가 변경되면 Some parameters were not bound. 에러가 발생합니다.
+### BUG-50969 Fixed an issue where changing the memory address of the second argument in the `altibase_stmt_bind_param` function caused a **"Some parameters were not bound."** error.
 #### module
 
 ux-cdbc
@@ -154,30 +154,27 @@ ux-cdbc
 
 Functional Error
 
-#### 재현 빈도
+#### Reproducibility
 
 Always
 
-#### 설명 
+#### Description 
 
-altibase\_stmt\_bind\_param 함수의 두 번째 인자의 메모리 주소가 변경되면 Some parameters were not bound. 에러가 발생하거나
-클라이언트가 비정상 종료하는 문제를 수정합니다. 
+Fixed an issue where changing the memory address of the second argument in the `altibase_stmt_bind_param` function could cause a **"Some parameters were not bound."** error or an abnormal client termination.
 
-이 버그는 altibase\_stmt\_bind\_param 함수와 altibase\_stmt\_execute 함수를 반복적으로 수행할 때 발생합니다. 
+This issue occurred when repeatedly executing the `altibase_stmt_bind_param` and `altibase_stmt_execute` functions. To apply this fix, update the ACI library (`libalticapi.a`).
 
-이 버그를 반영하려면 ACI 라이브러리(libalticapi.a)를 패치해야 합니다.
+#### How to reproduce this bug
 
-#### 재현 방법
-
-- **재현 절차**
+- **Reproduction conditions**
 
   ```c
   sRC = altibase_stmt_prepare(sStmt, "INSERT INTO bug50969 VALUES(?, ?)");
-  ...중략...
+  ...details omitted...
   memset(sBind1, 0, sizeof(sBind1));
-  ...중략....
+  ...details omitted....
   sRC = altibase_stmt_bind_param(sStmt, sBind1);
-  ...중략....
+  ...details omitted....
   sCount++;
   sBind1Count = 11;
   if (altibase_stmt_execute(sStmt) != ALTIBASE_SUCCESS)
@@ -187,9 +184,9 @@ altibase\_stmt\_bind\_param 함수의 두 번째 인자의 메모리 주소가 �
   }
   altibase_stmt_free_result(sStmt);
   memset(sBind2, 0, sizeof(sBind2));
-  ...중략....
+  ...details omitted....
   sRC = altibase_stmt_bind_param(sStmt, sBind2);
-  ...중략....
+  ...details omitted....
   sCount++;
   sBind2Count = 12;
   if (altibase_stmt_execute(sStmt) != ALTIBASE_SUCCESS)
@@ -199,13 +196,13 @@ altibase\_stmt\_bind\_param 함수의 두 번째 인자의 메모리 주소가 �
   }
   ```
 
--   **수행 결과**
+-   **Actual Results**
 
     ```c
     [51051] HY000 Some parameters were not bound.
     ```
     
--   **예상 결과**
+-   **Expected Results**
 
     ```c
     SELECT * FROM bug50969;
@@ -218,14 +215,14 @@ altibase\_stmt\_bind\_param 함수의 두 번째 인자의 메모리 주소가 �
 
 #### Workaround
 
-#### 변경사항
+#### Changes
 
 -   Performance view
 -   Property
 -   Compile Option
 -   Error Code
 
-### BUG-50975 SIMPLE QUERY 최적화 기능을 활성화하고 JDBC 연결 속성에 remove\_redundant\_transmission을 사용할 때, SQL 문 수행 중 메모리 오류가 발생할 수 있습니다.
+### BUG-50975 Fixed a memory error that could occur when executing SQL statements with SIMPLE QUERY optimization enabled and the JDBC connection property `remove_redundant_transmission` set.
 #### module
 
 mm
@@ -234,30 +231,21 @@ mm
 
 Memory Error
 
-#### 재현 빈도
+#### Reproducibility
 
 Always
 
 
-#### 설명
+#### Description
 
- "SIMPLE QUERY 최적화" 기능을 활성화하고 JDBC 연결 속성에 remove\_redundant\_transmission을 사용할 때 SQL 문 수행 중 발생하는
-메모리 오류를 수정하였습니다.
+Fixed a memory error that could occur when executing SQL statements with SIMPLE QUERY optimization enabled and the JDBC connection property `remove_redundant_transmission` set. 
 
-이 버그는 아래 조건을 만족할 때 Altibase 서버가 비정상 종료할 수 있습니다.
+#### How to reproduce this bug
 
-- Altibase 서버 프로퍼티 EXECUTOR\_FAST\_SIMPLE\_QUERY = 1 설정
-
-- JDBC 연결 속성 remove\_redundant\_transmission을 사용
-
-- SQL 문이 SIMPLE QUERY 최적화 기능이 적용되어 실행
-
-#### 재현 방법
-
-- **재현 절차**
+- **Reproduction conditions**
 
   ```
-  [Altibase 서버]
+  [Altibase Server side]
   ALTER SYSTEM SET EXECUTOR_FAST_SIMPLE_QUERY = 1;
   CREATE TABLE BUG 
   (
@@ -274,10 +262,10 @@ Always
     C11          CHAR(9)
   );
   
-  [Altibase 클라이언트]
+  [Altibase Client Side]
   String sURL      = "jdbc:Altibase://127.0.0.1:" + sPort + "/mydb" +
                              "?remove_redundant_transmission=1";
-  ...중략...
+  ...details omitted...
   /* Initialize environment */
   try
   {
@@ -297,17 +285,22 @@ Always
   }
   ```
 
-- **수행 결과**
+- **Actual Results**
 
-  Altibase 서버 비정상 종료
+  ```
+  Server abnormal termination
+  ```
 
-- **예상 결과**
+- **Expected Results**
 
-  SQL 문 정상 수행
+  ```
+  no error
+  ```
+  
 
 #### Workaround
 
-#### 변경사항
+#### Changes
 
 -   Performance view
 -   Property
@@ -323,42 +316,42 @@ Changes
 | :--------------: | :---------------------: | :----------: | :-----------------: | :--------------------------: |
 |    7.1.0.9.8     |          6.5.1          |    8.11.1    |        7.1.7        |            7.4.7             |
 
-> Altibase 7.1 패치 버전별 히스토리는 [Version\_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/Altibase_7_1_Version_Histories.md) 에서 확인할 수 있다.
+> You can check the module version change history in [Version_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/Altibase_7_1_Version_Histories.md).
 
-### 호환성
+### Compatibility
 
 #### Database binary version
 
-데이터베이스 바이너리 버전은 변경되지 않았다.
+The database binary version has not changed.
 
-> 데이터베이스 바이너리 버전은 데이터베이스 이미지 파일과 로그파일의 호환성을 나타낸다. 이 버전이 다른 경우의 패치(업그레이드 포함)는 데이터베이스를 재구성해야 한다.
+> The database binary version indicates the compatibility of database image files and log files. If this version needs to be patched to a different version, the database must be reorganized.
 
 #### Meta Version
 
-메타 버전은 변경되지 않았다.
+The meta version has not changed.
 
-> 패치를 롤백하려는 경우, [메타다운그레이드](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/kor/Installation%20Guide.md#%EB%A9%94%ED%83%80-%EB%8B%A4%EC%9A%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9Cmeta-downgrade)를 참고한다.
+> If you want to roll back the patch after patching to a version with a changed meta version, see [Meta Downgrade](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Installation%20Guide.md#meta-downgrade).
 
 #### CM protocol Version
 
-통신 프로토콜 버전은 변경되지 않았다.
+The cm protocol version has not changed.
 
 #### Replication protocol Version
 
-Replication 프로토콜 버전은 변경되지 않았다.
+The replication protocol version has not changed.
 
-### 프로퍼티
+### Altibase Server Properties
 
-#### 추가된 프로퍼티
+#### Added Properties
 
-#### 변경된 프로퍼티
+#### Changed Properties
 
-#### 삭제된 프로퍼티
+#### Deleted Properties
 
-### 성능 뷰
+### Performance Views
 
-#### 추가된 성능 뷰
+#### Added Performance Views
 
-#### 변경된 성능 뷰
+#### Changed Performance Views
 
-#### 삭제된 성능 뷰
+#### Deleted Performance Views
