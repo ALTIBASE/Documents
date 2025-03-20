@@ -2122,7 +2122,7 @@ CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING...;
 
 이중화 객체를 생성할 때 메타 로깅 옵션을 설정한다. 
 
-송신자 메타 정보와 재시작 SN 정보를 로그 파일 경로의 `repl_meta_files`디렉토리에 저장한다. *언제 남길까?* 
+송신자 메타 정보와 재시작 SN 정보를 로그 파일 경로의 `repl_meta_files`디렉토리에 저장한다. 
 
 ###### FOR ANALYSIS OPTIONS META_LOGGING
 
@@ -2154,7 +2154,6 @@ ALTER REPLICATION replication_name SET OFFLINE DISABLE;
 
 ##### 설명
 
-*QQ. active-active 이중화 환경에서도 오프라인 이중화를 수행할 수 있다고 보여짐. 거기에 맞게 수정함*
 
 오프라인 옵션은 Active 서버의 미전송 로그를 가져와 변경 트랜잭션을 반영하는 기능이다. 이 기능은 수신 쓰레드가 동작하는 이중화 서버에서 설정 및 수행하며, 이를 `오프라인 이중화`라고도 한다. 
 
@@ -2190,20 +2189,18 @@ Active 서버에서 변경 트랜잭션이 발생했지만 장애로 인해 원�
 
 오프라인 이중화를 수행하면 송신 스레드와 수신 스레드가 자동으로 종료되므로, 이후 이중화를 다시 시작해야 한다.
 
-오프라인 이중화를 수행 할 때 이중화 갭에 DDL 로그가 포함되어 있으면 작업이 중단된다. 이때, 사용자는 Active 서버에서 수행한 DDL 문을 오프라인 이중화를 수행하는 서버에서도 수행했는지 확인하고 다시 오프라인 이중화를 수행해야 한다.
 
 ###### RESET OFFLINE META
 
-오프라인 이중화의 메타 정보를 초기화하는 명령어로, 다음 상황에서 수행한다.
+`RESET OFFLINE META` 명령어는 `BUILD OFFLINE META` 실행 후 오프라인 이중화의 메타 정보를 초기화할 때 사용한다. 다음과 같은 상황에서 수행할 수 있다.
 
 - 오프라인 이중화 수행 중 에러가 발생해서 메타 정보를 새로 구성해야 하는 경우
 - 오프라인 이중화를 수행할 필요가 없어 메타 정보가 더 이상 필요하지 않은 경우
 
-단, 오프라인 이중화를 수행하는 중에 DDL 로그로 인해 에러가 발생할 때는 `RESET OFFLINE META`를 수행하지 않아도 된다. 이 경우 `RESET OFFLINE META`를 실행하면 DDL 로그를 계속 다시 읽어 에러가 반복 발생할 수 있다.
 
 ###### SET OFFLINE DISABLE  
 
-이중화 객체에서 오프라인 옵션을 해제한다. 이중화가 중지된 상태에서만 수행할 수 있다. 이 명령을 수행하기 전에 `RESET OFFLINE META`를 수행하여 메타 정보를 초기화해야 한다. 
+이중화 객체에서 오프라인 옵션을 해제한다. 이중화가 중지된 상태에서만 수행할 수 있다. 
 
 <br>
 
@@ -2274,9 +2271,6 @@ Active 서버에서 장애가 발생했을 때 Standby 서버에서 오프라인
 | 10. 오프라인 옵션 해제       |                                                              | ALTER REPLICATION rep1 SET OFFLINE DISABLE;                  |
 | 11. SQL 반영 모드 비활성화   |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
 
-*QQ. 오프라인 이중화 수행 중 DDL 로그를 만나 실패하는 경우의 예제도 필요할까?*
-
-*QQ. 오프라인 이중화 수행 중 DDL 로그가 아닌 에러를 만나 실패하는 경우의 예제도 필요할까?*
 
 > **참고:**
 > Adapter for JDBC 및 Adapter for Oracle에서 오프라인 옵션 사용 예제는 다음 문서를 참고한다.
