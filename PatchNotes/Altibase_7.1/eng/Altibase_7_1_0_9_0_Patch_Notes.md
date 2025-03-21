@@ -34,11 +34,11 @@ New Features
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
-        -   추가
+        -   New
             -   AKU_REPLICATION_RESET_AT_END
                 -   Default value : 1
                 -   Range : [0,1]
@@ -65,7 +65,7 @@ New Features
     
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
     -   Performance view
     -   Property
     -   Compile Option
@@ -112,7 +112,7 @@ New Features
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -143,7 +143,7 @@ New Features
     
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -187,7 +187,7 @@ New Features
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -216,7 +216,7 @@ Fixed Bugs
     
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -254,7 +254,7 @@ Fixed Bugs
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -325,7 +325,7 @@ Fixed Bugs
   
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -373,7 +373,7 @@ Fixed Bugs
   SELECT I1 FROM T1 WHERE I1 IN ( SELECT I1 FROM ( SELECT /*+ no_merge */ DISTINCT I1 FROM T1 ) WHERE I1 = 1 OR I2 = 1 );
   ```
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -418,7 +418,7 @@ Fixed Bugs
   ALTER SYSTEM SET EXECUTOR_FAST_SIMPLE_QUERY = 0; // Simple Query Fast Execution is not performed.
   ```
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -445,7 +445,7 @@ Fixed Bugs
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -468,7 +468,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
     -   **Expected Results**
 
 -   **Workaround**
--   **변경사항**
+-   **Changes**
     -   Performance view
     -   Property
     -   Compile Option
@@ -488,7 +488,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
 
     -   **Expected Results**
 -   **Workaround**
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -542,7 +542,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -580,7 +580,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -617,7 +617,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
         
@@ -645,7 +645,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -676,7 +676,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -711,7 +711,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
     
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -762,7 +762,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
   FROM dual;
   ```
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -788,7 +788,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
     
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -814,7 +814,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
     
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -884,7 +884,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
 
         Omit timezone or set to Asia/Seoul
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -1016,7 +1016,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
         );
     ```
     
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -1051,7 +1051,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -1078,7 +1078,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -1105,7 +1105,7 @@ Fixed the issue where the adapter terminated abnormally on HP hardware when fail
 
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property

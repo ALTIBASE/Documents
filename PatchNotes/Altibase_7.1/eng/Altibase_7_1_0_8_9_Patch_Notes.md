@@ -10,8 +10,6 @@ New Features
 
 ### BUG-50412  Log level improvement related to the unsupported property warning message in altibase_mm.log.
 
-### Modification of MM_MSGLOG_FLAG related to warning message in altibase_mm.log.
-
 -   **module** : mm
 
 -   **Category** : Usability

@@ -25,20 +25,21 @@ Fixed Bugs
 
 -   **Category** : Fatal
 
--   **재현 빈도** : Rare
+-   **Reproducibility** : Rare
 
--   **설명** : Fix spurious wakup response code in pthread_cond_wait, pthread_cond_timewait to prevent them from performing unintended behavior.
+-   **Description** : Fix spurious wakup response code in pthread_cond_wait, pthread_cond_timewait to prevent them from performing unintended behavior.
 
--   **재현 방법**
-    -   **재현 절차**
+-   #### How to reproduce this bug
     
-    -   **수행 결과**
+    -   **Reproduction conditions**
     
-    -   **예상 결과**
+    -   **Actual Results**
+    
+    -   **Expected Results**
     
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -49,16 +50,17 @@ Fixed Bugs
 
 -   **module** : sm
 -   **Category** : Functional Error
--   **재현 빈도** : Rare
--   **설명** : When the sender reads the currentSN, a concurrency issue may cause a partial read, leading to incorrect values being read and potentially causing replication to stop abnormally. To prevent this, the concurrency issue has been fixed to ensure that partial reads no longer occur.
--   **재현 방법**
--   **재현 절차**
-    
--   **수행 결과**
-    
--   **예상 결과**
+-   **Reproducibility** : Rare
+-   **Description** : When the sender reads the currentSN, a concurrency issue may cause a partial read, leading to incorrect values being read and potentially causing replication to stop abnormally. To prevent this, the concurrency issue has been fixed to ensure that partial reads no longer occur.
+- #### How to reproduce this bug
+
+  -   **Reproduction conditions**
+
+  -   **Actual Results**
+
+  -   **Expected Results**
 -   **Workaround**
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
@@ -71,20 +73,21 @@ Fixed Bugs
 
 -   **Category** : Functional Error
 
--   **재현 빈도** : Rare
+-   **Reproducibility** : Rare
 
--   **설명** : During replication restart, the sender failed to exclude already processed LOB transaction logs, causing some logs that should not have been transmitted to be sent incorrectly. This resulted in a **"Transaction has not begun."** error on the receiver. The issue has been resolved by improving the logic to prevent unnecessary LOB transaction logs from being transmitted.
+-   **Description** : During replication restart, the sender failed to exclude already processed LOB transaction logs, causing some logs that should not have been transmitted to be sent incorrectly. This resulted in a **"Transaction has not begun."** error on the receiver. The issue has been resolved by improving the logic to prevent unnecessary LOB transaction logs from being transmitted.
     
--   **재현 방법**
-    -   **재현 절차**
+-   #### How to reproduce this bug
     
-    -   **수행 결과**
+    -   **Reproduction conditions**
     
-    -   **예상 결과**
+    -   **Actual Results**
+    
+    -   **Expected Results**
     
 -   **Workaround**
 
--   **변경사항**
+-   **Changes**
 
     -   Performance view
     -   Property
