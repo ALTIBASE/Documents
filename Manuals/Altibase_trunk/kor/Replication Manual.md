@@ -2155,13 +2155,13 @@ ALTER REPLICATION replication_name SET OFFLINE DISABLE;
 ##### 설명
 
 
-오프라인 옵션은 Active 서버의 미전송 로그를 가져와 변경 트랜잭션을 반영하는 기능이다. 이 기능은 수신 쓰레드가 동작하는 이중화 서버에서 설정 및 수행하며, 이를 `오프라인 이중화`라고도 한다. 
+오프라인 옵션은 Active 서버의 미전송 로그를 가져와 원격 서버에 변경 트랜잭션을 반영하는 기능이다. 이 기능은 수신 쓰레드가 동작하는 이중화 서버에서 설정 및 수행하며, 이를 `오프라인 이중화`라고도 한다. 
 
-Active 서버에서 변경 트랜잭션이 발생했지만 장애로 인해 원격 서버로 로그를 전송할 수 없는 경우, 오프라인 이중화를 수행하여 미전송 로그를 가져와 반영할 수 있다. 
+Altibase 서버에서 장애가 발생하여 원격 서버로 변경 트랜잭션을 이중화할 수 없는 경우, 오프라인 이중화를 수행하여 미전송 로그를 가져와 반영할 수 있다. 
 
 오프라인 이중화를 수행하려면 다음 조건을 충족해야 한다.
 
-- Active 서버가 해당 서버로 이중화를 시작한 이력이 있어야 한다.
+- Active 서버가 원 서버로 이중화를 시작한 이력이 있어야 한다.
 - Active 서버의 이중화 객체에 메타 로깅 옵션이 설정되어 있어야 한다. 
 - Active 서버의 로그 파일과 송신자 메타 파일에 정상적으로 접근할 수 있어야 한다.
 
@@ -2169,17 +2169,17 @@ Active 서버에서 변경 트랜잭션이 발생했지만 장애로 인해 원�
 
 ###### OPTIONS OFFLINE
 
-이중화 객체를 생성할 때 오프라인 옵션을 설정한다. `log_dir`에는 Active 서버의 로그 파일 경로를 입력한다.
+이중화 객체를 생성할 때 오프라인 옵션을 설정한다. *`log_dir`*에는 Active 서버의 로그 파일 경로를 입력한다.
 
 ###### SET OFFLINE ENABLE WITH
 
-기존 이중화 객체에 오프라인 옵션을 설정한다. 이중화가 중지된 상태에서만 수행할 수 있다. `log_dir`에는 Active 서버의 로그 파일 경로를 입력한다.
+기존 이중화 객체에 오프라인 옵션을 설정한다. 이중화가 중지된 상태에서만 수행할 수 있다. *`log_dir`*에는 Active 서버의 로그 파일 경로를 입력한다.
 
 ###### BUILD OFFLINE META
 
 오프라인 이중화를 수행할 때 필요한 메타 정보를 구성한다. 
 
-이 명령을 수행하면, `log_dir`에서 송신자 메타 파일과 재시작 SN 파일을 읽어 메타 정보를 구성한다. Altibase 서버를 재시작하면 메타 정보가 사라지므로, `BUILD OFFLINE META`를 다시 수행해야 한다.
+이 명령을 수행하면, *`log_dir`*경로의 repl_meta_files 디렉토리에서 송신자 메타 파일과 재시작 SN 파일을 읽어 메타 정보를 구성한다. Altibase 서버를 재시작하면 메타 정보가 사라지므로, `BUILD OFFLINE META`를 다시 수행해야 한다.
 
 ###### START WITH OFFLINE  
 
@@ -2241,35 +2241,33 @@ Active 서버에서 장애가 발생했을 때 Standby 서버에서 오프라인
 
 이 예제에서는 메타 로깅 옵션이 설정된 Active 서버와 오프라인 옵션이 설정된 Standby 서버를 사용한다.
 
-|                              | Active                                                       | Standby                                                      |
-| ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 1. 스키마 생성               | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       |
-| 2. 이중화 생성               | CREATE REPLICATION rep1 OPTIONS META_LOGGING WITH 'standby_ip', standby_port FROM SYS.t1 to SYS.t1; | CREATE REPLICATION rep1 OPTION OFFLINE '/active_server/altibase_home/logs' WITH 'active_ip', active_port FROM SYS.t1 to SYS.t1; |
-| 3. Active 서버 이중화 시작   | ATER REPLICATION START rep1;                                 |                                                              |
-| 4. Active 서버 장애 발생     | 장애 발생                                                    |                                                              |
-| 5. SQL 반영 모드 활성화      |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
-| 6. 오프라인 메타 정보 구성   |                                                              | ALTER REPLICATION rep1 BUILD OFFLINE META;                   |
-| 7. 오프라인 이중화 시작      |                                                              | ALTER REPLICATION rep1 START WITH OFFLINE;                   |
-| 8. 오프라인 메타 정보 초기화 |                                                              | ALTER REPLICATION rep1 RESET WITH OFFLINE;                   |
-| 9. SQL 반영 모드 비활성화    |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
+|                            | Active                                                       | Standby                                                      |
+| -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1. 스키마 생성             | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       |
+| 2. 이중화 생성             | CREATE REPLICATION rep1 OPTIONS META_LOGGING WITH 'standby_ip', standby_port FROM SYS.t1 to SYS.t1; | CREATE REPLICATION rep1 OPTION OFFLINE '/active_server/altibase_home/logs' WITH 'active_ip', active_port FROM SYS.t1 to SYS.t1; |
+| 3. Active 서버 이중화 시작 | ATER REPLICATION START rep1;                                 |                                                              |
+| 4. Active 서버 장애 발생   | 장애 발생                                                    |                                                              |
+| 5. SQL 반영 모드 활성화    |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
+| 6. 오프라인 메타 정보 구성 |                                                              | ALTER REPLICATION rep1 BUILD OFFLINE META;                   |
+| 7. 오프라인 이중화 시작    |                                                              | ALTER REPLICATION rep1 START WITH OFFLINE;                   |
+| 8. SQL 반영 모드 비활성화  |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
 
 ###### 오프라인 옵션이 설정되지 않은 이중화 객체에서 오프라인 이중화 수행
 
 이 예제에서는 메타 로깅 옵션이 설정된 Active 서버와 오프라인 옵션이 설정되어 있지 않은 Standby 서버를 사용한다.
 
-|                              | Active                                                       | Standby                                                      |
-| ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 1. 스키마 생성               | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       |
-| 2. 이중화 생성               | CREATE REPLICATION rep1 OPTIONS META_LOGGING WITH 'standby_ip', standby_port FROM SYS.t1 to SYS.t1; | CREATE REPLICATION rep1 WITH 'active_ip', active_port FROM SYS.t1 to SYS.t1; |
-| 3. Active 서버 이중화 시작   | ATER REPLICATION START rep1;                                 |                                                              |
-| 4. Active 서버 장애 발생     | 장애 발생                                                    |                                                              |
-| 5. SQL 반영 모드 활성화      |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
-| 6. 오프라인 옵션 설정        |                                                              | ALTER REPLICATION rep1 SET OFFLINE ENABLE WITH '/active_server/altibase_home/logs'; |
-| 7. 오프라인 메타 정보 구성   |                                                              | ALTER REPLICATION rep1 BUILD OFFLINE META;                   |
-| 8. 오프라인 이중화 시작      |                                                              | ALTER REPLICATION rep1 START WITH OFFLINE;                   |
-| 9. 오프라인 메타 정보 초기화 |                                                              | ALTER REPLICATION rep1 RESET WITH OFFLINE;                   |
-| 10. 오프라인 옵션 해제       |                                                              | ALTER REPLICATION rep1 SET OFFLINE DISABLE;                  |
-| 11. SQL 반영 모드 비활성화   |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
+|                            | Active                                                       | Standby                                                      |
+| -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1. 스키마 생성             | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       |
+| 2. 이중화 생성             | CREATE REPLICATION rep1 OPTIONS META_LOGGING WITH 'standby_ip', standby_port FROM SYS.t1 to SYS.t1; | CREATE REPLICATION rep1 WITH 'active_ip', active_port FROM SYS.t1 to SYS.t1; |
+| 3. Active 서버 이중화 시작 | ATER REPLICATION START rep1;                                 |                                                              |
+| 4. Active 서버 장애 발생   | 장애 발생                                                    |                                                              |
+| 5. SQL 반영 모드 활성화    |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
+| 6. 오프라인 옵션 설정      |                                                              | ALTER REPLICATION rep1 SET OFFLINE ENABLE WITH '/active_server/altibase_home/logs'; |
+| 7. 오프라인 메타 정보 구성 |                                                              | ALTER REPLICATION rep1 BUILD OFFLINE META;                   |
+| 8. 오프라인 이중화 시작    |                                                              | ALTER REPLICATION rep1 START WITH OFFLINE;                   |
+| 9. 오프라인 옵션 해제      |                                                              | ALTER REPLICATION rep1 SET OFFLINE DISABLE;                  |
+| 10. SQL 반영 모드 비활성화 |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
 
 
 > **참고:**
