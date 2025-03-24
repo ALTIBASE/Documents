@@ -46,6 +46,33 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
+### BUG-51297<a name=bug-51170></a> Fixed the issue where a compile error occurs when using the altibase_home/install/altibase_env.mk file to compile the application on HP and AIX due to the '-Wno-narrowing' option.
+
+- **module** : installer
+
+- **Category** : Functional Error
+
+- **Reproducibility** : Rare
+
+- **Description** : Fixed the issue where a compile error occurs when using the altibase_home/install/altibase_env.mk file to compile the application on HP and AIX due to the '-Wno-narrowing' option.
+
+- #### How to reproduce this bug
+
+  -   **Reproduction conditions**
+
+  -   **Actual Results**
+
+  -   **Expected Results**
+
+- **Workaround**
+
+- **Changes**
+
+  -   Performance view
+  -   Property
+  -   Compile Option
+  -   Error Code
+
 ### BUG-51366<a name=bug-51366></a> Fixed a concurrency issue with reading currentSN
 
 -   **module** : sm
