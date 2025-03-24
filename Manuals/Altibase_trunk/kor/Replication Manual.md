@@ -3615,8 +3615,8 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
     </tr>
     <tr>
         <td>서비스 이전 확인</td>
-        <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
         <td></td>
+        <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
     </tr>
     <tr>
       <td rowspan="4">Step 2. 프로퍼티 설정</td>
@@ -3698,6 +3698,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 
 
 
+
 ## DDL 문 복제 예제
 
 이 절에서는 DDL 문 복제 프로퍼티를 활성화하여 이중화 대상에 DDL 문을 수행하는 세 가지 예제를 소개한다. DDL 문 복제는 Active-Standby 환경에서만 수행할 수 있기 때문에, Active-Active 환경 예제는 제공하지 않는다.
@@ -3718,10 +3719,16 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
   </thead>
   <tbody>
     <tr>
-      <td colspan="2">Step 1. 서비스 이전</td>
+      <td rowspan="2">Step 1. 서비스 이전</td>
+      <td>서비스 이전</td>
       <td></td>
       <td>지역 서버로 서비스 이전</td>
     </tr>
+    <tr>
+        <td>서비스 이전 확인</td>
+        <td></td>
+        <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+    </tr>      
     <tr>
       <td rowspan="2">Step 2. 프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
@@ -3781,6 +3788,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 
 
 
+
 ### 예제 2 : NOT NULL 제약조건 추가 문 복제
 
 다음은 이중화 객체 *rep1*에 속한 이중화 대상 테이블 *T1*의 칼럼 *C1*에 NOT NULL 제약조건을 설정하는 예제이다.
@@ -3795,9 +3803,15 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
   </thead>
   <tbody>
     <tr>
-      <td colspan="2">Step 1. 서비스 이전</td>
+      <td rowspan="2">Step 1. 서비스 이전</td>
+      <td>서비스 이전</td>
       <td></td>
       <td>지역 서버로 서비스 이전</td>
+    </tr>
+    <tr>
+        <td>서비스 이전 확인</td>
+        <td></td>
+        <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
     </tr>
     <tr>
       <td rowspan="4">Step 2. 프로퍼티 설정</td>
@@ -3876,6 +3890,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 </table>
 
 
+
 ### 예제 3 : 삼중화 환경에서 DDL 문 복제 수행
 
 다음은 삼중화 환경에서 이중화 대상 테이블에 NOT NULL 제약조건을 가진 칼럼을 추가하는 예제이다.
@@ -3904,11 +3919,18 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
   </thead>
   <tbody>
     <tr>
-      <td colspan="2">Step 1. 서비스 이전</td>
+      <td rowspan="2">Step 1. 서비스 이전</td>
+      <td>서비스 이전</td>
       <td></td>
       <td>지역 서버로 서비스 이전</td>
-      <td>지역 서버로 서비스 이전</td>
+      <td>지역 서버로 서비스 이전</td>        
     </tr>
+    <tr>
+        <td>서비스 이전 확인</td>
+        <td></td>
+        <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+        <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>        
+    </tr>      
     <tr>
       <td rowspan="4">Step 2. 프로퍼티 설정</td>
       <td>DDL 문 수행 활성화</td>
@@ -3998,6 +4020,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
     </tr>
   </tbody>
 </table>
+
 
 
 
