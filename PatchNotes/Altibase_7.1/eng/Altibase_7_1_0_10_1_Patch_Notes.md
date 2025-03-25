@@ -6,6 +6,7 @@
 
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-51170 Improved handling of spurious wakeups in condition wait in SM modules](#bug-51170)
+    - [BUG-51297 Fixed the issue where a compile error occurs when using the altibase_home/install/altibase_env.mk file to compile the application on HP and AIX due to the '-Wno-narrowing' option.](#bug-51297)
     - [BUG-51366 Fixed a concurrency issue with reading currentSN](#bug-51366)
     - [BUG-51372 Fixed LOB transaction log handling error during replication restart](#bug-51372)
 - [Changes](#changes)

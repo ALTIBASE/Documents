@@ -3,6 +3,21 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
+- [New Features](#new-features)
+    - [BUG-50868 support for multiple replication in AKU](#bug-50868)
+    - [BUG-50873 Improvement of the aku -p clean operation](#bug-50873)
+- [Fixed Bugs](#fixed-bugs)
+    - [BUG-50864 Incorrect error message when the log file size is abnormally changed.](#bug-50864)
+    - [BUG-50866 Fixed issue where 'Database media recovery successful' message was incorrectly displayed during recovery when MustRedo LSN log file did not exist from online backup.](#bug-50866)
+    - [BUG-50869 Fixed Deadlock Issue Between Thread Manager and IPCDA Service Thread](#bug-50869)
+    - [BUG-50881 Fixed an issue where an abnormal server shutdown occured if the client terminated during IPCDA connection.](#bug-50881)
+- [Changes](#changes)
+    - [Version Info](#version-info)
+    - [Compatibility](#compatibility)
+    - [Altibase Server Properties](#altibase-server-properties)
+    - [Performance Views](#performance-views)
+
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 New Features

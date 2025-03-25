@@ -4,6 +4,19 @@ Altibase 7.1.0.9.8 Patch Notes
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
+- [New Features](#new-features)
+    - [BUG-50912 Added connection property socket_immediate_close to configure TCP socket option SO_LINGER.](#bug-50912-added-connection-property-socket_immediate_close-to-configure-tcp-socket-option-so_linger)
+- [Fixed Bugs](#fixed-bugs)
+    - [BUG-50948 Fixed an issue where the cursor may not close immediately after calling `ResultSet.close()` if there is remaining data to fetch from the server.](#bug-50948-fixed-an-issue-where-the-cursor-may-not-close-immediately-after-calling-resultsetclose-if-there-is-remaining-data-to-fetch-from-the-server)
+    - [BUG-50969 Fixed an issue where changing the memory address of the second argument in the `altibase_stmt_bind_param` function caused a **"Some parameters were not bound."** error.](#bug-50969-fixed-an-issue-where-changing-the-memory-address-of-the-second-argument-in-the-altibase_stmt_bind_param-function-caused-a-some-parameters-were-not-bound-error)
+    - [BUG-50975 Fixed a memory error that could occur when executing SQL statements with SIMPLE QUERY optimization enabled and the JDBC connection property `remove_redundant_transmission` set.](#bug-50975-fixed-a-memory-error-that-could-occur-when-executing-sql-statements-with-simple-query-optimization-enabled-and-the-jdbc-connection-property-remove_redundant_transmission-set)
+- [Changes](#changes)
+    - [Version Info](#version-info)
+    - [Compatibility](#compatibility)
+    - [Altibase Server Properties](#altibase-server-properties)
+    - [Performance Views](#performance-views)
+
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
