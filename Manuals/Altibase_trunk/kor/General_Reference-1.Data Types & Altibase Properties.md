@@ -2741,22 +2741,6 @@ Altibase에서 SQL로 사용할 수 있도록 지원하는 공간 데이터 타�
 
 ### JSON 데이터 타입
 
-대략적 설명 - altibase에서 지원하는 특징을 주로 설명
-
-JSON 함수 종류 - altibase에서 지원하는 json함수의 종류
-
-JSON 조건 연산자
-
-JSON Path syntax - altibase에서 지원하는 json path syntax
-
-json 데이타입을 사용할 수 있는 함수
-
-예) cast 나.. 등등
-
-관련 프로퍼티
-
-관련 성능뷰
-
 #### 개요
 
 JSON(JavaScript Object Notation)은 데이터 교환 형식으로 널리 사용되고 있는 텍스트 기반의 데이터 형식이다. JSON은 데이터 구조를 직관적으로 표현할 수 있으며, 다양한 타입의 데이터를 입력할 수 있는 유연성을 제공한다. Altibase에서 지원하는 JSON 데이터 타입의 최대 크기는 2GB(2,147,483,648)이다.
@@ -2813,7 +2797,7 @@ Altibase에서 지원하는 JSON 함수는 아래와 같다. 각 함수의 자�
 
 #### JSON 조건 연산자
 
-IS JSON, IS NOT JSON 의 조건 연산자를 제공하며, JSON 문서가 JSON 형식을 만족하는지 아닌지를 검사하는 연산자이다. 자세한 설명은 ***SQL Reference 매뉴얼***의 [IS JSON](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md#is-json)을 참고한다.
+IS JSON, IS NOT JSON 의 조건 연산자를 제공하며, JSON 문서가 JSON 형식을 만족하는지 아닌지를 검사하는 연산자이다. 자세한 설명은 ***SQL Reference 매뉴얼***의 [IS JSON](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL Reference.md#is-json)을 참고한다.
 
 #### JSON 경로 표현식(JSON Path Expression)
 
@@ -2871,6 +2855,8 @@ Altibase에서 제공하는 JSON 함수에 경로 표현식을 사용할 때 아
 
 * 경로 표현식은 문자열 형태로만 사용할 수 있다.
 * 바인드 변수, NULL, 테이블의 칼럼, SQL 함수, 사용자 정의 함수 등을 사용할 수 없다.
+
+
 
 # 2.Altibase 프로퍼티
 
