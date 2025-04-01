@@ -5298,7 +5298,7 @@ Read-Write, Single Value
 
 ##### Range
 
-[1024, 2<sup>64</sup>-1]
+[1024, 2<sup>32</sup>-1]
 
 ##### Description
 
