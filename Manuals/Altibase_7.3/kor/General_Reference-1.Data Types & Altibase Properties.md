@@ -3666,8 +3666,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>SYSTEM</td>
   </tr>
   <tr>
-  <td rowspan="57">R</td>
-  <td rowspan="57">&nbsp;</td>
+  <td rowspan="56">R</td>
+  <td rowspan="56">&nbsp;</td>
   <td>REPLICATION_ACK_XLOG_COUNT</td>
   <td>&nbsp;</td>
   </tr>
@@ -3780,7 +3780,7 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>SYSTEM</td>
   </tr>
   <tr>
-  <td>EPLICATION_POOL_ELEMENT_COUNT</td>
+  <td>REPLICATION_POOL_ELEMENT_COUNT</td>
   <td>SYSTEM</td>
   </tr>
   <tr>
@@ -4331,8 +4331,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>PASSWORD_VERIFY_FUNCTION</td>
   </tr>
   <tr>
-  <td rowspan="30">E</td>
-  <td rowspan="30">&nbsp;</td>
+  <td rowspan="33">E</td>
+  <td rowspan="33">&nbsp;</td>
   <td>ACCESS_LIST</td>
   <td rowspan="2">&nbsp;</td>
   </tr>
@@ -4381,6 +4381,14 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <tr>
   <td>LISTAGG_PRECISION</td>
   <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MEMORY_TEMPLOB_MAX_ALLOC_SIZE</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>MEMORY_TEMPLOB_PIECE_SIZE</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>MSG_QUEUE_PERMISSION</td>
@@ -4440,6 +4448,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <tr>
   <td>SERIAL_EXECUTE_MODE</td>
   <td>BOTH</td>
+  </tr>
+  <tr>
+  <td>TEMPORARY_LOB_ENABLE</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>VARRAY_MEMORY_MAXIMUM</td>
