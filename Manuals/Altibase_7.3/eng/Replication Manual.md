@@ -1,5 +1,4 @@
-Replication Manual
-================
+# Replication Manual
 
 #### Altibase 7.3
 
@@ -149,7 +148,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Propagation](#propagation)
 - [Appendix A. FAQ](#appendix-a-faq)
   - [Replication FAQ](#replication-faq)
-
 - [Appendix B: Standard DDL Execution Procedure](#appendix-b-standard-ddl-execution-procedure)
   - [Environment Where Service Stop is Possible](#environment-where-service-stop-is-possible)
   - [Environment Where Service Cannot Be Stopped](#environment-where-service-cannot-be-stopped)

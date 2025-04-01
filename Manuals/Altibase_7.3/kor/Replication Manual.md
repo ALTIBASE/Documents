@@ -140,7 +140,6 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [개요](#개요-1)
   - [DDL 문 복제 수행 방법](#ddl-문-복제-수행-방법)
   - [DDL 문 복제 예제](#ddl-문-복제-예제)
-
 - [6.Fail-Over](#6fail-over)
   - [Fail-Over 의 개요](#fail-over-의-개요)
   - [Fail-Over 사용 방법](#fail-over-사용-방법)
@@ -155,7 +154,6 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [전파(Propagation)](#전파propagation)
 - [A.부록: FAQ](#a부록-faq)
   - [Replication FAQ](#replication-faq)
-
 - [B.부록: 이중화 대상 DDL 문 수행](#b부록-이중화-대상-ddl-문-수행)
   - [기본 이중화 대상 DDL 문 수행 방법](#기본-이중화-대상-DDL-문-수행-방법)
 - [C.부록: SQL 반영 모드](#C부록-SQL-반영-모드)
@@ -165,8 +163,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 
 <br>
 
-서문
-====
+# 서문
 
 ### 이 매뉴얼에 대하여
 
@@ -981,8 +978,7 @@ Lazy 모드에서 병렬 이중화하는 방법은 [이중화 부가기능](#sql
 
 -   V\$REPSYNC
 
-3.이중화 사용
-===========
+# 3.이중화 사용
 
 ### 이중화 사용 조건 
 
