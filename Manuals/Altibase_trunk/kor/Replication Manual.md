@@ -2571,7 +2571,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 
 #### **작업 절차 표**
 
-<table>   
+<table border="1" cellpadding="5" cellspacing="0">   
     <thead>     
         <tr>       
             <th colspan="2">작업 절차</th>       
@@ -2689,6 +2689,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 
 
 
+
 ## DDL 문 수행 예제
 
 ### DDL 문 레벨 1 예제
@@ -2705,7 +2706,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 
 ##### Active-Standby 환경 
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>      
       <th colspan="2">작업 절차</th>
@@ -2790,11 +2791,12 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
   </tbody>
 </table>
 
+
 ##### Active-Active 환경 
 
 Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 가정한다.
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
       <th colspan="2">작업 절차</th>
@@ -2894,6 +2896,7 @@ Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 
     </tr>
   </tbody>
 </table>
+
 
 
 
@@ -3113,7 +3116,7 @@ Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 
 
 ##### Active-Standby 환경
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
       <th colspan="2">작업 절차</th>
@@ -3206,11 +3209,12 @@ Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 
 
 
 
+
 ##### Active-Active 환경 
 
 Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 가정한다.
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
       <th colspan="2">작업 절차</th>
@@ -3309,6 +3313,7 @@ Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 
 
 
 
+
 ### DDL 문 레벨 0 예제
 
 #### 예제 1 : 칼럼 추가
@@ -3317,7 +3322,7 @@ Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 
 
 ##### Active-Standby 환경
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
       <th colspan="2">작업 절차</th>
@@ -3384,11 +3389,12 @@ Active1을 DDL 문 수행 중 주 트랜잭션이 발생하는 지역 서버로 
 
 
 
+
 ##### Active-Active 환경 
 
 Active1을 DDL 문 수행 중에 주 트랜잭션이 발생하는 지역 서버로 가정한다.
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
       <th colspan="2">작업 절차</th>
@@ -3468,6 +3474,7 @@ Active1을 DDL 문 수행 중에 주 트랜잭션이 발생하는 지역 서버�
     </tr>
   </tbody>
 </table>
+
 
 
 
@@ -3598,7 +3605,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 
 #### 작업 절차 표
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
       <th colspan="2">작업 절차</th>
@@ -3693,6 +3700,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
     </tr>
   </tbody>
 </table>
+
 ## DDL 문 복제 예제
 
 이 절에서는 DDL 문 복제 기능을 사용하여 이중화 대상에 DDL 문을 수행하는 세 가지 예제를 소개한다. 
@@ -3710,7 +3718,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 
 여기서 *`t1`* 테이블은 이중화 객체 *`rep1`*에 포함된 이중화 대상 테이블이라고 가정한다.
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
       <th colspan="2">작업 절차</th>
@@ -3786,13 +3794,14 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
   </tbody>
 </table>
 
+
 ### 예제 2 : NOT NULL 제약조건 추가 문 복제
 
 이 예제는 지역 서버에서 *`t1`* 테이블의 컬럼 *`c1`*에 `NOT NULL` 제약조건을 추가하면, 해당 문이 원격 서버로 복제되는 과정을 보여준다.
 
 여기서 *`t1`* 테이블은 이중화 객체 *`rep1`*에 포함된 이중화 대상 테이블이라고 가정한다.
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
       <th colspan="2">작업 절차</th>
@@ -3890,6 +3899,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
 
 
 
+
 ### 예제 3 : 삼중화 환경에서 DDL 문 복제 수행
 
 다음은 삼중화 환경에서 이중화 대상 테이블에 NOT NULL 제약조건을 가진 칼럼을 추가하는 예제이다.
@@ -3907,7 +3917,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
   - *rep3*: 원격 서버 1과 원격 서버 2 간의 이중화 객체
 - 이중화 대상 테이블: *T1*
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
       <th colspan="2">작업 절차</th>
@@ -4019,6 +4029,7 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
     </tr>
   </tbody>
 </table>
+
 
 
 
@@ -5452,7 +5463,7 @@ Active 서버에서 다시 서비스를 시작한다.
 
 ### Active-Standby 환경 수행 절차
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
 	<thead>
     	<tr>
       		<th colspan="2">작업 절차</th>
@@ -5527,9 +5538,10 @@ Active 서버에서 다시 서비스를 시작한다.
 </table>
 
 
+
 ### Active-Active 환경 수행 절차
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
 	<thead>
     	<tr>
       		<th colspan="2">작업 절차</th>
@@ -5602,6 +5614,7 @@ Active 서버에서 다시 서비스를 시작한다.
     	</tr>                   
 	</tbody>
 </table>
+
 
 
 ## 서비스를 중단할 수 없는 환경
@@ -5723,7 +5736,7 @@ Active1, Active2의 서비스를 원래대로 분배한다.
 
 ### Active-Active 환경 수행 절차
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
 	<thead>
     	<tr>
       		<th colspan="2">작업 절차</th>
