@@ -5328,7 +5328,7 @@ MEM_MAX_DB_SIZE를 초과해서 데이터베이스 크기가 확장될 경우 �
 
 ##### 데이터 타입
 
-Unsigned Long
+Unsigned Integer
 
 ##### 기본값
 
@@ -5340,7 +5340,7 @@ Unsigned Long
 
 ##### 값의 범위
 
-[1024, 2<sup>64</sup>-1]
+[1024, 2<sup>32</sup>-1]
 
 ##### 설명
 

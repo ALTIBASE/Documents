@@ -5286,7 +5286,7 @@ If a database expands to a size exceeding MEM_MAX_DB_SIZE, the offending transac
 
 ##### Data Type
 
-Unsigned Long
+Unsigned Integer
 
 ##### Default Value
 
@@ -5298,7 +5298,7 @@ Read-Write, Single Value
 
 ##### Range
 
-[1024, 2<sup>64</sup>-1]
+[1024, 2<sup>32</sup>-1]
 
 ##### Description
 
@@ -5476,7 +5476,7 @@ This property can be changed using the ALTER SYSTEM statement while Altibase is 
 
 #### MIN_PAGES_ON_DB_FREE_LIST
 
-##### Data Typer
+##### Data Type
 
 Unsigned Integer
 
