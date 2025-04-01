@@ -103,7 +103,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 # Table Of Contents
 
-- [1. Preface](#1-preface)
+- [Preface](#preface)
   - [About This Manual](#about-this-manual)
 - [1. Replication Overview](#1-replication-overview)
   - [Introduction](#introduction)
@@ -114,7 +114,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Eager Replication Failback](#eager-replication-failback)
   - [Parallel Replication](#parallel-replication)
   - [Performance View related to Replication](#performance-view-related-to-replication)
-- [3.Deploying Replication](#3deploying-replication)
+- [3. Deploying Replication](#3-deploying-replication)
   - [Considerations](#considerations)
   - [CREATE REPLICATION](#create-replication)
   - [Starting, Stopping and Modifying Replication using “ALTER REPLICATION”](#starting-stopping-and-modifying-replication-using-alter-replication)
@@ -131,7 +131,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Overview](#overview-1)
   - [How to Perform DDL Synchronization](#how-to-perform-ddl-synchronization)
   - [DDL Synchronization Example](#ddl-synchronization-example)
-- [6. Fail-Over](#4-fail-over)
+- [6. Fail-Over](#6-fail-over)
   - [Fail-Over Overview](#fail-over-overview)
   - [Callback - JDBC](#callback---jdbc)
   - [Using Fail-Over](#using-fail-over)
@@ -139,9 +139,9 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [SQLCLI](#sqlcli)
   - [Embedded SQL](#embedded-sql)
   - [PDO - Callback](#pdo---callback)
-- [7. Sequence Replication](#5sequence-replication)
+- [7. Sequence Replication](#7-sequence-replication)
   - [Sequence Replication](#sequence-replication)
-- [8. ROLE](#6role)
+- [8. ROLE](#8-role)
   - [Log Analyzer Role](#log-analyzer-role)
   - [Propagation](#propagation)
 - [Appendix A: FAQ](#appendix-a-faq)
@@ -155,7 +155,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Setting the SQL Apply Mode](#setting-the-sql-apply-mode)
 
 
-# 1. Preface
+# Preface
 ### About This Manual
 
 This manual explains the concepts, components, and basic use of Altibase.
@@ -490,7 +490,7 @@ The advantage of EAGER mode is that because it synchronizes transactions, it all
 
 Although there may be a slight performance degradation due to transaction synchronization, EAGER mode avoids the replication backlog that can occur in high-transaction environments under LAZY mode.
 
-Before using EAGER mode replication, please refer to the 'Replication Constraints in EAGER Mode'.
+Before using EAGER mode replication, please refer to the [Replication Constraints in EAGER Mode](#replication-constraints-in-eager-mode).
 
 #### Replication of Partitioned Tables 
 
@@ -962,7 +962,7 @@ There are several conditions apply when establishing replication. If these condi
 
 - The primary key of the table to be replicated must not be modified.
 
-- If the column types, NOT NULL constraints, CHECK constraints, unique key indexes, or function-based indexes of the replicated table differ between the two servers, and `REPLICATION_SQL_APPLY_ENABLE` is set to 1, the replication will operate in [SQL apply mode](#), which may result in reduced performance.
+- If the column types, NOT NULL constraints, CHECK constraints, unique key indexes, or function-based indexes of the replicated table differ between the two servers, and `REPLICATION_SQL_APPLY_ENABLE` is set to 1, the replication will operate in [SQL Apply Mode](#appendix-c-sql-apply-mode), which may result in reduced performance.
 
 #### Connection Constraints
 
@@ -1187,7 +1187,7 @@ Only the SYS user can execute replication-related statements.
 -   DROP TABLE 
     
     A specific table or partition is excluded from the replication target.
-     If the primary transaction log or table metadata log of the target table is within a replication gap at the time `DROP TABLE` is executed, the replication gap will be skipped, which may result in data inconsistency. 
+    If the primary transaction log or table metadata log of the target table is within a replication gap at the time `DROP TABLE` is executed, the replication gap will be skipped, which may result in data inconsistency. 
     
 -   ADD TABLE  
     This command adds a table or a partition to a replication object. It can only be executed while replication is stopped.

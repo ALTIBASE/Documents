@@ -158,7 +158,6 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [SQL 반영 모드 동작 조건](#sql-반영-모드-동작-조건)
   - [SQL 반영 모드 설정](#sql-반영-모드-설정)
 
-
 <br>
 
 # 서문
@@ -203,9 +202,11 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     이 장은 Altibase 이중화의 사용방법에 대해 설명한다.
 
 -   제 4장 이중화 환경에서 DDL 문 수행
+    
     이 장은 이중화 환경에서 DDL 문을 수행하는 방법에 대해 설명한다.
     
 -   제 5장 DDL 문 복제
+    
     이 장은 DDL 문 복제 기능에 대해 설명한다.
     
 -   제 6장 Fail-Over  
@@ -221,11 +222,12 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
     이 장은 Altibase 이중화 구동 관련, 프로퍼티 관련 등 사용자들이 자주하는 질문을 모은 것이다.
     
 - B. 부록 이중화 대상 DDL 문 수행
+    
     이 장은 프로퍼티 설정 변경 없이 이중화 대상에 DDL 문을 수행하는 방법에 대해 설명한다.
     
-- C.  부록 SQL 반영 모드  
-    이 장은 다양한 이중화 작업에 쓰이는 SQL 반영 모드에 대해 설명한다. 
+- C.  부록 SQL 반영 모드
     
+    이 장은 다양한 이중화 작업에 쓰이는 SQL 반영 모드에 대해 설명한다. 
 
 #### 문서화 규칙
 
@@ -1202,7 +1204,8 @@ SYS 사용자만이 이중화 동작을 변경할 수 있다.
 -   RESET  
     재시작 SN 등의 이중화 정보를 reset한다. 이중화가 중지된 상태에서만 수행할 수 있으며, 이중화 객체를 삭제한 후 다시 생성하는 것을 대신해서 사용할 수 있다.
     
--   DROP TABLE  
+-   DROP TABLE
+    
     특정 테이블 또는 파티션을 이중화 대상에서 제외시킨다. DROP TABLE을 수행하는 시점에 대상 테이블의 주 트랜잭션 로그나 테이블 메타 로그가 이중화 갭에 있다면 그 이중화 갭은 포기하므로 데이터 불일치가 발생할 수 있다.
     
 -   ADD TABLE  
@@ -4027,10 +4030,6 @@ ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
     </tr>
   </tbody>
 </table>
-
-
-
-
 
 
 # 6.Fail-Over

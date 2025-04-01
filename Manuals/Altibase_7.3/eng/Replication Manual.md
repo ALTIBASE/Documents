@@ -114,7 +114,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Eager Replication Failback](#eager-replication-failback)
   - [Parallel Replication](#parallel-replication)
   - [Performance View related to Replication](#performance-view-related-to-replication)
-- [3.Deploying Replication](#3deploying-replication)
+- [3. Deploying Replication](#3-deploying-replication)
   - [Considerations](#considerations)
   - [CREATE REPLICATION](#create-replication)
   - [Starting, Stopping and Modifying Replication using “ALTER REPLICATION”](#starting-stopping-and-modifying-replication-using-alter-replication)
@@ -125,7 +125,16 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Extra Features](#extra-features-1)
   - [Replication in a Multiple IP Network Environment](#replication-in-a-multiple-ip-network-environment)
   - [Replication Related Properties](#replication-related-properties)
-- [4. Fail-Over](#4-fail-over)
+- [4. Executing DDL Statements in a Replication Environment](#4-executing-ddl-statements-in-a-replication-environment)
+  - [Overview](#overview)
+  - [Allowed DDL Statements](#allowed-ddl-statements)
+  - [Executing DDL Statements](#executing-ddl-statements)
+  - [DDL Execution Example](#ddl-execution-example)
+- [5. Executing DDL Synchronization](#5-executing-ddl-synchronization)
+  - [Overview](#overview-1)
+  - [How to Perform DDL Synchronization](#how-to-perform-ddl-synchronization)
+  - [DDL Synchronization Example](#ddl-synchronization-example)
+- [6. Fail-Over](#6-fail-over)
   - [Fail-Over Overview](#fail-over-overview)
   - [Callback - JDBC](#callback---jdbc)
   - [Using Fail-Over](#using-fail-over)
@@ -133,15 +142,21 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [SQLCLI](#sqlcli)
   - [Embedded SQL](#embedded-sql)
   - [PDO - Callback](#pdo---callback)
-- [5. Sequence Replication](#5sequence-replication)
+- [7. Sequence Replication](#7-sequence-replication)
   - [Sequence Replication](#sequence-replication)
-- [6. ROLE](#6role)
+- [8. ROLE](#8-role)
   - [Log Analyzer Role](#log-analyzer-role)
   - [Propagation](#propagation)
 - [Appendix A. FAQ](#appendix-a-faq)
   - [Replication FAQ](#replication-faq)
 
-
+- [Appendix B: Standard DDL Execution Procedure](#appendix-b-standard-ddl-execution-procedure)
+  - [Environment Where Service Stop is Possible](#environment-where-service-stop-is-possible)
+  - [Environment Where Service Cannot Be Stopped](#environment-where-service-cannot-be-stopped)
+- [Appendix C: SQL Apply Mode](#appendix-c-sql-apply-mode)
+  - [Overview](#overview-3)
+  - [Conditions for SQL Apply Mode Operation](#conditions-for-sql-apply-mode-operation)
+  - [Setting the SQL Apply Mode](#setting-the-sql-apply-mode)
 
 # 1. Preface
 ### About This Manual
@@ -178,17 +193,33 @@ This manual has been organized as follows:
 -   Chapter 3: Deploying Replication  
     This chapter explains how to deploy Altibase replication.
 
--   Chapter 4: Fail-Over  
+-   Chapter 4: Executing DDL Statements in a Replication Environment
+    
+    This chapter explains how to execute DDL statements in a replication environment.
+    
+-   Chapter 5: DDL Synchronization
+
+    This chapter describes the DDL Synchronization feature.
+
+-   Chapter 6: Fail-Over  
     This chapter explains the Fail-Over feature provided by Altibase and how to use it.
 
--   Chapter 5: Sequence Replication   
+-   Chapter 7: Sequence Replication   
     This chapter describes how to use the sequence replication that Altibase provides.
 
--   Chapter 6: ROLE   
+-   Chapter 8: ROLE   
     This chapter explains how to configure the system to perform special functions by assigning ROLE to replication.
 
 -   Appendix A. FAQ   
     This chapter provides FAQs related to Altibase replication and replication properties.
+    
+-   Appendix B. Executing DDL Statements for Replication Targets
+    
+    This appendix explains how to execute DDL statements on replication targets without changing property settings.
+    
+-   Appendix C. SQL Apply Mode
+
+    This appendix describes the SQL Apply mode used in various replication operations.
 
 #### Documentation Conventions
 
@@ -263,8 +294,6 @@ If you need immediate assistance regarding any errors, omissions, and other tech
 Thank you. We always welcome your feedback and suggestions.
 
 # 1. Replication Overview
-
------------
 
 ### Introduction
 
@@ -456,13 +485,15 @@ However, since the Sender thread always tracks the master transaction, replicati
 
 ##### EAGER Mode
 
-In EAGER mode, when a master transaction occurs on a local server, the local server commits the transaction only after it has received confirmation that all of the corresponding logs have been properly applied on the remote server. The remote server commits the replication transaction at the same time. In other words, replication in EAGER mode is a synchronization method<sup>1</sup>.
+In EAGER mode, when a master transaction occurs on a local server, the local server commits the transaction only after it has received confirmation that all of the corresponding logs have been properly applied on the remote server. The remote server commits the replication transaction at the same time. In other words, replication in EAGER mode is a synchronization method[^1].
 
-[<sup>1</sup>] Transaction Synchronization: Even if a master transaction is successfully performed on a local server, if a replication conflict occurs on a remote server, it will be impossible to commit the master transaction on the local server.
+[^1]: Transaction Synchronization: Even if a master transaction is successfully performed on a local server, if a replication conflict occurs on a remote server, it will be impossible to commit the master transaction on the local server. In such cases, the user must explicitly roll back the transaction to execute the next transaction. If the transaction is not rolled back, it will be impossible to apply any changes because a transaction that cannot be committed is continually pending. Under conditions in which the local server is internally required to commit a transaction (e.g., when running in Autocommit mode or when a session is terminated), the conflict causes the master transaction that could not be committed to be automatically rolled back. As a result, the master transaction that experienced the conflict and the replication transaction are both rolled back, thereby 
 
-In such cases, the user must explicitly roll back the transaction to execute the next transaction. If the transaction is not rolled back, it will be impossible to apply any changes because a transaction that cannot be committed is continually pending. Under conditions in which the local server is internally required to commit a transaction (e.g., when running in Autocommit mode or when a session is terminated), the conflict causes the master transaction that could not be committed to be automatically rolled back. 
+The advantage of EAGER mode is that because it synchronizes transactions, it allows replication to occur in parallel. Therefore, when replication is performed in EAGER mode, multiple sender threads replicate concurrently. The number of parallel threads can be configured using the REPLICATION_EAGER_PARALLEL_FACTOR property.
 
-As a result, the master transaction that experienced the conflict and the replication transaction are both rolled back, thereby preventing data inconsistency due to replication.
+Although there may be a slight performance degradation due to transaction synchronization, EAGER mode avoids the replication backlog that can occur in high-transaction environments under LAZY mode.
+
+Before using EAGER mode replication, please refer to the [Replication Constraints in EAGER Mode](#replication-constraints-in-eager-mode).
 
 #### Replication of Partitioned Tables 
 
@@ -513,8 +544,6 @@ Altibase provides the following additional features. A detaield description of h
 > When dropping a replication target item from a replication object, the item must be specified exactly as it was added. For example, even if every partition of a partitioned table is added as replication targets, it is impossible to specify a partitioned table and exclude it from being a replication target; however, it is possible to specify each partition separately for exclusion.
 
 # 2. Managing Replication
-
------------
 
 This chapter explains the replication steps and how to use Altibase replication functions for various faults and errors that can occur while performing replication.
 
@@ -712,9 +741,10 @@ FROM user_name.table_name TO user_name.table_name;
   
 - 2 = Slave
   
-- The handshake<sup>2</sup> is only successful if the CONFLICT_RESOLUTION column has the following values: 0 with 0, 1 with 2, and 2 with 1. Any other combinations will fail. If one server is specified as the Master but the other server is omitted , the following error will be output when replication starts: 
+- The handshake[^2] is only successful if the CONFLICT_RESOLUTION column has the following values: 0 with 0, 1 with 2, and 2 with 1. Any other combinations will fail. If one server is specified as the Master but the other server is omitted , the following error will be output when replication starts: 
   
-  [<sup>2</sup>] Handshaking is the process of checking whether the other server is alive and whether the information about the objects to be replicated between the local server and the remote server matches before replication starts.
+  [^2]: Handshaking is the process of checking whether the other server is alive and whether the information about the objects to be replicated between the local server and the remote server matches before replication starts.
+  
 
 ```
 iSQL> ALTER REPLICATION rep1 START
@@ -918,9 +948,7 @@ The following performance views are provided to monitor replication progress. Fo
 
 -   V\$REPSYNC
 
-# 3.Deploying Replication
-
------------
+# 3. Deploying Replication
 
 ### Considerations 
 
@@ -931,6 +959,14 @@ There are several conditions apply when establishing replication. If these condi
 -   If a conflict occurs during an INSERT, UPDATE, or DELETE operation, the operation is skipped, and a message is written to an error file. 
 -   If an error occurs during replication, partial rollback is performed. For example, if a duplicate row is found while inserting rows into a table, only the insertion of the duplicate row is canceled, while the remainder of the task is completed as usual. 
 -   Replication is much slower than the main data provision service
+
+#### Data Constraints
+
+- The table to be replicated must have a primary key.
+
+- The primary key of the table to be replicated must not be modified.
+
+- If the column types, NOT NULL constraints, CHECK constraints, unique key indexes, or function-based indexes of the replicated table differ between the two servers, and `REPLICATION_SQL_APPLY_ENABLE` is set to 1, the replication will operate in [SQL Apply Mode](#appendix-c-sql-apply-mode), which may result in reduced performance.
 
 #### Connection Constraints
 
@@ -983,24 +1019,6 @@ The following conditions must be met in order to successfully replicate partitio
 
 -   If different update operations are performed on the same record on two replicated systems in an Active-Active replication environment, data may be mismatched between the systems. 
 -   If a network error occurs or replication is stopped according to the setting of the REPLICATION_RECOVERY_MAX_TIME property by the user, data might not be recovered.
-
-#### Allowed DDL Statements
-
-Normally, DDL statements cannot be executed on replication target tables. However, the following DDL statements can be executed on replication target tables.
-
--   ALTER INDEX REBUILD PARTITION
-
--   GRANT OBJECT
-
--   REVOKE OBJECT
-
--   CREATE TRIGGER
-
--   DROP TRIGGER
-
-> ##### Note:
->
-> When DDL statements that are allowed for use with replication are executed on tables, those tables are locked. If the Sender thread transfers a replication log at this time, the Receiver thread won’t be able to properly implement the log’s changes.
 
 ### CREATE REPLICATION
 
@@ -1170,8 +1188,10 @@ Only the SYS user can execute replication-related statements.
 -   RESET  
     This command resets replication information (such as the restart SN (Sequence Number)). It can only be executed while replication is stopped, and can be used instead of executing DROP REPLICATION followed by CREATE REPLICATION.
     
--   DROP TABLE  
-    This command excludes a table or a partition from a replication object. It can only be executed while replication is stopped. Because regular DDL statements cannot be executed on replication target tables, after a table is excluded from a replication object, DDL statements can be executed on the table or a partition. 
+-   DROP TABLE 
+    
+    A specific table or partition is excluded from the replication target.
+    If the primary transaction log or table metadata log of the target table is within a replication gap at the time `DROP TABLE` is executed, the replication gap will be skipped, which may result in data inconsistency. 
     
 -   ADD TABLE  
     This command adds a table or a partition to a replication object. It can only be executed while replication is stopped.
@@ -1324,412 +1344,6 @@ Drop success.
 iSQL> DROP REPLICATION rep1;
 [ERR-610FE : Replication has already started.]
 ```
-
-
-
-### Executing DDL Statements on Replication Target Tables
-
-#### Allowed DDL Statements
-
-Altibase supports three types of DDL statements for replication target tables.
-
-- ##### DDL statements without REPLICATION_DDL_ENABLE/REPLICATION_DDL_ENABLE_LEVEL settings.
-
-  ```sql
-  ALTER INDEX index_name AGING;
-  ALTER TABLE table_name COMPACT;
-  ```
-
-- ##### DDL statements with REPLICATION_DDL_ENABLE_LEVEL = 0
-
-  - Columns including NOT NULL/NULL, Unique constraints, or function-based index cannot be added/deleted.
-  - A unique/function-based index cannot be deleted.
-  
-
-  ```sql
-  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE ); 
-  // Columns including NOT NULL,NULL,Unique or function-based index cannot be added
-  ALTER TABLE table_name DROP COLUMN column_name; 
-  // Columns including NOT NULL,NULL,Unique or function-based index cannot be deleted
-  ALTER TABLE table_name ALTER COLUMN column_name SET DEFAULT;
-  ALTER TABLE table_name ALTER COLUMN column_name DROP DEFAULT;
-  
-  ALTER TABLE table_name ALTER TABLESPACE tablespace_name;
-  ALTER TABLE table_name ALTER PARTITION partition_name TABLESPACE;
-  ALTER TABLE table_name TRUNCATE PARTITION partition_name;
-  
-  TRUNCATE TABLE table_name;
-  
-  CREATE INDEX index_name ON table_name ( column_name );
-  DROP INDEX index_name; //Unique or function-based index cannot be deleted.
-  ```
-  
-- ##### DDL statements with REPLICATION_DDL_ENABLE_LEVEL = 1<a name="ddlenablelevel1"></a>
-
-  ```sql
-  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
-  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );
-  ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE LOCALUNIQUE );
-  ALTER TABLE table_name ALTER COLUMN ( column_name NOT NULL );
-  ALTER TABLE table_name ALTER COLUMN ( column_name NULL );
-  ALTER TABLE table_name MODIFY COLUMN ( column_name DATA_TYPE );
-  ALTER TABLE table_name MODIFY COLUMN ( column_name NULL );
-  ALTER TABLE table_name MODIFY COLUMN ( column_name NOT NULL );
-  ALTER TABLE table_name DROP COLUMN column_name; // Columns including NOT NULL,NULL,Unique or function-base index can be deleted
-  
-  ALTER TABLE table_name SPLIT PARTITION partition_name ( condition ) INTO ( PARTITION partition_name PARTITION partition_name );
-  ALTER TABLE table_name MERGE PARTITIONS partition_name, partition_name INTO PARTITION partition_name;
-  ALTER TABLE table_name DROP PARTITION partiton_name; 
-  
-  ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name );
-  ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name ) LOCAL;
-  ALTER TABLE table_name RENAME CONSTRAINT constraint_name TO constraint_name;
-  ALTER TABLE table_name DROP CONSTRAINT constraint_name; // Constraints including Unique or Local Unique can be deleted 
-  
-  CREATE UNIQUE INDEX index_name ON table_name ( column_name );
-  CREATE INDEX index_name ON table_name ( expression );
-  DROP INDEX index_name; //Unique or function-base index can be deleted
-  ```
-
-
-#### Description
-
-Altibase supports the execution of DDL statements on replication target tables. However, the following property settings must be set
-
--   The REPLICATION_DDL_ENABLE property must be set to 1.
--   The REPLICATION_DDL_ENABLE_LEVEL to the desired level.
--   ALTER SESSION SET REPLICATION as DEFAULT.
--   The target table should be locked by the LOCK TABLE...UNTIL NEXT DDL statement in order to execute SPLIT PARTITION, MERGE PARTITION, and DROP PARTITION on a replication target table. Moreover, the data should be checked to identify since there would be a replication gap between the local and remote server.
-
-If users execute the SPLIT, MERGE, or DROP PARTITION on a replication target partition, users must execute the same DDL statements on remote servers. And, newly created or deleted partitions are automatically added or removed as a replication target partition.
-
-#### Restrictions
-
-DDL statements cannot be executed on tables for which the replication recovery option has been specified. To execute DDL statements in such a case, drop the tables from the replication object and execute the DDL statements. Furthermore, DDL statements cannot be executed while replication is running in EAGER mode. To execute DDL statements in such a case, stop replication, execute the DDL statements, and start replication again. 
-
-The restrictions that govern the use of particular DDL statements are as follows:
-
--   ALTER TABLE table_name ADD COLUMN  
-    -A unique index cannot be added.  
-    -A compressed column cannot be added.
--   ALTER TABLE table_name DROP COLUMN  
-    -A primary key cannot be dropped.  
-    -A compressed column cannot be dropped.
--   ALTER TABLE table_name [SPLIT \| MERGE \| DROP] PARTITION...  
-    -Replication cannot be executed during the operation.  
-    -LOCK TABLE is executed on a target table.  
-    -The replication target should identify the replication gap between the local and remote server. In order to relieve the replication gap, the FLUSH ALL option of replication should be executed before executing a DDL statement.  
-    -MERGE target partition should exists in all the replication target objects. There should be more than two partitions or tables in the replication object in order for DROP PARTITION to be executed.
--   TRUNCATE TABLE 
-    -This is supported only for tables without compressed columns.
-
-#### Example
-
-Supposing that the name of a replication target table is *t1*, DDL statements can be executed on the replication target table as follows
-
--   Execute the TRUNCATE TABLE statement
-
-```
-(SYS User)
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-Alter success.
-(Table Owner)
-iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
-Alter success.
-iSQL> TRUNCATE TABLE t1;
-Truncate success.
-(SYS User)
-iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-Alter success.
-```
-
-(SPLIT TABLE) Create a table T1 by splitting partition P3 and P4 in partition P2. 
-
-```
-iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
-iSQL> ALTER REPLICATION REP1 FLUSH ALL;
-iSQL> ALTER REPLICATION REP1 STOP;
-iSQL> ALTER TABLE T1 SPLIT PARTITION P2 
-       INTO (PARTITION P3, PARTITION P4 ); 
-```
-
-(MERGE TABLE) Create a table T1 by merging partition 2 and 3 in partition P2 and P3.
-
-```
-iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
-iSQL> ALTER REPLICATION REP1 FLUSH ALL;
-iSQL> ALTER REPLICATION REP1 STOP;
-iSQL> ALTER TABLE T1 MERGE PARTITIONS P2, P3 INTO PARTITION P23;
-```
-
-(DROP TABLE). Drop the partition P1.
-
-```
-iSQL> LOCK TABLE T1 UNTIL NEXT DDL;
-iSQL> ALTER REPLICATION REP1 FLUSH ALL;
-iSQL> ALTER REPLICATION REP1 STOP;
-iSQL> ALTER TABLE T1 DROP PARTITIONS P1;
-```
-
-### Executing DDL Synchronization on Replication Target Tables
-
-Altibase supports the DDL synchronization feature. DDL synchronization means replicating the execution of DDL statements. With this feature, DDL statements that run on one node are automatically executed on the other nodes as well. The following prerequisites and property configurations are required. The detailed procedure is explained below.
-
-#### Restrictions of DDL Synchronization
-
-The following conditions must be satisfied for DDL synchronization.
-
-1. To replicate DDL statements, the replication protocol versions of local and remote servers should be identical.
-2. To replicate DDL statements, replication of local and remote servers should be started in advance. 
-3. The name of the DDL statements replication target table(partition), and user name must be the same on both local and remote servers.
-4. The DDL statements replication target table must be part of the LAZY mode replication.
-5. When the DDL statements replication target is a partitioned table, DDL synchronization cannot be executed if the table has a Global Non-Partitioned index.
-6. When using the propagation option, DDL synchronization is not allowed.
-7. For the table with a replication recovery option, DDL synchronization is not allowed.
-
-#### How to Use
-
-This section describes how to use DDL synchronization. DDL statement is executed on the local server, and DDL synchronization is automatically executed on the remote server. 
-
-##### Prerequisites on the User Environment
-
-- Move operating services
-
-  Services that manipulate (Insert/Delete/Update) data during active operations should be moved to the local server, where DDL statements are executed to prevent potential data inconsistency. 
-
-> **Notes**
->
-> If services that manipulate (Insert/Delete/Update) are executed on the remote server, data inconsistency may occur.
->
-
-- Remove the replication gap of the remote server
-
-  Users can remove the replication gap with statements below:
-
-```sql
-ALTER REPLICATION Replication_name1 FLUSH;
-ALTER REPLICATION Replication_name2 FLUSH;
-ALTER REPLICATION Replication_name... FLUSH;
-```
-
-##### Prerequisites on the Local Server
-
-Only the SYS user can set the properties for DDL statement execution. SYS user should run the following property configuration statements on the local server that executes DDL statements. About the REPLICATION_DDL_ENABLE_LEVEL property, please refer to **["Allowed DDL statements"](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Replication%20Manual.md#allowed-ddl-statements-1)** for a more specific configuration.
-
-```sql
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;
-
-// Execute the following statements as SYS user or Table Owner.
-ALTER SESSION SET REPLICATION_DDL_SYNC=1;
-ALTER SESSION SET REPLICATION=DEFAULT;
-```
-
-
-
-##### Prerequisites on the Remote Server
-
-For the remote server where DDL replication will be (automatically) executed, perform the following property configuration statements. If REPLICATION_DDL_ENABLE_LEVEL is set to 1, REPLICATION_SQL_APPLY_ENABLE must also be set to 1. 
-
-```sql
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE=1;
-ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=1;
-ALTER SYSTEM SET REPLICATION_DDL_SYNC=1;
-// The below statement can be omitted if REPLICATION_DDL_ENABLE_LEVEL is 0.
-ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=1;
-```
-
-
-
-##### Execute DDL statements
-
-To remove the replication gap on the **local server**, run the following statements before the execution of DDL statements. *Replication_name1* and *Replication_name2* refer to all replication objects related to DDL statement execution.
-
-```sql
-ALTER REPLICATION Replication_name1 FLUSH;
-ALTER REPLICATION Replication_name2 FLUSH;
-ALTER REPLICATION Replication_name... FLUSH;
-```
-
-
-
-###### Allowed DDL statements
-
-Please refer to **["Allowed DDL statements"](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Replication%20Manual.md#allowed-ddl-statements-1)**.
-
-###### Disallowed DDL Statements
-
-- DDL statement that deletes a primary key.
-- DDL statement that adds a foreign key.
-- DDL statement that adds or deletes a compressed column.
-- DDL statement that truncates the table which has a compressed column.
-
-> **Notes** 
->
-> - During the progress of DDL replication, updates to the table undergoing DDL statements might be temporarily restricted. In such cases, try the update again after the completion of DDL statements replication, then the process will succeed.
->
-> - For example, if users try to a DML statement such as 'INSERT INTO t1 VALUES ...' while the DDL replication is running on table *t1*, the system shows the error message as below:
->
->   [ERR-313D6 : Unable to update table or partition T1].
-
-##### Post-Action(Properties Restoration)
-
-When the execution of DDL statements is completed, and there are no more DDL statements to be executed, users need to restore the previously changed property configurations. At this point, there might be replication gaps related to DDL processing on the local server. To address this, it is essential to perform a FLUSH operation.
-
-- Local server
-
-  - To remove the replication gap related to DDL processing, run FLUSH as follows:
-
-  ```sql
-  ALTER REPLICATION Replication_name1 FLUSH;
-  ALTER REPLICATION Replication_name2 FLUSH;
-  ALTER REPLICATION Replication_name... FLUSH;
-  ```
-
-  - After FLUSH operations, restore the property configurations as follows:
-
-  ```sql
-  ALTER SYSTEM SET REPLICATION_DDL_ENABLE=0;
-  ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=0;
-  ALTER SESSION SET REPLICATION_DDL_SYNC=0;
-  ```
-
-- Remote server
-
-  ```sql
-  ALTER SYSTEM SET REPLICATION_DDL_ENABLE=0;
-  ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL=0;
-  ALTER SYSTEM SET REPLICATION_DDL_SYNC=0;
-  // The below statement can be omitted if REPLICATION_DDL_ENABLE_LEVEL is 0.
-  ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE=0;
-  ```
-
-  
-
-#### Examples
-
-1. Suppose that the table *t1* is the replication target and the REPLICATION_DDL_ENABLE_LEVEL is set to 0. The following example shows how the DDL statements replication is executed.   
-
-- Run TRUNCATE TABLE
-
-  ```sql
-  // Change the prerequisite properties
-  (Remote SYS User)
-  iSQL> ALTER REPLICATION rep1 FLUSH;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
-  
-  (Local SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-  iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
-  iSQL> ALTER REPLICATION rep1 FLUSH;
-  
-  // Execute DDL statements
-  (Local Table Owner)
-  iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
-  iSQL> TRUNCATE TABLE t1;
-  
-  // Restore the changed properties
-  (Local SYS User)
-  iSQL> ALTER REPLICATION rep1 FLUSH;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-  iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
-  
-  (Remote SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
-  ```
-
-  
-
-2. In a triple-replication environment where the replication target table is *t1* and *t1* has a column *c1*, refer to the following example. (Assuming replication between the local server and remote server 1, between the local server and remote server 2, and between remote server 1 and remote server 2 as *rep1*, *rep2*, and *rep3*, respectively.)
-
-- Run ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL )
-
-  ```sql
-  // Change the prerequisite properties
-  (Remote1 SYS User)
-  iSQL> ALTER REPLICATION Rep1 FLUSH;
-  iSQL> ALTER REPLICATION Rep3 FLUSH;
-  (Remote2 SYS User)
-  iSQL> ALTER REPLICATION Rep2 FLUSH;
-  iSQL> ALTER REPLICATION Rep3 FLUSH;
-  
-  (Local SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-  iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
-  (Remote1 SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
-  (Remote2 SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
-  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
-  
-  (local SYS User)
-  iSQL> ALTER REPLICATION Rep1 FLUSH;
-  iSQL> ALTER REPLICATION Rep2 FLUSH;
-  
-  // Execute DDL statements
-  (Local Table Owner)
-  iSQL> ALTER SESSION SET REPLICATION = DEFAULT;
-  iSQL> ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );
-  
-  // Restore the changed properties
-  (local SYS User)
-  iSQL> ALTER REPLICATION Rep1 FLUSH;
-  iSQL> ALTER REPLICATION Rep2 FLUSH;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-  iSQL> ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
-  
-  (Remote1 SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
-  
-  (Remote2 SYS User)
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
-  iSQL> ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
-  ```
-
-
-
-### SQL Apply Mode
-
-When the information of meta of local server and remote is different. Log can be converted to SQL and reflected on a remote server. When reflecting to a remote server in SQL mode, the following conditions are possible:
-
--   REPLICATION_SQL_APPLY_ENABLE : 1
-
--   Column information  
-    If the data types are different  
-    If size, precision, and scale are different
-
--   Constraints  
-    if the check constraints are different  
-    if the not null constraints are different
-
--   Indexes  
-    When a unique index or a function-based index consists of columns to be replicated and columns not to be replicated  
-    If the configuration information for the unique index is different  
-    If the configuration information for the function-based index is different
-
-#### Restriction
-
--   SQL apply mode only works in LAZY mode
-
--   If there is a security column in the table, it will not operate SQL apply mode.
-
-> #### Note*:
->
-> Since converting XLog to SQL to reflect is slow, it is recommended to use it only temporarily.
 
 ### Extra Features
 
@@ -2309,9 +1923,1802 @@ To use replication, the Altibase properties file should be modified to suit the 
 -   REPLICATION_TRANSACTION_POOL_SIZE
 -   REPLICATION_UPDATE_REPLACE
 
-# 4. Fail-Over
+# 4. Executing DDL Statements in a Replication Environment
 
----------
+## Overview
+
+Altibase synchronizes data by transferring transaction logs generated on the local server to the remote server using a network-based replication mechanism. However, transaction logs generated by DDL operations are not transmitted. This is because DDL statements modify metadata on replication targets, which can lead to data inconsistency between servers.
+
+Therefore, in a typical replication environment, to execute a DDL statement, the target object must first be excluded from replication. Then, the DDL operation must be executed independently on each replication node. For more details on standard DDL execution procedures, refer to [Appendix B: Standard DDL Execution Procedure](#appendix-b-standard-ddl-execution-procedure).
+
+This chapter introduces a method for executing DDL statements safely and efficiently in an Altibase replication environment—without removing the replication target.
+
+### **Properties for Executing DDL Statements**
+
+By default, DDL statements cannot be executed on replication targets, with a few exceptions. Therefore, to run DDL statements, the relevant settings must be enabled.
+
+The following are the key properties that must be configured to allow DDL execution on replication targets.
+
+| Property                     | Description                                                  | Default |
+| :--------------------------- | :----------------------------------------------------------- | :-----: |
+| REPLICATION_DDL_ENABLE       | Enables the execution of DDL statements. When set to `1`, DDL can be executed on replication targets. |    0    |
+| REPLICATION_DDL_ENABLE_LEVEL | Specifies the types of DDL statements allowed on replication targets. |    0    |
+| REPLICATION_SQL_APPLY_ENABLE | Enables [SQL apply mode](#appendix-c-sql-apply-mode).        |    0    |
+
+### Restrictions
+
+Even when the relevant settings are enabled, DDL statements cannot be executed on replication targets that belong to the following types of replication objects:
+
+- Replication objects with [recovery options](#recovery-option) enabled
+
+  In this case, delete the replication object first, perform the DDL operation, and then recreate the replication object.
+
+- Replication objects operating in EAGER mode
+
+  For such cases, refer to [Appendix B: Standard DDL Execution Procedure](#appendix-b-standard-ddl-execution-procedure).
+
+### **Cautions**
+
+- Executing a DDL statement locks the target table. If a primary transaction occurs during this time, the receiver thread cannot apply the replicated transaction to the locked table.
+- You must **clear any replication gap** before executing a DDL statement. Running a DDL with an active replication gap can negatively affect replication performance.
+- If the **column range** is being **increased**, execute the DDL first on the server **not generating primary transactions**.
+- If the **column range** is being **decreased**, execute the DDL first on the server **generating primary transactions**.
+
+## Allowed DDL Statements
+
+이중화 대상에 수행할 수 있는 DDL 문은 `REPLICATION_DDL_ENABLE_LEVEL` 프로퍼티의 설정 값에 따라 달라지며, 이 값은 0 또는 1로 설정할 수 있다. 
+
+사용자는 수행하려는 DDL 문에 적합하게 이 프로퍼티를 설정해야 한다.
+
+### DDL Level 1
+
+The following DDL statements can be executed when `REPLICATION_DDL_ENABLE_LEVEL` is set to `1`.
+
+> [!IMPORTANT]
+>
+> To execute statements under DDL Level 1, **[SQL apply mode](#appendix-c-sql-apply-mode) must be enabled**.
+> SQL apply mode is performed on the replication receiver side.
+
+> [!tip]
+>
+> When `REPLICATION_DDL_ENABLE_LEVEL` is set to `1`, all statements under [DDL Level 0](#ddl-level-0) can also be executed.
+
+#### Adding and Modifying Columns
+
+You can add columns with `NOT NULL` and unique key constraints, or modify the constraints and data types of existing columns.
+
+```sql
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE NOT NULL );
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE UNIQUE );
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE LOCALUNIQUE );
+
+ALTER TABLE table_name ALTER COLUMN ( column_name NOT NULL );
+ALTER TABLE table_name ALTER COLUMN ( column_name NULL );
+
+ALTER TABLE table_name MODIFY COLUMN ( column_name NOT NULL );
+ALTER TABLE table_name MODIFY COLUMN ( column_name NULL );
+ALTER TABLE table_name MODIFY COLUMN ( column_name DATA_TYPE );
+```
+
+#### Deleting Columns
+
+You can delete columns that have constraints or are used in function-based indexes.
+
+```sql
+ALTER TABLE table_name DROP COLUMN column_name;
+```
+
+The following types of columns cannot be deleted:
+
+- Primary key
+- Compressed columns
+
+#### Partition Operations
+
+You can split, merge, or drop partitions. Partitions created or removed through partition operations are automatically added to or removed from the replication target partitions.
+
+```sql
+ALTER TABLE table_name SPLIT PARTITION .....;
+ALTER TABLE table_name MERGE PARTITIONS .....;
+ALTER TABLE table_name DROP PARTITION partiton_name;
+```
+
+When performing partition operations, take the following precautions:
+
+- Replication must be stopped on **both the local and remote servers**.
+- The partition names used in the DDL statement must be identical on both the local and remote servers.
+- Partition merging can only be performed when all target partitions are part of the replication target.
+- Partition deletion is allowed only if the partitioned table contains at least two partitions.
+
+#### Adding, Modifying, and Dropping Table Constraints
+
+You can add, modify, or drop table constraints.
+
+```sql
+ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE ( column_name );
+ALTER TABLE table_name ADD CONSTRAINT constraint_name LOCALUNIQUE ( column_name ) ;
+ALTER TABLE table_name ADD CONSTRAINT constraint_name CHECK ( check_condition );
+ALTER TABLE table_name RENAME CONSTRAINT constraint_name TO constraint_name;
+ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+```
+
+#### Creating and Dropping Unique Key Indexes and Function-Based Indexes
+
+You can create or drop unique key indexes and function-based indexes.
+
+```sql
+CREATE UNIQUE INDEX index_name ON table_name ( column_name );
+CREATE INDEX index_name ON table_name ( expression );
+DROP INDEX index_name; 
+```
+
+### DDL Level 0
+
+The following DDL statements can be executed when REPLICATION_DDL_ENABLE_LEVEL is set to 0 — that is, under DDL Level 0. 
+
+#### Adding Columns Without Constraints
+
+```sql
+ALTER TABLE table_name ADD COLUMN ( column_name DATA_TYPE );
+```
+
+The following types of columns **cannot** be added:
+
+- Compressed columns
+- Foreign keys
+- Columns with [constraints](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Administrator%E2%80%99s%20Manual.md#constraints-2)
+
+#### Deleting Columns Without Constraints
+
+```sql
+ALTER TABLE table_name DROP COLUMN column_name;
+```
+
+The following types of columns **cannot** be deleted:
+
+- Compressed columns
+- Primary keys
+- Columns with [constraints](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Administrator%E2%80%99s%20Manual.md#constraints-2)
+- Columns used in function-based indexes
+
+#### Setting and Removing Default Values for Columns
+
+```sql
+ALTER TABLE table_name ALTER COLUMN ( column_name SET DEFAULT value ); 
+ALTER TABLE table_name ALTER COLUMN ( column_name DROP DEFAULT);
+```
+
+#### Changing the Tablespace of a Table or Partition
+
+```sql
+ALTER TABLE table_name ALTER TABLESPACE tablespace_name;
+ALTER TABLE table_name ALTER PARTITION partition_name TABLESPACE;
+```
+
+#### Deleting All Data from a Table or Partition
+
+```sql
+ALTER TABLE table_name TRUNCATE PARTITION partition_name;
+TRUNCATE TABLE table_name;
+```
+
+However, data cannot be deleted from tables that contain the following type of column:
+
+- Compressed columns
+
+#### Creating and Dropping Indexes
+
+```sql
+CREATE INDEX index_name ON table_name ( column_name );
+DROP INDEX index_name;
+```
+
+The following types of indexes cannot be dropped:
+
+- Unique key indexes
+- Function-based indexes
+
+### Other Statements
+
+The following statement can be executed on replication targets regardless of the `REPLICATION_DDL_ENABLE` property setting:
+
+#### Disk Index AGING
+
+```sql
+ALTER INDEX index_name AGING;
+```
+
+#### Returning an Empty Page
+
+```sql
+ALTER TABLE table_name COMPACT;
+ALTER TABLE table_name COMPACT PARTITION partition_name;
+```
+
+#### Rebuilding Index Partitions
+
+```sql
+ALTER INDEX REBUILD PARTITION index_partition_name;
+```
+
+#### Granting and Revoking Privileges
+
+```sql
+GRANT OBJECT ...;
+REVOKE OBJECT ...;
+```
+
+#### Creating and Dropping Triggers
+
+```sql
+CREATE TRIGGER ...;
+DROP TRIGGER ...;
+```
+
+## Executing DDL Statements
+
+This section describes the procedure for executing DDL statements that fall under DDL Level 1 and DDL Level 2 on replication targets. **If the steps are not followed in the recommended order, data inconsistency may occur.**
+
+#### Step 1. Service Migration
+
+1. Migrate all services to the local server where the DDL statement will be executed.
+
+2. Confirm that all services have been successfully migrated to the local server.
+
+   On the remote server, execute the following query and ensure that the result is 0.
+
+   ```sql
+   SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();
+   ```
+
+#### Step 2. Configure Properties
+
+On both the local and remote servers, update the property settings according to the DDL statement you intend to execute.
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
+```
+
+#### Step 3. Set the Session Replication Mode
+
+Set the session's replication mode[^3] to `DEFAULT` on both the local and remote servers so that it follows the configuration of the replication object.
+
+```sql
+ALTER SESSION SET REPLICATION = DEFAULT;
+```
+
+[^3]: When the session replication mode is set to DEFAULT, replication is performed according to the mode defined in the replication object (either LAZY or EAGER).
+
+#### Step 4. Execute the DDL Statement
+
+Execute the same DDL statement on both the local and remote servers.
+
+##### 1) Resolve any remaining replication gaps before executing the DDL statement.
+
+```sql
+ALTER REPLICATION replication_name FLUSH;
+```
+
+##### 2) Stop replication before executing the DDL (for partitioned targets).
+
+```sql
+ALTER REPLICATON replication_name STOP;
+```
+
+##### 3) Execute the DDL statement.
+
+##### 4) Restart replication after executing the DDL (for partitioned targets).
+
+``` sql
+ALTER REPLICATON replication_name START;
+```
+
+##### 5) Resolve the replication gap after executing the DDL (if SQL apply mode is enabled).
+
+```sql
+ALTER REPLICATION replication_name FLUSH;
+```
+
+#### Step 5. Verify SQL Apply Mode Operation
+
+On the remote server, check whether SQL apply mode is active for any replication object.
+
+If the DDL statements have been executed correctly on the replication target server, there should be no replication objects currently operating in SQL apply mode.
+
+Execute the following query to confirm that the SQL_APPLY_TABLE_COUNT value is 0.
+
+```sql
+SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
+```
+
+This procedure is performed only when SQL apply mode is enabled.
+
+#### Step 6. Restore Property Settings
+
+Immediately after completing the DDL operation, revert the values of the properties modified in Step 2 back to their default settings.
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
+```
+
+#### Step 7. Service Distribution
+
+Distribute the services back to their original configuration.
+
+#### Operation Procedure Table
+
+<table border="1" cellpadding="5" cellspacing="0">   
+    <thead>     
+        <tr>       
+            <th colspan="2">Step</th>       
+            <th>DDL Level 0</th>       
+            <th>DDL Level 1 : Table or Column Targets</th>       
+            <th>DDL Level 1 : Partition Targets</th>     
+        </tr>   
+    </thead>   
+    <tbody>     
+        <tr>       
+            <td rowspan="2">Step 1. Service Migration</td>       
+            <td>Service Migration</td>       
+            <td>Migrate the service to the local server where the DDL statement will be executed.</td>       
+            <td>Migrate the service to the local server where the DDL statement will be executed.</td>       
+            <td>Migrate the service to the local server where the DDL statement will be executed.</td>     
+        </tr>     
+        <tr>       
+            <td>Verify the service migration</td>       
+            <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>       
+            <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>       
+            <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>     
+        </tr>     
+        <tr>       
+            <td rowspan="3">Step 2. Configure Properties</td>       
+            <td>Enable DDL Statement Execution</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>     
+        </tr>     
+        <tr>       
+            <td>Set DDL Execution Level</td>       
+            <td>-</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>     
+        </tr>     
+        <tr>       
+            <td>Enable SQL Apply Mode</td>       
+            <td>-</td>       
+            <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>     
+        </tr>     
+        <tr>       
+            <td colspan="2">Step 3. Set Session Replication Mode</td>            
+            <td>ALTER SESSION SET REPLICATION_MODE = DEFAULT;</td>       
+            <td>ALTER SESSION SET REPLICATION_MODE = DEFAULT;</td>       
+            <td>ALTER SESSION SET REPLICATION_MODE = DEFAULT;</td>     
+        </tr>     
+        <tr>       
+            <td rowspan="5">Step 4. Execute the DDL Statement</td>       
+            <td>Resolve Replication Gap</td>       
+            <td>ALTER REPLICATION replication_name FLUSH;</td>       
+            <td>ALTER REPLICATION replication_name FLUSH;</td>       
+            <td>ALTER REPLICATION replication_name FLUSH;</td>     
+        </tr>     
+        <tr>       
+            <td>Stop Replication (Partition Targets)</td>       
+            <td>-</td>       
+            <td>-</td>       
+            <td>ALTER REPLICATON replication_name STOP;</td>     
+        </tr>     
+        <tr>       
+            <td>Execute the DDL Statement</td>       
+            <td>Execute the DDL Statement</td>       
+            <td>Execute the DDL Statement</td>       
+            <td>Execute the DDL Statement</td>     
+        </tr>     
+        <tr>       
+            <td>Start Replication (Partition Targets)</td>       
+            <td>-</td>       
+            <td>-</td>       
+            <td>ALTER REPLICATON replication_name START;</td>     
+        </tr>     
+        <tr>       
+            <td>Resolve Replication Gap (When SQL Apply Mode Is Enabled)</td>       
+            <td>-</td>       
+            <td>ALTER REPLICATION replication_name FLUSH;</td>       
+            <td>ALTER REPLICATION replication_name FLUSH;</td>     
+        </tr>     
+        <tr>       
+            <td colspan="2">Step 5. Verify SQL Apply Mode Operation</td>        
+            <td>-</td>       
+            <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>       
+            <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>     
+        </tr>     
+        <tr>       
+            <td rowspan="3">Step 6. Restore Property Settings</td>       
+            <td>Disable DDL Statement Execution</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>     
+        </tr>     
+        <tr>       
+            <td>Set DDL Execution Level</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>     
+        </tr>     
+        <tr>       
+            <td>Disable SQL Apply Mode</td>       
+            <td>-</td>       
+            <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>       
+            <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>     
+        </tr>     
+        <tr>       
+            <td  colspan="2" rowspan="2">Step 7. Service Distribution</td>           
+            <td>Redistribute the Service to Its Original Configuration.</td>       
+            <td>Redistribute the Service to Its Original Configuration.</td>       
+            <td>Redistribute the Service to Its Original Configuration.</td>     
+        </tr>   
+    </tbody> 
+</table>
+
+
+
+
+
+## DDL Execution Example
+
+### DDL Level 1 Example
+
+#### Example 1: Changing the Data Type of a Column — CHAR(5) to CHAR(10)
+
+The following example demonstrates how to change the data type of column `c2` in replication target table `T1`, which belongs to the replication object `rep1`, from `CHAR(5)` to `CHAR(10)`.
+
+This case covers changes to a **wider data type** than the original.
+
+> [!IMPORTANT]
+>
+> **When changing to a wider data type,** the DDL statement must be executed first on the server where no primary transactions are occurring.
+
+##### Active-Standby environment 
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>      
+      <th colspan="2">Step</th>
+      <th>Active</th>
+      <th>Standby</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2">Step 1. Service Migration</td>
+      <td>There are no services to migrate since this is an Active-Standby environment.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="3">Step 2. Configure Properties</td>
+      <td>Enable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+    </tr>
+    <tr>
+      <td>Enable SQL Apply Mode</td>
+      <td></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+    </tr>
+    <tr>    
+      <td colspan="2">Step 3. Set Session Replication Mode</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td></td>
+    </tr>
+    <tr>           
+      <td rowspan="4">Step 4. Execute the DDL Statement</td>
+      <td>Execute the DDL Statement</td>
+      <td></td>
+      <td>ALTER TABLE T1 MODIFY COLUMN ( c2 CHAR(10) );</td>
+    </tr>     
+    <tr>
+      <td>Resolve Replication Gap Before Executing the DDL Statement</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>       
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td>ALTER TABLE T1 MODIFY COLUMN ( c2 CHAR(10) );</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap After Executing the DDL Statement(When SQL Apply Mode is Enabled)</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>      
+    <tr>       
+      <td colspan="2">Step 5. Verify SQL Apply Mode Operation</td>
+      <td></td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+    </tr>
+    <tr>                  
+      <td rowspan="3">Step 6. Restore Property Settings</td>
+      <td>Disable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+    </tr>
+    <tr>
+      <td>Disable SQL Apply Mode</td>
+      <td></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+    </tr>
+    <tr>                  
+      <td colspan="2">Step 7. Service Distribution</td>
+      <td>There are no services to migrate since this is an Active-Standby environment.</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+##### Active-Active environment 
+
+Assume that Active1 is the local server where the DDL statement is executed and primary transactions are occurring.
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th colspan="2">Step</th>
+      <th>Active1</th>
+      <th>Active2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Step 1. Service Migration</td>
+      <td>Service Migration</td>
+      <td></td>
+      <td>Migrate the service to Active1.</td>
+    </tr>
+    <tr>
+      <td>Verify the service migration</td>
+      <td></td>
+      <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+    </tr>
+    <tr>
+      <td rowspan="3">Step 2. Configure Properties</td>
+      <td>Enable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+    </tr>
+    <tr>
+      <td>Enable SQL Apply Mode</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 3. Set Session Replication Mode</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+    </tr>
+    <tr>
+      <td rowspan="6">Step 4. Execute the DDL Statement</td>
+      <td>Resolve Replication Gap Before Executing the DDL Statement</td>
+      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td></td>
+      <td>ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );</td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap After Executing the DDL Statement(When SQL Apply Mode is Enabled)</td>
+      <td></td>        
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap Before Executing the DDL Statement</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td>ALTER TABLE t1 MODIFY COLUMN ( C2 CHAR(10) );</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap After Executing the DDL Statement(When SQL Apply Mode is Enabled)</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>      
+    <tr>
+      <td colspan="2">Step 5. Verify SQL Apply Mode Operation</td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+    </tr>
+    <tr>
+      <td rowspan="3">Step 6. Restore Property Settings</td>
+      <td>Disable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+    </tr>
+    <tr>
+      <td>Disable SQL Apply Mode</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 7. Service Distribution</td>
+      <td>Distribute the service to Active2.</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+#### Example 2: Adding a Table Constraint – CHECK
+
+The following example demonstrates how to add a `CHECK` constraint to column *`c2`* of the replication target table *`T1`*, which belongs to the replication object *`rep1`*.
+
+This case deals with restricting the allowed value range of a column more narrowly than before.
+
+> [!IMPORTANT]
+>
+> **When narrowing the value range of a column**, the DDL statement must be executed first on the server where primary transactions are occurring.
+
+##### Active-Standby Environment
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th colspan="2">Step</th>
+      <th>Active</th>
+      <th>Standby</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2">Step 1. Service Migration</td>
+      <td>There are no services to migrate since this is an Active-Standby environment.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="3">Step 2. Configure Properties</td>
+      <td>Enable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+    </tr>
+    <tr>
+      <td>Enable SQL Apply Mode</td>
+      <td></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 3. Set Session Replication Mode</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="4">Step 4. Execute the DDL Statement</td>
+      <td>Resolve Replication Gap</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td>ALTER TABLE T1 ADD CONSTRAINT T1_CHECK CHECK ( c2 &lt; 10 );</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td></td>
+      <td>ALTER TABLE T1 ADD CONSTRAINT T1_CHECK CHECK ( c2 &lt; 10 );</td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap(When SQL Apply Mode Is Enabled)</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 5. Verify SQL Apply Mode Operation</td>
+      <td></td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+    </tr>
+    <tr>
+      <td rowspan="3">Step 6. Restore Property Settings</td>
+      <td>Disable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+    </tr>
+    <tr>
+      <td>Disable SQL Apply Mode</td>
+      <td></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 7. Service Distribution</td>
+      <td>There are no services to migrate since this is an Active-Standby environment.</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+##### Active-Active Environment
+
+Assume that Active1 is the local server where DDL statements are executed and primary transactions are occurring.
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th colspan="2">Step</th>
+      <th>Active1</th>
+      <th>Active2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Step 1. Service Migration</td>
+      <td>Service Migration</td>
+      <td></td>
+      <td>Migrate the service to Active1.</td>
+    </tr>
+    <tr>
+      <td>Verify the service migration</td>
+      <td></td>
+      <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+    </tr>
+    <tr>
+      <td rowspan="3">Step 2. Configure Properties</td>
+      <td>Enable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+    </tr>
+    <tr>
+      <td>Enable SQL Apply Mode</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 3. Set Session Replication Mode</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+    </tr>
+    <tr>
+      <td rowspan="6">Step. 4. Execute the DDL Statement</td>
+      <td>Resolve Replication Gap Before Executing the DDL Statement</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td>ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 &lt; 10 );</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap After Executing the DDL Statement(When SQL Apply Mode Is Enabled)</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>      
+    <tr>
+      <td>Resolve Replication Gap Before Executing the DDL Statement</td>
+      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td></td>
+      <td>ALTER TABLE t1 ADD CONSTRAINT T1_CHECK CHECK ( C2 &lt; 10 );</td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap After Executing the DDL Statement(When SQL Apply Mode Is Enabled)</td>
+      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+    </tr>      
+    <tr>
+      <td colspan="2">Step 5. Verify SQL Apply Mode Operation</td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+    </tr>
+    <tr>
+      <td rowspan="3">Step 6. Restore Property Settings</td>
+      <td>Disable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+    </tr>
+    <tr>
+      <td>Disable SQL Apply Mode</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 7. Service Distribution</td>
+      <td>Distribute the service to Active2.</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+#### Example 3: Partition Split
+
+The following example demonstrates how to split partition *`P2`* of the replication target table *`T1`*, which belongs to the replication object *`rep1`*, into two partitions: *`P3`* and *`P4`*.
+
+##### Active-Standby Environment
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th colspan="2">Step</th>
+      <th>Active</th>
+      <th>Standby</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2">Step 1. Service Migration</td>
+      <td>There are no services to migrate since this is an Active-Standby environment.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="3">Step 2. Configure Properties</td>
+      <td>Enable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+    </tr>
+    <tr>
+      <td>Enable SQL Apply Mode</td>
+      <td></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 3. Set Session Replication Mode</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="5">Step 4. Execute the DDL Statement</td>
+      <td>Resolve Replication Gap</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Stop Replication</td>
+      <td>ALTER REPLICATION rep1 STOP;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
+      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
+    </tr>
+    <tr>
+      <td>Start Replication</td>
+      <td>ALTER REPLICATION rep1 START;</td>
+      <td></td>
+    </tr>
+    <tr>      
+      <td>Resolve Replication Gap(When SQL Apply Mode Is Enabled)</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>       
+    <tr>
+      <td colspan="2">Step 5. Verify SQL Apply Mode Operation</td>
+      <td></td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+    </tr>
+    <tr>
+      <td rowspan="3">Step 6. Restore Property Settings</td>
+      <td>Disable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+    </tr>
+    <tr>
+      <td>Disable SQL Apply Mode</td>
+      <td></td>
+      <td>REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 7. Service Distribution</td>
+      <td>There are no services to migrate since this is an Active-Standby environment.</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+##### Active-Active Environment
+
+Assume that Active1 is the local server where DDL statements are executed and primary transactions are occurring.
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th colspan="2">Step</th>
+      <th>Active1</th>
+      <th>Active2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Step 1. Service Migration</td>
+      <td>Service Migration</td>
+      <td></td>
+      <td>Migrate the service to Active1.</td>
+    </tr>
+    <tr>
+      <td>Verify the service migration</td>
+      <td></td>
+      <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+    </tr>
+    <tr>
+      <td rowspan="3">Step 2. Configure Properties</td>
+      <td>Enable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+    </tr>
+    <tr>
+      <td>Enable SQL Apply Mode</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 3. Set Session Replication Mode</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+    </tr>
+    <tr>
+      <td rowspan="5">Step 4. Execute the DDL Statement</td>
+      <td>Resolve Replication Gap</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+    </tr>
+    <tr>
+      <td>Stop Replication</td>
+      <td>ALTER REPLICATION rep1 STOP;</td>
+      <td>ALTER REPLICATION rep1 STOP;</td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
+      <td>ALTER TABLE T1 SPLIT PARTITION P2 INTO (PARTITION P3, PARTITION P4);</td>
+    </tr>
+    <tr>
+      <td>Start Replication</td>
+      <td>ALTER REPLICATION rep1 START;</td>
+      <td>ALTER REPLICATION rep1 START;</td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap(When SQL Apply Mode Is Enabled)</td>
+      <td>ALTER REPLICATION rep1 FLUSH</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+    </tr>    
+    <tr>
+      <td colspan="2">Step 5. Verify SQL Apply Mode Operation</td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+      <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+    </tr>
+    <tr>
+      <td rowspan="3">Step 6. Restore Property Settings</td>
+      <td>Disable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+    </tr>
+    <tr>
+      <td>Disable SQL Apply Mode</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 7. Service Distribution</td>
+      <td>Distribute the service to Active2.</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+### DDL Level 0 Example
+
+#### Example 1: Adding a Column
+
+The following example demonstrates how to add column *`i3`* to the replication target table *`T1`*, which belongs to the replication object *`rep1`*.
+
+##### Active-Standby Environment
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th colspan="2">Step</th>
+      <th>Active</th>
+      <th>Standby</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2">Step 1. Service Migration</td>
+      <td>There are no services to migrate since this is an Active-Standby environment.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Step 2. Configure Properties</td>
+      <td>Enable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 3. Set Session Replication Mode</td>  
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="4">Step 4. Execute the DDL Statement</td>
+      <td>Execute the DDL Statement</td>
+      <td></td>
+      <td>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 5. Verify SQL Apply Mode Operation</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>      
+    <tr>
+      <td>Step 6. Restore Property Settings</td>
+      <td>Disable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 7. Service Distribution</td>
+      <td>There are no services to migrate since this is an Active-Standby environment.</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table> 
+
+
+##### Active-Active Environment
+
+Assume that Active1 is the local server where primary transactions occur during DDL statement execution.
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th colspan="2">Step</th>
+      <th>Active1</th>
+      <th>Active2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Step 1. Service Migration</td>
+      <td>Service Migration</td>
+      <td></td>
+      <td>Migrate the service to Active1.</td>
+    </tr>
+    <tr>
+      <td>Verify the service migration</td>
+      <td></td>
+      <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+    </tr>
+    <tr>
+      <td>Step 2. Configure Properties</td>
+      <td>Enable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>        
+    </tr>
+    <tr>
+      <td colspan="2">Step 3. Set Session Replication Mode</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+    </tr>
+    <tr>
+      <td rowspan="6">Step 4. Execute the DDL Statement</td>
+      <td>Resolve Replication Gap</td>
+      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td></td>
+      <td>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap</td>
+      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+    </tr>      
+    <tr>
+      <td>Resolve Replication Gap</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td>ALTER TABLE T1 ADD COLUMN ( i3 INTEGER );</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 5. Verify SQL Apply Mode Operation</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>      
+    <tr>
+      <td>Step 6. Restore Property Settings</td>
+      <td>Disable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 7. Service Distribution</td>
+      <td>Distribute the service to Active2.</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+# 5. Executing DDL Synchronization
+
+## Overview
+
+DDL Synchronization is a feature that replicates the DDL statements performed on the replication target at the local server to the remote server in the same manner.
+
+When DDL Synchronization is performed, transactions operate synchronously. If the DDL statement fails on either the primary transaction or the replicated transaction, the DDL statement will fail. Additionally, the replication target tables on both the local and remote servers will be locked, restricting transaction access.
+
+### DDL Synchronization Properties
+
+DDL Synchronization can be enabled by activating the related property.
+
+| Property             | Description                              | Default |
+| -------------------- | ---------------------------------------- | ------- |
+| REPLICATION_DDL_SYNC | Enables the DDL Synchronization feature. | 0       |
+
+### Execution Conditions
+
+To use the DDL Synchronization feature, the following conditions must be met:
+
+- Replication must be started on both the local and remote servers.
+- The replication protocol version must be the same on both the local and remote servers.
+- The name and owner of the replication target on both the local and remote servers must be the same.
+
+### Restrictions
+
+The following replication objects or targets cannot perform DDL Synchronization:
+
+- Replication objects in EAGER mode
+- Partitioned Table with global non-partitioned indexes
+- Replication objects with the [PROPAGATION role](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/Replication%20Manual.md#propagation-%EB%A1%A4) specified
+- Replication objects with [recovery options](#) enabled
+
+The following statements cannot be replicated through DDL Synchronization:
+
+- Rebuilding index partitions
+- Granting and revoking privileges
+- Creating and dropping triggers
+
+## How to Perform DDL Synchronization
+
+This section explains how to perform DDL Synchronization. For more detailed procedures, refer to the [DDL Synchronization Example](#ddl-synchronization-example).
+
+In the procedure below, we assume that the server performing the DDL statement is the local server, and the server where DDL synchronization is performed is the remote server. Additionally, we assume that replication has been started on both servers.
+
+#### Step 1. Service Migration
+
+1. Migrate the service to the local server where the DDL statement will be executed.
+
+2. Verify that the service has been successfully migrated.
+
+   On the remote server, execute the following query and confirm that the result is 0.
+
+   ```sql
+   SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();
+   ```
+
+#### Step 2. Configure Properties
+
+Set the properties required for executing DDL statements on local and remote servers.
+
+When setting `REPLICATION_DDL_SYNC`, note that `ALTER SESSION` should be used on the local server, while `ALTER SYSTEM` should be used on the remote server.
+
+- Properties to be modified on the local server
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+ALTER SESSION SET REPLICATION_DDL_SYNC = 1;
+```
+
+- Properties to be modified on the romote server
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;
+ALTER SYSTEM SET REPLICATION_DDL_SYNC=1;
+ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
+```
+
+#### Step 3. Set Session Replication Mode
+
+On the local server, set the session's replication mode[^3] so that it follows the configuration of the replication object.
+
+```sql
+ALTER SESSION SET REPLICATION = DEFAULT;
+```
+
+#### Step 4. Execute the DDL Statement
+
+1. Before executing the DDL statement, run the following query on both the local and remote servers to resolve any remaining replication gaps.
+
+   ```sql
+   ALTER REPLICATION replication_name FLUSH;
+   ```
+
+2. Execute the DDL statement on the local server.
+
+#### Step 5. Restore Property Settings
+
+Once the DDL Synchronization is completed, the properties used for DDL synchronization should be reverted to their default values immediately.
+
+- Revert to default on the local server
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0; 
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;   
+ALTER SESSION SET REPLICATION_DDL_SYNC = 0;
+```
+
+- Revert to default on the remote server
+
+```sql
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;
+ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;
+ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;
+ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
+```
+
+#### Step 6. Service Distribution
+
+Redistribute the service back to its original configuration.
+
+#### Operation Procedure Table
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th colspan="2">Step</th>
+      <th>Local server</th>
+      <th>Remote server</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Step 1. Service Migration</td>
+      <td>Service Migration</td>
+      <td></td>
+      <td>Migrate Service to Local Server</td>
+    </tr>
+    <tr>
+        <td>Verify the service migration</td>
+        <td></td>
+        <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+    </tr>
+    <tr>
+      <td rowspan="4">Step 2. Configure Properties</td>
+      <td>Enable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+    </tr>
+    <tr>
+      <td>Enable SQL Apply Mode</td>
+      <td></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>Enable DDL Synchronization</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 3. Set Session Replication Mode</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="4">Step 4. Execute the DDL Statement</td>
+      <td>Resolve Replication Gap (Remote Server)</td>
+      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>        
+    </tr>        
+    <tr>
+      <td>Resolve Replication Gap (Local Server)</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr> 
+    <tr>      
+      <td>Execute the DDL Statement</td>
+      <td>Execute the DDL Statement</td>
+      <td></td>
+    </tr>
+     <tr>
+      <td>Resolve Replication Gap (Local Server)</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>      
+    <tr>
+      <td rowspan="4">Step 5. Restore Property Settings</td>
+      <td>Disable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>Disable DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+    </tr>    
+    <tr>
+      <td>Disable SQL Apply Mode</td>
+      <td></td>
+      <td>ALTER SESSION SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+    </tr>      
+    <tr>
+      <td>Disable DDL Synchronization</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 6. Service Distribution</td>
+      <td>Distribute Service to Remote Server</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+## DDL Synchronization Example
+
+This section introduces three examples of performing DDL statements on replication targets using the DDL Synchronization feature.
+
+In all examples, the following terms are used:
+
+- **Local Server**: The server where the DDL statement is executed.
+- **Remote Server**: The server where DDL synchronization is performed.
+
+Additionally, all examples assume that replication has already been started on both servers.
+
+### Example 1: TRUNCATE Statement Synchronization
+
+This example demonstrates the process of executing a TRUNCATE statement on the *t1* table on the local server, and how that statement is replicated to the remote server.
+
+Here, it is assumed that the *t1* table is a replication target table included in the replication object *rep1*.
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th colspan="2">Step</th>
+      <th>Local server</th>
+      <th>Remote server</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Step 1. Service Migration</td>
+      <td>Service Migration</td>
+      <td></td>
+      <td>Migrate Service to Local Server</td>
+    </tr>
+    <tr>
+        <td>Verify the service migration</td>
+        <td></td>
+        <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+    </tr>      
+    <tr>
+      <td rowspan="2">Step 2. Configure Properties</td>
+      <td>Enable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>Enable DDL Synchronization</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 3. Set Session Replication Mode</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="4">Step 4. Execute the DDL Statement</td>
+      <td>Resolve Replication Gap</td>
+      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td>TRUNCATE TABLE t1;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>           
+    <tr>
+      <td rowspan="2">Step 5. Restore Property Settings</td>
+      <td>Disable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>Disable DDL Synchronization</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 6. Service Distribution</td>
+      <td>Distribute Service to Remote Server</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+### Example 2: Replicating the Addition of a NOT NULL Constraint
+
+This example demonstrates the process of adding a NOT NULL constraint to column *`c1`* of the *`t1`* table on the local server, and how that statement is replicated to the remote server.
+
+Here, it is assumed that the *t1* table is a replication target table included in the replication object *rep1*.
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th colspan="2">Step</th>
+      <th>Local server</th>
+      <th>Remote server</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Step 1. Service Migration</td>
+      <td>Service Migration</td>
+      <td></td>
+      <td>Migrate Service to Local Server</td>
+    </tr>
+    <tr>
+        <td>Verify the service migration</td>
+        <td></td>
+        <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+    </tr>
+    <tr>
+      <td rowspan="4">Step 2. Configure Properties</td>
+      <td>Enable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+    </tr>
+    <tr>
+      <td>Enable SQL Apply Mode</td>
+      <td></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>Enable DDL Synchronization</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 1;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 3. Set Session Replication Mode</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="4">Step 4. Execute the DDL Statement</td>
+      <td>Resolve Replication Gap</td>
+      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+    </tr>      
+    <tr>
+      <td>Resolve Replication Gap</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td>ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );</td>
+      <td></td>
+    </tr>  
+    <tr>
+      <td>Resolve Replication Gap</td>
+      <td>ALTER REPLICATION rep1 FLUSH;</td>
+      <td></td>
+    </tr>       
+    <tr>
+      <td rowspan="4">Step 5. Restore Property Settings</td>
+      <td>Disable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+    </tr>
+    <tr>
+      <td>Disable SQL Apply Mode</td>
+      <td></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>Disable DDL Synchronization</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 6. Service Distribution</td>
+      <td>Distribute Service to Remote Server</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+### Example 3: Replicating DDL Statements in a Triple Replication Environment
+
+The following example demonstrates how to add a column with a NOT NULL constraint to a replication target table in a triple replication environment.
+
+The relevant replication information used in this example is as follows:
+
+- Servers participating in the triple replication:
+  - Local Server: The server where the DDL statement is executed.
+  - Remote Server 1: The server where DDL synchronization is performed.
+  - Remote Server 2: The server where DDL synchronization is performed.
+
+- Replication Object Names:
+  - *rep1*: Replication object between the local server and Remote Server 1
+  - *rep2*: Replication object between the local server and Remote Server 2
+  - *rep3*: Replication object between the Remote Server 1 and Remote Server 2
+- Replication Target Table : *t1*
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th colspan="2">Step</th>
+      <th>Local Server</th>
+      <th>Remote Server 1</th>
+      <th>Remote Server 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Step 1. Service Migration</td>
+      <td>Service Migration</td>
+      <td></td>
+      <td>Migrate Service to Local Server</td>
+      <td>Migrate Service to Local Server</td>        
+    </tr>
+    <tr>
+        <td>Verify the service migration</td>
+        <td></td>
+        <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+        <td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>        
+    </tr>      
+    <tr>
+      <td rowspan="4">Step 2. Configure Properties</td>
+      <td>Enable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 1;</td>
+    </tr>
+    <tr>
+      <td>Enable SQL Apply Mode</td>
+      <td></td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+    </tr>
+    <tr>
+      <td>Enable DDL Synchronization</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 1;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 3. Set Session Replication Mode</td>
+      <td>ALTER SESSION SET REPLICATION = DEFAULT;</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="4">Step 4. Execute the DDL Statement</td>
+      <td>Resolve Replication Gap</td>
+      <td></td>
+      <td>ALTER REPLICATION rep1 FLUSH;<br>ALTER REPLICATION rep3 FLUSH;</td>
+      <td>ALTER REPLICATION rep2 FLUSH;<br>ALTER REPLICATION rep3 FLUSH;</td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap</td>
+      <td>ALTER REPLICATION rep1 FLUSH;<br>ALTER REPLICATION rep2 FLUSH;</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Execute the DDL Statement</td>
+      <td>ALTER TABLE t1 ALTER COLUMN ( c1 NOT NULL );</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Resolve Replication Gap</td>
+      <td>ALTER REPLICATION rep1 FLUSH;<br>ALTER REPLICATION rep2 FLUSH;</td>
+      <td></td>
+      <td></td>
+    </tr>     
+    <tr>
+      <td rowspan="4">Step 5. Restore Property Settings</td>
+      <td>Disable DDL Statement Execution</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>Set DDL Execution Level</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_ENABLE_LEVEL = 0;</td>
+    </tr>
+    <tr>
+      <td>Disable SQL Apply Mode</td>
+      <td></td>        
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+    </tr>
+    <tr>
+      <td>Disable DDL Synchronization</td>
+      <td>ALTER SESSION SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
+      <td>ALTER SYSTEM SET REPLICATION_DDL_SYNC = 0;</td>
+    </tr>
+    <tr>
+      <td colspan="2">Step 6. Service Distribution</td>
+      <td>Distribute the service to Remote Server 1 and Remote Server 2</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+# 6. Fail-Over
 
 The Fail-Over feature is provided so that a fault that occurs while a database is providing service can be overcome and service can continue to be provided as though no fault had occurred. This chapter explains the Fail-Over feature that is provided with Altibase, and how to use it.
 
@@ -3462,9 +4869,7 @@ catch (PDOException $ex) {
 }
 ```
 
-# 5.Sequence Replication
-
--------------
+# 7. Sequence Replication
 
 Altibase only supports replication of table objects by default. Thus, sequence replication means to create tables only for sequence replication, not copying the sequence itself. 
 
@@ -3571,7 +4976,7 @@ The following example verifies the status of replication server when fail-over o
 |                                                              | iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1001<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ---------------------- <br/>1002<br/> 1 row selected. <br/>iSQL\> select seq1.nextval from dual; SEQ1.NEXTVAL<br/> ----------------------<br/> 1003<br/> 1 row selected. |
 | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ<br/> -------------------<br/> 2001<br/> 1 row selected. | iSQL\> select LAST_SYNC_SEQ from seq1\$seq; LAST_SYNC_SEQ <br/>---------------------- <br/>2001<br/> 1 row selected. |
 
-# 6.ROLE
+# 8. ROLE
 
 The role of replication is used to configure the system to perform special functions by assigning ROLE to replication.
 
@@ -3605,7 +5010,7 @@ The sender with the PROPAGATION role reads not only the replication target logs 
 * Users should take care to avoid creating cycles in the propagation direction, as this can create a situation where changes in the logs are infinitely reapplied.
 * A receiver using PROPAGABLE LOGGING leaves additional information such as PK when logging. Therefore, the receiver with PROPAGABLE LOGGING may have lower transaction performance than those without PROPAGABLE LOGGING.
 
-# Appendix A. FAQ
+# Appendix A: FAQ
 
 ### Replication FAQ
 
@@ -3672,3 +5077,623 @@ Can I perform replication between memory and disk tables?
 ##### **Answer**
 
 Yes, it's possible.
+
+# Appendix B: Standard DDL Execution Procedure
+
+This section explains how to perform DDL statements on replication targets without setting any specific replication properties.
+
+### Prerequisites
+
+This procedure assumes the following conditions:
+
+- All replication properties related to DDL execution are set to their default values.
+- Replication has been started on both servers.
+
+### **Cautions**
+
+- It is essential to stop services on the Active server.
+- If the service on the Active server is not stopped before executing the DDL statement, data inconsistency may occur if the primary transaction is triggered simultaneously with the execution of the DDL statement.
+
+This section describes how to execute DDL statements based on whether **it is possible or impossible to stop the service on the replication target server.**
+
+## Environment Where Service Stop is Possible
+
+In environments where the operation of all replication target servers can be halted, the following steps can be followed to execute DDL statements.
+
+### Step 1: Stop the Service
+
+1. Stop the service on the Active server.
+
+2. Verify that the service has been stopped by checking the database session on the Active server.
+
+   ```sql
+   SELECT COUNT(*) FROM V$SESSION WHERE ID<>SESSION_ID();:
+   ```
+
+### Step 2: Set Admin Mode
+
+Change the Active server to administrator mode to prevent other transactions from entering.
+
+```sql
+ALTER SYSTEM SET ADMIN_MODE = 1;
+```
+
+### Step 3: Stop Replication
+
+1. Resolve the replication gap on the Active server.
+
+   ~~~sql
+   ALTER REPLICATION replication_name FLUSH;
+   ~~~
+
+2. Verify that the replication gap has been resolved. The value of REP_GAP should be 0.
+
+   ~~~sql
+   SELECT REP_NAME, REP_GAP FROM V$REPGAP;
+   ~~~
+
+3. Stop Replication.
+
+   ~~~sql
+   ALTER REPLICATION replication_name STOP;
+   ~~~
+
+### Step 4: Remove Replication Target
+
+Remove the DDL statement execution target from all replication objects on the replication servers. 
+
+```sql
+ALTER REPLICATION replication_name 
+DROP TABLE FROM user_name.table_name TO user_name.table_name;
+```
+
+### Step 5: Execute DDL Statement
+
+Execute the DDL statement on all replication servers.
+
+### Step 6: Add Replication Target
+
+Re-add the DDL statement execution target to the replication objects on all replication servers.
+
+```sql
+ALTER REPLICATION replication_name
+ADD TABLE FROM user_name.table_name TO `user_name.table_name;
+```
+
+### Step 7: Start Replication
+
+Start replication on the Active server.
+
+~~~sql
+ALTER REPLICATION replication_name START;
+~~~
+
+### Step 8: Remove Admin Mode
+
+Remove administrator mode on the Active server.
+
+```sql
+ALTER SYSTEM SET ADMIN_MODE = 0;
+```
+
+### Step 9: Start Service
+
+Restart the service on the Active server.
+
+### Active-Standby Environment Execution Procedure
+
+<table border="1" cellpadding="5" cellspacing="0">
+	<thead>
+    	<tr>
+      		<th colspan="2">Step</th>
+      		<th>Active</th>
+      		<th>Standby</th>
+    	</tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="2">Step 1. Stop Service</td>
+      		<td>Stop Service</td>            
+      		<td>Stop Service</td>
+      		<td>-</td>
+    	</tr>
+        <tr>
+      		<td>Session Check</td>
+      		<td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+      		<td></td>
+    	</tr>
+        <tr>
+      		<td colspan="2">Step 2. Set Admin Mode</td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 1;</td>
+      		<td></td>
+    	</tr>
+        <tr>
+      		<td rowspan="3">Step 3. Stop Replication</td>            
+      		<td>Resolve Replication Gap</td>
+      		<td>ALTER REPLICATION replication_name FLUSH;</td>
+      		<td></td>
+    	</tr>
+        <tr>
+      		<td>Verify the replication gap resolution</td>
+      		<td>SELECT REP_NAME, REP_GAP FROM V$REPGAP;</td>
+      		<td></td>
+    	</tr>                          
+        <tr>
+            <td>Stop Replication</td>
+      		<td>ALTER REPLICATION replication_name STOP;</td>
+            <td></td>
+    	</tr>
+        <tr>
+            <td colspan="2">Step 4. Remove Replication Target</td>
+      		<td>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</td>
+      		<td>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</td>
+    	</tr>
+        <tr>
+            <td colspan="2">Step 5. Execute DDL Statement</td>
+      		<td>Execute DDL Statement</td>
+            <td>Execute DDL Statement</td>
+    	</tr>
+        <tr>
+            <td colspan="2">Step 6. Add Replication Target</td>
+      		<td>ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</td>
+			<td>ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</td>
+    	</tr>
+        <tr>
+            <td colspan="2">Step 7. Start Replication</td>
+      		<td>ALTER REPLICATION replication_name START;</td>
+            <td></td>
+    	</tr>
+        <tr>
+      		<td colspan="2">Step 8. Remove Admin Mode</td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 0;</td>
+            <td></td>
+    	</tr>
+        <tr>
+            <td colspan="2">Step 9. Start Service</td>
+      		<td>Start Service</td>
+            <td>-</td>
+    	</tr>                   
+	</tbody>
+</table>
+
+
+
+
+
+
+### Active-Active Environment Execution Procedure
+
+<table border="1" cellpadding="5" cellspacing="0">
+	<thead>
+    	<tr>
+      		<th colspan="2">Step</th>
+      		<th>Active1</th>
+      		<th>Active2</th>
+    	</tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="2">Step 1. Stop Service</td>
+      		<td>Stop Service</td>
+      		<td>Stop Service</td>
+      		<td>Stop Service</td>
+    	</tr>
+        <tr>
+      		<td>Session Check</td>
+      		<td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+      		<td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+    	</tr>
+        <tr>
+      		<td colspan="2">Step 2. Set Admin Mode</td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 1;</td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 1;</td>
+    	</tr>
+        <tr>
+            <td rowspan="3">Step 3. Stop Replication</td>            
+      		<td>Resolve Replication Gap</td>
+      		<td>ALTER REPLICATION replication_name FLUSH;</td>
+      		<td>ALTER REPLICATION replication_name FLUSH;</td>
+    	</tr>
+        <tr>
+      		<td>Verify the replication gap resolution</td>
+      		<td>SELECT REP_NAME, REP_GAP FROM V$REPGAP;</td>
+      		<td>SELECT REP_NAME, REP_GAP FROM V$REPGAP;</td>
+    	</tr>     
+        <tr>
+            <td>Stop Replication</td>
+      		<td>ALTER REPLICATION replication_name STOP;</td>
+            <td>ALTER REPLICATION replication_name STOP;</td>
+    	</tr>
+        <tr>
+            <td colspan="2">Step 4. Remove Replication Target</td>
+      		<td>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</td>
+      		<td>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</td>
+    	</tr>
+        <tr>
+            <td colspan="2">Step 5. Execute DDL Statement</td>
+      		<td>Execute DDL Statement</td>
+            <td>Execute DDL Statement</td>
+    	</tr>
+        <tr>
+            <td colspan="2">Step 6. Add Replication Target</td>
+      		<td>	ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</td>
+			<td>	ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</td>
+    	</tr>
+        <tr>
+            <td colspan="2">Step 7. Start Replication</td>
+      		<td>ALTER REPLICATION replication_name START;</td>
+            <td>ALTER REPLICATION replication_name START;</td>
+    	</tr>
+        <tr>
+            <td colspan="2">Step 8. Remove Admin Mode</td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 0;</td>
+            <td>ALTER SYSTEM SET ADMIN_MODE = 0;</td>
+    	</tr>
+        <tr>
+            <td colspan="2">Step 9. Start Service</td>
+      		<td>Start Service</td>
+            <td>Start Service</td>
+    	</tr>                   
+	</tbody>
+</table>
+
+
+
+
+
+
+## Environment Where Service Cannot Be Stopped
+
+In environments where the operation of replication servers cannot be stopped simultaneously, DDL statements must be executed sequentially on each server, and [SQL Apply Mode](#appendix-c-sql-apply-mode) must be used.
+
+> ##### Cautions
+>
+> In this procedure, there is a possibility that some data may not be transmitted at certain points in time. Therefore, it is recommended to choose the time with the least transaction activity for performing the operation. Additionally, before the service migration point, it is advised to temporarily stop the service until the replication gap reaches 0.
+
+### Step 1: Service Migration 
+
+Migrate the service from Active1 to Active2.
+
+1. Resolve the replication gap on Active1.
+
+   ~~~sql
+   ALTER REPLICATION replication_name FLUSH;
+   ~~~
+
+2. Verify that the replication gap is resolved by checking that the REP_GAP value is 0.
+
+   ~~~sql
+   SELECT REP_NAME, REP_GAP FROM V$REPGAP;
+   ~~~
+
+3. Migrate the service to Active2.
+
+4. Check the database session to verify that the service has been successfully migrated to Active2.
+
+   ```sql
+   SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();
+   ```
+
+### Step 2: Set Admin Mode
+
+Change Active1 to administrator mode to prevent new transactions from entering.
+
+~~~sql
+ALTER SYSTEM SET ADMIN_MODE = 1;
+~~~
+
+
+### Step 3: Stop Replication
+
+Stop replication on all servers.
+
+~~~sql
+ALTER REPLICATION replication_name STOP;
+~~~
+
+### Step 4: Remove Replication Target
+
+Remove the DDL Statement execution target on Active1.
+
+```sql
+ALTER REPLICATION replication_name
+DROP TABLE FROM user_name.table_name TO user_name.table_name;
+```
+
+### Step 5: Execute DDL Statement
+
+Execute DDL Statement on Active1
+
+### Step 6: Add Replication Target
+
+Re-add the DDL Statement execution target to the replication object on Active1.
+
+```sql
+ALTER REPLICATION replication_name
+ADD TABLE FROM user_name.table_name TO user_name.table_name;
+```
+
+### Step 7: Enable SQL Apply Mode
+
+Enable SQL Apply Mode on all replication servers.
+
+~~~sql
+ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
+~~~
+
+### Step 8: Start Replication
+
+Restart replication on all servers.
+
+```sql
+ALTER REPLICATION replication_name START;
+```
+
+### Step 9: Remove Admin Mode
+
+Remove administrator mode from Active1.
+
+```sql
+ALTER SYSTEM SET ADMIN_MODE = 0;
+```
+
+### Step 10: Perform DDL Statement on Active2
+
+Repeat **Steps 1 through 9** on Active2.
+
+```sql
+ALTER REPLICATION replication_name START;
+```
+
+### Step 11: Verify SQL Apply Mode Operation
+
+Verify that SQL Apply Mode is working correctly across all replication objects. If the DDL statement was successfully executed on the replication target server, there should be no replication objects still operating in SQL Apply Mode.
+
+Execute the following query to confirm that the SQL_APPLY_TABLE_COUNT is 0:
+
+~~~sql
+SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;
+~~~
+
+### Step 12: Disable SQL Apply Mode
+
+~~~sql
+ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
+~~~
+
+### Step 13: Service Distribution
+
+Redistribute the services on Active1 and Active2 back to their original configuration.
+
+### Active-Active Environment Execution Procedure
+
+<table border="1" cellpadding="5" cellspacing="0">
+	<thead>
+    	<tr>
+      		<th colspan="2">Step</th>
+      		<th>Active1</th>
+      		<th>Active2</th>         
+    	</tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="4">Migrate the Service from Active1</td>
+      		<td>Resolve Replication Gap</td>
+      		<td>ALTER REPLICATION replication_name FLUSH;</td>
+      		<td></td>
+    	</tr>
+        <tr>
+      		<td>Verify the replication gap resolution</td>
+      		<td>SELECT REP_NAME, REP_GAP FROM V$REPGAP;</td>
+      		<td></td>
+    	</tr>
+        <tr>
+      		<td>Service Migration</td>
+      		<td>Migrate the service from Active1 to Active2.</td>
+      		<td></td>          
+    	</tr>
+        <tr>
+      		<td>Verify Service Migration</td>
+      		<td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+      		<td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+    	</tr>
+        <tr>
+      		<td colspan="2">Set Admin Mode</td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 1;</td>
+      		<td></td>
+    	</tr>
+        <tr>
+      		<td colspan="2">Stop Replication</td>
+      		<td>ALTER REPLICATION replication_name STOP;</td>
+      		<td>ALTER REPLICATION replication_name STOP;</td>
+    	</tr>
+        <tr>
+            <td colspan="2">Remove Replication Target</td>
+      		<td>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</td>
+      		<td></td>
+    	</tr>        
+        <tr>
+            <td colspan="2">Execute DDL Statement</td>
+      		<td>Execute DDL Statement</td>
+            <td></td>
+    	</tr>
+        <tr>
+            <td colspan="2">Add Replication Target</td>
+      		<td>ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</td>
+			<td></td>
+    	</tr>
+        <tr>
+      		<td colspan="2">Enable SQL Apply Mode</td>
+      		<td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+      		<td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;</td>
+    	</tr>         
+        <tr>
+            <td colspan="2">Start Replication</td>
+      		<td>ALTER REPLICATION replication_name START;</td>
+            <td>ALTER REPLICATION replication_name START;</td>
+    	</tr>
+        <tr>
+      		<td colspan="2">Remove Admin Mode</td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 0;</td>
+            <td></td>
+    	</tr>        
+        <tr>
+            <td rowspan="4">Migrate the Service from Active2</td>
+      		<td>Resolve Replication Gap</td>
+      		<td></td>
+            <td>ALTER REPLICATION replication_name FLUSH;</td>
+    	</tr>
+        <tr>
+      		<td>Verify the replication gap resolution</td>
+      		<td></td>
+      		<td>SELECT REP_NAME, REP_GAP FROM V$REPGAP;</td>      
+    	</tr>
+        <tr>
+      		<td>Migrate service</td>
+      		<td></td>
+      		<td>Migrate the service from Active1 to Active2.</td>
+    	</tr>
+        <tr>
+      		<td>Verify Service Migration</td>
+      		<td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>
+      		<td>SELECT COUNT(*) FROM V$SESSION WHERE ID <> SESSION_ID();</td>         
+    	</tr>       
+        <tr>
+      		<td colspan="2">Set Admin Mode</td>
+      		<td></td>
+      		<td>ALTER SYSTEM SET ADMIN_MODE = 1;</td>
+    	</tr>
+        <tr>
+      		<td colspan="2">Stop Replication</td>
+      		<td>ALTER REPLICATION replication_name STOP;</td>
+      		<td>ALTER REPLICATION replication_name STOP;</td>
+    	</tr>
+        <tr>
+            <td colspan="2">Remove Replication Target</td>
+      		<td></td>
+      		<td>ALTER REPLICATION replication_name DROP TABLE FROM user_name.table_name TO user_name.table_name;</td>
+    	</tr>        
+        <tr>
+            <td colspan="2">Execute DDL Statement</td>
+      		<td></td>
+            <td>Execute DDL Statement</td>
+    	</tr>
+        <tr>
+            <td colspan="2">Add Replication Target</td>
+      		<td></td>
+			<td>ALTER REPLICATION replication_name ADD TABLE FROM user_name.table_name TO user_name.table_name;</td>
+    	</tr> 
+        <tr>
+            <td colspan="2">Start Replication</td>
+      		<td>ALTER REPLICATION replication_name START;</td>
+            <td>ALTER REPLICATION replication_name START;</td>
+    	</tr>        
+        <tr>
+            <td colspan="2">Verify SQL Apply Mode Operation</td>
+      		<td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>
+            <td>SELECT REP_NAME, SQL_APPLY_TABLE_COUNT FROM V$REPRECEIVER;</td>          
+    	</tr>
+        <tr>
+            <td colspan="2">Disable SQL Apply Mode</td>
+      		<td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+            <td>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;</td>
+    	</tr>        
+        <tr>
+      		<td colspan="2">Remove Admin Mode</td>
+      		<td></td>
+            <td>ALTER SYSTEM SET ADMIN_MODE = 0;</td>
+    	</tr> 
+    	<tr>
+  			<td colspan="2">Service Distribution</td>
+  			<td>Redistribute the service back to its original configuration
+        </td>
+        	<td></td>
+		</tr>                  
+	</tbody>
+</table>
+
+
+
+
+
+
+
+
+# Appendix C: SQL Apply Mode
+
+## Overview
+
+SQL Apply Mode is used to maintain replication when **metadata between the local and remote servers differs**. When enabled, XLogs are converted into SQL statements to replicate the primary transaction. This feature is necessary in various situations where DDL statements are executed on replication targets.
+
+### Restrictions
+
+- EAGER mode replication is not supported.
+- It does not work on replication target tables with encrypted columns.
+
+### Cautions
+
+Enabling SQL Apply Mode significantly slows down replication, so it **should be disabled immediately after use**.
+
+## Conditions for SQL Apply Mode Operation
+
+SQL Apply Mode operates in the following situations:
+
+#### Column Information Mismatch
+
+- Data types are different.
+
+- Data types are the same, but size, precision, or scale differ.
+
+
+#### Constraint Mismatch
+
+- The condition of a CHECK constraint differs.
+
+- The name of a CHECK constraint differs.
+
+- The NOT NULL / NULL constraint on a column differs.
+
+#### Index Information Mismatch
+
+- The configuration of a unique key index differs.
+
+- The unique key index includes non-replication target columns.
+
+- The configuration of a function-based index differs.
+
+- The function-based index includes non-replication target columns.
+
+#### Partition Information Mismatch
+
+- The number of partitions in the replication pair differs.
+
+## Setting the SQL Apply Mode
+
+SQL Apply Mode is set on the **replication receiver** side.
+
+#### How to Set the SQL Apply Mode
+
+To enable SQL Apply Mode on the receiver server, execute the following statement:
+
+```sql
+ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
+```
+
+#### Setting Verification Method
+
+To verify if the setting has been applied correctly, execute the following query on the receiver server:
+
+```sql
+SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'REPLICATION_SQL_APPLY_ENABLE';
+```
+
+Example Result:
+
+~~~sql
+NAME                            VALUE1                          
+-------------------------------------------------------------------
+REPLICATION_SQL_APPLY_ENABLE    1                               
+1 row selected.
+~~~
+
+If the value of `VALUE1` is 1, it indicates that SQL Apply Mode has been successfully activated.
