@@ -3780,10 +3780,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>SYSTEM</td>
   </tr>
   <tr>
-  <td>REPLICATION_META_ITEM_COUNT_DIFF_ENABLE</td>
-  <td>SYSTEM</td>
-  </tr>
-  <tr>
   <td>EPLICATION_POOL_ELEMENT_COUNT</td>
   <td>SYSTEM</td>
   </tr>
