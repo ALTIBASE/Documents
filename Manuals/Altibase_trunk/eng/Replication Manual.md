@@ -1977,7 +1977,7 @@ The following DDL statements can be executed when `REPLICATION_DDL_ENABLE_LEVEL`
 
 > [!tip]
 >
-> When `REPLICATION_DDL_ENABLE_LEVEL` is set to `1`, all statements under **[DDL Level 0](#ddl-level-0)** can also be executed.
+> When `REPLICATION_DDL_ENABLE_LEVEL` is set to `1`, all statements under [DDL Level 0](#ddl-level-0) can also be executed.
 
 #### Adding and Modifying Columns
 
@@ -2022,9 +2022,9 @@ ALTER TABLE table_name DROP PARTITION partiton_name;
 When performing partition operations, take the following precautions:
 
 - Replication must be stopped on **both the local and remote servers**.
-- The partition names used in the DDL statement must be **identical** on both the local and remote servers.
-- Partition merging can only be performed when **all target partitions are part of the replication target**.
-- Partition deletion is allowed only if the partitioned table contains **at least two partitions**.
+- The partition names used in the DDL statement must be identical on both the local and remote servers.
+- Partition merging can only be performed when all target partitions are part of the replication target.
+- Partition deletion is allowed only if the partitioned table contains at least two partitions.
 
 #### Adding, Modifying, and Dropping Table Constraints
 
@@ -2098,7 +2098,7 @@ ALTER TABLE table_name TRUNCATE PARTITION partition_name;
 TRUNCATE TABLE table_name;
 ```
 
-However, data **cannot** be deleted from tables that contain the following type of column:
+However, data cannot be deleted from tables that contain the following type of column:
 
 - Compressed columns
 
@@ -2109,14 +2109,14 @@ CREATE INDEX index_name ON table_name ( column_name );
 DROP INDEX index_name;
 ```
 
-The following types of indexes **cannot** be dropped:
+The following types of indexes cannot be dropped:
 
 - Unique key indexes
 - Function-based indexes
 
 ### Other Statements
 
-The following statement can be executed on replication targets **regardless of the `REPLICATION_DDL_ENABLE` property setting**:
+The following statement can be executed on replication targets regardless of the `REPLICATION_DDL_ENABLE` property setting:
 
 #### Disk Index AGING
 
@@ -2187,7 +2187,7 @@ ALTER SESSION SET REPLICATION = DEFAULT;
 
 [^3]: When the session replication mode is set to DEFAULT, replication is performed according to the mode defined in the replication object (either LAZY or EAGER).
 
-#### Execute the DDL Statement
+#### Step 4. Execute the DDL Statement
 
 Execute the same DDL statement on both the local and remote servers.
 
@@ -3161,8 +3161,6 @@ DDL Synchronization is a feature that replicates the DDL statements performed on
 
 When DDL Synchronization is performed, transactions operate synchronously. If the DDL statement fails on either the primary transaction or the replicated transaction, the DDL statement will fail. Additionally, the replication target tables on both the local and remote servers will be locked, restricting transaction access.
 
-This feature is supported starting from Altibase 7.1.0.x.x (added only in the 7.1 manual).
-
 ### DDL Synchronization Properties
 
 DDL Synchronization can be enabled by activating the related property.
@@ -3196,7 +3194,7 @@ The following statements cannot be replicated through DDL Synchronization:
 
 ## How to Perform DDL Synchronization
 
-This section explains how to perform DDL Synchronization. For more detailed procedures, refer to the [examples](#).
+This section explains how to perform DDL Synchronization. For more detailed procedures, refer to the [DDL Synchronization Example](#ddl-synchronization-example).
 
 In the procedure below, we assume that the server performing the DDL statement is the local server, and the server where DDL synchronization is performed is the remote server. Additionally, we assume that replication has been started on both servers.
 
@@ -3470,12 +3468,6 @@ Here, it is assumed that the *t1* table is a replication target table included i
   </tbody>
 </table>
 
-
-
-
-
-
-
 ### Example 2: Replicating the Addition of a NOT NULL Constraint
 
 This example demonstrates the process of adding a NOT NULL constraint to column *`c1`* of the *`t1`* table on the local server, and how that statement is replicated to the remote server.
@@ -3577,8 +3569,6 @@ Here, it is assumed that the *t1* table is a replication target table included i
     </tr>
   </tbody>
 </table>
-
-
 
 
 
@@ -4800,7 +4790,7 @@ function focbfunnc($db, $context, $event)
 | PDO::ALTIBASE_FO_GO   | STF Progressing |
 | PDO::ALTIBASE_FO_QUIT | STF Stopped     |
 
-#### 
+
 
 #### Registering Fail-Over Callback
 
@@ -5337,7 +5327,7 @@ Restart the service on the Active server.
 
 ## Environment Where Service Cannot Be Stopped
 
-In environments where the operation of replication servers cannot be stopped simultaneously, DDL statements must be executed sequentially on each server, and [SQL Apply Mode](#) must be used.
+In environments where the operation of replication servers cannot be stopped simultaneously, DDL statements must be executed sequentially on each server, and [SQL Apply Mode](#appendix-c-sql-apply-mode) must be used.
 
 > ##### Cautions
 >
@@ -5644,8 +5634,6 @@ SQL Apply Mode operates in the following situations:
 - The name of a CHECK constraint differs.
 
 - The NOT NULL / NULL constraint on a column differs.
-
-
 
 #### Index Information Mismatch
 
