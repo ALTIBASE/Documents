@@ -969,11 +969,20 @@ Using the jdbcAdapter to apply changed data from the Altibase server to another 
 - BUILD OFFLINE META  
   This reads the sender meta and Restart SN files from the ala_meta_files folder in the specified log file path. This constructs the necessary meta information for the offline replication.
 
-- RESET OFFLINE META   
-  This resets the meta information configured by BUILD OFFLINE META when it is no longer needed or configuring new meta information.
+- RESET OFFLINE META
+  
+  The `RESET OFFLINE META` command is used to reset the offline replication metadata after executing `BUILD OFFLINE META`. It can be performed in the following situations:
+  
+  - When an error occurs during offline replication and the metadata needs to be reconfigured.
+  - When offline replication is no longer necessary, and the metadata is no longer required.
+  
+  However, if an error occurs during offline replication due to DDL logs, there is no need to execute `RESET OFFLINE META`. In this case, running `RESET OFFLINE META` will cause the DDL logs to be read repeatedly, and the error may recur.
+  
+- START WITH OFFLINE
 
-- START WITH OFFLINE  
-  This starts replication through the specified offline path. Offline replication is a one-time operation, so it terminates right after applying all unsent logs. After the completion of offline replication, users can start replication again.
+  Replication is performed using the configured offline path. Offline replication is a one-time operation that applies all untransmitted logs and then immediately terminates. After offline replication is complete, replication can be started again.
+
+  If DDL logs are included in the replication gap during offline replication, the operation will be halted. In this case, the user must verify whether the DDL statements executed on the Active server were also executed on the server performing offline replication, and then perform offline replication again.
 
 #### Constraints
 
