@@ -2829,11 +2829,11 @@ OPTIONS
 
 ##### CONN_TYPE
 
-원격 서버의 접속 방법을 나타낸다.
+원격 서버와의 통신 방법을 나타낸다.
 
-- TCP
-- Unix Domain
-- InfiniBand(IB)
+- TCP :  TCP 통신을 사용
+- UNIX_DOMAIN : Unix Domain 통신을 사용
+- IB : 인피니밴드(InfiniBand) 통신을 사용
 
 ##### IB_LATENCY
 
