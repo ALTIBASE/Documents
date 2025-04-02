@@ -491,9 +491,6 @@ Altibase provides the following additional features. A detaield description of h
 -   Recovery Option  
     : If experiencing abnormal server termination during the replication, data recovery option is available for preventing data inconsistency between servers by replications.
     
--   Offline Option  
-    : If an error occurred in the active server with the Active-Standy replication environment, this function allows applying untransffered logs to the Standy Server with the offline option.
-    
 -   Replication Gapless Option  
     : The replication gapless option resolves replication gaps.
 
@@ -504,7 +501,12 @@ Altibase provides the following additional features. A detaield description of h
     : This option sends logs to a sender thread by grouping multiple transaction to a single transaction when replication gap occurs.
     
 -   Meta Logging Option  
+    
     : This option records the sender meta and Restart SN information into files.
+    
+-   Offline Option
+    
+    : The function that retrieves the untransmitted logs from the Active server and applies the change transactions to the remote server.
 
 > #### Considerations
 >
@@ -1790,114 +1792,6 @@ iSQL> ALTER REPLICATION rep1 SET RECOVERY DISABLE;
 Alter success.
 ```
 
-#### Offline Option
-
-##### Syntax
-
-```
-CREATE REPLICATION replication_name OPTIONS OFFLINE 'log_dir' ...;
-ALTER REPLICATION replication_name SET OFFLINE ENABLE WITH 'log_dir';
-ALTER REPLICATION replication_name SET OFFLINE DISABLE;
-ALTER REPLICATION replication_name START WITH OFFLINE;
-```
-
-##### Description
-
-One of the other extra replication features provided with Altibase is the offline option. In an Active-Passive replication environment, when a server providing service (the “Active“ server) develops a fault, the logs cannot be sent to the remote (“Standby“) server. The use of offline replication allows the logs that could not be sent to the Standby Server before the fault occurred to be accessed by and implemented in the Standby Server afterwards. If the Standby Server directly accesses the log files on the Active Server by copying the files via FTP or using a shared disk file system, a network file system, etc, the logs that could not be sent can be processed using the OFFLINE option. However, the Standby Server can use the offline option only if the Active Server has performed replication on the Standby Server side. 
-
--   log_dir  
-    This enables the Standby Server to access the log files directly by specifying the log path on the Active Server.
-    
--   START WITH OFFLINE  
-    This allows replication to take place using the specified offline path. Offline replication is a one-time operation which is terminated as soon as all the unsent logs are applied. The replication Sender and Receiver threads that were being executed on the Standby Server are automatically terminated when this command is issued. Replication can be restarted once offline replication is terminated.
-    
--   SET OFFLINE DISABLE  
-    This disables the offline replication option. This statement can only be executed while replication is stopped.
-
-The below figure is an example of the offline option in use.
-
-![](media/Replication/Replication_eng.1.18.1.jpg)
-
-[Figure 3-1] Data Accordance Between Both Servers
-
-##### Offline Option Restrictions
-
-- This option can only be used when executing replication in LAZY mode.
-
-- Offline replication is not supported for replication objects which designate compressed tables as replication targets.
-
-- The offline option cannot be used at the same time as the recovery option.
-
-- At the moment that offline replication starts, any replication Receiver thread having the same replication_name must be in a stopped state. If such a thread is still running, offline replication will terminate.
-
-- If the log file directory on the Active Server cannot be accessed due to a disk error, offline replication will fail.
-
-- The size of the log files on the Active and Standby Servers must be the same. Before the offline option is used, it must be ensured that the size of the log files is the same as the size that was specified at the time that the database was created.
-
-- If the user changes log files arbitrarily (i.e. renames or deletes them, or copies log files from another system), abnormal shutdown or some other problem may occur.
-
-- The Standby Server should not be restarted before starting offline replication, because the information used to analyze the logs that could not be received will disappear when starting up the Standby Server.
-
-- If the unsent logs contain [DDL statements with REPLICATION_DDL_ENABLE_LEVEL = 1](#ddlenablelevel1), the user must set the REPLICATION_SQL_APPLY_ENABLE property to 1 so that Altibase operates in SQL apply mode.
-
-- **Option compatibility between different Altibase versions or Altibase and heterogeneous database**
-
-  Offline replication or creating replication object with offline option fails if it does not meet the compatibility condition
-
-  - All three digits of the binary DB version (Major, Minor, Patch) should be the same.
-
-    Binary DB version can be found in two ways.
-
-    1. SELECT SM_VERSION FROM V$VERSION;
-    2. altibase -v
-
-  - LOG_FILE_SIZE should be the same.
-
-    Log file size can be found by this following syntax. SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'LOG_FILE_SIZE';
-
-  - Offline replication between heterogeneous databases is not supported. Operating system, CPU type and CPU bit should be the same.
-
-##### Example
-
-Assuming that the name of a replication object is rep1 and that the path of Active Server logs is active_server/altibase_home/logs, the offline option is used as follows:
-
--   Set the offline option when creating a replication object:
-
-```
-iSQL>CREATE REPLICATION REP1 OPTIONS OFFLINE 'actiive_server/altibase_home/logs'
-WITH '127.0.0.1',20300 FROM SYS.A TO SYS.B;
-```
-
--   Set the offline option for an existing replication object:
-
-```
-iSQL>ALTER REPLICATION REP1 SET OFFLINE ENABLE WITH 'active_server/altibase_home/logs';
-```
-
--   Set the property to enable Altibase to operate in SQL apply mode:
-
-```
-iSQL>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
-```
-
--   Execute offline replication using the specified path:
-
-```
-iSQL>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
-```
-
--   Restore the property settings to disable Altibase to operate in SQL apply mode:
-
-```
-iSQL>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
-```
-
--   Specify that the offline option is not to be used:
-
-```
-iSQL>ALTER REPLICATION REP1 SET OFFLINE DISABLE;
-```
-
 #### Replication Gapless Option 
 
 ##### Syntax
@@ -2006,18 +1900,174 @@ For more detailed information about properties, please refer to the *General Ref
 ##### Syntax
 
 ```sql
+CREATE REPLICATION replication_name OPTIONS META_LOGGING ...;
 CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING...;
 ```
 
 ##### Description
 
-The meta logging option records the sender meta and Restart SN information into files created within the ala_meta_files folder in the log file path. These files are needed when the offline option of Adapter for JDBC and Adapter for Oracle utilities is executed.
+The Meta Logging Option is a feature that saves the sender's metadata and restart SN information to a file.
 
-> **Offline Option of Adapter for JDBC and Adapter for Oracle** 
+This option is configured on the Active server's replication object. When performing offline replication on the replication server where the receiver thread is running, the saved file can be referenced to retrieve the Active server's metadata.
+
+##### Explanation of the Syntax
+
+###### OPTIONS META_LOGGING
+
+When creating a replication object, the Meta Logging Option is configured.
+
+The sender's metadata and restart SN (Sequence Number) information are saved to the `repl_meta_files` directory in the log file path.
+
+###### FOR ANALYSIS OPTIONS META_LOGGING
+
+When creating a replication object with the Log Analyzer role, the Meta Logging Option is also configured.
+
+The sender's metadata and restart SN information are saved to the `ala_meta_files` directory in the log file path.
+
+> **Reference:**
+> For detailed information about the offline option used with the Log Analyzer role replication object in Adapter for JDBC and Adapter for Oracle, please refer to the following document.
 >
-> The offline option helps the Standby server access the unsent log files in the Altibase server where the failure occurs directly, and apply them to the other databases. For more detailed information, please refer to the [*Adapter for JDBC User’s Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Adapter%20for%20JDBC%20User's%20Manual.md#offline-option), and the [*Adapter for Oracle User’s Manual*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Adapter%20for%20Oracle%20User's%20Manual.md#offline-option).
+> - [*Adapter for JDBC User’s Manual - Offline Option*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Adapter%20for%20JDBC%20User's%20Manual.md#offline-option)
+> - [*Adapter for Oracle User’s Manual - Offline Option*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Adapter%20for%20Oracle%20User's%20Manual.md)
 
-To specify this option, the replication object should be created with the Log Analyzer role.
+#### Offline Option
+
+##### Syntax
+
+```
+CREATE REPLICATION replication_name OPTIONS OFFLINE 'log_dir' ...;
+
+ALTER REPLICATION replication_name SET OFFLINE ENABLE WITH 'log_dir';
+ALTER REPLICATION replication_name BUILD OFFLINE META [AT SN(sn)];
+ALTER REPLICATION replication_name START WITH OFFLINE;
+ALTER REPLICATION replication_name RESET OFFLINE META;
+ALTER REPLICATION replication_name SET OFFLINE DISABLE;
+```
+
+##### Description
+
+The Offline Option is a feature that retrieves untransmitted logs from the Active server and applies the change transactions to the remote server. This function is set and performed on the replication server where the receiver thread is active, and it is also referred to as offline replication.
+
+If a failure occurs on the Altibase server, preventing the replication of change transactions to the remote server, offline replication can be performed to retrieve the untransmitted logs and apply the changes.
+
+To perform offline replication, the following conditions must be met:
+
+- The Active server must have a history of starting replication to the remote server.
+- The Meta Logging Option must be set on the replication object of the Active server.
+- The log files of the Active server and the sender's metadata files must be accessible.
+
+##### Explanation of the Syntax
+
+###### OPTIONS OFFLINE
+
+When creating the replication object, set the offline option. In `log_dir`, enter the log file path of the Active server.
+
+###### SET OFFLINE ENABLE WITH
+
+Set the offline option on the existing replication object. This can only be done when replication is stopped. In `log_dir`, enter the log file path of the Active server.
+
+###### BUILD OFFLINE META
+
+Configure the metadata required for offline replication.
+
+When executing this command, it reads the sender's metadata and restart SN files from the `repl_meta_files` directory in the `log_dir` path to configure the metadata. After restarting the Altibase server, the metadata will be lost, so you will need to execute BUILD OFFLINE META again.
+
+###### START WITH OFFLINE  
+
+Perform offline replication. Offline replication is a one-time operation that retrieves the logs not sent by the Active server and applies them, then automatically terminates.
+
+Before performing offline replication, SQL Apply Mode must be enabled, and it should be disabled after the operation is complete.
+
+When offline replication is executed, both the sender and receiver threads are automatically stopped, so replication must be restarted afterward.
+
+###### RESET OFFLINE META
+
+The RESET OFFLINE META command is used to reset the metadata of offline replication after executing BUILD OFFLINE META. It can be performed in the following situations:
+
+- When an error occurs during offline replication and the metadata needs to be reconfigured.
+- When offline replication is no longer needed and the metadata is no longer required.
+
+###### SET OFFLINE DISABLE  
+
+Disable the offline option on the replication object. This can only be done when replication is stopped.
+
+<br>Below is a diagram illustrating the process of offline replication.
+
+![](media/Replication/replication-figure-3-1.png)
+
+[Figure 3-1] Data Accordance Between Both Servers
+
+##### Restrictions
+
+- The offline option can only be set on replication objects in LAZY mode.
+
+- The offline option cannot be set on replication objects that include compressed tables.
+
+- The offline option cannot be set simultaneously with the recovery option.
+
+- The server performing offline replication and the Active server must have the same OS, CPU type, and CPU bit architecture. Heterogeneous offline replication is not supported.
+
+- The server performing offline replication and the Active server must have the same three-part binary database version (Major, Minor, Patch).
+
+- The server performing offline replication and the Active server must have the same log file size (LOG_FILE_SIZE).
+
+##### Cautions
+
+If the user arbitrarily changes the log files or sender metadata files, issues such as abnormal termination of the Altibase server may occur.
+
+**Examples of incorrect changes:**
+
+- Renaming files
+- Copying log files to another system
+- Deleting files
+
+##### Offline Replication Procedure Example
+
+This procedure describes how to perform offline replication on the Standby server when the Active server experiences a failure.
+
+- **Active Server**: The replication server where change transactions occur.
+- **Standby Server**: The replication server that performs offline replication.
+- **Log file path of the Active server**: `/active_server/altibase_home/logs`
+
+###### Offline Replication on a Replication Object with Offline Option Set
+
+In this example, the Active server has Meta Logging Option set, and the Standby server has the Offline option enabled.
+
+|                                       | Active                                                       | Standby                                                      |
+| ------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1. Schema Creation                    | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       |
+| 2. Replication Creation               | CREATE REPLICATION rep1 OPTIONS META_LOGGING WITH 'standby_ip', standby_port FROM SYS.t1 to SYS.t1; | CREATE REPLICATION rep1 OPTION OFFLINE '/active_server/altibase_home/logs' WITH 'active_ip', active_port FROM SYS.t1 to SYS.t1; |
+| 3. Start Replication on Active Server | ATER REPLICATION START rep1;                                 |                                                              |
+| 4. Active Server Failure              | Failure Occurrence                                           |                                                              |
+| 5. Enable SQL Apply Mode              |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
+| 6. Configure Offline Metadata         |                                                              | ALTER REPLICATION rep1 BUILD OFFLINE META;                   |
+| 7. Start Offline Replication          |                                                              | ALTER REPLICATION rep1 START WITH OFFLINE;                   |
+| 8. Disable SQL Apply Mode             |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
+
+###### Offline Replication on a Replication Object Without Offline Option Set
+
+This example uses an Active server with the Meta Logging Option enabled and a Standby server without the offline option enabled.
+
+|                                       | Active                                                       | Standby                                                      |
+| ------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1. Schema Creation                    | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       |
+| 2. Replication Creation               | CREATE REPLICATION rep1 OPTIONS META_LOGGING WITH 'standby_ip', standby_port FROM SYS.t1 to SYS.t1; | CREATE REPLICATION rep1 WITH 'active_ip', active_port FROM SYS.t1 to SYS.t1; |
+| 3. Start Replication on Active Server | ATER REPLICATION START rep1;                                 |                                                              |
+| 4. Active Server Failure              | Failure Occurrence                                           |                                                              |
+| 5. Enable SQL Apply Mode              |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
+| 6. Setting the Offline Option         |                                                              | ALTER REPLICATION rep1 SET OFFLINE ENABLE WITH '/active_server/altibase_home/logs'; |
+| 7. Configure Offline Metadata         |                                                              | ALTER REPLICATION rep1 BUILD OFFLINE META;                   |
+| 8. Start Offline Replication          |                                                              | ALTER REPLICATION rep1 START WITH OFFLINE;                   |
+| 9. Disabling the Offline Option       |                                                              | ALTER REPLICATION rep1 SET OFFLINE DISABLE;                  |
+| 10. Disable SQL Apply Mode            |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
+
+
+> **Reference:**
+>
+> For examples of using the offline option in Adapter for JDBC and Adapter for Oracle, refer to the following document.
+>
+> - [*Adapter for JDBC User’s Manual - Offline Option*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Adapter%20for%20JDBC%20User's%20Manual.md#offline-option)
+> - [*Adapter for Oracle User’s Manual - Offline Option*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Adapter%20for%20Oracle%20User's%20Manual.md)
 
 ### Replication in a Multiple IP Network Environment
 

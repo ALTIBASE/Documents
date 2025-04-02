@@ -508,24 +508,22 @@ Altibase에서 제공하는 이중화 부가 기능은 아래와 같다. 부가 
 
 -   복구 옵션  
     : 이중화를 진행중에 서버가 비정상 종료되면 서버간 데이터가 불일치하는 것을 방지하기 위해 이중화를 이용한 데이터 복구 기능
-    
--   오프라인 옵션  
-    : Active-Standby 이중화 환경에서 Active 서버에 장애가 발생하면, 오프라인 옵션을 사용하여 미전송된 로그를 Standby 서버에 반영할 수 있는 기능
-    
 -   이중화 갭 해소 옵션  
     : 이중화를 수행할 때 발생하는 이중화 갭을 해소하는 기능
-
 -   병렬 적용자 옵션  
     : 송신자로부터 받은 XLog를 수신자가 병렬로 적용할 수 있는 기능
-
 -   이중화 트랜잭션 그룹 옵션  
     : 이중화 갭이 발생하였을 때 전송해야 할 복수의 트랜잭션들을 하나의 트랜잭션처럼 그룹화하여 수신 쓰레드에 로그를 전송하는 기능
-    
 - 이중화 수신 전용 옵션  
   : 이중화를 수신 전용 옵션으로 설정하는 기능.
-  
-- 메타 로깅 옵션  
+
+- 메타 로깅 옵션
+
   : 송신자 메타 정보와 재시작 SN 정보를 파일로 저장하는 기능
+
+- 오프라인 옵션
+
+  : Active 서버의 미전송 로그를 가져와 원격 서버에 변경 트랜잭션을 반영하는 기능
 
 > #### 주의 사항
 >
@@ -1886,18 +1884,12 @@ DDL 구문 수행이 완료되고, 더이상 수행할 DDL 구문이 없는 경�
 Altibase는 이중화 부가 기능으로 다음의 기능을 제공한다. 이중화 부가 기능을 설정할 때에는 수행중인 이중화를 종료해야 한다.
 
 -   복구 옵션(Recovery Option)
-
--   [오프라인 옵션](#오프라인-옵션offline-option)(Offline Option)
-
 -   이중화 갭 해소 옵션(Replication Gapless Option)
-
 -   병렬 적용자 옵션(Parallel Applier Option)
-
 -   이중화 트랜잭션 그룹 옵션(Replicated Transaction Grouping Option)
-
 -   이중화 수신 전용 옵션(Receive Only Option)
-
 -   메타 로깅 옵션(Meta Logging Option)
+-   오프라인 옵션(Offline Option)
 
 이중화 옵션의 상태는 SYS_REPLICATIONS\_ 메타 테이블의 OPTIONS 칼럼 값을 통해서 확인할 수 있다. 자세한 내용은 *General Reference*를 참고한다.
 
@@ -1940,114 +1932,6 @@ Alter success.
 ```
 iSQL> ALTER REPLICATION rep1 SET RECOVERY DISABLE;
 Alter success.
-```
-
-#### 오프라인 옵션(Offline Option)
-
-##### 구문
-
-```
-CREATE REPLICATION replication_name OPTIONS OFFLINE 'log_dir' ...;
-ALTER REPLICATION replication_name SET OFFLINE ENABLE WITH 'log_dir';
-ALTER REPLICATION replication_name SET OFFLINE DISABLE;
-ALTER REPLICATION replication_name START WITH OFFLINE;
-```
-
-##### 설명
-
-Active-Standby 이중화 환경에서, 서비스를 제공하는 Active 서버에서 장애가 발생하면 Standby 서버에 로그를 전송할 수 없게 된다. 이 때 오프라인 옵션을 사용하여 미전송된 로그를 Standby 서버에 반영할 수 있다. Active 서버에 장애가 발생하면 즉, Active 서버가 Standby 서버로 로그를 전송할 수 없는 상황이면, Standby 서버가 오프라인 옵션으로 Active 서버의 로그 파일에 직접 접근하여 미전송 로그를 가져와서 반영할 수 있다. 단, Active 서버가 Standby 서버 쪽으로 한번이라도 이중화를 수행한 적이 있는 경우에만, Standby 서버에서 오프라인 옵션을 사용할 수 있다.
-
--   log_dir  
-    Active 서버의 로그 경로를 설정하여 Standby 서버가 직접 로그 파일에 접근하도록 한다.
-    
--   START WITH OFFLINE  
-    설정된 오프라인 경로를 이용하여 이중화를 수행한다. 오프라인 이중화는 일회성 작업으로써, 미전송된 로그를 모두 반영한 후 바로 종료된다. Standby 서버에서 수행 중이던 이중화(sender 및 receiver)는 이 명령어가 실행되면 자동으로 종료된다. 오프라인 이중화가 종료된 후에는 다시 이중화를 시작할 수 있다.
-    
--   SET OFFLINE DISABLE  
-    오프라인 이중화 옵션을 사용하지 못하도록 설정한다. 이중화가 중지되어 있는 상태에서만 이 구문을 수행할 수 있다.
-
-아래는 오프라인 옵션의 사용 예시를 도식화한 그림이다.
-
-![](media/Replication/d012c1e5c4252a5c61e2745ddeb47449.png)
-
-[그림 3‑1] 오프라인 옵션 사용 예
-
-##### 제약사항
-
-- LAZY 모드로 이중화를 사용할 때에만 사용할 수 있다.
-
--   압축 테이블을 이중화 대상으로 가지는 replication 객체에 대해서는 오프라인 이중화를 지원하지 않는다.
-    
-- 복구 옵션과 동시에 사용할 수 없다.
-
--   오프라인 이중화가 시작하는 시점에 동일한 이중화 이름을 가진 수신 쓰레드(Receiver)는 종료된 상태여야 한다. 만약 해당 수신 쓰레드가 동작 중일 경우에는 이중화 오프라인이 이를 종료시킬 것이다.
-    
--   오프라인 이중화가 디스크 이상으로 Active서버의 로그 경로에 접근하지 못할 경우에는 실패한다.
-    
--   Active 서버와 Standby 서버의 로그 파일 크기는 동일해야 한다. 로그 파일 크기는 데이터베이스 생성 시에 정해지므로 오프라인 옵션을 사용하기 전에 이를 꼭 확인하여야 한다.
-    
--   로그 파일을 사용자 임의로 변경(이름 변경, 다른 시스템에 로그 파일을 복제, 삭제)할 경우 비정상 종료와 같은 문제를 발생시킬 수 있다.
-    
--   Standby 서버를 오프라인 이중화 시작 전에 재구동해서는 안 된다. 왜냐하면 Standby서버를 재시작하면 수신하지 못한 로그를 분석하는데 사용할 정보가 사라지기 때문이다.
-    
--   미전송된 로그에 [REPLICATION_DDL_ENABLE_LEVEL = 1로 설정한 경우, 사용할 수 있는 DDL](#ddlenablelevel1)이 포함되어 있을 경우 REPLICATION_SQL_APPLY_ENABLE 프로퍼티를 1로 설정하여 Altibase가 SQL 반영 모드로 동작하도록 해야 한다.
-    
-- **Altibase 버전 및 이기종 간 오프라인 옵션 호환성**
-
-  호환성 조건을 만족하지 않으면 오프라인 이중화를 시작하거나 오프라인 옵션으로 이중화 객체 생성 시 실패한다.
-
-  - 바이너리 데이터베이스 버전(binary db version)이 Major, Minor, Patch 모두 같아야 한다. 
-
-    바이너리 데이터베이스 버전은 2가지 방법으로 확인할 수 있다. 
-
-    1. SELECT SM_VERSION FROM V$VERSION;
-    2. altibase -v
-
-  - 로그 파일 크기(LOG_FILE_SIZE)가 동일해야 한다.
-
-    로그 파일 크기는 SELECT NAME, VALUE1 FROM V$PROPERTY WHERE NAME = 'LOG_FILE_SIZE'; 로 확인한다. 
-
-  - 이기종 간 오프라인 이중화는 지원하지 않는다. OS와 CPU 타입 및 CPU 비트 수가 같아야 한다.
-
-##### 예제
-
-이중화 이름이 rep1이고, Active서버의 로그 경로가 active_server/altibase_home/logs일 때 오프라인 옵션은 아래와 같이 사용된다.
-
--   이중화 객체 생성 시 오프라인 옵션을 설정한다.
-
-```
-iSQL>CREATE REPLICATION REP1 OPTIONS OFFLINE 'actiive_server/altibase_home/logs'
-WITH '127.0.0.1',20300 FROM SYS.A TO SYS.B;
-```
-
--   오프라인 이중화에서 사용할 로그 경로를 설정한다.
-
-```
-iSQL>ALTER REPLICATION REP1 SET OFFLINE ENABLE WITH 'active_server/altibase_home/logs';
-```
-
--   Altibase가 SQL 반영 모드로 동작하도록 프로퍼티를 설정한다.
-
-```
-iSQL>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;
-```
-
--   설정된 오프라인 로그 경로를 이용하여 이중화를 수행한다.
-
-```
-iSQL>ALTER REPLICATION REP1 START WITH OFFLINE;
-```
-
--   Altibase가 SQL 반영 모드로 동작하지 않도록 프로퍼티 설정을 원복한다.
-
-```
-iSQL>ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;
-```
-
--   이중화 오프라인 옵션을 사용하지 않도록 설정한다.
-
-```
-iSQL>ALTER REPLICATION REP1 SET OFFLINE DISABLE;
 ```
 
 #### 이중화 갭 해소 옵션(Replication Gapless Option) 
@@ -2221,18 +2105,175 @@ Alter success.
 ##### 구문
 
 ```sql
+CREATE REPLICATION replication_name OPTIONS META_LOGGING ...;
 CREATE REPLICATION replication_name FOR ANALYSIS OPTIONS META_LOGGING...;
 ```
 
 ##### 설명
 
-메타 로깅 옵션은 송신자 메타 정보와 재시작 SN 정보를 로그 파일 경로의 ala_meta_files 폴더 안에 파일로 저장한다. 이 파일들은 Adapter for JDBC와 Adapter for Oracle 유틸리티의 오프라인 옵션이 동작할 때 필요하다.
+메타 로깅 옵션은 송신자 메타 정보와 재시작 SN 정보를 파일로 저장하는 기능이다. 
 
-> **Adapter for JDBC와 Adapter for Oracle의 오프라인 옵션**
+이 옵션은 Active 서버의 이중화 객체에 설정한다. 수신 쓰레드가 동작 중인 이중화 서버에서 오프라인 이중화를 수행할 때, 저장된 파일을 참조하여 Active 서버의 메타 정보를 가져올 수 있다.
+
+##### 구문 설명
+
+###### OPTIONS META_LOGGING
+
+이중화 객체를 생성할 때 메타 로깅 옵션을 설정한다. 
+
+송신자 메타 정보와 재시작 SN 정보를 로그 파일 경로의 `repl_meta_files`디렉토리에 저장한다. 
+
+###### FOR ANALYSIS OPTIONS META_LOGGING
+
+이중화 객체를 Log Analyzer 롤로 생성할 때 메타 로깅 옵션을 설정한다. 
+
+송신자 메타 정보와 재시작 SN 정보를 로그 파일 경로의 `ala_meta_files` 디렉토리에 저장한다.
+
+> **참고:**
+> Log Analyzer 롤 이중화 객체가 사용되는 Adapter for JDBC 및 Adapter for Oracle에서 오프라인 옵션에 대한 자세한 내용은 다음 문서를 참고한다.
 >
-> 오프라인 옵션은 Active 서버에서 장애가 발생한 경우 Standby 서버에서 미전송 로그를 읽어오는 기능이다. 이에 관한 자세한 설명은 [*Adapter for JDBC User’s Manual - 오프라인 옵션*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Adapter%20for%20JDBC%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option), [*Adapter for Oracle User’s Manual - 오프라인 옵션*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Adapter%20for%20Oracle%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)을 참고한다.
+> - [*Adapter for JDBC User’s Manual - 오프라인 옵션*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Adapter%20for%20JDBC%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)
+> - [*Adapter for Oracle User’s Manual - 오프라인 옵션*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Adapter%20for%20Oracle%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)
 
-이 옵션을 사용하기 위해선 Log Analyzer 롤로 이중화 객체를 생성해야 한다.
+
+
+#### 오프라인 옵션(Offline Option)
+
+##### 구문
+
+```sql
+CREATE REPLICATION replication_name OPTIONS OFFLINE 'log_dir' ...;
+
+ALTER REPLICATION replication_name SET OFFLINE ENABLE WITH 'log_dir';
+ALTER REPLICATION replication_name BUILD OFFLINE META [AT SN(sn)];
+ALTER REPLICATION replication_name START WITH OFFLINE;
+ALTER REPLICATION replication_name RESET OFFLINE META;
+ALTER REPLICATION replication_name SET OFFLINE DISABLE;
+```
+
+##### 설명
+
+
+오프라인 옵션은 Active 서버의 미전송 로그를 가져와 원격 서버에 변경 트랜잭션을 반영하는 기능이다. 이 기능은 수신 쓰레드가 동작하는 이중화 서버에서 설정 및 수행하며, 이를 `오프라인 이중화`라고도 한다. 
+
+Altibase 서버에서 장애가 발생하여 원격 서버로 변경 트랜잭션을 이중화할 수 없는 경우, 오프라인 이중화를 수행하여 미전송 로그를 가져와 반영할 수 있다. 
+
+오프라인 이중화를 수행하려면 다음 조건을 충족해야 한다.
+
+- Active 서버가 원격 서버로 이중화를 시작한 이력이 있어야 한다.
+- Active 서버의 이중화 객체에 메타 로깅 옵션이 설정되어 있어야 한다. 
+- Active 서버의 로그 파일과 송신자 메타 파일에 정상적으로 접근할 수 있어야 한다.
+
+##### 구문 설명
+
+###### OPTIONS OFFLINE
+
+이중화 객체를 생성할 때 오프라인 옵션을 설정한다. *`log_dir`*에는 Active 서버의 로그 파일 경로를 입력한다.
+
+###### SET OFFLINE ENABLE WITH
+
+기존 이중화 객체에 오프라인 옵션을 설정한다. 이중화가 중지된 상태에서만 수행할 수 있다. *`log_dir`*에는 Active 서버의 로그 파일 경로를 입력한다.
+
+###### BUILD OFFLINE META
+
+오프라인 이중화를 수행할 때 필요한 메타 정보를 구성한다. 
+
+이 명령을 수행하면, *`log_dir`*경로의 repl_meta_files 디렉토리에서 송신자 메타 파일과 재시작 SN 파일을 읽어 메타 정보를 구성한다. Altibase 서버를 재시작하면 메타 정보가 사라지므로, `BUILD OFFLINE META`를 다시 수행해야 한다.
+
+###### START WITH OFFLINE  
+
+오프라인 이중화를 수행한다. 오프라인 이중화는 일회성 작업으로, Active 서버에서 전송하지 못한 로그를 가져와 반영한 후 자동으로 종료된다.
+
+오프라인 이중화를 수행하기 전에 **`SQL 반영 모드`를 활성화해야 하며**, 작업 완료 후에는 해제해야 한다.
+
+오프라인 이중화를 수행하면 송신 스레드와 수신 스레드가 자동으로 종료되므로, 이후 이중화를 다시 시작해야 한다.
+
+
+###### RESET OFFLINE META
+
+`RESET OFFLINE META` 명령어는 `BUILD OFFLINE META` 실행 후 오프라인 이중화의 메타 정보를 초기화할 때 사용한다. 다음과 같은 상황에서 수행할 수 있다.
+
+- 오프라인 이중화 수행 중 에러가 발생해서 메타 정보를 새로 구성해야 하는 경우
+- 오프라인 이중화를 수행할 필요가 없어 메타 정보가 더 이상 필요하지 않은 경우
+
+
+###### SET OFFLINE DISABLE  
+
+이중화 객체에서 오프라인 옵션을 해제한다. 이중화가 중지된 상태에서만 수행할 수 있다. 
+
+<br>
+
+아래는 오프라인 이중화가 수행되는 과정을 도식화한 것이다.
+
+![](media/Replication/replication-figure-3-1.png)
+
+[그림 3‑1] 오프라인 옵션 사용 예
+
+##### 제약사항
+
+- 오프라인 옵션은 LAZY 모드의 이중화 객체에만 설정할 수 있다.
+- 압축 테이블이 포함된 이중화 객체에는 오프라인 옵션을 설정할 수 없다.
+- 오프라인 옵션은 복구 옵션과 동시에 설정할 수 없다.
+- 오프라인 이중화를 수행하는 서버와 Active 서버는 OS와 CPU 타입 및 CPU 비트 수가 같아야 한다. 이기종 간 오프라인 이중화는 지원하지 않는다. 
+- 오프라인 이중화를 수행하는 서버와 Active 서버는 바이너리 데이터베이스 버전(binary db version) 세 자리(Major, Minor, Patch)가 모두 같아야 한다. 
+- 오프라인 이중화를 수행하는 서버와 Active 서버는 로그 파일 크기(LOG_FILE_SIZE)가 같아야 한다.
+
+##### 주의사항
+
+사용자가 로그 파일 및 송신자 메타 파일을 임의로 변경할 경우, Altibase 서버가 비정상 종료하는 등의 문제가 발생할 수 있다.
+
+잘못된 변경 예시: 
+
+- 파일 이름 변경
+- 다른 시스템으로 로그 파일 복제
+- 파일 삭제
+
+##### 오프라인 이중화 수행 절차 예제
+
+Active 서버에서 장애가 발생했을 때 Standby 서버에서 오프라인 이중화를 수행하는 절차를 설명한다.
+
+- Active 서버: 변경 트랜잭션이 발생하는 이중화 서버
+- Standby 서버: 오프라인 이중화를 수행하는 이중화 서버
+- Active 서버의 로그 파일 경로: `/active_server/altibase_home/logs`
+
+###### 오프라인 옵션이 설정된 이중화 객체에서 오프라인 이중화 수행
+
+이 예제에서는 메타 로깅 옵션이 설정된 Active 서버와 오프라인 옵션이 설정된 Standby 서버를 사용한다.
+
+|                            | Active                                                       | Standby                                                      |
+| -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1. 스키마 생성             | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       |
+| 2. 이중화 생성             | CREATE REPLICATION rep1 OPTIONS META_LOGGING WITH 'standby_ip', standby_port FROM SYS.t1 to SYS.t1; | CREATE REPLICATION rep1 OPTION OFFLINE '/active_server/altibase_home/logs' WITH 'active_ip', active_port FROM SYS.t1 to SYS.t1; |
+| 3. Active 서버 이중화 시작 | ATER REPLICATION START rep1;                                 |                                                              |
+| 4. Active 서버 장애 발생   | 장애 발생                                                    |                                                              |
+| 5. SQL 반영 모드 활성화    |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
+| 6. 오프라인 메타 정보 구성 |                                                              | ALTER REPLICATION rep1 BUILD OFFLINE META;                   |
+| 7. 오프라인 이중화 시작    |                                                              | ALTER REPLICATION rep1 START WITH OFFLINE;                   |
+| 8. SQL 반영 모드 비활성화  |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
+
+###### 오프라인 옵션이 설정되지 않은 이중화 객체에서 오프라인 이중화 수행
+
+이 예제에서는 메타 로깅 옵션이 설정된 Active 서버와 오프라인 옵션이 설정되어 있지 않은 Standby 서버를 사용한다.
+
+|                            | Active                                                       | Standby                                                      |
+| -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1. 스키마 생성             | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       | CREATE TABLE t1 (i1 INTEGER PRIMARY KEY, i2 CHAR(20));       |
+| 2. 이중화 생성             | CREATE REPLICATION rep1 OPTIONS META_LOGGING WITH 'standby_ip', standby_port FROM SYS.t1 to SYS.t1; | CREATE REPLICATION rep1 WITH 'active_ip', active_port FROM SYS.t1 to SYS.t1; |
+| 3. Active 서버 이중화 시작 | ATER REPLICATION START rep1;                                 |                                                              |
+| 4. Active 서버 장애 발생   | 장애 발생                                                    |                                                              |
+| 5. SQL 반영 모드 활성화    |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 1;           |
+| 6. 오프라인 옵션 설정      |                                                              | ALTER REPLICATION rep1 SET OFFLINE ENABLE WITH '/active_server/altibase_home/logs'; |
+| 7. 오프라인 메타 정보 구성 |                                                              | ALTER REPLICATION rep1 BUILD OFFLINE META;                   |
+| 8. 오프라인 이중화 시작    |                                                              | ALTER REPLICATION rep1 START WITH OFFLINE;                   |
+| 9. 오프라인 옵션 해제      |                                                              | ALTER REPLICATION rep1 SET OFFLINE DISABLE;                  |
+| 10. SQL 반영 모드 비활성화 |                                                              | ALTER SYSTEM SET REPLICATION_SQL_APPLY_ENABLE = 0;           |
+
+
+> **참고:**
+> Adapter for JDBC 및 Adapter for Oracle에서 오프라인 옵션 사용 예제는 다음 문서를 참고한다.
+>
+> - [*Adapter for JDBC User’s Manual - 오프라인 옵션*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Adapter%20for%20JDBC%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)
+> - [*Adapter for Oracle User’s Manual - 오프라인 옵션*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Adapter%20for%20Oracle%20User's%20Manual.md#%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8-%EC%98%B5%EC%85%98offline-option)
 
 ### 다중 IP 네트워크 환경에서의 이중화 
 
