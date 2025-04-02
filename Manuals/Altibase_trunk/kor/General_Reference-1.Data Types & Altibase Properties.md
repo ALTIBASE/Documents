@@ -2797,7 +2797,7 @@ Altibase에서 지원하는 JSON 함수는 아래와 같다. 각 함수의 자�
 
 #### JSON 조건 연산자
 
-IS JSON, IS NOT JSON 의 조건 연산자를 제공하며, JSON 문서가 JSON 형식을 만족하는지 아닌지를 검사하는 연산자이다. 자세한 설명은 ***SQL Reference 매뉴얼***의 [IS JSON](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL Reference.md#is-json)을 참고한다.
+IS JSON, IS NOT JSON 의 조건 연산자를 제공하며, JSON 문서가 JSON 형식을 만족하는지 아닌지를 검사하는 연산자이다. 자세한 설명은 ***SQL Reference 매뉴얼***의 [IS JSON](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL%20Reference#is-json)을 참고한다.
 
 #### JSON 경로 표현식(JSON Path Expression)
 

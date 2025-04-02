@@ -23576,15 +23576,15 @@ JSON 함수는 JSON 문서를 생성하거나 JSON 문서로부터 필요한 데
 
 **JSON_ARRAY_element ::=**
 
-![](media/sql/json_array_element.gif)
+![](media/SQL/json_array_element.gif)
 
 **JSON_on_null_clause ::=**
 
-![](media/sql/json_on_null_clause.gif)
+![](media/SQL/json_on_null_clause.gif)
 
 **JSON_ARRAY_returning_clause ::=**
 
-![](media/sql/json_array_returning_clause.gif)
+![](media/SQL/json_array_returning_clause.gif)
 
 ##### 설명
 
@@ -23594,13 +23594,10 @@ JSON 함수는 JSON 문서를 생성하거나 JSON 문서로부터 필요한 데
 
 인자에 NULL이 포함된 경우의 동작을 지정하기 위해 *JSON_on_null_clause*를 사용한다. 이 절을 명시하지 않으면, 기본 동작은 ABSENT ON NULL이다.
 
-* NULL ON NULL 
-
-  : 함수의 인자에 NULL이 포함된 경우, NULL을 배열에 추가한다.
-
-* ABSENT ON NULL (기본 동작)
-
-  : 함수의 인자에 NULL이 포함된 경우, JSON 배열에 추가하지 않는다.
+| 구문                       | 설명                                                         |
+| -------------------------- | ------------------------------------------------------------ |
+| NULL ON NULL               | 함수의 인자에 NULL이 포함된 경우, NULL을 배열에 추가한다.    |
+| ABSENT ON NULL (기본 동작) | 함수의 인자에 NULL이 포함된 경우, JSON 배열에 추가하지 않는다. |
 
 *JSON_returning_clause*
 
@@ -23638,37 +23635,23 @@ JARRAY
 
 **JSON_EXISTS ::=**
 
-![](media/sql/json_exists.gif)
+![](media/SQL/json_exists.gif)
 
 **JSON_EXISTS_on_error_clause ::=**
 
-![](media/sql/json_exists_on_error_clause.gif)
+![](media/SQL/json_exists_on_error_clause.gif)
 
 **JSON_EXISTS_on_empty_clause ::=**
 
-![](media/sql/json_exists_on_empty_clause.gif)
+![](media/SQL/json_exists_on_empty_clause.gif)
 
 ##### 설명
 
 JSON 데이터에서 JSON 경로 표현식에 해당하는 값이 존재하는 여부를 반환한다. *JSON_EXISTS_on_error_clause*와 JSON_exists_on_empty_clause 를 지정할 수 있다.
 
-*JSON_path_expr*
-
 *JSON_EXISTS_on_error_clause*
 
 JSON_EXISTS 함수의 실행 중 오류가 발생했을 때의 동작을 지정할 수 있다. 이 절을 명시하지 않으면, 기본 동작은 FALSE ON ERROR로 동작한다.
-
-* ERROR ON ERROR
-
-  : 오류가 발생하면, 해당 오류를 출력한다.
-
-* FALSE ON ERROR(기본 동작)
-
-  : 오류가 발생하면, FALSE를 반환한다.
-
-* TRUE ON ERROR
-
-  : 오류가 발생하면 TRUE를 반환한다.
 
 | 구문                      | 설명                                   |
 | ------------------------- | -------------------------------------- |
@@ -23680,17 +23663,11 @@ JSON_EXISTS 함수의 실행 중 오류가 발생했을 때의 동작을 지정�
 
 JSON_EXISTS 함수의 실행 중 결과가 없을 때의 동작을 지정할 수 있다. 이 절을 명시하지 않으면, 기본 동작은 FALSE ON EMPTY이다.
 
-* ERROR ON EMPTY
-
-  : 검색 결과가 없으면 오류를 반환한다.
-
-* FALSE ON EMPTY
-
-  : 검색 결과가 없으면 FALSE를 반환한다.
-
-* TRUE ON EMPTY
-
-  : 검색 결과가 없으면 TRUE를 반환한다.
+| 구문           | 설명                                 |
+| -------------- | ------------------------------------ |
+| ERROR ON EMPTY | 검색 결과가 없으면 오류를 반환한다.  |
+| FALSE ON EMPTY | 검색 결과가 없으면 FALSE를 반환한다. |
+| TRUE ON EMPTY  | 검색 결과가 없으면 TRUE를 반환한다.  |
 
 ##### 예제
 
@@ -23735,15 +23712,15 @@ invalid_json
 
 **JSON_OBJECT ::=**
 
-![](media/sql/json_object.gif)
+![](media/SQL/json_object.gif)
 
 **JSON_on_null_clause ::=**
 
-![](media/sql/json_on_null_clause.gif)
+![](media/SQL/json_on_null_clause.gif)
 
 **JSON_OBJECT_returning_clause ::=**
 
-![](media/sql/json_object_returning_clause.gif)
+![](media/SQL/json_object_returning_clause.gif)
 
 ##### 설명
 
@@ -23753,13 +23730,10 @@ invalid_json
 
 값이 NULL 인 데이터를 JSON객체에 포함할지 여부를 지정할 수 있다. 이 절을 명시하지 않으면 NULL ON NULL로 동작한다.
 
-* NULL ON NULL
-
-  : 값이 NULL인 데이터를 JSON 객체에 포함한다.
-
-* ABSENT ON NULL
-
-  : 값이 NULL인 데이터를 JSON 객체에 포함하지 않는다.
+| 구문                    | 설명                                              |
+| ----------------------- | ------------------------------------------------- |
+| NULL ON NULL(기본 동작) | 값이 NULL인 데이터를 JSON 객체에 포함한다.        |
+| ABSENT ON NULL          | 값이 NULL인 데이터를 JSON 객체에 포함하지 않는다. |
 
 *JSON_OBJECT_returning_clause*
 
@@ -23819,23 +23793,23 @@ J_OBJ
 
 **JSON_QUERY ::=**
 
-![](media/sql/json_query.gif)
+![](media/SQL/json_query.gif)
 
 **JSON_QUERY_returning_clause ::=**
 
-![](media/sql/json_query_returning_clause.gif)
+![](media/SQL/json_query_returning_clause.gif)
 
 **JSON_QUERY_wrapper_clause ::=**
 
-![](media/sql/json_query_wrapper_clause.gif)
+![](media/SQL/json_query_wrapper_clause.gif)
 
 **JSON_QUERY_on_error_clause ::=**
 
-![](media/sql/json_query_on_error_clause.gif)
+![](media/SQL/json_query_on_error_clause.gif)
 
 **JSON_QUERY_on_empty_clause ::=**
 
-![](media/sql/json_query_on_empty_clause.gif)
+![](media/SQL/json_query_on_empty_clause.gif)
 
 ##### 설명
 
@@ -23851,45 +23825,30 @@ JSON_returning_clause 를 명시하지 않으면, 반환값의 데이터타입�
 
 JSON_QUERY 함수의 결과를 JSON 배열 형태로 반환할지 여부를 지정할 수 있다. 이 절을 명시하지 않으면 WITHOUT WRAPPER로 동작한다. UNCONDITIONAL과 ARRAY는 생략할 수 있다.
 
-* WITH (ARRAY) WRAPPER
-
-  : JSON_QUERY 함수의 결과를 JSON 배열 형태로 반환한다. JSON_QUERY 함수의 결과가 2개 이상이면, WITH WRAPPER 절을 지정해서 JSON 배열 형태로 반환해야 한다.
-
-* WITHOUT (ARRAY) WRAPPER
-
-  : JSON_QUERY 함수의 결과를 배열 형태로 반환하지 않는다.
-
-* WITH UNCONDITIONAL (ARRAY) WRAPPER
-
-  : WITH WRAPPER 절을 지정하는 것과 동일합니다.
-
-* WITH CONDITIONAL (ARRAY) WRAPPER
-
-  : JSON_QUERY 함수의 결과가 2개 이상일때만 배열 형태로 반환한다.
+| 구문                               | 설명                                                         |
+| ---------------------------------- | ------------------------------------------------------------ |
+| WITH (ARRAY) WRAPPER               | JSON_QUERY 함수의 결과를 JSON 배열 형태로 반환한다. JSON_QUERY 함수의 결과가 2개 이상이면, WITH WRAPPER 절을 지정해서 JSON 배열 형태로 반환해야 한다. |
+| WITHOUT (ARRAY) WRAPPER            | JSON_QUERY 함수의 결과를 배열 형태로 반환하지 않는다.        |
+| WITH UNCONDITIONAL (ARRAY) WRAPPER | WITH WRAPPER 절을 지정하는 것과 동일합니다.                  |
+| WITH CONDITIONAL (ARRAY) WRAPPER   | JSON_QUERY 함수의 결과가 2개 이상일때만 배열 형태로 반환한다. |
 
 *JSON_QUERY_on_error_clause*
 
 함수 실행 중  오류가 발생했을 때의 동작을 지정할 수 있다. 이 절을 명시하지 않으면, 기본 동작은 NULL ON ERROR로 동작한다.
 
-* NULL ON ERROR(기본 동작)
-
-  : 오류가 발생하면 NULL을 반환한다.
-
-* ERROR ON ERROR
-
-  : 오류가 발생하면 해당 오류를 반환한다.
+| 구문                     | 설명                                  |
+| ------------------------ | ------------------------------------- |
+| NULL ON ERROR(기본 동작) | 오류가 발생하면 NULL을 반환한다.      |
+| ERROR ON ERROR           | 오류가 발생하면 해당 오류를 반환한다. |
 
 *JSON_QUERY_on_empty_clause*
 
 JSON_QUERY 함수 실행 중 반환된 결과가 없는 경우의 동작을 지정할 수 있다. 이 절을 명시하지 않으면, NULL ON EMPTY 로 동작한다.
 
-* NULL ON EMPTY
-
-  : 검색 결과가 없으면 NULL을 반환한다.
-
-* ERROR ON EMPTY
-
-  : 검색 결과가 없으면 오류를 반환한다.
+| 구문                     | 설명                                |
+| ------------------------ | ----------------------------------- |
+| NULL ON EMPTY(기본 동작) | 검색 결과가 없으면 NULL을 반환한다. |
+| ERROR ON EMPTY           | 검색 결과가 없으면 오류를 반환한다. |
 
 ##### 예제
 
@@ -23964,7 +23923,7 @@ invalid_json
 
 **JSON_VALID ::=**
 
-![](media/sql/json_valid.gif)
+![](media/SQL/json_valid.gif)
 
 ##### 설명
 
@@ -23994,19 +23953,19 @@ VALID
 
 **JSON_VALUE ::=**
 
-![](media/sql/json_value.gif)
+![](media/SQL/json_value.gif)
 
 **JSON_VALUE_returning_clause ::=**
 
-![](media/sql/json_value_returning_clause.gif)
+![](media/SQL/json_value_returning_clause.gif)
 
 **JSON_VALUE_on_error_clause ::=**
 
-![](media/sql/json_value_on_error_clause.gif)
+![](media/SQL/json_value_on_error_clause.gif)
 
 **JSON_VALUE_on_empty ::=**
 
-![](media/sql/json_value_on_empty_clause.gif)
+![](media/SQL/json_value_on_empty_clause.gif)
 
 ##### 설명
 
@@ -24022,33 +23981,21 @@ JSON_VALUE 함수의 결과로 반환할 값의 타입을 지정한다. CHAR, VA
 
 JSON_VALUE 함수 실행 중 오류가 발생했을 때의 동작을 지정할 수 있다. 이 절을 명시하지 않으면, 기본 동작은 NULL ON ERROR로 동작한다.
 
-* NULL ON ERROR(기본 동작)
-
-  : 오류가 발생하면 NULL을 반환한다.
-
-* ERROR ON ERROR
-
-  : 오류가 발생하면 오류를 반환한다.
-
-* DEFAULT *expr* ON ERROR
-
-  : 오류가 발생하면 *expr*을 반환한다.
+| 구문                     | 설명                              |
+| ------------------------ | --------------------------------- |
+| NULL ON ERROR(기본 동작) | 오류가 발생하면 NULL을 반환한다.  |
+| ERROR ON ERROR           | 오류가 발생하면 오류를 반환한다.  |
+| DEFAULT *expr* ON ERROR  | 오류가 발생하면 *expr*을 반환한다 |
 
 *JSON_value_on_empty_clause*
 
 JSON_VALUE 함수 실행 중 반환된 결과가 없는 경우의 동작을 지정할 수 있다. 이 절을 명시하지 않으면, NULL ON EMPTY 로 동작한다.
 
-* NULL ON EMPTY(기본 동작)
-
-  : 검색 결과가 없으면 NULL을 반환한다.
-
-* ERROR ON EMPTY
-
-  : 검색 결과가 없으면 오류를 반환한다.
-
-* DEFAULT *expr* ON ERROR
-
-  : 검색 결과가 없으면 *expr*을 반환한다.
+| 구문                     | 설명                                  |
+| ------------------------ | ------------------------------------- |
+| NULL ON EMPTY(기본 동작) | 검색 결과가 없으면 NULL을 반환한다.   |
+| ERROR ON EMPTY           | 검색 결과가 없으면 오류를 반환한다.   |
+| DEFAULT *expr* ON ERROR  | 검색 결과가 없으면 *expr*을 반환한다. |
 
 ##### 예제
 
