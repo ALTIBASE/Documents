@@ -1990,15 +1990,10 @@ Disable the offline option on the replication object. This can only be done when
 ##### Restrictions
 
 - The offline option can only be set on replication objects in LAZY mode.
-
 - The offline option cannot be set on replication objects that include compressed tables.
-
 - The offline option cannot be set simultaneously with the recovery option.
-
 - The server performing offline replication and the Active server must have the same OS, CPU type, and CPU bit architecture. Heterogeneous offline replication is not supported.
-
 - The server performing offline replication and the Active server must have the same three-part binary database version (Major, Minor, Patch).
-
 - The server performing offline replication and the Active server must have the same log file size (LOG_FILE_SIZE).
 
 ##### Cautions

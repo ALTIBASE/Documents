@@ -500,12 +500,10 @@ Altibase provides the following additional features. A detaield description of h
 -   Replication Transaction Grouping Option  
     : This option sends logs to a sender thread by grouping multiple transaction to a single transaction when replication gap occurs.
     
--   Meta Logging Option  
-    
+-   Meta Logging Option
     : This option records the sender meta and Restart SN information into files.
     
 -   Offline Option
-    
     : The function that retrieves the untransmitted logs from the Active server and applies the change transactions to the remote server.
 
 > #### Considerations
@@ -1738,16 +1736,11 @@ When the information of meta of local server and remote is different. Log can be
 Altibase provides the following extra replication features: 
 
 -   Recovery Option
-
--   Offline Option
-
 -   Replication Gapless Option
-
 -   Parallel Applier Option
-
 -   Replicated Transaction Grouping Option
-
 -   Meta Logging Option
+-   Offline Option
 
 The status of replication option can be confirmed by the value of the OPTIONS column in SYS_REPLICATIONS_meta table. Please refer to the *General Reference* for in-depth information.
 
@@ -2000,15 +1993,10 @@ Disable the offline option on the replication object. This can only be done when
 ##### Restrictions
 
 - The offline option can only be set on replication objects in LAZY mode.
-
 - The offline option cannot be set on replication objects that include compressed tables.
-
 - The offline option cannot be set simultaneously with the recovery option.
-
 - The server performing offline replication and the Active server must have the same OS, CPU type, and CPU bit architecture. Heterogeneous offline replication is not supported.
-
 - The server performing offline replication and the Active server must have the same three-part binary database version (Major, Minor, Patch).
-
 - The server performing offline replication and the Active server must have the same log file size (LOG_FILE_SIZE).
 
 ##### Cautions
