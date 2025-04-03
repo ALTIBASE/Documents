@@ -2803,9 +2803,9 @@ This is the replication port number on the remote server.
 
 This shows the remote server connection method.
 
-- TCP
-- Unix Domain
-- InfiniBand(IB)
+- TCP : Used for TCP communication
+- UNIX_DOMAIN : Used for Unix Domain communication.
+- IB : Used for InfiniBand communication.
 
 ##### IB_LATENCY
 

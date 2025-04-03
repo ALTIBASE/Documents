@@ -125,6 +125,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Setting Kernel Parameters for Different Operating Systems (OS)](#setting-kernel-parameters-for-different-operating-systems-os)
   - [Configuration of THP (Transparent Huge Pages)](#configuration-of-thp-transparent-huge-pages)
   - [Red Hat Enterprise Linux 8](#red-hat-enterprise-linux-8)
+  - [Red Hat Enterprise Linux 9](#red-hat-enterprise-linux-9)
   - [Checking Disk Configuration](#checking-disk-configuration)
   - [OS Patch](#os-patch)
 
@@ -382,6 +383,7 @@ It is recommended to use a dedicated line when using the replication feature.
 | **Linux x86-64**<sup>[Distribution Version](#footnote-linuxversion)</sup> |                     |                           |                                        |
 | Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7 |          ●          |             ●             | *- GNU glibc 2.12 ~ 2.33*          |
 | Red Hat Enterprise Linux 8<sup>[Note before installation](#footnote-rhel8)</sup> |                     |                           | *- GNU glibc 2.12 ~ 2.33*   |
+| Red Hat Enterprise Linux 9 | | | *- GNU glibc 2.34*<br />*- Altibase 7.1.0.10.0 or later* |
 | **Linux on Power**                                           |                     |                           |                                        |
 | POWER7 Red Hat Enterprise Linux 6 |          ●          |             ●             | *- GNU glibc 2.12 ~ 2.33*           |
 | **Linux on Power** **(Little Endian)**                       |                     |                           |                                        |
@@ -1744,6 +1746,10 @@ For RHEL 8, symbolic links for libncurses.so.5 and libtinfo.so.5 must be created
   The ncurses library guarantees both source-level compatibility (API) and binary compatibility (ABI) from ncurses 5 to ncurses 6.2. 
 
   Reference : [Announcing ncurses 6.2 (invisible-island.net)](https://invisible-island.net/ncurses/announce.html#h2-release-notes)
+
+### Red Hat Enterprise Linux 9
+
+Altibase has supported RHEL 9 since Altibase version 7.1.0.10.0.
 
 ### Checking Disk Configuration
 

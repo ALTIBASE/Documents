@@ -134,6 +134,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [OS별 커널 파라미터 설정](#os별-커널-파라미터-설정)
   - [THP 설정 확인 및 비활성화 방법](#thp-설정-확인-및-비활성화-방법)
   - [Red Hat Enterprise Linux 8](#red-hat-enterprise-linux-8)
+  - [Red Hat Enterprise Linux 9](#red-hat-enterprise-linux-9)
   - [디스크 구성 상태 확인](#디스크-구성-상태-확인)
   - [OS Patch](#os-patch)
 
@@ -401,6 +402,7 @@ Altibase가 사용하는 디스크에는 데이터를 저장하는 테이블스�
 | **Linux x86-64**<sup>[배포판 버전](#footnote-linuxversion)</sup> |               |                                                       |                                                            |
 | Red Hat Enterprise Linux 6<br/>Red Hat Enterprise Linux 7    |       ●       |                           ●                           | *- GNU glibc 2.12 ~ 2.33*                                  |
 | Red Hat Enterprise Linux 8<sup>[설치 전 확인](#footnote-rhel8)</sup> |               |                                                       | *- GNU glibc 2.12 ~ 2.33*  <br />                          |
+| Red Hat Enterprise Linux 9                                   |       ●       |                           ●                           | *- GNU glibc 2.34<br />- Altibase 7.1.0.10.0 이상*         |
 | **Linux on Power**                                           |               |                                                       |                                                            |
 | POWER7 Red Hat Enterprise Linux 6                            |       ●       |                           ●                           | *- GNU glibc 2.12 ~ 2.33*                                  |
 | **Linux on Power** **(Little Endian)**                       |               |                                                       |                                                            |
@@ -1650,7 +1652,7 @@ Posix AIO는 AIX가 제공하는 디스크 처리 성능 개선 항목으로 수
 
 ##### 설정 방법
 
-/proc/sys/kernel 경로에 sem, shmmax, shmmni, swapiness 등의 파일에 설정한다. . RedHat 7.2 이상에서는 /etc/systemd/loginid.conf에서 RemoveIPC 설정값을 확인한다.
+/proc/sys/kernel 경로에 sem, shmmax, shmmni, swapiness 등의 파일에 설정한다. RedHat 7.2 이상에서는 /etc/systemd/loginid.conf에서 RemoveIPC 설정값을 확인한다.
 
 ##### 권장 값
 
@@ -1759,8 +1761,6 @@ libncurses.so.5, libtinfo.so.5 심볼릭 링크가 없는 경우 다음과 같�
    lrwxrwxrwx   1 user user       15 May  7 16:51 libtinfo.so.5 -> /usr/lib64/libtinfo.so.6*
    ```
 
-
-
 - libncurses.so.5 파일이 없는 경우 iSQL 수행 시 아래와 같은 에러가 발생한다.
 
   ```bash
@@ -1778,7 +1778,9 @@ libncurses.so.5, libtinfo.so.5 심볼릭 링크가 없는 경우 다음과 같�
 
   참고 : [Announcing ncurses 6.2 (invisible-island.net)](https://invisible-island.net/ncurses/announce.html#h2-release-notes)
 
-​	
+### Red Hat Enterprise Linux 9
+
+Altibase 7.1.0.10.0 부터 RHEL 9을 지원한다.
 
 ### 디스크 구성 상태 확인
 

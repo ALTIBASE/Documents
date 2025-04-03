@@ -2610,7 +2610,7 @@ FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/V
 
 #### Temporary LOB
 
-Temporary LOB 은 대규모 텍스트 또는 바이너리 데이터를 처리하기 위해 사용되는 임시 LOB 이다. TEMPORARY_LOB_ENABLE 프로퍼티를 1로 설정하여 Temporary LOB을 사용할 수 있다. 현재 사용중인 Temporary LOB의 정보는 V$TEMPORARY_LOBS를 통해 조회할 수 있다.
+Temporary LOB 은 대규모 텍스트 또는 바이너리 데이터를 처리하기 위해 사용되는 임시 LOB 이다. [TEMPORARY_LOB_ENABLE](#temporary_lob_enable) 프로퍼티를 1로 설정하여 Temporary LOB을 사용할 수 있다. 현재 사용중인 Temporary LOB의 정보는 V$TEMPORARY_LOBS를 통해 조회할 수 있다.
 
 ##### 특징
 
@@ -2628,7 +2628,7 @@ Temporary LOB 의 유형별 설명은 아래의 표를 참고한다.
 | 비교     | 트랜잭션 Temporary LOB                                       | 세션 Temporary LOB                                           |
 | :------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
 | 생명주기 | 트랜잭션                                                     | 세션                                                         |
-| 정리시점 | 트랜잭션 종료시 정리                                         | 세션 종료 시 정리                                            |
+| 정리시점 | 트랜잭션 종료시 정리                                         | - 세션 종료 시 정리</br>- ALTER SESSION SET FREE TEMPORARY LOB 구문으로 정리 |
 | 사용법   | 세션 Temporary LOB이 생성되는 경우를 제외한 모든 구문에서 다음과 같이 사용한 경우</br>- TO_CLOB</br>- TO_BLOB</br>- CLOB 을 인자로 받는 SUBSTR</br>- CLOB 을 인자로 받는 CONCAT</br>- PSM 내에서 LOB 타입의 변수 | PSM 내에서 아래의 유형으로 LOB 타입을 사용한 경우</br>- ASSOCIATIVE ARRAY</br>- VARRAY</br>- PACKAGE 변수 |
 
 ###### 예제 - 트랜잭션 Temporary LOB
@@ -2699,6 +2699,15 @@ TYPE                 OPEN_COUNT
 ---------------------------------------------
 1                    2
 1 row selected.
+
+## 현재 세션에서 세션 Temporary LOB을 정리
+iSQL> ALTER SESSION SET FREE TEMPORARY LOB;
+Alter success.
+ 
+iSQL> SELECT type, open_count FROM V$TEMPORARY_LOBS;
+MANAGER_TYPE         OPEN_COUNT
+---------------------------------------------
+No rows selected.
 ```
 
 #### 제한 사항
@@ -3754,8 +3763,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>SYSTEM</td>
   </tr>
   <tr>
-  <td rowspan="57">R</td>
-  <td rowspan="57">&nbsp;</td>
+  <td rowspan="56">R</td>
+  <td rowspan="56">&nbsp;</td>
   <td>REPLICATION_ACK_XLOG_COUNT</td>
   <td>&nbsp;</td>
   </tr>
@@ -3865,10 +3874,6 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   </tr>
   <tr>
   <td>REPLICATION_MAX_LOGFILE</td>
-  <td>SYSTEM</td>
-  </tr>
-  <tr>
-  <td>REPLICATION_META_ITEM_COUNT_DIFF_ENABLE</td>
   <td>SYSTEM</td>
   </tr>
   <tr>
@@ -12391,30 +12396,6 @@ Unsigned Integer
 ##### 설명
 
 이중화 작업중 변경작업 충돌(update conflict) 시 변경된 내용의 반영을 결정한다. 값이 0 이면 충돌이 있을 경우 반영하지 않고 오류 처리하며, 1일 경우 충돌을 무시하고 반영한다.
-
-Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
-
-#### REPLICATION_META_ITEM_COUNT_DIFF_ENABLE
-
-##### 데이터 타입
-
-Unsigned Integer
-
-##### 기본값
-
-0
-
-##### 속성
-
-변경 가능, 단일 값
-
-##### 값의 범위
-
-[0, 1]
-
-##### 설명
-
-Lazy 모드로 이중화 수행 과정에서 SPLIT PARTITION과 MERGE PARTITION, DROP PARTITION을  수행하여 Active 서버와 Standby 서버의 이중화 테이블 파티션 메타 아이템 개수가 다른 경우에 이중화를  START 할 수 있는 프로퍼티이다. 이 값을 1로 설정하면 이중화 테이블 파티션 메타 아이템 개수가 다른 경우에도 이중화를 START 할 수 있다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
 
