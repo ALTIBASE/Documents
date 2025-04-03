@@ -15966,9 +15966,8 @@ alter_session_set_clause 절의 property_name과 property\_ value에 관한 자�
 *replication*\_*mode_set_clause*는 현재 세션에서 수행하는 트랜잭션을 위한 이중화
 모드 속성을 설정하는 절이다.
 
-DEFAULT를 명시하면 이중화는 이중화 객체 생성시 기본모드로 채택된 모드로 동작할
-것이다. 그러나 NONE을 명시하면 세션에서 수행되는 모든 DDL, DML, DCL 문이 이중화
-대상에서 제외된다.
+* DEFAULT : DEFAULT를 명시하면 이중화 객체에 설정된 모드(LAZY 또는 EAGER)로 이중화가 동작한다.
+* NONE : NONE을 명시하면 세션에서 수행되는 모든 DDL, DML, DCL 문이 이중화 대상에서 제외된다.
 
 이중화 모드에 대한 보다 자세한 내용은 *Replication Manual*을 참조한다.
 
