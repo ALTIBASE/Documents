@@ -1068,12 +1068,12 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | 임시 테이블을 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다.테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. </br>외부 테이블과 하이브리드 파티션드 테이블을 마이그레이션하기 위해서는 접속한 사용자가 접근 가능한 디스크 테이블스페이스가 Altibase에 있어야 한다. Altibase는 Oracle의 외부 테이블과 하이브리드 파티션드 테이블 기능을 제공하지 않기 때문에 Altibase에서 디스크 테이블스페이스에 마이그레이션되기 때문이다. |
+| Table                  |                   O                   |                   O                    | 임시 테이블을 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. </br>외부 테이블(External Table)과 하이브리드 파티션드 테이블(Hybrid Partitioned Table)을 마이그레이션하기 위해서는 사용자가 접근할 수 있는 디스크 테이블 스페이스가 Altibase에 있어야 한다. Altibase는 외부 테이블과 하이브리드 파티션드 테이블 기능을 제공하지 않으므로, 해당 테이블들은 일반 테이블 또는 파티션드 테이블로 변환되어 마이그레이션된다. 이러한 테이블들은 대용량일 가능성이 높아, 마이그레이션 시 자동으로 디스크 테이블스페이스에 할당되기 때문이다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
-| Index                  |                   O                   |                   O                    | Invisible 인덱스와 Unusable 인덱스의 경우 마이그레이션되지 않는다.                                                             |
+| Index                  |                   O                   |                   O                    | 보이지 않는 인덱스(Invisible Index)와 사용 불가능한 인덱스(Unusable Index)는 마이그레이션되지 않는다.                                                             |
 | Sequence               |                   O                   |                   X                    | 확장가능한 시퀀스는 마이그레이션되지 않는다.                                                             |
 | Private Synonym        |               부분 지원               |                   X                    | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
 | Procedure              |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
@@ -1207,7 +1207,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 | :--: | :------------ | :---------------- | :----------------------------------------------------------- |
 |  1   | CHAR          | CHAR              | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Oracle에서 문자 길이로 정의된 칼럼의 경우 자동으로 바이트 길이로 변환된다. |
 |  2   | NCHAR         | NCHAR             | 원본 및 대상 데이터베이스의 NCHAR 칼럼의 명시적인 크기는 같다(예. NCHAR(10) → NCHAR(10)). 그러나, 오라클 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 사용되는 바이트의 개수로 정의되는 반면, Altibase의 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 저장되는 문자의 개수로 정의된다. 이는 Altibase에서 생성되는 NCHAR 칼럼이 필요에 따라 오라클보다 2배 또는 3배 정도 클 것이라는 의미이므로, 이런 점을 유의하도록 한다. |
-|  3   | VARCHAR2      | VARCHAR 또는 CLOB | 오라클에서 문자 길이로 정의한 VARCHAR2는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. </br>오라클의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000을 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값에 따라 옵션 값이 Yes이면 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. |
+|  3   | VARCHAR2      | VARCHAR 또는 CLOB | 오라클에서 문자 길이로 정의한 VARCHAR2는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. </br>오라클의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000을 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. |
 |  4   | NVARCHAR2     | NVARCHAR          | NCHAR와 같은 이유로, 칼럼 크기가 서로 다르다.                |
 |  5   | LONG          | CLOB              |                                                              |
 |  6   | NUMBER        | NUMBER            | 오라클에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 오라클과 Altibase 모두 precision과 scale 없이 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 다루어진다. |
@@ -1277,7 +1277,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  16  | DATE               | DATE                            |                                                              |
 |  17  | TIMESTAMP          | DATE                            | TIMEZONE 제외                                                |
 |  18  | CHAR               | CHAR 또는 NCHAR                 | MySQL의 CHAR 칼럼의 문자 집합이 유니코드이면 Altibase의 문자 집합에 따라 Altibase의 데이터 타입이 결정된다. <br />\- MySQL의 CHAR 칼럼의 문자 집합이 유니코드일 때<br />  \- Altibase 문자 집합이 유니코드이면 CHAR<br />  - Altibase 문자 집합이 유니코드가 아니면 NCHAR |
-|  19  | VARCHAR            | VARCHAR 또는 NVARCHAR 또는 CLOB | MySQL의 VARCHAR 칼럼의 문자 집합이 유니코드이면 Altibase의 문자 집합에 따라 Altibase의 데이터 타입이 결정된다. <br />\- MySQL의 VARCHAR 칼럼의 문자 집합이 유니코드일 때<br />  \- Altibase 문자 집합이 유니코드이면 CHAR<br />  - Altibase 문자 집합이 유니코드가 아니면 NVARCHAR<br /><br />MySQL의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값에 따라 옵션 값이 Yes이면 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. MySQL의 VARCHAR 최대 크기는 65,536바이트로 Altibase보다 크다. |
+|  19  | VARCHAR            | VARCHAR 또는 NVARCHAR 또는 CLOB | MySQL의 VARCHAR 칼럼의 문자 집합이 유니코드이면 Altibase의 문자 집합에 따라 Altibase의 데이터 타입이 결정된다. <br />\- MySQL의 VARCHAR 칼럼의 문자 집합이 유니코드일 때<br />  \- Altibase 문자 집합이 유니코드이면 CHAR<br />  - Altibase 문자 집합이 유니코드가 아니면 NVARCHAR<br /><br />MySQL의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. MySQL의 VARCHAR 최대 크기는 65,536바이트로 Altibase보다 크다. |
 |  20  | BINARY             | BYTE                            |                                                              |
 |  21  | VARBINARY          | BLOB                            |                                                              |
 |  22  | TINYBLOB           | BLOB                            |                                                              |
@@ -1349,9 +1349,9 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  22  | TT_SMALLINT   | SMALLINT          | TimesTen의 TT_SMALLINT 최소 크기(-32,768)는 Altibase의 SMALLINT 최소 크기(-32,767)보다 작기 때문에 데이터 손실이 발생할 수 있다. |
 |  23  | TT_TIMESTAMP  | DATE              | TimesTen의 TT_TIMESTAMP 최대 스케일이 나노초(7자릿수)로 Altibase의 DATE 최대 스케일 마이크로초(6자릿수)보다 크기 때문에 데이터 손실이 발생할 수 있다. |
 |  24  | TT_TINYINT    | SMALLINT          |                                                              |
-|  25  | TT_VARCHAR    | VARCHAR 또는 CLOB | TimesTen의 TT_VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값에 따라 옵션 값이 Yes이면 Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. TimesTen의 TT_VARCHAR 최대 크기는 4,194,304바이트로 Altibase보다 크다. |
+|  25  | TT_VARCHAR    | VARCHAR 또는 CLOB | TimesTen의 TT_VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. TimesTen의 TT_VARCHAR 최대 크기는 4,194,304바이트로 Altibase보다 크다. |
 |  26  | VARBINARY     | BLOB              |                                                              |
-|  27  | VARCHAR2      | VARCHAR 또는 CLOB | 1. TimesTen의 VARCHAR2 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값에 따라 옵션 값이 Yes이면  Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. TimesTen의 VARCHAR2 최대 크기는 4,194,304바이트로 Altibase보다 크다.<br />2. TimesTen에서 문자 길이로 정의한 VARCHAR2는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. |
+|  27  | VARCHAR2      | VARCHAR 또는 CLOB | 1. TimesTen의 VARCHAR2 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면  Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. TimesTen의 VARCHAR2 최대 크기는 4,194,304바이트로 Altibase보다 크다.<br />2. TimesTen에서 문자 길이로 정의한 VARCHAR2는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. |
 
 #### CUBRID to Altibase
 
@@ -1369,10 +1369,10 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  10  | TIMESTAMP  | DATE              |                                                              |
 |  11  | DATETIME   | DATE              |                                                              |
 |  12  | CHAR       | CHAR 또는 CLOB    | CUBRID의 CHAR 칼럼이 Altibase의 CHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 CUBRID와 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. CUBRID의 CHAR 최대 크기는 1,073,741,823바이트로 Altibase보다 크다. |
-|  13  | VARCHAR    | VARCHAR 또는 CLOB | CUBRID의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값에 따라 옵션 값이 Yes이면 Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. CUBRID의 VARCHAR 최대 크기는 1,073,741,823바이트로, Altibase보다 크다. |
+|  13  | VARCHAR    | VARCHAR 또는 CLOB | CUBRID의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. CUBRID의 VARCHAR 최대 크기는 1,073,741,823바이트로, Altibase보다 크다. |
 |  14  | NCHAR      | NCHAR             | CUBRID의 NCHAR 타입 최대 크기가 1,073,741,823 바이트로 Altibase의 NCHAR 타입 최대 크기 16,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
 |  15  | VARCHAR    | NVARCHAR          | CUBRID의 VARCHAR 타입 최대 크기가 1,073,741,823 바이트로 Altibase의 NVARCHAR 타입 최대 크기 16,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
-|  16  | STRING     | VARCHAR 또는 CLOB           | CUBRID의 VARCHAR 타입과 동일한 데이터 타입으로 Altibase의 VARCHAR 타입 최대 크기 32,000 바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값에 따라 CLOB 또는 VARCHAR 타입으로 변환한다. |
+|  16  | STRING     | VARCHAR 또는 CLOB           | CUBRID의 VARCHAR 타입과 동일한 데이터 타입으로 Altibase의 VARCHAR 타입 최대 크기 32,000 바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 CLOB 또는 VARCHAR 타입으로 변환한다. |
 |  17  | BIT        | BLOB              |                                                              |
 |  18  | VARBIT     | BLOB              |                                                              |
 |  19  | BLOB       | BLOB              |                                                              |
@@ -1414,7 +1414,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |   6  | DOUBLE PRECISION | DOUBLE |  |
 |  7   | MONEY | VARCHAR(30) | 데이터 타입 MONEY는 Altibase에서 문자형 데이터 타입 VARCHAR(30)으로 변환된다.<br>MONEY의 형식이 천단위 구분자가 쉼표(,)이고 소숫점 구분자가 마침표(.)라면 Reconcile 단계에서 숫자형 데이터 타입 NUMERIC(20,2)으로 변환할 수 있다.|
 |  8    | CHARACTER <br/> CHAR | CHAR |  |
-|  9    | CHARACTER VARYING <br/> VARCHAR | VARCHAR 또는 CLOB| PostgreSQL와 Altibase의 문자 집합에 따라 마이그레이션 센터에 의해 자동 보정된 칼럼 길이가 32,000바이트보다 작으면 VARCHAR로, 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값에 따라 옵션 값이 Yes이면 CLOB으로 변환하고, No이면 칼럼 길이가 32,000바이트인 VARCHAR 타입으로 변환한다. 32,000바이트는 Altibase의 VARCHAR 타입의 최대 크기이다. |
+|  9    | CHARACTER VARYING <br/> VARCHAR | VARCHAR 또는 CLOB| PostgreSQL와 Altibase의 문자 집합에 따라 마이그레이션 센터에 의해 자동 보정된 칼럼 길이가 32,000바이트보다 작으면 VARCHAR로, 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 CLOB으로 변환하고, No이면 칼럼 길이가 32,000바이트인 VARCHAR 타입으로 변환한다. 32,000바이트는 Altibase의 VARCHAR 타입의 최대 크기이다. |
 |  10  | TEXT | CLOB | PostgreSQL의 TEXT는 CLOB으로 변환한다.|
 | 11 | BOOLEAN | CHAR(1) | PostgreSQL의 BOOLEAN은 CHAR(1)으로 변환한다. true는 't'로, false는 'f로 변환하여 저장하며 unknown은 널(null)로 저장한다.|
 | 12  | DATE | DATE | PostgreSQL의 DATE에 저장된 -infinity와 infinity는 Altibase에서 각각 21506-12-03, 11567-08-17로 변환된다. 참고로, -infinity와 infinity는 PostgreSQL의 특수한 값으로 내부적으로 각각 292269055-12-03, 292278994-08-17로 표현된다. |
@@ -1649,7 +1649,7 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 - 기본값에 함수가 사용된 경우  
   아래 표에 열거된 함수가 원본 데이터베이스의 기본값으로 단독 사용된 경우에 한해서 표와 같이 변환된다. 그 외의 함수 또는 복잡한 형태의 표현식일 경우에는 변경 없이 그대로 변환된다. 필요하다면 나중에 사용자가 직접 변경해야 한다.
 - 기본값에 Identity가 사용된 경우  
-  Altibase는 Identity 칼럼 기능을 제공하지 않으므로, Identity 칼럼에 사용되는 시퀀스를 생성하고 기본값을 생성한 시퀀스의 .nextval 값으로 변환한다.
+  Altibase는 Identity 칼럼 기능을 제공하지 않으므로, Identity 대신 해당 칼럼에 사용할 시퀀스를 자동 생성하고 칼럼의 기본값을 생성된 시퀀스의 .nextval로 설정한다.
 - 기본값에 DEFAULT ON NULL이 사용된 경우  
   Altibase는 DEFAULT ON NULL 기능을 제공하지 않으므로, 기본값을 지정하고 NOT NULL 제약조건을 추가한다.
 
