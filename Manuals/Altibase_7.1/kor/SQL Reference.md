@@ -3230,7 +3230,14 @@ DROP TABLE
 
 *USING conn_type [ib_latency]*
 
-원격 서버와의 통신방법(TCP 또는 InfiniBand)을 설정할 수 있다. 인피니밴드를 사용할 경우에만 ib_latency 값을 설정할 수 있다. 인피니밴드를 사용하려면 IB_ENABLE 프로퍼티 값이 1이어야 한다.
+원격 서버와의 통신방법(TCP/ IB)을 지정할 수 있다. 이 구문을 생략하는 경우, TCP 통신이 기본 동작이다.
+
+* TCP : TCP 통신방법을 사용.
+* IB : 인피니밴드 통신방법을 사용. 인피니밴드를 사용할 경우에만 *ib_latency* 값을 설정할 수 있다. 인피니밴드를 사용하려면 IB_ENABLE 프로퍼니 값이 1이어야 한다.
+
+*ib_latency*
+
+*conn_type*을 "IB"로 설정할 때만 지정할 수 있다. CPU 자원을 더 사용하여 Latency를 낮추기 위해서는 1로 설정한다. 기본값은 0이다.
 
 *alter_replication_set_clause*
 
@@ -3779,12 +3786,12 @@ CREATE TABLE의 parallel_clause 설명을 참고한다.
 
 *table_partition_description*
 
-이 절은 각 파티션이 저장될 테이블스페이스를 명시하고 LOB 컬럼이 있는 경우 LOB
-컬럼의 속성을 지정하는데 사용된다.
+이 절은 각 파티션이 저장될 테이블스페이스를 명시하고 LOB 칼럼이 있는 경우 LOB
+칼럼의 속성을 지정하는데 사용된다.
 
 테이블스페이스 절이 생략되면, 해당 테이블의 기본 테이블스페이스에 파티션이
-저장된다. 마찬가지로 LOB 컬럼을 위한 테이블스페이스 절이 생략된 경우에는 해당
-파티션의 테이블스페이스에 LOB컬럼의 데이터가 저장된다.
+저장된다. 마찬가지로 LOB 칼럼을 위한 테이블스페이스 절이 생략된 경우에는 해당
+파티션의 테이블스페이스에 LOB칼럼의 데이터가 저장된다.
 
 테이블스페이스 적용 방식에 관한 더 자세한 내용은 CREATE TABLE
 구문의 *table_partition_description* 설명을 참고한다.
@@ -3825,7 +3832,7 @@ SPLIT PARTITION, MERGE PARTITION, 또는 ADD PARTITION을 실행할 경우 새�
 해당 테이블에 로컬 인덱스가 있는 경우에는 합병된 파티션의 로컬 인덱스가
 삭제된다.
 
-테이블에 LOB 컬럼이 있는 경우에는 LOB 컬럼에 대한 속성을 따로 명시할 수 있다.
+테이블에 LOB 칼럼이 있는 경우에는 LOB 칼럼에 대한 속성을 따로 명시할 수 있다.
 
 테이블스페이스를 명시하지 않을 경우, 새로 생성될 파티션의 이름이 원래 존재하는
 파티션의 이름과 같고 그 파티션이 다른 테이블스페이스에 저장되어 있었다 하더라도
@@ -3854,7 +3861,7 @@ INTO 절은 분리된 2개의 파티션의 이름과 파티션이 저장될 테�
 테이블에 로컬 인덱스가 있는 경우 로컬 인덱스 파티션도 테이블 파티션과 같이
 분리된다.
 
-테이블에 LOB 컬럼이 있는 경우 LOB 컬럼에 대한 속성을 따로 정의할 수 있다.
+테이블에 LOB 칼럼이 있는 경우 LOB 칼럼에 대한 속성을 따로 정의할 수 있다.
 
 *truncate_table_partition*
 
@@ -3937,7 +3944,7 @@ O: 데이터 타입 변경 조건을 만족하면, TOLERATE DATA LOSS 옵션을 
 
 *drop_column_clause*
 
-하나의 컬럼 혹은 여러 개의 컬럼을 삭제한다.
+하나의 칼럼 혹은 여러 개의 칼럼을 삭제한다.
 
 *rename_column_clause*
 
@@ -4047,16 +4054,16 @@ ACCESS *access_mode_clause*
 *alter_table_tablespace*
 
 테이블의 테이블스페이스를 변경할 수 있으며, 기존 테이블에 생성한 인덱스와 LOB
-칼럼도 함께 이동할 수 있다. 이 때 파티션드 테이블 여부에 따라 레코드 이동과 컬럼
+칼럼도 함께 이동할 수 있다. 이 때 파티션드 테이블 여부에 따라 레코드 이동과 칼럼
 속성의 변경이 묵시적으로 수행될 수 있다. 단, 임시 테이블(Temporary Table)은 테이블스페이스를 변경할 수 없다.
 
 - ###### 논파티션드 테이블의 경우
 
   - 테이블의 레코드를 이동한다.
   - 디스크 테이블스페이스에서 메모리 또는 휘발성으로 테이블스페이스를 변경할
-    때는 VARIABLE이 가능한 컬럼을 VARIABLE로 변경한다
+    때는 VARIABLE이 가능한 칼럼을 VARIABLE로 변경한다
   - 메모리 또는 휘발성 테이블스페이스에서 디스크로 테이블스페이스를 변경할 때는
-    모든 컬럼을 FIXED로 변경한다.
+    모든 칼럼을 FIXED로 변경한다.
 
 - ###### **파티션드 테이블의 경우**
 
@@ -4313,7 +4320,7 @@ Alter success.
 
 ##### 각 인덱스 파티션을 위한 테이블스페이스 지정
 
-\<질의\> 파티션드 테이블 t1에 LOCALUNIQUE 제약을 갖는 i2 컬럼을 추가하라.
+\<질의\> 파티션드 테이블 t1에 LOCALUNIQUE 제약을 갖는 i2 칼럼을 추가하라.
 
 ```
 iSQL> ALTER TABLE T1 ADD COLUMN 
@@ -4326,7 +4333,7 @@ iSQL> ALTER TABLE T1 ADD COLUMN
 );
 ```
 
-\<질의\> 파티션드 테이블 t3에 LOCALUNIQUE 제약을 갖는 i7 컬럼을 추가하되, 생성될
+\<질의\> 파티션드 테이블 t3에 LOCALUNIQUE 제약을 갖는 i7 칼럼을 추가하되, 생성될
 파티션드 인덱스의 각 파티션이 저장될 테이블스페이스를 지정하라.
 
 ```
@@ -4875,7 +4882,7 @@ iSQL> ALTER TABLE text_table ALTER TABLESPACE disk_tbs_1 INDEX ( text_table_idx 
 Alter success.
 ```
 
-\<질의\> 메모리 파티션드 테이블을 디스크 테이블스페이스로 변경하고, Lob 컬럼은
+\<질의\> 메모리 파티션드 테이블을 디스크 테이블스페이스로 변경하고, Lob 칼럼은
 디스크 테이블스페이스로 변경하라.
 
 ```
@@ -4991,7 +4998,7 @@ Alter success.
 ```
 
 \<질의\> 메모리 파티션드 테이블을 생성하고, 메모리 파티션 part_1을 디스크
-테이블스페이스로 변경한다. Lob 컬럼은 다른 디스크 테이블스페이스 disk_tbs_1으로
+테이블스페이스로 변경한다. Lob 칼럼은 다른 디스크 테이블스페이스 disk_tbs_1으로
 변경하라.
 
 ```
@@ -5936,7 +5943,7 @@ DETERMINISTIC으로 생성된 것이어야 한다. 또한, 사용자는 함수 �
 
 파티션드 인덱스는 파티션 키 칼럼과 인덱스 키 칼럼의 관계에 따라 프리픽스드
 인덱스(prefixed-index)와 논프리픽스드 인덱스(non-prefixed index)로 구분된다.
-파티션 키 칼럼과 인덱스 키 칼럼의 가장 왼쪽 컬럼이 같은 경우 프리픽스드
+파티션 키 칼럼과 인덱스 키 칼럼의 가장 왼쪽 칼럼이 같은 경우 프리픽스드
 인덱스이며, 같지 않은 경우 논프리픽스드 인덱스이다.
 
 함수 기반 인덱스는 수식을 기반으로 생성된 인덱스이다. 이 수식은 내장 SQL 함수
@@ -7950,13 +7957,13 @@ Altibase는 세션에 바인딩 된 임시 테이블을 truncate 한다.
 *table_partition_description*
 
 파티션별로 테이블스페이스를 지정할 수 있다. 또한 테이블에 한 개 이상의 LOB
-컬럼이 있을 경우, 각 LOB 컬럼의 속성을 따로 명시할 수 있다. 그리고 파티션의
+칼럼이 있을 경우, 각 LOB 칼럼의 속성을 따로 명시할 수 있다. 그리고 파티션의
 데이터에 대한 접근 모드를 설정할 수 있다.
 
 테이블스페이스 절이 생략되면, 그 파티션은 해당 테이블의 기본
 테이블스페이스(default tablespace)에 저장된다.
 
-또한 LOB 컬럼이 저장될 테이블스페이스를 지정하지 않으면 LOB 데이터는 해당
+또한 LOB 칼럼이 저장될 테이블스페이스를 지정하지 않으면 LOB 데이터는 해당
 파티션의 테이블스페이스에 저장된다.
 
 다음의 예제에서 사용자의 기본 테이블스페이스는 tbs_05이다.
@@ -7979,7 +7986,7 @@ PARTITION BY RANGE (product_id)
 ```
 
 파티션 p1의 테이블스페이스는 명시적으로 지정되었으므로 tbs_01테이블스페이스에
-저장된다. 그리고 해당 파티션의 ad_photo 컬럼은 tbs_02테이블스페이스에 저장된다.
+저장된다. 그리고 해당 파티션의 ad_photo 칼럼은 tbs_02테이블스페이스에 저장된다.
 기본 파티션인 p2의 테이블스페이스는 지정되지 않았으므로 print_media_demo
 테이블의 기본 테이블스페이스인 tbs_04에 저장된다. 만약 이 테이블의
 테이블스페이스를 지정하지 않았다면 사용자의 기본 테이블스페이스인 tbs_05에
@@ -8018,7 +8025,7 @@ PARTITION BY RANGE (product_id)
 
 *range_partitioning_using_hash*
 
-이 절은 파티션 키값에 대응하는 해시 값을 사용해 범위를 명시하는 절이다. 파티션 키는 단일 컬럼으로 지정하며 해시 값을 1000으로 나눈 나머지(mod) 값으로 범위를 지정한다. 1000은 고정값으로 변경할 수 없다. 데이터를 고르게 분포하는 해시 파티셔닝의 장점과 합병, 분할이 가능한 범위 파티셔닝의 장점을 결합한 파티셔닝이다.
+이 절은 파티션 키값에 대응하는 해시 값을 사용해 범위를 명시하는 절이다. 파티션 키는 단일 칼럼으로 지정하며 해시 값을 1000으로 나눈 나머지(mod) 값으로 범위를 지정한다. 1000은 고정값으로 변경할 수 없다. 데이터를 고르게 분포하는 해시 파티셔닝의 장점과 합병, 분할이 가능한 범위 파티셔닝의 장점을 결합한 파티셔닝이다.
 
 *row_movement_clause*
 
@@ -8189,7 +8196,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
   SELECT문의 검색 대상에는 표현식을 사용한 경우, 반드시 새로운 테이블의 칼럼
   이름으로 사용될 별명(alias name)을 표현식에 명시해야 한다.
 - MAXROWS 절에 파티션드 테이블 사용은 지원되지 않는다.
-- 범위 파티션드 테이블과 해시 파티션드 테이블을 위한 파티션 키 컬럼은 최대
+- 범위 파티션드 테이블과 해시 파티션드 테이블을 위한 파티션 키 칼럼은 최대
   32개로 구성될 수 있다.(인덱스 생성 시 인덱스 키 칼럼의 개수 제한과
   동일하다.)
 - NOLOGGING(FORCE/NOFORCE) 옵션으로 생성된 인덱스의 경우 시스템이나 미디어
@@ -8462,7 +8469,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 - 각 인덱스 파티션을 위한 테이블스페이스 지정
 
-  \<질의\> I1 컬럼에 대한 UNIQUE 제약을 갖는 파티션드 테이블 T1을 생성하라.
+  \<질의\> I1 칼럼에 대한 UNIQUE 제약을 갖는 파티션드 테이블 T1을 생성하라.
 
   ```
   CREATE TABLE T1 
@@ -8527,7 +8534,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 
 
-  \<질의 3\> 다중 컬럼을 파티션 키로 갖는 파티션드 테이블 생성
+  \<질의 3\> 다중 칼럼을 파티션 키로 갖는 파티션드 테이블 생성
 
   ```
   CREATE TABLE T1 
@@ -8567,7 +8574,7 @@ CREATE TABLE 구문에 이 절과 *subquery*를 모두 명시하여 테이블 �
 
 - 리스트 파티셔닝(list partitioning)
 
-  \<질의\> nls_territory 컬럼의 값이 ‘CHINA’ 또는 ‘THAILAND’인 asia 파티션,
+  \<질의\> nls_territory 칼럼의 값이 ‘CHINA’ 또는 ‘THAILAND’인 asia 파티션,
   ‘GERMANY’, ‘ITALY’, ‘SWITZERLAND’인 europe 파티션, ‘AMERICA’인 west 파티션,
   ‘INDIA’인 east 파티션, 그 외 나머지 값은 기본 파티션으로 분할되는 list_customers
   테이블을 생성한다.
@@ -9310,7 +9317,7 @@ DML문이 실행될 때 오류가 발생한다.
   해당 테이블에 데이터를 삽입하는 INSERT 구문 수행 시 트리거가 동작한다. LOB 칼럼이 있는 테이블은 'BEFORE INSERT ... FOR EACH ROW' 구문으로 트리거를 생성할 수 있으나, 트리거의 동작을 유발하는 DML 문이 실행될 때 오류가 발생한다.
 - UPDATE  
   해당 테이블의 데이터를 변경하는 UPDATE 구문 수행 시 트리거가 동작한다.
-  UPDATE 트리거 이벤트에 OF 절을 사용하면 OF 절에 명시된 컬럼이 변경될 때만 트리거가 동작한다. LOB 칼럼이 있는 테이블은 'BEFORE UPDATE ... FOR EACH ROW' 구문으로 트리거를 생성할 수 있으나, 트리거의 동작을 유발하는 DML 문이 실행될 때 오류가 발생한다.
+  UPDATE 트리거 이벤트에 OF 절을 사용하면 OF 절에 명시된 칼럼이 변경될 때만 트리거가 동작한다. LOB 칼럼이 있는 테이블은 'BEFORE UPDATE ... FOR EACH ROW' 구문으로 트리거를 생성할 수 있으나, 트리거의 동작을 유발하는 DML 문이 실행될 때 오류가 발생한다.
 
 *ON table_name*
 
@@ -13482,7 +13489,7 @@ ORDER BY 절은 SELECT 문에서 한번만 올 수 있다. 이는 부질의 (sub
 사용할 수 없다.
 
 ORDER BY 절에 표현식을 명시한 경우에는 표현식 연산의 결과 값에 대해 정렬된다.
-표현식은 *select_list* 또는 FROM 절의 테이블 또는 뷰의 컬럼을 기반으로 작성될
+표현식은 *select_list* 또는 FROM 절의 테이블 또는 뷰의 칼럼을 기반으로 작성될
 것이다. ORDER BY 절에 상수를 명시한 경우에는 *select_list* 내에서의 그 위치에
 해당하는 검색 대상 값에 대해 정렬 한다.
 
@@ -15174,7 +15181,7 @@ DELETE 구문의 returning_clause를 참고하라.
 
 *multiple_update*
 
-join 조건을 만족하는 레코드를 찾아 명시한 컬럼들의 값을 변경하는 구문이다.
+join 조건을 만족하는 레코드를 찾아 명시한 칼럼들의 값을 변경하는 구문이다.
 
 multiple update 제약 사항:
 
@@ -15959,9 +15966,8 @@ alter_session_set_clause 절의 property_name과 property\_ value에 관한 자�
 *replication*\_*mode_set_clause*는 현재 세션에서 수행하는 트랜잭션을 위한 이중화
 모드 속성을 설정하는 절이다.
 
-DEFAULT를 명시하면 이중화는 이중화 객체 생성시 기본모드로 채택된 모드로 동작할
-것이다. 그러나 NONE을 명시하면 세션에서 수행되는 모든 DDL, DML, DCL 문이 이중화
-대상에서 제외된다.
+* DEFAULT : DEFAULT를 명시하면 이중화 객체에 설정된 모드(LAZY 또는 EAGER)로 이중화가 동작한다.
+* NONE : NONE을 명시하면 세션에서 수행되는 모든 DDL, DML, DCL 문이 이중화 대상에서 제외된다.
 
 이중화 모드에 대한 보다 자세한 내용은 *Replication Manual*을 참조한다.
 
@@ -23527,7 +23533,7 @@ CASE WHEN에 *simple_case_expr* 이 사용되면, *expr*은 동등 연산자(=)�
 
 ##### 예제
 
-\<질의\> c1 컬럼의 세 번째 문자가 a이면 ‘aaaaa’를, b이면 ‘bbbbb’를, c이면
+\<질의\> c1 칼럼의 세 번째 문자가 a이면 ‘aaaaa’를, b이면 ‘bbbbb’를, c이면
 ‘ccccc’를 출력하라.
 
 ```
@@ -24243,13 +24249,13 @@ NVL_EQUAL (expr1, expr2, expr3)
 
 즉, "NVL_EQUAL(*expr1*, *expr2*, *expr3*)"은 "NVL(*expr1*, *expr2*) = *expr3*"과 동치이다.
 
-아래의 예제를 보면, 두 쿼리의 결과는 동일하나 NVL_EQUAL 의 경우 *expr1*이 인덱스 컬럼이고 *expr3*이 상수인 경우 인덱스를 사용하는 반면, NVL 함수는 인덱스를 사용하지 않는 차이가 있다. 
+아래의 예제를 보면, 두 쿼리의 결과는 동일하나 NVL_EQUAL 의 경우 *expr1*이 인덱스 칼럼이고 *expr3*이 상수인 경우 인덱스를 사용하는 반면, NVL 함수는 인덱스를 사용하지 않는 차이가 있다. 
 
 > **주의 사항**
 >
 > *expr1*의 데이터 타입은 DATE, CHAR 및 NUMBER일 수 있으며, *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
 >
-> NVL_EQUAL 에서 인덱스를 사용하기 위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
+> NVL_EQUAL 에서 인덱스를 사용하기 위해서는 *expr1*이 인덱스 칼럼이어야 하고, *expr3*은 상수여야 한다.
 
 ##### 예제
 
@@ -24297,13 +24303,13 @@ NVL_NOT_EQUAL (expr1, expr2, expr3)
 
 "NVL_NOT_EQUAL(*expr1*, *expr2*, *expr3*)"은 "NVL(*expr1*, *expr2*) != *expr3*"과 동치이다.
 
-아래의 예제를 보면, 두 쿼리의 결과는 동일하나 NVL_NOT_EQUAL 의 경우 *expr1*이 인덱스 컬럼이고 *expr3*이 상수인 경우 인덱스를 사용하는 반면, NVL 함수는 인덱스를 사용하지 않는 차이가 있다. 
+아래의 예제를 보면, 두 쿼리의 결과는 동일하나 NVL_NOT_EQUAL 의 경우 *expr1*이 인덱스 칼럼이고 *expr3*이 상수인 경우 인덱스를 사용하는 반면, NVL 함수는 인덱스를 사용하지 않는 차이가 있다. 
 
 > **주의 사항**
 >
 > *expr1*의 데이터 타입은 DATE, CHAR 및 NUMBER일 수 있으며, *expr1*, *expr2*, *expr3* 의 데이터 타입은 일치해야 한다. 
 >
-> NVL_NOT_EQUAL 에서 인덱스를 사용하기 위해서는 *expr1*이 인덱스 컬럼이어야 하고, *expr3*은 상수여야 한다.
+> NVL_NOT_EQUAL 에서 인덱스를 사용하기 위해서는 *expr1*이 인덱스 칼럼이어야 하고, *expr3*은 상수여야 한다.
 
 ##### 예제
 
@@ -26171,7 +26177,7 @@ AU-100
 
 **예제**
 
-<질의> 이스케이프 시퀀스 \p를 사용하여 EMPLOYEES 테이블의 EMP_JOB 컬럼에서 영문자 소문자와 일치하는 유니코드 문자가 포함된 데이터를 조회한다.
+<질의> 이스케이프 시퀀스 \p를 사용하여 EMPLOYEES 테이블의 EMP_JOB 칼럼에서 영문자 소문자와 일치하는 유니코드 문자가 포함된 데이터를 조회한다.
 
 ~~~sql
 iSQL> SELECT EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, '\p{Ll}');
@@ -26227,7 +26233,7 @@ Adlam, Ahom, Anatolian_Hieroglyphs, Arabic, Armenian, Avestan, Balinese, Bamum, 
 
 **예제**
 
-<질의> POSIX 문자 클래스를 사용하여 EMPLOYEES 테이블의 EMP_JOB 컬럼에서 영문자 대문자가 포함된 데이터를 조회하라.
+<질의> POSIX 문자 클래스를 사용하여 EMPLOYEES 테이블의 EMP_JOB 칼럼에서 영문자 대문자가 포함된 데이터를 조회하라.
 
 ~~~sql
 iSQL> SELECT EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, '[[:upper:]]');
@@ -26352,7 +26358,7 @@ M-U290
 
 **예제**
 
-<질의> 긍정형 전방 탐색을 사용하여 EMPLOYEES 테이블의 EMP_JOB 컬럼에서 sales 바로 오른쪽에 rep가 있는 데이터를 조회하라.
+<질의> 긍정형 전방 탐색을 사용하여 EMPLOYEES 테이블의 EMP_JOB 칼럼에서 sales 바로 오른쪽에 rep가 있는 데이터를 조회하라.
 
 ~~~sql
 iSQL> SELECT EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, 'sales (?=rep)');
@@ -26372,7 +26378,7 @@ sales rep
 3 rows selected.
 ~~~
 
-<질의> 부정형 전방탐색을 사용하여 GOODS 테이블의 GNAME 컬럼에서 TM- 문자열 오른쪽에 U가 나오지 않는 데이터를 조회하라. 
+<질의> 부정형 전방탐색을 사용하여 GOODS 테이블의 GNAME 칼럼에서 TM- 문자열 오른쪽에 U가 나오지 않는 데이터를 조회하라. 
 
 ~~~sql
 iSQL> SELECT GNAME FROM GOODS WHERE REGEXP_LIKE(GNAME, 'TM-(?!U)');
