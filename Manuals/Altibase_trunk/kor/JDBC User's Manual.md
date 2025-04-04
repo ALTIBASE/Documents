@@ -483,6 +483,12 @@ $ java ConnectionExample
 "jdbc:Altibase://localhost:20300/mydb?fetch_enough=0&time_zone=DB_TZ"
 ```
 
+다음은 conntype으로 인피니밴드(InfiniBand)를 사용하는 경우의 연결 URL 예제이다.
+
+```java
+String url = "jdbc:Altibase://127.0.0.1:20300/mydb?conntype=ib&ib_latency=true"
+```
+
 ##### Properties 객체 사용하기
 
 Properties 객체를 생성하고 키와 값을 입력한 다음, 연결 정보로 이용하면 된다.
@@ -624,6 +630,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 설정 범위 |                                                              |
 | 설명      | Connection Failover 발생 시, ConnectionRetryCount가 설정되어 있는 경우, <br />다른 서버로 재접속을 시도하는 대기 시간을 설정한다. <br />단위는 초(second)이다. <br />사용법은 3장의 "JDBC와 Failover" 절을 참고한다. |
 
+##### conntype
+
+| 기본값    | 0                                                            |
+| --------- | ------------------------------------------------------------ |
+| 값의 범위 | [ 0 \| TCP \| 6 \| SSL \| 8 \| IB ]                          |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | 0: TCP ,</br> 6 : SSL,</br> 8: IB , conntype을 IB로 설정한 경우, IB_LATENCY의 연결속성을 설정할 수 있다. |
+
 ##### database
 
 | 기본값    | mydb                                                     |
@@ -763,6 +778,15 @@ Altibase에 접속할 때 사용 가능한 연결 속성에 대해 기술한다.
 | 필수 여부 | No                                                           |
 | 설정 범위 | 세션                                                         |
 | 설명      | SELECT문 수행 시간의 한계값을 설정한다. <br />질의 수행 시간이 설정된 시간을 넘어가면 질의는 자동으로 종료된다. <br />단위는 초(sec)이다. <br />이 값이 0이면 무한대를 의미한다. |
+
+##### ib_latency
+
+| 기본값    | false                                                        |
+| --------- | ------------------------------------------------------------ |
+| 값의 범위 | [true \| false]                                              |
+| 필수 여부 | No                                                           |
+| 설정 범위 | 세션                                                         |
+| 설명      | CPU 자원을 더 사용하여 Latency를 낮추기 위해서는 true로 설정한다. |
 
 ##### idle_timeout
 

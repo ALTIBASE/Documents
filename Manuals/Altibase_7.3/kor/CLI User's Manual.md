@@ -3082,6 +3082,17 @@ DSN=192.168.1.11;UID=SYS;PWD=MANAGER;CONNTYPE=1;NLS_USE=KO16KSC5601;PORT_NO=2020
     소켓 수신 버퍼의 크기를 32K 단위로 설정한다. 예를 들어 이 속성값이 2로 설정되면 소켓 수신 버퍼의 크기는 64K 로 설정된다. 이 속성의 값이 설정되지 않았을 경우, ALTIBASE_SOCK_RCVBUF_BLOCK_RATIO 환경 변수를 참조하여 값을 설정한다. 기본값은 0이다.  
     
     TCP kernel parameter 중 최대 소켓 수신 버퍼 크기가 이 속성값에 의해 설정된 소켓 수신 버퍼 크기 미만으로 설정되어 있을 경우, 이 속성 은 OS에 따라 무시되거나 에러를 발생시킬 수 있다 (Linux OS 인 경우, 'net.core.rmem_max' TCP kernel parameter에 해당된다).
+    
+- IB_LATENCY
+
+  CONNTYPE을 "IB"로 설정할 때만 지정할 수 있다. CPU 자원을 더 사용하여 Latency를 낮추기 위해서는 1로 설정한다. 기본값은 0이다.
+
+  ```c++
+  const char *cn_str = "DSN=127.0.0.1;PortNo=20300;CONNTYPE=IB;UID=sys;PWD=manager;IB_LATENCY=1";
+   
+  /* establish connection */
+  SQLDriverConnect( cn, NULL, (SQLCHAR *)cn_str, SQL_NTS, NULL, 0, NULL, SQL_DRIVER_NOPROMPT );
+  ```
 
 #### 주의사항
 
