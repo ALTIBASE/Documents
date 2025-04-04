@@ -5106,6 +5106,12 @@ Mathematics Module.**
 
 **Action:** Increase the XXXXXXX_MEMORY_MAXIMUM property value...
 
+**0x2106D ( 135277) mtERR_ABORT_JSON_WITHOUT_TEMPLOB JSON type cannot be used when the TEMPORARY_LOB_ENABLE property is disabled.**
+
+**Cause:** The TEMPORARY_LOB_ENABLE property is disabled.
+
+**Action:** Check if the TEMPORARY_LOB_ENABLE property is enabled.
+
 
 
 ### IGNORE
@@ -14884,7 +14890,101 @@ queue.
 
 **Action:** Create queue table in memory tablespace or volatile tablespace.
 
+**0x314BC ( 201916) qpERR_ABORT_JSON_INVALID_TYPE Unsupported data type for the returned value.** 
 
+**Cause:** An unsupported data type was used in the RETURNING clause.
+
+**Action:** Check the return type of the JSON functions.
+
+**0x314BD ( 201917) qpERR_ABORT_JSON_NUMBER_OVERFLOW The returned number value exceeds the minimum or maximum limits.** 
+
+**Cause:** The number value exceeds the minimum or maximum value for the return type.
+
+**Action:** Check the returned value and RETURNING clause of JSON function.
+
+**0x314BE ( 201918) qpERR_ABORT_JSON_EXCEEDED_OBJECT_MAX_DEPTH The JSON object exceeds the maximum depth (<0%d>).** 
+
+**Cause:** The JSON object exceeds the maximum depth.
+
+**Action:** Check the JSON data.
+
+**0x314BF ( 201919) qpERR_ABORT_JSON_EMPTY_RESULTS No results were found.** 
+
+**Cause:** The returned result from the JSON function is empty.
+
+**Action:** Check the JSON path expression.
+
+**0x314C0 ( 201920) qpERR_ABORT_JSON_WRAPPER_IS_NEEDED An array wrapper is required.** 
+
+**Cause:** JSON function returns multiple results.
+
+**Action:** Use the array wrapper option in the JSON function.
+
+**0x314C1 ( 201921) qpERR_ABORT_JSON_DEFAULT_VALUE_TOO_LONG The default value exceeds the maximum length.** 
+
+**Cause:** The default value exceeds the maximum length.
+
+**Action:** Check the default value and RETURNING clause of JSON function.
+
+**0x314C2 ( 201922) qpERR_ABORT_JSON_INVALID_KEY_TYPE Invalid date type for key.** 
+
+**Cause:** An unsupported data type was used as a key.
+
+**Action:** Check the data type of the key value.
+
+**0x314C3 ( 201923) qpERR_ABORT_JSON_OBJECT_INCOMPLETE Invalid key-value pair for the JSON_OBJECT function.** 
+
+**Cause:** The arguments provided to the JSON_OBJECT function are not valid key-value pair.
+
+**Action:**  Ensure the key-value pair is correct.
+
+**0x314C4 ( 201924) qpERR_ABORT_JSON_TEXT_OVERFLOW The returned text value exceeds the maximum limits.** 
+
+**Cause:** The returned text value exceeds the maximum limits.
+
+**Action:** Check the returned value and RETURNING clause of JSON function.
+
+**0x314C5 ( 201925) qpERR_ABORT_JSON_INVALID_JSON_PATH JSON path syntax error. <0%s>** 
+
+**Cause:** An invalid JSON path expression was provided in the JSON function.
+
+**Action:** Check the JSON path expression.
+
+**0x314C6 ( 201926) qpERR_ABORT_JSON_INVALID_JSON_DATA Invalid JSON data. <0%s>** 
+
+**Cause:** An invalid JSON data was provided in the JSON function.
+
+**Action:** Check the JSON data.
+
+**0x314C7 ( 201927) qpERR_ABORT_JSON_INAPPROPRIATE_JSON_PATH_VALUE The JSON path expression cannot be null or non-literal value.** 
+
+**Cause:** Null or non-literal value is used as a JSON path expression.
+
+**Action:** Check the JSON path expression.
+
+**0x314C8 ( 201928) qpERR_ABORT_JSON_MULTIPLE_RESULTS JSON function returns multiple results.** 
+
+**Cause:** JSON function returns multiple results.
+
+**Action:** Check the JSON path expression.
+
+**0x314C9 ( 201929) qpERR_ABORT_JSON_FAILED_TO_CONVERT_NUMERIC Unable to convert the value to the numeric type.** 
+
+**Cause:** The value is not in numeric format.
+
+**Action:** Check the returned value and RETURNING clause of JSON function.
+
+**0x314CA ( 201930) qpERR_ABORT_JSON_RETURNS_NON_SCALAR_VALUE JSON function returns non-scalar values.** 
+
+**Cause:** JSON function returns non-scalar values.
+
+**Action:** Check the JSON path expression.
+
+**0x314CB ( 201931) qpERR_ABORT_QMV_NOT_SUPPORT_COLUMN_AT_RETURNING_CLAUSE Unsupported use of <0%s> column in RETURNING INTO clause. <1%s>** 
+
+**Cause:** One or more unsupported columns were referenced in a RETURNING INTO clause.
+
+**Action:** Remove the unsupported column(s) from the RETURNING INTO clause.
 
 ### RETRY
 

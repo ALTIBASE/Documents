@@ -17189,6 +17189,7 @@ SQL 함수는 크게 다음의 표처럼 분류된다.
 | 날짜 함수                       | 날짜 및 시간 입력 값에 대한 작업을 수행하며 문자열, 숫자 또는 날짜/시간 값을 반환한다. <br />ADD_MONTHS, DATEADD, DATEDIFF, DATENAME, EXTRACT(DATEPART), LAST_DAY, MONTHS_BETWEEN, NEXT_DAY, SESSION_TIMEZONE, SYSDATE, SYSTIMESTAMP, UNIX_DATE, UNIX_TIMESTAMP, CURRENT_DATE, CURRENT_TIMESTAMP, DB_TIMEZONE, CONV_TIMEZONE, ROUND, TRUNC |
 | 변환 함수                       | 입력 값(문자, 숫자 또는 날짜/시간)에 대해 문자, LOB, 날짜/시간 또는 숫자 값으로 변환한다. <br />ASCIISTR, BIN_TO_NUM, CONVERT, DATE_TO_UNIX, HEX_ENCODE, HEX_DECODE, HEX_TO_NUM, OCT_TO_NUM, RAW_TO_FLOAT, RAW_TO_INTEGER, RAW_TO_NUMERIC, RAW_TO_VARCHAR, TO_BIN, TO_BLOB, TO_CHAR(datetime), TO_CHAR(number), TO_CLOB, TO_DATE, TO_HEX, TO_INTERVAL, TO_NCHAR(character), TO_NCHAR(datetime), TO_NCHAR(number), TO_NUMBER, TO_OCT, TO_RAW, UNISTR, UNIX_TO_DATE |
 | 암호화 함수                     | 문자열에 대해 암호화와 복호화를 수행한다. <br />AESDECRYPT, AESENCRYPT, DESENCRYPT, DESDECRYPT, TDESDECRYPT/TRIPLE_DESDECRYPT, TDESENCRYPT/TRIPLE_DESENCRYPT |
+| JSON 함수                       | JSON 문서를 생성하거나, JSON 문서로부터 필요한 데이터를 검색하는 기능을한다.</br>JSON_ARRAY, JSON_OBJECT, JSON_EXISTS, JSON_QUERY, JSON_VALUE, JSON_VALID |
 | 기타 함수                       | BASE64_DECODE, BASE64_DECODE_STR, BASE64_ENCODE, BASE64_ENCODE_STR, BINARY_LENGTH, CASE2, CASE WHEN, COALESCE, DECODE, DIGEST, DUMP, EMPTY_BLOB, EMPTY_CLOB, GREATEST, GROUPING, GROUPING_ID, HASH, HOST_NAME, INVOKE_USER_ID, INVOKE_USER_NAME, LEAST, LNNVL, MSG_CREATE_QUEUE, MSG_DROP_QUEUE, MSG_SND_QUEUE, MSG_RCV_QUEUE, NULLIF, NVL, NVL2, NVL_EQUAL, NVL_NOT_EQUAL, QUOTE_PRINTABLE_DECODE, QUOTE_PRINTABLE_ENCODE, RAW_CONCAT, RAW_SIZEOF, ROWNUM, SENDMSG, USER_ID, USER_NAME, SESSION_ID, SUBRAW, SYS_CONNECT_BY_PATH, SYS_GUID, SYS_GUID_STR, USER_LOCK_REQUEST, USER_LOCK_RELEASE, SYS_CONTEXT 등 |
 
 ### 집계 함수
@@ -23558,6 +23559,498 @@ TDESENCRYPT와 TRIPLE_DESENCRYPT 함수는 입력 문자열을 3DES로 암호화
 
 TDESDECRYPT 예제를 참조하라.
 
+### JSON 함수
+
+JSON 함수는 JSON 문서를 생성하거나 JSON 문서로부터 필요한 데이터를 검색하는 기능을 수행한다. JSON 함수는 세가지 유형으로 분류 할 수 있다.
+
+* JSON 문서 생성 함수
+  * JSON_ARRAY
+  * JSON_OBJECT
+* JSON 문서 검색 함수
+  * JSON_EXISTS
+  * JSON_QUERY
+  * JSON_VALUE
+* JSON 문서 검증 함수
+  * JSON_VALID
+
+#### JSON_ARRAY
+
+##### 구문
+
+**JSON_ARRAY ::=**
+
+![](media/SQL/json_array.gif)
+
+**JSON_ARRAY_element ::=**
+
+![](media/SQL/json_array_element.gif)
+
+**JSON_on_null_clause ::=**
+
+![](media/SQL/json_on_null_clause.gif)
+
+**JSON_ARRAY_returning_clause ::=**
+
+![](media/SQL/json_array_returning_clause.gif)
+
+##### 설명
+
+리스트형태의 값을 인자로 받아서 JSON 배열을 생성하여 반환한다. JSON_ARRAY 함수의 인자로는 JSON 객체, JSON 배열, SQL 스칼라, BOOLEAN, NULL을 사용할 수 있다. *JSON_on_null_clause* 와 *JSON_ARRAY_returning_clause*를 지정할 수 있다.
+
+*JSON_on_null_clause*
+
+인자에 NULL이 포함된 경우의 동작을 지정하기 위해 *JSON_on_null_clause*를 사용한다. 이 절을 명시하지 않으면, 기본 동작은 ABSENT ON NULL이다.
+
+| 구문                       | 설명                                                         |
+| -------------------------- | ------------------------------------------------------------ |
+| NULL ON NULL               | 함수의 인자에 NULL이 포함된 경우, NULL을 배열에 추가한다.    |
+| ABSENT ON NULL (기본 동작) | 함수의 인자에 NULL이 포함된 경우, JSON 배열에 추가하지 않는다. |
+
+*JSON_returning_clause*
+
+JSON_ARRAY 함수의 반환값의 데이터 타입을 지정할 수 있다. CHAR, VARCHAR, JSON, CLOB만 지정할 수 있다. 이때 CHAR 및 VARCHAR 타입에서 precision을 명시하지 않으면 기본값으로 1이 설정된다. 반면, 지원되지 않는 데이터 타입을 지정하면 오류가 발생한다.
+
+JSON_returning_clause 를 명시하지 않으면, 반환값의 데이터타입은 VARCHAR로 설정되며, precision은 입력된 데이터의 크기에 따라 자동으로 계산된다.
+
+##### 예제
+
+```sql
+iSQL> SELECT JSON_ARRAY(1,'altibase',NULL) JARRAY FROM DUAL;
+JARRAY
+-----------------------
+[1,"altibase"]
+1 row selected.
+  
+iSQL> SELECT JSON_ARRAY(1,'altibase',JSON_ARRAY(1,2,3),NULL NULL ON NULL) JARRAY FROM DUAL;
+JARRAY
+-----------------------
+[1,"altibase",[1,2,3],null]                                                                                            
+1 row selected.
+ 
+iSQL> SELECT JSON_ARRAY(1,'altibase',JSON_ARRAY(1,2,3),NULL NULL ON NULL RETURNING JSON) JARRAY FROM DUAL;
+JARRAY
+------------------------------------------------------
+[1,"altibase",[1,2,3],null]
+1 row selected.
+```
+
+
+
+#### JSON_EXISTS
+
+##### 구문
+
+**JSON_EXISTS ::=**
+
+![](media/SQL/json_exists.gif)
+
+**JSON_EXISTS_on_error_clause ::=**
+
+![](media/SQL/json_exists_on_error_clause.gif)
+
+**JSON_EXISTS_on_empty_clause ::=**
+
+![](media/SQL/json_exists_on_empty_clause.gif)
+
+##### 설명
+
+JSON 데이터에서 JSON 경로 표현식에 해당하는 값이 존재하는 여부를 반환한다. *JSON_EXISTS_on_error_clause*와 JSON_exists_on_empty_clause 를 지정할 수 있다.
+
+*JSON_EXISTS_on_error_clause*
+
+JSON_EXISTS 함수의 실행 중 오류가 발생했을 때의 동작을 지정할 수 있다. 이 절을 명시하지 않으면, 기본 동작은 FALSE ON ERROR로 동작한다.
+
+| 구문                      | 설명                                   |
+| ------------------------- | -------------------------------------- |
+| ERROR ON ERROR            | 오류가 발생하면, 해당 오류를 반환한다. |
+| FALSE ON ERROR(기본 동작) | 오류가 발생하면, FALSE를 반환한다.     |
+| TRUE ON ERROR             | 오류가 발생하면 TRUE를 반환한다.       |
+
+*JSON_EXISTS_on_empty_clause*
+
+JSON_EXISTS 함수의 실행 중 결과가 없을 때의 동작을 지정할 수 있다. 이 절을 명시하지 않으면, 기본 동작은 FALSE ON EMPTY이다.
+
+| 구문           | 설명                                 |
+| -------------- | ------------------------------------ |
+| ERROR ON EMPTY | 검색 결과가 없으면 오류를 반환한다.  |
+| FALSE ON EMPTY | 검색 결과가 없으면 FALSE를 반환한다. |
+| TRUE ON EMPTY  | 검색 결과가 없으면 TRUE를 반환한다.  |
+
+##### 예제
+
+```sql
+iSQL> SELECT 1 AS result FROM DUAL WHERE JSON_EXISTS('{"ID":"AA000001","NAME":"HONG GILDONG","NATION":"KOREA"}', '$.NATION?(@=="KOREA")');
+RESULT
+--------------
+1
+1 row selected.
+  
+iSQL> SELECT 1 AS result FROM DUAL WHERE JSON_EXISTS('{"ID":"AA000001","NAME":"HONG GILDONG","NATION":"KOREA"}', '$.NATION?(@=="USA")');
+RESULT
+--------------
+No rows selected.
+```
+
+```sql
+iSQL> SELECT 1 AS result FROM DUAL WHERE JSON_EXISTS('invalid_json', '$' TRUE ON ERROR);
+RESULT
+--------------
+1
+1 row selected.
+  
+iSQL> SELECT 1 AS result FROM DUAL WHERE JSON_EXISTS('invalid_json', '$' FALSE ON ERROR);
+RESULT
+--------------
+No rows selected.
+  
+iSQL> SELECT 1 AS result FROM DUAL WHERE JSON_EXISTS('invalid_json', '$' ERROR ON ERROR);
+[ERR-314C6 : Invalid JSON data.
+line 1:
+invalid_json
+^
+]
+```
+
+
+
+#### JSON_OBJECT
+
+##### 구문
+
+**JSON_OBJECT ::=**
+
+![](media/SQL/json_object.gif)
+
+**JSON_on_null_clause ::=**
+
+![](media/SQL/json_on_null_clause.gif)
+
+**JSON_OBJECT_returning_clause ::=**
+
+![](media/SQL/json_object_returning_clause.gif)
+
+##### 설명
+
+키와 값의 쌍을 인자로 받아 JSON 객체를 생성하여 반환한다. 키는 문자형 값만 사용할 수 있으며, NULL은 키로 사용할 수 없다. 값은 키와 짝을 이루는 값으로 문자형, 숫자형, JSON 객체, JSON 배열, BOOLEAN, NULL을 사용할 수 있다. *JSON_on_null_clause* 와 *JSON_OBJECT_returning_clause* 를 지정할 수 있다.
+
+*JSON_on_null_clause*
+
+값이 NULL 인 데이터를 JSON객체에 포함할지 여부를 지정할 수 있다. 이 절을 명시하지 않으면 NULL ON NULL로 동작한다.
+
+| 구문                    | 설명                                              |
+| ----------------------- | ------------------------------------------------- |
+| NULL ON NULL(기본 동작) | 값이 NULL인 데이터를 JSON 객체에 포함한다.        |
+| ABSENT ON NULL          | 값이 NULL인 데이터를 JSON 객체에 포함하지 않는다. |
+
+*JSON_OBJECT_returning_clause*
+
+JSON_OBJECT 함수의 결과로 반환할 값의 타입을 지정할 수 있다. CHAR, VARCHAR, JSON, CLOB만 지정할 수 있다. 이때 CHAR 및 VARCHAR 타입에서 precision을 명시하지 않으면 기본값으로 1이 설정된다. 반면, 지원되지 않는 데이터 타입을 지정하면 오류가 발생한다.
+
+이 절을 명시하지 않으면 반환값의 데이터타입은 VARCHAR로 설정되며, precision은 입력된 데이터의 크기에 따라 자동으로 계산된다.
+
+##### 예제
+
+```sql
+iSQL> SELECT JSON_OBJECT('ID', 'AA000001', 'NAME', 'HONG GILDONG', 'NATION', 'KOREA') j_obj FROM DUAL;
+J_OBJ
+------------------------------------------------------------------------------------------------
+{"ID":"AA000001","NAME":"HONG GILDONG","NATION":"KOREA"}
+1 row selected.
+  
+iSQL> SELECT JSON_OBJECT('USER1', '{"ID":"AA000001","NAME":"HONG GILDONG","NATION":"KOREA"}', 'PURCHASE_NO', '[123,345,678]') j_obj FROM DUAL;
+J_OBJ
+---------------------------------------------------------------------------------------------------------------
+{"USER1":"{\"ID\":\"AA000001\",\"NAME\":\"HONG GILDONG\",\"NATION\":\"KOREA\"}","PURCHASE_NO":"[123,345,678]"}
+1 row selected.
+```
+
+```sql
+iSQL> SELECT JSON_OBJECT('ID', 'AA000001', 'NAME', 'HONG GILDONG', 'NATION', NULL) j_obj FROM DUAL;
+J_OBJ
+-----------------------------------------------------------------------------------------
+{"ID":"AA000001","NAME":"HONG GILDONG","NATION":null}
+1 row selected.
+ 
+iSQL> SELECT JSON_OBJECT('ID', 'AA000001', 'NAME', 'HONG GILDONG', 'NATION', NULL ABSENT ON NULL) j_obj FROM DUAL;
+J_OBJ
+-----------------------------------------------------------------------------------------
+{"ID":"AA000001","NAME":"HONG GILDONG"}
+1 row selected.
+```
+
+```sql
+iSQL> SELECT JSON_OBJECT('ID', 'AA000001', 'NAME', 'HONG GILDONG', 'NATION', 'KOREA' RETURNING JSON) j_obj FROM DUAL;
+J_OBJ
+--------------------------------------------------------------------------------------------------------
+{"ID":"AA000001","NAME":"HONG GILDONG","NATION":"KOREA"}
+1 row selected.
+ 
+iSQL> SELECT JSON_OBJECT('ID', 'AA000001', 'NAME', 'HONG GILDONG', 'NATION', 'KOREA' RETURNING CLOB) j_ojb FROM DUAL;
+J_OBJ
+-----------------------------------------------------------------------------------
+{"ID":"AA000001","NAME":"HONG GILDONG","NATION":"KOREA"}
+1 row selected.
+```
+
+
+
+#### JSON_QUERY
+
+##### 구문
+
+**JSON_QUERY ::=**
+
+![](media/SQL/json_query.gif)
+
+**JSON_QUERY_returning_clause ::=**
+
+![](media/SQL/json_query_returning_clause.gif)
+
+**JSON_QUERY_wrapper_clause ::=**
+
+![](media/SQL/json_query_wrapper_clause.gif)
+
+**JSON_QUERY_on_error_clause ::=**
+
+![](media/SQL/json_query_on_error_clause.gif)
+
+**JSON_QUERY_on_empty_clause ::=**
+
+![](media/SQL/json_query_on_empty_clause.gif)
+
+##### 설명
+
+JSON 문서에서 JSON 경로 표현식에 해당하는 값을 찾아서 반환한다. *JSON_QUERY_returning_clause*, *JSON_QUERY_wrapper_clause*, *JSON_QUERY_on_error_clause*, *JSON_QUERY_on_empty_clause* 를 지정할 수 있다.
+
+*JSON_QUERY_returning_clause*
+
+JSON_QUERY 함수의 결과로 반환할 값의 타입을 지정한다. CHAR, VARCHAR, JSON, CLOB만 지정할 수 있다. 이때 CHAR 및 VARCHAR 타입에서 precision을 명시하지 않으면 기본값으로 1이 설정된다. 반면, 지원되지 않는 데이터 타입을 지정하면 오류가 발생한다.
+
+JSON_returning_clause 를 명시하지 않으면, 반환값의 데이터타입은 VARCHAR로 설정되며, precision은 입력된 데이터의 크기에 따라 자동으로 계산된다.
+
+*JSON_QUERY_wrapper_clause*
+
+JSON_QUERY 함수의 결과를 JSON 배열 형태로 반환할지 여부를 지정할 수 있다. 이 절을 명시하지 않으면 WITHOUT WRAPPER로 동작한다. UNCONDITIONAL과 ARRAY는 생략할 수 있다.
+
+| 구문                               | 설명                                                         |
+| ---------------------------------- | ------------------------------------------------------------ |
+| WITH (ARRAY) WRAPPER               | JSON_QUERY 함수의 결과를 JSON 배열 형태로 반환한다. JSON_QUERY 함수의 결과가 2개 이상이면, WITH WRAPPER 절을 지정해서 JSON 배열 형태로 반환해야 한다. |
+| WITHOUT (ARRAY) WRAPPER            | JSON_QUERY 함수의 결과를 배열 형태로 반환하지 않는다.        |
+| WITH UNCONDITIONAL (ARRAY) WRAPPER | WITH WRAPPER 절을 지정하는 것과 동일합니다.                  |
+| WITH CONDITIONAL (ARRAY) WRAPPER   | JSON_QUERY 함수의 결과가 2개 이상일때만 배열 형태로 반환한다. |
+
+*JSON_QUERY_on_error_clause*
+
+함수 실행 중  오류가 발생했을 때의 동작을 지정할 수 있다. 이 절을 명시하지 않으면, 기본 동작은 NULL ON ERROR로 동작한다.
+
+| 구문                     | 설명                                  |
+| ------------------------ | ------------------------------------- |
+| NULL ON ERROR(기본 동작) | 오류가 발생하면 NULL을 반환한다.      |
+| ERROR ON ERROR           | 오류가 발생하면 해당 오류를 반환한다. |
+
+*JSON_QUERY_on_empty_clause*
+
+JSON_QUERY 함수 실행 중 반환된 결과가 없는 경우의 동작을 지정할 수 있다. 이 절을 명시하지 않으면, NULL ON EMPTY 로 동작한다.
+
+| 구문                     | 설명                                |
+| ------------------------ | ----------------------------------- |
+| NULL ON EMPTY(기본 동작) | 검색 결과가 없으면 NULL을 반환한다. |
+| ERROR ON EMPTY           | 검색 결과가 없으면 오류를 반환한다. |
+
+##### 예제
+
+```sql
+iSQL> SELECT JSON_QUERY('{"ID":"AA000001","NAME":"HONG GILDONG","NATION":"KOREA"}', '$.NAME') AS name FROM DUAL;
+NAME
+-----------------------
+"HONG GILDONG"
+1 row selected.
+  
+iSQL> SELECT JSON_QUERY('{"ID":"AA000001","NAME":"HONG GILDONG","NATION":"KOREA"}', '$.NATION?(@=="KOREA")') AS nation FROM DUAL;
+NATION
+-----------------------
+"KOREA"
+1 row selected.
+```
+
+```sql
+
+iSQL> SELECT JSON_QUERY('{"ID":"AA000001","NAME":"HONG GILDONG","ORDER_ID":[3123,2412,5286]}', '$.ORDER_ID') AS name FROM DUAL;
+NAME
+--------------------------------------------------------------------------------------------------------
+[3123,2412,5286]
+1 row selected.
+ 
+ 
+-- WITH (UNCONDITONAL) (ARRAY) WRAPPER
+iSQL> SELECT JSON_QUERY('{"ID":"AA000001","NAME":"HONG GILDONG","ORDER_ID":[3123,2412,5286]}', '$.ORDER_ID' WITH WRAPPER) AS name FROM DUAL;
+NAME
+--------------------------------------------------------------------------------------------------------
+[[3123,2412,5286]]
+1 row selected.
+ 
+ 
+-- WITH CONDITONAL (ARRAY) WRAPPER
+iSQL> SELECT JSON_QUERY('{"ID":"AA000001","NAME":"HONG GILDONG","ORDER_ID":[3123,2412,5286]}', '$.ORDER_ID' WITH CONDITIONAL WRAPPER) AS name FROM DUAL;
+NAME
+--------------------------------------------------------------------------------------------------------
+[3123,2412,5286]
+1 row selected.
+ 
+ 
+iSQL> SELECT JSON_QUERY('{"ID":"AA000001","NAME":"HONG GILDONG","ORDER_ID":[3123,2412,5286]}', '$.*' ERROR ON ERROR) AS name FROM DUAL;
+[ERR-314C0 : An array wrapper is required.]
+
+iSQL> SELECT JSON_QUERY('{"ID":"AA000001","NAME":"HONG GILDONG","ORDER_ID":[3123,2412,5286]}', '$.*' WITH WRAPPER ERROR ON ERROR) AS name FROM DUAL;
+NAME
+--------------------------------------------------------------------------------------------------------
+["AA000001","HONG GILDONG",[3123,2412,5286]]
+1 row selected.
+```
+
+```sql
+iSQL> SELECT JSON_QUERY('invalid_json', '$' NULL ON ERROR) AS jdata FROM DUAL;
+JDATA
+--------------------------------------------------------------------------------------------------------
+1 row selected.
+ 
+iSQL> SELECT JSON_QUERY('invalid_json', '$' ERROR ON ERROR) AS jdata FROM DUAL;
+[ERR-314C6 : Invalid JSON data.
+line 1:
+invalid_json
+^
+]
+```
+
+
+
+#### JSON_VALID
+
+##### 구문
+
+**JSON_VALID ::=**
+
+![](media/SQL/json_valid.gif)
+
+##### 설명
+
+입력한 JSON 문서가 올바른 JSON 형식인지를 검사하여 결과를 반환한다. JSON 문서가 JSON 형식이면 1을, 아니면 0을 반환한다.
+
+##### 예제
+
+```sql
+iSQL>  SELECT JSON_VALID('{"ID":"AA000001","NAME":"HONG GILDONG","NATION":"KOREA"}') AS valid FROM DUAL;
+VALID
+--------------
+1
+1 row selected.
+  
+iSQL> SELECT JSON_VALID('{"INVALID OBJ"}') AS valid FROM DUAL;
+VALID
+--------------
+0
+1 row selected.
+```
+
+
+
+#### JSON_VALUE
+
+##### 구문
+
+**JSON_VALUE ::=**
+
+![](media/SQL/json_value.gif)
+
+**JSON_VALUE_returning_clause ::=**
+
+![](media/SQL/json_value_returning_clause.gif)
+
+**JSON_VALUE_on_error_clause ::=**
+
+![](media/SQL/json_value_on_error_clause.gif)
+
+**JSON_VALUE_on_empty ::=**
+
+![](media/SQL/json_value_on_empty_clause.gif)
+
+##### 설명
+
+JSON 문서에서 JSON 경로 표현식에 해당하는 값을 찾아 스칼라 값으로 반환한다. *JSON_VALUE_returning_clause*, *JSON_VALUE_on_error_clause*, *JSON_VALUE_on_empty_clause* 를 지정할 수 있다.
+
+*JSON_VALUE_returning_clause*
+
+JSON_VALUE 함수의 결과로 반환할 값의 타입을 지정한다. CHAR, VARCHAR, CLOB, SMALLINT, INT, BIGINT, FLOAT, DOUBLE, DECIMAL, NUMBER, NUMERIC 만 지정할 수 있다. 이때 CHAR 및 VARCHAR 타입에서 precision을 명시하지 않으면 기본값으로 1이 설정된다. 반면, 지원되지 않는 데이터 타입을 지정하면 오류가 발생한다.
+
+*JSON_VALUE_returning_clause* 를 명시하지 않으면, 반환값의 데이터타입은 VARCHAR로 설정되며, precision은 입력된 데이터의 크기에 따라 자동으로 계산된다.
+
+*JSON_VALUE_on_error_clause*
+
+JSON_VALUE 함수 실행 중 오류가 발생했을 때의 동작을 지정할 수 있다. 이 절을 명시하지 않으면, 기본 동작은 NULL ON ERROR로 동작한다.
+
+| 구문                     | 설명                              |
+| ------------------------ | --------------------------------- |
+| NULL ON ERROR(기본 동작) | 오류가 발생하면 NULL을 반환한다.  |
+| ERROR ON ERROR           | 오류가 발생하면 오류를 반환한다.  |
+| DEFAULT *expr* ON ERROR  | 오류가 발생하면 *expr*을 반환한다 |
+
+*JSON_value_on_empty_clause*
+
+JSON_VALUE 함수 실행 중 반환된 결과가 없는 경우의 동작을 지정할 수 있다. 이 절을 명시하지 않으면, NULL ON EMPTY 로 동작한다.
+
+| 구문                     | 설명                                  |
+| ------------------------ | ------------------------------------- |
+| NULL ON EMPTY(기본 동작) | 검색 결과가 없으면 NULL을 반환한다.   |
+| ERROR ON EMPTY           | 검색 결과가 없으면 오류를 반환한다.   |
+| DEFAULT *expr* ON ERROR  | 검색 결과가 없으면 *expr*을 반환한다. |
+
+##### 예제
+
+```sql
+iSQL> SELECT JSON_VALUE('{"ID":"AA000001","NAME":"HONG GILDONG","NATION":"KOREA"}', '$.NAME') AS name FROM DUAL;
+NAME
+-----------------------
+HONG GILDONG
+1 row selected.
+  
+iSQL> SELECT JSON_VALUE('{"ID":"AA000001","NAME":"HONG GILDONG","NATION":"KOREA"}', '$.NATION?(@=="KOREA")') AS nation FROM DUAL;
+NATION
+--------------
+KOREA
+1 row selected.
+```
+
+```sql
+iSQL> SELECT JSON_VALUE('invalid_json', '$' NULL ON ERROR) AS jdata FROM DUAL;
+JDATA
+--------------------------------------------------------------------------------------------------------
+1 row selected.
+ 
+iSQL> SELECT JSON_VALUE('invalid_json', '$' ERROR ON ERROR) AS jdata FROM DUAL;
+[ERR-314C6 : Invalid JSON data.
+line 1:
+invalid_json
+^
+]
+ 
+iSQL> SELECT JSON_VALUE('invalid_json', '$' DEFAULT 'ERROR' ON ERROR) AS jdata FROM DUAL;
+JDATA
+--------------------------------------------------------------------------------------------------------
+ERROR
+1 row selected.
+ 
+iSQL> SELECT JSON_VALUE('invalid_json', '$' RETURNING VARCHAR(3) DEFAULT 'ERROR' ON ERROR) AS jdata FROM DUAL;
+[ERR-314C1 : The default value exceeds the maximum length.]
+  
+iSQL> SELECT JSON_VALUE('invalid_json', '$' RETURNING VARCHAR(10) DEFAULT 'ERROR' ON ERROR) AS jdata FROM DUAL;
+JDATA
+--------------------------------------------------------------------------------------------------------
+ERROR
+1 row selected.
+```
+
+
+
 ### 기타 함수
 
 #### BASE64_DECODE
@@ -25958,6 +26451,47 @@ DNO         E_FIRSTNAME           E_LASTNAME
 4001        Curtis                Diaz
 4001        John                  Huxley
 7 rows selected.
+```
+
+
+
+#### IS JSON
+
+##### 구문
+
+**isjson_condition ::=**
+
+![](media/sql/is_json.gif)
+
+##### 설명
+
+*expr*이 JSON 형식인지 아닌지를 검사하기 위해 사용한다.
+
+##### 예제
+
+```sql
+iSQL> SELECT 1 AS result FROM DUAL WHERE '{"ID":"AA000001","NAME":"HONG GILDONG","NATION":"KOREA"}' IS JSON;
+RESULT
+--------------
+1
+1 row selected.
+ 
+iSQL> SELECT 1 AS result FROM DUAL WHERE '{"ID":"AA000001","NAME":"HONG GILDONG","NATION":"KOREA"}' IS NOT JSON;
+RESULT
+--------------
+No rows selected.
+ 
+ 
+iSQL> SELECT 1 AS result FROM DUAL WHERE 'invalid_json' IS JSON;
+RESULT
+--------------
+No rows selected.
+ 
+iSQL> SELECT 1 AS result FROM DUAL WHERE 'invalid_json' IS NOT JSON;
+RESULT
+--------------
+1
+1 row selected.
 ```
 
 
