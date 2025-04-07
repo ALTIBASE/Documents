@@ -118,6 +118,7 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [이진 데이터 타입](#이진-데이터-타입)
   - [LOB 데이터 타입](#lob-데이터-타입)
   - [공간 데이터 타입](#공간-데이터-타입)
+  - [JSON 데이터 타입](#JSON-데이터-타입)
 - [2.Altibase 프로퍼티](#2altibase-프로퍼티)
   - [환경 설정 방법](#환경-설정-방법)
   - [프로퍼티 요약](#프로퍼티-요약)
@@ -516,6 +517,12 @@ L : 입력 문자열의 길이</pre>
 | GEOMETRY | 8\~104857600 | length + 40 |
 
 실제 레코드의 크기는 위에 각 데이터형 별로 명시된 크기(bytes)에서 헤더 정보 크기 만큼 추가된다. 헤더 정보는 운영체제에 따라 다를 수 있다.
+
+##### JSON 데이터형
+
+| 타입 | Size(byte)          |
+| ---- | ------------------- |
+| JSON | 2GB (2,147,483,648) |
 
 #### NULL
 
@@ -2730,7 +2737,126 @@ Altibase에서 SQL로 사용할 수 있도록 지원하는 공간 데이터 타�
 - MultiLineString
 - MultiPoint
 
-공간 데이터 타입에 관한 자세한 내용은 *Spatial SQL Reference* 를 참조한다
+공간 데이터 타입에 관한 자세한 내용은 *Spatial SQL Reference* 를 참조한다.
+
+### JSON 데이터 타입
+
+#### 개요
+
+JSON(JavaScript Object Notation)은 데이터 교환 형식으로 널리 사용되고 있는 텍스트 기반의 데이터 형식이다. JSON은 데이터 구조를 직관적으로 표현할 수 있으며, 다양한 타입의 데이터를 입력할 수 있는 유연성을 제공한다. Altibase에서 지원하는 JSON 데이터 타입의 최대 크기는 2GB(2,147,483,648)이다.
+
+Altibase는 다음의 JSON 표준을 따른다.
+
+* JSON 정의 관련 표준은 RFC 8259 정의를 따른다.
+* JSON 경로 표현식 관련 표준은 ISO/IEC 19075-6(2021)의 정의를 따른다.
+* JSON 함수 관련 표준은  ISO/IEC 19075-6(2021)의 정의를 따른다.
+
+#### JSON
+
+##### 흐름도
+
+![](media/GeneralReference/json_type.gif)
+
+**variable_clause::=**
+
+![variable_clause](media/GeneralReference/variable_clause.gif)
+
+**in_row_clause::=**
+
+![in_row_clause](media/GeneralReference/in_row_clause.gif)
+
+##### 구문
+
+```
+JSON [ FIXED | VARIABLE [IN ROW SIZE]]
+```
+
+##### 설명
+
+JSON 문서를 효율적으로 저장하고 검색할 수 있도록 JSON 데이터 타입을 제공한다. JSON 문서는 객체(키-값 쌍)나 배열(순서가 있는 값의 목록)의 형태로 저장된다. FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 [FIXED/VARIABLE 옵션](#fixedvariable-옵션)과 [IN ROW절](#in-row-절)을 참고한다.
+
+##### 제약사항
+
+* LOB 타입 칼럼의 제약 사항과 동일하다.
+* JSON 문서의 최대 깊이(depth)는 256이다.
+* JSON 문서를 처리할 때 Temporary LOB을 사용한다. 따라서, JSON 타입을 사용하려면 [TEMPORARY_LOB_ENABLE](#temporary_lob_enable) 프로퍼티를 1로 설정해야 한다.
+
+#### JSON 함수
+
+Altibase에서 지원하는 JSON 함수는 아래와 같다. 각 함수의 자세한 내용은 ***SQL Reference 매뉴얼***을 참고한다.
+
+* JSON 문서 생성 함수
+  * JSON_ARRAY
+  * JSON_OBJECT
+* JSON 문서 검색 함수
+  * JSON_EXISTS
+  * JSON_QUERY
+  * JSON_VALUE
+* JSON 문서 검증 함수
+  * JSON_VALID
+
+#### JSON 조건 연산자
+
+IS JSON, IS NOT JSON 의 조건 연산자를 제공하며, JSON 문서가 JSON 형식을 만족하는지 아닌지를 검사하는 연산자이다. 자세한 설명은 ***SQL Reference 매뉴얼***의 [IS JSON](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/kor/SQL%20Reference#is-json)을 참고한다.
+
+#### JSON 경로 표현식(JSON Path Expression)
+
+JSON 경로 표현식은 JSON 문서에서 특정 값을 추출하기 위해서 검색에 사용할 조건을 설정한다. Altibase는 JSON 경로 표현식 표준 ISO/IEC 19075-6 을 따른다. Altibase에서 지원하는 경로 표현식의 구성요소는 다음과 같다.
+
+* 경로 기호
+* 점(.) 연산자
+* 대괄호 연산자
+* 와일드 카드
+* 필터 표현식
+
+| 경로 표현식   | 설명                                                         |
+| ------------- | ------------------------------------------------------------ |
+| 경로 기호     | 루트 노드(root node)와 현재 노드가 있다. 루트 노드는 '$'로 표현하며, JSON 문서의 시작점을 의미한다. JSON 문서에서 검색을 할 때 루트 노드에서 부터 검색한다. 현재 노드는 '@'로 표현하며, 현재 연산자에 의해 접근하고 있는 JSON 문서의 위치를 의미한다. |
+| 점(.) 연산자  | 점 연산자는 '.'으로 표현하며, JSON 객체의 특정 key에 접근할 때 사용한다. |
+| 대괄호 연산자 | 대괄호 연산자는 '[]'로 표현하며, JSON 배열의 요소에 접근할 때 사용한다. 대괄호 연산자 안에는 숫자, 와일드 카드를 사용할 수 있다. |
+| 와일드카드    | 와일드카드 연산자는 '*'로 표현하며, 점 연산자와 할게 사용하여 모든 객체의 key에 접근하거나, 대괄호 연산자와 함께 사용하여 배열의 모든 요소에 접근할 때 사용한다. |
+| 필터 표현식   | 필터 표현식은 '? (logical-expr)'로 표현하며, 괄호 안의 조건에 맞는 데이터를 추출할 때 사용한다. |
+
+JSON 문서에서 JSON 경로 표현식을 이용하여 결과를 추출하는 예제는 아래와 같다.
+
+* JSON 문서
+
+```json
+{
+  "name": "Hong Gildong",
+  "age": 22,
+  "class": [
+    "Mathmatics",
+    "Science"
+  ],
+  "address": {
+    "city": "Seoul",
+    "country": "Korea"
+  }
+}
+```
+
+* JSON 경로 표현식과 결과
+
+| JSON 경로 표현식 | 결과                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| '$'              | {"name":"Hong Gildong", "age":22, "class":["Mathmatics", "Science"], "address":{"city":"Seoul", "country":"Korea" }} |
+| '$.name'         | "Hong Gildong"                                               |
+| '$.address.city' | "Seoul"                                                      |
+| '$.class[0]'     | "Mathmatics"                                                 |
+| '$.class[1]'     | "Science"                                                    |
+| '$.class[*]'     | ["Mathmatics", "Science"]                                    |
+| '$.age?(@>20)'   | 22                                                           |
+| '$.age?(@<20)'   | -                                                            |
+
+##### JSON 경로 표현식 제약사항
+
+Altibase에서 제공하는 JSON 함수에 경로 표현식을 사용할 때 아래의 제약이 있다.
+
+* 경로 표현식은 문자열 형태로만 사용할 수 있다.
+* 바인드 변수, NULL, 테이블의 칼럼, SQL 함수, 사용자 정의 함수 등을 사용할 수 없다.
+
+
 
 # 2.Altibase 프로퍼티
 
