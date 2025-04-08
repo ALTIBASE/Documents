@@ -10065,6 +10065,68 @@ iSQL> EXEC DELETE_TABLE_STATS( 'SYS','T1');
 Execute success.
 ```
 
+#### LOCK_TABLE_STATS
+
+This procedure locks the stats information of a specific table.
+
+##### Syntax
+
+```
+LOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+##### Parameters
+
+| Name    | In/Out | Data Type    | Description                                          |
+| ------- | ------ | ------------ | ---------------------------------------------------- |
+| ownname | IN     | VARCHAR(128) | Name of the table owner                              |
+| tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
+
+##### Return Value
+
+Because it is a stored procedure, there is no return value.
+
+##### Example
+
+```sql
+iSQL> EXEC LOCK_TABLE_STATS( 'SYS', 'T1' );
+Execute success.
+```
+
+
+
+#### UNLOCK_TABLE_STATS
+
+This procedure unlocks the stats information of a specific table.
+
+##### Syntax
+
+```
+UNLOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+##### Parameters
+
+| Name    | In/Out | Data Type    | Description                                          |
+| ------- | ------ | ------------ | ---------------------------------------------------- |
+| ownname | IN     | VARCHAR(128) | Name of the table owner                              |
+| tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
+
+##### Return Value
+
+Because it is a stored procedure, there is no return value.
+
+##### Example
+
+```sql
+iSQL> EXEC UNLOCK_TABLE_STATS( 'SYS', 'T1' );
+Execute success.
+```
+
 
 
 ### Miscellaneous Functions
@@ -13036,7 +13098,7 @@ LOCK_TABLE_STATS (
 
 | Name    | In/Out | Data Type    | Description                                          |
 | ------- | ------ | ------------ | ---------------------------------------------------- |
-| ownname | IN     | VARCHAR(128) | Name of the index owner                              |
+| ownname | IN     | VARCHAR(128) | Name of the table owner                              |
 | tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
 
 ##### Return Value
@@ -13049,7 +13111,7 @@ There is no exception.
 
 ##### Example
 
-```
+```sql
 iSQL> EXEC DBMS_STATS.LOCK_TABLE_STATS( 'SYS', 'T1' );
 Execute success.
 ```
@@ -13074,7 +13136,7 @@ UNLOCK_TABLE_STATS (
 
 | Name    | In/Out | Data Type    | Description                                          |
 | ------- | ------ | ------------ | ---------------------------------------------------- |
-| ownname | IN     | VARCHAR(128) | Name of the index owner                              |
+| ownname | IN     | VARCHAR(128) | Name of the table owner                              |
 | tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
 
 ##### Return Value
@@ -13087,7 +13149,7 @@ There is no exception.
 
 ##### Example
 
-```
+```sql
 iSQL> EXEC DBMS_STATS.UNLOCK_TABLE_STATS( 'SYS', 'T1' );
 Execute success.
 ```

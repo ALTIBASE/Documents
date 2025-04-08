@@ -10567,6 +10567,68 @@ iSQL> EXEC GATHER_TABLE_STATS( 'SYS','T1');
 Execute success.
 ```
 
+#### LOCK_TABLE_STATS
+
+이 프로시저는 특정 테이블의 통계를 잠근다.
+
+##### 구문
+
+```
+LOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+##### 파라미터
+
+| 이름    | 입출력 | 데이터 타입  | 설명                             |
+| ------- | ------ | ------------ | -------------------------------- |
+| ownname | IN     | VARCHAR(128) | 테이블 소유자의 이름             |
+| tabname | IN     | VARCHAR(128) | 통계 자료를 변경할 테이블의 이름 |
+
+##### 결과값
+
+저장 프로시저이므로 결과값을 반환하지 않는다.
+
+##### 예제
+
+```sql
+iSQL> EXEC LOCK_TABLE_STATS( 'SYS', 'T1' );
+Execute success.
+```
+
+#### UNLOCK_TABLE_STATS
+
+이 프로시저는 특정 테이블의 통계 잠금을 해제한다.
+
+##### 구문
+
+```
+UNLOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+
+
+##### 파라미터
+
+| 이름    | 입출력 | 데이터 타입  | 설명                             |
+| ------- | ------ | ------------ | -------------------------------- |
+| ownname | IN     | VARCHAR(128) | 테이블 소유자의 이름             |
+| tabname | IN     | VARCHAR(128) | 통계 자료를 변경할 테이블의 이름 |
+
+##### 결과값
+
+저장 프로시저이므로 결과값을 반환하지 않는다.
+
+##### 예제
+
+```sql
+iSQL> EXEC UNLOCK_TABLE_STATS( 'SYS', 'T1' );
+Execute success.
+```
+
 
 
 #### SET_COLUMN_STATS
@@ -13951,7 +14013,7 @@ LOCK_TABLE_STATS (
 
 | 이름    | 입출력 | 데이터 타입  | 설명                             |
 | ------- | ------ | ------------ | -------------------------------- |
-| ownname | IN     | VARCHAR(128) | 인덱스 소유자의 이름             |
+| ownname | IN     | VARCHAR(128) | 테이블 소유자의 이름             |
 | tabname | IN     | VARCHAR(128) | 통계 자료를 변경할 테이블의 이름 |
 
 ##### 결과값
@@ -13964,7 +14026,7 @@ LOCK_TABLE_STATS (
 
 ##### 예제
 
-```
+```sql
 iSQL> EXEC DBMS_STATS.LOCK_TABLE_STATS( 'SYS', 'T1' );
 Execute success.
 ```
@@ -13975,19 +14037,17 @@ Execute success.
 
 ##### 구문
 
-```
+```sq
 UNLOCK_TABLE_STATS (
   ownname VARCHAR(128),
   tabname VARCHAR(128) );
 ```
 
-
-
 ##### 파라미터
 
 | 이름    | 입출력 | 데이터 타입  | 설명                             |
 | ------- | ------ | ------------ | -------------------------------- |
-| ownname | IN     | VARCHAR(128) | 인덱스 소유자의 이름             |
+| ownname | IN     | VARCHAR(128) | 테이블 소유자의 이름             |
 | tabname | IN     | VARCHAR(128) | 통계 자료를 변경할 테이블의 이름 |
 
 ##### 결과값
@@ -14000,7 +14060,7 @@ UNLOCK_TABLE_STATS (
 
 ##### 예제
 
-```
+```sql
 iSQL> EXEC DBMS_STATS.UNLOCK_TABLE_STATS( 'SYS', 'T1' );
 Execute success.
 ```
