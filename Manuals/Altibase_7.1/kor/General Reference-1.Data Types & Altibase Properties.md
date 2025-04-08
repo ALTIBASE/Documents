@@ -708,7 +708,7 @@ FIXED와 VARIABLE은 칼럼의 데이터가 어느 영역에 저장될 지를 �
 그러나, 모든 LOB 데이터 타입 칼럼의 데이터는 항상 VARIABLE로 처리되고, 그 데이터는 IN ROW 절에 지정된 값에 따라서 고정 또는 가변 영역에 저장될 수 있다.
 
 다음의 데이터 타입에 대해 VARIABLE을 지정할 수 있다.  
-: CHAR, VARCHAR, NCHAR, NVARCHAR, BYTE, VARBATE, NIBBLE, BIT, VARBIT, BLOB, 및 CLOB
+: CHAR, VARCHAR, NCHAR, NVARCHAR, BYTE, VARBATE, NIBBLE, BIT, VARBIT
 
 #### IN ROW 절
 
@@ -2591,37 +2591,37 @@ LOB 데이터는 대부분의 경우 레코드 영역 밖의 가변 영역에 �
 
 ##### 흐름도
 
-![](media/GeneralReference/blob1.png)
+![](media/GeneralReference/blob_type.gif)
 
 ##### 구문
 
 ```
-BLOB [ VARIABLE ( IN ROW size ) ]
+BLOB [ IN ROW size ]
 ```
 
 ##### 설명
 
 BLOB은 이진형 대용량 데이터를 저장하기 위한 이진형 데이터 타입으로, 4GB-1byte 크기까지 저장 가능하다.
 
-FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/VARIABLE 옵션”과 “IN ROW 절”을 참고한다.
+in_row 절에 대한 자세한 설명은 앞서 기술한 [IN ROW절](#in-row-절)을 참고한다.
 
 #### CLOB
 
 ##### 흐름도
 
-![](media/GeneralReference/clob1.png)
+![](media/GeneralReference/clob_type.gif)
 
 ##### 구문
 
 ```
-CLOB [ VARIABLE ( IN ROW size ) ]
+CLOB [ IN ROW size ]
 ```
 
 ##### 설명
 
 CLOB은 문자형 대용량 데이터를 저장하기 위한 문자형 데이터 타입으로, 4GB-1byte 크기까지 저장 가능하다.
 
-FIXED 와 VARIABLE 절에 대한 자세한 설명은 앞서 기술한 “FIXED/VARIABLE 옵션”과 “IN ROW 절”을 참고한다.
+in_row 절에 대한 자세한 설명은 앞서 기술한 [IN ROW절](#in-row-절)을 참고한다.
 
 #### 제한 사항
 
