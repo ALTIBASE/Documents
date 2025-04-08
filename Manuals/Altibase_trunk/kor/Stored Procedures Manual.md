@@ -10374,7 +10374,7 @@ Altibase는 통계 자료 수집을 위해 다음과 같은 시스템 저장 프
 프로시저이다.
 
 | 이름             | 설명                                             |
-|------------------|--------------------------------------------------|
+| ---------------- | ------------------------------------------------ |
 | SET_SYSTEM_STATS | 데이터베이스 시스템에 대한 통계 자료를 변경한다. |
 | SET_TABLE_STATS  | 특정 테이블에 대한 통계 자료를 변경한다.         |
 | SET_INDEX_STATS  | 특정 인덱스에 대한 통계 자료를 변경한다.         |
@@ -10394,13 +10394,20 @@ Altibase는 통계 자료 수집을 위해 다음과 같은 시스템 저장 프
 삭제하는 저장 프로시저이다.
 
 | 이름                  | 설명                                             |
-|-----------------------|--------------------------------------------------|
+| --------------------- | ------------------------------------------------ |
 | COPY_TABLE_STATS      | 통계 정보를 새로운 파티션에 복사한다.            |
 | DELETE_SYSTEM_STATS   | 데이터베이스 시스템에 대한 통계 자료를 삭제한다. |
 | DELETE_DATABASE_STATS | 모든 테이블에 대한 통계 자료를 삭제한다.         |
 | DELETE_TABLE_STATS    | 특정 테이블에 대한 통계 자료를 삭제한다.         |
 | DELETE_INDEX_STATS    | 특정 인덱스에 대한 통계 자료를 삭제한다.         |
 | DELETE_COLUMN_STATS   | 특정 테이블의 칼럼에 대한 통계 자료를 삭제한다.  |
+
+아래는 개별적인 테이블의 통계를 잠그거나 잠금을 해제하는 저장 프로시저이다.
+
+| 이름               | 설명                                |
+| ------------------ | ----------------------------------- |
+| LOCK_TABLE_STATS   | 특정 테이블의 통계를 잠근다.        |
+| UNLOCK_TABLE_STATS | 특정 테이블의 통계 잠금을 해제한다. |
 
 #### 주의사항
 
@@ -11138,6 +11145,74 @@ no_invalidate     BOOLEAN DEFAULT FALSE );
 
 ```
 iSQL> EXEC DELETE_TABLE_STATS( 'SYS','T1');
+Execute success.
+```
+
+
+
+#### LOCK_TABLE_STATS
+
+이 프로시저는 특정 테이블의 통계를 잠근다.
+
+##### 구문
+
+```
+LOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+
+
+##### 파라미터
+
+| 이름    | 입출력 | 데이터 타입  | 설명                             |
+| ------- | ------ | ------------ | -------------------------------- |
+| ownname | IN     | VARCHAR(128) | 테이블 소유자의 이름             |
+| tabname | IN     | VARCHAR(128) | 통계 자료를 변경할 테이블의 이름 |
+
+##### 결과값
+
+저장 프로시저이므로 결과값을 반환하지 않는다.
+
+##### 예제
+
+```sql
+iSQL> EXEC LOCK_TABLE_STATS( 'SYS', 'T1' );
+Execute success.
+```
+
+
+
+#### UNLOCK_TABLE_STATS
+
+이 프로시저는 특정 테이블의 통계 잠금을 해제한다.
+
+##### 구문
+
+```
+UNLOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+
+
+##### 파라미터
+
+| 이름    | 입출력 | 데이터 타입  | 설명                             |
+| ------- | ------ | ------------ | -------------------------------- |
+| ownname | IN     | VARCHAR(128) | 테이블 소유자의 이름             |
+| tabname | IN     | VARCHAR(128) | 통계 자료를 변경할 테이블의 이름 |
+
+##### 결과값
+
+저장 프로시저이므로 결과값을 반환하지 않는다.
+
+##### 예제
+
+```sql
+iSQL> EXEC UNLOCK_TABLE_STATS( 'SYS', 'T1' );
 Execute success.
 ```
 
@@ -13840,7 +13915,7 @@ DBMS_STATS 패키지는 통계 정보를 조회 및 변경할 수 있는 인터�
 DBMS_STATS 패키지를 구성하는 프로시저와 함수는 아래의 표와 같이 제공한다.
 
 | 프로시저 및 함수      | 설명                                                         |
-|-----------------------|--------------------------------------------------------------|
+| --------------------- | ------------------------------------------------------------ |
 | COPY_TABLE_STATS      | 파티션의 통계 정보를 새로운 파티션에 복사한다.               |
 | DELETE_COLUMN_STATS   | 특정 테이블의 칼럼에 대한 통계 자료를 삭제한다.              |
 | DELETE_DATABASE_STATS | 모든 테이블에 대한 통계 자료를 삭제한다.                     |
@@ -13855,12 +13930,82 @@ DBMS_STATS 패키지를 구성하는 프로시저와 함수는 아래의 표와 
 | GET_INDEX_STATS       | 특정 인덱스에 대한 통계 자료를 조회한다.                     |
 | GET_SYSTEM_STATS      | 데이터베이스 시스템에 대한 통계 자료를 조회한다.             |
 | GET_TABLE_STATS       | 특정 테이블에 대한 통계 자료를 조회한다.                     |
+| LOCK_TABLE_STATS      | 특정 테이블의 통계를 잠근다.                                 |
 | SET_COLUMN_STATS      | 특정 테이블의 칼럼에 대한 통계 자료를 변경한다.              |
 | SET_INDEX_STATS       | 특정 인덱스에 대한 통계 자료를 변경한다.                     |
 | SET_PRIMARY_KEY_STATS | 특정 테이블의 PRIMARY KEY INDEX에 대한 통계 자료를 변경한다. |
 | SET_SYSTEM_STATS      | 데이터베이스 시스템에 대한 통계 자료를 변경한다.             |
 | SET_TABLE_STATS       | 특정 테이블에 대한 통계 자료를 변경한다.                     |
 | SET_UNIQUE_KEY_STATS  | 특정 테이블의 UNIQUE KEY INDEX에 대한 통계 자료를 변경한다.  |
+| UNLOCK_TABLE_STATS    | 특정 테이블의 통계 잠금을 해제한다.                          |
+
+#### LOCK_TABLE_STATS
+
+이 프로시저는 특정 테이블의 통계를 잠근다.
+
+##### 구문
+
+```
+LOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+
+
+##### 파라미터
+
+| 이름    | 입출력 | 데이터 타입  | 설명                             |
+| ------- | ------ | ------------ | -------------------------------- |
+| ownname | IN     | VARCHAR(128) | 테이블 소유자의 이름             |
+| tabname | IN     | VARCHAR(128) | 통계 자료를 변경할 테이블의 이름 |
+
+##### 결과값
+
+저장 프로시저이므로 결과값을 반환하지 않는다.
+
+##### 예제
+
+```
+iSQL> EXEC DBMS_STATS.LOCK_TABLE_STATS( 'SYS', 'T1' );
+Execute success.
+```
+
+
+
+#### UNLOCK_TABLE_STATS
+
+이 프로시저는 특정 테이블의 통계 잠금을 해제한다.
+
+##### 구문
+
+```
+UNLOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+
+
+##### 파라미터
+
+| 이름    | 입출력 | 데이터 타입  | 설명                             |
+| ------- | ------ | ------------ | -------------------------------- |
+| ownname | IN     | VARCHAR(128) | 테이블 소유자의 이름             |
+| tabname | IN     | VARCHAR(128) | 통계 자료를 변경할 테이블의 이름 |
+
+##### 결과값
+
+저장 프로시저이므로 결과값을 반환하지 않는다.
+
+##### 예제
+
+```
+iSQL> EXEC DBMS_STATS.UNLOCK_TABLE_STATS( 'SYS', 'T1' );
+Execute success.
+```
+
+
 
 #### SET_PRIMARY_KEY_STATS
 
@@ -13888,7 +14033,7 @@ SET_PRIMARY_KEY_STATS (
 | 이름             | 입출력 | 데이터 타입  | 설명                                                         |
 | ---------------- | ------ | ------------ | ------------------------------------------------------------ |
 | ownname          | IN     | VARCHAR(128) | 인덱스 소유자의 이름                                         |
-| tablename        | IN     | VARCHAR(128) | 통계자료를 변경할 테이블의 이름                              |
+| tabname          | IN     | VARCHAR(128) | 통계자료를 변경할 테이블의 이름                              |
 | keycount         | IN     | BIGINT       | 인덱스의 레코드 개수                                         |
 | numpage          | IN     | BIGINT       | 인덱스의 페이지 개수                                         |
 | numdist          | IN     | BIGINT       | 인덱스에서 고유한 키의 개수                                  |
@@ -13939,17 +14084,17 @@ SET_UNIQUE_KEY_STATS (
 
 ##### 파라미터
 
-| 이름             | 입출력 | 데이터 타입    | 설명                                                                                                                                                                   |
-|------------------|--------|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ownname          | IN     | VARCHAR(128)   | 인덱스 소유자의 이름                                                                                                                                                   |
-| tablename        | IN     | VARCHAR(128)   | 통계 자료를 변경할 테이블의 이름                                                                                                                                       |
-| colnamelist      | IN     | VARCHAR(32000) | 통계 자료를 변경할 칼럼 이름의 리스트. UNIQUE KEY INDEX를 생성할 때 컬럼에 DESC를 명시한 경우 colnamelist에도 대문자로 명시해야 한다.                                  |
-| keycount         | IN     | BIGINT         | 인덱스의 레코드 개수                                                                                                                                                   |
-| numpage          | IN     | BIGINT         | 인덱스의 페이지 개수                                                                                                                                                   |
-| numdist          | IN     | BIGINT         | 인덱스에서 고유한 키의 개수                                                                                                                                            |
-| clusteringfactor | IN     | BIGINT         | 인덱스에 부합하게 데이터가 정렬되어 있는 정도                                                                                                                          |
-| indexheight      | IN     | BIGINT         | 인덱스의 루트에서 리프 노드까지의 깊이                                                                                                                                 |
-| avgslotcnt       | IN     | BIGINT         | 인덱스 리프 노드에 저장된 레코드의 평균 개수                                                                                                                           |
+| 이름             | 입출력 | 데이터 타입    | 설명                                                         |
+| ---------------- | ------ | -------------- | ------------------------------------------------------------ |
+| ownname          | IN     | VARCHAR(128)   | 인덱스 소유자의 이름                                         |
+| tabname          | IN     | VARCHAR(128)   | 통계 자료를 변경할 테이블의 이름                             |
+| colnamelist      | IN     | VARCHAR(32000) | 통계 자료를 변경할 칼럼 이름의 리스트. UNIQUE KEY INDEX를 생성할 때 컬럼에 DESC를 명시한 경우 colnamelist에도 대문자로 명시해야 한다. |
+| keycount         | IN     | BIGINT         | 인덱스의 레코드 개수                                         |
+| numpage          | IN     | BIGINT         | 인덱스의 페이지 개수                                         |
+| numdist          | IN     | BIGINT         | 인덱스에서 고유한 키의 개수                                  |
+| clusteringfactor | IN     | BIGINT         | 인덱스에 부합하게 데이터가 정렬되어 있는 정도                |
+| indexheight      | IN     | BIGINT         | 인덱스의 루트에서 리프 노드까지의 깊이                       |
+| avgslotcnt       | IN     | BIGINT         | 인덱스 리프 노드에 저장된 레코드의 평균 개수                 |
 | no_invalidate    | IN     | BIGINT         | 통계 자료가 수집된 인덱스들과 관련된 모든 쿼리들의 실행 계획을 재구축할지 여부. 기본값은 FALSE이며, 실행 계획을 재구축한다. 만약 재구축하지 않으려면, TRUE를 입력한다. |
 
 ##### 결과값

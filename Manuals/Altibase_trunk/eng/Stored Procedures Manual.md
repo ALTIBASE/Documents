@@ -9381,6 +9381,13 @@ The stored procedures which delete or copy statistics pertaining to individual c
 | DELETE_INDEX_STATS    | Deletes statistics pertaining to a particular index          |
 | DELETE_COLUMN_STATS   | Deletes statistics pertaining to columns of a particular table |
 
+The stored procedures which lock or unlock statistics of specific table are listed in the following table.
+
+| Name               | Description                                 |
+| ------------------ | ------------------------------------------- |
+| LOCK_TABLE_STATS   | Locks the statistics of a specific table.   |
+| UNLOCK_TABLE_STATS | Unlocks the statistics of a specific table. |
+
 #### Notes
 
 -   The process of gathering statistics imposes an additional workload on the Altibase server.
@@ -10088,8 +10095,6 @@ cascade_index     BOOLEAN DEFAULT TRUE,
 no_invalidate     BOOLEAN DEFAULT FALSE );
 ```
 
-
-
 ##### Parameters
 
 | Name             | Input/Output | Data Type    | Description                                                  |
@@ -10110,6 +10115,74 @@ Because it is a stored procedure, there is no return value.
 
 ```
 iSQL> EXEC DELETE_TABLE_STATS( 'SYS','T1');
+Execute success.
+```
+
+
+
+#### LOCK_TABLE_STATS
+
+This procedure locks the statistics of a specific table.
+
+##### Syntax
+
+```
+LOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+
+
+##### Parameters
+
+| Name    | In/Out | Data Type    | Description                                          |
+| ------- | ------ | ------------ | ---------------------------------------------------- |
+| ownname | IN     | VARCHAR(128) | Name of the table owner                              |
+| tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
+
+##### Return Value
+
+Because it is a stored procedure, there is no return value.
+
+##### Example
+
+```sql
+iSQL> EXEC LOCK_TABLE_STATS( 'SYS', 'T1' );
+Execute success.
+```
+
+
+
+#### UNLOCK_TABLE_STATS
+
+This procedure unlocks the statistics of a specific table.
+
+##### Syntax
+
+```
+UNLOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+
+
+##### Parameters
+
+| Name    | In/Out | Data Type    | Description                                          |
+| ------- | ------ | ------------ | ---------------------------------------------------- |
+| ownname | IN     | VARCHAR(128) | Name of the table owner                              |
+| tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
+
+##### Return Value
+
+Because it is a stored procedure, there is no return value.
+
+##### Example
+
+```sql
+iSQL> EXEC UNLOCK_TABLE_STATS( 'SYS', 'T1' );
 Execute success.
 ```
 
@@ -12951,12 +13024,14 @@ The procedures and functions comprised of the DBMS_STATS package are in the foll
 | GET_INDEX_STATS       | Views stats information of specific indexes.                 |
 | GET_SYSTEM_STATS      | View stats information of database system.                   |
 | GET_TABLE_STATS       | Views stats information of specific tables.                  |
+| LOCK_TABLE_STATS      | Locks the stats information of a specific table.             |
 | SET_COLUMN_STATS      | Views stats information of column(s) in specific tables.     |
 | SET_INDEX_STATS       | Alters stats information of specific indexes.                |
 | SET_PRIMARY_KEY_STATS | Alters stats information of PRIMARY KEY INDEX of a specific table. |
-| SET_SYSTEM_STATS      | Alters stats infomration of the datebase system.             |
+| SET_SYSTEM_STATS      | Alters stats information of the database system.             |
 | SET_TABLE_STATS       | Alters stats information of (a) specific tables.             |
 | SET_UNIQUE_KEY_STATS  | Alter stats information of UNIQUE KEY INDEX of (a) specific tables. |
+| UNLOCK_TABLE_STATS    | Unlocks the stats information of a specific table.           |
 
 #### SET_PRIMARY_KEY_STATS
 
@@ -12984,7 +13059,7 @@ SET_PRIMARY_KEY_STATS (
 | Name             | In/Output | Data Type    | Description                                                  |
 | ---------------- | --------- | ------------ | ------------------------------------------------------------ |
 | ownname          | IN        | VARCHAR(128) | Name of the index owner                                      |
-| tablename        | IN        | VARCHAR(128) | Name of the table for which statistics to be changed         |
+| tabname          | IN        | VARCHAR(128) | Name of the table for which statistics to be changed         |
 | keycount         | IN        | BIGINT       | Number of records in the index                               |
 | numpage          | IN        | BIGINT       | Number of pages in the index                                 |
 | numdist          | IN        | BIGINT       | Number of unique keys in the index                           |
@@ -13038,7 +13113,7 @@ SET_UNIQUE_KEY_STATS (
 | Name             | In/Out | Data Type      | Description                                                  |
 | ---------------- | ------ | -------------- | ------------------------------------------------------------ |
 | ownname          | IN     | VARCHAR(128)   | Name of the index owner                                      |
-| tablename        | IN     | VARCHAR(128)   | Name of the table for which statistics to be changed         |
+| tabname          | IN     | VARCHAR(128)   | Name of the table for which statistics to be changed         |
 | colnamelist      | IN     | VARCHAR(32000) | List of column names to change statistics for. If DESC is specified in a column when creating a UNIQUE KEY INDEX, it must also be specified in uppercase in the colnamelist. |
 | keycount         | IN     | BIGINT         | Number of records in the index                               |
 | numpage          | IN     | BIGINT         | Number of pages in the index                                 |
@@ -13063,6 +13138,81 @@ iSQL> EXEC DBMS_STATS.SET_UNIQUE_KEY_STATS( 'SYS', 'T1', 'C1,C2', 1, 2, 3, 4, 5,
 __SYS_IDX_ID_149
 Execute success.
 ```
+
+#### LOCK_TABLE_STATS
+
+This procedure locks the statistics of a specific table.
+
+##### Syntax
+
+```
+LOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+
+
+##### Parameters
+
+| Name    | In/Out | Data Type    | Description                                          |
+| ------- | ------ | ------------ | ---------------------------------------------------- |
+| ownname | IN     | VARCHAR(128) | Name of the table owner                              |
+| tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
+
+##### Return Value
+
+Because it is a stored procedure, there is no return value.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```sql
+iSQL> EXEC DBMS_STATS.LOCK_TABLE_STATS( 'SYS', 'T1' );
+Execute success.
+```
+
+
+
+#### UNLOCK_TABLE_STATS
+
+This procedure unlocks the statistics of a specific table.
+
+##### Syntax
+
+```
+UNLOCK_TABLE_STATS (
+  ownname VARCHAR(128),
+  tabname VARCHAR(128) );
+```
+
+
+
+##### Parameters
+
+| Name    | In/Out | Data Type    | Description                                          |
+| ------- | ------ | ------------ | ---------------------------------------------------- |
+| ownname | IN     | VARCHAR(128) | Name of the table owner                              |
+| tabname | IN     | VARCHAR(128) | Name of the table for which statistics to be changed |
+
+##### Return Value
+
+Because it is a stored procedure, there is no return value.
+
+##### Exception
+
+There is no exception.
+
+##### Example
+
+```sql
+iSQL> EXEC DBMS_STATS.UNLOCK_TABLE_STATS( 'SYS', 'T1' );
+Execute success.
+```
+
 
 
 ### DBMS_UTILITY

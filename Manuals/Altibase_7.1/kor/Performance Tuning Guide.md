@@ -5552,6 +5552,11 @@ Altibase는 수동 및 자동으로 통계정보를 수집할 수 있다.
 
 -   SET_COLUMN_STATS
 
+아래의 시스템 저장 프로시저를 사용해서 사용자가 직접 테이블 통계를 잠그거나 잠금을 해제할 수 있다.
+
+- LOCK_TABLE_STATS
+- UNLOCK_TABLE_STATS
+
 각 저장 프로시저에 대한 상세한 설명은 Stored Procedures Manual의 DBMS Stats를 참고한다.
 
 ### 자동 통계정보 수집(Auto Stats)
