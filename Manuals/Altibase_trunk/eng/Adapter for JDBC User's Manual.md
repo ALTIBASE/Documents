@@ -626,16 +626,14 @@ Multiple transactions can be processed at once. Even if commit execution is perf
 “Batch DML” means to batch process multiple DML statements of the same type. This results in improved performance by reducing network cost.
 
 -   Default Value: 10
-
 -   Range: 1 – 32767
 
--   Enabling the `OTHER_DATABASE_GROUP_COMMIT` property enhances performance.
+This property has the following characteristics:
 
--   This property currently applies only to `INSERT` and `DELETE` statements.
-
--   In order to turn off Batch DML, this property should be set to 1.
-
--   If LOB data is modified using the LOB interface, the Batch DML feature does not function.
+- Enabling the OTHER_DATABASE_GROUP_COMMIT property improves performance.
+- Currently, this property only affects INSERT and DELETE statements.
+- In order to turn off Batch DML, this property should be set to 1.
+- If users use the LOB interface to update LOB data, the Batch DML feature will not work.
 
 ##### OTHER_DATABASE_ERROR_RETRY_COUNT (Unit: count)
 
@@ -663,7 +661,7 @@ This indicates retry intervals between error occurrences when applying records.
 
 This determines whether to discard writing the relevant records if it fails to record even though retry was attempted as much as OTHER_DATABASE_ERROR_RETRY_TIME at intervals of OTHER_DATABASE_ERROR_RETRY_COUNT.
 
-For errors during LOB-related XLog processing, the record is not abandoned, and the adapter shuts down regardless of this property’s value.
+However, if an error occurs during XLog processing related to LOBs, the adapter does not abandon the record but instead terminates.
 
 -   Default Value: 1
 -   0: Error message is output as terminating Adapter. (Do not discard writing the relevant records.)
