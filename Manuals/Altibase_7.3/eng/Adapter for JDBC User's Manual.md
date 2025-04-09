@@ -566,6 +566,14 @@ This property specifies the interval when re-attempting for the number of times 
 
 -   0: Immediately re-attempt without any interval.
 
+##### ADAPTER_LOB_TYPE_SUPPORT
+
+This property determines if the LOB data type is supported or not.
+
+* Default: -
+* 0: Do not support LOB data type.
+* 1: Support LOB data type.
+
 #### Other Database Properties
 
 The following properties must be set in order to use Other DB, which is the target to send data from jdbcAdapter.
@@ -586,7 +594,7 @@ This specifies the maximum size of Heap JVM uses.
 
 -   Range: 0 – 10240
 
--   This property should be set to 0 to let JVM to automatically set the maximum size of Heap.
+-   This property should be set to 0 to let JVM automatically set the maximum size of Heap.
 
 ##### OTHER_DATABASE_JDBC_DRIVER_PATH 
 
@@ -606,7 +614,7 @@ The following properties are used to set whether DML statements executed in Alti
 
 ##### OTHER_DATABASE_GROUP_COMMIT
 
-Multiple transactions can be processed at once. Even if commit execution is performed in the original Altibase server, the Target DB postpones to commit until certain amount of transactions are accumulated. Therefore, the overall performance can be improved, but the response time of individual transactions might be postponed.
+Multiple transactions can be processed at once. Even if commit execution is performed in the original Altibase server, the Target DB postpones committing until a certain amount of transactions are accumulated. Therefore, the overall performance can be improved, but the response time of individual transactions might be postponed.
 
 -   Default Value: 1
 
@@ -619,14 +627,20 @@ Multiple transactions can be processed at once. Even if commit execution is perf
 “Batch DML” means to batch process multiple DML statements of the same type. This results in improved performance by reducing network cost.
 
 -   Default Value: 10
-
 -   Range: 1 – 32767
 
--   In order to turn off Batch DML, this property should be set to 1.
+This property has the following characteristics:
+
+- Enabling the OTHER_DATABASE_GROUP_COMMIT property improves performance.
+- Currently, this property only affects INSERT and DELETE statements.
+- In order to turn off Batch DML, this property should be set to 1.
+- If users use the LOB interface to update LOB data, the Batch DML feature will not work.
 
 ##### OTHER_DATABASE_ERROR_RETRY_COUNT (Unit: count)
 
 This indicates the number of retry attempts if an error occurs when applying to records. 
+
+However, XLogs, including LOB data, are excluded from the retry target in case of an error.
 
 -   Default Value: 0
 
@@ -636,7 +650,7 @@ This indicates the number of retry attempts if an error occurs when applying to 
 
 ##### OTHER_DATABASE_ERROR_RETRY_INTERVAL (Unit: second)
 
-This indicates retry intervals between error occurrences when applying records.
+This indicates a retry interval between error occurrences when applying records.
 
 -   Default Value: 0
 
@@ -648,11 +662,13 @@ This indicates retry intervals between error occurrences when applying records.
 
 This determines whether to discard writing the relevant records if it fails to record even though retry was attempted as much as OTHER_DATABASE_ERROR_RETRY_TIME at intervals of OTHER_DATABASE_ERROR_RETRY_COUNT.
 
+However, if an error occurs during XLog processing related to LOBs, the adapter does not abandon the record but instead terminates.
+
 -   Default Value: 1
 -   0: Error message is output as terminating Adapter. (Do not discard writing the relevant records.)
     However, the record in which the error included in dbms_skip_error_include.list has occurred is abandoned and the next record is reflected.
 -   1: Write from the next records. (Discard writing the relevant records.)
-    However, the adpater is terminated for records in which errors included in dbms_skip_error_exclude.list have occurred.
+    However, the adapter is terminated for records in which errors included in dbms_skip_error_exclude.list have occurred.
 
 The error values included in dbms_skip_error_include.list and dbms_skip_error_exclude.list are SQLSTATE standard error values.
 
@@ -748,6 +764,19 @@ Generally, the replication target table cannot execute the data definition langu
 In general, if a data definition language (DDL) is executed on a replication target table, jdbcAdapter is terminated after all changes that occurred before the current DDL are reflected in the target database. When jdbcAdapter is terminated, replication can be performed again by executing the same DDL on the target database to make the table schema the same and restarting jdbcAdapter.
 
 For other DDLs that can be executed, please refer to Execution DDL Statements on Replication Target Tables in the *Replication Manual.*
+
+#### LOB Data Type Constraints
+
+- LOB data types are supported starting from Adapter for JDBC version 7.1.0.7.0.
+- To use the LOB data type, set the ADAPTER_LOB_TYPE_SUPPORT property to 1.
+- A table that includes LOB data type has a constraint for the following three properties. For more information, please refer to the description of each property.
+  - [OTHER_DATABASE_ERROR_RETRY_COUNT](#other_database_error_retry_count-unit-count)
+  - [OTHER_DATABASE_SKIP_ERROR](#other_database_skip_error)
+  - [OTHER_DATABASE_BATCH_DML_MAX_SIZE](#other_database_batch_dml_max_size-unit-count)
+-  When modifying LOB data using SELECT FOR UPDATE on the Altibase server, it is recommended to perform the operation after committing the transaction.
+- If users do not commit, LOB data updated by SELECT FOR UPDATE may not be replicated in the following situations: 
+  - If an error occurs during replication of data modified prior to executing SELECT FOR UPDATE.
+  - If SKIP occurs due to the OTHER_DATABASE_SKIP_ERROR, OTHER_DATABASE_SKIP_INSERT, or OTHER_DATABASE_SKIP_UPDATE properties during replication of data modified prior to executing SELECT FOR UPDATE.
 
 ### Startup and Shutdown
 
