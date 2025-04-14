@@ -8143,9 +8143,11 @@ SQL_ERROR
 
 LOB locator로 대표되는 LOB에 대한 조작이 종료되었음을 서버에게 알려준다. 이로 인해 서버에서 할당된 LOB locator는 해제되며, 그와 관련된 서버의 자원들도 해제된다.
 
-본 함수는 LOB locator가 가리키는 LOB에 대한 변경 사항을 commit 또는 rollback하지 않는다.
+그런데, SQLFreeLob()은 호출 후 곧바로 서버에 전달되지 않고, 커밋(commit), 롤백(rollback), 커서 닫기(cursor close) 등의 유효한 통신이 발생할 때 서버로 전송되어 LOB Locator가 해제된다. 이는 서버-클라이언트간의 통신 비용을 줄이기 위한 방식이다. 반면, SQLFreeLob2()는 호출 즉시 서버에 요청을 전송하여 LOB Locator를 해제하는 함수이다. 특히 JSON 데이터 타입의 Insert, Update 작업이 완료된 후에는 SQLFreeLob2 함수를 이용해야 한다.
 
-SQLEndTran()으로 트랜잭션을 종료한 경우, LOB locator는 자동으로 해제되므로 본 함수를 호출할 필요가 없다.
+> [!NOTE]
+>
+> SQLFreeLob() 함수는 LOB locator가 가리키는 LOB에 대한 변경 사항을 commit 또는 rollback하지 않는다. 만약, SQLEndTran()으로 트랜잭션을 종료한 경우, LOB locator는 자동으로 해제되므로 SQLFreeLob() 함수를 호출하지 않아도 된다.
 
 #### 진 단
 
@@ -8165,6 +8167,54 @@ SQLPutLob
 #### 예 제
 
 SQLGetLobLength(), SQLGetLob(), SQLPutLob() 의 예제를 참고한다. 
+
+### SQLFreeLob2
+
+#### 구 문
+
+```
+SQLRETURN SQLFreeLob (
+    SQLHSTMT        stmt,
+    SQLUBIGINT      locator);
+```
+
+#### 인 자
+
+| 자료유형   | 인자    | 사용 | 설명                             |
+| ---------- | ------- | ---- | -------------------------------- |
+| SQLHSTMT   | stmt    | 입력 | 검색된 결과들에 대한 명령문 핸들 |
+| SQLUBIGINT | locator | 입력 | LOB Locator                      |
+
+#### 결과값
+
+```
+SQL_SUCCESS
+SQL_INVALID_HANDLE
+SQL_ERROR
+```
+
+#### 설 명
+
+SQLFreeLob2함수는 LOB Locator와 관련된 자원들을 즉시 해제합니다. 주로 JSON 데이터 타입의 Insert, Update 트랜잭션 처리시 사용해야한다.
+
+#### 진 단
+
+| SQLSTATE | 설명                                | 부연설명                                                     |
+| -------- | ----------------------------------- | ------------------------------------------------------------ |
+| 08S01    | 통신 회선 장애 (데이터 송수신 실패) | Altibase CLI 드라이버와 DB간에 함수 처리가 완료되기 전에 통신 회선 실패 |
+| HY000    | 일반 오류                           |                                                              |
+
+#### 관련함수
+
+```
+SQLGetLobLength
+SQLGetLob
+SQLPutLob
+```
+
+#### 예 제
+
+sample의 예제를 참고한다.
 
 4.커서 사용
 =========
