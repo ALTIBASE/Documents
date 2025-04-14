@@ -2780,6 +2780,7 @@ JSON 문서를 효율적으로 저장하고 검색할 수 있도록 JSON 데이�
 * LOB 타입 칼럼의 제약 사항과 동일하다.
 * JSON 문서의 최대 깊이(depth)는 256이다.
 * JSON 문서를 처리할 때 Temporary LOB을 사용한다. 따라서, JSON 타입을 사용하려면 [TEMPORARY_LOB_ENABLE](#temporary_lob_enable) 프로퍼티를 1로 설정해야 한다.
+* JSON 데이터 타입은 SELECT FOR UPDATE 구문에 사용될 수 없다.
 
 #### JSON 함수
 
