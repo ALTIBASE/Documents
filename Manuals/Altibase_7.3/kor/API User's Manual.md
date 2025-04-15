@@ -3933,7 +3933,7 @@ node-odbc-altibase 에 대한 자세한 내용은 [npm의 node-odbc-altibase](ht
 
 * Altibase ODBC 라이브러리
   * ODBC 라이브러리는 Node.js 커넥터와는 별도로 설치해야 한다. Altibase ODBC 설치방법은 ***ODBC User's Manual***을 참고한다.
-* Altibase 7.3.0.0.5, 7.1.0.9.5 이상
+* Altibase 7.3.0.0.5 이상
 * Noje.js 18, 20, 22
 
 ### 지원 OS
