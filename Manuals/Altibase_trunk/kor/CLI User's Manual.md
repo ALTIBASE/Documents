@@ -8173,7 +8173,7 @@ SQLGetLobLength(), SQLGetLob(), SQLPutLob() 의 예제를 참고한다.
 #### 구 문
 
 ```
-SQLRETURN SQLFreeLob (
+SQLRETURN SQLFreeLob2 (
     SQLHSTMT        stmt,
     SQLUBIGINT      locator);
 ```
