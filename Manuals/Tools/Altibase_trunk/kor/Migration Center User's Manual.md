@@ -1,6 +1,6 @@
 # Migration Center User's Manual
 
-#### Release 7.14
+#### Release 7.15
 
 Altibase® Tools & Utilities
 
@@ -97,8 +97,8 @@ Altibase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities Migration Center User's Manual
-Release 7.14
-Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+Release 7.15
+Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
 <b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
@@ -365,7 +365,7 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 - Informix: 11.50
 - Oracle TimesTen: 7.0, 11.2
 - CUBRID: 8.4.1~9.3.5 (ISO-8859-1, UTF-8 charset)
-- Tibero: 4sp1~6
+- Tibero: 4sp1~7
 - PostgreSQL: 9.5.3
 
 ##### JDBC 드라이버
@@ -1128,7 +1128,7 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
-| Index                  |                   O                   |                   O                    | Tibero의 LOB 타입 칼럼에 자동으로 생성되는 index는 Altibase에서 지원하지 않으므로 이관되지 않는다. Build 단계에서 걸러진 이관 불가능한 인덱스 목록은 Build Report의 Missing 탭에서 확인할 수 있다. |
+| Index                  |                   O                   |                   O                    | Tibero의 LOB 타입 칼럼에 자동으로 생성되는 index는 Altibase에서 지원하지 않으므로 이관되지 않는다. Build 단계에서 걸러진 이관 불가능한 인덱스 목록은 Build Report의 Missing 탭에서 확인할 수 있다. </br>보이지 않는 인덱스(Invisible Index)와 사용 불가능한 인덱스(Unusable Index)는 마이그레이션되지 않는다. |
 | Sequence               |                   O                   |                   X                    |                                                              |
 | Private Synonym        |               부분 지원               |                   X                    | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
 | Procedure              |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
@@ -3684,6 +3684,28 @@ AS '${ORACLE_HOME}/lib/test_lib.so';
 ```sql
 CREATE OR REPLACE LIBRARY lib1 /* UNTRUSTED */ /* [REMOVED] RULE-17002 : The keyword UNTRUSTED is removed */ 
 AS '${ORACLE_HOME}/lib/test_lib.so';
+```
+
+#### RULE-17003
+
+###### 타입
+
+`REMOVED`
+
+###### 설명
+
+지원하지 않는 EDITIONABLE/NONEDITIONABLE 키워드가 제거되었다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE NONEDITIONABLE LIBRARY TESTLIB1 AS 'str_uppercase.so';
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE /* NONEDITIONABLE */ /* [REMOVED] RULE-17003 : EDITIONABLE/NONEDITIONABLE is removed */ LIBRARY TESTLIB1 AS 'str_uppercase.so';
 ```
 
 ### DML문 변환 규칙
@@ -7362,6 +7384,54 @@ CREATE VIEW v_r40022 AS SELECT SYS_CONTEXT('USERENV', 'INSTANCE_NAME', 100) FROM
 
 ```sql
 CREATE VIEW v_r40022 AS SELECT SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'), 0, 100) FROM dual;
+```
+
+#### RULE-40023
+
+###### 타입
+
+`TODO`
+
+###### 설명
+
+SQLERRM(error_code)는 지원하지 않는 함수로 수동으로 변환해야 한다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1 
+AS
+BEGIN
+   FOR curosor1 IN (SELECT c1, c2 FROM t1)
+   LOOP
+        UPDATE t2 SET c2 = curosor1 .c2 WHERE c1 = curosor1 .c1;
+   END LOOP;
+EXCEPTION
+    WHEN OTHERS THEN
+       ROLLBACK;
+       DBMS_OUTPUT.PUT_LINE('SQL ERROR CODE:' || SQLCODE);
+       DBMS_OUTPUT.PUT_LINE('SQL ERROR MESSAGE:' || SQLERRM);
+       DBMS_OUTPUT.PUT_LINE(SQLERRM(SQLCODE));
+END;
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1
+AS
+BEGIN
+   FOR curosor1 IN (SELECT c1, c2 FROM t1)
+   LOOP
+        UPDATE t2 SET c2 = curosor1 .c2 WHERE c1 = curosor1 .c1;
+   END LOOP;
+EXCEPTION
+    WHEN OTHERS THEN
+       ROLLBACK;
+       DBMS_OUTPUT.PUT_LINE('SQL ERROR CODE:' || SQLCODE);
+       DBMS_OUTPUT.PUT_LINE('SQL ERROR MESSAGE:' || SQLERRM);
+       DBMS_OUTPUT.PUT_LINE(SQLERRM(SQLCODE) /* [TODO] RULE-40023 : The SQLERRM(error_code) function should be manually converted */);
+END;
 ```
 
 # F.부록: FAQ
