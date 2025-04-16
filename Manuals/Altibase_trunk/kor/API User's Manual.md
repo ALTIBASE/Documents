@@ -3952,7 +3952,7 @@ $ npm install node-odbc-altibase
 >
 > * 소스 다운로드 url: https://github.com/ALTIBASE/node-odbc-altibase
 >
-> githup 에서 소스를 다운로드한 다음, 아래와 같이 설정 후 odbc 바이너리 모듈을 직접 빌드한다.
+> GitHub 에서 소스를 다운로드한 다음, 아래와 같이 설정 후 odbc 바이너리 모듈을 직접 빌드한다.
 >
 > ```
 > export CXXFLAGS=-DBUILD_LEGACY_64_BIT_MODE=1
