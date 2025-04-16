@@ -798,7 +798,7 @@ EXEC SQL END DECLARE SECTION;
 
 ##### CONNECT문, 다중 연결, SESSION 관련 주의 사항
 
--   프로그램 안에서 connect 후 같은 연결 이름으로 다시 connect를 시도한다면, connect 이전에 반드시 FREE문 또는 DISCONNECT문을 수행하여야 한다. 이 때, 데이터베이스 서버가 running 상태라면 DISCONNECT문을 수행하여야 하고, running 상태가 아니라면 FREE문을 수행하여야 한다.
+-   프로그램 안에서 connect 후 같은 연결 이름으로 다시 connect를 시도한다면, connect 이전에 반드시  DISCONNECT문을 수행하여야 한다.
     
 -   USING절을 이용하여 연결 방식을 지정할 경우, CONNTYPE을 2 또는 3으로 지정한다면 DSN 또는 PORT_NO를 함께 지정하더라도 DSN, PORT_NO 옵션은 무시되고 로컬 데이터베이스 서버로 연결을 시도한다.
     
@@ -3886,7 +3886,7 @@ export ALTIBASE_NLS_USE=US7ASCII
 
 > ##### 주의 사항
 >
-> CONNECT 후 다시 CONNECT를 수행한다면 “Already connected” 오류가 발생한다. 따라서 CONNECT 후 다시 CONNECT를 수행하려면 먼저 FREE 또는 DISCONNECT를 수행하여야 한다. 이 때, 데이터베이스 서버가 running 상태라면 DISCONNECT를, running 상태가 아니라면 FREE를 수행하여야 한다.
+> CONNECT 후 다시 CONNECT를 수행한다면 “Already connected” 오류가 발생한다. 따라서 CONNECT 후 다시 CONNECT를 수행하려면 먼저 DISCONNECT를 수행하여야 한다.
 > 
 > USING절을 이용하여 연결 방식을 지정할 경우, CONNTYPE을 2 또는 3으로 지정한다면 DSN 또는 PORT_NO를 함께 지정하더라도 DSN, PORT_NO 옵션은 무시되고 로컬 데이터베이스 서버로 연결을 시도한다.
 
@@ -4694,34 +4694,6 @@ EXEC SQL BATCH ON;	- 배치 처리 모드로 동작
 EXEC SQL BATCH OFF; 	- 배치 처리 모드를 사용하지 않음
 ```
 
-#### FREE
-
-데이터베이스 서버와의 연결 및 내장 SQL문 수행 시 할당 받았던 자원을 모두 해제한다.
-
-##### 구문
-
-```
-EXEC SQL FREE;
-```
-
-##### 인자
-
-없음
-
-##### 설명
-
-CONNECT 후 내장 SQL문을 수행하다가 서버와의 연결이 끊어져서 다시 CONNECT를 수행하려면 먼저 FREE문을 수행하여야 한다. 이 때, 데이터베이스 서버는 running 상태가 아니어야 한다. 만약 데이터베이스 서버가 running 상태라면 FREE문 대신 DISCONNECT문을 수행하여야 한다.
-
-##### 예제
-
-다음 예제는 FREE문의 사용 예를 보여준다.
-
-\< 예제 프로그램 : free.sc \>
-
-```
-EXEC SQL FREE;
-```
-
 #### INCLUDE
 
 전처리 시 포함할 헤더파일을 지정한다.
@@ -4767,34 +4739,7 @@ EXEC SQL INCLUDE myheader1.h;	(X)
 EXEC SQL INCLUDE hostvar.h;
 ```
 
-#### 예제 프로그램
 
-##### free.sc 
-
-$ALTIBASE_HOME/sample/APRE/free.sc 참고
-
-##### 실행 결과
-
-```
-$ is –f schema/schema.sql
-$ make free
-$ ./free
-<FREE>
-------------------------------------------------------
-[Connect]
-------------------------------------------------------
-Success connection to altibase server
-
-------------------------------------------------------
-[Free]
-------------------------------------------------------
-Error : [-331796] Function sequence error
-
-------------------------------------------------------
-[Reconnect]
-------------------------------------------------------
-Error : [-589826] Already connected
-```
 
 ### OPTION문
 
@@ -8537,7 +8482,7 @@ CONNECT <:user> IDENTIFIED BY <:passwd>
 > ##### 주의 사항
 >
 > - 다중 연결 프로그램에서 연결 이름을 가지지 않는 연결은 하나만 허용하며, 이후 AT절을 사용하지 않은 내장 SQL문은 이 연결을 이용하여 처리된다.
-> - CONNECT 후 같은 연결 이름으로 다시 CONNECT를 수행한다면 “The connection already exists.” 오류가 발생한다. 따라서 CONNECT 후 같은 연결 이름으로 다시 CONNECT를 수행하려면 먼저 FREE 또는 DISCONNECT를 수행하여야 한다. 이 때, 데이터베이스 서버가 running 상태라면 DISCONNECT를, running 상태가 아니라면 FREE를 수행하여야 한다.
+> - CONNECT 후 같은 연결 이름으로 다시 CONNECT를 수행한다면 “The connection already exists.” 오류가 발생한다. 따라서 CONNECT 후 같은 연결 이름으로 다시 CONNECT를 수행하려면 먼저 DISCONNECT를 수행하여야 한다.
 > 
 
 ##### 예제
@@ -8730,8 +8675,6 @@ EXEC SQL [ AT <conn_name | :conn_name> ]
 SAVEPOINT <savepoint_name>;
 EXEC SQL [ AT <conn_name | :conn_name> ] 
 ROLLBACK [ TO SAVEPOINT <savepoint_name> ];
-EXEC SQL [ AT <conn_name | :conn_name> ] 
-FREE;
 EXEC SQL [ AT <conn_name | :conn_name> ] 
 BATCH;
 ```
@@ -10425,7 +10368,6 @@ delete.sc
 dynamic1.sc
 dynamic2.sc
 dynamic3.sc
-free.sc
 indicator.sc
 insert.sc
 mc1.sc
