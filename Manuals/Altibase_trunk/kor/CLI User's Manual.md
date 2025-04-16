@@ -8143,7 +8143,7 @@ SQL_ERROR
 
 LOB locator로 대표되는 LOB에 대한 조작이 종료되었음을 서버에게 알려준다. 이로 인해 서버에서 할당된 LOB locator는 해제되며, 그와 관련된 서버의 자원들도 해제된다.
 
-그런데, SQLFreeLob()은 호출 후 곧바로 서버에 전달되지 않고, 커밋(commit), 롤백(rollback), 커서 닫기(cursor close) 등의 유효한 통신이 발생할 때 서버로 전송되어 LOB Locator가 해제된다. 이는 서버-클라이언트간의 통신 비용을 줄이기 위한 방식이다. 반면, SQLFreeLob2()는 호출 즉시 서버에 요청을 전송하여 LOB Locator를 해제하는 함수이다. 특히 JSON 데이터 타입의 Insert, Update 작업이 완료된 후에는 SQLFreeLob2 함수를 이용해야 한다.
+그런데, JSON 데이터 타입의 Insert, Update 작업이 완료된 후에는 SQLFreeLob2 함수를 이용해야 한다.
 
 > [!NOTE]
 >
@@ -8170,6 +8170,8 @@ SQLGetLobLength(), SQLGetLob(), SQLPutLob() 의 예제를 참고한다.
 
 ### SQLFreeLob2
 
+JSON 데이터 타입과 관련된 LOB Locator의 자원들을 해제한다.
+
 #### 구 문
 
 ```
@@ -8195,7 +8197,7 @@ SQL_ERROR
 
 #### 설 명
 
-SQLFreeLob2함수는 LOB Locator와 관련된 자원들을 즉시 해제합니다. 주로 JSON 데이터 타입의 Insert, Update 트랜잭션 처리시 사용해야한다.
+SQLFreeLob2함수는 SQLFreeLob 함수와 동일하게 LOB Locator와 관련된 자원들을 해제하는데, JSON 데이터 타입의 Insert, Update 트랜잭션 처리시 사용해야한다.
 
 #### 진 단
 
