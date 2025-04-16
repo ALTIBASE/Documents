@@ -3955,12 +3955,18 @@ node-odbc-altibase는 npm 사이트를 통해 제공되며, 다음과 같이 npm
 $ npm install node-odbc-altibase
 ```
 
-기본적으로 node-odbc-altibase는 SQLLEN 8 셋팅으로 설치가 된다. 만약, SQLLEN 4용 ODBC Manager를 사용한다면, 아래와 같이 설정 후 odbc 바이너리 모듈을 직접 빌드해서 사용해야 한다.
+기본적으로 node-odbc-altibase는 SQLLEN 8 셋팅으로 설치가 된다. 만약, SQLLEN 4용 ODBC Manager를 사용한다면, 아래의 **SQLLEN 4 모드로 설치 방법**을 참고하여 바이너리 모듈을 직접 빌드해서 사용해야 한다.
 
-```bash
-export CXXFLAGS=-DBUILD_LEGACY_64_BIT_MODE=1
-$ npm run build
-```
+> **SQLLEN 4 모드로 설치 방법**
+>
+> * 소스 다운로드 url: https://github.com/ALTIBASE/node-odbc-altibase
+>
+> githup 에서 소스를 다운로드한 다음, 아래와 같이 설정 후 odbc 바이너리 모듈을 직접 빌드한다.
+>
+> ```
+> export CXXFLAGS=-DBUILD_LEGACY_64_BIT_MODE=1
+> $ npm run build
+> ```
 
 ### node-odbc-altibase 사용 선언
 
