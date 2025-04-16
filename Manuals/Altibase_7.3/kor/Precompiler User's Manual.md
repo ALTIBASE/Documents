@@ -798,7 +798,7 @@ EXEC SQL END DECLARE SECTION;
 
 ##### CONNECT문, 다중 연결, SESSION 관련 주의 사항
 
--   프로그램 안에서 connect 후 같은 연결 이름으로 다시 connect를 시도한다면, connect 이전에 반드시  DISCONNECT문을 수행하여야 한다.
+-   프로그램 안에서 connect 후 같은 연결 이름으로 다시 connect를 시도한다면, connect 이전에 반드시  DISCONNECT문을 수행해야 한다.
     
 -   USING절을 이용하여 연결 방식을 지정할 경우, CONNTYPE을 2 또는 3으로 지정한다면 DSN 또는 PORT_NO를 함께 지정하더라도 DSN, PORT_NO 옵션은 무시되고 로컬 데이터베이스 서버로 연결을 시도한다.
     
@@ -3886,7 +3886,7 @@ export ALTIBASE_NLS_USE=US7ASCII
 
 > ##### 주의 사항
 >
-> CONNECT 후 다시 CONNECT를 수행한다면 “Already connected” 오류가 발생한다. 따라서 CONNECT 후 다시 CONNECT를 수행하려면 먼저 DISCONNECT를 수행하여야 한다.
+> CONNECT 후 다시 CONNECT를 수행한다면 “Already connected” 오류가 발생한다. 따라서 CONNECT 후 다시 CONNECT를 수행하려면 먼저 DISCONNECT를 수행해야 한다.
 > 
 > USING절을 이용하여 연결 방식을 지정할 경우, CONNTYPE을 2 또는 3으로 지정한다면 DSN 또는 PORT_NO를 함께 지정하더라도 DSN, PORT_NO 옵션은 무시되고 로컬 데이터베이스 서버로 연결을 시도한다.
 
@@ -8482,7 +8482,7 @@ CONNECT <:user> IDENTIFIED BY <:passwd>
 > ##### 주의 사항
 >
 > - 다중 연결 프로그램에서 연결 이름을 가지지 않는 연결은 하나만 허용하며, 이후 AT절을 사용하지 않은 내장 SQL문은 이 연결을 이용하여 처리된다.
-> - CONNECT 후 같은 연결 이름으로 다시 CONNECT를 수행한다면 “The connection already exists.” 오류가 발생한다. 따라서 CONNECT 후 같은 연결 이름으로 다시 CONNECT를 수행하려면 먼저 DISCONNECT를 수행하여야 한다.
+> - CONNECT 후 같은 연결 이름으로 다시 CONNECT를 수행한다면 “The connection already exists.” 오류가 발생한다. 따라서 CONNECT 후 같은 연결 이름으로 다시 CONNECT를 수행하려면 먼저 DISCONNECT를 수행해야 한다.
 > 
 
 ##### 예제
