@@ -117,15 +117,7 @@ Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
   - [1.3 호환 가능한 데이터베이스 시스템](#13-호환-가능한-데이터베이스-시스템)
 - [2. 릴리즈 정보](#2-릴리즈-정보)
   - [2.1 새로운 기능](#21-새로운-기능)
-    - [원본 데이터베이스로 Oracle 12c, 18c, 19c 지원](#원본-데이터베이스로-oracle-12c-18c-19c-지원)
-    - [Invisible 칼럼 마이그레이션 여부를 설정하는 옵션 추가](#invisible-칼럼-마이그레이션-여부를-설정하는-옵션-추가)
-    - [문자열 데이터 타입 VARCHAR 타입의 CLOB 변환 여부를 설정하는 옵션 추가](#문자열-데이터-타입-varchar-타입의-clob-변환-여부를-설정하는-옵션-추가)
   - [2.2 수정된 버그](#22-수정된-버그)
-    - [시퀀스 .nextval 칼럼 기본값 마이그레이션을 지원합니다.](#시퀀스-nextval-칼럼-기본값-마이그레이션을-지원합니다)
-    - [Identity 칼럼 마이그레이션을 지원합니다.](#identity-칼럼-마이그레이션을-지원합니다)
-    - [DEFAULT ON NULL 칼럼 기본값 마이그레이션을 지원합니다.](#default-on-null-칼럼-기본값-마이그레이션을-지원합니다)
-    - [Oracle의 외부테이블(External Table)과 하이브리드 파티션드 테이블(Hybrid Partitioned Table)의 마이그레이션을 지원합니다.](#oracle의-외부테이블external-table과-하이브리드-파티션드-테이블hybrid-partitioned-table의-마이그레이션을-지원합니다)
-    - [보이지 않는 인덱스(Invisible Index)와 사용 불가능한 인덱스(Unusable Index)는 마이그레이션 대상에서 제외합니다.](#보이지-않는-인덱스invisible-index와-사용-불가능한-인덱스unusable-index는-마이그레이션-대상에서-제외합니다)
 - [3. 사용된 오픈소스 라이브러리 / 로열티 프리 이미지](#3-사용된-오픈소스-라이브러리--로열티-프리-이미지)
       - [오픈소스 라이브러리](#오픈소스-라이브러리)
       - [로열티 프리 이미지](#로열티-프리-이미지)
@@ -190,11 +182,10 @@ Migration Center 7.15 의 새로운 기능과 수정된 버그 및 변경 사항
 ## 2.1 새로운 기능
 
 ### 원본 데이터베이스로 Oracle 12c, 18c, 19c 지원
-
-Migration Center의 원본 데이터베이스 Oracle 지원 버전이 Oracle 9i ~ 11g에서 12c, 18c, 19c 버전이 추가되어 Oracle 9i ~ 19c로 변경되었다.
+Migration Center의 원본 데이터베이스 Oracle 지원 버전에 12c, 18c, 19c 버전이 추가되어, 전체 지원 버전이 Oracle 9i ~ 19c로 변경되었다.
 
 ### 원본 데이터베이스로 Tibero 7 지원
-Migration Center의 원본 데이터베이스 Tibero 지원 버전이 Tibero 4 ~ 6에서 7 버전이 추가되어 Tibero 4 ~ 7로 변경되었다.
+Migration Center의 원본 데이터베이스 Tibero 지원 버전에 7 버전이 추가되어, 전체 지원 버전이 Tibero 4 ~ 7로 변경되었다.
 
 ### Invisible 칼럼 마이그레이션 여부를 설정하는 옵션 추가
 DB to DB 마이그레이션 옵션에 Invisible 칼럼 마이그레이션 여부를 설정하는 'Invisible Column Migration' 옵션을 추가하였다. Altibase는 Invisible 칼럼 기능을 제공하지 않기 때문에 Altibase로 마이그레이션 시 일반 칼럼으로 마이그레이션한다. 옵션 값이 Yes이면, Invisible 칼럼이 Altibase 일반 칼럼으로 변환되어 마이그레이션되고, 옵션 값이 No이면, Invisible 칼럼을 마이그레이션 대상에서 제외한다.
@@ -202,21 +193,27 @@ DB to DB 마이그레이션 옵션에 Invisible 칼럼 마이그레이션 여부
 ### 문자열 데이터 타입 VARCHAR 타입의 CLOB 변환 여부를 설정하는 옵션 추가
 DB to DB 마이그레이션 옵션에 칼럼 크기가 Altibase의 VARCHAR 타입 최대 크기인 32,000 Bytes를 초과하는 칼럼의 CLOB 타입 변환 여부를 설정하는 'Convert Oversized String VARCHAR To CLOB' 옵션을 추가하였다. 옵션 값이 Yes이면, CLOB 타입으로 변환되어 마이그레이션되고, 옵션 값이 No이면, 칼럼 크기가 32,000인 VARCHAR 타입으로 변환되어 마이그레이션된다.
 
-### 시퀀스 .nextval 칼럼 기본값 마이그레이션을 지원
-Altibase는 칼럼의 기본값에 시퀀스 .nextval을 사용할 수 있는 기능을 제공한다. Migration Center에서 시퀀스의 .nextval 칼럼 기본값 마이그레이션을 지원한다.
-
-### Identity 칼럼 마이그레이션을 지원
+### Oracle이 제공하는 Identity 칼럼 마이그레이션을 지원
 Altibase는 Identity 칼럼 기능을 지원하지 않는다. 따라서 마이그레이션 수행 시 Identity 대신 해당 칼럼에 사용할 시퀀스를 자동 생성하고 칼럼의 기본값을 생성된 시퀀스의 .nextval로 설정하여 마이그레이션을 수행한다.
 
-### DEFAULT ON NULL 칼럼 기본값 마이그레이션을 지원
-Altibase는 칼럼의 기본값에 DEFAULT ON NULL 기능을 지원하지 않는다. 따라서 칼럼의 DEFAULT ON NULL 절에 지정한 기본값을 Altibase 칼럼 기본값에 설정하고, NOT NULL 제약조건을 추가하여 마이그레이션을 수행한다.
+### Oracle이 제공하는 DEFAULT ON NULL 칼럼 기본값 마이그레이션을 지원
+Altibase는 칼럼의 기본값에 Oracle이 제공하는 DEFAULT ON NULL 기능을 지원하지 않는다. 따라서 칼럼의 DEFAULT ON NULL 절에 지정한 기본값을 Altibase 칼럼 기본값에 설정하고, NOT NULL 제약조건을 추가하여 마이그레이션을 수행한다.
 
 ### Oracle이 제공하는 외부테이블(External Table)과 하이브리드 파티션드 테이블(Hybrid Partitioned Table) 마이그레이션을 지원
-Altibase는 Oracle이 제공하는 외부 테이블과 하이브리드 파티션드 테이블 기능을 제공하지 않는다. 해당 테이블들은 일반 테이블 또는 파티션드 테이블로 변환되어 마이그레이션된다. 또한, 이러한 테이블들은 대용량일 가능성이 높아, 자동으로 디스크 테이블 스페이스에 할당된다.
+Altibase는 Oracle이 제공하는 외부 테이블과 하이브리드 파티션드 테이블 기능을 제공하지 않는다. 해당 테이블들은 일반 테이블 또는 파티션드 테이블로 변환되어 마이그레이션된다. 또한, 이러한 테이블들은 대용량일 가능성이 높아, 자동으로 디스크 테이블 스페이스에 할당된다. 테이블이 할당된 테이블 스페이스는 사용자가 조정 단계에서 조정할 수 있다.
 
 <br/>
 
 ## 2.2 수정된 버그
+
+### BUG-51219 PSM 변환기 규칙 변경: RULE-31001 모든 묵시적 커서를 명시적 커서로 변환 시 발생하는 참조 범위 문제 해결을 위해 커서 정의 방식을 변경합니다.
+Altibase는 묵시적 커서를 지원하지 않기 때문에 모든 묵시적 커서를 명시적 커서로 변환한다. 기존에는 명시적 커서를 선언부에 정의하였지만, 이 경우 참조 문제가 발생할 수 있어 각 FOR LOOP문 바로 위에 커서를 정의하도록 변경하였다.
+
+### BUG-51220 PSM 변환기 규칙 추가: 지원하지 않는 SQLERRM(SQLCODE) 함수를 변환하기 위한 규칙을 추가합니다.
+Altibase는 SQLERRM(SQLCODE) 함수를 지원하지 않는다. 지원하지 않는 SQLERRM(SQLCODE) 함수 변환을 위해 PSM 변환기 규칙 RULE-40023을 추가하였다.
+
+### BUG-51311 PSM 변환기 규칙 추가: 지원하지 않는 EDITIONABLE/NONEDITIONABLE 키워드를 제거하기 위한 규칙을 추가합니다.
+Altibase는 EDITIONABLE/NONEDITIONABLE 키워드를 지원하지 않는다. 지원하지 않는 EDITIONABLE/NONEDITIONABLE 키워드 제거를 위해 PSM 변환기 규칙 RULE-17003을 추가하였다.
 
 ### BUG-51319 조정 단계 중 "Unacceptable Name" 단계에서 대상이 칼럼인 경우 객체 타입 표시 오류를 수정합니다.
 조정 단계 중 "Unacceptable Name" 단계는 대상 데이터베이스의 인용 부호 없는 객체 이름 규칙에 어긋나는 객체를 표시하고 객체 이름을 조정하는 단계이다. 대상 객체가 칼럼인 경우 Object Type이 잘못 표시되는 오류가 있어 이를 수정하였다.

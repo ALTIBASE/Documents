@@ -171,35 +171,41 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 ## 2.1 New Features
 
 ### Support Oracle 12c, 18c and 19c as Source Database
-It is possible to migrate database objects and data from Oracle 12c, 18c and 19c to Altibase DBMS using Migration Center. Supported version of the source database Oracle has been changed from Oracle 9i to **11g** to Oracle 9i to **19c**.
+Oracle 12c, 18c and 19c added to supported source databases.
 
 ### Support Tibero 7 as Source Database
-It is possible to migrate database objects and data from Tibero 7 to Altibase DBMS using Migration Center. Supported version of the source database Tibero has been changed from Tibero 4 to **6** to Tibero 4 to **7**.
+Tibero 7 added to supported source databases.
 
 ### Provide an Option to Set whether to Migrate an Invisible Column
-To the DB to DB migration option, the option of 'Invisible Column Migration' was added to set whether to migrate the Invisible column. Because Altibase does not provide Invisible column functionality, the Invisible column migrates to the general column. If the option value is Yes, the Invisible column is converted and migrated to the Altibase general column, and if the option value is No, the Invisible column is excluded from the migration.
+Since Altibase does not support Oracle’s invisible column feature, invisible columns are converted into regular columns during migration. If the 'Invisible Column Migration' option is set to Yes, these columns are migrated as general columns in Altibase; if set to No (the default), they are excluded from the migration.
 
 ### Provide an Option to Set whether String Data Type VARCHAR Type to CLOB Conversion
 In the DB to DB migration option, the 'Convert Oversized String VARCHAR To CLOB' option was added to set whether to convert the CLOB type for columns whose column size exceeds 32,000 Bytes, which is the maximum size of Altibase's VARCHAR type. If the option value is Yes, it is converted and migrated to the CLOB type, and if the option value is No, it is converted to the VARCHAR type with a column size of 32,000 and migrated.
 
-### Sequence .nextval Column Supports Default Migration
-Altibase provides the function to use sequence .nextval for the default values of a column. Migration Center supports migration of the default values of the sequence .nextval column.
+### Support for Oracle's Identity Column Migration
+Altibase does not support Oracle’s identity column feature. Accordingly, during migration, a sequence is automatically created to replace the identity column. The column’s default value is then set to the .nextval of the generated sequence to replicate the original behavior.
 
-### Support for Identity Column Migration
-Altibase does not support identity column functionality. Therefore, instead of the identity column, it automatically generates a sequence for use in that column and sets the default value of the column to .nextval of the generated sequence.
-
-### Supports DEFAULT ON NULL column default migration
-Altibase does not support the DEFAULT ON NULL function in the default value of the column. Therefore, instead of DEFAULT ON NULL, the default value specified in the DEFAULT ON NULL statement of the column is set to the default value of the Altibase column, and the NOT NULL constraint is added.
+### Supports Oracle's DEFAULT ON NULL column default migration
+During migration from Oracle to Altibase, the DEFAULT ON NULL clause—supported in Oracle—is not retained, as Altibase does not support this feature. Instead, the specified default value is assigned as the column’s default, and a NOT NULL constraint is added to preserve the original semantics.
 
 ### Support for Migration of External Table and Hybrid Partitioned Table provided Oracle
-Altibase does not provide external and hybrid partitioned table functions provided by Oracle. These tables are converted to general tables or partitioned tables and migrated. In addition, these tables are expected to be large in capacity and are automatically assigned to the disk table space.
+Altibase does not support external tables and hybrid partitioned tables as Oracle does. These types of tables are converted into regular or partitioned tables during migration. Since they are typically large in size, they are automatically assigned to disk tablespaces. During the Reconcile phase, users can adjust the tablespaces where each table will be stored.
 
 <br/>
 
 ## 2.2 Bug-Fixes
 
-### BUG-51319 Corrects the Object Type Display Error if the Target is a Column in the "Unacceptable Name" Step During the Reconcile phase
-During the Reconcile phase, the "Unacceptable Name" is a step of displaying objects that violate the object name rule of the target database and adjusting the object name. If the target object is a column, there is an error in which the object type is incorrectly displayed, so it was corrected.
+### BUG-51219 Modify PSM Transducer Rule: RULE-31001 Change the Cursor Definition Method to Resolve the Reference Scope Issue that Occurs when all Implicit Cursors are Converted to Explicit Cursors.
+Since Altibase does not support implicit cursors, all implicit cursors are converted to explicit cursors. Previously, explicit cursors were defined in the declaration section. However, in this case, reference scope issues may occur, so the cursor is defined directly above each FOR LOOP statement.
+
+### BUG-51220 Add PSM converter rules: Add rule for converting unsupported SQLERRM(SQLCODE) functions.
+Altibase does not support SQLERRM(SQLCODE) functions. PSM converter rule RULE-40023 was added for SQLERRM(SQLCODE) function conversion that is not supported.
+
+### BUG-51311 Add PSM converter rule: Add rule to remove unsupported EDITONABLE/NONEDITONABLE keyword.
+Altibase does not support the EDITIONABLE/NONEDITIONABLE keyword. PSM converter rule RULE-17003 was added to remove the unsupported EDITIONABLE/NONEDITIONABLE keyword.
+
+### BUG-51319: Fixes Incorrect Object Type Display for Columns in the "Unacceptable Name" Step During the Reconcile Phase
+In the Reconcile phase, the "Unacceptable Name" step identifies objects that violate the target database’s naming rules and allows for renaming. Previously, when the target object was a column, an error caused it to be incorrectly displayed as a Primary key. This issue has been resolved.
 
 <br/>
 

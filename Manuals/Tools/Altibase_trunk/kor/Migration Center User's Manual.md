@@ -1314,7 +1314,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  17  | NCHAR         | NCHAR             | NCHAR 데이터 타입의 최대 크기는 Informix(32,767)가 Altibase(32,000)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다. |
 |  18  | VARCHAR       | VARCHAR           |                                                              |
 |  19  | NVARCHAR      | NVARCHAR          |                                                              |
-|  20  | LVARCHAR      | VARCHAR 또는 CLOB | Informix의 LVARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 Informix와 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. Informix의 LVARCHAR 최대 크기는 32,767바이트로 Altibase보다 크다. |
+|  20  | LVARCHAR      | VARCHAR 또는 CLOB | Informix의 LVARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. Informix의 LVARCHAR 최대 크기는 32,767바이트로 Altibase보다 크다. |
 |  21  | TEXT          | CLOB              |                                                              |
 |  22  | CLOB          | CLOB              |                                                              |
 |  23  | BYTE          | BLOB              |                                                              |
@@ -5457,20 +5457,20 @@ END;
 ###### 변환된 SQL 문장
 
 ```sql
-CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER)
-IS
-CURSOR O2A_generated_cur_00 IS (SELECT c1 FROM t1);
-CURSOR O2A_generated_cur_01 IS (SELECT c1 FROM t2);
+CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) 
+IS 
 BEGIN
-FOR item1 IN O2A_generated_cur_00
-LOOP
-NULL;
-END LOOP;
-FOR item2 IN O2A_generated_cur_01
-LOOP
-NULL;
-END LOOP;
+DECLARE
+CURSOR O2A_generated_cur_1 IS SELECT c1 FROM t1; 
+BEGIN
+FOR item1 IN O2A_generated_cur_1 LOOP NULL; END LOOP; 
 END;
+DECLARE
+CURSOR O2A_generated_cur_2 IS SELECT c1 FROM t2; 
+BEGIN
+FOR item2 IN O2A_generated_cur_2 LOOP NULL; END LOOP; 
+END; 
+END; 
 ```
 
 #### RULE-31002
@@ -7968,4 +7968,13 @@ DB 사용자 계정에 DICTIONARY 조회 권한을 부여한다.
 
 - [https://www.tmaxtibero.com/img/service/pdf/manual/Tibero_4_SP1_Administrator's_Guide_v2.1.4.pdf](https://www.tmaxtibero.com/img/service/pdf/manual/Tibero_4_SP1_Administrator's_Guide_v2.1.4.pdf)
 - [https://technet.tmaxsoft.com/upload/download/online/tibero/pver-20220224-000002/tibero_admin/chapter_security.html#sect_so_privilege](https://technet.tmaxsoft.com/upload/download/online/tibero/pver-20220224-000002/tibero_admin/chapter_security.html#sect_so_privilege)
+
+#### Tibero 7.2.2 버전에서 의존성을 가진 객체 이관에 실패한다.
+
+`원인`
+
+Tibero 7.2.2 버전에서 객체 의존성 정보를 가진 메타 정보 뷰에 함수(Function)에 대한 의존성 정보가 누락되어 조회되는 문제가 있어, 의존성이 있는 객체 이관이 정상적으로 수행되지 않는다.
+
+`해결 방법`
+해당 문제가 없거나 문제가 해결된 Tibero 버전을 사용해야 한다.
 
