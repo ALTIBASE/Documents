@@ -6892,7 +6892,7 @@ else
 
 # 4. Spatial Data Migration
 
-This section describes how to migrate spatial data between Altibase products or other vendor database products.
+This section describes how to migrate spatial data between Altibase servers or Altibase and the other vendor database.
 
 ### Spatial Data Migration Between Altibase Products
 
