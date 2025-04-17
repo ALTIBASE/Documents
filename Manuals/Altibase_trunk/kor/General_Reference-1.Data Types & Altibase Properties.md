@@ -1,5 +1,4 @@
-General Reference-1.Data Types & Altibase Properties
-================
+# General Reference-1.Data Types & Altibase Properties
 
 #### Trunk
 
@@ -3826,8 +3825,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>TRANSACTION_TABLE_SIZE</td>
   </tr>
   <tr>
-  <td rowspan="17">B</td>
-  <td rowspan="17">&nbsp;</td>
+  <td rowspan="18">B</td>
+  <td rowspan="18">&nbsp;</td>
   <td>ARCHIVE_DIR</td>
   <td rowspan="6">&nbsp;</td>
   </tr>
@@ -3852,6 +3851,10 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   </tr>
   <tr>
   <td>CHECKPOINT_INTERVAL_IN_SEC</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CHECKPOINT_SCALE_SINGLE_DW_BUFFER_SIZE</td>
   <td>SYSTEM</td>
   </tr>
   <tr>
@@ -10835,6 +10838,30 @@ Unsigned Integer
 체크포인트의 주기를 초 단위 시간으로 정하는 것이다.
 
 Altibase 운영 중 ALTER SYSTEM 문을 이용하여 이 프로퍼티의 값을 변경할 수 있다.
+
+#### CHECKPOINT_SCALE_SINGLE_DW_BUFFER_SIZE (단위: 바이트)
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+524288000 (500 MByte)
+
+##### 속성
+
+변경 가능, 단일 값
+
+##### 값의 범위
+
+[1 MByte, 2 Gbyte]
+
+##### 설명
+
+체크포인트 스케일이 싱글이고 더블 라이트 동작을 수행할 때 사용하는 더블 라이트 버퍼와 더블 라이트 이미지 파일의 크기를 설정하는 프로퍼티이다.
+
+이 프로퍼티는 가장 큰 체크포인트 이미지 파일 크기의 절반으로 설정해야 한다.
 
 #### COMMIT_WRITE_WAIT_MODE 
 
