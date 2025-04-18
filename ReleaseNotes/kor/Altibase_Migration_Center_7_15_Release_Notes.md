@@ -171,7 +171,7 @@ Migration Center 7.15 으로 마이그레이션 할 수 있는 데이터베이�
 
 | **원본 데이터베이스 종류 및 버전**                           | **대상 데이터베이스 버전** |
 | :----------------------------------------------------------- | :------------------------- |
-| Altibase 4.3.9 이상<br />CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br/>Informix 11.50 <br />Microsoft SQL Server 2005 ~ 2012<br />Oracle Database 9i ~ 19c <br />Oracle MySQL 5.0 ~ 5.7 <br />Oracle TimesTen 7.0, 11.2 <br />Tibero 4 SP1 ~ 7<br/>PostgreSQL 9.5.3 | Altibase 6.5.1 이상        |
+| Altibase 4.3.9 이상<br />CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br/>Informix 11.50 <br />Microsoft SQL Server 2005 ~ 2012<br />Oracle Database 9i ~ 19c <br />Oracle MySQL 5.0 ~ 5.7 <br />Oracle TimesTen 7.0, 11.2 <br />Tibero 4 SP1 ~ 7.2.2<br/>PostgreSQL 9.5.3 | Altibase 6.5.1 이상        |
 
 <br/>
 
@@ -182,10 +182,10 @@ Migration Center 7.15 의 새로운 기능과 수정된 버그 및 변경 사항
 ## 2.1 새로운 기능
 
 ### 원본 데이터베이스로 Oracle 12c, 18c, 19c 지원
-Migration Center의 원본 데이터베이스 Oracle 지원 버전에 12c, 18c, 19c 버전이 추가되어, 전체 지원 버전이 Oracle 9i ~ 19c로 변경되었다.
+Migration Center의 원본 데이터베이스 Oracle 지원 버전에 Oracle 12c, 18c, 19c가 추가되었다.
 
-### 원본 데이터베이스로 Tibero 7 지원
-Migration Center의 원본 데이터베이스 Tibero 지원 버전에 7 버전이 추가되어, 전체 지원 버전이 Tibero 4 ~ 7로 변경되었다.
+### 원본 데이터베이스로 Tibero 7(~7.2.2) 지원
+Migration Center의 원본 데이터베이스 Tibero 지원 버전에 Tibero 7(~7.2.2)가 추가되었다.
 
 ### Invisible 칼럼 마이그레이션 여부를 설정하는 옵션 추가
 DB to DB 마이그레이션 옵션에 Invisible 칼럼 마이그레이션 여부를 설정하는 'Invisible Column Migration' 옵션을 추가하였다. Altibase는 Invisible 칼럼 기능을 제공하지 않기 때문에 Altibase로 마이그레이션 시 일반 칼럼으로 마이그레이션한다. 옵션 값이 Yes이면, Invisible 칼럼이 Altibase 일반 칼럼으로 변환되어 마이그레이션되고, 옵션 값이 No이면, Invisible 칼럼을 마이그레이션 대상에서 제외한다.

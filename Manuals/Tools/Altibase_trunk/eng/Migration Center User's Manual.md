@@ -355,7 +355,7 @@ Since Migration Center is bundled with the JRE 8 for the 64-bit Microsoft Window
 - Informix: 11.50
 - Oracle TimesTen: 7.0, 11.2
 - CUBRID: 8.4.1-9.3.5 (ISO-8859-1, UTF-8 charset)
-- Tibero: 4sp1-7
+- Tibero: 4sp1-7.2.2
 - PostgreSQL: 9.5.3
 
 ##### JDBC Driver
@@ -1060,13 +1060,13 @@ Objects in the source database that Migration Center does not migrate automatica
 
 | Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
 | :--------------------- | :------------------------: | :-------------------------: | :----------------------------------------------------------- |
-| Table                  |             O              |              O              | To migrate a temporary table from an Oracle database(source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace. Also, the comments specified in tables and columns are migrated as well. </br>To migrate External Tables and Hybrid Partitioned Tables, the user must have access to a disk tablespace in Altibase. </br>Since Altibase does not support Oracle’s External Table and Hybrid Partitioned Table features, these tables are converted into regular tables or partitioned tables during migration. These types of tables often contain large volumes of data, so they are automatically allocated to a disk tablespace. |
+| Table                  |             O              |              O              | To migrate a temporary table from an Oracle database(source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace. Also, the comments specified in tables and columns are migrated as well. </br>To migrate external tables and Hybrid Partitioned Tables, the user must have access to a disk tablespace in Altibase. </br>Since Altibase does not support Oracle’s external table and hybrid partitioned table features, these tables are converted into regular tables or partitioned tables during migration. These types of tables often contain large volumes of data, so they are automatically allocated to a disk tablespace. |
 | Primary Key Constraint |             O              |              O              |                                                              |
 | Unique Constraint      |             O              |              O              |                                                              |
 | Check Constraint       |             O              |              O              |                                                              |
 | Foreign Key Constraint |             O              |              O              |                                                              |
-| Index                  |             O              |              O              | Invisible Indexes and Unusable Indexes are not migrated. |
-| Sequence               |             O              |              X              | Scalable Sequence is not migrated. |
+| Index                  |             O              |              O              | Invisible indexes and unusable indexes are not migrated. |
+| Sequence               |             O              |              X              | Scalable sequence is not migrated. |
 | Private Synonym        |         Partly yes         |              X              | Only synonyms that refer to objects in the same schema are migrated. |
 | Procedure              |         Partly yes         |              X              | Converts object creation statements according to the rules defined in the PSM converter and attempts migration. |
 | Function               |         Partly yes         |              X              | Converts object creation statements according to the rules defined in the PSM converter and attempts migration. |
@@ -1120,7 +1120,7 @@ Objects in the source database that Migration Center does not migrate automatica
 | Unique Constraint      |             O              |              O              |                                                              |
 | Check Constraint       |             O              |              O              |                                                              |
 | Foreign Key Constraint |             O              |              O              |                                                              |
-| Index                  |             O              |              O              | Indexes created automatically in Tibero's LOB type column are not supported by Altibase and can not be migrated. A list of nonmigratable indexes that are filtered during the build step can be found in the Missing tab of the Build Report. </br>Invisible Indexes and Unusable Indexes are not migrated. |
+| Index                  |             O              |              O              | Indexes created automatically in Tibero's LOB type column are not supported by Altibase and can not be migrated. A list of nonmigratable indexes that are filtered during the build step can be found in the Missing tab of the Build Report. </br>Invisible indexes and unusable indexes are not migrated. |
 | Sequence               |             O              |              X              |                                                              |
 | Private Synonym        |         Partly yes         |              X              | Only synonyms that refer to objects in the same schema are migrated. |
 | Procedure              |         Partly yes         |              X              | Converts object creation statements according to the rules defined in the PSM converter and attempts migration. |
@@ -1199,7 +1199,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 | :--: | :------------ | :-------------- | :----------------------------------------------------------- |
 |  1   | CHAR          | CHAR            | CHAR type columns defined with character length in Oracle are automatically converted to CHAR type columns with byte length in Altibase, because in Altibase, CHAR type columns can be defined only with byte length. |
 |  2   | NCHAR         | NCHAR           | The explicit sizes of the source and destination NCHAR columns are the same, e.g. NCHAR(10) → NCHAR(10). <br/>However, in the Oracle JDBC driver, the size of a national character column is defined as the number of bytes used, whereas in the Altibase JDBC driver, the size of a national character column is defined as the number of characters that are stored. Please note that this means that the resultant column in Altibase will be two or three times as large as necessary. |
-|  3   | VARCHAR2      | VARCHAR         | VARCHAR2 defined as character length in Oracle is converted into bytes in Altibase. Altibase's VARCHAR can be defined only in bytes. </br>If an Oracle VARCHAR column exceeds Altibase's maximum VARCHAR size of 32,000, and the "Convert Oversized String VARCHAR To CLOB" migration option is set to Yes, the column will be converted to CLOB; if set to No, the column will be converted to a VARCHAR type with a size of 32,000. |
+|  3   | VARCHAR2      | VARCHAR or CLOB | VARCHAR2 defined as character length in Oracle is converted into bytes in Altibase. Altibase's VARCHAR can be defined only in bytes. </br>If an Oracle VARCHAR column exceeds Altibase's maximum VARCHAR size of 32,000, and the "Convert Oversized String VARCHAR To CLOB" migration option is set to Yes, the column will be converted to CLOB; if set to No, the column will be converted to a VARCHAR type with a size of 32,000. |
 |  4   | NVARCHAR2     | NVARCHAR        | The column sizes differ, for the same reason as NCHAR.       |
 |  5   | LONG          | CLOB            |                                                              |
 |  6   | NUMBER        | NUMBER          | NUMBER type columns defined without precision and scale in Oracle are converted to the same NUMBER type columns without precision and scale for Altibase. *Both Oracle and Altibase internally handle NUMBER type columns defined without precision and scale as FLOAT type in the database. |
@@ -1306,7 +1306,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  17  | NCHAR         | NCHAR       | The user should note that data loss can occur due to the maximum precision of NCHAR data type at Informix(32,767) being greater than that of Altibase(32,000). |
 |  18  | VARCHAR       | VARCHAR     |                                                              |
 |  19  | NVARCHAR      | NVARCHAR    |                                                              |
-|  20  | LVARCHAR      | VARCHAR     | If an Informix LVARCHAR column exceeds Altibase’s maximum VARCHAR size of 32,000 bytes, and the "Convert Oversized String VARCHAR To CLOB" migration option is set to Yes, the column is converted to the CLOB data type in Altibase; if set to No, the column is converted to a VARCHAR type with a size of 32,000. The maximum size of Informix LVARCHAR is 32,767 bytes, which is larger than that of Altibase. |
+|  20  | LVARCHAR      | VARCHAR or CLOB | If an Informix LVARCHAR column exceeds Altibase’s maximum VARCHAR size of 32,000 bytes, and the "Convert Oversized String VARCHAR To CLOB" migration option is set to Yes, the column is converted to the CLOB data type in Altibase; if set to No, the column is converted to a VARCHAR type with a size of 32,000. The maximum size of Informix LVARCHAR is 32,767 bytes, which is larger than that of Altibase. |
 |  21  | TEXT          | CLOB        |                                                              |
 |  22  | CLOB          | CLOB        |                                                              |
 |  23  | BYTE          | BLOB        |                                                              |
@@ -1364,7 +1364,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  13  | VARCHAR    | VARCHAR or CLOB | If a CUBRID VARCHAR column exceeds Altibase’s maximum VARCHAR size of 32,000 bytes, and the "Convert Oversized String VARCHAR To CLOB" migration option is set to Yes, the column is converted to the CLOB data type in Altibase; if set to No, the column is converted to a VARCHAR type with a size of 32,000. The maximum size of CUBRID VARCHAR is 1,073,741,823 bytes, which is larger than that of Altibase. |
 |  14  | NCHAR      | NCHAR           | Since the maximum size of NCHAR type in CUBRID is 1,073,741,823 bytes, which is greater than that of the Altibase( 16,000bytes), potential data loss can be occurred. |
 |  15  | VARCHAR    | NVARCHAR        | The maximum size of VARCHAR type in CUBRID is 1,073,741,823 bytes and it is greater than the maximum NVARCHAR type of Altibase,which is 16,000 bytes; thus, potential data loss can be occured. |
-|  16  | STRING     | VARCHAR         | If a CUBRID VARCHAR type exceeds Altibase’s maximum VARCHAR size of 32,000 bytes, the "Convert Oversized String VARCHAR To CLOB" migration option will convert it to either the CLOB or VARCHAR type in Altibase. |
+|  16  | STRING     | VARCHAR or CLOB | If a CUBRID VARCHAR type exceeds Altibase’s maximum VARCHAR size of 32,000 bytes, the "Convert Oversized String VARCHAR To CLOB" migration option will convert it to either the CLOB or VARCHAR type in Altibase. |
 |  17  | BIT        | BLOB            |                                                              |
 |  18  | VARBIT     | BLOB            |                                                              |
 |  19  | BLOB       | BLOB            |                                                              |
@@ -1378,7 +1378,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 | :--: | :------------ | :-------------- | :----------------------------------------------------------- |
 |  1   | CHAR          | CHAR            | Since Altibase's CHAR type can be defined only in byte length, in case of a column defined as character length in Tibero, it is automatically converted to byte length. |
 |  2   | NCHAR         | NCHAR           |                                                              |
-|  3   | VARCHAR       | VARCHAR         | Altibase's VARCHAR type can be defined only in byte length, so in case of a column defined as character length in Tibero, it is automatically converted to byte length. |
+|  3   | VARCHAR       | VARCHAR or CLOB | VARCHAR defined as character length in Tibero is converted into bytes in Altibase. Altibase's VARCHAR can be defined only in bytes. </br>If an Tibero VARCHAR column exceeds Altibase's maximum VARCHAR size of 32,000, and the "Convert Oversized String VARCHAR To CLOB" migration option is set to Yes, the column will be converted to CLOB; if set to No, the column will be converted to a VARCHAR type with a size of 32,000. The maximum size of Tibero VARCHAR is 65,532 bytes, which is larger than that of Altibase. |
 |  4   | NVARCHAR      | NVARCHAR        |                                                              |
 |  5   | LONG          | CLOB            |                                                              |
 |  6   | NUMBER        | NUMERIC         | NUMBER type columns defined without precision and scale in Tibero are converted to the same NUMBER type columns without precision and scale for Altibase. *Both Tibero and Altibase internally handle NUMBER type columns defined without precision and scale as FLOAT type in the database. |
@@ -1406,7 +1406,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 | 6    | DOUBLE PRECISION            | DOUBLE            |                                                              |
 | 7    | MONEY                       | VARCHAR(30)       | The MONEY data type in PostgreSQL is converted to VARCHAR(30) in Altibase. If the format of MONEY values uses commas (,) as thousands separators and periods (.) as decimal separators, these values can be converted to NUMERIC(20,2) during the Reconcile step. |
 | 8    | CHARACTER CHAR              | CHAR              |                                                              |
-| 9    | CHARACTER VARYING VARCHAR   | VARCHAR 또는 CLOB | If the column length automatically adjusted by the Migration Center based on the character sets of PostgreSQL and Altibase is less than 32,000 bytes, it will be converted to VARCHAR. If the column length exceeds 32,000 bytes, and the "Convert Oversized String VARCHAR To CLOB" migration option is set to Yes, it will be converted to CLOB; if set to No, the column will be converted to a VARCHAR type with a size of 32,000 bytes. 32,000 bytes is the maximum size for the VARCHAR type in Altibase. |
+| 9    | CHARACTER VARYING VARCHAR   | VARCHAR or CLOB | If the column length automatically adjusted by the Migration Center based on the character sets of PostgreSQL and Altibase is less than 32,000 bytes, it will be converted to VARCHAR. If the column length exceeds 32,000 bytes, and the "Convert Oversized String VARCHAR To CLOB" migration option is set to Yes, it will be converted to CLOB; if set to No, the column will be converted to a VARCHAR type with a size of 32,000 bytes. 32,000 bytes is the maximum size for the VARCHAR type in Altibase. |
 | 10   | TEXT                        | CLOB              | PostgreSQL's TEXT is converted to CLOB in Altibase.          |
 | 11   | BOOLEAN                     | CHAR(1)           | PostgreSQL's BOOLEAN is converted to CHAR(1) in Altibase, with true stored as 't', false as 'f', and unknown as null. |
 | 12   | DATE                        | DATE              | -infinity and infinity, stored in PostgreSQL's DATE, are converted to 21506-12-03 and 11567-08-17, respectively. PostgreSQL internally represents -infinity as 292269055-12-03 and infinity as 292278994-08-17. |
@@ -1535,7 +1535,7 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 
 | Character Set | Max. Bytes Per Character |
 | ------------- | ------------------------ |
-| UTF8          | 3                        |
+| UTF8          | 4                        |
 | EUCKR         | 2                        |
 | MSWIN949      | 2                        |
 | SJIS          | 2                        |
@@ -1639,10 +1639,6 @@ Default values of most of the original database are compatible with the target d
   Since the default format for the DATE data type differs among source databases, Migration Center specifies a comment which includes the DEFAULT keyword in the CREATE TABLE statement, instead of the default value. If necessary, the user must manually set the default value later on, by referring to the comment. However, if the source database is the one among the MySQL, TimesTen or CUBRID, Migration Center automatically converts default values as shown below. 
 - The default value specified with a function  
   A function which is listed in the following table is converted accordingly, only if the function is exclusively specified as the default value in the source database. Other functions or expressions of a complex form are converted without being changed. If necessary, the user must manually change them later on. 
-- The default value specified with Identity  
-  Since Altibase does not support the Identity column feature, a sequence is automatically created to replace the Identity. The column’s default value is then set to the .nextval of the generated sequence.
-- The default value specified with DEFAULT ON NULL clause  
-  Altibase does not support the DEFAULT ON NULL feature, so a default value is assigned and a NOT NULL constraint is added to the column.
 
 #### Oracle to Altibase
 
@@ -1679,7 +1675,7 @@ The following is an example of the conversion.
 
 | Oracle CREATE TABLE Statement                                                                                                                                                                                                                                                                                                                                                                                                                            | Altibase CREATE TABLE Statement                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CREATE TABLE testtbl_4_defval<br /> ( c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL,<br /> c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT SQRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER, </br>c12 INT GENERATED BY DEFAULT AS IDENTITY, <br />c13 CHAR(5) DEFAULT ON NULL 'test' ); | CREATE TABLE TESTTBL_4_DEFVAL<br /> ( C1 NUMBER (38, 0) DEFAULT 123, <br />C2 VARCHAR (50) DEFAULT 'test', <br />C3 NUMBER (38, 0), <br />C4 CHAR (10), <br />C5 NUMBER (38, 0) DEFAULT SQRT(144) + 72, <br />C6 DATE /\* DEFAULT '97/04/21' \*/, <br />C7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />C8 VARCHAR (100) DEFAULT DB_TIMEZONE(), <br />C9 VARCHAR (100) DEFAULT SYS_GUID_STR(), <br />C10 VARCHAR (100) DEFAULT USER_ID(), <br />C11 VARCHAR (100) DEFAULT USER_NAME(), <br />C12 __SYS_TESTTBL_4_DEFVAL_C12_SEQ.NEXTVAL, <br />C13 CHAR(5) DEFAULT 'test' NOT NULL ); |
+| CREATE TABLE testtbl_4_defval<br /> ( c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL,<br /> c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT SQRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER, </br>c12 INT GENERATED BY DEFAULT AS IDENTITY, <br />c13 CHAR(5) DEFAULT ON NULL 'test' ); | CREATE TABLE TESTTBL_4_DEFVAL<br /> ( C1 NUMBER (38, 0) DEFAULT 123, <br />C2 VARCHAR (50) DEFAULT 'test', <br />C3 NUMBER (38, 0), <br />C4 CHAR (10), <br />C5 NUMBER (38, 0) DEFAULT SQRT(144) + 72, <br />C6 DATE /\* DEFAULT '97/04/21' \*/, <br />C7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />C8 VARCHAR (100) DEFAULT DB_TIMEZONE(), <br />C9 VARCHAR (100) DEFAULT SYS_GUID_STR(), <br />C10 VARCHAR (100) DEFAULT USER_ID(), <br />C11 VARCHAR (100) DEFAULT USER_NAME(), <br />C12 NUMBER (38, 0) DEFAULT __SYS_TESTTBL_4_DEFVAL_C12_SEQ.NEXTVAL NOT NULL, <br />C13 CHAR (5) DEFAULT 'test' NOT NULL ); |
 
 #### MS-SQL Server to Altibase
 
@@ -7888,5 +7884,5 @@ Grant the required DICTIONARY query privileges to the database user account.
 In Tibero version 7.2.2, a known issue exists where dependency information for functions is missing from the metadata views that manage object dependencies. As a result, object migrations involving dependencies may fail to complete successfully.
 
 ##### Solution
-Use a Tibero version where this issue has been resolved, or one that is not affected by this problem.
+Manually review object dependencies during migration. Any objects that fail to migrate due to missing dependency information must be identified and migrated manually.
 

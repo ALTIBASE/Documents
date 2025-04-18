@@ -160,7 +160,7 @@ This section introduces the DBMSs and versions that can be migrated using Migrat
 
 | Source DBMS                                                  | Target DBMS              |
 | ------------------------------------------------------------ | ------------------------ |
-| Altibase 4.3.9 or higher<br />CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br/>Informix 11.50 <br />Microsoft SQL Server 2005 ~ 2012<br />Oracle Database 9i ~ 19c <br />Oracle MySQL 5.0 ~ 5.7 <br />Oracle TimesTen 7.0, 11.2 <br />Tibero 4 SP1 ~ 7<br/>PostgreSQL 9.5.3 | Altibase 6.5.1 or higher |
+| Altibase 4.3.9 or higher<br />CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br/>Informix 11.50 <br />Microsoft SQL Server 2005 ~ 2012<br />Oracle Database 9i ~ 19c <br />Oracle MySQL 5.0 ~ 5.7 <br />Oracle TimesTen 7.0, 11.2 <br />Tibero 4 SP1 ~ 7.2.2<br/>PostgreSQL 9.5.3 | Altibase 6.5.1 or higher |
 
 <br/>
 
@@ -173,8 +173,8 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 ### Support Oracle 12c, 18c and 19c as Source Database
 Oracle 12c, 18c and 19c added to supported source databases.
 
-### Support Tibero 7 as Source Database
-Tibero 7 added to supported source databases.
+### Support Tibero 7(~7.2.2) as Source Database
+Tibero 7(~7.2.2) added to supported source databases.
 
 ### Provide an Option to Set whether to Migrate an Invisible Column
 Since Altibase does not support Oracle’s invisible column feature, invisible columns are converted into regular columns during migration. If the 'Invisible Column Migration' option is set to Yes, these columns are migrated as general columns in Altibase; if set to No (the default), they are excluded from the migration.

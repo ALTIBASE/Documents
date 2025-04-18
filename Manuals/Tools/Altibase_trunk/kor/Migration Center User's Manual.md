@@ -365,7 +365,7 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 - Informix: 11.50
 - Oracle TimesTen: 7.0, 11.2
 - CUBRID: 8.4.1~9.3.5 (ISO-8859-1, UTF-8 charset)
-- Tibero: 4sp1~7
+- Tibero: 4sp1~7.2.2
 - PostgreSQL: 9.5.3
 
 ##### JDBC 드라이버
@@ -1386,7 +1386,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 | :--: | :------------ | --------------- | :----------------------------------------------------------- |
 |  1   | CHAR          | CHAR            | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 칼럼의 경우 자동으로 바이트 길이로 변환된다. |
 |  2   | NCHAR         | NCHAR           |                                                              |
-|  3   | VARCHAR       | VARCHAR         | Altibase의 VARCHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 칼럼의 경우 자동으로 바이트 길이로 변환된다. |
+|  3   | VARCHAR       | VARCHAR or CLOB | 티베로에서 문자 길이로 정의한 VARCHAR는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. </br>티베로의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000을 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. 티베로의 VARCHAR 최대 크기는 65,532바이트로, Altibase보다 크다. |
 |  4   | NVARCHAR      | NVARCHAR        |                                                              |
 |  5   | LONG          | CLOB            |                                                              |
 |  6   | NUMBER        | NUMERIC         | 티베로에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 티베로와 Altibase 모두 precision과 scale이 없는 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 처리한다. |
@@ -1543,7 +1543,7 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 
 | Character Set | Max. Bytes Per Character |
 | ------------- | ------------------------ |
-| UTF8          | 3                        |
+| UTF8          | 4                        |
 | EUCKR         | 2                        |
 | MSWIN949      | 2                        |
 | SJIS          | 2                        |
@@ -1648,10 +1648,6 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
   단 원본 데이터베이스가 MySQL, TimesTen, 또는 CUBRID일 때, 아래의 표처럼 Migration Center가 기본값을 자동으로 변환한다.
 - 기본값에 함수가 사용된 경우  
   아래 표에 열거된 함수가 원본 데이터베이스의 기본값으로 단독 사용된 경우에 한해서 표와 같이 변환된다. 그 외의 함수 또는 복잡한 형태의 표현식일 경우에는 변경 없이 그대로 변환된다. 필요하다면 나중에 사용자가 직접 변경해야 한다.
-- 기본값에 Identity가 사용된 경우  
-  Altibase는 Identity 칼럼 기능을 제공하지 않으므로, Identity 대신 해당 칼럼에 사용할 시퀀스를 자동 생성하고 칼럼의 기본값을 생성된 시퀀스의 .nextval로 설정한다.
-- 기본값에 DEFAULT ON NULL이 사용된 경우  
-  Altibase는 DEFAULT ON NULL 기능을 제공하지 않으므로, 기본값을 지정하고 NOT NULL 제약조건을 추가한다.
 
 #### Oracle to Altibase
 
@@ -1689,7 +1685,7 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 
 | 오라클의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                         | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CREATE TABLE testtbl_4_defval<br /> ( c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL,<br /> c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT SQRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER, </br>c12 INT GENERATED BY DEFAULT AS IDENTITY, <br />c13 CHAR(5) DEFAULT ON NULL 'test' ); | CREATE TABLE TESTTBL_4_DEFVAL<br /> ( C1 NUMBER (38, 0) DEFAULT 123, <br />C2 VARCHAR (50) DEFAULT 'test', <br />C3 NUMBER (38, 0), <br />C4 CHAR (10), <br />C5 NUMBER (38, 0) DEFAULT SQRT(144) + 72, <br />C6 DATE /\* DEFAULT '97/04/21' \*/, <br />C7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />C8 VARCHAR (100) DEFAULT DB_TIMEZONE(), <br />C9 VARCHAR (100) DEFAULT SYS_GUID_STR(), <br />C10 VARCHAR (100) DEFAULT USER_ID(), <br />C11 VARCHAR (100) DEFAULT USER_NAME(), <br />C12 __SYS_TESTTBL_4_DEFVAL_C12_SEQ.NEXTVAL, <br />C13 CHAR(5) DEFAULT 'test' NOT NULL ); |
+| CREATE TABLE testtbl_4_defval<br /> ( c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL,<br /> c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT SQRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER, </br>c12 INT GENERATED BY DEFAULT AS IDENTITY, <br />c13 CHAR(5) DEFAULT ON NULL 'test' ); | CREATE TABLE TESTTBL_4_DEFVAL<br /> ( C1 NUMBER (38, 0) DEFAULT 123, <br />C2 VARCHAR (50) DEFAULT 'test', <br />C3 NUMBER (38, 0), <br />C4 CHAR (10), <br />C5 NUMBER (38, 0) DEFAULT SQRT(144) + 72, <br />C6 DATE /\* DEFAULT '97/04/21' \*/, <br />C7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />C8 VARCHAR (100) DEFAULT DB_TIMEZONE(), <br />C9 VARCHAR (100) DEFAULT SYS_GUID_STR(), <br />C10 VARCHAR (100) DEFAULT USER_ID(), <br />C11 VARCHAR (100) DEFAULT USER_NAME(), <br />C12 NUMBER (38, 0) DEFAULT __SYS_TESTTBL_4_DEFVAL_C12_SEQ.NEXTVAL NOT NULL, <br />C13 CHAR (5) DEFAULT 'test' NOT NULL |
 
 #### MS-SQL Server to Altibase
 
@@ -7973,8 +7969,8 @@ DB 사용자 계정에 DICTIONARY 조회 권한을 부여한다.
 
 `원인`
 
-Tibero 7.2.2 버전에서 객체 의존성 정보를 가진 메타 정보 뷰에 함수(Function)에 대한 의존성 정보가 누락되어 조회되는 문제가 있어, 의존성이 있는 객체 이관이 정상적으로 수행되지 않는다.
+Tibero 7.2.2 버전에서 객체 의존성 정보를 가진 메타 정보 뷰에 함수(Function)에 대한 의존성 정보가 누락되는 문제가 있어, 의존성이 있는 객체 이관이 정상적으로 수행되지 않을 수 있다.
 
 `해결 방법`
-해당 문제가 없거나 문제가 해결된 Tibero 버전을 사용해야 한다.
+마이그레이션 중에 객체 의존성을 수동으로 검토해야 한다. 의존성 정보가 누락되어 마이그레이션에 실패한 객체는 수동으로 마이그레이션 해야한다.
 
