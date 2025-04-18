@@ -3700,6 +3700,28 @@ CREATE OR REPLACE LIBRARY lib1 /* UNTRUSTED */ /* [REMOVED] RULE-17002 : The key
 AS '${ORACLE_HOME}/lib/test_lib.so';
 ```
 
+#### RULE-17003
+
+###### Type
+
+`REMOVED`
+
+###### Description
+
+The unsupported keywords EDITIONABLE/NONEDITIONABLE is removed.
+
+###### Original SQL Text
+
+```sql
+CREATE OR REPLACE NONEDITIONABLE LIBRARY TESTLIB1 AS 'str_uppercase.so';
+```
+
+###### Processed SQL Text
+
+```sql
+CREATE OR REPLACE /* NONEDITIONABLE */ /* [REMOVED] RULE-17003 : EDITIONABLE/NONEDITIONABLE is removed */ LIBRARY TESTLIB1 AS 'str_uppercase.so';
+```
+
 ### DML Conversion Rules
 
 #### RULE-20001
@@ -5435,20 +5457,20 @@ END;
 ###### Processed SQL Text
 
 ```sql
-CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER)
-IS
-CURSOR O2A_generated_cur_00 IS (SELECT c1 FROM t1);
-CURSOR O2A_generated_cur_01 IS (SELECT c1 FROM t2);
+CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) 
+IS 
 BEGIN
-FOR item1 IN O2A_generated_cur_00
-LOOP
-NULL;
-END LOOP;
-FOR item2 IN O2A_generated_cur_01
-LOOP
-NULL;
-END LOOP;
+DECLARE
+CURSOR O2A_generated_cur_1 IS SELECT c1 FROM t1; 
+BEGIN
+FOR item1 IN O2A_generated_cur_1 LOOP NULL; END LOOP; 
 END;
+DECLARE
+CURSOR O2A_generated_cur_2 IS SELECT c1 FROM t2; 
+BEGIN
+FOR item2 IN O2A_generated_cur_2 LOOP NULL; END LOOP; 
+END; 
+END; 
 ```
 
 #### RULE-31002
@@ -7352,6 +7374,54 @@ CREATE VIEW v_r40022 AS SELECT SYS_CONTEXT('USERENV', 'INSTANCE_NAME', 100) FROM
 
 ```sql
 CREATE VIEW v_r40022 AS SELECT SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'), 0, 100) FROM dual;
+```
+
+#### RULE-40023
+
+###### Type
+
+`TODO`
+
+###### Description
+
+Since SQLERRM(error_code) is an unsupported function, it should be converted manually.
+
+###### Original SQL Text
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1 
+AS
+BEGIN
+FOR curosor1 IN (SELECT c1, c2 FROM t1)
+LOOP
+UPDATE t2 SET c2 = curosor1 .c2 WHERE c1 = curosor1 .c1;
+END LOOP;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+DBMS_OUTPUT.PUT_LINE('SQL ERROR CODE:' || SQLCODE);
+DBMS_OUTPUT.PUT_LINE('SQL ERROR MESSAGE:' || SQLERRM);
+DBMS_OUTPUT.PUT_LINE(SQLERRM(SQLCODE));
+END;
+```
+
+###### Processed SQL Text
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1
+AS
+BEGIN
+FOR curosor1 IN (SELECT c1, c2 FROM t1)
+LOOP
+UPDATE t2 SET c2 = curosor1 .c2 WHERE c1 = curosor1 .c1;
+END LOOP;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+DBMS_OUTPUT.PUT_LINE('SQL ERROR CODE:' || SQLCODE);
+DBMS_OUTPUT.PUT_LINE('SQL ERROR MESSAGE:' || SQLERRM);
+DBMS_OUTPUT.PUT_LINE(SQLERRM(SQLCODE) /* [TODO] RULE-40023 : The SQLERRM(error_code) function should be manually converted */);
+END;
 ```
 
 # Appendix F: FAQ
