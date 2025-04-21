@@ -219,7 +219,7 @@ This section describes the conventions used in this manual. Understanding these 
 
 There are two sets of conventions:
 
-- Syntax diagram convetions
+- Syntax diagram conventions
 - Sample code conventions
 
 ##### Syntax Diagram Conventions
@@ -230,7 +230,7 @@ This manual describes command syntax using diagrams composed of the following el
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | [![image1](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif) | Indicates the start of a command. If a syntactic element starts with an arrow, it is not a complete command.                               |
 | [![image2](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif) | Indicates that the command continues to the next line. If a syntactic element ends with this symbol, it is not a complete command.         |
-| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates taht the command continues from the previous line. If a syntactic element starts witht his symbol, it is not a complete command. |
+| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates that the command continues from the previous line. If a syntactic element starts with this symbol, it is not a complete command. |
 | [![image4](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif) | Indicates the end of a statement.                                                                                                          |
 | [![image5](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif) | Indicates a manatory element.                                                                                                              |
 | [![image6](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif) | Indicates an optional element.                                                                                                             |
@@ -432,7 +432,7 @@ The Build step performs initial surveys on the current status of the source and 
 
 ##### Reconcile Step
 
-The Reconcile step builds a complete migration plan on the current status. This step is mostly  28 Migration Center User’s Manual about making adjustments for differences between source and destination databases (namely, data types and tablespaces). This step enables the user to edit SELECT statements for fetching data from the source database and DDL statements to be executed on the destination database. For example, the user can specify which source database table is to be copied to which destination database tablespace.
+The Reconcile step builds a complete migration plan on the current status. This step is mostly Migration Center User’s Manual about making adjustments for differences between source and destination databases (namely, data types and tablespaces). This step enables the user to edit SELECT statements for fetching data from the source database and DDL statements to be executed on the destination database. For example, the user can specify which source database table is to be copied to which destination database tablespace.
 
 Please remember that if changes are made to “Migration Options”, this step must be re-executed.
 
@@ -1668,6 +1668,12 @@ Type</td><td>'97/04/21'</td><td>/* DEFAULT '97/04/21' */</td><td></td>
     </tr>
     <tr>
          <td >USER</td><td>USER_NAME()</td><td></td>
+    </tr>
+    <tr>
+        <td>Identity column</td><td>Identity</td><td>__SYS_<i>table_name</i>_<i>column_name</i>_SEQ.nextval</td><td></td>
+    </tr>
+    <tr>
+        <td>DEFAULT ON NULL column</td><td>DEFAULT ON NULL 'test'</td><td>DEFAULT 'test' NOT NULL</td><td></td>
     </tr>
 </table>
 
