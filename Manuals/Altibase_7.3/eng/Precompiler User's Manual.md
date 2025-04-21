@@ -768,7 +768,7 @@ For detailed instructions on how to connect to database servers, please refer to
 
 ##### About Connections, Multiple Connections, and Sessions
 
--   To establish a new connection using the same name as an existing connection, it is first necessary to execute the FREE or DISCONNECT statement to terminate the existing connection. If the database server is online, execute the DISCONNECT statement, whereas if the database server is offline, execute the FREE statement. 
+-   To establish a new connection using the same name as an existing connection, it is first necessary to execute the DISCONNECT statement to terminate the existing connection.
   
 -   If the connection method (CONNTYPE) is set to 2 or 3 in the connection string in a USING clause, the DSN and PORT_NO options will be ignored even if they are set, and an attempt will be made to connect with the local database server.  When two sets of connection options are specified and a connection is successfully established using the first set of options, the value returned in sqlca.sqlcode is SQL_SUCCESS. If the connection attempt using the first set of options fails, but a connection is then successfully established using the second set of options, the value returned in sqlca.sqlcode is SQL_SUCCES_WITH_INFO. If a connection cannot be established using either set of options, the value returned in sqlca.sqlcode is SQL_ERROR. 
   
@@ -3892,7 +3892,7 @@ export ALTIBASE_NLS_USE=US7ASCII
 
 > ##### Considerations
 >
-> If an attempt to establish a connection is made when a connection already exists, an error message indicating that a connection has already been established will be displayed. Therefore, if it is desired to establish a connection while a connection exists, it is first necessary to execute FREE or DISCONNECT to terminate the existing connection. If the database server is running, the DISCONNECT statement must be executed, whereas if the database server is not running, the FREE statement must be executed.
+> If an attempt to establish a connection is made when a connection already exists, an error message indicating that a connection has already been established will be displayed. Therefore, if it is desired to establish a connection while a connection exists, it is first necessary to execute DISCONNECT to terminate the existing connection.
 > 
 > If the connection method (CONNTYPE) is set to 2 or 3 in the connection string, the DSN and PORT_NO options will be ignored even if they are set, and an attempt will be made to connect with the local database server.
 
@@ -4697,36 +4697,6 @@ EXEC SQL BATCH ON;	- To activate batch processing mode
 EXEC SQL BATCH OFF; 	- To deactivate batch processing mode
 ```
 
-#### FREE
-
-This statement is used to release all resources that were allocated when the connection with the database server was established and embedded SQL statements were executed. 
-
-##### Syntax
-
-```
-EXEC SQL FREE;
-```
-
-##### Arguments
-
-None
-
-##### Description
-
-If the connection with the server is lost while embedded SQL statements are being executed, it is necessary to execute the FREE statement before attempting to re-establish the connection. 
-
-The database server must not be running when the FREE statement is executed. If the database server is running, use the DISCONNECT statement instead of the FREE statement.
-
-##### Example
-
-The following example shows the use of the FREE statement:
-
-\< Sample Program : free.sc \>
-
-```
-EXEC SQL FREE;
-```
-
 #### INCLUDE
 
 This statement is used to specify a header file that is to be included in a precompile operation. 
@@ -4770,35 +4740,6 @@ The following example shows how to use the INSERT statement to specify the heade
 
 ```
 EXEC SQL INCLUDE hostvar.h;
-```
-
-#### Sample Programs
-
-##### free.sc 
-
-This sample program can be found at $ALTIBASE_HOME/sample/APRE/free.sc.
-
-##### Result of Execution
-
-```
-$ is –f schema/schema.sql
-$ make free
-$ ./free
-<FREE>
-------------------------------------------------------
-[Connect]
-------------------------------------------------------
-Success connection to altibase server
-
-------------------------------------------------------
-[Free]
-------------------------------------------------------
-Error : [-331796] Function sequence error
-
-------------------------------------------------------
-[Reconnect]
-------------------------------------------------------
-Error : [-589826] Already connected
 ```
 
 ### OPTION Statements
@@ -8064,7 +8005,7 @@ When establishing more than one connection in one application, it is necessary t
 > ##### Notes
 >
 > - In an application with multiple database connections, only one connection that does not have a name is allowed. If no connection name is specified in subsequently executed embedded SQL statements, they will be processed using this connection (the default connection).
-> - If an attempt is made to establish a connection using the name of an established connection, an error will be raised, indicating that an established connection with that name already exists. To establish a new connection using the same name as an existing connection, it is first necessary to execute the FREE or DISCONNECT statement. If the database server is online, execute the DISCONNECT statement, whereas if the database server is offline, execute the FREE statement.
+> - If an attempt is made to establish a connection using the name of an established connection, an error will be raised, indicating that an established connection with that name already exists. To establish a new connection using the same name as an existing connection, it is first necessary to execute DISCONNECT statement.
 > 
 
 ##### Examples
@@ -8257,9 +8198,7 @@ EXEC SQL [ AT <conn_name | :conn_name> ]
 SAVEPOINT <savepoint_name>;
 EXEC SQL [ AT <conn_name | :conn_name> ] 
 ROLLBACK [ TO SAVEPOINT <savepoint_name> ];
-EXEC SQL [ AT <conn_name | :conn_name> ] 
-FREE;
-EXEC SQL [ AT <conn_name | :conn_name> ] 
+EXEC SQL [ AT <conn_name | :conn_name> ]  
 BATCH;
 ```
 
@@ -9974,7 +9913,6 @@ delete.sc
 dynamic1.sc
 dynamic2.sc
 dynamic3.sc
-free.sc
 indicator.sc
 insert.sc
 mc1.sc
