@@ -1,6 +1,6 @@
 # Migration Center User's Manual
 
-#### Release 7.14
+#### Release 7.15
 
 Altibase® Tools & Utilities
 
@@ -97,8 +97,8 @@ Altibase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities Migration Center User's Manual
-Release 7.14
-Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
+Release 7.15
+Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
 <b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
@@ -359,13 +359,13 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 ##### 원본 데이터베이스
 
 - Altibase: 4.3.9 이상 버전
-- Oracle Database: 9i~11g
+- Oracle Database: 9i~19c
 - Microsoft SQL Server: 2005~2012
 - Oracle MySQL: 5.0~5.7
 - Informix: 11.50
 - Oracle TimesTen: 7.0, 11.2
 - CUBRID: 8.4.1~9.3.5 (ISO-8859-1, UTF-8 charset)
-- Tibero: 4sp1~6
+- Tibero: 4sp1~7.2.2
 - PostgreSQL: 9.5.3
 
 ##### JDBC 드라이버
@@ -947,6 +947,7 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
 | Keep Partition Table                         | 파티션드 테이블 유지 여부를 설정한다. <br />Yes는 변환 가능한 경우 원본 데이터베이스와 동일한 파티션드 테이블을 생성한다. 이 경우 사용자는 조정(Reconcile) 단계 중 5. Partitioned Table Conversion에서 파티션드 테이블 변환에 필요한 추가 작업을 진행해야 한다. No는 논파티션드 테이블로 변경하여 생성한다. 기본 설정은 No이다. |
 | Use Double-quoted Identifier                 | 데이터베이스 객체 이름에 큰 따옴표 사용 여부를 설정한다. 기본 설정은 No이다. |
 | Remove FORCE from View DDL                   | 뷰 생성 구문에서 'FORCE' 키워드 삭제 여부를 설정한다. 기본 설정은 Yes이다. |
+| Invisible Column Migration                   | 마이그레이션 대상 테이블 칼럼에 Invisible 칼럼 포함 여부를 설정한다. Altibase는 Invisible 칼럼 기능을 제공하지 않는다. <br />Yes는 Invisible 칼럼을 일반 칼럼으로 변경하여 마이그레이션을 수행한다. No는 Invisible 칼럼을 제외하여 마이그레이션을 수행한다. 기본 설정은 No이다. |
 | Postfix for reserved word                    | 원본 데이터베이스 객체 이름이 Altibase 예약어와 충돌할 경우 객체 이름에 추가할 접미사를 설정한다. 기본 설정은 _POC이다. |
 | Default '' (Empty String) Not Null Column    | 빈 문자열(Empty string)[^1]이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼의 정의를 어떻게 조정할 지 설정한다. <br />- Replace Default Empty String: Yes는 기본값을 사용자가 지정한 문자열로 설정하는 것을 의미한다. 기본 설정은 No이다.<br />- Replacement Default Value: 기본값으로 설정될 문자열을 입력한다. Replace Default Empty String 설정이 Yes일 때만 활성화된다.<br />- Remove Not Null: Yes는 빈 문자열이 기본값인 칼럼에 설정된 NOT NULL 제약 조건을 해제하는 것을 의미한다. 기본 설정은 No이다. |
 | **Data Options**                             |                                                              |
@@ -955,6 +956,7 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
 | Batch LOB type                               | BLOB, CLOB 데이터 타입의 배치 처리 여부를 지정한다. <br/>Yes는 배치 처리를 허용하는 것을 의미한다. 단, LOB 데이터 크기에 따라 메모리 초과 (Out Of Memory) 등의 문제가 발생할 수 있음을 주의해야 한다. 또한 배치 기능을 지원하지 않는 TimesTen에서 예외가 발생할 수 있다. <br />No는 배치 처리를 허용하지 않는다. 기본 설정은 No이다. |
 | Log Insert-failed Data                       | 데이터 마이그레이션 중 입력 실패한 행(row)을 로그 파일에 작성할 것인지 설정한다. 이 옵션은 Batch Execution 옵션이 No인 경우 활성화된다. 기본 설정은 No이다. |
 | File Encoding                                | 입력 실패한 레코드를 파일에 기록할 때 인코딩 문자 집합을 지정한다. Log Insert-failed Data 옵션이 Yes인 경우 활성화된다. 기본설정은 UTF8이다. |
+| Convert Oversized String VARCHAR To CLOB     | 칼럼의 데이터 타입이 Altibase VARCHAR 타입으로 매핑되는 경우 칼럼의 크기가 Altibase의 VARCHAR 최대 크기인 32000 Bytes를 초과할 때, CLOB으로 데이터 타입 변환 여부를 지정한다. </br>Yes는 CLOB 타입으로 변환하여 처리하는 것을 의미한다. </br>No는 칼럼의 크기가 32000인 VARCHAR 타입으로 변환하여 처리하는 것을 의미한다. 기본 설정은 Yes이다.
 | Replace Empty String Data                    | 데이터 마이그레이션 수행 중 발견한 빈 문자열 데이터를 사용자가 지정한 문자열로 변경하기 위한 옵션이다.<br />- Replace Empty Strings in Not Null: Yes는 빈 문자열 데이터를 사용자가 지정한 문자열로 대체하는 것을 의미한다. 기본 설정은 No이다.<br>- Replacement String: 빈 문자열을 대체할 문자열을 입력한다. Replace Empty Strings in Not Null 설정이 Yes일 때만 활성화된다.<br />- Apply to Nullable Columns: Yes는 NOT NULL 제약 조건이 걸려있지 않은 칼럼의 빈 문자열 데이터도 Replacement String에 입력한 문자열로 대체하는 것을 의미한다. 기본 설정은  No이다. |
 | **Data Validation Options**                  |                                                              |
 | Operation                                    | 검증 단계에서 수행할 연산을 선택한다. <br />- DIFF : 원본 및 대상 데이터베이스 간 데이터 불일치 검사 <br />- FILESYNC: DIFF의 결과로 생성된 CSV 파일을 대상 데이터베이스에 반영 |
@@ -1066,13 +1068,13 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | 임시 테이블을 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다.테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
+| Table                  |                   O                   |                   O                    | 임시 테이블을 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. </br>외부 테이블(External Table)과 하이브리드 파티션드 테이블(Hybrid Partitioned Table)을 마이그레이션하기 위해서는 사용자가 접근할 수 있는 디스크 테이블 스페이스가 Altibase에 있어야 한다. Altibase는 Oracle이 제공하는 외부 테이블과 하이브리드 파티션드 테이블 기능을 제공하지 않으므로, 해당 테이블들은 일반 테이블 또는 파티션드 테이블로 변환되어 마이그레이션된다. 이러한 테이블들은 대용량일 가능성이 높아, 마이그레이션 시 자동으로 디스크 테이블스페이스에 할당되기 때문이다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
-| Index                  |                   O                   |                   O                    |                                                              |
-| Sequence               |                   O                   |                   X                    |                                                              |
+| Index                  |                   O                   |                   O                    | 보이지 않는 인덱스(Invisible Index)와 사용 불가능한 인덱스(Unusable Index)는 마이그레이션되지 않는다.                                                             |
+| Sequence               |                   O                   |                   X                    | 확장가능한 시퀀스는 마이그레이션되지 않는다.                                                             |
 | Private Synonym        |               부분 지원               |                   X                    | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
 | Procedure              |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
 | Function               |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
@@ -1126,7 +1128,7 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | Unique 제약            |                   O                   |                   O                    |                                                              |
 | Check 제약             |                   O                   |                   O                    |                                                              |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
-| Index                  |                   O                   |                   O                    | Tibero의 LOB 타입 칼럼에 자동으로 생성되는 index는 Altibase에서 지원하지 않으므로 이관되지 않는다. Build 단계에서 걸러진 이관 불가능한 인덱스 목록은 Build Report의 Missing 탭에서 확인할 수 있다. |
+| Index                  |                   O                   |                   O                    | Tibero의 LOB 타입 칼럼에 자동으로 생성되는 index는 Altibase에서 지원하지 않으므로 이관되지 않는다. Build 단계에서 걸러진 이관 불가능한 인덱스 목록은 Build Report의 Missing 탭에서 확인할 수 있다. </br>보이지 않는 인덱스(Invisible Index)와 사용 불가능한 인덱스(Unusable Index)는 마이그레이션되지 않는다. |
 | Sequence               |                   O                   |                   X                    |                                                              |
 | Private Synonym        |               부분 지원               |                   X                    | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
 | Procedure              |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
@@ -1205,7 +1207,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 | :--: | :------------ | :---------------- | :----------------------------------------------------------- |
 |  1   | CHAR          | CHAR              | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Oracle에서 문자 길이로 정의된 칼럼의 경우 자동으로 바이트 길이로 변환된다. |
 |  2   | NCHAR         | NCHAR             | 원본 및 대상 데이터베이스의 NCHAR 칼럼의 명시적인 크기는 같다(예. NCHAR(10) → NCHAR(10)). 그러나, 오라클 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 사용되는 바이트의 개수로 정의되는 반면, Altibase의 JDBC 드라이버에서는 NCHAR 칼럼의 크기가 저장되는 문자의 개수로 정의된다. 이는 Altibase에서 생성되는 NCHAR 칼럼이 필요에 따라 오라클보다 2배 또는 3배 정도 클 것이라는 의미이므로, 이런 점을 유의하도록 한다. |
-|  3   | VARCHAR2      | VARCHAR 또는 CLOB | 오라클에서 문자 길이로 정의한 VARCHAR2는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. |
+|  3   | VARCHAR2      | VARCHAR 또는 CLOB | 오라클에서 문자 길이로 정의한 VARCHAR2는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. </br>오라클의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000을 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. |
 |  4   | NVARCHAR2     | NVARCHAR          | NCHAR와 같은 이유로, 칼럼 크기가 서로 다르다.                |
 |  5   | LONG          | CLOB              |                                                              |
 |  6   | NUMBER        | NUMBER            | 오라클에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 오라클과 Altibase 모두 precision과 scale 없이 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 다루어진다. |
@@ -1275,7 +1277,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  16  | DATE               | DATE                            |                                                              |
 |  17  | TIMESTAMP          | DATE                            | TIMEZONE 제외                                                |
 |  18  | CHAR               | CHAR 또는 NCHAR                 | MySQL의 CHAR 칼럼의 문자 집합이 유니코드이면 Altibase의 문자 집합에 따라 Altibase의 데이터 타입이 결정된다. <br />\- MySQL의 CHAR 칼럼의 문자 집합이 유니코드일 때<br />  \- Altibase 문자 집합이 유니코드이면 CHAR<br />  - Altibase 문자 집합이 유니코드가 아니면 NCHAR |
-|  19  | VARCHAR            | VARCHAR 또는 NVARCHAR 또는 CLOB | MySQL의 VARCHAR 칼럼의 문자 집합이 유니코드이면 Altibase의 문자 집합에 따라 Altibase의 데이터 타입이 결정된다. <br />\- MySQL의 VARCHAR 칼럼의 문자 집합이 유니코드일 때<br />  \- Altibase 문자 집합이 유니코드이면 CHAR<br />  - Altibase 문자 집합이 유니코드가 아니면 NVARCHAR<br /><br />MySQL의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 MySQL과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. MySQL의 VARCHAR 최대 크기는 65,536바이트로 Altibase보다 크다. |
+|  19  | VARCHAR            | VARCHAR 또는 NVARCHAR 또는 CLOB | MySQL의 VARCHAR 칼럼의 문자 집합이 유니코드이면 Altibase의 문자 집합에 따라 Altibase의 데이터 타입이 결정된다. <br />\- MySQL의 VARCHAR 칼럼의 문자 집합이 유니코드일 때<br />  \- Altibase 문자 집합이 유니코드이면 CHAR<br />  - Altibase 문자 집합이 유니코드가 아니면 NVARCHAR<br /><br />MySQL의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. MySQL의 VARCHAR 최대 크기는 65,536바이트로 Altibase보다 크다. |
 |  20  | BINARY             | BYTE                            |                                                              |
 |  21  | VARBINARY          | BLOB                            |                                                              |
 |  22  | TINYBLOB           | BLOB                            |                                                              |
@@ -1312,7 +1314,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  17  | NCHAR         | NCHAR             | NCHAR 데이터 타입의 최대 크기는 Informix(32,767)가 Altibase(32,000)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다. |
 |  18  | VARCHAR       | VARCHAR           |                                                              |
 |  19  | NVARCHAR      | NVARCHAR          |                                                              |
-|  20  | LVARCHAR      | VARCHAR 또는 CLOB | Informix의 LVARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 Informix와 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. Informix의 LVARCHAR 최대 크기는 32,767바이트로 Altibase보다 크다. |
+|  20  | LVARCHAR      | VARCHAR 또는 CLOB | Informix의 LVARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. Informix의 LVARCHAR 최대 크기는 32,767바이트로 Altibase보다 크다. |
 |  21  | TEXT          | CLOB              |                                                              |
 |  22  | CLOB          | CLOB              |                                                              |
 |  23  | BYTE          | BLOB              |                                                              |
@@ -1347,9 +1349,9 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  22  | TT_SMALLINT   | SMALLINT          | TimesTen의 TT_SMALLINT 최소 크기(-32,768)는 Altibase의 SMALLINT 최소 크기(-32,767)보다 작기 때문에 데이터 손실이 발생할 수 있다. |
 |  23  | TT_TIMESTAMP  | DATE              | TimesTen의 TT_TIMESTAMP 최대 스케일이 나노초(7자릿수)로 Altibase의 DATE 최대 스케일 마이크로초(6자릿수)보다 크기 때문에 데이터 손실이 발생할 수 있다. |
 |  24  | TT_TINYINT    | SMALLINT          |                                                              |
-|  25  | TT_VARCHAR    | VARCHAR 또는 CLOB | TimesTen의 TT_VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 TimesTen과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. TimesTen의 TT_VARCHAR 최대 크기는 4,194,304바이트로 Altibase보다 크다. |
+|  25  | TT_VARCHAR    | VARCHAR 또는 CLOB | TimesTen의 TT_VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. TimesTen의 TT_VARCHAR 최대 크기는 4,194,304바이트로 Altibase보다 크다. |
 |  26  | VARBINARY     | BLOB              |                                                              |
-|  27  | VARCHAR2      | VARCHAR 또는 CLOB | 1. TimesTen의 VARCHAR2 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 TimesTen과 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. TimesTen의 VARCHAR2 최대 크기는 4,194,304바이트로 Altibase보다 크다.<br />2. TimesTen에서 문자 길이로 정의한 VARCHAR2는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. |
+|  27  | VARCHAR2      | VARCHAR 또는 CLOB | 1. TimesTen의 VARCHAR2 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면  Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. TimesTen의 VARCHAR2 최대 크기는 4,194,304바이트로 Altibase보다 크다.<br />2. TimesTen에서 문자 길이로 정의한 VARCHAR2는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. |
 
 #### CUBRID to Altibase
 
@@ -1367,10 +1369,10 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  10  | TIMESTAMP  | DATE              |                                                              |
 |  11  | DATETIME   | DATE              |                                                              |
 |  12  | CHAR       | CHAR 또는 CLOB    | CUBRID의 CHAR 칼럼이 Altibase의 CHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 CUBRID와 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. CUBRID의 CHAR 최대 크기는 1,073,741,823바이트로 Altibase보다 크다. |
-|  13  | VARCHAR    | VARCHAR 또는 CLOB | CUBRID의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 CUBRID와 Altibase 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. CUBRID의 VARCHAR 최대 크기는 1,073,741,823바이트로, Altibase보다 크다. |
+|  13  | VARCHAR    | VARCHAR 또는 CLOB | CUBRID의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. CUBRID의 VARCHAR 최대 크기는 1,073,741,823바이트로, Altibase보다 크다. |
 |  14  | NCHAR      | NCHAR             | CUBRID의 NCHAR 타입 최대 크기가 1,073,741,823 바이트로 Altibase의 NCHAR 타입 최대 크기 16,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
 |  15  | VARCHAR    | NVARCHAR          | CUBRID의 VARCHAR 타입 최대 크기가 1,073,741,823 바이트로 Altibase의 NVARCHAR 타입 최대 크기 16,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
-|  16  | STRING     | VARCHAR           | CUBRID의 VARCHAR 타입과 동일한 데이터 타입으로 Altibase의 VARCHAR 타입 최대 크기 32,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
+|  16  | STRING     | VARCHAR 또는 CLOB           | CUBRID의 STRING 타입은  CUBRID의 VARCHAR 타입을 최대 길이로 지정한 것 즉, VARCHAR(1,073,741,823)과 동일하다. 이것은 Altibase의 VARCHAR 타입 최대 크기 32,000 바이트를 초과하기 때문에  "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 CLOB으로 변환하고, No이면 컬럼 크기가 32,000인 VARCHAR 타입으로 변환한다. |
 |  17  | BIT        | BLOB              |                                                              |
 |  18  | VARBIT     | BLOB              |                                                              |
 |  19  | BLOB       | BLOB              |                                                              |
@@ -1384,7 +1386,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 | :--: | :------------ | --------------- | :----------------------------------------------------------- |
 |  1   | CHAR          | CHAR            | Altibase의 CHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 칼럼의 경우 자동으로 바이트 길이로 변환된다. |
 |  2   | NCHAR         | NCHAR           |                                                              |
-|  3   | VARCHAR       | VARCHAR         | Altibase의 VARCHAR 타입은 byte 길이로만 정의할 수 있기 때문에 Tibero에서 문자 길이로 정의된 칼럼의 경우 자동으로 바이트 길이로 변환된다. |
+|  3   | VARCHAR       | VARCHAR or CLOB | 티베로에서 문자 길이로 정의한 VARCHAR는 Altibase에서 바이트 단위로 변환된다. Altibase의 VARCHAR는 바이트 단위로만 정의할 수 있다. </br>티베로의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000을 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. 티베로의 VARCHAR 최대 크기는 65,532바이트로, Altibase보다 크다. |
 |  4   | NVARCHAR      | NVARCHAR        |                                                              |
 |  5   | LONG          | CLOB            |                                                              |
 |  6   | NUMBER        | NUMERIC         | 티베로에서 precision과 scale 없이 정의된 NUMBER 타입 칼럼은 Altibase에서도 동일하게 precision과 scale이 없는 NUMBER 타입으로 변환된다. \*참고: 티베로와 Altibase 모두 precision과 scale이 없는 NUMBER 타입으로 칼럼을 정의하면 데이터베이스 내부적으로 FLOAT 타입으로 처리한다. |
@@ -1412,7 +1414,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |   6  | DOUBLE PRECISION | DOUBLE |  |
 |  7   | MONEY | VARCHAR(30) | 데이터 타입 MONEY는 Altibase에서 문자형 데이터 타입 VARCHAR(30)으로 변환된다.<br>MONEY의 형식이 천단위 구분자가 쉼표(,)이고 소숫점 구분자가 마침표(.)라면 Reconcile 단계에서 숫자형 데이터 타입 NUMERIC(20,2)으로 변환할 수 있다.|
 |  8    | CHARACTER <br/> CHAR | CHAR |  |
-|  9    | CHARACTER VARYING <br/> VARCHAR | VARCHAR 또는 CLOB| PostgreSQL와 Altibase의 문자 집합에 따라 마이그레이션 센터에 의해 자동 보정된 칼럼 길이가 32,000바이트보다 작으면 VARCHAR로, 32,000바이트를 초과하면 CLOB으로 변환한다. 32,000바이트는 Altibase의 VARCHAR 타입의 최대 크기이다. |
+|  9    | CHARACTER VARYING <br/> VARCHAR | VARCHAR 또는 CLOB| PostgreSQL와 Altibase의 문자 집합에 따라 마이그레이션 센터에 의해 자동 보정된 칼럼 길이가 32,000바이트보다 작으면 VARCHAR로, 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 CLOB으로 변환하고, No이면 칼럼 길이가 32,000바이트인 VARCHAR 타입으로 변환한다. 32,000바이트는 Altibase의 VARCHAR 타입의 최대 크기이다. |
 |  10  | TEXT | CLOB | PostgreSQL의 TEXT는 CLOB으로 변환한다.|
 | 11 | BOOLEAN | CHAR(1) | PostgreSQL의 BOOLEAN은 CHAR(1)으로 변환한다. true는 't'로, false는 'f로 변환하여 저장하며 unknown은 널(null)로 저장한다.|
 | 12  | DATE | DATE | PostgreSQL의 DATE에 저장된 -infinity와 infinity는 Altibase에서 각각 21506-12-03, 11567-08-17로 변환된다. 참고로, -infinity와 infinity는 PostgreSQL의 특수한 값으로 내부적으로 각각 292269055-12-03, 292278994-08-17로 표현된다. |
@@ -1541,7 +1543,7 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 
 | Character Set | Max. Bytes Per Character |
 | ------------- | ------------------------ |
-| UTF8          | 3                        |
+| UTF8          | 4                        |
 | EUCKR         | 2                        |
 | MSWIN949      | 2                        |
 | SJIS          | 2                        |
@@ -1671,19 +1673,25 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
     <tr>
          <td >USER</td><td>USER_NAME()</td><td></td>
     </tr>
+    <tr>
+        <td>Identity 칼럼</td><td>Identity</td><td>__SYS_<i>table_name</i>_<i>column_name</i>_SEQ.nextval</td><td></td>
+    </tr>
+    <tr>
+        <td>DEFAULT ON NULL 칼럼</td><td>DEFAULT ON NULL 'test'</td><td>DEFAULT 'test' NOT NULL</td><td></td>
+    </tr>
 </table>
 
 아래는 변환 예제이다.
 
 | 오라클의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                         | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CREATE TABLE testtbl_4_defval<br /> ( c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL,<br /> c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT SQRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER ); | CREATE TABLE TESTTBL_4_DEFVAL<br /> ( C1 NUMBER (38, 0) DEFAULT 123, <br />C2 VARCHAR (50) DEFAULT 'test', <br />C3 NUMBER (38, 0), <br />C4 CHAR (10), <br />C5 NUMBER (38, 0) DEFAULT SQRT(144) + 72, <br />C6 DATE /\* DEFAULT '97/04/21' \*/, <br />C7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />C8 VARCHAR (100) DEFAULT DB_TIMEZONE(), <br />C9 VARCHAR (100) DEFAULT SYS_GUID_STR(), <br />C10 VARCHAR (100) DEFAULT USER_ID(), <br />C11 VARCHAR (100) DEFAULT USER_NAME() ); |
+| CREATE TABLE testtbl_4_defval<br /> ( c1 INT DEFAULT 123, <br />c2 VARCHAR(50) DEFAULT 'test', <br />c3 INT DEFAULT NULL,<br /> c4 CHAR(10) DEFAULT '', <br />c5 INT DEFAULT SQRT(144) + 72, <br />c6 DATE DEFAULT '97/04/21', <br />c7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />c8 VARCHAR(100) DEFAULT DBTIMEZONE, <br />c9 VARCHAR(100) DEFAULT SYS_GUID(), <br />c10 VARCHAR(100) DEFAULT UID, <br />c11 VARCHAR(100) DEFAULT USER, </br>c12 INT GENERATED BY DEFAULT AS IDENTITY, <br />c13 CHAR(5) DEFAULT ON NULL 'test' ); | CREATE TABLE TESTTBL_4_DEFVAL<br /> ( C1 NUMBER (38, 0) DEFAULT 123, <br />C2 VARCHAR (50) DEFAULT 'test', <br />C3 NUMBER (38, 0), <br />C4 CHAR (10), <br />C5 NUMBER (38, 0) DEFAULT SQRT(144) + 72, <br />C6 DATE /\* DEFAULT '97/04/21' \*/, <br />C7 DATE DEFAULT TO_DATE('1999-12-01', 'YYYY-MM-DD'), <br />C8 VARCHAR (100) DEFAULT DB_TIMEZONE(), <br />C9 VARCHAR (100) DEFAULT SYS_GUID_STR(), <br />C10 VARCHAR (100) DEFAULT USER_ID(), <br />C11 VARCHAR (100) DEFAULT USER_NAME(), <br />C12 NUMBER (38, 0) DEFAULT __SYS_TESTTBL_4_DEFVAL_C12_SEQ.NEXTVAL NOT NULL, <br />C13 CHAR (5) DEFAULT 'test' NOT NULL |
 
 #### MS-SQL Server to Altibase
 
 <table>
     <tr>        
-        <th>Expression Type</th> <th>원본(MS SQL Server)</th><th>대상(Altibase)</th><th>특이사항</th>
+        <th>Expression Type</th> <th>원본(MS-SQL Server)</th><th>대상(Altibase)</th><th>특이사항</th>
     </tr>
     <tr>
         <td>문자형을 위한 문자열</td><td>"</td><td></td><td></td>
@@ -1869,7 +1877,7 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 #### PostgreSQL to Altibase
 
 <table>
-        <tr>        
+    <tr>        
         <th>Expression Type</th> <th>원본(PostgreSQL)</th><th>대상(Altibase)</th><th>특이사항</th>
     </tr>   
     <tr>
@@ -3674,6 +3682,28 @@ CREATE OR REPLACE LIBRARY lib1 /* UNTRUSTED */ /* [REMOVED] RULE-17002 : The key
 AS '${ORACLE_HOME}/lib/test_lib.so';
 ```
 
+#### RULE-17003
+
+###### 타입
+
+`REMOVED`
+
+###### 설명
+
+지원하지 않는 EDITIONABLE/NONEDITIONABLE 키워드가 제거되었다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE NONEDITIONABLE LIBRARY TESTLIB1 AS 'str_uppercase.so';
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE /* NONEDITIONABLE */ /* [REMOVED] RULE-17003 : EDITIONABLE/NONEDITIONABLE is removed */ LIBRARY TESTLIB1 AS 'str_uppercase.so';
+```
+
 ### DML문 변환 규칙
 
 #### RULE-20001
@@ -5425,17 +5455,19 @@ END;
 ```sql
 CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER)
 IS
-CURSOR O2A_generated_cur_00 IS (SELECT c1 FROM t1);
-CURSOR O2A_generated_cur_01 IS (SELECT c1 FROM t2);
 BEGIN
-FOR item1 IN O2A_generated_cur_00
-LOOP
-NULL;
+DECLARE
+CURSOR O2A_generated_cur_1 IS SELECT c1 FROM t1;
+BEGIN
+FOR item1 IN O2A_generated_cur_1 LOOP NULL;
 END LOOP;
-FOR item2 IN O2A_generated_cur_01
-LOOP
-NULL;
+END;
+DECLARE
+CURSOR O2A_generated_cur_2 IS SELECT c1 FROM t2;
+BEGIN
+FOR item2 IN O2A_generated_cur_2 LOOP NULL;
 END LOOP;
+END;
 END;
 ```
 
@@ -7352,6 +7384,54 @@ CREATE VIEW v_r40022 AS SELECT SYS_CONTEXT('USERENV', 'INSTANCE_NAME', 100) FROM
 CREATE VIEW v_r40022 AS SELECT SUBSTR(SYS_CONTEXT('USERENV', 'INSTANCE_NAME'), 0, 100) FROM dual;
 ```
 
+#### RULE-40023
+
+###### 타입
+
+`TODO`
+
+###### 설명
+
+SQLERRM(error_code)는 지원하지 않는 함수로 수동으로 변환해야 한다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1 
+AS
+BEGIN
+FOR curosor1 IN (SELECT c1, c2 FROM t1)
+LOOP
+UPDATE t2 SET c2 = curosor1 .c2 WHERE c1 = curosor1 .c1;
+END LOOP;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+DBMS_OUTPUT.PUT_LINE('SQL ERROR CODE:' || SQLCODE);
+DBMS_OUTPUT.PUT_LINE('SQL ERROR MESSAGE:' || SQLERRM);
+DBMS_OUTPUT.PUT_LINE(SQLERRM(SQLCODE));
+END;
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1
+AS
+BEGIN
+FOR curosor1 IN (SELECT c1, c2 FROM t1)
+LOOP
+UPDATE t2 SET c2 = curosor1 .c2 WHERE c1 = curosor1 .c1;
+END LOOP;
+EXCEPTION
+WHEN OTHERS THEN
+ROLLBACK;
+DBMS_OUTPUT.PUT_LINE('SQL ERROR CODE:' || SQLCODE);
+DBMS_OUTPUT.PUT_LINE('SQL ERROR MESSAGE:' || SQLERRM);
+DBMS_OUTPUT.PUT_LINE(SQLERRM(SQLCODE) /* [TODO] RULE-40023 : The SQLERRM(error_code) function should be manually converted */);
+END;
+```
+
 # F.부록: FAQ
 
 ### DBMS 공통
@@ -7886,4 +7966,13 @@ DB 사용자 계정에 DICTIONARY 조회 권한을 부여한다.
 
 - [https://www.tmaxtibero.com/img/service/pdf/manual/Tibero_4_SP1_Administrator's_Guide_v2.1.4.pdf](https://www.tmaxtibero.com/img/service/pdf/manual/Tibero_4_SP1_Administrator's_Guide_v2.1.4.pdf)
 - [https://technet.tmaxsoft.com/upload/download/online/tibero/pver-20220224-000002/tibero_admin/chapter_security.html#sect_so_privilege](https://technet.tmaxsoft.com/upload/download/online/tibero/pver-20220224-000002/tibero_admin/chapter_security.html#sect_so_privilege)
+
+#### Tibero 7.2.2 버전에서 의존성을 가진 객체 이관에 실패한다.
+
+`원인`
+
+Tibero 7.2.2 버전에서 객체 의존성 정보를 가진 메타 정보 뷰에 함수(Function)에 대한 의존성 정보가 누락되는 문제가 있어, 의존성이 있는 객체 이관이 정상적으로 수행되지 않을 수 있다.
+
+`해결 방법`
+마이그레이션 중에 객체 의존성을 수동으로 검토해야 한다. 의존성 정보가 누락되어 마이그레이션에 실패한 객체는 수동으로 마이그레이션 해야한다.
 
