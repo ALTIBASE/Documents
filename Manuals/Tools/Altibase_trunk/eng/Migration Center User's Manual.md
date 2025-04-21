@@ -5469,12 +5469,14 @@ BEGIN
 DECLARE
 CURSOR O2A_generated_cur_1 IS SELECT c1 FROM t1; 
 BEGIN
-FOR item1 IN O2A_generated_cur_1 LOOP NULL; END LOOP; 
+FOR item1 IN O2A_generated_cur_1 LOOP NULL;
+END LOOP; 
 END;
 DECLARE
 CURSOR O2A_generated_cur_2 IS SELECT c1 FROM t2; 
 BEGIN
-FOR item2 IN O2A_generated_cur_2 LOOP NULL; END LOOP; 
+FOR item2 IN O2A_generated_cur_2 LOOP NULL;
+END LOOP; 
 END; 
 END; 
 ```
