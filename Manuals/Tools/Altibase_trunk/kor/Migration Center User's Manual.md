@@ -1372,7 +1372,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  13  | VARCHAR    | VARCHAR 또는 CLOB | CUBRID의 VARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. CUBRID의 VARCHAR 최대 크기는 1,073,741,823바이트로, Altibase보다 크다. |
 |  14  | NCHAR      | NCHAR             | CUBRID의 NCHAR 타입 최대 크기가 1,073,741,823 바이트로 Altibase의 NCHAR 타입 최대 크기 16,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
 |  15  | VARCHAR    | NVARCHAR          | CUBRID의 VARCHAR 타입 최대 크기가 1,073,741,823 바이트로 Altibase의 NVARCHAR 타입 최대 크기 16,000 바이트보다 크기 때문에 데이터 손실이 발생할 수 있다. |
-|  16  | STRING     | VARCHAR 또는 CLOB           | CUBRID의 VARCHAR 타입과 동일한 데이터 타입으로 Altibase의 VARCHAR 타입 최대 크기 32,000 바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 CLOB 또는 VARCHAR 타입으로 변환한다. |
+|  16  | STRING     | VARCHAR 또는 CLOB           | CUBRID의 STRING 타입은  CUBRID의 VARCHAR 타입을 최대 길이로 지정한 것 즉, VARCHAR(1,073,741,823)과 동일하다. 이것은 Altibase의 VARCHAR 타입 최대 크기 32,000 바이트를 초과하기 때문에  "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 CLOB으로 변환하고, No이면 컬럼 크기가 32,000인 VARCHAR 타입으로 변환한다. |
 |  17  | BIT        | BLOB              |                                                              |
 |  18  | VARBIT     | BLOB              |                                                              |
 |  19  | BLOB       | BLOB              |                                                              |

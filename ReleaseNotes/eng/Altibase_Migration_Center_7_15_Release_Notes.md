@@ -171,10 +171,10 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 ## 2.1 New Features
 
 ### Support Oracle 12c, 18c and 19c as Source Database
-Oracle 12c, 18c and 19c added to supported source databases.
+Oracle 12c, 18c and 19c have been added to the list of supported source databases.
 
 ### Support Tibero 7(~7.2.2) as Source Database
-Tibero 7(~7.2.2) added to supported source databases.
+Tibero 7(~7.2.2) has been added to the list of supported source databases.
 
 ### Provide an Option to Set whether to Migrate an Invisible Column
 Since Altibase does not support Oracle’s invisible column feature, invisible columns are converted into regular columns during migration. If the 'Invisible Column Migration' option is set to Yes, these columns are migrated as general columns in Altibase; if set to No (the default), they are excluded from the migration.
