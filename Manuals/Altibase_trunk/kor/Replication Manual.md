@@ -1112,7 +1112,7 @@ SYS 사용자만이 이중화 객체를 생성할 수 있다.
   
 - **USING *conn_type [ib_latency]***  
   
-  원격 서버와의 통신 방을 지정한다. 이 절을 생략하면 TCP로 동작한다. *conn_type* 은 TCP, SSL, IB 중 지정할 수 있다.
+  원격 서버와의 통신 방식을 지정한다. 이 절을 생략하면 TCP로 동작한다. *conn_type* 은 TCP, SSL, IB 중 지정할 수 있다.
   
   * TCP : TCP 통신을 사용 (기본값)
   
