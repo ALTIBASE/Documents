@@ -8,6 +8,7 @@ Altibase 7.3.0.1.0 Patch Notes
     - [BUG-51170 SM 모듈의 condition wait 의 Spurious wakeup 대응](#bug-51170)
     - [BUG-51277 통계 잠금 된 테이블에 통계 자료를 변경할 수 있는 문제를 수정합니다.](#bug-51277)
     - [BUG-51299 MEMORY_INDEX_BUILD_RUN_SIZE 프로퍼티의 최대값을 4,294,967,295로 변경합니다.](#bug-51299)
+    - [BUG-51306 jdbcAdapter 및 oraAdapter에서 empty_clob() 또는 empty_blob() 입력을 null로 처리하던 문제를 수정하였습니다.](#bug-51306)
     - [BUG-51372 이중화 재 시작시 LOB 트랜잭션 로그 처리 오류 수정](#bug-51372)
     - [BUG-51374 버퍼 래치가 해제되지 않아, 서버 종료 중 예외가 발생하는 문제를 수정하였습니다.](#bug-51374)
     - [BUG-51399 DB 구동시 상태 전이 단계에서 예외 발생시 altibase\_boot.log에 ERR-42000이 출력되는 문제를 수정하였습니다.](#bug-51399)
@@ -87,9 +88,9 @@ Fixed Bugs
 -   **재현 빈도** : Always
 
 -   **설명** : MEMORY\_INDEX\_BUILD\_RUN\_SIZE 프로퍼티의 최대값을 변경합니다.
-    -   변경 전 : 18,446,744,073,709,551,615 (2<sub>64</sub>-1) 
+    -   변경 전 : 18,446,744,073,709,551,615 (2<sup>64</sup>-1) 
 
-    -   변경 후 : 4,294,967,295 (2<sub>32</sub>-1)
+    -   변경 후 : 4,294,967,295 (2<sup>32</sup>-1)
 
 -   **재현 방법**
     -   **재현 절차**
@@ -100,6 +101,27 @@ Fixed Bugs
 
 -   **Workaround**
 
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+    -   BUG-51306 empty_clob(), empty_blob()을 입력할 경우, jdbcAdapter에서 잘못처리하는 문제를 수정합니다.
+
+### BUG-51306<a name=bug-51306></a> jdbcAdapter 및 oraAdapter에서 empty_clob() 또는 empty_blob() 입력을 null로 처리하던 문제를 수정하였습니다.
+
+-   **module** : rp-jdbcAdapter
+-   **Category** : Functional Error
+-   **재현 빈도** : Always
+-   **설명** : jdbcAdapter 및 oraAdapter에서 empty_clob() 또는 empty_blob() 입력을 null로 처리하던 문제를 수정하였습니다. 단, target DB가 Altibase 인 경우에는 여전히 해당 입력이 null로 처리되는 제약이 있습니다.
+-   **재현 방법**
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+-   **Workaround**
 -   **변경사항**
 
     -   Performance view
