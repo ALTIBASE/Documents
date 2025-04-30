@@ -1085,27 +1085,46 @@ SYS 사용자만이 이중화 객체를 생성할 수 있다.
 - ***replication_name***  
   생성될 이중화 객체의 이름을 명시한다. 지역 서버와 원격 서버에 동일한 이름을 설정해야 한다.
   
-- ***FOR ANALYSIS \| FOR ANALYSIS PROPAGATION***  
+- **FOR ANALYSIS \| FOR ANALYSIS PROPAGATION**  
   log analyzer 용 이중화를 생성한다. 자세한 설명은 *Log Analyzer User’s Manual*을 참고한다.
   
-- ***FOR PROPAGABLE LOGGING \| FOR PROPAGATION***  
+  > log analyzer는 IB(InfiniBand) 통신 방식을 지원하지 않는다.
+  
+- **FOR PROPAGABLE LOGGING \| FOR PROPAGATION**  
   이중화 수신자가 전송받은 로그를 복제하기 위해 FOR PROPAGABLE LOGGING을 사용하여 로그를 기록한 후, 복제된 로그가 다른 원격 서버로 전송하기 위해 FOR PROPAGATION을 사용한다.
   
-- ***as master 또는 as slave***  
+- **AS MASTER 또는 AS SLAVE**  
   해당 서버가 Master 인지 Slave 인지를 지정한다. 만약 아무것도 지정하지 않으면 기존의 REPLICATION_INSERT_REPLACE 또는 REPLICATION_UPDATE_REPLACE 프로퍼티를 사용하는 방식과 동일하다. Handshaking시 다음의 조합일 경우에만 성공한다: 0과 0, 1과 2, 또는 2와 1. 다른 조합은 실패할 것이다. (0: 지정하지 않은 경우, 1: Master, 2: Slave)
   
 - ***remote_host_ip | remote_host_name***  
   원격 서버의 IP 주소값이나 호스트 이름
 
 - ***remote_host_port_no***  
-  원격 서버 수신 쓰레드의 포트 번호. 즉, 원격 서버의 Altibase 프로퍼티의 REPLICATION_PORT_NO에 해당하는 값이다.
   
-- ***conn_type***  
-  원격 서버와의 통신 방법(TCP/ InfiniBand)이며, 기본값은 TCP이다.
-
-- ***ib_latency***  
-  rsocket의 RDMA_LATENCY 옵션값. conn_type이 IB인 경우에만 입력 가능하다.
-
+  원격 서버 수신 쓰레드의 포트 번호로, 통신 방식에 따라 원격 서버의 다음 프로퍼티 값 중 하나를 입력한다.
+  
+  * TCP 통신 방식 : REPLICATION_PORT_NO
+  * IB(InfiniBand) 통신 방식 : REPLICATION_IB_PORT_NO
+  
+- **USING *conn_type [ib_latency]***  
+  
+  원격 서버와의 통신 방식을 지정한다. 이 절을 생략하면 TCP로 동작한다. *conn_type* 은 TCP, IB 중 지정할 수 있다.
+  
+  * TCP : TCP 통신을 사용 (기본값)
+  
+  * IB : 인피니밴드(InfiniBand) 통신을 사용
+  
+    > [!NOTE]
+    >
+    > - 인피니밴드를 사용하려면, IB_ENABLE 프로퍼티의 값을 1로 설정해야한다.
+    > - 인피니밴드를 사용하면 물리적 네트워크 장애는 감지되지 않는다.
+  
+    * ***ib_latency***  
+  
+      rsocket의 RDMA_LATENCY 옵션값을 지정할 수 있으며, 기본값은 0이다. *conn_type*이 IB인 경우에만 입력 가능하다.
+  
+      - 이 값이 1이면 CPU 자원을 소모하더라도, 적은 대기 시간을 사용한다.
+  
 - ***user_name***  
   이중화할 테이블의 소유자 이름
 
@@ -1886,10 +1905,12 @@ Active 서버에서 장애가 발생했을 때 Standby 서버에서 오프라인
 
 ##### 구문
 
-```
-CREATE REPLICATION replication_name {as master|as slave} 
-WITH 'remote_host_ip' | 'remote_host_name', remote_port_no
-     'remote_host_ip' | 'remote_host_name', remote_port_no …
+```sql
+CREATE REPLICATION replication_name 
+{AS MASTER|AS SLAVE} 
+WITH 'remote_host_ip' | 'remote_host_name', remote_port_no [USING conn_type [ib_latency]]
+     'remote_host_ip' | 'remote_host_name', remote_port_no [USING conn_type [ib_latency]]
+     …
 FROM user.localtableA TO user.remotetableA,
 FROM user.localtableB TO user.remotetableB, …, 
 FROM user.localtableC TO user.remotetableC;
@@ -1914,18 +1935,25 @@ SET HOST ‘remote_host_ip‘ | ‘remote_host_name‘, remote_port_no;
 -   ALTER REPLICATION (ADD HOST):  
     호스트를 추가한다. 이중화 중지 후 호스트를 추가 할 수 있다. 이 구문 수행 후에, 송신 쓰레드는 호스트를 추가 하기 전에 사용하던 IP 주소나 호스트 이름으로 다시 연결을 시도한다.
     
--   *conn_type*  
-    원격 서버와의 통신 방법(TCP/ InfiniBand)이며, 기본값은 TCP이다.
+-   Using *conn_type [ib_latency]*  
+    원격 서버와의 통신 방식을 지정한다. 이 절을 생략하면 TCP로 동작한다.
 
--   *ib_latency*  
-    rsocket의 RDMA_LATENCY 옵션값. conn_type이 IB인 경우에만 입력 가능하다.
-
--   ALTER REPLICATION (DROP HOST) :  
-    호스트를 제거한다. 이중화 중지 후 호스트를 제거 할 수 있다. 이 구문 수행 후에, 송신 쓰레드는 맨 처음 IP 주소나 호스트 이름으로 연결을 시도한다.
-    -   ALL 키워드를 이용하면 모든 호스트를 제거할 수 있다. 모든 호스트의 제거 후에는 이중화를 시작할 수 없다.
+    - TCP : TCP 통신을 사용 (기본값)
     
--   ALTER REPLICATION (SET HOST) :  
-    특정 호스트를 현재 호스트로 지정한다. 이중화 중지 후 호스트를 지정 할 수 있다. 이 구문 수행 후에, 송신 쓰레드는 현재 지정된 호스트의 IP 주소나 호스트 이름으로 연결을 시도한다.
+    -   IB : 인피니밴드(InfiniBand) 통신을 사용
+    
+        - *ib_latency*  
+    
+          rsocket의 RDMA_LATENCY 옵션값을 지정할 수 있으며, 기본값은 0이다. *conn_type*이 IB인 경우에만 입력 가능하다.
+    
+          - 이 값이 1이면 CPU 자원을 소모하더라도, 적은 대기 시간을 사용한다.
+    
+- ALTER REPLICATION (DROP HOST) :  
+  호스트를 제거한다. 이중화 중지 후 호스트를 제거 할 수 있다. 이 구문 수행 후에, 송신 쓰레드는 맨 처음 IP 주소나 호스트 이름으로 연결을 시도한다.
+  -   ALL 키워드를 이용하면 모든 호스트를 제거할 수 있다. 모든 호스트의 제거 후에는 이중화를 시작할 수 없다.
+
+- ALTER REPLICATION (SET HOST) :  
+  특정 호스트를 현재 호스트로 지정한다. 이중화 중지 후 호스트를 지정 할 수 있다. 이 구문 수행 후에, 송신 쓰레드는 현재 지정된 호스트의 IP 주소나 호스트 이름으로 연결을 시도한다.
 
 ##### 예제
 
