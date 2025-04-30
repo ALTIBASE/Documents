@@ -82,32 +82,25 @@ Fixed Bugs
 ### BUG-51299<a name=bug-51299></a> MEMORY\_INDEX\_BUILD\_RUN\_SIZE 프로퍼티의 최대값을 4,294,967,295로 변경합니다.
 
 -   **module** : sm-mem-index
-
 -   **Category** : Other
-
 -   **재현 빈도** : Always
-
 -   **설명** : MEMORY\_INDEX\_BUILD\_RUN\_SIZE 프로퍼티의 최대값을 변경합니다.
     -   변경 전 : 18,446,744,073,709,551,615 (2<sup>64</sup>-1) 
 
     -   변경 후 : 4,294,967,295 (2<sup>32</sup>-1)
-
 -   **재현 방법**
     -   **재현 절차**
 
     -   **수행 결과**
 
     -   **예상 결과**
-
 -   **Workaround**
-
 -   **변경사항**
 
     -   Performance view
     -   Property
     -   Compile Option
     -   Error Code
-    -   BUG-51306 empty_clob(), empty_blob()을 입력할 경우, jdbcAdapter에서 잘못처리하는 문제를 수정합니다.
 
 ### BUG-51306<a name=bug-51306></a> jdbcAdapter 및 oraAdapter에서 empty_clob() 또는 empty_blob() 입력을 null로 처리하던 문제를 수정하였습니다.
 
@@ -271,7 +264,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51417<a name=bug-51417></a> APRE에서 FREE 구문은 더 이상 지원하지않습니다. 
+### BUG-51417<a name=bug-51417></a> APRE에서 FREE 구문은 더 이상 지원하지 않습니다. 
 
 -   **module** : mm-apre
 
