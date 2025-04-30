@@ -13,7 +13,7 @@ Altibase 7.3.0.1.0 Patch Notes
     - [BUG-51374 버퍼 래치가 해제되지 않아, 서버 종료 중 예외가 발생하는 문제를 수정하였습니다.](#bug-51374)
     - [BUG-51399 DB 구동시 상태 전이 단계에서 예외 발생시 altibase\_boot.log에 ERR-42000이 출력되는 문제를 수정하였습니다.](#bug-51399)
     - [BUG-51403 메모리 테이블에서 대량 LOB Insert 시, 성능 저하 문제를 수정하였습니다.](#bug-51403)
-    - [BUG-51408 Active 서버 Sender에서 이중화 Handshake를 빠르게 시도하는 경우, Standby Receiver에서 Lock timeout이 발생할 수 있습니다.](#bug-51408)
+    - [BUG-51408 Active 서버의 Sender에서 이중화 Handshake를 빠르게 시도할 경우, Standby 서버의 Receiver에서 Lock timeout이 빈번하게 발생하던 문제를 개선하였습니다.](#bug-51408)
     - [BUG-51417 APRE에서 FREE 구문은 더 이상 지원하지않습니다.](#bug-51417)
 - [Changes](#changes)
     - [Version Info](#version-info)
@@ -245,7 +245,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51408<a name=bug-51408></a> Active 서버 Sender에서 이중화 Handshake를 빠르게 시도하는 경우, Standby Receiver에서 Lock timeout이 발생할 수 있습니다.
+### BUG-51408<a name=bug-51408></a> Active 서버의 Sender에서 이중화 Handshake를 빠르게 시도할 경우, Standby 서버의 Receiver에서 Lock timeout이 빈번하게 발생하던 문제를 개선하였습니다.
 
 -   **module** : rp-sender
 
@@ -253,16 +253,15 @@ Fixed Bugs
 
 -   **재현 빈도** : Frequence
 
--   **설명** :
+-   **설명** : Active 서버의 Sender에서 이중화 Handshake를 빠르게 시도할 경우, Standby 서버의 Receiver에서 Lock timeout이 빈번하게 발생하던 문제를 개선하였습니다.
 
 -   **재현 방법**
-
     -   **재현 절차**
-
+    
     -   **수행 결과**
-
+    
     -   **예상 결과**
-
+    
 -   **Workaround**
 
 -   **변경사항**

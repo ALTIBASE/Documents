@@ -663,7 +663,7 @@ Fixed Bugs
     -   Compile Option
 -   Error Code
 
-### BUG-50541<a name=bug-50541></a> Query validate과정에서 query stack을 초과해서 사용하는 r경우 서버 비정상 종료하는 문제를 수정합니다.
+### BUG-50541<a name=bug-50541></a> Query validate과정에서 query stack을 초과해서 사용하는 경우 서버 비정상 종료하는 문제를 수정합니다.
 
 -   **module** : qp
 
