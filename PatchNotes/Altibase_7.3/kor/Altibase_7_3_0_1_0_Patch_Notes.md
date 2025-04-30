@@ -14,7 +14,7 @@ Altibase 7.3.0.1.0 Patch Notes
     - [BUG-51399 DB 구동시 상태 전이 단계에서 예외 발생시 altibase\_boot.log에 ERR-42000이 출력되는 문제를 수정하였습니다.](#bug-51399)
     - [BUG-51403 메모리 테이블에서 대량 LOB Insert 시, 성능 저하 문제를 수정하였습니다.](#bug-51403)
     - [BUG-51408 Active 서버의 Sender에서 이중화 Handshake를 빠르게 시도할 경우, Standby 서버의 Receiver에서 Lock timeout이 빈번하게 발생하던 문제를 개선하였습니다.](#bug-51408)
-    - [BUG-51417 APRE에서 FREE 구문은 더 이상 지원하지않습니다.](#bug-51417)
+    - [BUG-51417 APRE에서 FREE 구문은 더 이상 지원하지 않습니다.](#bug-51417)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
