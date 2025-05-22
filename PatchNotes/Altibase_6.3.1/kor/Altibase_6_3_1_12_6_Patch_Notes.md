@@ -311,7 +311,7 @@ Changes
 
 | altibase version | database binary version | meta version | cm protocol version | replication protocol version |
 | ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- |
-| 6.3.1.12.5       | 6.2.1                   | 6.3.1        | 7.1.1               | 7.4.1                        |
+| 6.3.1.12.6       | 6.2.1                   | 6.3.1        | 7.1.1               | 7.4.1                        |
 
 > Altibase 6.3.1 패치 버전별 히스토리는 [Version_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.3.1/Altibase_6_3_1_Version_Histories.md) 에서 확인할 수 있다.
 
