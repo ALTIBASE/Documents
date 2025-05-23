@@ -685,6 +685,7 @@ This property has the following characteristics:
 -   It improves performance when the ORACLE_GROUP_COMMIT property is enabled. 
 -   At present, this property only affects the INSERT and DELETE statements. 
 -   To disable Array DML, set this property to 1.
+-   If users use the LOB interface to update LOB data, the Array DML feature will not work.
 
 ##### ORACLE_UPDATE_STATEMENT_CACHE_SIZE
 
@@ -708,6 +709,8 @@ These properties determine whether to apply DML statements executed in Altibase 
 
 This shows the number of retries when an error occurs while oraAdapter reflects a record in Oracle DB.
 
+However, XLogs, including LOB data, are excluded from the retry target in case of an error.
+
 -   Default Value: 0
 
 -   Range: 0 \~ 65535
@@ -727,6 +730,8 @@ When retrying the number of times set in the ORACLE_ERROR_RETRY_COUNT property, 
 ##### ORACLE_SKIP_ERROR
 
 It is possible to specify whether or not to reflect the record when oraAdapter does not succeed even after retrying the record with ORACLE_ERROR_RETRY_INTERVAL cycles as many times as ORACLE_ERROR_RETRY_COUNT since the error occurred.
+
+However, if an error occurs during XLog processing related to LOBs, the adapter does not abandon the record but instead terminates.
 
 -   Default Value: 1
 -   Range: 0, 1
@@ -800,6 +805,14 @@ When retrying the number of times set in the ADAPTER_ERROR_RESTART_COUNT propert
 
 -   0: Retries without oraAdapter retry interval.
 
+##### ADAPTER_LOB_TYPE_SUPPORT
+
+This property determines if the LOB data type is supported or not.
+
+* Default Value: 0
+* 0: Do not support LOB data type.
+* 1: Support LOB data type.
+
 #### Property Constraints
 
 Spaces or tabs cannot be used when setting property values. Also, to use characters including special characters together, the property values are executed with double quotation marks ("").
@@ -812,12 +825,12 @@ This chapter describes how to start up and shut down oraAdapter and how to use t
 
 ### oraAdapter Constraints
 
-There are various constraints in using oraAdapter(or oraAdapter). If the following conditions are not satiafied, oraAdapter will not be able to use.
+There are various constraints in using oraAdapter(or oraAdapter). If the following conditions are not satisfied, oraAdapter will not be able to use.
 
-#### Preliquisites
+#### Prerequisites
 
--   If a conflict occurs when executing INSEART/UPDATE/DELETE in the target database(Oracle or other altibase), the execution is cancelled and a message is left to an error log file or the execution is neglected in accordance with the configuration. 
--   An error which was occurred during the replication can be withdrawn. That is to say, if there is a duplicated data when inserting multiple data, the execution is completed except the duplicated data. 
+-   If a conflict occurs when executing INSERT/UPDATE/DELETE in the target database(Oracle or other Altibase), the execution is canceled and a message is left to an error log file or the execution is neglected in accordance with the configuration. 
+-   An error which was occurred during the replication can be withdrawn. That is to say, if there is  duplicated data when inserting multiple data, the execution is completed except the duplicated data. 
 -   The replication speed might be slower than that of the service.
 
 #### Data Constraints
@@ -849,6 +862,20 @@ In general, replication target tables cannot execute the data definition languag
 Generally, if DDL is executed in a replication target table, all modifications made before the current DDL are applied to the database, and then the databse is terminated. Once oraAdapter(altiAdapter) is terminated, the replication can be executed by re-starting oraAdapter(altiAdapter) after making table schemas identical through executing the same DDL on the target database.
 
 Refer to the Executing DDL Statements in the *Replicaiton Manual* for other allowed DDL statements.
+
+#### LOB Data Type Constraints
+
+* LOB data type is supported since the Adapter for JDBC version 7.1.0.7.0.
+* LOB data type support depends on OCI compatibility on Oracle 11g and later.
+* To use the LOB data type, set the ADAPTER_LOB_TYPE_SUPPORT property to 1.
+* A table that includes LOB data type has a constraint for the following three properties. For more information, please refer to the description of each property.
+  - [ORACLE_ERROR_RETRY_COUNT](#oracle_error_retry_count-unit-number)
+  - [ORACLE_SKIP_ERROR](#oracle_skip_error)
+  - [ORACLE_ARRAY_DML_MAX_SIZE](#oracle_array_dml_max_size)
+* It is recommended that LOB data update using SELECT FOR UPDATE on the Altibase server is performed after the commit.
+* If users do not commit, LOB data updated by SELECT FOR UPDATE may not be replicated in the following situations:
+  - If an error occurs during replication of data modified prior to executing SELECT FOR UPDATE.
+  - If SKIP occurs due to the ORACLE_SKIP_ERROR, ORACLE_SKIP_INSERT, or ORACLE_SKIP_UPDATE properties during replication of data modified prior to executing SELECT FOR UPDATE.
 
 ### Startup and Shutdown
 

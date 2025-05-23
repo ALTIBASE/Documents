@@ -626,22 +626,20 @@ Multiple transactions can be processed at once. Even if commit execution is perf
 “Batch DML” means to batch process multiple DML statements of the same type. This results in improved performance by reducing network cost.
 
 -   Default Value: 10
-
 -   Range: 1 – 32767
 
--   Enabling the `OTHER_DATABASE_GROUP_COMMIT` property enhances performance.
+This property has the following characteristics:
 
--   This property currently applies only to `INSERT` and `DELETE` statements.
-
--   In order to turn off Batch DML, this property should be set to 1.
-
--   If LOB data is modified using the LOB interface, the Batch DML feature does not function.
+- Enabling the OTHER_DATABASE_GROUP_COMMIT property improves performance.
+- Currently, this property only affects INSERT and DELETE statements.
+- In order to turn off Batch DML, this property should be set to 1.
+- If users use the LOB interface to update LOB data, the Batch DML feature will not work.
 
 ##### OTHER_DATABASE_ERROR_RETRY_COUNT (Unit: count)
 
 This indicates the number of retry attempts if an error occurs when applying to records.
 
-Note that XLog containing LOB data is excluded from retries if an error occurs.
+However, XLogs, including LOB data, are excluded from the retry target in case of an error.
 
 -   Default Value: 0
 
@@ -663,7 +661,7 @@ This indicates retry intervals between error occurrences when applying records.
 
 This determines whether to discard writing the relevant records if it fails to record even though retry was attempted as much as OTHER_DATABASE_ERROR_RETRY_TIME at intervals of OTHER_DATABASE_ERROR_RETRY_COUNT.
 
-For errors during LOB-related XLog processing, the record is not abandoned, and the adapter shuts down regardless of this property’s value.
+However, if an error occurs during XLog processing related to LOBs, the adapter does not abandon the record but instead terminates.
 
 -   Default Value: 1
 -   0: Error message is output as terminating Adapter. (Do not discard writing the relevant records.)
@@ -769,15 +767,15 @@ For other DDLs that can be executed, please refer to Execution DDL Statements on
 #### LOB Data Type Constraints
 
 - LOB data types are supported starting from Adapter for JDBC version 7.1.0.7.0.
-- To use LOB data types, set the `ADAPTER_LOB_TYPE_SUPPORT` property to `1`.
-- Tables containing LOB data types are subject to restrictions related to the following properties. For detailed information, please refer to each property's description.
-  - OTHER_DATABASE_ERROR_RETRY_COUNT
-  - OTHER_DATABASE_SKIP_ERROR
-  - OTHER_DATABASE_BATCH_DML_MAX_SIZE
-- When modifying LOB data using SELECT FOR UPDATE on the Altibase server, it is recommended to perform the operation after committing the transaction.
-- If a commit is not performed, LOB data modified with SELECT FOR UPDATE may not be replicated under the following circumstances: 
+- To use the LOB data type, set the ADAPTER_LOB_TYPE_SUPPORT property to 1.
+- A table that includes LOB data type has a constraint for the following three properties. For more information, please refer to the description of each property..
+  - [OTHER_DATABASE_ERROR_RETRY_COUNT](#other_database_error_retry_count-unit-count)
+  - [OTHER_DATABASE_SKIP_ERROR](#other_database_skip_error)
+  - [OTHER_DATABASE_BATCH_DML_MAX_SIZE](#other_database_batch_dml_max_size-unit-count)
+-  When modifying LOB data using SELECT FOR UPDATE on the Altibase server, it is recommended to perform the operation after committing the transaction.
+- If users do not commit, LOB data updated by SELECT FOR UPDATE may not be replicated in the following situations: 
   - If an error occurs during replication of data modified prior to executing SELECT FOR UPDATE.
-  - If SKIP occurs due to the `OTHER_DATABASE_SKIP_ERROR`, `OTHER_DATABASE_SKIP_INSERT`, or `OTHER_DATABASE_SKIP_UPDATE` properties during replication of data modified prior to executing SELECT FOR UPDATE.
+  - If SKIP occurs due to the OTHER_DATABASE_SKIP_ERROR, OTHER_DATABASE_SKIP_INSERT, or OTHER_DATABASE_SKIP_UPDATE properties during replication of data modified prior to executing SELECT FOR UPDATE.
 
 ### Startup and Shutdown
 
