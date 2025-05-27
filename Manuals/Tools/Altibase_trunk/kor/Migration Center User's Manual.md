@@ -141,7 +141,6 @@ Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 - [B.부록: 마이그레이션 가능한 데이터베이스 객체](#b부록-마이그레이션-가능한-데이터베이스-객체)
   - [Altibase to Altibase](#altibase-to-altibase)
   - [CUBRID to Altibase](#cubrid-to-altibase)
-  - [Informix to Altibase](#informix-to-altibase)
   - [MySQL to Altibase](#mysql-to-altibase)
   - [Oracle to Altibase](#oracle-to-altibase)
   - [SQL Server to Altibase](#sql-server-to-altibase)
@@ -171,7 +170,6 @@ Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
   - [Oracle](#oracle-1)
   - [MS-SQL](#ms-sql)
   - [Altibase](#altibase-1)
-  - [Informix](#informix-1)
   - [MySQL](#mysql-1)
   - [PostgreSQL](#postgresql-1)
   - [TimesTen](#timesten-1)
@@ -371,7 +369,7 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 
 Migration Center는 Altibase 및 다른 데이터베이스의 다양한 버전들과 함께 사용할 수 있다. 이 도구는 데이터베이스 접속을 위해 JDBC 드라이버를 사용하므로, 원본 데이터베이스와 대상 데이터베이스에 알맞은 JDBC 드라이버를 준비하는 것이 중요하다. 사용자 편의를 위해 지원되는 데이터베이스에 적합한 몇 가지 JDBC 드라이버를 Migration Center와 함께 제공한다.
 
-법적인 문제 때문에, 마이크로소프트 SQL Server의 JDBC 드라이버 파일과 Mysql Connector/J 파일, Informix JDBC 드라이버 파일, TimesTen의 JDBC 드라이버 파일은 패키지에 포함하지 않았다. 또한 TimesTen은 타입2 드라이버만 지원하기 때문에 반드시 TimesTen Client Package가 설치된 장비에서 이관을 수행하여야 한다.
+법적인 문제 때문에, 마이크로소프트 SQL Server의 JDBC 드라이버 파일과 Mysql Connector/J 파일, TimesTen의 JDBC 드라이버 파일은 패키지에 포함하지 않았다. 또한 TimesTen은 타입2 드라이버만 지원하기 때문에 반드시 TimesTen Client Package가 설치된 장비에서 이관을 수행하여야 한다.
 
 아래의 사이트에서 적절한 JDBC 드라이버 파일을 다운로드할 수 있다:
 
@@ -383,9 +381,7 @@ Migration Center는 Altibase 및 다른 데이터베이스의 다양한 버전�
    <https://docs.microsoft.com/en-us/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server-support-matrix?view=sql-server-2017>  
 3. Oracle MySQL Connector/J  
    <http://dev.mysql.com/downloads/connector/j/>
-4. Informix JDBC Driver  
-   <http://www14.software.ibm.com/webapp/download/search.jsp?go=y&rs=ifxjdbc>
-5. Oracle TimesTen  
+4. Oracle TimesTen  
    <http://www.oracle.com/technetwork/database/database-technologies/timesten/downloads/index.html>
 6. CUBRID  
    <http://www.cubrid.org/?mid=downloads&item=jdbc_driver>
@@ -1029,24 +1025,6 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | View                     |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Trigger                  |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 
-### Informix to Altibase
-
-| 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
-| :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. |
-| Primary Key 제약       |                   O                   |                   O                    |                                                              |
-| Unique 제약            |                   O                   |                   O                    |                                                              |
-| Check 제약             |                   O                   |                   O                    |                                                              |
-| Foreign Key 제약       |                   O                   |                   O                    |                                                              |
-| Index                  |                   O                   |                   O                    |                                                              |
-| Serial 칼럼 타입       |                   O                   |                   O                    | Sequence로 마이그레이션된다.                                 |
-| Sequence               |                   O                   |                   X                    |                                                              |
-| Private Synonym        |               부분 지원               |                   X                    | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
-| Procedure              |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
-| Function               |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
-| View                   |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
-| Trigger                |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
-
 ### MySQL to Altibase
 
 | 데이터베이스 객체 유형   | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
@@ -1290,36 +1268,6 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  30  | ENUM               | VARCHAR(10666)                  | Altibase에는 MySQL ENUM 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
 |  31  | SET                | VARCHAR(10666)                  | Altibase에는 MySQL SET 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
 
-#### Informix 11.5 to Altibase
-
-|      | 원본          | 대상              | 주의 사항                                                    |
-| :--: | :------------ | :---------------- | :----------------------------------------------------------- |
-|  1   | BIGINT        | BIGINT            |                                                              |
-|  2   | INT8          | BIGINT            |                                                              |
-|  3   | INT           | INTEGER           |                                                              |
-|  4   | SMALLINT      | SMALLINT          |                                                              |
-|  5   | BIGSERIAL     | BIGINT            |                                                              |
-|  6   | SERIAL8       | BIGINT            |                                                              |
-|  7   | SERIAL        | INTEGER           |                                                              |
-|  8   | FLOAT         | DOUBLE            |                                                              |
-|  9   | REAL          | REAL              |                                                              |
-|  10  | SMALLFLOAT    | REAL              |                                                              |
-|  11  | MONEY         | NUMERIC           |                                                              |
-|  12  | DECIMAL_FLOAT | FLOAT             |                                                              |
-|  13  | DATE          | DATE              |                                                              |
-|  14  | DATETIME      | DATE              |                                                              |
-|  15  | BOOLEAN       | CHAR(1)           |                                                              |
-|  16  | CHAR          | CHAR 또는 CLOB    | Informix의 CHAR 칼럼이 Altibase의 CHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 Informix와 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. Informix의 CHAR 최대 크기는 32,767바이트로 Altibase보다 크다. |
-|  17  | NCHAR         | NCHAR             | NCHAR 데이터 타입의 최대 크기는 Informix(32,767)가 Altibase(32,000)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다. |
-|  18  | VARCHAR       | VARCHAR           |                                                              |
-|  19  | NVARCHAR      | NVARCHAR          |                                                              |
-|  20  | LVARCHAR      | VARCHAR 또는 CLOB | Informix의 LVARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. Informix의 LVARCHAR 최대 크기는 32,767바이트로 Altibase보다 크다. |
-|  21  | TEXT          | CLOB              |                                                              |
-|  22  | CLOB          | CLOB              |                                                              |
-|  23  | BYTE          | BLOB              |                                                              |
-|  24  | BLOB          | BLOB              |                                                              |
-|  25  | INTERVAL      | NUMBER(38)        |                                                              |
-
 #### TimesTen to Altibase
 
 |      | 원본          | 대상              | 주의 사항                                                    |
@@ -1488,22 +1436,6 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 | ------------- | ------------------------ |
 | utf8          | 3                        |
 | euckr         | 2                        |
-
-##### Informix
-
-| Character Set      | Max. Bytes Per Character |
-| ------------------ | ------------------------ |
-| zh_cn.GB18030_2000 | 4                        |
-| zh_tw.big5         | 2                        |
-| zh_tw.euctw        | 4                        |
-| zh_cn.gb           | 2                        |
-| zh_tw.sbig5        | 2                        |
-| zh_tw.ccdc         | 2                        |
-| ja_jp.sjis-s       | 2                        |
-| ja_jp.ujis         | 3                        |
-| ja_up.sjis         | 2                        |
-| ko_kr.cp949        | 2                        |
-| ko_kr.ksc          | 2                        |
 
 ##### MySQL
 
@@ -1766,32 +1698,6 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval <br />( c1 TIMESTAMP NOT NULL, <br />c2 INT DEFAULT 123, <br />c3 VARCHAR(50) DEFAULT 'test', <br />c4 INT DEFAULT NULL, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATE DEFAULT '1989-04-28', <br />c7 DATETIME DEFAULT '1989-04-28 12:31:29', <br />c8 TIMESTAMP DEFAULT '1989-04-28 12:31:29' NOT NULL, <br />c9 TIMESTAMP NOT NULL ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 DATE DEFAULT SYSDATE NOT NULL, <br />C2 INTEGER DEFAULT 123, <br />C3 CLOB DEFAULT 'test', C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE DEFAULT TO_DATE('1989-04-28', 'YYYY-MM-DD'), <br />C7 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS'), <br />C8 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS') NOT NULL, <br />C9 DATE /\* DEFAULT '0000-00-00 00:00:00' \*/ NOT NULL ); |
 
-#### Informix 11.5 to Altibase
-
-<table>
-    <tr>        
-        <th>Expression Type</th> <th>원본(Informix)</th><th>대상(Altibase)</th><th>특이사항</th>
-    </tr>
-    <tr>
-        <td>문자형을 위한 문자열</td><td>"</td><td></td><td></td>
-    </tr>
-    <tr>
-        <td>날짜형을 위한 문자열</td><td>'2007-03-06'</td><td>/* DEFAULT '2007-03-06' */</td><td></td>
-    </tr>
-    <tr>
-        <td rowspan="2">함수</td><td>CURRENT</td><td>SYSDATE</td><td></td>
-    </tr>
-    <tr>
-        <td >TODAY</td><td>SYSDATE</td><td></td>
-    </tr>     
-</table>
-
-아래는 변환 예제이다.
-
-| Informix의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                    | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                              |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CREATE TABLE testtbl_4_defval ( <br />c1 INTEGER DEFAULT 123, <br />c2 BOOLEAN DEFAULT 't',<br />c3 CHAR(100) DEFAULT 'test', <br />c4 INTEGER DEFAULT null, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATETIME YEAR TO DAY DEFAULT DATETIME(07-3-6) YEAR TO DAY, <br />c7 DATETIME DAY TO HOUR DEFAULT CURRENT DAY TO HOUR, <br />c8 DATE DEFAULT TODAY ); | CREATE TABLE TESTTBL_4_DEFVAL ( <br />C1 INTEGER DEFAULT 123, <br />C2 CHAR (1) DEFAULT 't', <br />C3 CHAR (100) DEFAULT 'test', <br />C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE /\* DEFAULT '2007-03-06' \*/, <br />C7 DATE DEFAULT SYSDATE, <br />C8 DATE DEFAULT SYSDATE ); |
-
 #### TimesTen to Altibase
 
 <table>
@@ -1955,7 +1861,6 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 | SQL Server   | 고정 길이 문자열 | **빈 문자열** |
 | PostgreSQL   | 고정 길이 문자열 | **빈 문자열** |
 | CUBRID       | 고정 길이 문자열 | **빈 문자열** |
-| Informix     | 고정 길이 문자열 | **빈 문자열** |
 
 Altibase는 기본적으로 빈 문자열을 NULL로 처리한다. 즉, 원본 데이터베이스에 빈 문자열 데이터가 있다면 마이그레이션 시 NULL 처리한다. 만약 빈 문자열이 칼럼의 기본값으로 설정되었다면(`DEFAULT ''`), Altibase는 이를 `DEFAULT NULL`로 해석하고, 기존의 기본값 설정을 제거한다.
 
