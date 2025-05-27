@@ -359,11 +359,10 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 ##### 원본 데이터베이스
 
 - Altibase: 4.3.9 이상 버전
-- Oracle Database: 9i~19c
+- Oracle Database: 10gR2~19c
 - Microsoft SQL Server: 2005~2012
 - Oracle MySQL: 5.0~5.7
-- Informix: 11.50
-- Oracle TimesTen: 7.0, 11.2
+- Oracle TimesTen: 11.2
 - CUBRID: 8.4.1~9.3.5 (ISO-8859-1, UTF-8 charset)
 - Tibero: 4sp1~7.2.2
 - PostgreSQL: 9.5.3
@@ -7813,37 +7812,6 @@ BLOB, byte, nibble 데이터타입을 가진 테이블은 aexport와 iloader를 
 `해결 방법`
 
 프로젝트를 열고 메뉴 Migration - Migration Option을 클릭하여 Batch Execution을 'No'로 선택한 뒤, 데이터 이관을 수행한다.
-
-### Informix
-
-#### 데이터 이관 중에 Informix JDBC Driver에서 java.sql.SQLException: Encoding or code set not supported. 발생
-
-데이터 이관 중에 Informix에서 fetch 중에 아래와 같은 SQLException이 발생하였다. Informix DB에 Multi-byte 문자의 바이트가 잘린 채로 입력된 경우 이 값을 조회할 때 발생하는 exception이다.
-
-```
-java.sql.SQLException: Encoding or code set not supported.
-at com.informix.util.IfxErrMsg.getSQLException(IfxErrMsg.java:412)
-at com.informix.jdbc.IfxChar.fromIfx(IfxChar.java:235)
-at com.informix.jdbc.IfxRowColumn.a(IfxRowColumn.java:380)
-at com.informix.jdbc.IfxRowColumn.a(IfxRowColumn.java:282)
-at com.informix.jdbc.IfxSqli.a(IfxSqli.java:4657)
-at com.informix.jdbc.IfxResultSet.a(IfxResultSet.java:666)
-at com.informix.jdbc.IfxResultSet.b(IfxResultSet.java:638)
-at com.informix.jdbc.IfxResultSet.getString(IfxResultSet.java:724)
-at com.altibase.migLib.run.databinder.DataBinder.getValuesFromSrc(DataBinder.java:445)
-```
-
-`원인`
-
-Informix DB에 Multi-byte 문자의 바이트가 잘린 채로 입력된 경우 이 값을 조회할 때 해당 exception이 발생한다.
-
-`해결 방법`
-
-Informix 연결 속성에 IFX_USE_STRENC=true 를 추가한다.
-
-`참고`
-
-https://m.blog.naver.com/PostView.nhn?blogId=jangkeunna&logNo=70146227929&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
 
 ### MySQL
 
