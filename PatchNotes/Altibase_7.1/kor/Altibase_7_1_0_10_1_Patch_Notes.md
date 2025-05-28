@@ -1,10 +1,26 @@
 Altibase 7.1.0.10.1 Patch Notes
 ===============================
 
-Fixed Bugs
-----------
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-### BUG-51170 SM 모듈의 condition wait 의 Spurious wakeup 대응 코드 보완
+
+- [Fixed Bugs](#fixed-bugs)
+    - [BUG-51170 SM 모듈의 condition wait 의 Spurious wakeup 대응 코드 보완](#bug-51170)
+    - [BUG-51366 송신자가 currentSN을 읽는 과정에서 동시성 문제로 인해 partial read가 발생 할 수 있습니다.](#bug-51366)
+    - [BUG-51372 이중화 재 시작시 LOB 트랜잭션 로그 처리 오류 수정](#bug-51372)
+- [Changes](#changes)
+    - [Version Info](#version-info)
+    - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
+    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+Fixed Bugs
+==========
+
+### BUG-51170<a name=bug-51170></a> SM 모듈의 condition wait 의 Spurious wakeup 대응 코드 보완
 
 -   **module** : sm\_resource
 
@@ -30,7 +46,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51366 송신자가 currentSN을 읽는 과정에서 동시성 문제로 인해 partial read가 발생 할 수 있습니다.
+### BUG-51366<a name=bug-51366></a> 송신자가 currentSN을 읽는 과정에서 동시성 문제로 인해 partial read가 발생 할 수 있습니다.
 
 -   **module** : sm
 -   **Category** : Functional Error
@@ -50,7 +66,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51372 이중화 재 시작시 LOB 트랜잭션 로그 처리 오류 수정
+### BUG-51372<a name=bug-51372></a> 이중화 재 시작시 LOB 트랜잭션 로그 처리 오류 수정
 
 -   **module** : rp-sender
 
@@ -77,7 +93,7 @@ Fixed Bugs
     -   Error Code
 
 Changes
--------
+=======
 
 ### Version Info
 
