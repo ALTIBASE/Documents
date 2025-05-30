@@ -3889,8 +3889,8 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   <td>SYSTEM</td>
   </tr>
   <tr>
-  <td rowspan="56">R</td>
-  <td rowspan="56">&nbsp;</td>
+  <td rowspan="57">R</td>
+  <td rowspan="57">&nbsp;</td>
   <td>REPLICATION_ACK_XLOG_COUNT</td>
   <td>&nbsp;</td>
   </tr>
@@ -4074,10 +4074,15 @@ Altibase 서버의 환경 설정에 관한 프로퍼티 파일은 ALTIBASE_HOME�
   </tr>
   <tr>
   <td>REPLICATION_SERVER_FAILBACK_MAX_TIME</td>
-  <td rowspan="2">&nbsp;</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>REPLICATION_SQL_APPLY_ENABLE</td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td>REPLICATION_SSL_PORT_NO</td>
+  <td>&nbsp;</td>
   </tr>
   <tr>
   <td>REPLICATION_SYNC_APPLY_METHOD</td>
@@ -12363,6 +12368,28 @@ Lazy 모드로 이중화 수행 과정에서 Active 서버와 Standby 서버의 
   아닌 칼럼으로 구성되어 있을 경우  
   유니크 인덱스의 구성 정보가 다를 경우  
   Function-based 인덱스의 구성 정보가 다를 경우
+
+#### REPLICATION_SSL_PORT_NO
+
+##### 데이터 타입
+
+Unsigned Integer
+
+##### 기본값
+
+0
+
+##### 속성
+
+읽기 전용, 단일 값
+
+##### 값의 범위
+
+[0, 65535]
+
+##### 설명
+
+이중화로 연결할때 SSL을 이용하여 접속할 경우 지역 서버의 이중화 포트번호를 나타낸다. 이 값이 0이면 SSL로 이중화를 연결 할 수 없다. 이중화에서 SSL을 사용하려면, 사전에 각 이중화 대상 서버에 SSL을 위한 설정이 완료되어 있어야 한다. SSL 설정에 대한 자세한 정보는 *Altibase SSL/TLS User's Guide*를 참고한다. 
 
 #### REPLICATION_SYNC_APPLY_METHOD
 
