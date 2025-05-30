@@ -147,6 +147,9 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
   - [Altibase EF Core 사용법](#altibase-ef-core-사용법)
   - [Altibase EF Core 데이터 타입](#altibase-ef-core-데이터-타입)
   - [Altibase EF Core 예제](#altibase-ef-core-예제)
+- [8.Altibase Node.js 커넥터(node-odbc-altibase)](#8altibase-nodejs-커넥터node-odbc-altibase)
+  - [node-odbc-altibase 개요](#node-odbc-altibase-개요)
+  - [node-odbc-altibase 사용 방법](#node-odbc-altibase-사용-방법)
 
 
 
@@ -4565,3 +4568,214 @@ C1=1, C2=ABCD
 C1=2, C2=EFG
 C1=3, C2=HIJ
 ```
+
+# 8.Altibase Node.js 커넥터(node-odbc-altibase)
+
+## node-odbc-altibase 개요
+
+node-odbc-altibase는 자바스크립트 기반의 애플리케이션에서 Altibase 서버에 접근할 수 있게 도와주는 드라이버이다.
+
+node-odbc-altibase는 기존에 존재하던 node-odbc(https://www.npmjs.com/package/odbc) 드라이버를 fork하여 개발 되었으며 내부적으로는 ODBC를 사용한다.
+
+node-odbc-altibase 에 대한 자세한 내용은 [npm의 node-odbc-altibase](https://www.npmjs.com/package/node-odbc-altibase)를 참고한다.
+
+### 요구사항
+
+* Altibase ODBC 라이브러리
+  * ODBC 라이브러리는 Node.js 커넥터와는 별도로 설치해야 한다. Altibase ODBC 설치방법은 ***ODBC User's Manual***을 참고한다.
+* Altibase 7.1.0.9.5 이상
+* Noje.js 18, 20, 22
+
+### 지원 OS
+
+Node.js가 지원하는 OS 중에서 Altibase 7.1 클라이언트가 지원하는 OS이다.
+
+- [Node.js Platform list](https://github.com/nodejs/node/blob/main/BUILDING.md#platform-list)
+- [Altibase 7.1 클라이언트의 지원 OS](https://github.com/ALTIBASE/Documents/blob/master/Technical Documents/kor/Supported Platforms.md#altibase-71-server--client)
+
+## node-odbc-altibase 사용 방법
+
+### 설치
+
+#### node-odbc-altibase 다운로드
+
+node-odbc-altibase는 npm 사이트를 통해 제공되며, 다음과 같이 npm 명령어를 이용해 설치할 수 있다.
+
+```bash
+$ npm install node-odbc-altibase
+```
+
+기본적으로 node-odbc-altibase는 SQLLEN 8 셋팅으로 설치가 된다. 만약, SQLLEN 4용 ODBC Manager를 사용한다면, 아래의 **SQLLEN 4 모드로 설치 방법**을 참고하여 바이너리 모듈을 직접 빌드해서 사용해야 한다.
+
+> **SQLLEN 4 모드로 설치 방법**
+>
+> * 소스 다운로드 url: https://github.com/ALTIBASE/node-odbc-altibase
+>
+> GitHub 에서 소스를 다운로드한 다음, 아래와 같이 설정 후 odbc 바이너리 모듈을 직접 빌드한다.
+>
+> ```
+> export CXXFLAGS=-DBUILD_LEGACY_64_BIT_MODE=1
+> $ npm run build
+> ```
+
+### node-odbc-altibase 사용 선언
+
+자바스크립트 기반의 애플리케이션에서 node-odbc-altibase를 사용하려면 먼저 아래와 같이 선언해야 한다.
+
+```javascript
+const odbc = require('node-odbc-altibase');
+```
+
+### 연결 설정
+
+이 절에서는 자바스크립트 기반의 애플리케이션에서 Altibase에 접속하는 방법을 설명한다.
+
+```javascript
+constructor: odbc.connect(connectionString, callback?)
+```
+
+* connectionString: 일반적으로 DSN의 이름을 지정할 수도 있고 다음과 같은 속성을 가진 구성 객체일 수도 있다.
+  - connectionString(필수): 데이터베이스에 연결할 연결 문자열.
+  - connectionTimeout: 연결 요청이 완료되어 애플리케이션으로 돌아가기 전까지 대기하는 최대 시간(초)
+  - loginTimeout : 연결 시도 중 대기할 수 있는 최대 시간(초)
+* callback?
+  - 연결이 완료되었을 때 호출되는 함수이다. 콜백 함수가 지정되지 않으면 자바스크립트의 네이티브 프로미스 객체를 반환한다. 콜백 함수는 다음의 두가지 매개변수를 갖는다.
+    - error: 실행 중에 발생한 오류 또는 오류가 없는 경우 null
+    - connection: 연결에 성공한 경우의 Connection 객체
+  - ? 는 생략가능함을 나타낸다.
+
+예 1) 연결 문자열 사용
+
+```javascript
+const odbc = require('node-odbc-altibase');
+const connection1 = await odbc.connect('DSN=MYDSN');
+```
+
+예 2) 연결 구성 객체 사용
+
+```javascript
+const odbc = require('node-odbc-altibase');
+ 
+const connectionConfig = {
+    connectionString: 'DSN=MYDSN',
+    connectionTimeout: 10,
+    loginTimeout: 10,
+}
+const connection1 = await odbc.connect(connectionConfig);
+```
+
+### 연결 풀링
+
+연결 풀을 가져오기 위해서는 node-odbc-altibase에서 제공하는 pool 함수를 사용해야 한다. 이 함수를 사용하면 여러 연결 풀이 비동기적으로 생성되어 사용자에게 반환되며, 다른 비동기 함수와 마찬가지로 콜백 함수 또는 프로미스를 사용하여 작업을 수행할 수 있다.
+
+```javascript
+constructor: odbc.pool(connectionString, callback?)
+```
+
+- connectionString: 일반적으로 DSN의 이름을 지정하며 풀의 모든 연결에 대해 데이터베이스에 연결할 연결 문자열을 나타낸다. 또는 다음 속성을 가진 구성 객체일 수도 있다.
+  - connectionString(필수): 데이터베이스에 연결할 연결 문자열
+  - connectionTimeout: 연결 요청이 완료되어 애플리케이션으로 돌아가기 전까지 대기하는 최대 시간(초)
+  - loginTimeout: 연결 시도 중 대기할 수 있는 최대 시간(초)
+  - initialSize: 풀에서 생성되는 초기 연결 수
+  - incrementSize: 풀의 연결이 새로 생성될 때 생성할 추가 연결 수
+  - maxSize: 풀이 만들어 질 수 있는 연결의 최대 수
+  - reuseConnections: 새 연결을 만드는 대신 기존 연결을 다시 사용할지 여부
+  - shrink: 연결이 해제됨에 따라 풀의 크기를 축소해야 하는지 여부
+- callback?: 연결이 완료되었을 때 호출되는 함수이다. 콜백 함수가 지정되지 않으면 자바스크립트의 네이티브 프로미스 객체를 반환한다. 콜백 함수는 다음의 두가지 매개변수를 갖는다.
+  - error: 실행 중에 발생한 오류 또는 오류가 없는 경우 null
+  - connection: 연결에 성공한 경우 생성된 Connection 객체
+
+예)
+
+```javascript
+const odbc = require('node-odbc-altibase');
+ 
+async function createPool() {
+    const pool = await odbc.pool(`${process.env.CONNECTION_STRING}`);
+}
+```
+
+### 트랜잭션 처리
+
+#### beginTransaction
+
+트랜잭션을 시작하려면 beginTransaction()함수를 사용해야 한다. 이때 생성된 트랜잭션은 커밋이나 롤백을 통해 처리할 수 있다.
+
+```javascript
+.beginTransaction(callback?)
+```
+
+* callback?: 실행이 완료되었을 때 호출되는 함수이다. 콜백 함수가 지정되지 않으면 자바스크립트의 네이티브 프로미스 객체를 반환한다. 콜백 함수는 다음의 매개변수를 갖는다.
+  * error: 실행 중에 발생한 오류 또는 오류가 없는 경우 null
+
+예)
+
+```javascript
+const odbc = require('node-odbc-altibase');
+ 
+async function transaction() {
+    const connection = await odbc.connect(`${process.env.CONNECTION_STRING}`);
+    await connection.beginTransaction();
+    // transaction is now open
+}
+ 
+transaction();
+```
+
+#### commit
+
+트랜잭션을 커밋한다. 만약 오픈된 트랜잭션이 없을 경우에는 아무일도 일어나지 않는다.
+
+```javascript
+.commit(callback?)
+```
+
+* callback?: 실행이 완료되었을때 호출되는 함수이다. 콜백 함수가 지정되지 않으면 자바스크립트의 네이티브 프로미스 객체를 반환한다. 콜백 함수는 다음의 매개변수를 갖는다.
+  * error: 실행 중에 발생한 오류 또는 오류가 없는 경우 null
+
+예)
+
+```javascript
+const odbc = require('node-odbc-altibase');
+ 
+async function commitTransaction() {
+    const connection = await odbc.connect(`${process.env.CONNECTION_STRING}`);
+    await connection.beginTransaction();
+    const insertResult = await connection.query('INSERT INTO MY_TABLE VALUES(1, \'Name\')');
+    await connection.commit();
+    // INSERT query has now been committed
+}
+ 
+commitTransaction();
+```
+
+#### rollback
+
+트랜잭션을 롤백한다. 만약 오픈된 트랜잭션이 없을 경우에는 아무일도 일어나지 않는다.
+
+```javascript
+.rollback(callback?)
+```
+
+* callback? : 콜백 함수가 지정되지 않으면 자바스크립트의 네이티브 프로미스 객체를 반환한다. 콜백 함수는 다음의 매개변수를 갖는다.
+  * error: 실행 중에 발생한 오류 또는 오류가 없는 경우 null
+
+예)
+
+```javascript
+const odbc = require('node-odbc-altibase');
+ 
+async function rollbackTransaction() {
+    const connection = await odbc.connect(`${process.env.CONNECTION_STRING}`);
+    await connection.beginTransaction();
+    const insertResult = await connection.query('INSERT INTO MY_TABLE VALUES(1, \'Name\')');
+    await connection.rollback();
+    // INSERT query has now been rolled back
+}
+ 
+rollbackTransaction();
+```
+
+### API
+
+자세한 내용은[ GitHub 문서](https://github.com/ALTIBASE/node-odbc-altibase?tab=readme-ov-file#api)를 참조한다.
