@@ -3253,7 +3253,7 @@ DROP TABLE
 
 *offline_clause*
 
-오프라인 옵션 이중화를 시작하거나 오프라인 옵션의 설정을 변경하기 위한 절이다.
+이 절은 jdbcAdapter 및 oraAdapter에서 사용하는 오프라인 옵션의 설정을 변경하기 위한 절이다. 따라서 Log Analyzer 롤로 이중화 객체를 생성한 경우에만 사용할 수 있다.
 
 * SET OFFLINE ENABLE WITH *log_dir* : 이중화 객체에 오프라인 옵션을 설정하는 구문이다. *log_dir*은 Active 서버의 로그파일 경로를 입력하며, 로그파일의 경로가 여러개일 경우 콤마(,)를 이용하여 나열한다.
 * SET OFFLINE DISABLE : 이중화 객체에 설정된 오프라인 옵션을 비활성화한다. 이 구문은 이중화가 중지된 상태에서만 수행할 수 있다. 
