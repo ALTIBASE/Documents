@@ -3130,7 +3130,7 @@ DELETE OFF는 큐 테이블에 DELETE 구문을 허용하지 않는다. 이 경�
 
 **alter_replication_set_clause ::=**
 
-![alter_replication_set_clause](media/SQL/offline_clause.png)
+![alter_replication_set_clause](media/SQL/alter_replication_set_clause.gif)
 
 **offline_clause ::=**
 
@@ -6813,15 +6813,15 @@ XLog Sender를 생성한다. 자세한 설명은 *Log Analyzer User’s Manual*�
 
 *option_clause*
 
-이중화 객체의 RECOVERY, OFFLINE, GROUPING, PARALLEL, GAPLESS, RECEIVE_ONLY, META_LOGGING 옵션을 지정하는 절이다. 자세한 설명은 *Replication Manual*을 참고한다.
+이중화 객체의 RECOVERY, GROUPING, PARALLEL, GAPLESS, RECEIVE_ONLY, OFFLINE, META_LOGGING 옵션을 지정하는 절이다. 자세한 설명은 *Replication Manual*을 참고한다.
 
 * OPTIONS RECOVERY : 데이터 복구를 위하여 사용한다.
-* OPTIONS OFFLINE *log_dir*: 오프라인 이중화 옵션을 설정하기 위해 사용한다. *log_dir*은 Active 서버의 로그파일 경로를 입력하며, 로그파일의 경로가 여러개일 경우 콤마(,)를 이용하여 나열한다.
 * OPTIONS GROUPING : 성능을 위해 이중화 트랜잭션을 그룹화하는데 사용한다.
 * OPTIONS PARALLEL *receiver_applier_count* : 병렬 적용자 옵션을 지정할 때 사용한다. receiver_applier_count*는 병렬 적용자의 개수를 의미하며, 0\~512까지 입력할 수 있다.
 * OPTIONS GAPLESS : 이중화 갭을 일정 수준 이하로 유지하기 위하여 사용한다.
 * OPTIONS RECEIVE_ONLY : 이중화를 수신 전용 옵션으로 설정하여 다른 노드로 변경 데이터를 전송하지 않기 위해 사용한다.
-* OPTIONS META_LOGGING : 메타 정보와 재시작 SN 정보를 파일로 저장할 때 사용한다. 이 파일은 로그파일 경로에 저장된다. 
+* OPTIONS OFFLINE *log_dir*: 이 옵션은 jdbcAdapter와 oraAdapter에서 사용하는 옵션으로, 오프라인 이중화 옵션을 설정하기 위해 사용한다. *log_dir*은 Active 서버의 로그파일 경로를 입력하며, 로그파일의 경로가 여러개일 경우 콤마(,)를 이용하여 나열한다.
+* OPTIONS META_LOGGING : 이 옵션은 jdbcAdapter와 oraAdapter에서 사용하는 옵션으로, 메타 정보와 재시작 SN 정보를 파일로 저장할 때 사용한다. 이 파일은 로그파일 경로에 저장된다. 
 
 *replication_host_ip*
 
