@@ -383,9 +383,9 @@ Migration Center는 Altibase 및 다른 데이터베이스의 다양한 버전�
    <http://dev.mysql.com/downloads/connector/j/>
 4. Oracle TimesTen  
    <http://www.oracle.com/technetwork/database/database-technologies/timesten/downloads/index.html>
-6. CUBRID  
+5. CUBRID  
    <http://www.cubrid.org/?mid=downloads&item=jdbc_driver>
-7. Tibero  
+6. Tibero  
    <https://technet.tmaxsoft.com/>
 
 ### 설치 및 제거
@@ -1289,6 +1289,40 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  30  | ENUM               | VARCHAR(10666)                  | Altibase에는 MySQL ENUM 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
 |  31  | SET                | VARCHAR(10666)                  | Altibase에는 MySQL SET 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
 
+<!--
+
+#### Informix 11.5 to Altibase
+
+|      | 원본          | 대상              | 주의 사항                                                    |
+| :--: | :------------ | :---------------- | :----------------------------------------------------------- |
+|  1   | BIGINT        | BIGINT            |                                                              |
+|  2   | INT8          | BIGINT            |                                                              |
+|  3   | INT           | INTEGER           |                                                              |
+|  4   | SMALLINT      | SMALLINT          |                                                              |
+|  5   | BIGSERIAL     | BIGINT            |                                                              |
+|  6   | SERIAL8       | BIGINT            |                                                              |
+|  7   | SERIAL        | INTEGER           |                                                              |
+|  8   | FLOAT         | DOUBLE            |                                                              |
+|  9   | REAL          | REAL              |                                                              |
+|  10  | SMALLFLOAT    | REAL              |                                                              |
+|  11  | MONEY         | NUMERIC           |                                                              |
+|  12  | DECIMAL_FLOAT | FLOAT             |                                                              |
+|  13  | DATE          | DATE              |                                                              |
+|  14  | DATETIME      | DATE              |                                                              |
+|  15  | BOOLEAN       | CHAR(1)           |                                                              |
+|  16  | CHAR          | CHAR 또는 CLOB    | Informix의 CHAR 칼럼이 Altibase의 CHAR 최대 크기인 32,000바이트를 초과하면 Altibase의 데이터 타입을 CLOB으로 변환한다. 이는 Informix와 Altibase의 데이터 타입 간에 최대 크기 차이로 마이그레이션 시 발생할 수 있는 데이터 손실을 방지하기 위해서이다. Informix의 CHAR 최대 크기는 32,767바이트로 Altibase보다 크다. |
+|  17  | NCHAR         | NCHAR             | NCHAR 데이터 타입의 최대 크기는 Informix(32,767)가 Altibase(32,000)보다 크기 때문에 데이터 손실이 발생할 수 있음을 염두에 두어야 한다. |
+|  18  | VARCHAR       | VARCHAR           |                                                              |
+|  19  | NVARCHAR      | NVARCHAR          |                                                              |
+|  20  | LVARCHAR      | VARCHAR 또는 CLOB | Informix의 LVARCHAR 칼럼이 Altibase의 VARCHAR 최대 크기인 32,000바이트를 초과하면 "Convert Oversized String VARCHAR To CLOB" 마이그레이션 옵션 값이 Yes이면 Altibase의 데이터 타입을 CLOB으로 변환하고, No이면 칼럼 크기가 32,000인 VARCHAR 타입으로 변환한다. Informix의 LVARCHAR 최대 크기는 32,767바이트로 Altibase보다 크다. |
+|  21  | TEXT          | CLOB              |                                                              |
+|  22  | CLOB          | CLOB              |                                                              |
+|  23  | BYTE          | BLOB              |                                                              |
+|  24  | BLOB          | BLOB              |                                                              |
+|  25  | INTERVAL      | NUMBER(38)        |                                                              |
+
+-->
+
 #### TimesTen to Altibase
 
 |      | 원본          | 대상              | 주의 사항                                                    |
@@ -1457,6 +1491,26 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 | ------------- | ------------------------ |
 | utf8          | 3                        |
 | euckr         | 2                        |
+
+<!--
+
+##### Informix
+
+| Character Set      | Max. Bytes Per Character |
+| ------------------ | ------------------------ |
+| zh_cn.GB18030_2000 | 4                        |
+| zh_tw.big5         | 2                        |
+| zh_tw.euctw        | 4                        |
+| zh_cn.gb           | 2                        |
+| zh_tw.sbig5        | 2                        |
+| zh_tw.ccdc         | 2                        |
+| ja_jp.sjis-s       | 2                        |
+| ja_jp.ujis         | 3                        |
+| ja_up.sjis         | 2                        |
+| ko_kr.cp949        | 2                        |
+| ko_kr.ksc          | 2                        |
+
+-->
 
 ##### MySQL
 
@@ -1718,6 +1772,37 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 | MySQL의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                  | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval <br />( c1 TIMESTAMP NOT NULL, <br />c2 INT DEFAULT 123, <br />c3 VARCHAR(50) DEFAULT 'test', <br />c4 INT DEFAULT NULL, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATE DEFAULT '1989-04-28', <br />c7 DATETIME DEFAULT '1989-04-28 12:31:29', <br />c8 TIMESTAMP DEFAULT '1989-04-28 12:31:29' NOT NULL, <br />c9 TIMESTAMP NOT NULL ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 DATE DEFAULT SYSDATE NOT NULL, <br />C2 INTEGER DEFAULT 123, <br />C3 CLOB DEFAULT 'test', C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE DEFAULT TO_DATE('1989-04-28', 'YYYY-MM-DD'), <br />C7 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS'), <br />C8 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS') NOT NULL, <br />C9 DATE /\* DEFAULT '0000-00-00 00:00:00' \*/ NOT NULL ); |
+
+<!--
+
+#### Informix 11.5 to Altibase
+
+<table>
+    <tr>        
+        <th>Expression Type</th> <th>원본(Informix)</th><th>대상(Altibase)</th><th>특이사항</th>
+    </tr>
+    <tr>
+        <td>문자형을 위한 문자열</td><td>"</td><td></td><td></td>
+    </tr>
+    <tr>
+        <td>날짜형을 위한 문자열</td><td>'2007-03-06'</td><td>/* DEFAULT '2007-03-06' */</td><td></td>
+    </tr>
+    <tr>
+        <td rowspan="2">함수</td><td>CURRENT</td><td>SYSDATE</td><td></td>
+    </tr>
+    <tr>
+        <td >TODAY</td><td>SYSDATE</td><td></td>
+    </tr>     
+</table>
+
+
+아래는 변환 예제이다.
+
+| Informix의 테이블 생성 SQL문                                 | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| CREATE TABLE testtbl_4_defval ( <br />c1 INTEGER DEFAULT 123, <br />c2 BOOLEAN DEFAULT 't',<br />c3 CHAR(100) DEFAULT 'test', <br />c4 INTEGER DEFAULT null, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATETIME YEAR TO DAY DEFAULT DATETIME(07-3-6) YEAR TO DAY, <br />c7 DATETIME DAY TO HOUR DEFAULT CURRENT DAY TO HOUR, <br />c8 DATE DEFAULT TODAY ); | CREATE TABLE TESTTBL_4_DEFVAL ( <br />C1 INTEGER DEFAULT 123, <br />C2 CHAR (1) DEFAULT 't', <br />C3 CHAR (100) DEFAULT 'test', <br />C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE /\* DEFAULT '2007-03-06' \*/, <br />C7 DATE DEFAULT SYSDATE, <br />C8 DATE DEFAULT SYSDATE ); |
+
+-->
 
 #### TimesTen to Altibase
 
@@ -7738,6 +7823,41 @@ BLOB, byte, nibble 데이터타입을 가진 테이블은 aexport와 iloader를 
 `해결 방법`
 
 프로젝트를 열고 메뉴 Migration - Migration Option을 클릭하여 Batch Execution을 'No'로 선택한 뒤, 데이터 이관을 수행한다.
+
+<!--
+
+### Informix
+
+#### 데이터 이관 중에 Informix JDBC Driver에서 java.sql.SQLException: Encoding or code set not supported. 발생
+
+데이터 이관 중에 Informix에서 fetch 중에 아래와 같은 SQLException이 발생하였다. Informix DB에 Multi-byte 문자의 바이트가 잘린 채로 입력된 경우 이 값을 조회할 때 발생하는 exception이다.
+
+```
+java.sql.SQLException: Encoding or code set not supported.
+at com.informix.util.IfxErrMsg.getSQLException(IfxErrMsg.java:412)
+at com.informix.jdbc.IfxChar.fromIfx(IfxChar.java:235)
+at com.informix.jdbc.IfxRowColumn.a(IfxRowColumn.java:380)
+at com.informix.jdbc.IfxRowColumn.a(IfxRowColumn.java:282)
+at com.informix.jdbc.IfxSqli.a(IfxSqli.java:4657)
+at com.informix.jdbc.IfxResultSet.a(IfxResultSet.java:666)
+at com.informix.jdbc.IfxResultSet.b(IfxResultSet.java:638)
+at com.informix.jdbc.IfxResultSet.getString(IfxResultSet.java:724)
+at com.altibase.migLib.run.databinder.DataBinder.getValuesFromSrc(DataBinder.java:445)
+```
+
+`원인`
+
+Informix DB에 Multi-byte 문자의 바이트가 잘린 채로 입력된 경우 이 값을 조회할 때 해당 exception이 발생한다.
+
+`해결 방법`
+
+Informix 연결 속성에 IFX_USE_STRENC=true 를 추가한다.
+
+`참고`
+
+https://m.blog.naver.com/PostView.nhn?blogId=jangkeunna&logNo=70146227929&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
+
+-->
 
 ### MySQL
 
