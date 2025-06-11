@@ -7,6 +7,7 @@ Altibase 7.1.0.10.2 Patch Notes
 - [New Features](#new-features)
     - [BUG-51299 MEMORY_INDEX_BUILD_RUN_SIZE 프로퍼티의 최대값을 4,294,967,295로 변경합니다.](#bug-51299)
     - [BUG-51443 디스크 DB 미디어 복구 중 메모리를 많이 사용하는 경우가 있습니다.](#bug-51443)
+    - [BUG-51455 SQLAllocHandle()을 이용하여 환경 핸들을 할당할 때, umask 값을 0으로 설정하던 기존 동작을 변경합니다.](#bug-51455)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-51357 WITH절을 사용하는 쿼리에서 내부 쿼리와 외부 쿼리 모두 RANK() OVER(...) 함수에 동일한 alias를 사용하는 경우, 서버가 비정상 종료할 수 있습니다.](#bug-51357)
     - [BUG-51374 버퍼 래치가 해제되지 않아, 서버 종료 중 예외가 발생하는 문제를 수정하였습니다.](#bug-51374)
@@ -58,6 +59,33 @@ Altibase 7.1.0.10.2 Patch Notes
 -   **재현 빈도** : Always
 
 -   **설명** : 디스크 DB 불완전 복구시 메모리를 많이 사용하는 문제를 개선했습니다.
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-51455<a name=bug-51455></a> SQLAllocHandle()을 이용하여 환경 핸들을 할당할 때, umask 값을 0으로 설정하던 기존 동작을 변경합니다.
+
+-   **module** : core
+
+-   **Category** : Enhancement
+
+-   **재현 빈도** : Always
+
+-   **설명** : SQLAllocHandle()을 이용하여 환경 핸들을 할당할 때 umask 값이 0으로 변경되지 않도록 수정하였습니다.
 
 -   **재현 방법**
 
