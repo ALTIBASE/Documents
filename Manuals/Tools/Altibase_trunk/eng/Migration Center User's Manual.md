@@ -372,11 +372,11 @@ Users can download the appropriate JDBC driver file from the following site:
    <https://docs.microsoft.com/en-us/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server-support-matrix?view=sql-server-2017>
 3. Oracle MySQL Connector/J  
    <http://dev.mysql.com/downloads/connector/j/>
-5. Oracle TimesTen  
+4. Oracle TimesTen  
    <http://www.oracle.com/technetwork/database/database-technologies/timesten/downloads/index.html>
-6. CUBRID  
+5. CUBRID  
    <http://www.cubrid.org/?mid=downloads&item=jdbc_driver>
-7. Tibero  
+6. Tibero  
    <https://technet.tmaxsoft.com/>
 
 ### Installation and Uninstallation
