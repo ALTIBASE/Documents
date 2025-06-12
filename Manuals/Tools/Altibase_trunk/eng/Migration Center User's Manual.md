@@ -1063,7 +1063,7 @@ Objects in the source database that Migration Center does not migrate automatica
 | Table                  |             O              |              O              | To migrate a temporary table from an Oracle database(source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace. Also, the comments specified in tables and columns are migrated as well. </br>To migrate external tables and Hybrid Partitioned Tables, the user must have access to a disk tablespace in Altibase. </br>Since Altibase does not support Oracle’s external table and hybrid partitioned table features, these tables are converted into regular tables or partitioned tables during migration. These types of tables often contain large volumes of data, so they are automatically allocated to a disk tablespace. |
 | Primary Key Constraint |             O              |              O              |                                                              |
 | Unique Constraint      |             O              |              O              |                                                              |
-| Check Constraint       |             O              |              O              |                                                              |
+| Check Constraint       |             O              |              O              | IS JSON check constraint is excluded from migration.         |
 | Foreign Key Constraint |             O              |              O              |                                                              |
 | Index                  |             O              |              O              | Invisible indexes and unusable indexes are not migrated. |
 | Sequence               |             O              |              X              | Scalable sequence is not migrated. |
@@ -1214,6 +1214,8 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  15  | CLOB          | CLOB            |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666) | There is no compatible data type in Altibase for the Oracle NCLOB, so the data is stored in NVARCHAR with the maximum precision. This may cause data loss during data migration when the actual data precision exceeds the NVARCHAR maximum size. |
 |  17  | ROWID         | VARCHAR(18)     | Oracle's ROWID converts to a character data type. Altibase does not support the data type ROWID. |
+| 18   | JSON          | CLOB or JSON    | If the Altibase version supports JSON, it is mapped to the JSON type; otherwise, it is mapped to the CLOB type.
+※ Note: Even for non-native JSON data types such as VARCHAR2, BLOB, or CLOB, if they are defined with an IS JSON check constraint, they are treated as JSON data types. However, the IS JSON constraint itself is excluded during migration. |
 
 #### MS-SQL Server to Altibase
 
@@ -1282,6 +1284,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  31  | LONGTEXT           | CLOB                        |                                                              |
 |  32  | ENUM               | VARCHAR(10666)              | There is no compatible data type in Altibase for MySQL ENUM type, so VARCHAR is used to prevent data loss. |
 |  33  | SET                | VARCHAR(10666)              | There is no compatible data type in Altibase for MySQL SET type, so VARCHAR is used to prevent data loss. |
+|  34  | JSON               | CLOB or JSON                | If the Altibase version supports JSON, it is mapped to the JSON type; otherwise, it is mapped to the CLOB type. |
 
 #### Informix 11.5 to Altibase
 
@@ -1312,6 +1315,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  23  | BYTE          | BLOB        |                                                              |
 |  24  | BLOB          | BLOB        |                                                              |
 |  25  | INTERVAL      | FLOAT       |                                                              |
+|  26  | JSON          | CLOB or JSON | If the Altibase version supports JSON, it is mapped to the JSON type; otherwise, it is mapped to the CLOB type. |
 
 #### TimesTen to Altibase
 
@@ -1393,6 +1397,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  15  | CLOB          | CLOB            |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666) | There is no compatible data type in Altibase for the Tibero NCLOB, so the data is stored in NVARCHAR with the maximum precision. This may cause data loss during data migration when the actual data precision exceeds the NVARCHAR maximum size. |
 |  17  | ROWID         | VARCHAR(18)     | Tibero's ROWID converts to a character data type. Altibase does not support the data type ROWID. |
+|  17  | JSON          | CLOB or JSON    | If the Altibase version supports JSON, it is mapped to the JSON type; otherwise, it is mapped to the CLOB type. |
 
 #### PostgreSQL to Altibase
 
@@ -1435,6 +1440,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 | 35   | PATH                        | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
 | 36   | POLYGON                     | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
 | 37   | CIRCLE                      | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 38   | JSON                        | CLOB or JSON      | If the Altibase version supports JSON, it is mapped to the JSON type; otherwise, it is mapped to the CLOB type. |
 
 ### Automatic Correction of Character Column Length Considering Heterogeneous Character Set
 
