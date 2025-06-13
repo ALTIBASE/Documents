@@ -3930,7 +3930,7 @@ class ArrayBind
 }
 ~~~
 
-
+<br/>
 
 # 7. Altibase EF Core(Altibase.EntityFrameworkCore)
 
@@ -4258,6 +4258,7 @@ Altibase EF Core에서 지원되는 .Net Core의 데이터 타입과 Altibase �
 | string    | VARCHAR                |
 | byte[]    | VARBYTE                |
 | DateTime  | DATE                   |
+| Guid      | CHAR(36)               |
 
 ### **스캐폴드**
 
@@ -4568,6 +4569,8 @@ C1=1, C2=ABCD
 C1=2, C2=EFG
 C1=3, C2=HIJ
 ```
+
+<br/>
 
 # 8.Altibase Node.js 커넥터(node-odbc-altibase)
 
