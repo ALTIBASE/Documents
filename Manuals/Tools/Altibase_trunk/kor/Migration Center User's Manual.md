@@ -359,7 +359,7 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 ##### 원본 데이터베이스
 
 - Altibase: 4.3.9 이상 버전
-- Oracle Database: 9i~21c
+- Oracle Database: 10gR2~21c
 - Microsoft SQL Server: 2005~2012
 - Oracle MySQL: 5.0~5.7
 - Informix: 11.50

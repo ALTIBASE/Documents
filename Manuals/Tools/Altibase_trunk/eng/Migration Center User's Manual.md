@@ -349,7 +349,7 @@ Since Migration Center is bundled with the JRE 8 for the 64-bit Microsoft Window
 ##### Source Database
 
 - Altibase: 4.3.9 or later
-- Oracle Database: 9i-21c
+- Oracle Database: 10gR2-21c
 - Microsoft SQL Server: 2005-2012
 - Oracle MySQL: 5.0-5.7
 - Informix: 11.50
