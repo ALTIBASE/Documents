@@ -141,7 +141,6 @@ Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 - [B.부록: 마이그레이션 가능한 데이터베이스 객체](#b부록-마이그레이션-가능한-데이터베이스-객체)
   - [Altibase to Altibase](#altibase-to-altibase)
   - [CUBRID to Altibase](#cubrid-to-altibase)
-  - [Informix to Altibase](#informix-to-altibase)
   - [MySQL to Altibase](#mysql-to-altibase)
   - [Oracle to Altibase](#oracle-to-altibase)
   - [SQL Server to Altibase](#sql-server-to-altibase)
@@ -171,7 +170,6 @@ Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
   - [Oracle](#oracle-1)
   - [MS-SQL](#ms-sql)
   - [Altibase](#altibase-1)
-  - [Informix](#informix-1)
   - [MySQL](#mysql-1)
   - [PostgreSQL](#postgresql-1)
   - [TimesTen](#timesten-1)
@@ -359,11 +357,10 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 ##### 원본 데이터베이스
 
 - Altibase: 4.3.9 이상 버전
-- Oracle Database: 9i~19c
+- Oracle Database: 10gR2~19c
 - Microsoft SQL Server: 2005~2012
 - Oracle MySQL: 5.0~5.7
-- Informix: 11.50
-- Oracle TimesTen: 7.0, 11.2
+- Oracle TimesTen: 11.2
 - CUBRID: 8.4.1~9.3.5 (ISO-8859-1, UTF-8 charset)
 - Tibero: 4sp1~7.2.2
 - PostgreSQL: 9.5.3
@@ -372,7 +369,7 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 
 Migration Center는 Altibase 및 다른 데이터베이스의 다양한 버전들과 함께 사용할 수 있다. 이 도구는 데이터베이스 접속을 위해 JDBC 드라이버를 사용하므로, 원본 데이터베이스와 대상 데이터베이스에 알맞은 JDBC 드라이버를 준비하는 것이 중요하다. 사용자 편의를 위해 지원되는 데이터베이스에 적합한 몇 가지 JDBC 드라이버를 Migration Center와 함께 제공한다.
 
-법적인 문제 때문에, 마이크로소프트 SQL Server의 JDBC 드라이버 파일과 Mysql Connector/J 파일, Informix JDBC 드라이버 파일, TimesTen의 JDBC 드라이버 파일은 패키지에 포함하지 않았다. 또한 TimesTen은 타입2 드라이버만 지원하기 때문에 반드시 TimesTen Client Package가 설치된 장비에서 이관을 수행하여야 한다.
+법적인 문제 때문에, 마이크로소프트 SQL Server의 JDBC 드라이버 파일과 Mysql Connector/J 파일, TimesTen의 JDBC 드라이버 파일은 패키지에 포함하지 않았다. 또한 TimesTen은 타입2 드라이버만 지원하기 때문에 반드시 TimesTen Client Package가 설치된 장비에서 이관을 수행하여야 한다.
 
 아래의 사이트에서 적절한 JDBC 드라이버 파일을 다운로드할 수 있다:
 
@@ -384,13 +381,11 @@ Migration Center는 Altibase 및 다른 데이터베이스의 다양한 버전�
    <https://docs.microsoft.com/en-us/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server-support-matrix?view=sql-server-2017>  
 3. Oracle MySQL Connector/J  
    <http://dev.mysql.com/downloads/connector/j/>
-4. Informix JDBC Driver  
-   <http://www14.software.ibm.com/webapp/download/search.jsp?go=y&rs=ifxjdbc>
-5. Oracle TimesTen  
+4. Oracle TimesTen  
    <http://www.oracle.com/technetwork/database/database-technologies/timesten/downloads/index.html>
-6. CUBRID  
+5. CUBRID  
    <http://www.cubrid.org/?mid=downloads&item=jdbc_driver>
-7. Tibero  
+6. Tibero  
    <https://technet.tmaxsoft.com/>
 
 ### 설치 및 제거
@@ -1030,7 +1025,8 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | View                     |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Trigger                  |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 
-### Informix to Altibase
+<!-- 
+Informix to Altibase
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
@@ -1047,6 +1043,8 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | Function               |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | View                   |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Trigger                |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+
+-->
 
 ### MySQL to Altibase
 
@@ -1291,6 +1289,8 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  30  | ENUM               | VARCHAR(10666)                  | Altibase에는 MySQL ENUM 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
 |  31  | SET                | VARCHAR(10666)                  | Altibase에는 MySQL SET 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
 
+<!--
+
 #### Informix 11.5 to Altibase
 
 |      | 원본          | 대상              | 주의 사항                                                    |
@@ -1320,6 +1320,8 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  23  | BYTE          | BLOB              |                                                              |
 |  24  | BLOB          | BLOB              |                                                              |
 |  25  | INTERVAL      | NUMBER(38)        |                                                              |
+
+-->
 
 #### TimesTen to Altibase
 
@@ -1490,6 +1492,8 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 | utf8          | 3                        |
 | euckr         | 2                        |
 
+<!--
+
 ##### Informix
 
 | Character Set      | Max. Bytes Per Character |
@@ -1505,6 +1509,8 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 | ja_up.sjis         | 2                        |
 | ko_kr.cp949        | 2                        |
 | ko_kr.ksc          | 2                        |
+
+-->
 
 ##### MySQL
 
@@ -1767,6 +1773,8 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval <br />( c1 TIMESTAMP NOT NULL, <br />c2 INT DEFAULT 123, <br />c3 VARCHAR(50) DEFAULT 'test', <br />c4 INT DEFAULT NULL, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATE DEFAULT '1989-04-28', <br />c7 DATETIME DEFAULT '1989-04-28 12:31:29', <br />c8 TIMESTAMP DEFAULT '1989-04-28 12:31:29' NOT NULL, <br />c9 TIMESTAMP NOT NULL ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 DATE DEFAULT SYSDATE NOT NULL, <br />C2 INTEGER DEFAULT 123, <br />C3 CLOB DEFAULT 'test', C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE DEFAULT TO_DATE('1989-04-28', 'YYYY-MM-DD'), <br />C7 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS'), <br />C8 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS') NOT NULL, <br />C9 DATE /\* DEFAULT '0000-00-00 00:00:00' \*/ NOT NULL ); |
 
+<!--
+
 #### Informix 11.5 to Altibase
 
 <table>
@@ -1787,11 +1795,14 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
     </tr>     
 </table>
 
+
 아래는 변환 예제이다.
 
-| Informix의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                    | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                              |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Informix의 테이블 생성 SQL문                                 | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval ( <br />c1 INTEGER DEFAULT 123, <br />c2 BOOLEAN DEFAULT 't',<br />c3 CHAR(100) DEFAULT 'test', <br />c4 INTEGER DEFAULT null, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATETIME YEAR TO DAY DEFAULT DATETIME(07-3-6) YEAR TO DAY, <br />c7 DATETIME DAY TO HOUR DEFAULT CURRENT DAY TO HOUR, <br />c8 DATE DEFAULT TODAY ); | CREATE TABLE TESTTBL_4_DEFVAL ( <br />C1 INTEGER DEFAULT 123, <br />C2 CHAR (1) DEFAULT 't', <br />C3 CHAR (100) DEFAULT 'test', <br />C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE /\* DEFAULT '2007-03-06' \*/, <br />C7 DATE DEFAULT SYSDATE, <br />C8 DATE DEFAULT SYSDATE ); |
+
+-->
 
 #### TimesTen to Altibase
 
@@ -1956,7 +1967,6 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 | SQL Server   | 고정 길이 문자열 | **빈 문자열** |
 | PostgreSQL   | 고정 길이 문자열 | **빈 문자열** |
 | CUBRID       | 고정 길이 문자열 | **빈 문자열** |
-| Informix     | 고정 길이 문자열 | **빈 문자열** |
 
 Altibase는 기본적으로 빈 문자열을 NULL로 처리한다. 즉, 원본 데이터베이스에 빈 문자열 데이터가 있다면 마이그레이션 시 NULL 처리한다. 만약 빈 문자열이 칼럼의 기본값으로 설정되었다면(`DEFAULT ''`), Altibase는 이를 `DEFAULT NULL`로 해석하고, 기존의 기본값 설정을 제거한다.
 
@@ -7814,6 +7824,8 @@ BLOB, byte, nibble 데이터타입을 가진 테이블은 aexport와 iloader를 
 
 프로젝트를 열고 메뉴 Migration - Migration Option을 클릭하여 Batch Execution을 'No'로 선택한 뒤, 데이터 이관을 수행한다.
 
+<!--
+
 ### Informix
 
 #### 데이터 이관 중에 Informix JDBC Driver에서 java.sql.SQLException: Encoding or code set not supported. 발생
@@ -7844,6 +7856,8 @@ Informix 연결 속성에 IFX_USE_STRENC=true 를 추가한다.
 `참고`
 
 https://m.blog.naver.com/PostView.nhn?blogId=jangkeunna&logNo=70146227929&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
+
+-->
 
 ### MySQL
 

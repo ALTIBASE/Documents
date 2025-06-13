@@ -7,7 +7,7 @@ Altibase 7.1.0.10.3 Patch Notes
 - [New Features](#new-features)
     - [BUG-51446 서버 비정상 종료 시(SIGSEGV 등) altibase_error.log에 콜스택 외 추가 진단 정보를 출력하도록 개선](#bug-51446)
     - [BUG-51452 불완전 복구에서 로그 앵커 백업 파일과 데이터 백업 파일의 익스텐드(Extend) 범위의 불일치 경우에 대한 보완](#bug-5145284)
-    - [BUG-51466 Altibase ADO.NET 드라이버 및 Altibase EF Core의 .NET 8 환경 지원](#bug-51466)
+    - [BUG-51466 Altibase EF Core에서 GUID 데이터타입 지원](#bug-51466)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-51471 BUFFER\_AREA\_SIZE를 820G 이상으로 설정할 경우, DB 생성이 실패하는 문제를 수정합니다.](#bug-51471)
     - [BUG-51475 aexport 수행시 생성되는 이중화 객체의 생성 DDL에 `AS MASTER/SLAVE`절이 누락되는 문제를 수정합니다.](#bug-51475)
@@ -77,12 +77,12 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-51466<a name=bug-51466></a> Altibase ADO.NET 드라이버 및 Altibase EF Core의 .NET 8 환경 지원
+### BUG-51466<a name=bug-51466></a> Altibase EF Core에서 GUID 데이터타입 지원
 
--   **module** : ux-win-adonet
+-   **module** : adonet
 -   **Category** : Functionality
 -   **재현 빈도** : Always
--   **설명** : Altibase ADO.NET 드라이버 및 Altibase EF Core가 .NET 8.0 환경에서 동작할 수 있도록 개선되었습니다. 또한 Altibase EF Core 에서 지원되는 .NET Core의 데이터 타입에 Guid 데이터 타입이 추가되었습니다. 
+-   **설명** : Altibase EF Core 에서 지원되는 .NET Core의 데이터 타입에 Guid 데이터 타입이 추가되었습니다. 
 
 -   **재현 방법**
 

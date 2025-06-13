@@ -1551,6 +1551,9 @@ CREATE REPLICATION replication_name OPTIONS OFFLINE 'log_dir' ...;
 ALTER REPLICATION replication_name SET OFFLINE ENABLE WITH 'log_dir';
 ALTER REPLICATION replication_name SET OFFLINE DISABLE;
 ALTER REPLICATION replication_name START WITH OFFLINE;
+ALTER REPLICATION replication_name BUILD OFFLINE META;
+ALTER REPLICATION replication_name BUILD OFFLINE META AT SN(sn);
+ALTER REPLICATION replication_name RESET OFFLINE META;
 ```
 
 ##### 설명
@@ -1565,6 +1568,11 @@ Active-Standby 이중화 환경에서, 서비스를 제공하는 Active 서버�
     
 -   SET OFFLINE DISABLE  
     오프라인 이중화 옵션을 사용하지 못하도록 설정한다. 이중화가 중지되어 있는 상태에서만 이 구문을 수행할 수 있다.
+    
+-   BUILD OFFLINE META : 오프라인 이중화를 수행할 때 필요한 메타 정보를 구성한다.
+
+-   BUILD OFFLINE METE AT SN(*sn*) : 송신자 메타파일과 재시작 SN 파일을 읽어 오프라인 이중화에 필요한 메타 정보를 구성한다.
+-   RESET OFFLINE META : BUILD OFFLINE META 로 구성된 메타 정보를 초기화 한다.
 
 아래는 오프라인 옵션의 사용 예시를 도식화한 그림이다.
 
