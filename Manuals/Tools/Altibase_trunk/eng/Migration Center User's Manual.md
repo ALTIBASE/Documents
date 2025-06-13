@@ -943,6 +943,7 @@ Object and table data of the source database to be migrated are migrated directl
 | Log Insert-failed Data                       | Specifies whether or not to log insert-failed rows during data migration. This option is available only when the Batch Execution option is disabled. This option is set to 'No' by default. |
 | File Encoding                                | Specifies the encoding character set to be used when logging the insert-failed data into files. This option is available only when the Log Insert-failed Data option is enabled. The default value is UTF8. |
 | Convert Oversized String VARCHAR To CLOB     | When a column's data type is mapped to the Altibase VARCHAR type, and its size exceeds 32,000 bytes — the maximum size supported by Altibase VARCHAR — it is specified whether the data type should be converted to CLOB. </br>Yes means the data type is converted to CLOB and processed accordingly. </br>No means the data type is converted to VARCHAR with a column size of 32,000 and processed as such. </br>The default setting is Yes. |
+| Correction Factor for Character Type Conversion | When migrating, if the character sets of the source and target databases are different, a Correction Factor is used to automatically adjust the length of character-type columns (CHAR, VARCHAR). The default setting is an automatically calculated value, and it cannot be set to a value less than 1. </br> (For the column length adjustment formula and the default correction factor calculation method, refer to the manual: Appendix C: Data Type Mapping – Automatic Correction of Character Column Length Considering Heterogeneous Character Set) </br>If a character set is specified at the column level, the correction factor is automatically calculated based on the character set defined for the column, and changing this option will not affect the length conversion for that column. |
 | Replace Empty String Data                    | Specifies how to replace empty string data encountered during data migration with a user-defined string.<br />- Replace Empty Strings in Not Null: Setting this option to 'Yes' allows to replace empty string data with a user-defined string. The default setting is 'No'.<br/>- Replacement String: Specifies the string that will replace the empty string. This option is only enabled when Replace Empty Strings in Not Null is set to 'Yes'.<br />- Apply to Nullable Columns: Setting this option to 'Yes' allows to replace empty string data in columns **without a NOT NULL constraint** with the value specified in Replacement String. The default setting is 'No'. |
 | **Data Validation Options**                  |                                                              |
 | Operation                                    | Specifies the operation to be executed in the data validation stage: <br />- DIFF: Check data difference between the source and the target databases. <br/>- FILESYNC: Apply the CSV file created as a result of DIFF operation to the target database. |
@@ -1445,7 +1446,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 When the character sets of the source and destination databases are different during migration, character data types(CHAR, VARCHAR) require length conversion.
 For example, if the source database is set to the MS949 character set that requires a maximum of 2 bytes per character storage, and the target database is set to the UTF8 character set that requires 3 bytes per character, the character data of the target database is required to migrate without truncation. The size of the type should be 1.5 times the original.
 
-Migration Center automatically performs this length conversion, and the length correction formula for character data types is as follows.
+Migration Center automatically performs this length conversion, and the length correction formula for character data types and the calculation formula for the correction factor are as follows.
 
 ```
 Dest. Size = Ceil(Correction Factor * Src. Size)
@@ -1453,9 +1454,11 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 * MaxBytes = The maximum number of bytes required to store one character
 ```
 
-However, if MaxBytes of the original is 1 or the correction factor is less than 1, the length conversion is not performed.
+The automatically calculated correction factor can be changed by modifying the migration option "Correction Factor for Character Type Conversion".
 
-The MaxBytes and correction factors of the source and target databases can be found on the summary page of the build report.
+However, if the correction factor is 1, the length conversion is not performed.
+
+The MaxBytes and automatically calculated correction factors of the source and target databases can be found on the summary page of the build report.
 
 #### Precautions
 
@@ -1463,7 +1466,7 @@ For large tables, the length of data storage in the target database can be much 
 
 #### Support Character Set for Each Database
 
-For character sets not listed in the table below, Migration Center does not perform length correction.
+For character sets not listed in the table below, Migration Center does not automatically calculate the correction factor, and a value of 1 is assigned instead.
 
 ##### Altibase
 
