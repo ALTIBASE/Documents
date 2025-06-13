@@ -951,7 +951,8 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
 | Batch LOB type                               | BLOB, CLOB 데이터 타입의 배치 처리 여부를 지정한다. <br/>Yes는 배치 처리를 허용하는 것을 의미한다. 단, LOB 데이터 크기에 따라 메모리 초과 (Out Of Memory) 등의 문제가 발생할 수 있음을 주의해야 한다. 또한 배치 기능을 지원하지 않는 TimesTen에서 예외가 발생할 수 있다. <br />No는 배치 처리를 허용하지 않는다. 기본 설정은 No이다. |
 | Log Insert-failed Data                       | 데이터 마이그레이션 중 입력 실패한 행(row)을 로그 파일에 작성할 것인지 설정한다. 이 옵션은 Batch Execution 옵션이 No인 경우 활성화된다. 기본 설정은 No이다. |
 | File Encoding                                | 입력 실패한 레코드를 파일에 기록할 때 인코딩 문자 집합을 지정한다. Log Insert-failed Data 옵션이 Yes인 경우 활성화된다. 기본설정은 UTF8이다. |
-| Convert Oversized String VARCHAR To CLOB     | 칼럼의 데이터 타입이 Altibase VARCHAR 타입으로 매핑되는 경우 칼럼의 크기가 Altibase의 VARCHAR 최대 크기인 32000 Bytes를 초과할 때, CLOB으로 데이터 타입 변환 여부를 지정한다. </br>Yes는 CLOB 타입으로 변환하여 처리하는 것을 의미한다. </br>No는 칼럼의 크기가 32000인 VARCHAR 타입으로 변환하여 처리하는 것을 의미한다. 기본 설정은 Yes이다.
+| Convert Oversized String VARCHAR To CLOB     | 칼럼의 데이터 타입이 Altibase VARCHAR 타입으로 매핑되는 경우 칼럼의 크기가 Altibase의 VARCHAR 최대 크기인 32000 Bytes를 초과할 때, CLOB으로 데이터 타입 변환 여부를 지정한다. </br>Yes는 CLOB 타입으로 변환하여 처리하는 것을 의미한다. </br>No는 칼럼의 크기가 32000인 VARCHAR 타입으로 변환하여 처리하는 것을 의미한다. 기본 설정은 Yes이다. |
+| Correction Factor for Character Type Conversion | 마이그레이션시 원본 데이터베이스와 대상 데이터베이스의 문자 집합이 서로 다른 경우, 문자형 데이터 타입(CHAR, VARCHAR) 칼럼 길이 자동 변환에 사용되는 보정 계수 Correction Factor를 지정한다. 기본 설정은 자동 계산된 값이며, 1보다 작은 값으로 지정할 수 없다.</br>(칼럼 길이 보정식 및 보정 계수 기본값 계산식은 매뉴얼 참조: C.부록: 데이터 타입 매핑 - 이종 문자 집합을 고려한 문자형 칼럼 길이 자동 보정) </br>칼럼 단위로 문자 집합이 지정된 경우 칼럼에 지정된 문자 집합에 따라 자동 계산된 보정 계수가 적용되며 옵션 값을 변경하여도 해당 칼럼 길이 변환에는 적용되지 않는다. |
 | Replace Empty String Data                    | 데이터 마이그레이션 수행 중 발견한 빈 문자열 데이터를 사용자가 지정한 문자열로 변경하기 위한 옵션이다.<br />- Replace Empty Strings in Not Null: Yes는 빈 문자열 데이터를 사용자가 지정한 문자열로 대체하는 것을 의미한다. 기본 설정은 No이다.<br>- Replacement String: 빈 문자열을 대체할 문자열을 입력한다. Replace Empty Strings in Not Null 설정이 Yes일 때만 활성화된다.<br />- Apply to Nullable Columns: Yes는 NOT NULL 제약 조건이 걸려있지 않은 칼럼의 빈 문자열 데이터도 Replacement String에 입력한 문자열로 대체하는 것을 의미한다. 기본 설정은  No이다. |
 | **Data Validation Options**                  |                                                              |
 | Operation                                    | 검증 단계에서 수행할 연산을 선택한다. <br />- DIFF : 원본 및 대상 데이터베이스 간 데이터 불일치 검사 <br />- FILESYNC: DIFF의 결과로 생성된 CSV 파일을 대상 데이터베이스에 반영 |
@@ -1451,7 +1452,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 마이그레이션시 원본(Source)과 대상(Destination) 데이터베이스의 문자 집합(character set)이 서로 다른 경우, 문자형 데이터 타입 (CHAR, VARCHAR)은 길이 변환이 필요하다.
 예를 들어 원본 데이터베이스는 한 문자당 최대 2바이트 저장소가 필요한 MS949 문자집합으로, 대상 데이터베이스는 한 문자당 3바이트가 필요한 UTF8 문자 집합으로 설정되어 있다면, 데이터 잘림 없이 마이그레이션을 하기 위해서는 대상 데이터베이스의 문자형 데이터 타입의 크기가 원본의 1.5배가 되어야 한다.
 
-Migration Center는 이러한 길이 변환을 자동으로 해 주며, 문자형 데이터 타입의 길이 보정식은 아래와 같다.
+Migration Center는 이러한 길이 변환을 자동으로 해 주며, 문자형 데이터 타입의 길이 보정식 및 보정 계수 계산식은 아래와 같다.
 
 ```
 Dest. Size = Ceil(Correction Factor * Src. Size)
@@ -1459,9 +1460,11 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 * MaxBytes = The maximum number of bytes required to store one character
 ```
 
-단, 원본의 MaxBytes가 1이거나 보정 계수 (Correction Factor)가 1보다 작은 경우에는 길이 변환을 하지 않는다.
+자동 계산된 보정 계수 (Correction Factor)는 마이그레이션 옵션 "Correction Factor for Character Type Conversion"에서 변경할 수 있다.
 
-원본과 대상 데이터베이스의 MaxBytes와 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있다.
+단, 보정 계수가 1인 경우에는 길이 변환을 하지 않는다.
+
+원본과 대상 데이터베이스의 MaxBytes와 자동 계산된 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있다.
 
 #### 주의 사항
 
@@ -1469,7 +1472,7 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 
 #### 데이터베이스별 지원 문자 집합
 
-아래 표에 없는 문자 집합의 경우에는 Migration Center가 길이 보정을 하지 않는다.
+아래 표에 없는 문자 집합의 경우에는 Migration Center가 보정 계수를 자동 계산 하지 않고 1이 지정된다.
 
 ##### Altibase
 
