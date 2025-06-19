@@ -24,9 +24,9 @@ Altibase 7.1.0.10.4 Patch Notes
 
 -   **Category** : Enhancement
 
--   **재현 빈도** : Always
+-   **Reproducibility** : Always
 
--   **설명** : Improved jdbcAdapter to support batch execution of UPDATE queries.
+-   **Description** : Improved jdbcAdapter to support batch execution of UPDATE queries.
 
 -   **How to reproduce this bug**
     -   **Reproduction conditions**
