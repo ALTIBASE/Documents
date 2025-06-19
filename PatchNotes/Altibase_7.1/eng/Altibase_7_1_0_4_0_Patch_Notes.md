@@ -1349,7 +1349,7 @@ Meta version are changed from 8.7.1 to 8.8.1 due to support for SRID interface.
 - If there are GEOMETRY type columns, there is no issue with the upgrade, but downgrading to meta version 8.7.1 or earlier (7.1.0.3.9 or earlier) is not possible.
 
 
-> If you want to roll back the patch after patching to a version with a changed meta version, see [Meta Downgrade](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Installation Guide.md#meta-downgrade).
+> If you want to roll back the patch after patching to a version with a changed meta version, see [Meta Downgrade](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/Installation%20Guide.md#meta-downgrade).
 
 #### CM protocol Version
 
