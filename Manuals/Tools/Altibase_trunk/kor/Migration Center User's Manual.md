@@ -1466,6 +1466,8 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 
 원본과 대상 데이터베이스의 MaxBytes와 자동 계산된 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있다.
 
+보정 계수 옵션 값 변경 시 변경된 보정 계수는 Reconcile Report의 Summary 페이지에서 확인할 수 있다.
+
 #### 주의 사항
 
 대용량 테이블의 경우 길이 보정으로 인해 대상 데이터베이스의 데이터 저장 사이즈가 원본보다 훨씬 커질 수 있다. 길이를 변환하지 않아도 데이터가 잘리지 않는다는 보장이 있다면 조정(Reconcile) 단계에서 수동으로 길이를 지정할 수 있다.
