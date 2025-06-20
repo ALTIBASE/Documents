@@ -348,7 +348,7 @@ Since Migration Center is bundled with the JRE 8 for the 64-bit Microsoft Window
 ##### Source Database
 
 - Altibase: 4.3.9 or later
-- Oracle Database: 10gR2-19c
+- Oracle Database: 10gR2-21c
 - Microsoft SQL Server: 2005-2012
 - Oracle MySQL: 5.0-5.7
 - Oracle TimesTen: 11.2
@@ -1060,12 +1060,12 @@ Objects in the source database that Migration Center does not migrate automatica
 
 | Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
 | :--------------------- | :------------------------: | :-------------------------: | :----------------------------------------------------------- |
-| Table                  |             O              |              O              | To migrate a temporary table from an Oracle database(source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace. Also, the comments specified in tables and columns are migrated as well. </br>To migrate external tables and Hybrid Partitioned Tables, the user must have access to a disk tablespace in Altibase. </br>Since Altibase does not support Oracle’s external table and hybrid partitioned table features, these tables are converted into regular tables or partitioned tables during migration. These types of tables often contain large volumes of data, so they are automatically allocated to a disk tablespace. |
+| Table                  |             O              |              O              | To migrate a temporary table from an Oracle database(source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace. Also, the comments specified in tables and columns are migrated as well. </br>To migrate external tables and Hybrid Partitioned Tables, the user must have access to a disk tablespace in Altibase. </br>Since Altibase does not support Oracle’s external table and hybrid partitioned table features, these tables are converted into regular tables or partitioned tables during migration. These types of tables often contain large volumes of data, so they are automatically allocated to a disk tablespace. </br>Blockchain and immutable tables are converted into regular tables during migration. |
 | Primary Key Constraint |             O              |              O              |                                                              |
 | Unique Constraint      |             O              |              O              |                                                              |
 | Check Constraint       |             O              |              O              |                                                              |
 | Foreign Key Constraint |             O              |              O              |                                                              |
-| Index                  |             O              |              O              | Invisible indexes and unusable indexes are not migrated. |
+| Index                  |             O              |              O              | Invisible indexes and unusable indexes are not migrated. </br>Multivalue index is not migrated. |
 | Sequence               |             O              |              X              | Scalable sequence is not migrated. |
 | Private Synonym        |         Partly yes         |              X              | Only synonyms that refer to objects in the same schema are migrated. |
 | Procedure              |         Partly yes         |              X              | Converts object creation statements according to the rules defined in the PSM converter and attempts migration. |
