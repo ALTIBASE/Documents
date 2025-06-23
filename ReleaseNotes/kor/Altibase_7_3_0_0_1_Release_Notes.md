@@ -415,7 +415,7 @@ Filter 연산자를 직렬화 및 함수 호출구조의 최적화를 통해 row
 
 ##### 마이그레이션 성능 개선
 
-대용량 데이터 이전을 위한 데이터 삽입의 성능이 개선되었다. iloader의 성능 옵션에 -lightmod가 추가되었다. 자세한 설명은 [**iLoader User's Maunal** - 성능옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/iLoader%20User's%20Manual.md#%EC%84%B1%EB%8A%A5-%EC%98%B5%EC%85%98)에서 확인할 수 있다.
+대용량 데이터 이전을 위한 데이터 삽입의 성능이 개선되었다. iloader의 성능 옵션에 -lightmode가 추가되었다. 자세한 설명은 [**iLoader User's Maunal** - 성능옵션](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/iLoader%20User's%20Manual.md#%EC%84%B1%EB%8A%A5-%EC%98%B5%EC%85%98)에서 확인할 수 있다.
 
 ##### JDBC fetch 성능 개선
 
@@ -441,7 +441,7 @@ DDL PVO 단계에서의 예외처리 개선으로 안정성을 향상시켰다.
 
 언두 테이블스페이스와 디스크 인덱스의 불필요한 관계를 제거하여 버그 발생 위험 요소 제거하였다. 디스크 페이지 공간 효율 개선으로 관련 프로퍼티들의 기본값 및 최대값이 변경되었다.
 
-- INDEX_INITTRANS 최대값이 30에서 50으로 변경
+- INDEX_INITRANS 최대값이 30에서 50으로 변경
 - INDEX_MAXTRANS 기본값과 최대값이 30에서 50으로 변경
 
 #### 2.1.14 DBeaver 패키지 제공
