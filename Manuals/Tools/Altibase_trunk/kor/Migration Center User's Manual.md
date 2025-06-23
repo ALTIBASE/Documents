@@ -1069,7 +1069,7 @@ Informix to Altibase
 | Table                  |                   O                   |                   O                    | 임시 테이블을 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. </br>외부 테이블(External Table)과 하이브리드 파티션드 테이블(Hybrid Partitioned Table)을 마이그레이션하기 위해서는 사용자가 접근할 수 있는 디스크 테이블 스페이스가 Altibase에 있어야 한다. Altibase는 Oracle이 제공하는 외부 테이블과 하이브리드 파티션드 테이블 기능을 제공하지 않으므로, 해당 테이블들은 일반 테이블 또는 파티션드 테이블로 변환되어 마이그레이션된다. 이러한 테이블들은 대용량일 가능성이 높아, 마이그레이션 시 자동으로 디스크 테이블스페이스에 할당되기 때문이다. </br>블록체인 테이블(Blockchain Table)과 불변 테이블(Immutable Table)은 일반 테이블로 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
-| Check 제약             |                   O                   |                   O                    | IS JSON 체크 제약조건은 마이그레이션되지 않는다.             |
+| Check 제약             |                   O                   |                   O                    | IS JSON 체크 제약 조건은 마이그레이션되지 않는다.            |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
 | Index                  |                   O                   |                   O                    | 보이지 않는 인덱스(Invisible Index)와 사용 불가능한 인덱스(Unusable Index)는 마이그레이션되지 않는다. </br>다중값 인덱스(Multivalue Index)는 마이그레이션되지 않는다. |
 | Sequence               |                   O                   |                   X                    | 확장가능한 시퀀스(Scalable Sequence)는 마이그레이션되지 않는다. |
@@ -1220,7 +1220,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  15  | CLOB          | CLOB              |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666)   | Altibase에는 오라클 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다. |
 |  17  | ROWID         | VARCHAR(18)       | 오라클의 ROWID는 문자형 데이터 타입으로 변환한다. Altibase는 ROWID라는 데이터 타입을 지원하지 않는다. |
-|  18  | JSON          | CLOB 또는 JSON    | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 버전에서는 JSON 타입으로 변환된다. </br> 또한 **VARCHAR2, BLOB, CLOB** 등의 데이터 타입에 IS JSON 체크 제약조건이 설정되어 있는 경우, 원본 데이터베이스의 해당 컬럼은 JSON 타입으로 간주된다. 단, IS JSON 제약 조건은 마이그레이션되지 않는다. |
+|  18  | JSON          | CLOB 또는 JSON    | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 버전에서는 JSON 타입으로 변환된다. </br> 만약 VARCHAR2, BLOB, CLOB 등의 데이터 타입에 IS JSON 체크 제약 조건이 설정되어 있는 경우, 원본 데이터베이스의 해당 컬럼은 JSON 타입으로 간주된다. 단, IS JSON 체크 제약 조건은 마이그레이션되지 않는다. |
 
 #### MS-SQL Server to Altibase
 
