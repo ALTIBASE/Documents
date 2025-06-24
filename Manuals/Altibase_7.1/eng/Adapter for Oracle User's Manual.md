@@ -649,7 +649,7 @@ These properties are used to set whether DML statements executed in Altibase wil
 
 This property specifies to specify the password for the user account through which the connection to the Oracle DB will be established.
 
-##### ORACLE_ASYNCRONOUS_COMMIT
+##### ORACLE_ASYNCHRONOUS_COMMIT
 
 This property determines whether or not to wait until commit logs have been written to disk.
 

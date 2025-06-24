@@ -2428,7 +2428,7 @@ ALA_DestroyAPI
 
 #### 예 제
 
-```
+```c++
 #include <sqlcli.h>
 #include <alaAPI.h>
 ...
@@ -2436,35 +2436,35 @@ ALA_DestroyAPI
 /* Altibase ODBC Drive를 사용하지 않을 경우 */
 void testAPIEnvironment1()
 {
-/* Log Analysis API 환경 생성 */
-(void)ALA_InitializeAPI(ALA_FALSE, NULL);
+	/* Log Analysis API 환경 생성 */
+	(void)ALA_InitializeAPI(ALA_FALSE, NULL);
 
-/* Log Analysis API를 호출 */
-...
+	/* Log Analysis API를 호출 */
+	...
 
-/* Log Analysis API 환경 제거 */
-(void)ALA_DestroyAPI(ALA_FALSE, NULL);
+	/* Log Analysis API 환경 제거 */
+	(void)ALA_DestroyAPI(ALA_FALSE, NULL);
 }
 
 /* Altibase ODBC Drive를 사용할 경우 */
 void testAPIEnvironment2(ALA_BOOL aUseAltibaseODBCDriver)
 {
-SQLHENV sEnv = NULL;
+	SQLHENV sEnv = NULL;
 
-/* Altibase ODBC 사용 환경 생성 */
-(void)SQLAllocEnv(&sEnv);
+	/* Altibase ODBC 사용 환경 생성 */
+	(void)SQLAllocEnv(&sEnv);
 
-/* Log Analysis API 환경 생성 */
-(void)ALA_InitializeAPI(ALA_TRUE, NULL);
+	/* Log Analysis API 환경 생성 */
+	(void)ALA_InitializeAPI(ALA_TRUE, NULL);
 
-/* Altibase ODBC API 및 Log Analysis API를 호출 */
-...
+	/* Altibase ODBC API 및 Log Analysis API를 호출 */
+	...
 
-/* Log Analysis API 환경 제거 */
-(void)ALA_DestroyAPI(ALA_TRUE, NULL);
+	/* Log Analysis API 환경 제거 */
+	(void)ALA_DestroyAPI(ALA_TRUE, NULL);
 
-/* Altibase ODBC 사용 환경 제거 */
-(void)SQLFreeEnv(sEnv);
+	/* Altibase ODBC 사용 환경 제거 */
+	(void)SQLFreeEnv(sEnv);
 }
 ```
 
@@ -2585,35 +2585,35 @@ ALA_DisableLogging
 
 #### 예 제
 
-```
+```c++
 #include <alaAPI.h>
 ...
 
 void testLogging()
 {
-/* Log Analysis API 환경 생성 */
-        (void)ALA_InitializeAPI(ALA_FALSE, NULL);
+	/* Log Analysis API 환경 생성 */
+    (void)ALA_InitializeAPI(ALA_FALSE, NULL);
 
     /* Logging 활성화
      * 로그 디렉토리            : 현재 디렉토리
      * 로그 파일명              : analysis.log
      * 로그 파일의 크기         : 10 MB
      * 최대 이전 로그 파일의 수 : 10 개
- */
-        (void)ALA_EnableLogging(".",
-                               "analysis.log",
-                                10 * 1024 * 1024,
-                                10,
-                                NULL);
+     */
+	(void)ALA_EnableLogging(".",
+                            "analysis.log",
+                            10 * 1024 * 1024,
+                            10,
+                            NULL);
 
     /* Log Analysis API를 호출 */
-        ...
+     ...
 
     /* Logging 비활성화 */
-        (void)ALA_DisableLogging(NULL);
+    (void)ALA_DisableLogging(NULL);
 
     /* Log Analysis API 환경 제거 */
-        (void)ALA_DestroyAPI(ALA_FALSE, NULL);
+    (void)ALA_DestroyAPI(ALA_FALSE, NULL);
 }
 ```
 
@@ -2758,7 +2758,7 @@ ALA_SetXLogPoolSize
 
 #### 예 제
 
-```
+```c++
 #include <alaAPI.h>
 …
 
@@ -3048,7 +3048,7 @@ ALA_CreateXLogCollector
 
 #### 예 제
 
-```
+```c++
 #include <alaAPI.h>
 …
 
@@ -3207,61 +3207,61 @@ ALA_GetIndexInfo
 
 #### 예 제
 
-```
+```c++
 #include <alaAPI.h>
 …
 
 void testXLogCollector(ALA_Handle aHandle)
 {
-ALA_XLog                * sXLog                = NULL;
-ALA_XLogHeader          * sXLogHeader          = NULL;
-ALA_XLogCollectorStatus   sXLogCollectorStatus;
-ALA_BOOL                  sInsertXLogInQueue   = ALA_FALSE;
-ALA_BOOL                  sExitFlag            = ALA_FALSE;
+	ALA_XLog                * sXLog                = NULL;
+	ALA_XLogHeader          * sXLogHeader          = NULL;
+	ALA_XLogCollectorStatus   sXLogCollectorStatus;
+	ALA_BOOL                  sInsertXLogInQueue   = ALA_FALSE;
+	ALA_BOOL                  sExitFlag            = ALA_FALSE;
 
-/* Handshake Timeout 설정 : 600 초 */
-(void)ALA_SetHandshakeTimeout(aHandle, 600, NULL);
+	/* Handshake Timeout 설정 : 600 초 */
+	(void)ALA_SetHandshakeTimeout(aHandle, 600, NULL);
 
-/* XLog 수신 Timeout 설정 : 10 초 */
-(void)ALA_SetReceiveXLogTimeout(aHandle, 10, NULL);
+	/* XLog 수신 Timeout 설정 : 10 초 */
+	(void)ALA_SetReceiveXLogTimeout(aHandle, 10, NULL);
 
-/* XLog Sender 접속 대기 및 Handshake */
-(void)ALA_Handshake(aHandle, NULL);
+	/* XLog Sender 접속 대기 및 Handshake */
+	(void)ALA_Handshake(aHandle, NULL);
 
-/* XLog Sender가 종료될 때까지 XLog 수신 */
-while(sExitFlag != ALA_TRUE)
-{
-/* XLog 수신 및 XLog Queue에 추가 */
-sInsertXLogInQueue = ALA_FALSE;
-while(sInsertXLogInQueue != ALA_TRUE)
-{
-    (void)ALA_ReceiveXLog(aHandle, &sInsertXLogInQueue, NULL);
-}
+	/* XLog Sender가 종료될 때까지 XLog 수신 */
+	while(sExitFlag != ALA_TRUE)
+	{
+		/* XLog 수신 및 XLog Queue에 추가 */
+		sInsertXLogInQueue = ALA_FALSE;
+		while(sInsertXLogInQueue != ALA_TRUE)
+		{
+    		(void)ALA_ReceiveXLog(aHandle, &sInsertXLogInQueue, NULL);
+		}
 
-/* XLog Queue에서 XLog 얻기
- * 로그 레코드가 기록된 순서로 Transaction의 XLog 얻는 경우를 가정
- */
-(void)ALA_GetXLog(aHandle, &sXLog, NULL);
+		/* XLog Queue에서 XLog 얻기
+ 		* 로그 레코드가 기록된 순서로 Transaction의 XLog 얻는 경우를 가정
+ 		*/
+		(void)ALA_GetXLog(aHandle, &sXLog, NULL);
 
-/* XLog 분석 및 처리 */
-(void)ALA_GetXLogHeader(sXLog, &sXLogHeader, NULL);
-if(sXLogHeader->mType == XLOG_TYPE_REPL_STOP)
-{
-sExitFlag = ALA_TRUE;
-}
-…
+		/* XLog 분석 및 처리 */
+		(void)ALA_GetXLogHeader(sXLog, &sXLogHeader, NULL);
+		if(sXLogHeader->mType == XLOG_TYPE_REPL_STOP)
+		{
+			sExitFlag = ALA_TRUE;
+		}
+	…
 
-/* XLog Sender에게 ACK 전송 */
-(void)ALA_SendACK(aHandle, NULL);
+		/* XLog Sender에게 ACK 전송 */
+		(void)ALA_SendACK(aHandle, NULL);
 
-/* XLog를 XLog Pool에 반환 */
-(void)ALA_FreeXLog(aHandle, sXLog, NULL);
+		/* XLog를 XLog Pool에 반환 */
+		(void)ALA_FreeXLog(aHandle, sXLog, NULL);
 
-/* XLog Collector의 상태 얻기 */
-(void)ALA_GetXLogCollectorStatus(aHandle,
-                                 &sXLogCollectorStatus,
-NULL);
-}
+		/* XLog Collector의 상태 얻기 */
+		(void)ALA_GetXLogCollectorStatus(aHandle,
+                                 		&sXLogCollectorStatus,
+											NULL);
+	}
 }
 ```
 
@@ -3596,7 +3596,7 @@ XLog Collector의 상태를 저장하는 구조체는 아래와 같이 정의된
 ```
 typedef struct ALA_XLogCollectorStatus
 {
-SChar            mMyIP[ALA_IP_LEN];
+	SChar            mMyIP[ALA_IP_LEN];
     SInt          mMyPort;
     SChar        mPeerIP[ALA_IP_LEN];
     SInt          mPeerPort;
@@ -3958,16 +3958,16 @@ aOutProtocolVersion의 메모리를 함수 호출전에 할당해야 한다.
 
 #### 예 제
 
-```
+```c++
 #include <alaAPI.h>
 …
 
 void testProtocolVersion()
 {
-ALA_ProtocolVersion sProtocolVersion;
+	ALA_ProtocolVersion sProtocolVersion;
 
-/* Protocol Version 정보 얻기 */
-(void)ALA_GetProtocolVersion(&sProtocolVersion, NULL);
+	/* Protocol Version 정보 얻기 */
+	(void)ALA_GetProtocolVersion(&sProtocolVersion, NULL);
 }
 ```
 
@@ -4672,56 +4672,56 @@ ALA_GetAltibaseText
 
 #### 예 제
 
-```
+```c++
 #include <alaAPI.h>
 …
 
 void testAltibaseSQL(ALA_Table * aTable, ALA_XLog * aXLog)
 {
-ALA_Column * sColumn;
-SChar        sBuffer[1024];
-UInt         sPKColumnPos;
-UInt         sColumnPos;
+	ALA_Column * sColumn;
+	SChar        sBuffer[1024];
+	UInt         sPKColumnPos;
+	UInt         sColumnPos;
 
-/* Primary Key Column 처리 */
-for(sPKColumnPos = 0;
-sPKColumnPos < aXLog->mPrimaryKey.mPKColCnt;
-sPKColumnPos++)
-{
-/* XLog의 Primary Key 순서와 Table의 Primary Key 순서는 동일 */
-sColumn = aTable->mPKColumnArray[sPKColumnPos];
+	/* Primary Key Column 처리 */
+	for(sPKColumnPos = 0;
+	sPKColumnPos < aXLog->mPrimaryKey.mPKColCnt;
+	sPKColumnPos++)
+	{
+		/* XLog의 Primary Key 순서와 Table의 Primary Key 순서는 동일 */
+		sColumn = aTable->mPKColumnArray[sPKColumnPos];
 
-/* Altibase Text 얻기 */
-(void)ALA_GetAltibaseText(sColumn,
-&(aXLog->mPrimaryKey.mPKColArray[sPKColumnPos]),
-1024,
-sBuffer,
-NULL);
-}
+		/* Altibase Text 얻기 */
+		(void)ALA_GetAltibaseText(sColumn,
+								&(aXLog->mPrimaryKey.mPKColArray[sPKColumnPos]),
+								1024,
+								sBuffer,
+								NULL);
+	}
 
-/* Column 처리 */
-for(sColumnPos = 0; sColumnPos < aXLog->mColumn.mColCnt; sColumnPos++)
-{
-/* Column 정보 얻기 */
-(void)ALA_GetColumnInfo(aTable,
-aXLog->mColumn.mCIDArray[sColumnPos],
-&sColumn,
-NULL);
+	/* Column 처리 */
+	for(sColumnPos = 0; sColumnPos < aXLog->mColumn.mColCnt; sColumnPos++)
+	{
+		/* Column 정보 얻기 */
+		(void)ALA_GetColumnInfo(aTable,
+								aXLog->mColumn.mCIDArray[sColumnPos],
+								&sColumn,
+								NULL);
 
-/* Before Image의 Altibase Text 얻기 */
-(void)ALA_GetAltibaseText(sColumn,
-&(aXLog->mColumn.mBColArray[sColumnPos]),
-1024,
-sBuffer,
-NULL);
+		/* Before Image의 Altibase Text 얻기 */
+		(void)ALA_GetAltibaseText(sColumn,
+								&(aXLog->mColumn.mBColArray[sColumnPos]),
+								1024,
+								sBuffer,
+								NULL);
 
-/* After Image의 Altibase Text 얻기 */
-(void)ALA_GetAltibaseText(sColumn,
-&(aXLog->mColumn.mAColArray[sColumnPos]),
-1024,
-sBuffer,
-NULL);
-}
+		/* After Image의 Altibase Text 얻기 */
+		(void)ALA_GetAltibaseText(sColumn,
+								&(aXLog->mColumn.mAColArray[sColumnPos]),
+								1024,
+								sBuffer,
+								NULL);
+	}
 }
 ```
 
@@ -4796,36 +4796,36 @@ Altibase 내부 포맷으로 저장된 데이터를ODBC C 값으로 변환한다
 
 #### 예 제
 
-```
+```c++
 #include <alaAPI.h>
 …
 
 void testODBCCConversion(ALA_Table * aTable, ALA_XLog * aXLog)
 {
-ALA_Column * sColumn;
-SChar        sBuffer[1024];
-ALA_BOOL     sIsNull;
-UInt         sODBCCValueSize;
-UInt         sPKColumnPos;
+	ALA_Column * sColumn;
+	SChar        sBuffer[1024];
+	ALA_BOOL     sIsNull;
+	UInt         sODBCCValueSize;
+	UInt         sPKColumnPos;
 
-/* Primary Key를 SQL_C_CHAR로 변환 */
-for(sPKColumnPos = 0;
-sPKColumnPos < aXLog->mPrimaryKey.mPKColCnt;
-sPKColumnPos++)
-{
-/* XLog의 Primary Key 순서와 Table의 Primary Key 순서는 동일 */
-sColumn = aTable->mPKColumnArray[sPKColumnPos];
+	/* Primary Key를 SQL_C_CHAR로 변환 */
+	for(sPKColumnPos = 0;
+	sPKColumnPos < aXLog->mPrimaryKey.mPKColCnt;
+	sPKColumnPos++)
+	{
+		/* XLog의 Primary Key 순서와 Table의 Primary Key 순서는 동일 */
+		sColumn = aTable->mPKColumnArray[sPKColumnPos];
 
-/* 내부 데이터를 SQL_C_CHAR로 변환 */
-(void)ALA_GetODBCCValue(sColumn,
-&(aXLog->mPrimaryKey.mPKColArray[sPKColumnPos],
-SQL_C_CHAR,
-1024,
-sBuffer,
-&sIsNull,
-&sODBCCValueSize,
-NULL);
-}
+		/* 내부 데이터를 SQL_C_CHAR로 변환 */
+		(void)ALA_GetODBCCValue(sColumn,
+							&(aXLog->mPrimaryKey.mPKColArray[sPKColumnPos],
+								SQL_C_CHAR,
+								1024,
+								sBuffer,
+								&sIsNull,
+								&sODBCCValueSize,
+							NULL);
+	}
 }
 ```
 
@@ -4945,31 +4945,31 @@ ALA_GetErrorMessage
 
 #### 예 제
 
-```
+```c++
 #include <alaAPI.h>
 …
 
 void testErrorHandling()
 {
-ALA_ErrorMgr     sErrorMgr
-UInt             sErrorCode;
-ALA_ErrorLevel   sErrorLevel;
-SChar          * sErrorMessage;
+	ALA_ErrorMgr     sErrorMgr
+	UInt             sErrorCode;
+	ALA_ErrorLevel   sErrorLevel;
+	SChar          * sErrorMessage;
 
-/* 오류 관리자 초기화 */
-(void)ALA_ClearErrorMgr(&sErrorMgr);
+	/* 오류 관리자 초기화 */
+	(void)ALA_ClearErrorMgr(&sErrorMgr);
 
-/* Log Analysis API 호출 실패 */
-…
+	/* Log Analysis API 호출 실패 */
+	…
 
-/* Error Code 얻기 */
-(void)ALA_GetErrorCode(&sErrorMgr, &sErrorCode);
+	/* Error Code 얻기 */
+	(void)ALA_GetErrorCode(&sErrorMgr, &sErrorCode);
 
-/* Error Level 얻기 */
-(void)ALA_GetErrorLevel(&sErrorMgr, &sErrorLevel);
+	/* Error Level 얻기 */
+	(void)ALA_GetErrorLevel(&sErrorMgr, &sErrorLevel);
 
-/* Error Message 얻기 */
-(void)ALA_GetErrorMessage(&sErrorMgr, &sErrorMessage);
+	/* Error Message 얻기 */
+	(void)ALA_GetErrorMessage(&sErrorMgr, &sErrorMessage);
 }
 ```
 

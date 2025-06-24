@@ -674,7 +674,7 @@ orcl10g =
 
 오라클 DB에 접속할 사용자 계정의 암호를 지정하는 프로퍼티이다.
 
-##### ORACLE_ASYNCRONOUS_COMMIT
+##### ORACLE_ASYNCHRONOUS_COMMIT
 
 COMMIT 로그가 디스크에 기록될 때까지 대기할 것인지를 결정하는 프로퍼티이다.
 
