@@ -1450,23 +1450,24 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 ### 이종 문자 집합을 고려한 문자형 칼럼 길이 자동 보정
 
 마이그레이션시 원본(Source)과 대상(Destination) 데이터베이스의 문자 집합(character set)이 서로 다른 경우, 문자형 데이터 타입 (CHAR, VARCHAR)은 길이 변환이 필요하다.
-예를 들어 원본 데이터베이스는 한 문자당 최대 2바이트 저장소가 필요한 MS949 문자집합으로, 대상 데이터베이스는 한 문자당 3바이트가 필요한 UTF8 문자 집합으로 설정되어 있다면, 데이터 잘림 없이 마이그레이션을 하기 위해서는 대상 데이터베이스의 문자형 데이터 타입의 크기가 원본의 1.5배가 되어야 한다.
+예를 들어 원본 데이터베이스는 한 문자당 최대 2바이트 저장소가 필요한 MS949 문자 집합으로, 대상 데이터베이스는 한 문자당 3바이트가 필요한 UTF8 문자 집합으로 설정되어 있다면, 데이터 잘림 없이 마이그레이션을 하기 위해서는 대상 데이터베이스의 문자형 데이터 타입의 크기가 원본의 1.5배가 되어야 한다.
 
-Migration Center는 이러한 길이 변환을 자동으로 해 주며, 문자형 데이터 타입의 길이 보정식 및 보정 계수 계산식은 아래와 같다.
+Migration Center는 이러한 문자형 데이터 타입의 길이 변환을 자동으로 해 주며, 이때의 보정 계산식은 아래와 같다.
 
-```
+```mathematica
 Dest. Size = Ceil(Correction Factor * Src. Size)
 Correction Factor = Dest. MaxBytes / Src. MaxBytes
-* MaxBytes = The maximum number of bytes required to store one character
 ```
 
-자동 계산된 보정 계수 (Correction Factor)는 마이그레이션 옵션 "Correction Factor for Character Type Conversion"에서 변경할 수 있다.
+* Dest. Size : 대상 칼럼의 길이
+* Src. Size : 원본 칼럼의 길이
+* Correction Factor : 보정 계수
+* MaxBytes : 한 문자를 저장하는데 필요한 최대 바이트 수(MaxBytes Per Character)
+* Ceil : 계산 결과를 올림 처리
 
-단, 보정 계수가 1인 경우에는 길이 변환을 하지 않는다.
+보정 계수 (Correction Factor)는 기본적으로 Migration Center에서 자동으로 계산하지만, 사용자가 변경할 수 있다. 보정 계수를 변경하려면, 마이그레이션 옵션 "Correction Factor for Character Type Conversion"에서 값을 수정하면 된다. 단, 보정 계수가 1인 경우에는 길이 변환을 하지 않는다. 
 
-원본과 대상 데이터베이스의 MaxBytes와 자동 계산된 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있다.
-
-보정 계수 옵션 값 변경 시 변경된 보정 계수는 Reconcile Report의 Summary 페이지에서 확인할 수 있다.
+원본 및 대상 데이터베이스의 MaxBytes와 자동 계산된 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있다. 사용자가 보정 계수 값을 수정한 경우, 변경된 보정 계수는  Reconcile Report의 Summary 페이지에서 확인할 수 있다.
 
 #### 주의 사항
 
@@ -1474,46 +1475,46 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 
 #### 데이터베이스별 지원 문자 집합
 
-아래 표에 없는 문자 집합의 경우에는 Migration Center가 보정 계수를 자동 계산 하지 않고 1이 지정되며 길이 변환을 하지 않는다.
+아래 표에 없는 문자 집합의 경우에는 Migration Center가 길이 보정을 하지 않는다.
 
 ##### Altibase
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| KO16KSC5601   | 2                        |
-| MS949         | 2                        |
-| BIG5          | 2                        |
-| GB231280      | 2                        |
-| MS936         | 2                        |
-| UTF8          | 3                        |
-| SHIFTJIS      | 2                        |
-| MS932         | 2                        |
-| EUCJP         | 3                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| KO16KSC5601   | 2                      |
+| MS949         | 2                      |
+| BIG5          | 2                      |
+| GB231280      | 2                      |
+| MS936         | 2                      |
+| UTF8          | 3                      |
+| SHIFTJIS      | 2                      |
+| MS932         | 2                      |
+| EUCJP         | 3                      |
 
 ##### Cubrid
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| utf8          | 3                        |
-| euckr         | 2                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| utf8          | 3                      |
+| euckr         | 2                      |
 
 <!--
 
 ##### Informix
 
-| Character Set      | Max. Bytes Per Character |
-| ------------------ | ------------------------ |
-| zh_cn.GB18030_2000 | 4                        |
-| zh_tw.big5         | 2                        |
-| zh_tw.euctw        | 4                        |
-| zh_cn.gb           | 2                        |
-| zh_tw.sbig5        | 2                        |
-| zh_tw.ccdc         | 2                        |
-| ja_jp.sjis-s       | 2                        |
-| ja_jp.ujis         | 3                        |
-| ja_up.sjis         | 2                        |
-| ko_kr.cp949        | 2                        |
-| ko_kr.ksc          | 2                        |
+| Character Set      | MaxBytes Per Character |
+| ------------------ | ---------------------- |
+| zh_cn.GB18030_2000 | 4                      |
+| zh_tw.big5         | 2                      |
+| zh_tw.euctw        | 4                      |
+| zh_cn.gb           | 2                      |
+| zh_tw.sbig5        | 2                      |
+| zh_tw.ccdc         | 2                      |
+| ja_jp.sjis-s       | 2                      |
+| ja_jp.ujis         | 3                      |
+| ja_up.sjis         | 2                      |
+| ko_kr.cp949        | 2                      |
+| ko_kr.ksc          | 2                      |
 
 -->
 
@@ -1527,67 +1528,67 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 
 ##### SQL Server
 
-| Code Page | Max. Bytes Per Character |
-| --------- | ------------------------ |
-| 932       | 2                        |
-| 936       | 2                        |
-| 949       | 2                        |
-| 950       | 2                        |
+| Code Page | MaxBytes Per Character |
+| --------- | ---------------------- |
+| 932       | 2                      |
+| 936       | 2                      |
+| 949       | 2                      |
+| 950       | 2                      |
 
 ##### Oracle
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| AL32UTF8      | 4                        |
-| JA16EUC       | 3                        |
-| JA16EUCTILDE  | 3                        |
-| JA16SJIS      | 2                        |
-| JA16SJISTILDE | 2                        |
-| KO16MSWIN949  | 2                        |
-| UTF8          | 3                        |
-| ZHS16GBK      | 2                        |
-| ZHT16HKSCS    | 2                        |
-| ZHT16MSWIN950 | 2                        |
-| ZHT32EUC      | 4                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| AL32UTF8      | 4                      |
+| JA16EUC       | 3                      |
+| JA16EUCTILDE  | 3                      |
+| JA16SJIS      | 2                      |
+| JA16SJISTILDE | 2                      |
+| KO16MSWIN949  | 2                      |
+| UTF8          | 3                      |
+| ZHS16GBK      | 2                      |
+| ZHT16HKSCS    | 2                      |
+| ZHT16MSWIN950 | 2                      |
+| ZHT32EUC      | 4                      |
 
 ##### Tibero
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| UTF8          | 4                        |
-| EUCKR         | 2                        |
-| MSWIN949      | 2                        |
-| SJIS          | 2                        |
-| JA16SJIS      | 2                        |
-| JA16SJISTILDE | 2                        |
-| JA16EUC       | 3                        |
-| JA16EUCTILDE  | 3                        |
-| GBK           | 2                        |
-| ZHT16HKSCS    | 2                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| UTF8          | 4                      |
+| EUCKR         | 2                      |
+| MSWIN949      | 2                      |
+| SJIS          | 2                      |
+| JA16SJIS      | 2                      |
+| JA16SJISTILDE | 2                      |
+| JA16EUC       | 3                      |
+| JA16EUCTILDE  | 3                      |
+| GBK           | 2                      |
+| ZHT16HKSCS    | 2                      |
 
 ##### TimesTen
 
-| Character Set  | Max. Bytes Per Character |
-| -------------- | ------------------------ |
-| AL16UTF16      | 4                        |
-| AL32UTF8       | 4                        |
-| JA16EUC        | 3                        |
-| JA16EUCTILDE   | 3                        |
-| JA16SJIS       | 2                        |
-| JA16SJISTILDE  | 2                        |
-| KO16KSC5601    | 2                        |
-| KO16MSWIN949   | 2                        |
-| ZHS16CGB231280 | 2                        |
-| ZHS16GBK       | 2                        |
-| ZHS32GB18030   | 4                        |
-| ZHT16BIG5      | 2                        |
-| ZHT16HKSCS     | 2                        |
-| ZHT16MSWIN950  | 2                        |
-| ZHT32EUC       | 4                        |
+| Character Set  | MaxBytes Per Character |
+| -------------- | ---------------------- |
+| AL16UTF16      | 4                      |
+| AL32UTF8       | 4                      |
+| JA16EUC        | 3                      |
+| JA16EUCTILDE   | 3                      |
+| JA16SJIS       | 2                      |
+| JA16SJISTILDE  | 2                      |
+| KO16KSC5601    | 2                      |
+| KO16MSWIN949   | 2                      |
+| ZHS16CGB231280 | 2                      |
+| ZHS16GBK       | 2                      |
+| ZHS32GB18030   | 4                      |
+| ZHT16BIG5      | 2                      |
+| ZHT16HKSCS     | 2                      |
+| ZHT16MSWIN950  | 2                      |
+| ZHT32EUC       | 4                      |
 
 ##### PostgreSQL
 
-| Character Set  | Max. Bytes Per Character |
+| Character Set  | MaxBytes Per Character |
 | :-------------- | :------------------------: |
 | BIG5           | 2                        |
 | EUC_CN         | 3                        |
