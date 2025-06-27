@@ -16798,7 +16798,7 @@ Commit success.
 
 **rollback ::=**
 
-![rollback_image253](media/SQL/rollback.JPG)
+![rollback_image253](media/SQL/rollback.jpg)
 
 #### 설명
 
@@ -16985,13 +16985,13 @@ Command execute success.
 
 | Transaction A                                                | Time Point | Transaction B                                                |
 | ------------------------------------------------------------ | ---------- | ------------------------------------------------------------ |
-| iSQL\> AUTOCOMMIT OFF; Set autocommit off success.           |            | iSQL\> AUTOCOMMIT OFF; Set autocommit off success.           |
-| iSQL\> SET TRANSACTION READ ONLY; Command execute success.   | 1          |                                                              |
-| iSQL\> SELECT e_last name FROM employees WHERE eno = 20; E_LASTNAME ------------------------ Blake 1 row selected. | 2          |                                                              |
-|                                                              | 3          | iSQL\> UPDATE employees SET e_lastname = 'Jung' WHERE eno = 20; 1 row updated. |
-| iSQL\> SELECT e_lastname FROM employees WHERE eno = 20; E_LASTNAME ------------------------ Blake 1 row selected. | 4          |                                                              |
-|                                                              | 5          | iSQL\> commit; Commit success.                               |
-| iSQL\> SELECT e_lastname FROM employees WHERE eno = 20; E_LASTNAME ------------------------ Jung 1 row selected. | 6          |                                                              |
+| iSQL\> AUTOCOMMIT OFF; </br>Set autocommit off success.      |            | iSQL\> AUTOCOMMIT OFF;</br> Set autocommit off success.      |
+| iSQL\> SET TRANSACTION READ ONLY; </br>Command execute success. | 1          |                                                              |
+| iSQL\> SELECT e_last name FROM employees WHERE eno = 20; </br>E_LASTNAME </br>------------------------ </br>Blake </br>1 row selected. | 2          |                                                              |
+|                                                              | 3          | iSQL\> UPDATE employees SET e_lastname = 'Jung' WHERE eno = 20; </br>1 row updated. |
+| iSQL\> SELECT e_lastname FROM employees WHERE eno = 20; </br>E_LASTNAME </br>------------------------ </br>Blake </br>1 row selected. | 4          |                                                              |
+|                                                              | 5          | iSQL\> commit; </br>Commit success.                          |
+| iSQL\> SELECT e_lastname FROM employees WHERE eno = 20; </br>E_LASTNAME </br>------------------------ </br>Jung </br>1 row selected. | 6          |                                                              |
 
 # 6.집합 연산자 
 
@@ -17047,8 +17047,6 @@ ENO
 ```
 SELECT statement1 UNION ALL SELECT statement2
 ```
-
-
 
 #### 설명
 
@@ -24611,7 +24609,7 @@ HARRY
 ##### 구문
 
 ```
-
+GROUPING(expr1)
 ```
 
 

@@ -16661,7 +16661,7 @@ Commit success.
 
 **rollback ::=**
 
-![rollback_image253](media/SQL/rollback.JPG)
+![rollback](media/SQL/rollback.jpg)
 
 #### 설명
 
@@ -23934,7 +23934,7 @@ HARRY
 ##### 구문
 
 ```
-
+GROUPING(expr1)
 ```
 
 
