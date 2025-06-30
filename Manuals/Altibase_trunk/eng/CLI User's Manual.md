@@ -175,7 +175,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [LOB data types](#lob-data-types)
   - [LOB Function Overview](#lob-function-overview)
   - [SQLBindFileToCol](#sqlbindfiletocol)
-  - [SQLindFileToParam](#sqlindfiletoparam)
+  - [SQLBindFileToParam](#sqlbindfiletoparam)
   - [SQLGetLobLength](#sqlgetloblength)
   - [SQLGetLob](#sqlgetlob)
   - [SQLPutLob](#sqlputlob)
@@ -6557,7 +6557,7 @@ for (i = 0; ; i++)
 }
 ```
 
-### SQLindFileToParam
+### SQLBindFileToParam
 
 SQLBindFileToParam binds the parameter market ‘?’ used for LOB data type to a file or files. When SQLExecute() or SQLExecDirect() is called, data is transferred from the file(s) to the database management system.
 
