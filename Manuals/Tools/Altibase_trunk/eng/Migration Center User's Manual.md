@@ -922,36 +922,36 @@ The primary option is the Migration Type: either “DB to DB” or “DB to File
 
 Object and table data of the source database to be migrated are migrated directly to the database (Altibase) to be stored.
 
-| Name                                         | Description                                                  |
-| -------------------------------------------- | ------------------------------------------------------------ |
-| Execution Thread                             | Specifies the maximum number of threads to be used when executing data migration. The default value is triple of the number of logical processors in the system running the Migration Center. The suggested range of this value is from 1 to triple of the number of logical processors in the system running the Migration Center. |
-| Migration Target                             | Specifies the targets for migration: <br />\- Object & Data: Database objects and table data<br />\- Object: Database objects only |
-| **Object Options**                           |                                                              |
-| Foreign Key Migration                        | Specifies whether or not to include foreign key constraints in migration target. This option is set to 'No' by default. |
-| PSM Migration                                | Specifies whether or not to include PSM objects such as procedures, functions, materialized views, views, typesets, and triggers in migration target. This option is set to 'No' by default. |
-| Drop Existing Objects                        | Specifies whether or not to recreate the database object before migration. <br />When this option is set to 'Yes', DROP and CREATE will be executed on migration target objects in target database. When this option is set to 'No', migration will be executed without dropping the database objects. This option is set to 'No' by default. |
-| Keep Partition Table                         | Specifies whether or not to maintain partitioned tables.<br />When this option is set to 'Yes', partitioned tables in the the source database will be migrated as partitioned tables. In this case, additional work is required for the partitioned tables in the reconcile stage's '5. Partitioned Table Conversion'. When this option is set to 'No', target partitioned tables will be migrated as non-partitioned tables. This option is set to 'No' by default. |
-| Use Double-quoted Identifier                 | Specifies whether or not to use double quotation marks for schema and object names. This option is set to 'No' by default. |
-| Remove FORCE from View DDL                   | Specifies whether or not to remove 'FORCE' keyword from the statement creating a view. |
-| Invisible Column Migration                   | Specifies whether invisible columns should be included in the table columns to be migrated. Altibase does not support the invisible column feature. </br>Yes means that invisible columns will be converted to normal columns and included in the migration. </br>No means that invisible columns will be excluded from the migration. </br>The default value is No. |
-| Postfix for reserved word                    | Specifies a user-defined word which is to be added to the database object name in the source database as a postfix when it conflicts with a reserved keyword of Altibase. The defualt value is _POC. |
-| Default '' (Empty String) Not Null Column    | Defines how to modify the column definition when an empty string[^1] is set as the default value and a NOT NULL constraint is applied <br />- Replace Default Empty String: Setting this option to 'Yes' allows to replace the default empty string with a user-defined value. The default setting is 'No'.<br />- Replacement Default Value: Specifies the string to be used as the new default value. This option is only enabled when Replace Default Empty String is set to 'Yes'.<br />- Remove Not Null: Setting this option to 'Yes' removes the NOT NULL constraint from the column where the empty string is the default value. The default setting is 'No'. |
-| **Data Options**                             |                                                              |
-| Batch Execution                              | Specifies whether or not to use batch insert in JDBC for higher performance. This option is set to 'Yes' by default. |
-| Batch Size                                   | Specifies the batch size when batch insert in JDBC is used. The default value is 10,000. |
-| Batch LOB type                               | Specifies whether or not to batch process BLOB and CLOB data types.<br />'Yes' means to allow batch processing. However, it should be noted that problems such as out of memory (OOM) may occur depending on the size of the LOB data. Also, an exception may be raised in TimesTen, which does not support the batch processing for LOB data types.'No' does not allow batch processing. This option is set to 'No' by default. |
-| Log Insert-failed Data                       | Specifies whether or not to log insert-failed rows during data migration. This option is available only when the Batch Execution option is disabled. This option is set to 'No' by default. |
-| File Encoding                                | Specifies the encoding character set to be used when logging the insert-failed data into files. This option is available only when the Log Insert-failed Data option is enabled. The default value is UTF8. |
-| Convert Oversized String VARCHAR To CLOB     | When a column's data type is mapped to the Altibase VARCHAR type, and its size exceeds 32,000 bytes — the maximum size supported by Altibase VARCHAR — it is specified whether the data type should be converted to CLOB. </br>Yes means the data type is converted to CLOB and processed accordingly. </br>No means the data type is converted to VARCHAR with a column size of 32,000 and processed as such. </br>The default setting is Yes. |
-| Correction Factor for Character Type Conversion | When migrating, if the character sets of the source and target databases are different, a correction factor is used to automatically adjust the length of character-type columns (CHAR, VARCHAR). The default setting is an automatically calculated value, and it cannot be set to a value less than 1. </br> (For the column length adjustment formula and the default correction factor calculation method, refer to the manual: Appendix C: Data Type Mapping – Automatic Correction of Character Column Length Considering Heterogeneous Character Set) </br>If a character set is specified at the column level, the correction factor is automatically calculated based on the character set defined for the column. In this case, option value is not applied to the length conversion of that column. |
-| Replace Empty String Data                    | Specifies how to replace empty string data encountered during data migration with a user-defined string.<br />- Replace Empty Strings in Not Null: Setting this option to 'Yes' allows to replace empty string data with a user-defined string. The default setting is 'No'.<br/>- Replacement String: Specifies the string that will replace the empty string. This option is only enabled when Replace Empty Strings in Not Null is set to 'Yes'.<br />- Apply to Nullable Columns: Setting this option to 'Yes' allows to replace empty string data in columns **without a NOT NULL constraint** with the value specified in Replacement String. The default setting is 'No'. |
-| **Data Validation Options**                  |                                                              |
-| Operation                                    | Specifies the operation to be executed in the data validation stage: <br />- DIFF: Check data difference between the source and the target databases. <br/>- FILESYNC: Apply the CSV file created as a result of DIFF operation to the target database. |
-| Write to CSV                                 | Specifies whether or not to write the inconsistent data to the CSV file. |
-| Include LOB                                  | Specifies whether or not to include LOB data when writing inconsistent data to the CSV file. |
-| Data Sampling                                | Specifies whether or not to use data sampling feature.<br />When this option is set to 'Yes', to decrease the data validation time, only sample data will be validated. When this option is set to 'No', each data will be validated. This option is set to 'Yes' by default. |
-| Percent Sampling (exact counting)            | Specifies the percentage of data to be sampled from target tables. This option is used only when the Exact Counting Method is selected in the build stage. |
-| Record Count Sampling (approximate counting) | Specifies the number of records to be sampled from target tables. This option is used only if the Approximate Counting Method is selected in the build stage. |
+| Name                                            | Description                                                  |
+| ----------------------------------------------- | ------------------------------------------------------------ |
+| Execution Thread                                | Specifies the maximum number of threads to be used when executing data migration. The default value is triple of the number of logical processors in the system running the Migration Center. The suggested range of this value is from 1 to triple of the number of logical processors in the system running the Migration Center. |
+| Migration Target                                | Specifies the targets for migration: <br />\- Object & Data: Database objects and table data<br />\- Object: Database objects only |
+| **Object Options**                              |                                                              |
+| Foreign Key Migration                           | Specifies whether or not to include foreign key constraints in migration target. This option is set to 'No' by default. |
+| PSM Migration                                   | Specifies whether or not to include PSM objects such as procedures, functions, materialized views, views, typesets, and triggers in migration target. This option is set to 'No' by default. |
+| Drop Existing Objects                           | Specifies whether or not to recreate the database object before migration. <br />When this option is set to 'Yes', DROP and CREATE will be executed on migration target objects in target database. When this option is set to 'No', migration will be executed without dropping the database objects. This option is set to 'No' by default. |
+| Keep Partition Table                            | Specifies whether or not to maintain partitioned tables.<br />When this option is set to 'Yes', partitioned tables in the the source database will be migrated as partitioned tables. In this case, additional work is required for the partitioned tables in the reconcile stage's '5. Partitioned Table Conversion'. When this option is set to 'No', target partitioned tables will be migrated as non-partitioned tables. This option is set to 'No' by default. |
+| Use Double-quoted Identifier                    | Specifies whether or not to use double quotation marks for schema and object names. This option is set to 'No' by default. |
+| Remove FORCE from View DDL                      | Specifies whether or not to remove 'FORCE' keyword from the statement creating a view. |
+| Invisible Column Migration                      | Specifies whether invisible columns should be included in the table columns to be migrated. Altibase does not support the invisible column feature. </br>Yes means that invisible columns will be converted to normal columns and included in the migration. </br>No means that invisible columns will be excluded from the migration. </br>The default value is No. |
+| Postfix for reserved word                       | Specifies a user-defined word which is to be added to the database object name in the source database as a postfix when it conflicts with a reserved keyword of Altibase. The defualt value is _POC. |
+| Default '' (Empty String) Not Null Column       | Defines how to modify the column definition when an empty string[^1] is set as the default value and a NOT NULL constraint is applied <br />- Replace Default Empty String: Setting this option to 'Yes' allows to replace the default empty string with a user-defined value. The default setting is 'No'.<br />- Replacement Default Value: Specifies the string to be used as the new default value. This option is only enabled when Replace Default Empty String is set to 'Yes'.<br />- Remove Not Null: Setting this option to 'Yes' removes the NOT NULL constraint from the column where the empty string is the default value. The default setting is 'No'. |
+| **Data Options**                                |                                                              |
+| Batch Execution                                 | Specifies whether or not to use batch insert in JDBC for higher performance. This option is set to 'Yes' by default. |
+| Batch Size                                      | Specifies the batch size when batch insert in JDBC is used. The default value is 10,000. |
+| Batch LOB type                                  | Specifies whether or not to batch process BLOB and CLOB data types.<br />'Yes' means to allow batch processing. However, it should be noted that problems such as out of memory (OOM) may occur depending on the size of the LOB data. Also, an exception may be raised in TimesTen, which does not support the batch processing for LOB data types.'No' does not allow batch processing. This option is set to 'No' by default. |
+| Log Insert-failed Data                          | Specifies whether or not to log insert-failed rows during data migration. This option is available only when the Batch Execution option is disabled. This option is set to 'No' by default. |
+| File Encoding                                   | Specifies the encoding character set to be used when logging the insert-failed data into files. This option is available only when the Log Insert-failed Data option is enabled. The default value is UTF8. |
+| Convert Oversized String VARCHAR To CLOB        | When a column's data type is mapped to the Altibase VARCHAR type, and its size exceeds 32,000 bytes — the maximum size supported by Altibase VARCHAR — it is specified whether the data type should be converted to CLOB. </br>Yes means the data type is converted to CLOB and processed accordingly. </br>No means the data type is converted to VARCHAR with a column size of 32,000 and processed as such. </br>The default setting is Yes. |
+| Correction Factor for Character Type Conversion | This option specifies the correction factor used to automatically convert the length of character data type columns (CHAR, VARCHAR) when the character sets of the source and target databases differ.<br/> The default value is automatically calculated and cannot be set to a value less than 1.For more information, refer to [Appendix C: Data Type Mapping – Automatic Adjustment of Character Column Length for Different Character Sets](#automatic-adjustment-of-character-column-length-for-different-Character-Set).</br>If a character set is specified at the column level, the user-defined correction factor does not apply to the column length conversion; instead, the automatically calculated correction factor applies.  For more details, refer to the FAQ. |
+| Replace Empty String Data                       | Specifies how to replace empty string data encountered during data migration with a user-defined string.<br />- Replace Empty Strings in Not Null: Setting this option to 'Yes' allows to replace empty string data with a user-defined string. The default setting is 'No'.<br/>- Replacement String: Specifies the string that will replace the empty string. This option is only enabled when Replace Empty Strings in Not Null is set to 'Yes'.<br />- Apply to Nullable Columns: Setting this option to 'Yes' allows to replace empty string data in columns **without a NOT NULL constraint** with the value specified in Replacement String. The default setting is 'No'. |
+| **Data Validation Options**                     |                                                              |
+| Operation                                       | Specifies the operation to be executed in the data validation stage: <br />- DIFF: Check data difference between the source and the target databases. <br/>- FILESYNC: Apply the CSV file created as a result of DIFF operation to the target database. |
+| Write to CSV                                    | Specifies whether or not to write the inconsistent data to the CSV file. |
+| Include LOB                                     | Specifies whether or not to include LOB data when writing inconsistent data to the CSV file. |
+| Data Sampling                                   | Specifies whether or not to use data sampling feature.<br />When this option is set to 'Yes', to decrease the data validation time, only sample data will be validated. When this option is set to 'No', each data will be validated. This option is set to 'Yes' by default. |
+| Percent Sampling (exact counting)               | Specifies the percentage of data to be sampled from target tables. This option is used only when the Exact Counting Method is selected in the build stage. |
+| Record Count Sampling (approximate counting)    | Specifies the number of records to be sampled from target tables. This option is used only if the Approximate Counting Method is selected in the build stage. |
 
 [^1]: A string of length zero
 
@@ -1443,7 +1443,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 
 ### Automatic Correction of Character Column Length Considering Heterogeneous Character Set
 
-When the character sets of the source and destination databases are different during migration, character data types(CHAR, VARCHAR) require length conversion.
+During migration, if the character sets of the source and destination databases differ, character data types (CHAR, VARCHAR) require length conversion.
 For example, if the source database is set to the MS949 character set that requires a maximum of 2 bytes per character storage, and the target database is set to the UTF8 character set that requires 3 bytes per character, the character data of the target database is required to migrate without truncation. The size of the type should be 1.5 times the original.
 
 Migration Center automatically performs this length conversion, and the length correction formula for character data types and the calculation formula for the correction factor are as follows.
@@ -1454,17 +1454,15 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 * MaxBytes = The maximum number of bytes required to store one character
 ```
 
-The automatically calculated correction factor can be changed by modifying the migration option "Correction Factor for Character Type Conversion".
+The correction factor is automatically calculated by the Migration Center, but users can modify it using the "Correction Factor for Character Type Conversion" migration option. Note that if the correction factor is set to 1, the length conversion will not be performed.
 
-However, if the correction factor is 1, the length conversion is not performed.
-
-The MaxBytes and automatically calculated correction factor of the source and target databases can be found on the summary page of the build report.
-
-When the correction factor option value is changed, the updated correction factor can be found on the summary page of the reconcile report.
+The MaxBytes and the automatically calculated correction factor of the source and target databases can be found on the Summary page of the Build Report. When a user modified the correction factor, the updated value can be found on the Summary page on the Reconcil Report.
 
 #### Precautions
 
-For large tables, the length of data storage in the target database can be much larger than the original due to length correction. If there is a guarantee that the data will not be truncated without converting the length, the length can be manually specified in the reconcile step.
+* For large tables, the length of data storage in the target database can be much larger than the original due to length correction. 
+* If there is a guarantee that the data will not be truncated without converting the length, the length can be manually specified in the reconcile step.
+* If a character set is specified at the column level, the user-defined correction factor does not apply to the column length conversion; instead, the automatically calculated correction factor applies.
 
 #### Support Character Set for Each Database
 
@@ -1472,42 +1470,42 @@ For character sets not listed in the table below, Migration Center does not auto
 
 ##### Altibase
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| KO16KSC5601   | 2                        |
-| MS949         | 2                        |
-| BIG5          | 2                        |
-| GB231280      | 2                        |
-| MS936         | 2                        |
-| UTF8          | 3                        |
-| SHIFTJIS      | 2                        |
-| MS932         | 2                        |
-| EUCJP         | 3                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| KO16KSC5601   | 2                      |
+| MS949         | 2                      |
+| BIG5          | 2                      |
+| GB231280      | 2                      |
+| MS936         | 2                      |
+| UTF8          | 3                      |
+| SHIFTJIS      | 2                      |
+| MS932         | 2                      |
+| EUCJP         | 3                      |
 
 ##### Cubrid
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| utf8          | 3                        |
-| euckr         | 2                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| utf8          | 3                      |
+| euckr         | 2                      |
 
 <!--
 
 ##### Informix
 
-| Character Set      | Max. Bytes Per Character |
-| ------------------ | ------------------------ |
-| zh_cn.GB18030_2000 | 4                        |
-| zh_tw.big5         | 2                        |
-| zh_tw.euctw        | 4                        |
-| zh_cn.gb           | 2                        |
-| zh_tw.sbig5        | 2                        |
-| zh_tw.ccdc         | 2                        |
-| ja_jp.sjis-s       | 2                        |
-| ja_jp.ujis         | 3                        |
-| ja_up.sjis         | 2                        |
-| ko_kr.cp949        | 2                        |
-| ko_kr.ksc          | 2                        |
+| Character Set      | MaxBytes Per Character |
+| ------------------ | ---------------------- |
+| zh_cn.GB18030_2000 | 4                      |
+| zh_tw.big5         | 2                      |
+| zh_tw.euctw        | 4                      |
+| zh_cn.gb           | 2                      |
+| zh_tw.sbig5        | 2                      |
+| zh_tw.ccdc         | 2                      |
+| ja_jp.sjis-s       | 2                      |
+| ja_jp.ujis         | 3                      |
+| ja_up.sjis         | 2                      |
+| ko_kr.cp949        | 2                      |
+| ko_kr.ksc          | 2                      |
 
 -->
 
@@ -1521,110 +1519,110 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 
 ##### SQL Server
 
-| Code Page | Max. Bytes Per Character |
-| --------- | ------------------------ |
-| 932       | 2                        |
-| 936       | 2                        |
-| 949       | 2                        |
-| 950       | 2                        |
+| Code Page | MaxBytes Per Character |
+| --------- | ---------------------- |
+| 932       | 2                      |
+| 936       | 2                      |
+| 949       | 2                      |
+| 950       | 2                      |
 
 ##### Oracle
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| AL32UTF8      | 4                        |
-| JA16EUC       | 3                        |
-| JA16EUCTILDE  | 3                        |
-| JA16SJIS      | 2                        |
-| JA16SJISTILDE | 2                        |
-| KO16MSWIN949  | 2                        |
-| UTF8          | 3                        |
-| ZHS16GBK      | 2                        |
-| ZHT16HKSCS    | 2                        |
-| ZHT16MSWIN950 | 2                        |
-| ZHT32EUC      | 4                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| AL32UTF8      | 4                      |
+| JA16EUC       | 3                      |
+| JA16EUCTILDE  | 3                      |
+| JA16SJIS      | 2                      |
+| JA16SJISTILDE | 2                      |
+| KO16MSWIN949  | 2                      |
+| UTF8          | 3                      |
+| ZHS16GBK      | 2                      |
+| ZHT16HKSCS    | 2                      |
+| ZHT16MSWIN950 | 2                      |
+| ZHT32EUC      | 4                      |
 
 ##### Tibero
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| UTF8          | 4                        |
-| EUCKR         | 2                        |
-| MSWIN949      | 2                        |
-| SJIS          | 2                        |
-| JA16SJIS      | 2                        |
-| JA16SJISTILDE | 2                        |
-| JA16EUC       | 3                        |
-| JA16EUCTILDE  | 3                        |
-| GBK           | 2                        |
-| ZHT16HKSCS    | 2                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| UTF8          | 4                      |
+| EUCKR         | 2                      |
+| MSWIN949      | 2                      |
+| SJIS          | 2                      |
+| JA16SJIS      | 2                      |
+| JA16SJISTILDE | 2                      |
+| JA16EUC       | 3                      |
+| JA16EUCTILDE  | 3                      |
+| GBK           | 2                      |
+| ZHT16HKSCS    | 2                      |
 
 ##### TimesTen
 
-| Character Set  | Max. Bytes Per Character |
-| -------------- | ------------------------ |
-| AL16UTF16      | 4                        |
-| AL32UTF8       | 4                        |
-| JA16EUC        | 3                        |
-| JA16EUCTILDE   | 3                        |
-| JA16SJIS       | 2                        |
-| JA16SJISTILDE  | 2                        |
-| KO16KSC5601    | 2                        |
-| KO16MSWIN949   | 2                        |
-| ZHS16CGB231280 | 2                        |
-| ZHS16GBK       | 2                        |
-| ZHS32GB18030   | 4                        |
-| ZHT16BIG5      | 2                        |
-| ZHT16HKSCS     | 2                        |
-| ZHT16MSWIN950  | 2                        |
-| ZHT32EUC       | 4                        |
+| Character Set  | MaxBytes Per Character |
+| -------------- | ---------------------- |
+| AL16UTF16      | 4                      |
+| AL32UTF8       | 4                      |
+| JA16EUC        | 3                      |
+| JA16EUCTILDE   | 3                      |
+| JA16SJIS       | 2                      |
+| JA16SJISTILDE  | 2                      |
+| KO16KSC5601    | 2                      |
+| KO16MSWIN949   | 2                      |
+| ZHS16CGB231280 | 2                      |
+| ZHS16GBK       | 2                      |
+| ZHS32GB18030   | 4                      |
+| ZHT16BIG5      | 2                      |
+| ZHT16HKSCS     | 2                      |
+| ZHT16MSWIN950  | 2                      |
+| ZHT32EUC       | 4                      |
 
 ##### PostgreSQL
 
-| Character Set  | Max. Bytes Per Character |
-| -------------- | ------------------------ |
-| BIG5           | 2                        |
-| EUC_CN         | 3                        |
-| EUC_JP         | 3                        |
-| EUC_JIS_2004   | 3                        |
-| EUC_KR         | 3                        |
-| EUC_TW         | 3                        |
-| GB18030        | 4                        |
-| GBK            | 2                        |
-| ISO_8859_5     | 1                        |
-| ISO_8859_6     | 1                        |
-| ISO_8859_7     | 1                        |
-| ISO_8859_8     | 1                        |
-| JOHAB          | 3                        |
-| KOI8R          | 1                        |
-| KOI8U          | 1                        |
-| LATIN1         | 1                        |
-| LATIN2         | 1                        |
-| LATIN3         | 1                        |
-| LATIN4         | 1                        |
-| LATIN5         | 1                        |
-| LATIN6         | 1                        |
-| LATIN7         | 1                        |
-| LATIN8         | 1                        |
-| LATIN9         | 1                        |
-| LATIN10        | 1                        |
-| MULE_INTERNAL  | 4                        |
-| SJIS           | 2                        |
-| SHIFT_JIS_2004 | 2                        |
-| SQL_ASCII      | 1                        |
-| UHC            | 2                        |
-| UTF8           | 4                        |
-| WIN866         | 1                        |
-| WIN874         | 1                        |
-| WIN1250        | 1                        |
-| WIN1251        | 1                        |
-| WIN1252        | 1                        |
-| WIN1253        | 1                        |
-| WIN1254        | 1                        |
-| WIN1255        | 1                        |
-| WIN1256        | 1                        |
-| WIN1257        | 1                        |
-| WIN1258        | 1                        |
+| Character Set  | MaxBytes Per Character |
+| -------------- | ---------------------- |
+| BIG5           | 2                      |
+| EUC_CN         | 3                      |
+| EUC_JP         | 3                      |
+| EUC_JIS_2004   | 3                      |
+| EUC_KR         | 3                      |
+| EUC_TW         | 3                      |
+| GB18030        | 4                      |
+| GBK            | 2                      |
+| ISO_8859_5     | 1                      |
+| ISO_8859_6     | 1                      |
+| ISO_8859_7     | 1                      |
+| ISO_8859_8     | 1                      |
+| JOHAB          | 3                      |
+| KOI8R          | 1                      |
+| KOI8U          | 1                      |
+| LATIN1         | 1                      |
+| LATIN2         | 1                      |
+| LATIN3         | 1                      |
+| LATIN4         | 1                      |
+| LATIN5         | 1                      |
+| LATIN6         | 1                      |
+| LATIN7         | 1                      |
+| LATIN8         | 1                      |
+| LATIN9         | 1                      |
+| LATIN10        | 1                      |
+| MULE_INTERNAL  | 4                      |
+| SJIS           | 2                      |
+| SHIFT_JIS_2004 | 2                      |
+| SQL_ASCII      | 1                      |
+| UHC            | 2                      |
+| UTF8           | 4                      |
+| WIN866         | 1                      |
+| WIN874         | 1                      |
+| WIN1250        | 1                      |
+| WIN1251        | 1                      |
+| WIN1252        | 1                      |
+| WIN1253        | 1                      |
+| WIN1254        | 1                      |
+| WIN1255        | 1                      |
+| WIN1256        | 1                      |
+| WIN1257        | 1                      |
+| WIN1258        | 1                      |
 
 # Appendix D: Mapping Default Values
 
@@ -7583,6 +7581,16 @@ This is an error that can occur when the maximum memory allocation value (-Xmx) 
 
 Change the value of -Xms -Xmx in bat and sh according to the user environment, and then restart Migration Center.
 
+#### In the Windows environment, some text in the migration options window is not visible.
+
+##### Cause
+
+In Windows environments, when display scaling is set above 100%, some text in the migration options window may appear overlapping or cut off.
+
+##### Solution
+
+Set the display scaling to 100% or lower, and restart the Migration Center.
+
 ### Oracle
 
 #### The error message 'ORA-01652 unable to extend temp segment by 128 in tablespace TEMP' is printed.
@@ -7773,6 +7781,16 @@ Use a JDBC driver file that is compatible with the Java version running the Migr
 
 Example) mssql-jdbc-7.2.2.***jre11***.jar
 
+#### Even if the value of the 'Correction Factor for Character Type Conversion' option is changed, the automatically calculated correction factor is applied.
+
+##### Cause
+
+MS-SQL allows character collation to be specified at the column level. The 'Correction Factor for Character Type Conversion' option applies only to the character set defined as the default for MS-SQL. If a character set is specified at the column level, the correction factor is automatically calculated based on the column’s character set, and the user-defined correction factor set through the option is not applied.
+
+##### Solution
+
+Modify the size of the automatically converted columns directly in the DDL Editing window -Destination DDL in the Reconcile step.
+
 ### Altibase
 
 #### When migrating Altibase version 5.1.5 or lower, the characters are broken.
@@ -7894,6 +7912,16 @@ This phenomenon is normal.
 > 1. Reconcile step: Click on "NVARCHAR" row in "Data Type Mapping" 
 > 2. Click the "Change" button 
 > 3. Select 'NVARCHAR' as Destination DB Data Type, leave Precision blank, and save
+
+#### Even if the value of the 'Correction Factor for Character Type Conversion' option is changed, the automatically calculated correction factor is applied.
+
+##### Cause
+
+MySQL allows character sets to be specified at the column level. The 'Correction Factor for Character Type Conversion' option applies only to the character set defined as the default for MySQL. If a character set is specified at the column level, the correction factor is automatically calculated based on the column’s character set, and the user-defined correction factor set through the option is not applied.
+
+##### Solution
+
+Modify the size of the automatically converted columns directly in the DDL Editing window -Destination DDL in the Reconcile step.
 
 ### PostgreSQL
 
