@@ -1220,7 +1220,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  15  | CLOB          | CLOB              |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666)   | Altibase에는 오라클 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다. |
 |  17  | ROWID         | VARCHAR(18)       | 오라클의 ROWID는 문자형 데이터 타입으로 변환한다. Altibase는 ROWID라는 데이터 타입을 지원하지 않는다. |
-|  18  | JSON          | CLOB 또는 JSON    | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 버전에서는 JSON 타입으로 변환된다. </br> 만약 VARCHAR2, BLOB, CLOB 등의 데이터 타입에 IS JSON 체크 제약 조건이 설정되어 있는 경우, 원본 데이터베이스의 해당 컬럼은 JSON 타입으로 간주된다. 단, IS JSON 체크 제약 조건은 마이그레이션되지 않는다. |
+|  18  | JSON          | CLOB 또는 JSON    | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 Altibase 8.1 이상 버전에서는 JSON 타입으로 변환된다. </br> 만약 VARCHAR2, BLOB, CLOB 등의 데이터 타입에 IS JSON 체크 제약 조건이 설정되어 있는 경우, 원본 데이터베이스의 해당 컬럼은 JSON 타입으로 간주된다. 단, IS JSON 체크 제약 조건은 마이그레이션되지 않는다. |
 
 #### MS-SQL Server to Altibase
 
@@ -1289,7 +1289,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  29  | LONGTEXT           | CLOB                            |                                                              |
 |  30  | ENUM               | VARCHAR(10666)                  | Altibase에는 MySQL ENUM 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
 |  31  | SET                | VARCHAR(10666)                  | Altibase에는 MySQL SET 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
-|  32  | JSON               | CLOB 또는 JSON                  | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 버전에서는 JSON 타입으로 변환된다. |
+|  32  | JSON               | CLOB 또는 JSON                  | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 Altibase 8.1 이상 버전에서는 JSON 타입으로 변환된다. |
 
 <!--
 
@@ -1405,7 +1405,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  15  | CLOB          | CLOB            |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666) | Altibase에는 티베로 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR의 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수 있다. |
 |  17  | ROWID         | VARCHAR(18)     | 티베로의 ROWID는 문자형 데이터 타입으로 변환한다. Altibase는 ROWID라는 데이터 타입을 지원하지 않는다. |
-|  18  | JSON          | CLOB 또는 JSON  | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 버전에서는 JSON 타입으로 변환된다. |
+|  18  | JSON          | CLOB 또는 JSON  | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 Altibase 8.1 이상 버전에서는 JSON 타입으로 변환된다. |
 
 #### PostgreSQL to Altibase
 
@@ -1448,7 +1448,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 | 35 | PATH | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
 | 36 | POLYGON | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
 | 37 | CIRCLE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
-| 38 | JSON | CLOB 또는 JSON | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 버전에서는 JSON 타입으로 변환된다. |
+| 38 | JSON | CLOB 또는 JSON | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 Altibase 8.1 이상 버전에서는 JSON 타입으로 변환된다. |
 
 ### 이종 문자 집합을 고려한 문자형 칼럼 길이 자동 보정
 
