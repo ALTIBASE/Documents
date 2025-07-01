@@ -830,7 +830,7 @@ This library is used when authoring Altibase CLI applications. For more detailed
 
 ##### libalticapi.a
 
-This library is used when writing Altibase ACI applications. For more detailed information, please refer to the *[ACI User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Altibase%20C%20Interface%20Manual.md)*.
+This library is for developing Altibase ACI applications. For more detailed information, please refer to the *[ACI User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Altibase%20C%20Interface%20Manual.md)*.
 
 ##### libaltibase_odbc-64bit-ul64.so
 
@@ -1231,7 +1231,7 @@ Please fully understand the Altibase properties related to database initializati
 | USER_TEMP_FILE_NEXT_SIZE    | The amount by which a temporary data file is increased in size when user temporary tablespace is extended automatically. | 1M      |
 | US- ER_TEMP_TBS_EXTENT_SIZE | The size of an extent in user temporary tablespace.          | 256K    |
 
-For more detailed information about the Altibase properties, please refer to the *[General Reference-1.Data Types & Altibase Properties.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md)*
+For more detailed information about the Altibase properties, please refer to the *[General Reference-1.Data Types & Altibase Properties.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md)*
 
 # 4. Startup and Shutdown
 
@@ -4250,7 +4250,7 @@ CHECKPOINT PATH ‘Checkpoint Image File Path List’
 SPLIT EACH integer [K/M/G]
 ```
 
-The checkpoint image file path attribute only applies to memory tablespaces. Altibase uses ping pong checkpointing for high-performance transaction processing in memory tablespaces. For ping pong checkpointing, at least two checkpoint images are created on disk. Each checkpoint image can be divided into several files and saved in that form. The size of the files into which the checkpoint image is divided can be specified using the SPLIT EACH clause. These files can be stored in different paths in order to distribute the expense of disk I/O. The user can freely specify the size of the files into which the checkpoint image is divided and the path where the checkpoint images are saved. The user can add or change paths for saving checkpoint image files, but cannot change the size of the files into which the checkpoint image is divided once it has been set.
+The checkpoint image file path attribute only applies to memory tablespaces. Altibase uses ping pong checkpointing for high-performance transaction processing in memory tablespaces. For ping pong checkpointing, at least two checkpoint image files are created on disk. The checkpoint image may be split and stored in multiple files, and the size of the splits may be specified in the SPLIT EACH clause. The split files can be stored in different paths to distribute disk I/O, and the user can freely specify the size of the splits and the paths where the checkpoint image files are stored. The user can add or change the checkpoint image file path, but cannot change the size of a split once it is specified.
 
 ##### Volatile Tablespace Attributes
 
@@ -4624,7 +4624,7 @@ MEM_DB_DIR    =  ?/dbs2
 
 The following query can be executed to verify that dbs1 and dbs2, which were specified using the MEM_DB_DIR property, are the checkpoint image file paths for the USER_MEM_TBS tablespace created above:
 
-```
+```sql
 iSQL> SELECT CHECKPOINT_PATH 
 FROM V$MEM_TABLESPACE_CHECKPOINT_PATHS 
 WHERE SPACE_ID = 
@@ -4704,7 +4704,7 @@ CHECKPOINT PATH 'dbs1', '/new_disk/dbs2';
 Create success.
 ```
 
-In the above example, the relative path "dbs1" was specified for the checkpoint image file path, which has the same effect as if "$ALTIBASE_HOME/dbs1" were specified. Additionally, the DBA must first manually create the checkpoint image file paths specified in the CREATE TABLESPACE statement in the actual file system and then grant write and file execution privileges for them before creating a tablespace.
+In the above example, specifying a relative path such as `dbs1` for the checkpoint image path is equivalent to specifying `$ALTIBASE_HOME/dbs1`.  Additionally, the DBA must first manually create the checkpoint image file paths specified in the CREATE TABLESPACE statement in the actual file system and then grant write and file execution privileges for them before creating a tablespace.
 
 The size of the files into which a checkpoint image is divided can also be specified, as seen below:
 
@@ -4740,7 +4740,7 @@ Create success.
 
 This section describes how to add a checkpoint image file path to a memory tablespace. 
 
-The checkpoint image file paths for a memory tablespace can only be set during the control phase. After shutting down the Altibase server, restart it in the control phase.
+The checkpoint image file paths for a memory tablespace can only be set during the control phase. Therefore, shut down the Altibase server first and restart it in the control phase using the following command.
 
 ```
 $ isql -u sys -p manager -sysdba 
@@ -6723,7 +6723,7 @@ For example, if the Altibase server fails in a state due to the inconsistency of
 
 Checkpoint scale defines the management method for creating, updating, and maintaining checkpoint image files. Users can set the checkpoint scale when creating a database or modify it during the CONTROL phase of the Altibase server startup.
 
-Altibase provides two checkpoint scale settings: Pair and Single. The Pair setting represents Altibase's traditional method of managing checkpoint image files, while the Single setting is supported starting from Altibase 7.4.
+Altibase provides two checkpoint scale settings: Pair and Single. The Pair setting represents Altibase's traditional method of managing checkpoint image files, while the Single setting is supported starting from Altibase 8.1.
 
 ###### Checkpoint Scale Pair
 
