@@ -1,5 +1,4 @@
-Administrator’s Manual
-================
+# Administrator’s Manual
 
 #### Trunk
 
@@ -195,8 +194,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 
 
 
-Preface
-====
+# Preface
 
 ### About This Manual
 
@@ -218,8 +216,6 @@ It is recommended for those reading this manual possess the following background
 - Experience in using relational databases and understanding of database concepts
 - Computer programming experience
 - Experience in database server management, operating system management, or network administration
-
-
 
 #### Organization
 
@@ -366,8 +362,6 @@ Thank you. We always welcome your feedback and suggestions.
 
 # 1. Introduction
 
--------------
-
 This chapter describes the background of the emergence of Hybrid DBMS. It also describes the structure and features of Altibase.
 
 ### Hybrid DBMS Concept
@@ -404,8 +398,6 @@ Therefore, custom-designed memory DBs have been used in many industries, requiri
 
 However, as such data processing products are universal, they have to be individually developed from scratch. This has had the undesirable consequences of increased maintenance and repair costs and decreased performance, integration, and scalability.
 
-
-
 ##### Emergence of MMDBMS
 
 MMDBMS are structured such that data are stored in memory and the data in memory are read and sent directly to client applications.
@@ -424,7 +416,7 @@ Nevertheless, search operations are faster using an MMDBMS because data access i
 
 Despite the advantages of high and consistent performance, because MMDBMS must save data in memory, they encounter a limitation when data processing requirements are a large volume and store more than hundreds of GB of data.
 
-##### **Combining MMDBMS and DRDBMS**
+##### Combining MMDBMS and DRDBMS
 
 To overcome these problems, the most commonly solution is to divide and store the data separately. The data that needs high performance is stored in the MMDBMS, and the data that needs large capacity is stored in the DRDBMS.
 
@@ -484,9 +476,9 @@ The Altibase server has a multithreaded internal structure.
 
 Unlike other real-time database systems, Altibase supports a wide range of industry-standard interfaces for maximum compatibility. The Altibase query language complies with the SQL92 and SQL99 standard, and also provides extended features.
 
-Because Altibase supports ODBC, JDBC, and C/C++ Precompiler, it can be used without converting the existing database application in order to use them with Altibase Hybrid MMDBMS
+Because Altibase supports ODBC, JDBC, and C/C++ Precompiler, it can be used without converting the existing database application in order to use them with Altibase Hybrid MMDBMS.
 
-#### **Multi-Version Concurrency Control**
+#### Multi-Version Concurrency Control
 
 Altibase manages concurrency using the MVCC (Multi-Version Concurrency Control). MVCC is a technique of achieving maximum performance by eliminating collisions when reading and writing operations are performed on multiple versions of a single data item. 
 
@@ -498,7 +490,7 @@ Altibase provides MVCC in different ways for its memory table and disk tables in
 
 The Altibase Hybrid DBMS architecture provides various features to achieve maximum performance. First, the number of transactions that can be simultaneously executed in the database can be controlled by configuring the properties in the altibase.properties file. Additionally, for efficient server operation, AUTOCOMMIT mode can be used. Furthermore, Altibase provides the following transaction isolation levels: “read committed” (0), “repeatable read” (1), and “no phantom read” (2), which can be selected appropriately depending on the user’s requirements.
 
-#### **Logging**
+#### Logging
 
 For database stability and durability, Altibase logs to the contents of the changed database. In addition, the optimal log is created to maximize the performance of replication between systems.
 
@@ -506,19 +498,31 @@ For database stability and durability, Altibase logs to the contents of the chan
 
 To improve the performance of transactions that access disk tablespaces, disk I/O is minimized. This is accomplished using the buffer pool. Pages that have already been read from disk and cached in memory are prevented from being subsequently read from disk again. The buffer pool is managed by the Hot-Cold LRU (Least Recently Used) algorithm.
 
-#### Double Write Files
+#### Double Write
+
+Double write refers to the process of writing pages twice to prevent data corruption during write operations. The purposes of double write differ between disk and memory databases, as detailed below.
+
+##### Double Write in Disk Databases
 
 If the page size of the Altibase system is different the physical page size of the file system, and if the Altibase server terminates abnormally during the disk I/O, the page may be corrupted.
 
-To avoid this, Altibase saves the same image to a "double-write file" on the disk and then saves the page back to its original location when the page is flushed. Furthermore, when the Altibase server is restarted, it compares the contents of the double-write file with that of the actual page, and restores any corrupted pages. 
+To avoid this, Altibase saves the same image to a "double-write file" on the disk and then saves the page back to its original location when the page is flushed. Furthermore, when the Altibase server is restarted, it compares the contents of the double-write file with that of the actual page, and restores any corrupted pages.
 
-The double write function compensates for disk errors, but can degrade the system's performance. This feature may not be used by the user for performance. 
+The double write function in disk database compensates for disk errors, but can degrade the system's performance. This feature may not be used by the user for performance.
+
+##### Double Write in Memory Databases
+
+In memory databases, the double write efficiently records a small number of dirty pages in stable checkpoint image files, particularly when the checkpoint scale is set to SINGLE.
+
+To adhere to the Write-Ahead Logging (WAL) protocol and prevent partial writes, dirty page snapshots are temporarily stored in the double write image file before being written to the stable checkpoint image file.
+
+For detailed information, refer to Chapter 8, [Checkpointing Memory Databases](#Checkpointing-Memory-Databases).
 
 #### Fuzzy & Ping Pong Checkingpoint
 
 Altibase uses fuzzy & ping pong checkpoints to ensure that the latest database state is safely backed up. 
 
-In the main memory database, fuzzy checkpointing stores all changed data pages in a backup database, and because transactions that are currently underway can have an effect thereon, fuzzy and ping-pong checkpointing methods are used together. That is, because two backup databases are maintained, the processing burden associated with the checkpointing process can be decreased, and optimum transaction performance can be realized.
+In the main memory database, if only the fuzzy checkpoint method is used, all changed data pages might be flushed to the backup database, affecting the execution of ongoing transactions. Therefore, along with fuzzy checkpoints, the ping pong checkpoint method is also used. Ping pong checkpoints manage two backup databases. This reduces the load during the checkpointing process and maximizes transaction performance. For a more detailed information, refer to the [Checkpointing](#checkpointing) in Chapter 8.
 
 #### Stored Procedures
 
@@ -711,8 +715,6 @@ This file contains error messages related to the data storage management module,
 
 # 2. Altibase Components
 
------------------
-
 This chapter describes the major components of Altibase. After installing the Altibase package, the user can check out components such as the binary section and the programming library section.
 
 ### Altibase Directories
@@ -772,11 +774,15 @@ This directory contains the following files:
 
 #### dbs Directory
 
-When using the default values, database files are created in this directory. The location and name of this directory must be specified in the altibase.properties file.
+The dbs directory is where database files are created when using the default properties. The location and name of this directory are specified in the properties. The following files are contained within the dbs directory:
 
-By default, system memory tablespace is created and saved in SYS_TBS_MEM_DATA, meta tables are saved in SYS_TBS_MEM_DIC, disk tablespace is created and saved in system001.dbf, and query results that are temporarily needed while queries are being executed are saved in temp001.dbf.
-
-Previous image information that is needed for SQL statement execution and restoration is saved in the undo001.dbf file. Disk pages are temporarily saved in *.dwf files, which are double-write buffer files.
+- SYS_TBS_MEM_DATA: The default system memory tablespace that is automatically created
+- system001.dbf: The default disk tablespace that is automatically created
+- SYS_TBS_MEM_DIC: A file where meta tables are stored
+- temp001.dbf: A file that stores temporary results required during query execution
+- undo001.dbf: A file that stores previous image information necessary for SQL execution and recovery
+- .dwf: A double write buffer file used to temporarily store disk pages when dirty pages from disk tablespaces are written to disk
+- SYS_DOUBLE_WRITE_IMAGE: A file used to temporarily store dirty pages during double write operations for memory tablespaces
 
 #### include Directory
 
@@ -824,7 +830,7 @@ This library is used when authoring Altibase CLI applications. For more detailed
 
 ##### libalticapi.a
 
-This library is used when writing Altibase ACI applications. For more detailed information, please refer to the *[ACI User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Altibase%20C%20Interface%20Manual.md)*.
+This library is for developing Altibase ACI applications. For more detailed information, please refer to the *[ACI User’s Manual](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Altibase%20C%20Interface%20Manual.md)*.
 
 ##### libaltibase_odbc-64bit-ul64.so
 
@@ -1046,8 +1052,6 @@ This is explained in detail in the *[Getting Started Guide](https://github.com/A
 
 # 3. Creating a Database
 
------------------
-
 After installing Altibase, the database administrator must create and manage the database by estimating the amount of user data generated. This chapter describes the main points to be aware of when creating a database.
 
 ### Creating a Database
@@ -1216,10 +1220,6 @@ Please fully understand the Altibase properties related to database initializati
 | SYS_UNDO_TBS_EXTENT_SIZ E | The size of an extent in undo tablespace.                    | 128K    |
 | TEMP_PAGE_CHUNK_COUNT     | The number of temporary pages in memory tablespace that are allocated at one time. | 128     |
 
-
-
-
-
 | Property Name               | Description                                                  | Default |
 | --------------------------- | ------------------------------------------------------------ | ------- |
 | USER_DATA_FILE_INIT_SIZE    | The initial size of user tablespace when the CREATE DATABASE statement is executed. | 100M    |
@@ -1231,11 +1231,9 @@ Please fully understand the Altibase properties related to database initializati
 | USER_TEMP_FILE_NEXT_SIZE    | The amount by which a temporary data file is increased in size when user temporary tablespace is extended automatically. | 1M      |
 | US- ER_TEMP_TBS_EXTENT_SIZE | The size of an extent in user temporary tablespace.          | 256K    |
 
-For more detailed information about the Altibase properties, please refer to the *[*General Reference-1.Data Types & Altibase Properties.*](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md)*
+For more detailed information about the Altibase properties, please refer to the *[General Reference-1.Data Types & Altibase Properties.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General%20Reference-1.Data%20Types%20%26%20Altibase%20Properties.md)*
 
 # 4. Startup and Shutdown
-
----------------------
 
 To provide service after creating a database, the Altibase server must be started to the server phase. This chapter describes the references for starting and shutting down the database.
 
@@ -1322,8 +1320,6 @@ The database performs the following tasks in each phase:
 | CONTROL     | Media Recovery can be performed in this phase. The server prepares to advance to the META phase. If incomplete recovery is performed during the CONTROL phase, online logs must be reset when proceeding to the META phase. |
 | META        | Meta data (the dictionary table) can be upgraded in this phase. For information about incomplete recovery, please refer to the section on [Complete vs.](https://docs.google.com/document/d/1_FQUZ3Tg55qkjy0M95erMM0ZOeU1dtlKwdKFOD5KEVg/edit#heading=h.1087892) [Incomplete Recovery ](https://docs.google.com/document/d/1_FQUZ3Tg55qkjy0M95erMM0ZOeU1dtlKwdKFOD5KEVg/edit#heading=h.1087892)in Chapter 10. The server prepares to advance to the SERVICE phase. |
 | SERVICE     | The SERVICE phase is the normal operational state of Altibase. Users other than the SYS user can establish connections to Altibase in this phase.SHUTDOWN NORMAL/IMMEDIATE/ABORT can all be executed. |
-
-
 
 
 
@@ -1421,7 +1417,6 @@ $
 ```
 
 # 5. Objects and Privileges
--------------------------
 
 This chapter describes how to manage objects and privileges in Altibase.
 
@@ -1549,7 +1544,7 @@ For more detailed information about the directory object, please refer to the [*
 
 For more detailed information on how to handle files using stored procedures, please refer to the [*Stored Procedures Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Stored%20Procedures%20Manual.md)
 
-**Replications**
+##### Replications
 
 A replication is an object that maintains the consistency of the data in tables on different servers by automatically transferring data from a local server to a remote server.
 
@@ -1563,7 +1558,7 @@ Tablespaces are broadly classified as memory tablespaces and disk tablespaces ba
 
 For more detailed information on how to manage tablespaces, please refer to "Chapter 6: Tablespaces".
 
-##### **Users**
+##### Users
 
 User accounts are necessary in order to connect to Altibase and to function as the owners of a schema. Users are created using the system, and are classified either as system users who manage the system, or as general users. General users require suitable privileges in order for them to connect to the database and perform operations on data.
 
@@ -1572,8 +1567,6 @@ User accounts are necessary in order to connect to Altibase and to function as t
 A JOB is the addition of an execution schedule to a stored procedure. The stored procedure to be executed, the point in time of execution, the interval after which it is to be executed and etc. can be set when creating the JOB object. For the created JOB to automatically run, the value of the JOB_SCHEDULER_ENABLE property must be set to 1.
 
 The creation, alteration, and deletion of the JOB, and the management of the job scheduler is only enabled for the SYS user.
-
-
 
 ### Tables
 
@@ -1595,39 +1588,39 @@ For more detailed information on the data dictionary, please refer to the *[Gene
 
 Before executing SQL statements on large memory tables, it is important to understand the following:
 
-##### **Altering the Specifications of Large Memory Tables Using DDL**
+##### Altering the Specifications of Large Memory Tables Using DDL
 
 When it is desired to execute a DDL statement on a table containing a large amount of data, rather than executing an ADD COLUMN or DROP COLUMN statement directly on the table, it is preferable to use the iLoader utility to download the data from the table, drop the table, create the table again with the new schema, and then use the iLoader utility to populate the table with the downloaded data.
 
-##### **Manipulating Data in Large Memory Tables Using DML**
+##### Manipulating Data in Large Memory Tables Using DML
 
 Executing DML statements on tables that do not contain much data does not cause a big
 
 problem from the viewpoint of Altibase performance or usage, as long as the data are properly managed. However, when even a single UPDATE or DELETE DML statement affects a large number of records in a table, the transaction associated with this DML statement can take a long time to execute. The occurrence of such slow transactions can cause the following serious problems, which negatively affect the use of Altibase:
 
-###### **Exclusive Access to the Table**
+###### Exclusive Access to the Table
 
 If a transaction takes a long time to process, other transactions attempting to access the table will be suspended because of the lock held by the transaction that is taking a long time. Moreover, if the size of records being changed exceeds the size specified by the LOCK_ESCALATION_MEMORY_SIZE property in the altibase.properties file, lock escalation can occur, in which case, even other transactions that merely intend to read data can fail to gain access to the table.
 
-###### **Increased Altibase Memory Usage**
+###### Increased Altibase Memory Usage
 
 In Altibase, an SCN (System Commit Number) is used so that the garbage collector can determine which versions of records are to be deleted. The garbage collector only deletes records that have SCNs lower than the SCNs that are being used by transactions that have not been committed. Therefore, transactions that are taking a long time to execute can fool the garbage collector into believing that there are no records to delete, and thus unnecessary records will not be deleted.
 
 When bulk update/delete transactions take a long time to execute, the garbage collector stops working, and unnecessary versions of records accumulate, which increases the size of the database as well as the amount of memory consumed by Altibase.
 
-###### **Accumulation of Log Files**
+###### Accumulation of Log Files
 
 Log files created by transactions, aside from those logs that are necessary for replication or for restart recovery, are deleted from disk when checkpointing occurs. The log file that is necessary for restart recovery is the oldest of the log files created by transactions that were underway at the time that checkpointing occurred.
 
 Therefore, even after checkpointing has occurred, a transaction that takes a long time to execute can prevent the removal of log files that are unnecessary for restart recovery, and thus the file system in which the log files are saved may become incapable of storing any additional log files.
 
-#### **Multiplexed Page Lists**
+#### Multiplexed Page Lists
 
 In the case of memory tables, when the log file group feature is enabled, the number of page lists that is created is the same as the number of LFGs.
 
 For more detailed information about the Log File Group functionality, please refer to the Tuning Altibase.
 
-#### **Replicated Tables**
+#### Replicated Tables
 
 In Altibase, DDL statements can be executed on tables that are to be replicated, but the following properties must first be set as below:
 
@@ -1637,7 +1630,7 @@ In Altibase, DDL statements can be executed on tables that are to be replicated,
 
 For more detailed information about managing replicated tables, please refer to the [*Replication Manual*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Replication%20Manual.md)
 
-#### **Creating Tables**
+#### Creating Tables
 
 Tables can be created using the CREATE TABLE statement.
 
@@ -1678,7 +1671,7 @@ In contrast, because the “description“ column in the “item“ table was de
 
 The column declared with the VARIABLE attribute of the VARCHAR data type keeps the location of the actual data in the record header. For each slot separately stored, a variable header of 16 bytes and (n + 1) * 2 additional space for storing the positions of n columns are needed. Therefore, in the example above, the actual space used to store the value of the description column is 35 bytes.
 
-#### **Altering Tables**
+#### Altering Tables
 
 Using the ALTER TABLE and RENAME statements, table definitions can be altered in the following ways.
 
@@ -1710,7 +1703,7 @@ RENAME COLUMN dno TO dcode;
 
 For more detailed information about the ALTER TABLE statement, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md#alter-table)
 
-#### **Dropping Tables**
+#### Dropping Tables
 
 Tables can be dropped (removed) using the DROP TABLE statement.
 
@@ -1766,7 +1759,7 @@ where col1=:t1_col;<br/>
 </table>
 
 
-#### **Related SQL Statements**
+#### Related SQL Statements
 
 The following SQL statements are supported for use with tables. For more detailed information, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)
 
@@ -1788,7 +1781,7 @@ The following SQL statements are supported for use with tables. For more detaile
 
 -   SELECT
 
-### **Temporary Tables**
+### Temporary Tables
 
 Temporary tables temporarily store data while a session or transaction is running. These tables can improve the execution speed of compound queries. Users should use these tables to temporarily store the result sets of multiple DML operations.
 
@@ -1802,11 +1795,11 @@ Only one temporary table is allowed for one transaction.
 
 Temporary table data is temporary, and it is impossible to recover it from backups or system failures. Users should take appropriate action to preserve temporary table data.
 
-##### **Considerations**
+##### Considerations
 
 -   Temporary tables can only be created in volatile tablespaces.
 
-#### **Creating Tables**
+#### Creating Tables
 
 Tables can be created using the CREATE [GLOBAL] TEMPORARY TABLE statement. The ON COMMIT clause specifies the scope of data commitment. 
 
@@ -1826,7 +1819,7 @@ CREATE TEMPORARY TABLE temp1(i1 INTEGER, i2 VARCHAR(10))
 	TABLESPACE my_vol_tbs;
 ```
 
-#### **Altering Tables**
+#### Altering Tables
 
 A temporary table in a session allows DDL operations (ALTER TABLE, DROP TABLE, CREATE INDEX, etc.) only if it is not bound to the session.
 
@@ -1861,7 +1854,7 @@ Temporary tables can be dropped (removed) using the DROP TABLE statement.
 DROP TABLE temp1;
 ```
 
-#### **Data Manipulation**
+#### Data Manipulation
 
 Like normal tables, temporary table data can be manipulated with the following DML statements:
 
@@ -1869,7 +1862,7 @@ Like normal tables, temporary table data can be manipulated with the following D
 * INSERT
 * UPDATE
 
-#### **Related SQL Statements**
+#### Related SQL Statements
 
 The following SQL statements are supported for temporary tables. For more detailed information, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)
 
@@ -1891,7 +1884,7 @@ The following SQL statements are supported for temporary tables. For more detail
 
 -   SELECT
 
-### **Compressed Tables**
+### Compressed Tables
 
 A compressed table is a table that has a compressed column. If you create a table with a compressed column, the Altibase server automatically creates a dictionary table and a unique index to speed up SELECT operations. The dictionary table is the table that stores data, and a dictionary table is created for each compressed column. If data is inserted into or altered in a compressed column, the actual data is inserted into the dictionary table, whereas pointers (or OIDs) that point to the actual data are stored in compressed columns. Regardless of whether a compressed table is a memory table or a disk table, the dictionary table is generated in memory tablespace.
 
@@ -1924,7 +1917,7 @@ CREATE TABLE emp (
 ) COMPRESS ( department, position );
 ```
 
-#### **Altering Tables**
+#### Altering Tables
 
 Like normal tables, compressed table definitions can be changed with the ALTER TABLE and RENAME statements. You can add compressed columns with the COMPRESS clause.
 
@@ -1944,7 +1937,7 @@ The ALTER TABLE *table_name* REORGANIZE statement drops data that is not referen
 
 When users execute the DELETE or UPDATE statement on a compressed table, only new data is inserted without dropping or altering the corresponding data from the dictionary table. If users execute the DELETE or UPDATE multiple times on a compressed table, unreferenced data is stacked in the dictionary table. A compressed table is rebuilt so that unnecessary data does not consume memory storage space.
 
-##### **Example**
+##### Example
 
 <Query> Insert data into the compressed table emp, delete it, and then rebuild the table.
 
@@ -1961,11 +1954,11 @@ DELETE FROM emp WHERE name = 'Yun';
 ALTER TABLE emp REORGANIZE COLUMN ( department );
 ```
 
-#### **Dropping Tables**
+#### Dropping Tables
 
 Compressed tables can be dropped (removed) using the DROP TABLE statement.
 
-##### **Example**
+##### Example
 
 \<Query> Drop the compressed table temp1.
 
@@ -1973,7 +1966,7 @@ Compressed tables can be dropped (removed) using the DROP TABLE statement.
 DROP TABLE temp1;
 ```
 
-#### **Data Manipulation**
+#### Data Manipulation
 
 Like normal tables, compressed table data can be manipulated with the following DML statements:
 
@@ -2046,7 +2039,7 @@ Queue tables can be removed from the database using the DROP QUEUE statement.
 DROP QUEUE Q1;
 ```
 
-#### **Deleting Data**
+#### Deleting Data
 
 The TRUNCATE TABLE statement can be used when it is desired only to delete all of the messages loaded into a queue.
 
@@ -2080,7 +2073,7 @@ The following SQL statements are provided for use with queue tables. For more de
 
 -   DEQUEUE
 
-### **Constraints**
+### Constraints
 
 Constraints are limitations that govern the insertion of data into tables and the changes that can be made to existing data. This section explains the kinds of constraints and how to use them to ensure data consistency.
 
@@ -2133,7 +2126,7 @@ A column constraint is a constraint that is set for a single column, whereas a t
 
 The NOT NULL/NULL and TIMESTAMP constraints can only be used as column constraints, but the other kinds of constraints can be set as either column constraints or table constraints.
 
-#### **Creating Constraints**
+#### Creating Constraints
 
 The user can define a constraint when creating a table using the CREATE TABLE statement or altering a table using the ALTER TABLE statement.
 
@@ -2157,11 +2150,11 @@ ALTER TABLE book
 ADD CONSTRAINT const1 UNIQUE(bno);
 ```
 
-#### **Dropping Constraints**
+#### Dropping Constraints
 
 A constraint can be removed by using the ALTER TABLE statement.
 
-##### **Example**
+##### Example
 
 ```
 ALTER TABLE book DROP UNIQUE(bno);
@@ -2189,7 +2182,7 @@ B-tree indexes are used with all data types except the GEOMETRY data type, which
 
 A B+-tree index consists of leaf nodes at the lowest index level, a root node at the highest level, and internal nodes in between the root and leaf nodes. Key values exist only for all leaf nodes, and root and index nodes comprise separator keys between left child nodes and right child nodes.
 
-##### **R-Tree Indexes**
+##### R-Tree Indexes
 
 R-Tree Indexes are used with the GEOMETRY spatial data type.
 
@@ -2200,15 +2193,15 @@ When finding target objects using R-tree indexes, the following procedure is use
 
 The algorithms for adding, deleting, splitting, and merging nodes in R-Tree Indexes are similar to those for B-tree Indexes, except that they are based on MBRs.
 
-#### **Index Attributes**
+#### Index Attributes
 
 Based on how a key column is configured when an index is created and on the attributes of the key column, an index has the following attributes.
 
-##### **Unique Index**
+##### Unique Index
 
 This index prevents the use of duplicate values in indexed columns.
 
-##### **Unique Keys vs. Primary Keys**
+##### Unique Keys vs. Primary Keys
 
 Unique Keys and Primary Keys are alike in that neither of them permits the existence of duplicate values. However, they differ in whether they permit NULL values. Primary Keys do not permit NULL values.
 
@@ -2216,11 +2209,11 @@ Unique Keys and Primary Keys are alike in that neither of them permits the exist
 
 This index type permits duplicate values in index columns. If the UNIQUE KEY option is not set when an index is created, the default is to allow duplicate values.
 
-##### **Non-Composite Index**
+##### Non-Composite Index
 
 This kind of index is based on only one column.
 
-##### **Composite Index**
+##### Composite Index
 
 When a single index is created based on multiple columns, it is called a Composite Index.
 
@@ -2228,7 +2221,7 @@ When a single index is created based on multiple columns, it is called a Composi
 
 Whereas a normal index stores only a record pointer in an index node, a direct key index stores the record pointer and the record in the index node, and reduces index scan cost.
 
-#### **Index Management**
+#### Index Management
 
 Indexes are used to enable quicker access to the records in tables. Because an index is an object that is physical and logically independent from a table, it can be built, deleted, or changed without consideration for the table on which it is based.
 
@@ -2238,7 +2231,7 @@ If table records are changed, the corresponding indexes are also changed. Theref
 
 An index is created for one or more columns in the table. Indexes are automatically created when constraints are defined, or users can explicitly create indexes using the CREATE INDEX statement.
 
-###### **Example**
+###### Example
 
 Creating an index by defining a table constraint:
 
@@ -2271,7 +2264,7 @@ Creating a unique index using the UNIQUE option:
 CREATE UNIQUE INDEX TB1_IDX ON TB1 (C1) ;
 ```
 
-##### **Options for Creating Disk B-Tree Indexes (NOLOGGING, NOFORCE)**
+##### Options for Creating Disk B-Tree Indexes (NOLOGGING, NOFORCE)
 
 When a disk B-tree index is built, a log is recorded so that it can be used to recover the index in the event of a system error. In order to reduce the size of logs and the amount of time taken to build an index, the NOLOGGING option can be specified when the index is created.
 
@@ -2305,11 +2298,11 @@ Creating an index that is not logged (NOLOGGING) and that is not written to disk
 CREATE INDEX TB1_IDX1 ON TB1(C1) NOLOGGING NOFORCE;
 ```
 
-##### **Modifying Indexes**
+##### Modifying Indexes
 
 The attributes of an index can be changed using the ALTER INDEX statement.
 
-##### **Dropping Indexes**
+##### Dropping Indexes
 
 An index can be removed explicitly using the DROP INDEX statement, or implicitly by removing the associated constraint.
 
@@ -2319,13 +2312,13 @@ An index can be removed explicitly using the DROP INDEX statement, or implicitly
 DROP INDEX emp_idx1;
 ```
 
-#### **Using Indexes**
+#### Using Indexes
 
-##### **Bottom-Up Index Building**
+##### Bottom-Up Index Building
 
 In Altibase, indexes are built from the bottom up. Therefore, it is more efficient to build indexes after data have been uploaded. If a large volume of data is inserted into a table for which an index has been built, slow performance may result, because each time a record is inserted, the index will need to be changed to reflect this.
 
-##### **Disk Index Consistency**
+##### Disk Index Consistency
 
 For disk table indexes created with the NOLOGGING option, index consistency cannot be guaranteed in the event of a system or media fault. If such a fault occurs, use the V$DISK_BTREE_HEADER performance view to check the consistency of disk indexes. If an index for which IS_CONSISTENT is set to ‘F’ is found, delete the index and rebuild it when it is needed.
 
@@ -2333,7 +2326,7 @@ For disk table indexes created with the NOLOGGING option, index consistency cann
 
 A function-based index is an index that is created based on the result values of functions or expressions. If a query that includes an identical expression used to create a function-based index is processed, the function-based index is used, and faster query processing speed can be anticipated.
 
-#### **Related SQL Statements**
+#### Related SQL Statements
 
 The following SQL statements are supported for use with indexes. For more detailed information, please refer to the [*SQL Reference*.](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/SQL%20Reference.md)
 
@@ -2351,7 +2344,7 @@ The following SQL statements are supported for use with indexes. For more detail
 
 A view is a presentation of data from one or more tables, materialized views or other views. A view contains no actual data, but rather presents data from the tables and views on which it is based. Views can be thought of as logical tables. This section describes how to manage views.
 
-#### **Base Tables and Views**
+#### Base Tables and Views
 
 So-called “base tables” are just the objects (tables, materialized views, or other views) that views access, and from which they read data. More than one base table can be associated with a single view.
 
@@ -3541,8 +3534,6 @@ The following SQL statements are provided for use in managing privileges. For mo
 
 # 6. Managing Tablespaces
 
---------------
-
 This chapter explains the tablespace concept, describes the structure of tablespaces and functions supported for use with them and presents information that administrators should be familiar with in order to manage tablespaces efficiently. 
 
 ### Tablespaces: Definition and Structure
@@ -3672,13 +3663,27 @@ Memory tablespaces, tables, and checkpoint image files have the following charac
 
 A memory tablespace, unlike a disk tablespace, stores data in linear memory space rather than in data files. 
 
-Because a continuous memory space is divided into pages, a table can be thought of as a list of pages. In the interests of managing disk I/O expense and tables containing large amounts of data, disk tablespaces are managed in units of extents, not pages. A segment is, conceptually, a way of managing a list of extents.
+Because a continuous memory space is divided into pages, a table can be thought of as a list of pages. In the interests of managing disk I/O expense and tables containing large amounts of data, disk tablespaces are managed in units of extents, not pages. A segment is, conceptually, a way of managing a list of extents. However, because the purpose of memory tablespace is to provide faster access to data than managing large amounts of data, the concept of segments and extents is not necessary. Therefore, tables in a memory tablespace are managed using lists of pages. 
 
-However, because the purpose of memory tablespace is to provide faster access to data than managing large amounts of data, the concept of segments and extents is not necessary. Therefore, tables in a memory tablespace are managed using lists of pages. 
+Memory tables are physically backed up in checkpoint image files when checkpointing occurs. While the primary purpose of data files in disk databases is to store objects, the checkpoint image files in memory databases are used for object backup. Although checkpoint image files are not directly required for database operations, they are essential for reducing restart, backup, and recovery times.
 
-Memory tables are physically backed up in checkpoint image files when checkpointing occurs. The purpose of checkpoint image files is different from that of data files in a disk tablespace. Data files in a disk tablespace are for storing objects, whereas checkpoint image files are for backing up objects in a memory tablespace. Checkpoint image files are not directly required for the operation of the database. However, they are required in order to reduce the amount of time taken to perform backup and recovery. 
+Altibase performs ping pong checkpoints for memory databases, alternating the writing of dirty pages between two checkpoint image files. To distribute disk I/O costs, checkpoint images can be divided into multiple smaller files. For more detailed information about checkpoints, refer to [Checkpointing](#checkpointing) in Chapter 8.
 
-When checkpointing occurs, pages in memory are stored in files of a type supported by the operating system. In Altibase, so-called "ping-pong checkpointing" is implemented, which means that two sets of checkpoint image files (namely, #0 and #1) are maintained, and used alternately when checkpointing takes place. In addition, each checkpoint image can be divided into several small files, with the goal of distributing disk I/O expenses.
+> [!Note]
+>
+> **Checkpoint Image File Naming Rules**<a name="checkpointimagefilenaming"></a>
+>
+> The naming rules for checkpoint image files are as follows:
+>
+> ```
+> Tablespace Name-{Ping Pong Number}-{File Number}
+> ```
+>
+> `Ping Pong Number` identifies the two checkpoint image files alternately used during ping pong checkpoint operations. It is either 0 or 1. This number allows users to identify the stable checkpoint image file used for memory database backup or recovery.
+>
+> `File Number` indicates the sequential order of checkpoint image files, starting from 0 and incrementing by 1. A new file number is assigned whenever the size of a checkpoint image exceeds the specified limit and a new file is created.
+>
+> For example, from the name `MY_MEM_TBS-1-0`, users can infer that this file is a checkpoint image file for the memory tablespace MY_MEM_TBS, has a ping pong number of 1, and is the first checkpoint image file created.
 
 ##### Memory Tablespace Logical Structure
 
@@ -4195,7 +4200,7 @@ This clause defines the size of an extent, that is, (the size of a page) * (the 
 
 ##### Memory Tablespace Attributes
 
-The attributes for memory tablespace are similar to those for disk tablespaces, but additionally include a checkpoint image path attribute. Their syntax is as follows:
+The attributes for memory tablespace are similar to those for disk tablespaces, but additionally include a checkpoint image file path attribute. Their syntax is as follows:
 
 ```
 SIZE {SIZE Clause} 
@@ -4241,15 +4246,15 @@ This is a subclause of the AUTOEXTEND clause and indicates the maximum size to w
 ###### CHECKPOINT PATH
 
 ```
-CHECKPOINT PATH ‘Checkpoint Image Path List’ 
+CHECKPOINT PATH ‘Checkpoint Image File Path List’ 
 SPLIT EACH integer [K/M/G]
 ```
 
-The checkpoint image path attribute only applies to memory tablespaces. Altibase uses ping-pong checkpointing for high-performance transaction processing in memory tablespaces. For ping-pong checkpointing, at least two sets of checkpoint images are created on disk. Each checkpoint image can be divided into several files and saved in that form. The size of the files into which the checkpoint image is divided can be specified using the SPLIT EACH clause. These files can be stored in different paths in order to distribute the expense of disk I/O. The user can freely specify the size of the files into which the checkpoint image is divided and the path where the checkpoint images are saved. The user can add or change paths for saving checkpoint image files, but cannot change the size of the files into which the checkpoint image is divided once it has been set.
+The checkpoint image file path attribute only applies to memory tablespaces. Altibase uses ping pong checkpointing for high-performance transaction processing in memory tablespaces. For ping pong checkpointing, at least two checkpoint image files are created on disk. The checkpoint image may be split and stored in multiple files, and the size of the splits may be specified in the SPLIT EACH clause. The split files can be stored in different paths to distribute disk I/O, and the user can freely specify the size of the splits and the paths where the checkpoint image files are stored. The user can add or change the checkpoint image file path, but cannot change the size of a split once it is specified.
 
 ##### Volatile Tablespace Attributes
 
-The attributes that are applicable to volatile tablespaces are similar to those for memory tablespaces, with the exception that the checkpoint image path attribute is not supported.
+The attributes that are applicable to volatile tablespaces are similar to those for memory tablespaces, with the exception that the checkpoint image file path attribute is not supported.
 
 ```
 SIZE {SIZE Clause} 
@@ -4474,40 +4479,40 @@ This command can be used to change the location of a data file. This clause can 
 
 ##### ALTER Memory Tablespace Clause
 
-This can be used with a system or user-defined tablespaces in memory and has the following options. Checkpoint paths can be added, deleted or changed during any startup phase. However, during the service phase, only tablespaces that are offline can be modified.
+This can be used with a system or user-defined tablespaces in memory and has the following options. Checkpoint image file paths can be added, deleted or changed during any startup phase. However, during the service phase, only tablespaces that are offline can be modified.
 
 ```
 ALTER TABLESPACE {Tablespace Name}
- 			{ADD Checkpoint Path Clause
- 			DROP Checkpoint Path Clause
- 			RENAME Checkpoint Path Clause
+ 			{ADD Checkpoint Image File Path Clause
+ 			DROP Checkpoint Image File Path Clause
+ 			RENAME Checkpoint Image File Path Clause
  			ALTER Tablespace Size Clause}
 ```
 
-###### ADD Checkpoint Path Clause
+###### ADD Checkpoint Image File Path Clause
 
 ```
 ADD CHECKPOINT PATH {Directory Path}
 ```
 
-This is used to set an additional checkpoint image path.
+This is used to set an additional checkpoint image file path.
 
-###### DROP Checkpoint Path Clause
+###### DROP Checkpoint Image File Path Clause
 
 ```
 DROP CHECKPOINT PATH {Directory Path}
 ```
 
-This is used to delete an existing checkpoint image path.
+This is used to delete an existing checkpoint image file path.
 
-###### RENAME Checkpoint Path Clause
+###### RENAME Checkpoint Image File Path Clause
 
 ```
 RENAME CHECKPOINT PATH {The existing directory path}
  				TO {A new directory path}
 ```
 
-This is used to change an existing checkpoint image path to a new path.
+This is used to change an existing checkpoint image file path to a new path.
 
 ###### ALTER Tablespace Size Clause
 
@@ -4607,9 +4612,9 @@ Here, because the automatic extension mode was not set, it will default to OFF. 
 
 [<sup>5</sup>] If a table is created in a tablespace, if data are entered into an existing table, or if the data in an existing table are changed, additional space is allocated from the tablespace.
 
-In addition, one or more checkpoint paths, as specified in the MEM_DB_DIR property, will be used as the checkpoint paths for the new tablespace
+In addition, one or more checkpoint image file paths, as specified in the MEM_DB_DIR property, will be used as the checkpoint image file paths for the new tablespace
 
-Supposing that two checkpoint paths are specified in the altibase.properties. Two paths have been saved for the MEM_DB_DIR property: dbs1 and dbs2, both of which are located in the Altibase home directory.
+Supposing that two checkpoint image file paths are specified in the altibase.properties. Two paths have been saved for the MEM_DB_DIR property: dbs1 and dbs2, both of which are located in the Altibase home directory.
 
 ```
 # altibase.properties
@@ -4617,9 +4622,9 @@ MEM_DB_DIR    =  ?/dbs1
 MEM_DB_DIR    =  ?/dbs2
 ```
 
-The following query can be executed to verify that dbs1 and dbs2, which were specified using the MEM_DB_DIR property, are the checkpoint paths for the USER_MEM_TBS tablespace created above:
+The following query can be executed to verify that dbs1 and dbs2, which were specified using the MEM_DB_DIR property, are the checkpoint image file paths for the USER_MEM_TBS tablespace created above:
 
-```
+```sql
 iSQL> SELECT CHECKPOINT_PATH 
 FROM V$MEM_TABLESPACE_CHECKPOINT_PATHS 
 WHERE SPACE_ID = 
@@ -4644,15 +4649,19 @@ USER_MEM_TBS-0-0
 USER_MEM_TBS-1-0
 ```
 
-All of these files are checkpoint image files for the memory tablespace. Their filename format is 'Tablespace Name-{Ping Pong Number}-{File Number}'. 'Ping Pong No.' is either 0 or 1, each of which indicates one of the two checkpoint images used for ping-pong checkpointing<sub>6</sub> . In addition, because each of the checkpoint images can be stored as multiple files, 'File Number', at the end of the filename, indicates the number of each checkpoint image file, which begins at 0 and increments by 1. The size of the checkpoint image files is specified by using the SPLIT EACH clause with the CREATE TABLESPACE statement. Since the SPLIT EACH clause was not used in the CREATE MEMORY TABLESPACE statement above, the checkpoint image will be split into files 1 GB in size, which is the default value specified using the DEFAULT_MEM_DB_FILE_SIZE property. Because the space used by the above three tablespaces has not reached 1 GB yet, the only file number that can be seen is 0
+All of these files are checkpoint image files for the memory tablespace.
 
-[<sup>6</sup>] To ensure the durability of tablespace data in memory, data are saved in disk files. The files in which tablespace data are stored are called images. In ping-pong checkpointing, which is used in Altibase, a pair of checkpoint images is maintained, and tablespace data are stored alternately in each of them.
+Altibase splits the checkpoint images of each memory tablespace according to the size specified in the SPLIT EACH clause and records images on checkpoint image files. If the size of a checkpoint image exceeds the defined limit, it is divided into multiple files. The split files are sequentially assigned file numbers, starting from 0 and incrementing by 1. For more detailed information about the naming conventions of checkpoint image files, refer to [Checkpoint Image File Naming Rules](#checkpointimagefilenaming).
 
-In the above example, SYS_TBS_MEM_DIC is a system dictionary tablespace containing metadata. This tablespace is automatically created when a database is created. 
+In the CREATE MEMORY TABLESPACE statement above, the SPLIT EACH clause was not used. Therefore, checkpoint image files are split based on the default value of 1GB specified in the DEFAULT_MEM_DB_FILE_SIZE property. Since the space used by the three tablespaces has not yet reached 1GB, only file number 0 exists for each.
 
-SYS_TBS_MEM_DATA is the default system data tablespace. When a user creates a table without specifying a tablespace, the data in the table are stored in this tablespace. 
+Below is an explanation of the six checkpoint image files found in the dbs1 directory:
 
-Finally, USER_MEM_TBS is the user-defined data tablespace that was created above.
+- SYS_TBS_MEM_DATA: This is the default system data tablespace. When a user creates a table without specifying a tablespace, the data in the table are stored in this tablespace.
+
+- SYS_TBS_MEM_DIC: This is a system dictionary tablespace containing metadata. This tablespace is automatically created when a database is created.
+
+- USER_MEM_TBS: This is the user-defined data tablespace that was created above.
 
 For reference, the initial size, which is specified in the SIZE clause in the CREATE MEMORY TABLESPACE statement, must be a multiple of the extension increment size. For example, if the EXPAND_CHUNK_PAGE_COUNT property, which indicates the number of pages by which a memory tablespace will be incremented when it is expanded, is set to 128, because the size of one memory page is 32 KB, the default extension increment size of a memory tablespace will be 4 MB and the initial size can be set to a multiple of 4M.
 
@@ -4687,7 +4696,7 @@ Create success.
 
 In this case, USER_MEM_TBS is extended, but not past the point where the total space allocated to all memory tablespaces in the system exceeds MEM_MAX_DB_SIZE.
 
-Checkpoint paths can also be specified when creating a memory tablespace, as follows:
+Checkpoint image file paths can also be specified when creating a memory tablespace, as follows:
 
 ```
 iSQL> CREATE MEMORY TABLESPACE USER_MEM_TBS SIZE 256M 
@@ -4695,7 +4704,7 @@ CHECKPOINT PATH 'dbs1', '/new_disk/dbs2';
 Create success.
 ```
 
-In the above example, the relative path "dbs1" was specified for the checkpoint path, which has the same effect as if "$ALTIBASE_HOME/dbs1" were specified. Additionally, the DBA must first manually create the checkpoint paths specified in the CREATE TABLESPACE statement in the actual file system and then grant write and file execution privileges for them before creating a tablespace.
+In the above example, specifying a relative path such as `dbs1` for the checkpoint image path is equivalent to specifying `$ALTIBASE_HOME/dbs1`.  Additionally, the DBA must first manually create the checkpoint image file paths specified in the CREATE TABLESPACE statement in the actual file system and then grant write and file execution privileges for them before creating a tablespace.
 
 The size of the files into which a checkpoint image is divided can also be specified, as seen below:
 
@@ -4727,11 +4736,11 @@ SPLIT EACH 512M OFFLINE;
 Create success.
 ```
 
-##### Adding a Checkpoint Path to a Memory Tablespace
+##### Adding a Checkpoint Image File Path to a Memory Tablespace
 
-This section describes how to add a checkpoint path to a memory tablespace. 
+This section describes how to add a checkpoint image file path to a memory tablespace. 
 
-The checkpoint paths for a memory tablespace can only be set during the control phase. After shutting down the Altibase server, restart it in the control phase.
+The checkpoint image file paths for a memory tablespace can only be set during the control phase. Therefore, shut down the Altibase server first and restart it in the control phase using the following command.
 
 ```
 $ isql -u sys -p manager -sysdba 
@@ -4741,13 +4750,13 @@ iSQL(sysdba)> startup control
 
 In the control phase, the V$TABLESPACES performance view, which pertains to all tablespaces, can be queried. The V$MEM_TABLESPACES performance view, which displays the attributes that are unique to memory tablespaces, can only be viewed in or after the meta phase. In the control phase, it is thus necessary to view memory tablespaces using V$TABLESPACES.
 
-The V$MEM_TABLESPACE_CHECKPOINT_PATHS performance view can be used to view the checkpoint paths belonging to the USER_MEM_TBS tablespace, which was created earlier. 
+The V$MEM_TABLESPACE_CHECKPOINT_PATHS performance view can be used to view the checkpoint image file paths belonging to the USER_MEM_TBS tablespace, which was created earlier. 
 
-If the data in the tablespace change frequently, resulting in increased disk I/O during checkpointing, this can be alleviated by adding a new checkpoint path to a disk that is physically different from the disk used by the existing checkpoint path, as follows: 
+If the data in the tablespace change frequently, resulting in increased disk I/O during checkpointing, this can be reduced by adding a new checkpoint image file path to a disk that is physically different from the disk used by the existing checkpoint image file path, as follows: 
 
 Let’s add the “/new_disk/dbs3” path to USER_MEM_TBS. 
 
-In order to do this, the checkpoint path and directory to be added must first be created, and the Altibase process must be granted write and execute privileges for that directory. Supposing that Altibase is started using the "altibase" operating system user account, this would be conducted as follows:
+In order to do this, the checkpoint image file path and directory to be added must first be created, and the Altibase process must be granted write and execute privileges for that directory. Supposing that Altibase is started using the "altibase" operating system user account, this would be conducted as follows:
 
 ```
 $ su - root
@@ -4755,7 +4764,7 @@ $ mkdir /new_disk/dbs3
 $ chown altibase /new_disk/dbs3
 ```
 
-As shown below, a checkpoint path can now be added using the ADD CHECKPOINT PATH statement:
+As shown below, a checkpoint image file path can now be added using the ADD CHECKPOINT PATH statement:
 
 ```
 iSQL(sysdba)> ALTER TABLESPACE USER_MEM_TBS 
@@ -4763,23 +4772,23 @@ ADD CHECKPOINT PATH '/new_disk/dbs3';
 Alter success.
 ```
 
-It is the DBA's responsibility to move or copy the checkpoint image files from the existing checkpoint path to the newly added checkpoint path. After a checkpoint path is added, if a new checkpoint image file is needed, the file is created in the new checkpoint path by Altibase.<sup>7</sup>
+It is the DBA's responsibility to move or copy the checkpoint image files from the existing checkpoint image file path to the newly added checkpoint image file path. After a checkpoint image file path is added, if a new checkpoint image file is needed, the file is created in the new checkpoint image file path by Altibase.<sup>7</sup>
 
-[<sup>7</sup>] When checkpoint image files are created for a tablespace during checkpointing, they are alternately created in each of the checkpoint paths for that tablespace.
+[<sup>7</sup>] When checkpoint image files are created for a tablespace during checkpointing, they are alternately created in each of the checkpoint image file paths for that tablespace.
 
-##### Changing the Checkpoint Path for a Memory Tablespace
+##### Changing the Checkpoint Image File Path for a Memory Tablespace
 
-This section describes how to change a checkpoint path for a memory tablespace. 
+This section describes how to change a checkpoint image file path for a memory tablespace. 
 
-Checkpoint paths for memory tablespaces can only be set during the CONTROL phase. As noted in the Adding a Checkpoint Path to a Memory Tablespace section above, after shutting down the Altibase server, restart it in the control phase. 
+Checkpoint image file paths for memory tablespaces can only be set during the CONTROL phase. As noted in the Adding a Checkpoint Image File Path to a Memory Tablespace section above, after shutting down the Altibase server, restart it in the control phase. 
 
-This example shows the procedure of moving dbs1 under the Altibase home directory, the old checkpoint path, to the newly installed disk "/new_disk".
+This example shows the procedure of moving dbs1 under the Altibase home directory, the old checkpoint image file path, to the newly installed disk "/new_disk".
 
-For more detailed information on viewing a checkpoint path for a tablespace during the control phase, please refer to the Adding a Checkpoint Path to a Memory Tablespace section above.
+For more detailed information on viewing a checkpoint image file path for a tablespace during the control phase, please refer to the Adding a Checkpoint Image File Path to a Memory Tablespace section above.
 
-To change a checkpoint path, the absolute path of the existing checkpoint path must be correctly entered. For information on viewing a checkpoint path for a tablespace during the control phase, please refer to the Adding a Checkpoint Path to a Memory Tablespace section above. 
+To change a checkpoint image file path, the absolute path of the existing checkpoint image file path must be correctly entered. For information on viewing a checkpoint image file path for a tablespace during the control phase, please refer to the Adding a Checkpoint Image File Path to a Memory Tablespace section above. 
 
-Just as when adding a checkpoint path, when changing a checkpoint path, the DBA must first manually create the directory and grant write and execute privileges for the directory to the OS user account under which Altibase is started. Again, it is assumed that the username under which the Altibase process is started is 'altibase.'
+Just as when adding a checkpoint image file path, when changing a checkpoint image file path, the DBA must first manually create the directory and grant write and execute privileges for the directory to the OS user account under which Altibase is started. Again, it is assumed that the username under which the Altibase process is started is 'altibase.'
 
 ```
 $ su - root
@@ -4787,7 +4796,7 @@ $ mkdir /new_disk/dbs1
 $ chown altibase /new_disk/dbs1
 ```
 
-Now the checkpoint path can be changed from the "dbs1" checkpoint directory, which is located in the Altibase home directory, to the "/new_disk/dbs1" path on the newly added disk using the RENAME CHECKPOINT PATH statement. 
+Now the checkpoint image file path can be changed from the "dbs1" checkpoint directory, which is located in the Altibase home directory, to the "/new_disk/dbs1" path on the newly added disk using the RENAME CHECKPOINT PATH statement. 
 
 ```
 iSQL(sysdba)>  ALTER TABLESPACE USER_MEM_TBS
@@ -4801,17 +4810,17 @@ Finally, all checkpoint images for the USER_MEM_TBS tablespace, which are locate
 $ mv $ALTIBASE_HOME/dbs1/USER_MEM_TBS* /new_disk/dbs1
 ```
 
-##### Removing a Checkpoint Path from a Memory Tablespace
+##### Removing a Checkpoint Image File Path from a Memory Tablespace
 
-This section describes how to remove a checkpoint path from a memory tablespace. 
+This section describes how to remove a checkpoint image file path from a memory tablespace. 
 
-As noted above, checkpoint paths for memory tablespaces can only be set during the control phase, and thus it is necessary to shut down the Altibase server and restart it in the control phase first. 
+As noted above, checkpoint image file paths for memory tablespaces can only be set during the control phase, and thus it is necessary to shut down the Altibase server and restart it in the control phase first. 
 
-This example shows how to remove an existing checkpoint path, namely the "dbs2" directory located in the Altibase home directory. 
+This example shows how to remove an existing checkpoint image file path, namely the "dbs2" directory located in the Altibase home directory. 
 
-To change a checkpoint path, the absolute existing checkpoint path must be entered correctly. For information on how to view the checkpoint paths for a tablespace during the control phase, please refer to the Adding a Checkpoint Path to a Memory Tablespace section above. 
+To change a checkpoint image file path, the absolute existing checkpoint image file path must be entered correctly. For information on how to view the checkpoint image file paths for a tablespace during the control phase, please refer to the Adding a Checkpoint Image File Path to a Memory Tablespace section above. 
 
-The $ALTIBASE_HOME/dbs2 checkpoint path can now be removed using the DROP CHECKPOINT PATH statement as follows:
+The $ALTIBASE_HOME/dbs2 checkpoint image file path can now be removed using the DROP CHECKPOINT PATH statement as follows:
 
 ```
 iSQL(sysdba)>  ALTER TABLESPACE USER_MEM_TBS 
@@ -4819,7 +4828,7 @@ DROP CHECKPOINT PATH '/opt/altibase_home/dbs2'
 Alter success.
 ```
 
-Finally, all of the checkpoint images for the USER_MEM_TBS tablespace that are located in the existing $ALTIBASE_HOME/dbs2 directory must be moved to one of the other checkpoint paths defined for the USER_MEM_TBS tablespace.
+Finally, all of the checkpoint images for the USER_MEM_TBS tablespace that are located in the existing $ALTIBASE_HOME/dbs2 directory must be moved to one of the other checkpoint image file paths defined for the USER_MEM_TBS tablespace.
 
 ```
 $ mv $ALTIBASE_HOME/dbs2/USER_MEM_TBS* /new_disk/dbs1
@@ -4972,7 +4981,7 @@ If this is not the case, and media recovery is therefore impossible, the tablesp
 
 Once a tablespace has been discarded using the ALTER TABLESPACE DISCARD statement, the objects in the tablespace become inaccessible, and the only action that can subsequently be performed on the tablespace is to DROP it. Therefore, this statement should be used with caution. 
 
-In the following example, the memory tablespace USER_MEM_TBS is created and then, assuming that the checkpoint images for this tablespace have been deleted. Altibase can be started up with the remaining tablespaces after the tablespace is discarded.
+In the following example, the memory tablespace USER_MEM_TBS is created and then, assuming that the checkpoint image files for this tablespace have been deleted. Altibase can be started up with the remaining tablespaces after the tablespace is discarded.
 
 First, create a memory tablespace, as shown below:
 
@@ -4981,7 +4990,7 @@ iSQL> CREATE MEMORY TABLESPACE USER_MEM_TBS SIZE 256M;
 Create success.
 ```
 
-Then shut down Altibase and delete the checkpoint files for the tablespace. When an attempt is made to start up Altibase, the following error will occur:
+Then shut down Altibase and delete the checkpoint image files for the tablespace. When an attempt is made to start up Altibase, the following error will occur:
 
 ```
 [SM-WARNING] CANNOT IDENTIFY DATAFILE 
@@ -4995,7 +5004,7 @@ Startup Failed....
 [ERR-91015 : Communication failure.] 
 ```
 
-Altibase will generate an error if there are no data files and checkpoint images for a tablespace.
+Altibase will generate an error if there are no data files and checkpoint image files for a tablespace.
 
 Now it is time to discard USER_MEM_TBS.
 
@@ -5006,7 +5015,7 @@ $ isql -u sys -p manager -sysdba
 iSQL(sysdba)> startup control 
 ```
 
-Now USER_MEM_TBS, which is missing a checkpoint file, can be discarded.
+Now USER_MEM_TBS, which is missing a checkpoint image file, can be discarded.
 
 ```
 iSQL(sysdba)> ALTER TABLESPACE USER_MEM_TBS DISCARD; 
@@ -5648,7 +5657,7 @@ V$TABLESPACES, V$DATAFILES, V$MEM_TABLESPACES
 ```
 
 
-# 7. Paritioned Objects
+# 7. Partitioned Objects
 
 ### What is Partitioning?
 
@@ -6062,7 +6071,7 @@ Drop Partition is an operation in which a specific partition in a partitioned ob
 
 ![](media/Admin/Admin_eng.1.44.6.jpg)
 
-Figure 7-16 DROPping a Partition from a Range-Partitioned Object
+Figure 7-16 Dropping a Partition from a Range-Partitioned Object
 
 The figure above illustrates an example in which a partition called part_2 is dropped from a partitioned object that consists of 4 partitions.
 
@@ -6158,7 +6167,7 @@ Dropping a partition from a list-partitioned object is similar to dropping one f
 
 ![](media/Admin/7-22.png)
 
-[Figure 7-22] DROPping a Partition from a List-Partitioned Object
+[Figure 7-22] Dropping a Partition from a List-Partitioned Object
 
 The example shown in the figure above illustrates dropping part_2 partition from a partitioned object with four partitions. ① The physical space (records and meta data) of the part_2 partition is dropped, and ② the conditions for part_2 are incorporated into those for the default partition part_def.
 
@@ -6694,17 +6703,123 @@ Set COMMIT_WRITE_WAIT_MODE and LOG_BUFFER_TYPE to 1 and 1, respectively. With th
 
 Checkpointing stores content of the main memory database to backup data files on a regular basis. The purpose of checkpointing is to minimize the time taken to recover a database from a system failure.
 
-Altibase uses fuzzy and ping-pong checkpointing methods to securely back up and manage databases.
+Altibase uses fuzzy and ping pong checkpointing methods to securely back up and manage databases.
 
 #### Checkpointing Memory Databases
 
-Altibase prioritizes transaction performance and database stability by implementing fuzzy checkpointing and ping-pong checkpointing together for checkpointing memory databases. 
+Altibase prioritizes transaction performance and database stability by implementing fuzzy checkpoint and ping pong checkpoint together for checkpointing memory databases. 
 
-General databases implement the WAL(Write Ahead Logging) protocol which writes log records to disk before applying the modified data page to disk, in order to ensure database consistency. The database server controls concurrency with logs by acquiring the latch in the checkpoint target page to implement the WAL protocol. Degradation of other transactions can occur throughout this process.
+A fuzzy checkpoint allows other transactions to proceed during the checkpoint process. When performing a fuzzy checkpoint, checkpoint image files may contain a mixture of committed and uncommitted transaction data. The name "fuzzy checkpoint" originates from this state.
 
-Altibase performs checkpoint operations without acquiring a latch in the checkpoint target page to resolve the degradation of transactions. Altibase also maintains two checkpoint image files to address inconsistency in checkpoint image files which can occur for not conforming to the WAL protocol while checkpointing. For example, if the Altibase server fails in a state due to the inconsistency of the last checkpoint image file, the previous one of two checkpoint image files can be recovered. 
+A ping pong checkpoint alternates writing dirty pages between two checkpoint image files during the checkpoint process. The checkpoint image file that fully reflects the dirty pages and is the most recently written is referred to as the stable checkpoint image file.
 
-Ping-pong checkpointing maintains two checkpoint image files as described above and uses a different image file in turn for each checkpoint. Fuzzy checkpointing allows the execution of other transactions while checkpointing, thus, data of committed or uncommitted transactions can be mixed in the checkpoint image files for fuzzy checkpoint operations; “fuzzy checkpoint” derives from this state. 
+General databases implement the Write Ahead Logging (WAL) protocol which writes log records to disk before applying the modified data page to disk, in order to ensure database consistency. The database server controls concurrency with logs by acquiring the latch in the checkpoint target page to implement the WAL protocol. Degradation of other transactions can occur throughout this process.
+
+Altibase resolves this issue by performing checkpoints without acquiring latches on the checkpoint target pages, thereby avoiding performance degradation. During this process, inconsistencies in checkpoint image files caused by not adhering to the WAL protocol are addressed by alternately writing to two checkpoint image files.
+
+For example, if the Altibase server fails in a state due to the inconsistency of the last checkpoint image file, the previous one of two checkpoint image files can be recovered.
+
+##### Checkpoint Scale
+
+Checkpoint scale defines the management method for creating, updating, and maintaining checkpoint image files. Users can set the checkpoint scale when creating a database or modify it during the CONTROL phase of the Altibase server startup.
+
+Altibase provides two checkpoint scale settings: Pair and Single. The Pair setting represents Altibase's traditional method of managing checkpoint image files, while the Single setting is supported starting from Altibase 8.1.
+
+###### Checkpoint Scale Pair
+
+When the checkpoint scale is set to Pair, two checkpoint image files with ping pong numbers 0 and 1 are created when a memory tablespace is generated. During subsequent checkpoints, dirty pages are alternately written to the two checkpoint image files.
+
+If no specific setting is made during database creation, the checkpoint scale defaults to Pair.
+
+Below is an example of how checkpoint image files are configured when the checkpoint scale is set to the Pair and the checkpoint image for the memory tablespace *MY_MEM_TBS* is split into three files.
+
+The following is the result of querying the checkpoint image files for the memory tablespace *MY_MEM_TBS* in the dbs directory.
+
+```bash
+% ls -l | grep MY_MEM_TBS
+-rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-0-0
+-rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-1-0
+-rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-0-1
+-rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-1-1
+-rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-0-2
+-rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-1-2
+```
+From the output above, it can be seen that for each file number, a pair of checkpoint image files is managed.
+
+When the checkpoint scale is set to Pair, the ping pong number of the stable checkpoint image file may vary for each tablespace. The ping pong number of the stable checkpoint image file for a specific tablespace can be determined using the following methods:
+
+- Checking the Log Anchor File
+
+  Use the [dumpla](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md#dumpla) utility to check the value of the 'Stable Checkpoint Image Num.' field in the '[ TABLESPACE ATTRIBUTE ]' section.
+
+- Querying Performance Views
+
+  Check the CURRENT_DB value in the [V$MEM_TABLESPACES](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General_Reference-2.The%20Data%20Dictionary.md#vmem_tablespaces) or [V$MEM_STABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General_Reference-2.The%20Data%20Dictionary.md#vmem_stable) performance views.
+
+###### Checkpoint Scale Single
+
+When the checkpoint scale is set to Single, a single checkpoint image file is created for a memory tablespace. During checkpoints, it operates internally using the ping pong checkpoint method but ultimately retains only one stable checkpoint image file. This approach increases disk usage efficiency.
+
+Below is an example of how checkpoint image files are configured when the checkpoint scale is set to the Single and the checkpoint image for the memory tablespace *MY_MEM_TBS* is split into three files.
+
+The following is the result of querying the checkpoint image files for the memory tablespace *MY_MEM_TBS* in the dbs directory.
+
+```bash
+% ls -l | grep MY_MEM_TBS
+rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-0-0
+rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-1-1
+rw-r----- 1 altibase altibase 323231744  7월 16 13:28 MY_MEM_TBS-0-2
+```
+
+In the output above, all checkpoint image files for *MY_MEM_TBS* are stable checkpoint image files that reflect the most recent changes.
+
+By default, users can determine the ping pong number of the stable checkpoint image file from the file name. However, if a file is lost or damaged and it becomes necessary to check the ping pong number of the stable checkpoint image file stored by the Altibase server, the following methods can be used:
+
+- Checking the Log Anchor File
+
+  Use the [dumpla](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Utilities%20Manual.md#dumpla) utility to check the 'Stable Single Checkpoint Image Num.' field in the '[MEMORY CHECKPOINT IMAGE ATTRIBUTE]' section.
+
+- Querying Performance View
+
+  Check the CURRENT_DB value in the [V$MEM_STABLE](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/General_Reference-2.The%20Data%20Dictionary.md#vmem_stable) performance view. 
+
+**Recording Checkpoint Image File for Checkpoint Scale Single**
+
+When the checkpoint scale is set to Single, the method of recording checkpoint image files varies based on the proportion of dirty pages.
+
+- **Full Write**
+
+  This method is applied when dirty pages exceed 50% of the checkpoint image file:
+  
+  ① Generate an unstable checkpoint image file.
+
+  ② Record all contents of the checkpoint image file containing dirty pages into the unstable checkpoint image file.
+
+  ③ Record log records to implement the WAL protocol.
+
+  ④ Update the log anchor to change the ping pong number of the stable checkpoint image file to the new checkpoint image file's ping pong number, which is genreated in step ①.
+
+  ⑤ Delete the existing checkpoint image file.
+
+- **Double Write**
+
+  This method is applied when dirty pages are 50% or less of the checkpoint image file:
+
+  ① Save snapshots of dirty pages in the double write image buffer.
+
+  ② Record the snapshots saved in step ① to the double write image file.
+
+  ③ Record log records to implement the WAL protocol.
+
+  ④ Write the snapshots saved in the double write image buffer directly to the stable checkpoint image file.
+
+> [!CAUTION]
+>
+> Take care not to confuse the double-write image buffer and double write image file used in the ping pong checkpoint's double write method with the double write file used in disk databases.
+
+**Double Write Recovery**
+
+Double write recovery is a feature that restores dirty pages which were being written to the stable checkpoint image or pages in memory space, if the server was abnormally terminated during double-write operations. It is automatically performs on META phase of the Altibase server startup.  Once a checkpoint is executed after double write recovery, the recovered dirty pages are written to the checkpoint image file, ensuring database durability.
 
 #### Checkpointing Disk Databases
 
@@ -6731,6 +6846,7 @@ The checkpoint message for each step is written to $ALTIBASE_HOME/trc/altibase_s
 |                                                       | Flushes dirty pages in database buffer Tablespace log anchor synchronization |
 | [CHECKPOINT-step2] Write BeginChkpt Log [0,1036171]   | Writes Checkpoint Begin Log                                  |
 | [CHECKPOINT-step3] Flush Dirty Page(s)                | Flushes dirty pages in memory DB                             |
+| [CHECKPOINT-SCALE] PAIR | Check the checkpoint scale setting |
 | [CHECKPOINT-step4] sync Database File                 | Memory database synchronization                              |
 |                                                       | Writes Redo LSN to the header files of data files in all tablespaces |
 | [CHECKPOINT-step5] Write End_Chkpt Log [0,1037350]    | Writes Checkpoint End Log                                    |
@@ -6773,6 +6889,7 @@ The following are properties related to checkpointing. For more detailed informa
 - CHECKPOINT_ENABLED
 - CHECKPOINT_INTERVAL_IN_LOG
 - CHECKPOINT_INTERVAL_IN_SEC
+- CHECKPOINT_SCALE_SINGLE_DW_BUFFER_SIZE
 - DIRECT_IO_ENABLED
 - DATABASE_IO_TYPE
 
@@ -7114,7 +7231,7 @@ To use the buffer manager, the properties in the altibase.properties file must b
 - HOT_LIST_PCT
 - HOT_TOUCH_CNT
 - LOG_BUFFER_TYPE
-- **L**OG_FILE_SIZE
+- LOG_FILE_SIZE
 - LOW_FLUSH_PCT
 - LOW_PREPARE_PCT
 - MAX_FLUSHER_WAIT_SEC
@@ -7208,9 +7325,9 @@ The following table describes the various backup modes of Altibase:
 | Backup Type                          | Backup Method                                                | Backup Object                                                | Restoration Method                                           | Possible while Online? |
 | ------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ---------------------- |
 | Backup using the iLoader utility     | Use the iLoader “out” command                                | User-defined tables                                          | Use the iLoader “in” command.                                | O                      |
-| Online backup of entire database     | Use the SQL statement: ALTER DATABASE BACKUP DATABASE TO backup_dir; | All data files and log anchor files in all tablespaces in the system | 1> Use the UNIX “cp” command 2> ALTER DATABASE RECOVER DATABASE; | O                      |
-| Online backup of specific tablespace | 1Use the SQL statement: ALTER DATABASE BACKUP TABLESPACE tablespace name TO backup_dir; or 1. ALTER TABLESPACE tablespace name BEGIN BACKUP; 2. Use the UNIX “cp” command cp   3. ALTER TABLESPACE tablespace name END BACKUP; | All data files in the tablespace                             | 1> Use the UNIX “cp” command 2> ALTER DATABASE RECOVER DATABASE; | O                      |
-| Offline backup                       | 1> Shut down the database 2> Use the UNIX “cp” command       | The entire database                                          | Use the UNIX “cp” command                                    | X                      |
+| Online backup of entire database     | Use the SQL statement: ALTER DATABASE BACKUP DATABASE TO backup_dir; | All data files and log anchor files in all tablespaces in the system | 1> Use the UNIX “cp” command<br />2> ALTER DATABASE RECOVER DATABASE; | O                      |
+| Online backup of specific tablespace | 1>Use the SQL statement: <br />ALTER DATABASE BACKUP TABLESPACE tablespace name TO backup_dir; or <br />ALTER TABLESPACE tablespace name BEGIN BACKUP; <br />2> Use the UNIX “cp” command cp   <br />3> ALTER TABLESPACE tablespace name END BACKUP; | All data files in the tablespace                             | 1> Use the UNIX “cp” command<br />2> ALTER DATABASE RECOVER DATABASE; | O                      |
+| Offline backup                       | 1> Shut down the database<br />2> Use the UNIX “cp” command  | The entire database                                          | Use the UNIX “cp” command                                    | X                      |
 | Backup Time Comparison               | iLoader < online backup < offline backup                     |                                                              |                                                              |                        |
 
 [Table 10-1] Backup Methods
@@ -7414,29 +7531,11 @@ When recovery is performed, only the data files should be restored from backup c
 
 One such special case is the case where a user accidentally deletes a tablespace using the DROP TABLESPACE command. Because there are no data pertaining to the dropped tablespace in the current log anchor files at that time, it is acceptable to restore log anchor files from backup copies. 
 
-**When recovering a data file of a memory tablespace, the stable memory data file must be used to restore the other memory data file.**
+**Stable checkpoint image files must be backed up to perform media recovery for memory tablespaces**
 
-Because ping-pong checkpointing is used for memory tablespaces in Altibase, two data files pertaining to each memory tablespace are maintained on disk. A pair of data files, in which the same image is saved, is stored in a location set using the MEM_DB_DIR property. Both data files must exist in order for Altibase to operate normally. At any particular point in time, the memory tablespace is only using one of these data files.
+If the checkpoint scale is set to Single, there is no need to select a file for backup because only one stable checkpoint image file is maintained.
 
-In order to reduce the time required to perform backups, only the most recently checkpointed data file for the memory tablespace is backed up.
-
-The data files containing the backup of memory tablespace are as follows:
-
-```
-SYS_TBS_MEM_DIC-1-0, 
-SYS_TBS_MEM_DIC-1-1, 
-SYS_TBS_MEM_DIC-1-2
-```
-
-The data files for a memory tablespace must be copied in the following manner:
-
-```
-$ cp SYS_TBS_MEM_DIC-1-0  $ALTIBASE_HOME/dbs;
-$ cp SYS_TBS_MEM_DIC-1-1  $ALTIBASE_HOME/dbs;
-$ cp SYS_TBS_MEM_DIC-1-2  $ALTIBASE_HOME/dbs;
-```
-
-When recovery is complete, automatically copies the stable memory data file to create an unstable memory data file.
+On the other hand, if the checkpoint scale is set to Pair, the ping pong number must be checked before backup to identify stable checkpoint image files. To confirm this, use the dumpla utility to query the "Stable Checkpoint Image Num." item in the "[TABLESPACE ATTRIBUTE]" section of the log anchor.
 
 **If a tablespace is added or deleted or the name of a tablespace is changed, the dictionary tablespace (SYS_TBS_MEM_DIC) and the changed tablespace will need to be backed up. Otherwise, the entire database will need to be backed up.**
 
@@ -7573,7 +7672,7 @@ loganchor1
 
 ##### Tablespace-Level Online Backup
 
-The stable versions of the data files in the SYS_TBS_MEM_DIC tablespace are backed up online to the /backup_dir directory.
+Stable checkpoint image files in the SYS_TBS_MEM_DIC tablespace are backed up online to the /backup_dir directory.
 
 ```
 iSQL(sysdba)> alter database backup tablespace SYS_TBS_MEM_DIC to ‘/backup_dir’;
@@ -7597,7 +7696,7 @@ loganchor0 loganchor1 loganchor2
 
 Back up the data files in the USER_MEMORY_TBS and USER_DISK_TBS tablespaces online to the /backup_dir directory.
 
-The data files in the memory tablespace are backed up online after checking that they are stable copies. 
+For memory tablespaces, perform online backup after verifying that files to be backed up are stable checkpoint image files.
 
 ```
 iSQL(sysdba)> alter tablespace USER_MEMORY_TBS begin backup;
@@ -7704,6 +7803,7 @@ Last Created Logfile Num 	 [ 20350 ]
 Delete Logfile(s) Range  	 [ 20333 ~ 20344 ]                       
 Update And Flush Count   	 [ 316 ]                                 
 New Tablespace ID        	 [ 8 ]
+Checkpoint Scale             [ PAIR ]
 ```
 
 Check whether the log files ranging from logfile18320 to logfile20344 exist in the directory specified using the ARCHIVE_DIR property. If not, copy the archive log files from a backup storage device to the directory specified using the ARCHIVE_DIR property.
@@ -7761,7 +7861,7 @@ The above results indicate that the logfile4 archive log file and subsequent fil
 Copy the data file backups in the backup_dir directory to the original location of the data files for the USER_DISK_TBS tablespace, which is the $ALTIBASE_HOME/dbs/ directory.
 
 ```
-$ cp /backup_dir/*.dbf  $ALTIBASE_HOME/dbs;
+$ cp /backup_dir/*.dbf  $ALTIBASE_HOME/dbs
 ```
 
 Perform complete media recovery during the control phase. 
@@ -7797,7 +7897,7 @@ After checking which archive log files are required to perform complete recovery
 Copy the backups of the files for the USER_DISK_TBS tablespace, which are in the backup_dir directory, to the /disk2 file system.
 
 ```
-$ cp /backup_dir/*.dbf /disk2/dbs;
+$ cp /backup_dir/*.dbf /disk2/dbs
 ```
 
 Change the file path for the data files for the USER_DISK_TBS tablespace during the CONTROL phase. 
@@ -7856,11 +7956,11 @@ iSQL(sysdba)> alter SYSTEM SWITCH LOGFILE;
 1. Copy the backups of the data files to their original location.
 
 ```
-$ cp /backup_dir/*.dbf $ALTIBASE_HOME/dbs;
+$ cp /backup_dir/*.dbf $ALTIBASE_HOME/dbs
 ```
 
-2. Because the ping-pong checkpointing technique is used with memory tablespaces, when the database is backed up, only the stable data files for a memory tablespace are copied.   
-   Example) The backups of the data files for a memory tablespace are as follows:
+2. Because the ping pong checkpointing is performed with memory tablespaces, when the database is backed up, only stable checkpoint image files for a memory tablespace are copied.  
+   Example) The backups of checkpoint image files for a memory tablespace are as follows:
 
 ```
 SYS_TBS_MEM_DIC-1-0, 
@@ -7871,7 +7971,7 @@ SYS_TBS_MEM_DATA-0-1,
 SYS_TBS_MEM_DATA-0-2
 ```
 
-3. Since the backup of the memory tablespace contains valid data files, they can be copied without checking their validity. 
+3. Copy all the backed up stable checkpoint image files.  
 
 ```
 $ cp  SYS_TBS_MEM_DIC-1-0  $ALTIBASE_HOME/dbs
@@ -7897,13 +7997,14 @@ LAST_DELETED_LOGFILE
 15021
 ```
 
-6. Check the altibase_sm.log file, which is in the $ALTIBASE_HOME/trc directory, to verify that the backup-related log files were forcibly archived at the end of the backup. 
+6. Check the files in \$ALTIBASE_HOME/logs.
 
 ```
 logfile15361  logfile15362  logfile15363  logfile15364  logfile15365
 ```
 
 7. According to the results above, copy all files ranging from logfile15022 to logfile15360, which is the last archive log file in which logging was performed at the end of backup, from the directory specified using the ARCHIVE_DIR property (or a backup device) to the directory specified using the LOG_DIR property. Unlike complete recovery, when performing incomplete recovery, the duplication of log files is inevitable.
+
 8. Because SYS_TBS_DISK_TEMP was not backed up, create the corresponding file. 
 
 ```
@@ -8002,44 +8103,62 @@ Create LSN  [ 0, 657403 ]
 
 The above results indicate that the logfile4 archive log file and subsequent files are required in order to restore the database using the backup data files. 
 
-The backed up stable data file should be copied to the original position. Supposing that the backup file is SYS_TBS_MEM_DIC-0-0, copy the backup data file as shown below: 
+The backed up stable checkpoint image file should be copied to the original position. Supposing that the backup file is SYS_TBS_MEM_DIC-0-0, copy it as shown below: 
 
 ```
-$ cp /backup_dir/SYS_TBS_MEM_DIC-0-0 $ALTIBASE_HOME/dbs;
+$ cp /backup_dir/SYS_TBS_MEM_DIC-0-0 $ALTIBASE_HOME/dbs
 ```
 
-In the results of $ALTIBASE_HOME/bin/dumpla loganchor0, check the “Stable Checkpoint Image Num” tablespace attribute for the tablespace named SYS_TBS_MEM_DIC.
+The next step is to query **the current log anchor** of the database and update the ping pong number of the copied checkpoint image file to match the ping pong number obtained from the log anchor. It is important to note that the item to check in the log anchor depends on the checkpoint scale.
 
+The checkpoint scale can be identified by the Checkpoint Scale item in the [LOGANCHOR HEADER].
+
+- If the Checkpoint Scale is PAIR:
+
+  Refer to the Stable Checkpoint Image Num. in the [ TABLESPACE ATTRIBUTE ].
+
+```bash
+  % dumpla loganchor0
+  [LOGANCHOR HEADER]
+  ...
+  Checkpoint Scale              [ PAIR ]
+  ...
+  [ TABLESPACE ATTRIBUTE ]
+  Tablespace ID                 [ 0 ]
+  Tablespace Name               [ SYS_TBS_MEM_DIC ]
+  New Database File ID          [ 0 ]
+  Tablespace Status             [ ONLINE ]
+  TableSpace Type               [ 0 ]
+  Checkpoint Path Count         [ 0 ]
+  Autoextend Mode               [ Autoextend ]
+  Shared Memory Key             [ 0 ]
+  Stable Checkpoint Image Num.  [ 1 ]
+  Init Size                     [ 4 MBytes ( 129 Pages ) ]
+  Next Size                     [ 4 MBytes ( 128 Pages ) ]
+  Maximum Size                  [ 134217727 MBytes ( 4294967295 Pages ) ]
+  Split File Size               [ 1024 MBytes ( 32768 Pages ) ]
 ```
-% dumpla loganchor0
-[ TABLESPACE ATTRIBUTE ]
-Tablespace ID                 [ 0 ]
-Tablespace Name               [ SYS_TBS_MEM_DIC ]
-New Database File ID          [ 0 ]
-Tablespace Status             [ ONLINE ]
-TableSpace Type               [ 0 ]
-Checkpoint Path Count         [ 0 ]
-Autoextend Mode               [ Autoextend ]
-Shared Memory Key             [ 0 ]
-Stable Checkpoint Image Num.  [ 1 ]
-Init Size                     [ 4 MBytes ( 129 Pages ) ]
-Next Size                     [ 4 MBytes ( 128 Pages ) ]
-Maximum Size                  [ 134217727 MBytes ( 4294967295 Pages ) ]
-Split File Size               [ 1024 MBytes ( 32768 Pages ) ]
 
+- If the Checkpoint Scale is SINGLE:
 
-[ MEMORY CHECKPOINT PATH ATTRIBUTE ]
-Tablespace ID                 [ 0 ]
-Checkpoint Path               [ /home/altibase_home/dbs ]
-[ MEMORY CHECKPOINT IMAGE ATTRIBUTE ]
-Tablespace ID                 [ 0 ]
-File Number                   [ 0 ]
-Create LSN                    [ 0, 2028 ]
-Create On Disk (PingPong 0)   [ Created ]
-Create On Disk (PingPong 1)   [ Created ]
-```
+  Refer to the Stable Single Checkpoint Image Num. in the [ MEMORY CHECKPOINT IMAGE ATTRIBUTE ].
 
-Since the backup datafile number is [0] and the current stable datafile number is [1], copy the tablespace as shown below.
+  ```bash
+  % dumpla loganchor0
+  [LOGANCHOR HEADER]
+  ...
+  Checkpoint Scale              [ SINGLE ]
+  ...
+  [ MEMORY CHECKPOINT IMAGE ATTRIBUTE ]
+  Tablespace ID                        [ 0 ]
+  File Number                          [ 0 ]
+  Stable Single Checkpoint Image Num.  [ 1 ]
+  Create LSN                           [ 0, 2028 ]
+  Create On Disk (PingPong 0)          [ Created ]
+  Create On Disk (PingPong 1)          [ Created ]
+  ```
+
+In the case where the backup checkpoint image file has ping pong number [0] and the current stable checkpoint image file's ping pong number in the log anchor is [1], the file should be copied as follows.
 
 ```
 $ cd $ALTIBASE_HOME/dbs
@@ -8086,7 +8205,7 @@ Check which archive log files are required to perform incomplete recovery.
 Incomplete recovery uses the backups of the log anchor files. Copy the log anchor files from the backup storage device.
 
 ```
-$ cp /backup_dir/loganchor* /ALTIBASE_HOME/logs;
+$ cp /backup_dir/loganchor* /ALTIBASE_HOME/logs
 ```
 
 Because the SYS_TBS_DISK_TEMP tablespace is not backed up, create a new data file for it.

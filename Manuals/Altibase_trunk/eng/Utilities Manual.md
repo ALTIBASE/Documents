@@ -3827,27 +3827,28 @@ This is loganchor header information, such as the version of the database and th
 | Delete Logfile(s) Range           | Format: [first logfile no. ~ last logfile no.] The numbers of the first and last log files that were deleted. | The range of the most recently deleted log files. When checkpointing is completed, log files that are no longer necessary are deleted. These numbers indicate the range of log files that were deleted. |
 | Update And Flush Count            | From 0 (zero) to the maximum value of the unsigned int type  | The number of times that loganchor files were changed and flushed |
 | New Tablespace ID                 | From 0 (zero) to the maximum value of the unsigned int type  | The identifier for the next new tablespace. When a tablespace is created, this value will be used as its identifier, and will then be incremented. |
+| Checkpoint Scale                  | PAIR\|SINGLE                                                 | The setting of checkpoint scale for the current database.    |
 
 ##### [TABLESPACE ATTRIBUTE]
 
 This section provides information about the tablespace. The contents of this section are as follows:
 
-| Field Name                  | Value                                                        | Description                                                  |
-| --------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Tablespace ID               | From 0 (zero) to the maximum value of the unsigned int type  | The identifier of the tablespace                             |
-| Tablespace Name             | String Ex.) SYS_TBS_MEM_DIC                                  | The name of the tablespace                                   |
-| New Database File ID        | From 0 (zero) to the maximum value of the unsigned int type  | The identifier that will be given to the next file to be added to the tablespace |
-| Extent Management           | FREE EXTENT BITMAP TABLESPACE                                | This indicates how extents are managed when a disk tablespace is created. At present, only FREE EXTENT BITMAP TABLESPACE is supported. If FREE EXTENT BITMAP TABLESPACE is enabled, bitmaps can be used to manage the free extents in a disk tablespace. |
-| Tablespace Status           | Refer to Possible Tablespace Status Values in [TABLESPACE ATTRIBUTE]. | Indicates the current status of the tablespace               |
-| Tablespace Type             | 0 - 8 (Refer to Possible Tablespace Type Values in [TABLESPACE ATTRIBUTE]) | Indicates the type of the tablespace                         |
-| Checkpoint Path Count       | The number of checkpoint paths                               | The number of checkpoint image file paths. This applies only to memory tablespaces. |
-| Autoextend Mode             | AutoExtend \|Non-AutoExtend                                  | Indicates whether the tablespace extends in size automatically. This applies only to memory tablespaces |
-| Shared Memory Key           | From 0 (zero) to the maximum value of the unsigned int type  | The shared memory key for a database that resides in shared memory. This applies only to memory tablespaces |
-| Stable Checkpoint Image Num | 0\|1                                                         | The number corresponding to the set of checkpoint image files that is stable after checkpointing has taken place. This applies only to memory tablespaces |
-| Init Size                   | From 0 (zero) to the maximum value of the unsigned int type  | The initial size (MB) of the tablespace                      |
-| Next Size                   | From 0 (zero) to the maximum value of the unsigned int type  | The increment by which the tablespace automatically increases in size (MB) |
-| Maximum Size                | From 0 (zero) to the maximum value of the unsigned int type  | The maximum size of the tablespace.                          |
-| Split File Size             | From 0 (zero) to the maximum value of the unsigned int type  | When a memory tablespace is created, it consists of multiple files of this size. For example, if a tablespace 1 GB in size is to be created and the split file size is 100 MB, then 10 files will be created. |
+| Field Name                   | Value                                                        | Description                                                  |
+| ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Tablespace ID                | From 0 (zero) to the maximum value of the unsigned int type  | The identifier of the tablespace                             |
+| Tablespace Name              | String Ex.) SYS_TBS_MEM_DIC                                  | The name of the tablespace                                   |
+| New Database File ID         | From 0 (zero) to the maximum value of the unsigned int type  | The identifier that will be given to the next file to be added to the tablespace |
+| Extent Management            | FREE EXTENT BITMAP TABLESPACE                                | This indicates how extents are managed when a disk tablespace is created. At present, only FREE EXTENT BITMAP TABLESPACE is supported. If FREE EXTENT BITMAP TABLESPACE is enabled, bitmaps can be used to manage the free extents in a disk tablespace. |
+| Tablespace Status            | Refer to Possible Tablespace Status Values in [TABLESPACE ATTRIBUTE]. | Indicates the current status of the tablespace               |
+| Tablespace Type              | 0 - 8 (Refer to Possible Tablespace Type Values in [TABLESPACE ATTRIBUTE]) | Indicates the type of the tablespace                         |
+| Checkpoint Path Count        | The number of checkpoint paths                               | The number of checkpoint image file paths. This applies only to memory tablespaces. |
+| Autoextend Mode              | AutoExtend \|Non-AutoExtend                                  | Indicates whether the tablespace extends in size automatically. This applies only to memory tablespaces |
+| Shared Memory Key            | From 0 (zero) to the maximum value of the unsigned int type  | The shared memory key for a database that resides in shared memory. This applies only to memory tablespaces |
+| Stable Checkpoint Image Num. | 0\|1                                                         | The ping pong number corresponding to the set of checkpoint image files that is stable after checkpointing. This applies only to memory tablespaces. |
+| Init Size                    | From 0 (zero) to the maximum value of the unsigned int type  | The initial size (MB) of the tablespace                      |
+| Next Size                    | From 0 (zero) to the maximum value of the unsigned int type  | The increment by which the tablespace automatically increases in size (MB) |
+| Maximum Size                 | From 0 (zero) to the maximum value of the unsigned int type  | The maximum size of the tablespace.                          |
+| Split File Size              | From 0 (zero) to the maximum value of the unsigned int type  | When a memory tablespace is created, it consists of multiple files of this size. For example, if a tablespace 1 GB in size is to be created and the split file size is 100 MB, then 10 files will be created. |
 
 In [TABLESPACE ATTRIBUTE], Tablespace Status can have the following values:
 
@@ -3892,14 +3893,15 @@ This section indicates the path in which checkpoint image files are saved for a 
 
 This section indicates the checkpoint image information for a memory tablespace. The contents of this section are as follows:
 
-| Field Name                         | Value                                                       | Description                                                  |
-| ---------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
-| Tablespace ID                      | From 0 (zero) to the maximum value of the unsigned int type | The identifier of the tablespace                             |
-| File Number                        | From 0 (zero) to the maximum value of the unsigned int type | The file number                                              |
-| Create LSN                         | \< FileNo, Offset\>                                         | The LSN that was current at the time at which the data file was created |
-| Create On Disk (PingPong 0)        | Created\|None                                               | Whether the set of checkpointing files identified by #0 has been created |
-| Create On Disk (PingPong 1)        | Created\|None                                               | Whether the set of checkpointing files identified by #1 has been created |
-| ChangeTracking DataFileDescSlot ID | From 0(zero) to the maximum value of the unsigned int type  | The DataFileDescSlot ID of the changeTracking file bound to the memory checkpoint image |
+| Field Name                          | Value                                                       | Description                                                  |
+| ----------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
+| Tablespace ID                       | From 0 (zero) to the maximum value of the unsigned int type | The identifier of the tablespace                             |
+| File Number                         | From 0 (zero) to the maximum value of the unsigned int type | The file number                                              |
+| Stable Single Checkpoint Image Num. | 0\|1                                                        | The ping pong number for stable checkpoint image files after checkpointing. This applies only when the checkpoint scale is set to SINGLE. |
+| Create LSN                          | \< FileNo, Offset\>                                         | The LSN that was current at the time at which the data file was created |
+| Create On Disk (PingPong 0)         | Created\|None                                               | Whether the set of checkpointing files identified by #0 has been created |
+| Create On Disk (PingPong 1)         | Created\|None                                               | Whether the set of checkpointing files identified by #1 has been created |
+| ChangeTracking DataFileDescSlot ID  | From 0(zero) to the maximum value of the unsigned int type  | The DataFileDescSlot ID of the changeTracking file bound to the memory checkpoint image |
 
 ##### [DISK DATABASE FILE ATTRIBUTE]
 
@@ -3966,14 +3968,14 @@ This section provides information about the changeTracking file. The contents of
 
 This section provides information about the backupInfo file. The contents of this section are as follows:
 
-| Field Name                   | Value                                  | Description                                                  |
-| ---------------------------- | -------------------------------------- | ------------------------------------------------------------ |
-| Delete Archivelog File Range | FileNo, Offset                         | The number of the archive log file which can be completely recovered, even after deletion |
-| Last Backup LSN              | FileNo, Offset                         | The LSN at the time of the most recently performed backup    |
-| Before Backup LSN            | FileNo, Offset                         | The LSN prior to the time of the most recently performed backup |
-| Backup Info Manager State    | 문자열 예) BACKUP INFO MGR INITIALIZED | The backup information file manager state                    |
-| Backup Directory Path        | String e.g.) /backup_dir/              | The backup path                                              |
-| Backup Info File Name        | String                                 | The backup information file name                             |
+| Field Name                   | Value                                    | Description                                                  |
+| ---------------------------- | ---------------------------------------- | ------------------------------------------------------------ |
+| Delete Archivelog File Range | FileNo, Offset                           | The number of the archive log file which can be completely recovered, even after deletion |
+| Last Backup LSN              | FileNo, Offset                           | The LSN at the time of the most recently performed backup    |
+| Before Backup LSN            | FileNo, Offset                           | The LSN prior to the time of the most recently performed backup |
+| Backup Info Manager State    | String e.g.) BACKUP INFO MGR INITIALIZED | The backup information file manager state                    |
+| Backup Directory Path        | String e.g.) /backup_dir/                | The backup path                                              |
+| Backup Info File Name        | String                                   | The backup information file name                             |
 
 ### dumplf
 
