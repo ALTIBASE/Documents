@@ -238,28 +238,33 @@ Fixed Bugs
 
   -   **예상 결과**
 
-          no valgrind error
+          I1          CHANGE      I2
+          ----------------------------------------
+          1           0           49106157
+          1 row selected.
 
--   **Workaround**
+- **Workaround**
 
-        lead 3번째 인자대신 NVL로 감싸게 수정.
-        select i1, change, i2 from (
-        select nvl(lead( buy - sell, 1) over ( partition by i2 order by i1  ), 0) as change, i2, i1
-        from
-        (
-        select nvl( case when i3 = 1 then i2
-                         when i3 = 2 then i2
-                         when i3 = 3 then i2
-                         else 0 end, 0) as buy, numeric'0' as sell, i1, i2
-        from t1
-        union all
-        select nvl( case when i3 = 1 then i2
-                         when i3 = 2 then i2
-                         when i3 = 3 then i2
-                         else 0 end, 0) as sell, numeric'0' as buy, i1, i2
-        from t2
-        ) order by i1 desc, i2 desc
-        );
+  ```sql
+  --lead함수의 3번째 인자를 사용하지 않고, NVL 함수로 감싸도록 수정.
+  select i1, change, i2 from (
+  select nvl(lead( buy - sell, 1) over ( partition by i2 order by i1  ), 0) as change, i2, i1
+  from
+  (
+  select nvl( case when i3 = 1 then i2
+                   when i3 = 2 then i2
+                   when i3 = 3 then i2
+                   else 0 end, 0) as buy, numeric'0' as sell, i1, i2
+  from t1
+  union all
+  select nvl( case when i3 = 1 then i2
+                   when i3 = 2 then i2
+                   when i3 = 3 then i2
+                   else 0 end, 0) as sell, numeric'0' as buy, i1, i2
+  from t2
+  ) order by i1 desc, i2 desc
+  );
+  ```
 
 -   **변경사항**
 
