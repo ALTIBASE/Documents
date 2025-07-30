@@ -1466,7 +1466,7 @@ The MaxBytes and the automatically calculated correction factor of the source an
 
 #### Support Character Set for Each Database
 
-For character sets not listed in the table below, Migration Center does not automatically calculate the correction factor. Instead, a value of 1 is assinged, and no length conversion is performed.
+For character sets not listed in the table below, Migration Center does not perform length correction.
 
 ##### Altibase
 
@@ -7589,7 +7589,7 @@ In Windows environments, when display scaling is set above 100%, some text in th
 
 ##### Solution
 
-Set the display scaling to 100% or lower, and restart the Migration Center.
+Set the display scaling to 100%, and restart the Migration Center.
 
 ### Oracle
 
