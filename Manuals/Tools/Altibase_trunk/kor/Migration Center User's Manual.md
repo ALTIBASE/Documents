@@ -2283,7 +2283,7 @@ AS SELECT * FROM t1;
 
 ###### 설명
 
-지원하지 않는 DEFAULT COLLATION 절이 제거되었다.
+DEFAULT COLLATION 절이 제거되었다.
 
 ###### 원본 SQL 문장
 
@@ -2812,7 +2812,7 @@ END /* trig1 */ /* [REMOVED] RULE-12017 : The trigger label name at the end of b
 
 ###### 설명
 
-지원하지 않는 DEFAULT COLLATION 절이 제거되었다.
+DEFAULT COLLATION 절이 제거되었다.
 
 ###### 원본 SQL 문장
 
@@ -3312,7 +3312,7 @@ PARAMETERS(a1 OCINUMBER /* [TODO] RULE-13015 : External data type of the paramet
 
 ###### 설명
 
-지원하지 않는 DEFAULT COLLATION 절이 제거되었다.
+DEFAULT COLLATION 절이 제거되었다.
 
 ###### 원본 SQL 문장
 
@@ -3633,7 +3633,7 @@ PARAMETERS(a1 OCINUMBER /* [TODO] RULE-14010 : External data type of the paramet
 
 ###### 설명
 
-지원하지 않는 DEFAULT COLLATION 절이 제거되었다.
+DEFAULT COLLATION 절이 제거되었다.
 
 ###### 원본 SQL 문장
 
@@ -3773,7 +3773,7 @@ END;
 
 ###### 설명
 
-지원하지 않는 DEFAULT COLLATION 절이 제거되었다.
+DEFAULT COLLATION 절이 제거되었다.
 
 ###### 원본 SQL 문장
 
@@ -3852,7 +3852,7 @@ AS '${ORACLE_HOME}/lib/test_lib.so';
 
 ###### 설명
 
-지원하지 않는 EDITIONABLE/NONEDITIONABLE 키워드가 제거되었다.
+EDITIONABLE/NONEDITIONABLE 키워드가 제거되었다.
 
 ###### 원본 SQL 문장
 
