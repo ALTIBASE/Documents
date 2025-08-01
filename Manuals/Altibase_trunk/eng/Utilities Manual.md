@@ -3131,11 +3131,11 @@ When the profiling function is activated, execution information is recorded for 
 Files are output in the follwing format.
 
 ```
-[STATEMENT]
-..
 [BIND]
 ..
 [PLAN]
+..
+[STATEMENT]
 ..
 [SESSION STAT]
 ..
@@ -3147,6 +3147,14 @@ Files are output in the follwing format.
 ```
 
 Each item is output as follows. 
+
+##### [BIND]
+
+Outputs information on variables that are bound to the SQL statement.
+
+##### [PLAN]
+
+Outputs the execution plan for the executed SQL statement. For more information on execution plans, please refer to the *Performance Tuning Guide.*
 
 ##### [STATEMENT]
 
@@ -3191,14 +3199,6 @@ The following table shows the statement-related information that is logged.
 | WRITE UNDO PAGE                        | BIGINT       | not used                                                     |
 | GET UNDO PAGE                          | BIGINT       | The number of buffers in UNDO tablespace that were accessed for a disk page during query execution |
 | CREATE UNDO PAGE                       | BIGINT       | The number of disk pages in UNDO tablespace that were created during query execution |
-
-##### [BIND]
-
-Outputs information on variables that are bound to the SQL statement.
-
-##### [PLAN]
-
-Outputs the execution plan for the executed SQL statement. For more information on execution plans, please refer to the *Performance Tuning Guide.*
 
 ##### [SESSION STAT]
 

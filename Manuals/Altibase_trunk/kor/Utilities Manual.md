@@ -3465,11 +3465,11 @@ COUNT,AVG,TOTAL,MIN,MAX,SUCCES,FAIL,QUERY
 다음과 같은 형식으로 출력된다.
 
 ```
-[STATEMENT]
-..
 [BIND]
 ..
 [PLAN]
+..
+[STATEMENT]
 ..
 [SESSION STAT]
 ..
@@ -3481,6 +3481,14 @@ COUNT,AVG,TOTAL,MIN,MAX,SUCCES,FAIL,QUERY
 ```
 
 각 정보는 아래와 같은 형식으로 출력된다.
+
+##### [BIND]
+
+SQL 문에 바인드 되는 변수들에 대한 정보이다.
+
+##### [PLAN]
+
+실행된 SQL 문의 실행 계획이 출력된다. 실행 계획에 관한 자세한 내용은 *Performance Tuning Guide*를 참고한다.
 
 ##### [STATEMENT]
 
@@ -3525,14 +3533,6 @@ COUNT,AVG,TOTAL,MIN,MAX,SUCCES,FAIL,QUERY
 | WRITE UNDO PAGE                        | BIGINT       | 사용하지 않음                                              |
 | GET UNDO PAGE                          | BIGINT       | 질의 수행 시 UNDO 영역 디스크 페이지에 대한 버퍼 접근 횟수 |
 | CREATE UNDO PAGE                       | BIGINT       | 질의 수행 시 UNDO 영역 디스크 페이지 생성 횟수             |
-
-##### [BIND]
-
-SQL 문에 바인드 되는 변수들에 대한 정보이다.
-
-##### [PLAN]
-
-실행된 SQL 문의 실행 계획이 출력된다. 실행 계획에 관한 자세한 내용은 *Performance Tuning Guide*를 참고한다.
 
 ##### [SESSION STAT]
 
