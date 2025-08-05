@@ -1443,7 +1443,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 
 ### Automatic Correction of Character Column Length Considering Heterogeneous Character Set
 
-During migration, if the character sets of the source and destination databases are different, character data types (CHAR, VARCHAR) require length conversion.
+During migration, if the character sets of the source and destination databases are different, character data types(CHAR, VARCHAR) require length conversion.
 For example, if the source database is set to the MS949 character set that requires a maximum of 2 bytes per character storage, and the target database is set to the UTF8 character set that requires 3 bytes per character, the character data of the target database is required to migrate without truncation. The size of the type should be 1.5 times the original.
 
 Migration Center automatically performs this length conversion, and the length correction formula for character data types and the calculation formula for the correction factor are as follows.
@@ -1456,7 +1456,7 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 
 The correction factor is automatically calculated by the Migration Center, but users can modify it using the "Correction Factor for Character Type Conversion" migration option. Note that if the correction factor is set to 1, the length conversion will not be performed.
 
-The MaxBytes and the automatically calculated correction factor of the source and target databases can be found on the Summary page of the Build Report. When a user modified the correction factor, the updated value can be found on the Summary page on the Reconcile Report.
+If the correction factor is automatically calculated, the user can see it on the Summary page of the Build Report. If the user has modified the correction factor, the updated value is shown on the Summary page of the Reconcile Report.
 
 #### Precautions
 
@@ -8012,5 +8012,3 @@ In Tibero version 7.2.2, a known issue exists where dependency information for f
 
 ##### Solution
 Manually review object dependencies during migration. Any objects that fail to migrate due to missing dependency information must be identified and migrated manually.
-
-e
