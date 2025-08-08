@@ -1653,7 +1653,7 @@ Posix AIO는 AIX가 제공하는 디스크 처리 성능 개선 항목으로 수
 echo 2147483648 > /proc/sys/kernel/shmmax
 echo 4096 > /proc/sys/kernel/shmmni
 echo 200 32000 512 5029 > /proc/sys/kernel/sem
-echo 5 > /proc/sys/vm/swappiness
+echo 1 > /proc/sys/vm/swappiness
 ```
 
 ###### RemoveIPC 설정
