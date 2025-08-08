@@ -1637,7 +1637,7 @@ To set kernel parameters automatically when the server boots, add the following 
 echo 2147483648 > /proc/sys/kernel/shmmax
 echo 4096 > /proc/sys/kernel/shmmni
 echo 200 32000 512 5029 > /proc/sys/kernel/sem
-echo 5 > /proc/sys/vm/swappiness
+echo 1 > /proc/sys/vm/swappiness
 ```
 
 ###### Setting in RemoveIPC
