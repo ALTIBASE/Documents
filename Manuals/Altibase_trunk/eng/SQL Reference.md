@@ -2237,9 +2237,7 @@ This chapter describes Data Definition Language (DDL), which are SQL statements 
 
 **alter_database :: =**
 
-![](media/SQL/97f0082b35f7c7b2023c79e718472981.png)
-
-
+![](media/SQL/alter_database.png)
 
 **startup_clause ::=**
 
@@ -2324,6 +2322,10 @@ This chapter describes Data Definition Language (DDL), which are SQL statements 
 **snapshot_clause ::=**
 
 ![](media/SQL/8df50a0b0a940bcf36d59c734118d74c.png)
+
+**checkpoint_scale_clause ::=**
+
+![](media/SQL/checkpoint_scale_clause.png)
 
 #### Prerequisites
 
@@ -2504,9 +2506,14 @@ change_tracking_clause
 
 This enables or disables page change tracking for incremental backups.
 
-*snapshot_clauses*
+*snapshot_clause*
 
 This option configures SNAPSHOT SCN on the basis of the time when BEGIN SNAPSHOT is executed, and exports data with iLoader based upon the configured SCN.
+
+*checkpoint_scale_clause*
+
+This changes the checkpoint scale setting of the database.  This clause is available only during the CONTROL phase.
+When the checkpoint scale is changed from PAIR to SINGLE, the unstable checkpoint image file in the pair is deleted. Conversely, when the scale is switched from SINGLE to PAIR, the checkpoint image file is duplicated to create a pair.
 
 #### Examples
 
@@ -5123,7 +5130,7 @@ Conjoin success.
 
 **create_database ::=**
 
-![create_database_image92](media/SQL/create_database_image92.gif)
+![create_database_image92](media/SQL/create_database.png)
 
 #### Prerequisites
 
@@ -5178,6 +5185,10 @@ This is used to specify the database character set and national character set.
 - Available National Character Sets  
   UTF8  
   UTF16
+  
+*checkpoint_scale_clause*
+
+This is used to specify the checkpoint scale of the database. If this clause is not specified, the checkpoint scale is set to PAIR by default. 
 
 #### Example
 

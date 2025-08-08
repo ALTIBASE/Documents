@@ -4286,6 +4286,7 @@ Performance views are identified by the prefix V$. The following table lists all
 | V\$MEM_BTREE_NODEPOOL                 | Information about node pools for memory BTREE Indices        |
 | V\$MEM_RTREE_HEADER                   | Information about headers of memory RTREE indexes            |
 | V\$MEM_RTREE_NODEPOOL                 | Information about node pools for memory RTREE indexes        |
+| V$MEM_STABLE                 | Information about the stable checkpoint image file        |
 | V\$MEM_TABLESPACES                    | Information about tablespaces created in memory              |
 | V\$MEM_TABLESPACE_CHECKPOINT_PATHS    | Information about the location of DB files in which to record checkpointing details during checkpointing |
 | V\$MEM_TABLESPACE_STATUS_DESC         | Internal information about the status of memory tablespaces  |
@@ -6780,6 +6781,7 @@ This view displays information about log anchors.
 | OLDEST_LFGID              | INTEGER     | Not used(0)                                                  |
 | OLDEST_LOGFILE_NO         | INTEGER     | When restart recovery is performed, the log file number from which disk-related redo will begin |
 | OLDEST_LOGFILE_OFFSET     | INTEGER     | When restart recovery is performed, the log file offset from which disk-related redo will begin |
+| CHECKPOINT_SCALE | VARCHAR(12) | The current checkpoint scale configuration of the database |
 
 #### Column Information
 
@@ -6799,6 +6801,13 @@ This indicates whether Archivelog mode is enabled for the database.
     performing media recovery.
 
 -   NOARCHIVE: In this mode, unnecessary log files are deleted.
+
+##### CHECKPOINT_SCALE
+
+This indicates the current checkpoint scale setting of the database.
+
+- PAIR: Refer to [Checkpoint Scale Pair](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Administrator%E2%80%99s%20Manual.md#checkpoint-scale-pair).
+- SINGLE: Refer to [Checkpoint Scale Single](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_trunk/eng/Administrator%E2%80%99s%20Manual.md#checkpoint-scale-pair).
 
 ### V\$LOCK_WAIT
 
@@ -7202,7 +7211,7 @@ This is the number of times the node that was used in the index was deleted and 
 
 ##### FREE_REQ_COUNT
 
-This is the number of return requests that have been made to the node pool for nodes that were used for BTREE indexes and then deleted. This is the cumulative number since the system was started
+This is the number of return requests that have been made to the node pool for nodes that were used for BTREE indexes and then deleted. This is the cumulative number since the system was started.
 
 ### V\$MEM_RTREE_HEADER
 
@@ -7309,6 +7318,33 @@ This is the number of return requests that have been made to the node pool for n
 
 This is the number of nodes that were being used by RTREE indexes and are waiting to be deleted.
 
+### V\$MEM_STABLE
+
+This view shows information about the stable checkpoint image file of the memory tablespaces.
+
+| Column name | Type         | Description                                 |
+| ----------- | ------------ | ------------------------------------------- |
+| SPACE_ID    | INTEGER      | The tablespace identifier              |
+| SPACE_NAME  | VARCHAR(512) | The name of the tablespace             |
+| FILE_NUM    | INTEGER      | The file number of the stable checkpoint image file |
+| CURRENT_DB  | INTEGER      | The ping pong number of the stable checkpoint image file |
+
+#### Column Information
+
+##### FILE_NUM
+
+This indicates the file number of the stable checkpoint image file.
+
+If checkpoint scale is set to PAIR, the value of FILE_NUM is always 0. This is bacause all stable checkpoint image files in the tablespace share the same ping pong number. Thus, the number for other files can be inferred from file number 0. 
+
+Otherwise, if checkpoint scale is set to SINGLE, it displays the file numbers for all stable checkpoint image files.
+
+The checkpoint scale setting can be checked in the CHECKPOINT_SCALE column of the V$LOG view.
+
+##### CURRENT_DB
+
+This indicates the ping pong number of the stable checkpoint image file.
+
 ### V\$MEM_TABLESPACES
 
 This view shows information about tablespaces that exist in memory.
@@ -7330,7 +7366,7 @@ This view shows information about tablespaces that exist in memory.
 | ALLOC_PAGE_COUNT    | BIGINT       | The total number of pages in the tablespace                  |
 | FREE_PAGE_COUNT     | BIGINT       | The number of free pages in the tablespace                   |
 | RESTORE_TYPE        | BIGINT       | How to load the tablespace into memory                       |
-| CURRENT_DB          | INTEGER      | A set of files that are the target for ping pong checkpointing |
+| CURRENT_DB          | INTEGER      | The ping pong number of the stable checkpoint image file. |
 | HIGH_LIMIT_PAGE     | BIGINT       | The maximum number of pages that the tablespace can have     |
 | PAGE_COUNT_PER_FILE | BIGINT       | The number of pages per database image file                  |
 | PAGE_COUNT_IN_DIS K | INTEGER      | The number of pages that exist on disk                       |
@@ -7397,7 +7433,12 @@ This indicates how the tablespace is loaded into memory. It can have the followi
 
 ##### CURRENT_DB
 
-This is the database image file group into which dirty pages (changed pages) are downloaded during checkpointing. It can be 0 or 1.
+This indicates the ping pong number of the stable checkpoint image file in the tablespace.
+
+If checkpoint scale is set to PAIR,  the value of this column is either 0 or 1.
+If checkpoint scale is set to SINGLE, the value of this column is -1. In this case, the ping pong number of the stable checkpoint image file can be verified in the V$MEM_STABLE view.
+
+The checkpoint scale setting can be checked in the CHECKPOINT_SCALE column of the V$LOG view.
 
 ##### HIGH_LIMIT_PAGE
 

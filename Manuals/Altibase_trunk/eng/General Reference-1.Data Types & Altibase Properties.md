@@ -3511,8 +3511,8 @@ The values in the “Alter Level” column have the following meaning:
   <td>TRANSACTION_TABLE_SIZE</td>
   </tr>
   <tr>
-  <td rowspan="17">B</td>
-  <td rowspan="17">&nbsp;</td>
+  <td rowspan="18">B</td>
+  <td rowspan="18">&nbsp;</td>
   <td>ARCHIVE_DIR</td>
   <td rowspan="6">&nbsp;</td>
   </tr>
@@ -3537,6 +3537,10 @@ The values in the “Alter Level” column have the following meaning:
   </tr>
   <tr>
   <td>CHECKPOINT_INTERVAL_IN_SEC</td>
+  <td>SYSTEM</td>
+  </tr>
+  <tr>
+  <td>CHECKPOINT_SCALE_SINGLE_DW_BUFFER_SIZE</td>
   <td>SYSTEM</td>
   </tr>
   <tr>
@@ -10287,6 +10291,30 @@ This property specifies the checkpoint interval in seconds.
 
 This property can be changed using the ALTER SYSTEM statement while Altibase is running.
 
+#### CHECKPOINT_SCALE_SINGLE_DW_BUFFER_SIZE (Unit: byte)
+
+##### Data Type
+
+Unsigned Integer
+
+##### Default Value
+
+524288000 (500 MByte)
+
+##### Attributes
+
+Read-Write, Single Value
+
+##### Range
+
+[1 MByte, 2 Gbyte]
+
+##### Description
+
+This property sets the size of the double write buffer and double write image file used during the double write operation when the checkpoint scale is SINGLE.
+
+It should be set to half the size of the largest checkpoint image file.
+
 #### COMMIT_WRITE_WAIT_MODE 
 
 ##### Data Type
@@ -10465,7 +10493,7 @@ Read-Only, Single Value
 
 If there is not enough space in the log file when logs are written, a new log file is created, which can increase the transaction response time. To prevent such delays in transaction execution caused by the creation of log files, Altibase creates extra log files (“prepare log files”) in advance. This parameter specifies the number of such log files.
 
-**SNAPSHOT_MEM_THRESHOLD (Unit: percentage)**
+#### SNAPSHOT_MEM_THRESHOLD (Unit: percentage)
 
 ##### Data Type
 
@@ -10489,7 +10517,7 @@ This is a property which sets up available thresholds for use in memory database
 
 The percentage of the MEM_MAX_DB_SIZE property which is currently being used by memory is verified, and if it exceeds the specified threshold, the snapshot is automatically stopped.
 
-**SNAPSHOT_DISK_UNDO_THRESHOLD (Unit: percentage)**
+#### SNAPSHOT_DISK_UNDO_THRESHOLD (Unit: percentage)
 
 ##### Data Type
 
