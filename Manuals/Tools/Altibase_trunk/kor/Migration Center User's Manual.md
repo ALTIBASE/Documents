@@ -1467,7 +1467,7 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 
 보정 계수 (Correction Factor)는 기본적으로 Migration Center에서 자동으로 계산하지만, 사용자가 변경할 수 있다. 보정 계수를 변경하려면, 마이그레이션 옵션 "Correction Factor for Character Type Conversion"에서 값을 수정하면 된다. 단, 보정 계수가 1인 경우에는 길이 변환을 하지 않는다.
 
-보정 계수가 자동으로 계산된 경우 사용자는 Build Report의 Summary 페이지에서 이를 확인할 수 있다. 사용자가 보정 계수를 수정한 경우 업데이트된 값은 Reconcile Report의 Summary 페이지에서 확인할 수 있다. 
+자동 계산된 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있으며, 사용자가 수정한 보정 계수는 Reconcile Report의 Summary 페이지에서 확인할 수 있다.
 
 #### 주의 사항
 

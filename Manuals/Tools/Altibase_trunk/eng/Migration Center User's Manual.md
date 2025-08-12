@@ -1456,7 +1456,7 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 
 The correction factor is automatically calculated by the Migration Center, but users can modify it using the "Correction Factor for Character Type Conversion" migration option. Note that if the correction factor is set to 1, the length conversion will not be performed.
 
-If the correction factor is automatically calculated, the user can see it on the Summary page of the Build Report. If the user has modified the correction factor, the updated value is shown on the Summary page of the Reconcile Report.
+The automatically calculated correction factor can be found on the Summary page of the Build Report, while the user-modified correction factor can be found on the Summary page of the Reconcile Report.
 
 #### Precautions
 
