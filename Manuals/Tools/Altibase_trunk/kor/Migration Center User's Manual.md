@@ -931,35 +931,36 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
 
 마이그레이션 대상이 되는 원본 데이터베이스의 객체와 테이블의 데이터가 저장하려는 데이터베이스(Altibase)로 직접 마이그레이션된다.
 
-| 이름                                         | 설명                                                         |
-| :------------------------------------------- | :----------------------------------------------------------- |
-| Execution Thread                             | 데이터 마이그레이션 실행 시 수행할 최대 스레드 개수를 설정한다. 기본 설정은 마이그레이션 센터가 실행된 시스템의 논리 CPU 개수 * 3이다. 설정값 범위는 1~논리 CPU 개수 * 3을 권장한다. |
-| Migration Target                             | 마이그레이션 대상을 선택한다. <br />- Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />- Object: 데이터베이스 객체만 |
-| **Object Options**                           |                                                              |
-| Foreign Key Migration                        | 마이그레이션 대상에 외래 키 제약 조건 포함 여부를 설정한다. 기본 설정은 No이다. |
-| PSM Migration                                | 마이그레이션 대상에 PSM 객체(저장 프로시저, 저장 함수, Materialized View, 뷰, 타입 세트 및 트리거) 포함 여부를 설정한다. 기본 설정은 Yes이다. |
-| Drop Existing Objects                        | 마이그레이션 수행 전 데이터베이스 객체 재생성 여부를 설정한다.<br />Yes는 대상 데이터베이스에서 마이그레이션 대상 객체를 삭제(Drop)하고 생성(Create)한다. No는 데이터베이스 객체 삭제 과정 없이 마이그레이션을 수행한다. 기본 설정은 No이다. |
-| Keep Partition Table                         | 파티션드 테이블 유지 여부를 설정한다. <br />Yes는 변환 가능한 경우 원본 데이터베이스와 동일한 파티션드 테이블을 생성한다. 이 경우 사용자는 조정(Reconcile) 단계 중 5. Partitioned Table Conversion에서 파티션드 테이블 변환에 필요한 추가 작업을 진행해야 한다. No는 논파티션드 테이블로 변경하여 생성한다. 기본 설정은 No이다. |
-| Use Double-quoted Identifier                 | 데이터베이스 객체 이름에 큰 따옴표 사용 여부를 설정한다. 기본 설정은 No이다. |
-| Remove FORCE from View DDL                   | 뷰 생성 구문에서 'FORCE' 키워드 삭제 여부를 설정한다. 기본 설정은 Yes이다. |
-| Invisible Column Migration                   | 마이그레이션 대상 테이블 칼럼에 Invisible 칼럼 포함 여부를 설정한다. Altibase는 Invisible 칼럼 기능을 제공하지 않는다. <br />Yes는 Invisible 칼럼을 일반 칼럼으로 변경하여 마이그레이션을 수행한다. No는 Invisible 칼럼을 제외하여 마이그레이션을 수행한다. 기본 설정은 No이다. |
-| Postfix for reserved word                    | 원본 데이터베이스 객체 이름이 Altibase 예약어와 충돌할 경우 객체 이름에 추가할 접미사를 설정한다. 기본 설정은 _POC이다. |
-| Default '' (Empty String) Not Null Column    | 빈 문자열(Empty string)[^1]이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼의 정의를 어떻게 조정할 지 설정한다. <br />- Replace Default Empty String: Yes는 기본값을 사용자가 지정한 문자열로 설정하는 것을 의미한다. 기본 설정은 No이다.<br />- Replacement Default Value: 기본값으로 설정될 문자열을 입력한다. Replace Default Empty String 설정이 Yes일 때만 활성화된다.<br />- Remove Not Null: Yes는 빈 문자열이 기본값인 칼럼에 설정된 NOT NULL 제약 조건을 해제하는 것을 의미한다. 기본 설정은 No이다. |
-| **Data Options**                             |                                                              |
-| Batch Execution                              | 성능 향상을 위한 JDBC 배치 입력 사용 여부를 설정한다. 기본 설정은 Yes이다. |
-| Batch Size                                   | JDBC 배치 입력 사용 시 배치 크기를 지정한다. 기본 설정은 10000이다. |
-| Batch LOB type                               | BLOB, CLOB 데이터 타입의 배치 처리 여부를 지정한다. <br/>Yes는 배치 처리를 허용하는 것을 의미한다. 단, LOB 데이터 크기에 따라 메모리 초과 (Out Of Memory) 등의 문제가 발생할 수 있음을 주의해야 한다. 또한 배치 기능을 지원하지 않는 TimesTen에서 예외가 발생할 수 있다. <br />No는 배치 처리를 허용하지 않는다. 기본 설정은 No이다. |
-| Log Insert-failed Data                       | 데이터 마이그레이션 중 입력 실패한 행(row)을 로그 파일에 작성할 것인지 설정한다. 이 옵션은 Batch Execution 옵션이 No인 경우 활성화된다. 기본 설정은 No이다. |
-| File Encoding                                | 입력 실패한 레코드를 파일에 기록할 때 인코딩 문자 집합을 지정한다. Log Insert-failed Data 옵션이 Yes인 경우 활성화된다. 기본설정은 UTF8이다. |
-| Convert Oversized String VARCHAR To CLOB     | 칼럼의 데이터 타입이 Altibase VARCHAR 타입으로 매핑되는 경우 칼럼의 크기가 Altibase의 VARCHAR 최대 크기인 32000 Bytes를 초과할 때, CLOB으로 데이터 타입 변환 여부를 지정한다. </br>Yes는 CLOB 타입으로 변환하여 처리하는 것을 의미한다. </br>No는 칼럼의 크기가 32000인 VARCHAR 타입으로 변환하여 처리하는 것을 의미한다. 기본 설정은 Yes이다.
-| Replace Empty String Data                    | 데이터 마이그레이션 수행 중 발견한 빈 문자열 데이터를 사용자가 지정한 문자열로 변경하기 위한 옵션이다.<br />- Replace Empty Strings in Not Null: Yes는 빈 문자열 데이터를 사용자가 지정한 문자열로 대체하는 것을 의미한다. 기본 설정은 No이다.<br>- Replacement String: 빈 문자열을 대체할 문자열을 입력한다. Replace Empty Strings in Not Null 설정이 Yes일 때만 활성화된다.<br />- Apply to Nullable Columns: Yes는 NOT NULL 제약 조건이 걸려있지 않은 칼럼의 빈 문자열 데이터도 Replacement String에 입력한 문자열로 대체하는 것을 의미한다. 기본 설정은  No이다. |
-| **Data Validation Options**                  |                                                              |
-| Operation                                    | 검증 단계에서 수행할 연산을 선택한다. <br />- DIFF : 원본 및 대상 데이터베이스 간 데이터 불일치 검사 <br />- FILESYNC: DIFF의 결과로 생성된 CSV 파일을 대상 데이터베이스에 반영 |
-| Write to CSV                                 | 불일치 데이터를 CSV 파일에 기록할 것인지 설정한다.           |
-| Include LOB                                  | 불일치 데이터를 CSV 파일에 기록할 때 LOB 데이터를 포함할 것인지 설정한다. |
-| Data Sampling                                | 데이터 샘플링 기능 사용 여부를 설정한다.<br />Yes는 검증 단계의 소요 시간을 줄이기 위해, 샘플 데이터를 대상으로 검증 단계를 수행한다. No는 전체 데이터를 대상으로 검증 단계를 수행한다. 기본 설정은 Yes이다. |
-| Percent Sampling (exact counting)            | 테이블에서 샘플링할 데이터의 비율을 퍼센트 단위로 지정한다. 구축 단계에서 Exact Counting Method를 선택한 경우 이 옵션이 사용된다. |
-| Record Count Sampling (approximate counting) | 테이블에서 샘플링할 레코드의 개수를 지정한다. 구축 단계에서 Approximate Counting Method를 선택한 경우 이 옵션이 사용된다. |
+| 이름                                            | 설명                                                         |
+| :---------------------------------------------- | :----------------------------------------------------------- |
+| Execution Thread                                | 데이터 마이그레이션 실행 시 수행할 최대 스레드 개수를 설정한다. 기본 설정은 마이그레이션 센터가 실행된 시스템의 논리 CPU 개수 * 3이다. 설정값 범위는 1~논리 CPU 개수 * 3을 권장한다. |
+| Migration Target                                | 마이그레이션 대상을 선택한다. <br />- Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />- Object: 데이터베이스 객체만 |
+| **Object Options**                              |                                                              |
+| Foreign Key Migration                           | 마이그레이션 대상에 외래 키 제약 조건 포함 여부를 설정한다. 기본 설정은 No이다. |
+| PSM Migration                                   | 마이그레이션 대상에 PSM 객체(저장 프로시저, 저장 함수, Materialized View, 뷰, 타입 세트 및 트리거) 포함 여부를 설정한다. 기본 설정은 Yes이다. |
+| Drop Existing Objects                           | 마이그레이션 수행 전 데이터베이스 객체 재생성 여부를 설정한다.<br />Yes는 대상 데이터베이스에서 마이그레이션 대상 객체를 삭제(Drop)하고 생성(Create)한다. No는 데이터베이스 객체 삭제 과정 없이 마이그레이션을 수행한다. 기본 설정은 No이다. |
+| Keep Partition Table                            | 파티션드 테이블 유지 여부를 설정한다. <br />Yes는 변환 가능한 경우 원본 데이터베이스와 동일한 파티션드 테이블을 생성한다. 이 경우 사용자는 조정(Reconcile) 단계 중 5. Partitioned Table Conversion에서 파티션드 테이블 변환에 필요한 추가 작업을 진행해야 한다. No는 논파티션드 테이블로 변경하여 생성한다. 기본 설정은 No이다. |
+| Use Double-quoted Identifier                    | 데이터베이스 객체 이름에 큰 따옴표 사용 여부를 설정한다. 기본 설정은 No이다. |
+| Remove FORCE from View DDL                      | 뷰 생성 구문에서 'FORCE' 키워드 삭제 여부를 설정한다. 기본 설정은 Yes이다. |
+| Invisible Column Migration                      | 마이그레이션 대상 테이블 칼럼에 Invisible 칼럼 포함 여부를 설정한다. Altibase는 Invisible 칼럼 기능을 제공하지 않는다. <br />Yes는 Invisible 칼럼을 일반 칼럼으로 변경하여 마이그레이션을 수행한다. No는 Invisible 칼럼을 제외하여 마이그레이션을 수행한다. 기본 설정은 No이다. |
+| Postfix for reserved word                       | 원본 데이터베이스 객체 이름이 Altibase 예약어와 충돌할 경우 객체 이름에 추가할 접미사를 설정한다. 기본 설정은 _POC이다. |
+| Default '' (Empty String) Not Null Column       | 빈 문자열(Empty string)[^1]이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼의 정의를 어떻게 조정할 지 설정한다. <br />- Replace Default Empty String: Yes는 기본값을 사용자가 지정한 문자열로 설정하는 것을 의미한다. 기본 설정은 No이다.<br />- Replacement Default Value: 기본값으로 설정될 문자열을 입력한다. Replace Default Empty String 설정이 Yes일 때만 활성화된다.<br />- Remove Not Null: Yes는 빈 문자열이 기본값인 칼럼에 설정된 NOT NULL 제약 조건을 해제하는 것을 의미한다. 기본 설정은 No이다. |
+| **Data Options**                                |                                                              |
+| Batch Execution                                 | 성능 향상을 위한 JDBC 배치 입력 사용 여부를 설정한다. 기본 설정은 Yes이다. |
+| Batch Size                                      | JDBC 배치 입력 사용 시 배치 크기를 지정한다. 기본 설정은 10000이다. |
+| Batch LOB type                                  | BLOB, CLOB 데이터 타입의 배치 처리 여부를 지정한다. <br/>Yes는 배치 처리를 허용하는 것을 의미한다. 단, LOB 데이터 크기에 따라 메모리 초과 (Out Of Memory) 등의 문제가 발생할 수 있음을 주의해야 한다. 또한 배치 기능을 지원하지 않는 TimesTen에서 예외가 발생할 수 있다. <br />No는 배치 처리를 허용하지 않는다. 기본 설정은 No이다. |
+| Log Insert-failed Data                          | 데이터 마이그레이션 중 입력 실패한 행(row)을 로그 파일에 작성할 것인지 설정한다. 이 옵션은 Batch Execution 옵션이 No인 경우 활성화된다. 기본 설정은 No이다. |
+| File Encoding                                   | 입력 실패한 레코드를 파일에 기록할 때 인코딩 문자 집합을 지정한다. Log Insert-failed Data 옵션이 Yes인 경우 활성화된다. 기본설정은 UTF8이다. |
+| Convert Oversized String VARCHAR To CLOB        | 칼럼의 데이터 타입이 Altibase VARCHAR 타입으로 매핑되는 경우 칼럼의 크기가 Altibase의 VARCHAR 최대 크기인 32000 Bytes를 초과할 때, CLOB으로 데이터 타입 변환 여부를 지정한다. </br>Yes는 CLOB 타입으로 변환하여 처리하는 것을 의미한다. </br>No는 칼럼의 크기가 32000인 VARCHAR 타입으로 변환하여 처리하는 것을 의미한다. 기본 설정은 Yes이다. |
+| Correction Factor for Character Type Conversion | 원본 데이터베이스와 대상 데이터베이스의 문자 집합이 서로 다른 경우, 문자형 데이터 타입(CHAR, VARCHAR) 칼럼 길이를 자동 변환하는데 사용되는 보정 계수(Correction Factor)를 지정하는 옵션이다. 기본 값은 자동으로 계산된 값이며, 1보다 작은 값으로 지정할 수 없다. </br> 더 자세한 내용은 [C.부록: 데이터 타입 매핑 - 이종 문자 집합을 고려한 문자형 칼럼 길이 자동 보정](#이종-문자-집합을-고려한-문자형-칼럼-길이-자동-보정)을 참고한다. </br> - 칼럼 단위로 문자 집합이 지정된 경우에는 이 옵션으로 설정한 보정 계수가 적용되지 않는다. 관련 내용은 FAQ를 참고한다. |
+| Replace Empty String Data                       | 데이터 마이그레이션 수행 중 발견한 빈 문자열 데이터를 사용자가 지정한 문자열로 변경하기 위한 옵션이다.<br />- Replace Empty Strings in Not Null: Yes는 빈 문자열 데이터를 사용자가 지정한 문자열로 대체하는 것을 의미한다. 기본 설정은 No이다.<br>- Replacement String: 빈 문자열을 대체할 문자열을 입력한다. Replace Empty Strings in Not Null 설정이 Yes일 때만 활성화된다.<br />- Apply to Nullable Columns: Yes는 NOT NULL 제약 조건이 걸려있지 않은 칼럼의 빈 문자열 데이터도 Replacement String에 입력한 문자열로 대체하는 것을 의미한다. 기본 설정은  No이다. |
+| **Data Validation Options**                     |                                                              |
+| Operation                                       | 검증 단계에서 수행할 연산을 선택한다. <br />- DIFF : 원본 및 대상 데이터베이스 간 데이터 불일치 검사 <br />- FILESYNC: DIFF의 결과로 생성된 CSV 파일을 대상 데이터베이스에 반영 |
+| Write to CSV                                    | 불일치 데이터를 CSV 파일에 기록할 것인지 설정한다.           |
+| Include LOB                                     | 불일치 데이터를 CSV 파일에 기록할 때 LOB 데이터를 포함할 것인지 설정한다. |
+| Data Sampling                                   | 데이터 샘플링 기능 사용 여부를 설정한다.<br />Yes는 검증 단계의 소요 시간을 줄이기 위해, 샘플 데이터를 대상으로 검증 단계를 수행한다. No는 전체 데이터를 대상으로 검증 단계를 수행한다. 기본 설정은 Yes이다. |
+| Percent Sampling (exact counting)               | 테이블에서 샘플링할 데이터의 비율을 퍼센트 단위로 지정한다. 구축 단계에서 Exact Counting Method를 선택한 경우 이 옵션이 사용된다. |
+| Record Count Sampling (approximate counting)    | 테이블에서 샘플링할 레코드의 개수를 지정한다. 구축 단계에서 Approximate Counting Method를 선택한 경우 이 옵션이 사용된다. |
 
 [^1]: 길이가 0인 문자열
 
@@ -1453,23 +1454,29 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 ### 이종 문자 집합을 고려한 문자형 칼럼 길이 자동 보정
 
 마이그레이션시 원본(Source)과 대상(Destination) 데이터베이스의 문자 집합(character set)이 서로 다른 경우, 문자형 데이터 타입 (CHAR, VARCHAR)은 길이 변환이 필요하다.
-예를 들어 원본 데이터베이스는 한 문자당 최대 2바이트 저장소가 필요한 MS949 문자집합으로, 대상 데이터베이스는 한 문자당 3바이트가 필요한 UTF8 문자 집합으로 설정되어 있다면, 데이터 잘림 없이 마이그레이션을 하기 위해서는 대상 데이터베이스의 문자형 데이터 타입의 크기가 원본의 1.5배가 되어야 한다.
+예를 들어 원본 데이터베이스는 한 문자당 최대 2바이트 저장소가 필요한 MS949 문자 집합으로, 대상 데이터베이스는 한 문자당 3바이트가 필요한 UTF8 문자 집합으로 설정되어 있다면, 데이터 잘림 없이 마이그레이션을 하기 위해서는 대상 데이터베이스의 문자형 데이터 타입의 크기가 원본의 1.5배가 되어야 한다.
 
-Migration Center는 이러한 길이 변환을 자동으로 해 주며, 문자형 데이터 타입의 길이 보정식은 아래와 같다.
+Migration Center는 이러한 문자형 데이터 타입의 길이 변환을 자동으로 해 주며, 이때의 보정 계산식은 아래와 같다.
 
-```
+```mathematica
 Dest. Size = Ceil(Correction Factor * Src. Size)
 Correction Factor = Dest. MaxBytes / Src. MaxBytes
-* MaxBytes = The maximum number of bytes required to store one character
 ```
 
-단, 원본의 MaxBytes가 1이거나 보정 계수 (Correction Factor)가 1보다 작은 경우에는 길이 변환을 하지 않는다.
+* Dest. Size : 대상 칼럼의 길이
+* Src. Size : 원본 칼럼의 길이
+* Correction Factor : 보정 계수
+* MaxBytes : 한 문자를 저장하는데 필요한 최대 바이트 수(MaxBytes Per Character)
+* Ceil : 계산 결과를 올림 처리
 
-원본과 대상 데이터베이스의 MaxBytes와 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있다.
+보정 계수 (Correction Factor)는 기본적으로 Migration Center에서 자동으로 계산되지만, 사용자는 "Correction Factor for Character Type Conversion" 옵션을 수정하여 변경할 수 있다. 단, 보정 계수가 1인 경우에는 길이 변환을 하지 않는다.
+
+자동 계산된 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있으며, 사용자가 수정한 보정 계수는 Reconcile Report의 Summary 페이지에서 확인할 수 있다.
 
 #### 주의 사항
 
-대용량 테이블의 경우 길이 보정으로 인해 대상 데이터베이스의 데이터 저장 사이즈가 원본보다 훨씬 커질 수 있다. 길이를 변환하지 않아도 데이터가 잘리지 않는다는 보장이 있다면 조정(Reconcile) 단계에서 수동으로 길이를 지정할 수 있다.
+* 대용량 테이블의 경우 길이 보정으로 인해 대상 데이터베이스의 데이터 저장 사이즈가 원본보다 훨씬 커질 수 있다. 
+* 칼럼 단위로 문자 집합이 지정된 경우, "Correction Factor for Character Type Conversion" 옵션으로 설정한 값은 적용되지 않는다. 이 경우 자동으로 계산된 보정 계수가 해당 컬럼의 길이변환에 사용된다.
 
 #### 데이터베이스별 지원 문자 집합
 
@@ -1477,42 +1484,42 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 
 ##### Altibase
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| KO16KSC5601   | 2                        |
-| MS949         | 2                        |
-| BIG5          | 2                        |
-| GB231280      | 2                        |
-| MS936         | 2                        |
-| UTF8          | 3                        |
-| SHIFTJIS      | 2                        |
-| MS932         | 2                        |
-| EUCJP         | 3                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| KO16KSC5601   | 2                      |
+| MS949         | 2                      |
+| BIG5          | 2                      |
+| GB231280      | 2                      |
+| MS936         | 2                      |
+| UTF8          | 3                      |
+| SHIFTJIS      | 2                      |
+| MS932         | 2                      |
+| EUCJP         | 3                      |
 
 ##### Cubrid
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| utf8          | 3                        |
-| euckr         | 2                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| utf8          | 3                      |
+| euckr         | 2                      |
 
 <!--
 
 ##### Informix
 
-| Character Set      | Max. Bytes Per Character |
-| ------------------ | ------------------------ |
-| zh_cn.GB18030_2000 | 4                        |
-| zh_tw.big5         | 2                        |
-| zh_tw.euctw        | 4                        |
-| zh_cn.gb           | 2                        |
-| zh_tw.sbig5        | 2                        |
-| zh_tw.ccdc         | 2                        |
-| ja_jp.sjis-s       | 2                        |
-| ja_jp.ujis         | 3                        |
-| ja_up.sjis         | 2                        |
-| ko_kr.cp949        | 2                        |
-| ko_kr.ksc          | 2                        |
+| Character Set      | MaxBytes Per Character |
+| ------------------ | ---------------------- |
+| zh_cn.GB18030_2000 | 4                      |
+| zh_tw.big5         | 2                      |
+| zh_tw.euctw        | 4                      |
+| zh_cn.gb           | 2                      |
+| zh_tw.sbig5        | 2                      |
+| zh_tw.ccdc         | 2                      |
+| ja_jp.sjis-s       | 2                      |
+| ja_jp.ujis         | 3                      |
+| ja_up.sjis         | 2                      |
+| ko_kr.cp949        | 2                      |
+| ko_kr.ksc          | 2                      |
 
 -->
 
@@ -1526,67 +1533,67 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 
 ##### SQL Server
 
-| Code Page | Max. Bytes Per Character |
-| --------- | ------------------------ |
-| 932       | 2                        |
-| 936       | 2                        |
-| 949       | 2                        |
-| 950       | 2                        |
+| Code Page | MaxBytes Per Character |
+| --------- | ---------------------- |
+| 932       | 2                      |
+| 936       | 2                      |
+| 949       | 2                      |
+| 950       | 2                      |
 
 ##### Oracle
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| AL32UTF8      | 4                        |
-| JA16EUC       | 3                        |
-| JA16EUCTILDE  | 3                        |
-| JA16SJIS      | 2                        |
-| JA16SJISTILDE | 2                        |
-| KO16MSWIN949  | 2                        |
-| UTF8          | 3                        |
-| ZHS16GBK      | 2                        |
-| ZHT16HKSCS    | 2                        |
-| ZHT16MSWIN950 | 2                        |
-| ZHT32EUC      | 4                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| AL32UTF8      | 4                      |
+| JA16EUC       | 3                      |
+| JA16EUCTILDE  | 3                      |
+| JA16SJIS      | 2                      |
+| JA16SJISTILDE | 2                      |
+| KO16MSWIN949  | 2                      |
+| UTF8          | 3                      |
+| ZHS16GBK      | 2                      |
+| ZHT16HKSCS    | 2                      |
+| ZHT16MSWIN950 | 2                      |
+| ZHT32EUC      | 4                      |
 
 ##### Tibero
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| UTF8          | 4                        |
-| EUCKR         | 2                        |
-| MSWIN949      | 2                        |
-| SJIS          | 2                        |
-| JA16SJIS      | 2                        |
-| JA16SJISTILDE | 2                        |
-| JA16EUC       | 3                        |
-| JA16EUCTILDE  | 3                        |
-| GBK           | 2                        |
-| ZHT16HKSCS    | 2                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| UTF8          | 4                      |
+| EUCKR         | 2                      |
+| MSWIN949      | 2                      |
+| SJIS          | 2                      |
+| JA16SJIS      | 2                      |
+| JA16SJISTILDE | 2                      |
+| JA16EUC       | 3                      |
+| JA16EUCTILDE  | 3                      |
+| GBK           | 2                      |
+| ZHT16HKSCS    | 2                      |
 
 ##### TimesTen
 
-| Character Set  | Max. Bytes Per Character |
-| -------------- | ------------------------ |
-| AL16UTF16      | 4                        |
-| AL32UTF8       | 4                        |
-| JA16EUC        | 3                        |
-| JA16EUCTILDE   | 3                        |
-| JA16SJIS       | 2                        |
-| JA16SJISTILDE  | 2                        |
-| KO16KSC5601    | 2                        |
-| KO16MSWIN949   | 2                        |
-| ZHS16CGB231280 | 2                        |
-| ZHS16GBK       | 2                        |
-| ZHS32GB18030   | 4                        |
-| ZHT16BIG5      | 2                        |
-| ZHT16HKSCS     | 2                        |
-| ZHT16MSWIN950  | 2                        |
-| ZHT32EUC       | 4                        |
+| Character Set  | MaxBytes Per Character |
+| -------------- | ---------------------- |
+| AL16UTF16      | 4                      |
+| AL32UTF8       | 4                      |
+| JA16EUC        | 3                      |
+| JA16EUCTILDE   | 3                      |
+| JA16SJIS       | 2                      |
+| JA16SJISTILDE  | 2                      |
+| KO16KSC5601    | 2                      |
+| KO16MSWIN949   | 2                      |
+| ZHS16CGB231280 | 2                      |
+| ZHS16GBK       | 2                      |
+| ZHS32GB18030   | 4                      |
+| ZHT16BIG5      | 2                      |
+| ZHT16HKSCS     | 2                      |
+| ZHT16MSWIN950  | 2                      |
+| ZHT32EUC       | 4                      |
 
 ##### PostgreSQL
 
-| Character Set  | Max. Bytes Per Character |
+| Character Set  | MaxBytes Per Character |
 | :-------------- | :------------------------: |
 | BIG5           | 2                        |
 | EUC_CN         | 3                        |
@@ -7581,6 +7588,16 @@ bat, sh에서 설정된 최대 메모리 할당값(`-Xmx`) 자바 옵션이 시�
 
 bat, sh에서 -Xms -Xmx 값을 사용자 환경에 맞춰 변경한 뒤, Migration Center를 재실행한다.
 
+#### Windows 환경에서 마이그레이션 옵션 창의 글씨 일부가 보이지 않는다.
+
+`원인`
+
+Windows 환경에서 화면 배율을 100% 이상으로 설정하면, 마이그레이션 옵션 창의 일부 글자가 겹치거나 잘려 보일 수 있다.
+
+`해결 방법`
+
+화면 배율을 100%로 설정하고, 마이그레이션 센터를 재 실행한다.
+
 ### Oracle
 
 #### 오류 메시지 'ORA-01652 unable to extend temp segment by 128 in tablespace TEMP'가 출력된다.
@@ -7777,6 +7794,16 @@ JRE 10 이하 버전의 JDBC 드라이버에서 javax.xml.bind 모듈을 참조�
 
 예) mssql-jdbc-7.2.2.***jre11***.jar
 
+#### "Correction Factor for Character Type Conversion" 옵션 값을 변경하여도, 자동 계산된 보정 계수가 적용된다.
+
+`원인`
+
+MS-SQL은 칼럼별로 문자 콜레이션을 지정할 수 있다. "Correction Factor for Character Type Conversion" 옵션 값은 MS-SQL 기본 문자 집합으로 설정한 문자 집합에 대해서만 적용된다. 즉, 칼럼 단위로 문자 집합이 지정된 경우, 칼럼에 지정된 문자 집합에 따라 자동 계산된 보정 계수가 적용되며, 이런 경우에는 옵션으로 설정한 보정 계수는 적용되지 않는다.
+
+`해결 방법`
+
+자동 변환된 컬럼의 크기는 Reconcil 단계의 DDL Editing 창 - Destination DDL 에서 해당 칼럼 크기를 직접 수정한다.
+
 ### Altibase
 
 #### 버전 5.1.5 이하의 Altibase를 이관할 때, 문자가 깨진다.
@@ -7902,6 +7929,16 @@ MySQL은 데이터 타입 NCHAR, NVARCHAR을 지원하지 않는다. 대신 CHAR
 > 2. Change 버튼을 클릭
 >
 > 3. Destination DB Data Type으로 NVARCHAR를 선택하고 Precision을 빈칸으로 둔 뒤, 저장한다.
+
+#### "Correction Factor for Character Type Conversion" 옵션 값을 변경하여도, 자동 계산된 보정 계수가 적용된다.
+
+`원인`
+
+MySQL은 칼럼별로 문자 집합을 지정할 수 있다. "Correction Factor for Character Type Conversion" 옵션 값은 MySQL 기본 문자 집합으로 설정한 문자 집합에 대해서만 적용된다. 즉, 칼럼 단위로 문자 집합이 지정된 경우, 칼럼에 지정된 문자 집합에 따라 자동 계산된 보정 계수가 적용되며, 이런 경우에는 옵션으로 설정한 보정 계수는 적용되지 않는다.
+
+`해결 방법`
+
+자동 변환된 컬럼의 크기는 Reconcil 단계의 DDL Editing 창 - Destination DDL 에서 해당 칼럼 크기를 직접 수정한다.
 
 ### PostgreSQL
 
