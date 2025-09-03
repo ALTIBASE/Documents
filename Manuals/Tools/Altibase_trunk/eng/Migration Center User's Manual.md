@@ -1461,7 +1461,6 @@ The automatically calculated correction factor can be found on the Summary page 
 #### Precautions
 
 * For large tables, the length of data storage in the target database can be much larger than the original due to length correction. 
-* If there is a guarantee that the data will not be truncated without converting the length, the length can be manually specified in the reconcile step.
 * If a character set is specified at the column level, the user-defined correction factor does not apply to the column length conversion; instead, the automatically calculated correction factor applies.
 
 #### Support Character Set for Each Database

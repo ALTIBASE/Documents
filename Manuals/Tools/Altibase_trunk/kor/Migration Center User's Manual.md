@@ -952,7 +952,7 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
 | Log Insert-failed Data                          | 데이터 마이그레이션 중 입력 실패한 행(row)을 로그 파일에 작성할 것인지 설정한다. 이 옵션은 Batch Execution 옵션이 No인 경우 활성화된다. 기본 설정은 No이다. |
 | File Encoding                                   | 입력 실패한 레코드를 파일에 기록할 때 인코딩 문자 집합을 지정한다. Log Insert-failed Data 옵션이 Yes인 경우 활성화된다. 기본설정은 UTF8이다. |
 | Convert Oversized String VARCHAR To CLOB        | 칼럼의 데이터 타입이 Altibase VARCHAR 타입으로 매핑되는 경우 칼럼의 크기가 Altibase의 VARCHAR 최대 크기인 32000 Bytes를 초과할 때, CLOB으로 데이터 타입 변환 여부를 지정한다. </br>Yes는 CLOB 타입으로 변환하여 처리하는 것을 의미한다. </br>No는 칼럼의 크기가 32000인 VARCHAR 타입으로 변환하여 처리하는 것을 의미한다. 기본 설정은 Yes이다. |
-| Correction Factor for Character Type Conversion | 원본 데이터베이스와 대상 데이터베이스의 문자 집합이 서로 다른 경우, 문자형 데이터 타입(CHAR, VARCHAR) 칼럼 길이를 자동 변환하는데 사용되는 보정 계수(Correction Factor)를 지정하는 옵션이다. 기본 값은 자동으로 계산된 값이며, 1보다 작은 값으로 지정할 수 없다. </br> 더 자세한 내용은 [C.부록: 데이터 타입 매핑 - 이종 문자 집합을 고려한 문자형 칼럼 길이 자동 보정](#이종-문자-집합을-고려한-문자형-칼럼-길이-자동-보정)을 참고한다. </br> - 칼럼 단위로 문자 집합이 지정된 경우에는 옵션으로 설정한 보정 계수는 적용되지 않는다. 관련 내용은 FAQ를 참고한다. |
+| Correction Factor for Character Type Conversion | 원본 데이터베이스와 대상 데이터베이스의 문자 집합이 서로 다른 경우, 문자형 데이터 타입(CHAR, VARCHAR) 칼럼 길이를 자동 변환하는데 사용되는 보정 계수(Correction Factor)를 지정하는 옵션이다. 기본 값은 자동으로 계산된 값이며, 1보다 작은 값으로 지정할 수 없다. </br> 더 자세한 내용은 [C.부록: 데이터 타입 매핑 - 이종 문자 집합을 고려한 문자형 칼럼 길이 자동 보정](#이종-문자-집합을-고려한-문자형-칼럼-길이-자동-보정)을 참고한다. </br> - 칼럼 단위로 문자 집합이 지정된 경우에는 이 옵션으로 설정한 보정 계수가 적용되지 않는다. 관련 내용은 FAQ를 참고한다. |
 | Replace Empty String Data                       | 데이터 마이그레이션 수행 중 발견한 빈 문자열 데이터를 사용자가 지정한 문자열로 변경하기 위한 옵션이다.<br />- Replace Empty Strings in Not Null: Yes는 빈 문자열 데이터를 사용자가 지정한 문자열로 대체하는 것을 의미한다. 기본 설정은 No이다.<br>- Replacement String: 빈 문자열을 대체할 문자열을 입력한다. Replace Empty Strings in Not Null 설정이 Yes일 때만 활성화된다.<br />- Apply to Nullable Columns: Yes는 NOT NULL 제약 조건이 걸려있지 않은 칼럼의 빈 문자열 데이터도 Replacement String에 입력한 문자열로 대체하는 것을 의미한다. 기본 설정은  No이다. |
 | **Data Validation Options**                     |                                                              |
 | Operation                                       | 검증 단계에서 수행할 연산을 선택한다. <br />- DIFF : 원본 및 대상 데이터베이스 간 데이터 불일치 검사 <br />- FILESYNC: DIFF의 결과로 생성된 CSV 파일을 대상 데이터베이스에 반영 |
@@ -1465,15 +1465,14 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 * MaxBytes : 한 문자를 저장하는데 필요한 최대 바이트 수(MaxBytes Per Character)
 * Ceil : 계산 결과를 올림 처리
 
-보정 계수 (Correction Factor)는 기본적으로 Migration Center에서 자동으로 계산하지만, 사용자가 변경할 수 있다. 보정 계수를 변경하려면, 마이그레이션 옵션 "Correction Factor for Character Type Conversion"에서 값을 수정하면 된다. 단, 보정 계수가 1인 경우에는 길이 변환을 하지 않는다.
+보정 계수 (Correction Factor)는 기본적으로 Migration Center에서 자동으로 계산되지만, 사용자는 "Correction Factor for Character Type Conversion" 옵션을 수정하여 변경할 수 있다. 단, 보정 계수가 1인 경우에는 길이 변환을 하지 않는다.
 
 자동 계산된 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있으며, 사용자가 수정한 보정 계수는 Reconcile Report의 Summary 페이지에서 확인할 수 있다.
 
 #### 주의 사항
 
 * 대용량 테이블의 경우 길이 보정으로 인해 대상 데이터베이스의 데이터 저장 사이즈가 원본보다 훨씬 커질 수 있다. 
-* 길이를 변환하지 않아도 데이터가 잘리지 않는다는 보장이 있다면 조정(Reconcile) 단계에서 수동으로 길이를 지정할 수 있다.
-* 칼럼 단위로 문자 집합이 지정된 경우 칼럼에 지정된 문자 집합에 따라 자동 계산된 보정 계수가 적용되며 해당 칼럼 길이 변환에는 옵션 값이 적용되지 않는다.
+* 칼럼 단위로 문자 집합이 지정된 경우 칼럼에 지정된 문자 집합에 따라 자동 계산된 보정 계수가 적용된다. 이때 해당 칼럼 길이 변환에는 "Correction Factor for Character Type Conversion" 옵션 값이 적용되지 않는다.
 
 #### 데이터베이스별 지원 문자 집합
 
@@ -7799,7 +7798,7 @@ MS-SQL은 칼럼별로 문자 콜레이션을 지정할 수 있다. "Correction 
 
 `해결 방법`
 
-자동 변환된 컬럼의 크기는 Reconcil 단계의 DDL Editing 창 -Destination DDL 에서 해당 칼럼 크기를 직접 수정한다.
+자동 변환된 컬럼의 크기는 Reconcil 단계의 DDL Editing 창 - Destination DDL 에서 해당 칼럼 크기를 직접 수정한다.
 
 ### Altibase
 
