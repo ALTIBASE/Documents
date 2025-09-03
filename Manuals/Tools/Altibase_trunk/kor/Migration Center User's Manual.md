@@ -1472,7 +1472,7 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 #### 주의 사항
 
 * 대용량 테이블의 경우 길이 보정으로 인해 대상 데이터베이스의 데이터 저장 사이즈가 원본보다 훨씬 커질 수 있다. 
-* 칼럼 단위로 문자 집합이 지정된 경우 칼럼에 지정된 문자 집합에 따라 자동 계산된 보정 계수가 적용된다. 이때 해당 칼럼 길이 변환에는 "Correction Factor for Character Type Conversion" 옵션 값이 적용되지 않는다.
+* 칼럼 단위로 문자 집합이 지정된 경우, "Correction Factor for Character Type Conversion" 옵션으로 설정한 값은 적용되지 않는다. 이 경우 자동으로 계산된 보정 계수가 해당 컬럼의 길이변환에 사용된다.
 
 #### 데이터베이스별 지원 문자 집합
 
