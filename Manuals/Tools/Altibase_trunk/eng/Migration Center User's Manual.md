@@ -1469,7 +1469,7 @@ The automatically calculated correction factor can be found on the Summary page 
 
 #### Support Character Set for Each Database
 
-For character sets not listed in the table below, Migration Center does not perform length correction.
+For character sets not listed in the table below, Migration Center considers "MaxBytes Per Character" as 1.
 
 ##### Altibase
 
@@ -1531,19 +1531,173 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 
 ##### Oracle
 
-| Character Set | MaxBytes Per Character |
-| ------------- | ---------------------- |
-| AL32UTF8      | 4                      |
-| JA16EUC       | 3                      |
-| JA16EUCTILDE  | 3                      |
-| JA16SJIS      | 2                      |
-| JA16SJISTILDE | 2                      |
-| KO16MSWIN949  | 2                      |
-| UTF8          | 3                      |
-| ZHS16GBK      | 2                      |
-| ZHT16HKSCS    | 2                      |
-| ZHT16MSWIN950 | 2                      |
-| ZHT32EUC      | 4                      |
+| Character Set   | MaxBytes Per Character |
+| --------------- | ---------------------- |
+| AL32UTF8        | 4                      |
+| JA16EUC         | 3                      |
+| JA16EUCTILDE    | 3                      |
+| JA16SJIS        | 2                      |
+| JA16SJISTILDE   | 2                      |
+| KO16MSWIN949    | 2                      |
+| UTF8            | 3                      |
+| ZHS16GBK        | 2                      |
+| ZHT16HKSCS      | 2                      |
+| ZHT16MSWIN950   | 2                      |
+| ZHT32EUC        | 4                      |
+| ZHT16HKSCS31    | 2                      |
+| US7ASCII        | 1                      |
+| BG8PC437S       | 1                      |
+| BLT8PC775       | 1                      |
+| CON8PC863       | 1                      |
+| EE8PC852        | 1                      |
+| EL8EBCDIC423R   | 1                      |
+| EL8PC437S       | 1                      |
+| EL8PC851        | 1                      |
+| EL8PC869        | 1                      |
+| IS8PC861        | 1                      |
+| IW8PC1507       | 1                      |
+| LT8PC772        | 1                      |
+| LT8PC774        | 1                      |
+| LV8PC8LR        | 1                      |
+| LV8PC1117       | 1                      |
+| LV8RST104090    | 1                      |
+| N8PC865         | 1                      |
+| RU8PC855        | 1                      |
+| RU8PC866        | 1                      |
+| TR8PC857        | 1                      |
+| US8PC437        | 1                      |
+| WE8PC850        | 1                      |
+| WE8PC858        | 1                      |
+| WE8PC860        | 1                      |
+| AR8ARABICMACS   | 1                      |
+| CL8MACCVRILLICS | 1                      |
+| EE8MACCES       | 1                      |
+| EE8MACCROATIANS | 1                      |
+| EL8MACGREEKS    | 1                      |
+| IW8MACHEBREWS   | 1                      |
+| TH8MACTHAIS     | 1                      |
+| TH8MACTURKISHS  | 1                      |
+| WE8MACROMAN8S   | 1                      |
+| AR8MSWIN1256    | 1                      |
+| BG8MSWIN        | 1                      |
+| BLT8MSWIN1257   | 1                      |
+| CL8MSWIN1251    | 1                      |
+| EE8MSWIN1250    | 1                      |
+| EL8MSWIN1253    | 1                      |
+| ET8MSWIN923     | 1                      |
+| IW8MSWIN1255    | 1                      |
+| LT8MSWIN921     | 1                      |
+| TR8MSWIN1254    | 1                      |
+| VN8MSWIN1258    | 1                      |
+| WE8MSWIN1252    | 1                      |
+| AR8ADOS710      | 1                      |
+| AR8ADOS720      | 1                      |
+| AR8APTEC715     | 1                      |
+| AR8ASMO8X       | 1                      |
+| AR8EBCDICX      | 1                      |
+| AR8EBCDIC420S   | 1                      |
+| AR8ISO8859P6    | 1                      |
+| AR8MUSSAD768    | 1                      |
+| AR8NAFITHA711   | 1                      |
+| AR8NAFITHA721   | 1                      |
+| AR8SAKHR706     | 1                      |
+| AR8SAKHR707     | 1                      |
+| AZ8ISO8859P9E   | 1                      |
+| BLT8CP921       | 1                      |
+| BLT8EBCDIC1112  | 1                      |
+| BLT8EBCDIC1112S | 1                      |
+| BLT8ISO8859P13  | 1                      |
+| BN8BSCII        | 1                      |
+| CE8BS2000       | 1                      |
+| CEL8ISO8859P14  | 1                      |
+| CL8BS2000       | 1                      |
+| CL8EBCDIC1025   | 1                      |
+| CL8EBCDIC1025C  | 1                      |
+| CL8EBCDIC1025R  | 1                      |
+| CL8EBCDIC1025S  | 1                      |
+| CL8EBCDIC1025X  | 1                      |
+| CL8EBCDIC1158   | 1                      |
+| CL8EBCDIC1158R  | 1                      |
+| CL8ISO8859P5    | 1                      |
+| CL8ISOIR111     | 1                      |
+| CL8KOI8R        | 1                      |
+| CL8KOI8U        | 1                      |
+| D8BS2000        | 1                      |
+| D8EBCDIC273     | 1                      |
+| D8EBCDIC1141    | 1                      |
+| DK8BS2000       | 1                      |
+| DK8EBCDIC277    | 1                      |
+| DK8EBCDIC1142   | 1                      |
+| E8BS2000        | 1                      |
+| EE8BS2000       | 1                      |
+| EE8EBCDIC870    | 1                      |
+| EE8EBCDIC870C   | 1                      |
+| EE8EBCDIC870S   | 1                      |
+| EE8ISO8859P2    | 1                      |
+| EL8DEC          | 1                      |
+| EL8EBCDIC875    | 1                      |
+| EL8EBCDIC875R   | 1                      |
+| EL8GCOS7        | 1                      |
+| EL8ISO8859P7    | 1                      |
+| F8BS2000        | 1                      |
+| F8EBCDIC297     | 1                      |
+| F8EBCDIC1147    | 1                      |
+| HU8ABMOD        | 1                      |
+| HU8CWI2         | 1                      |
+| I8EBCDIC280     | 1                      |
+| I8EBCDIC1144    | 1                      |
+| IN8ISCII        | 1                      |
+| IW8EBCDIC424    | 1                      |
+| IW8EBCDIC424S   | 1                      |
+| IW8EBCDIC1086   | 1                      |
+| IW8ISO8859P8    | 1                      |
+| LA8ISO6937      | 1                      |
+| LA8PASSPORT     | 1                      |
+| NE8ISO8859P10   | 1                      |
+| NEE8ISO8859P4   | 1                      |
+| RU8BESTA        | 1                      |
+| S8BS2000        | 1                      |
+| S8EBCDIC278     | 1                      |
+| S8EBCDIC1143    | 1                      |
+| SE8ISO8859P3    | 1                      |
+| TH8TISEBCDIC    | 1                      |
+| TH8TISEBCDICS   | 1                      |
+| TH8TISASCII     | 1                      |
+| TR8DEC          | 1                      |
+| TR8EBCDIC1026   | 1                      |
+| TR8EBCDIC1026S  | 1                      |
+| US8BS2000       | 1                      |
+| US8ICL          | 1                      |
+| VN8VN3          | 1                      |
+| WE8BS2000       | 1                      |
+| WE8BS2000E      | 1                      |
+| WE8BS2000L5     | 1                      |
+| WE8DEC          | 1                      |
+| WE8DG           | 1                      |
+| WE8EBCDIC37     | 1                      |
+| WE8EBCDIC37C    | 1                      |
+| WE8EBCDIC284    | 1                      |
+| WE8EBCDIC285    | 1                      |
+| WE8EBCDIC500    | 1                      |
+| WE8EBCDIC500C   | 1                      |
+| WE8EBCDIC871    | 1                      |
+| WE8EBCDIC924    | 1                      |
+| WE8EBCDIC1047   | 1                      |
+| WE8EBCDIC1047E  | 1                      |
+| WE8EBCDIC1140   | 1                      |
+| WE8EBCDIC1140C  | 1                      |
+| WE8EBCDIC1145   | 1                      |
+| WE8EBCDIC1146   | 1                      |
+| WE8EBCDIC1148   | 1                      |
+| WE8EBCDIC1148C  | 1                      |
+| WE8GCOS7        | 1                      |
+| WE8ICL          | 1                      |
+| WE8ISO8859P1    | 1                      |
+| WE8ISO8859P9    | 1                      |
+| WE8ISO8859P15   | 1                      |
+| WE8NCR4970      | 1                      |
+| WE8NEXTSTEP     | 1                      |
+| WE8ROMAN8       | 1                      |
 
 ##### Tibero
 
@@ -1559,6 +1713,29 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 | JA16EUCTILDE  | 3                      |
 | GBK           | 2                      |
 | ZHT16HKSCS    | 2                      |
+| EUCTW         | 4                      |
+| GB18030       | 4                      |
+| UTF16         | 4                      |
+| SJISTILDE     | 2                      |
+| ZHT16BIG5     | 2                      |
+| ZHT16MSWIN950 | 2                      |
+| ASCII         | 1                      |
+| VN8VN3        | 1                      |
+| TH8TISASCII   | 1                      |
+| EE8ISO8859P2  | 1                      |
+| WE8MSWIN1252  | 1                      |
+| WE8ISO8859P1  | 1                      |
+| WE8ISO8859P9  | 1                      |
+| WE8ISO8859P15 | 1                      |
+| CL8MSWIN1251  | 1                      |
+| CL8KOI8R      | 1                      |
+| CL8ISO8859P5  | 1                      |
+| RU8PC866      | 1                      |
+| EL8ISO8859P7  | 1                      |
+| EL8MSWIN1253  | 1                      |
+| AR8ISO8859P6  | 1                      |
+| AR8MSWIN1256  | 1                      |
+| IW8ISO8859P8  | 1                      |
 
 ##### TimesTen
 
