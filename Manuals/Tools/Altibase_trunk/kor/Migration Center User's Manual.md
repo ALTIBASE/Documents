@@ -2286,6 +2286,32 @@ CREATE OR REPLACE /* FORCE */ /* [REMOVED] RULE-11008 : FORCE has been removed *
 AS SELECT * FROM t1;
 ```
 
+#### RULE-11009
+
+###### 타입
+
+`REMOVED`
+
+###### 설명
+
+DEFAULT COLLATION 절이 제거되었다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE VIEW v1
+DEFAULT COLLATION "BINARY_AI"
+AS SELECT * FROM t1;
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE VIEW v1
+/* DEFAULT COLLATION "BINARY_AI" */ /* [REMOVED] RULE-11009 : DEFAULT COLLATION clause is removed */
+AS SELECT * FROM t1;
+```
+
 ### 트리거 변환 규칙
 
 #### RULE-12002
@@ -2789,6 +2815,38 @@ NULL;
 END /* trig1 */ /* [REMOVED] RULE-12017 : The trigger label name at the end of body has been removed */;
 ```
 
+#### RULE-12018
+
+###### 타입
+
+`REMOVED`
+
+###### 설명
+
+DEFAULT COLLATION 절이 제거되었다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE TRIGGER trig1
+DEFAULT COLLATION USING_NLS_COMP
+BEFORE INSERT ON t1
+BEGIN
+NULL;
+END;
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE TRIGGER trig1
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-12018 : DEFAULT COLLATION clause is removed */
+BEFORE INSERT ON t1
+BEGIN
+NULL;
+END;
+```
+
 ### 함수 변환 규칙
 
 #### RULE-13001
@@ -3257,6 +3315,40 @@ LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER /* [TODO] RULE-13015 : External data type of the parameters should be manually converted */);
 ```
 
+#### RULE-13016
+
+###### 타입
+
+`REMOVED`
+
+###### 설명
+
+DEFAULT COLLATION 절이 제거되었다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
+RETURN VARCHAR2
+DEFAULT COLLATION USING_NLS_COMP
+IS
+BEGIN
+RETURN a1;
+END;
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
+RETURN VARCHAR2
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-13016 : DEFAULT COLLATION clause is removed */
+IS
+BEGIN
+RETURN a1;
+END;
+```
+
 ### 프로시저 변환 규칙
 
 #### RULE-14001
@@ -3531,7 +3623,7 @@ PARAMETERS(a1 BY REFERENCE /* [TODO] RULE-14009 : BY REFERENCE clause must be co
 ###### 원본 SQL 문장
 
 ```sql
-CREAT OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
+CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
 LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER);
 ```
@@ -3539,9 +3631,41 @@ PARAMETERS(a1 OCINUMBER);
 ###### 변환된 SQL 문장
 
 ```sql
-CREAT OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
+CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
 LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER /* [TODO] RULE-14010 : External data type of the parameters should be manually converted */);
+```
+
+#### RULE-14011
+
+###### 타입
+
+`REMOVED`
+
+###### 설명
+
+DEFAULT COLLATION 절이 제거되었다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1
+DEFAULT COLLATION USING_NLS_COMP
+IS
+BEGIN
+NULL;
+END;
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-14011 : DEFAULT COLLATION clause is removed */
+IS
+BEGIN
+NULL;
+END;
 ```
 
 ### Materialized View 변환 규칙
@@ -3652,6 +3776,34 @@ AS
 END;
 ```
 
+#### RULE-16003
+
+###### 타입
+
+`REMOVED`
+
+###### 설명
+
+DEFAULT COLLATION 절이 제거되었다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE PACKAGE pkg1
+DEFAULT COLLATION USING_NLS_COMP
+AS
+END;
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE PACKAGE pkg1
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-16003 : DEFAULT COLLATION clause is removed */
+AS
+END;
+```
+
 
 ### 라이브러리 변환 규칙
 
@@ -3711,7 +3863,7 @@ AS '${ORACLE_HOME}/lib/test_lib.so';
 
 ###### 설명
 
-지원하지 않는 EDITIONABLE/NONEDITIONABLE 키워드가 제거되었다.
+EDITIONABLE/NONEDITIONABLE 키워드가 제거되었다.
 
 ###### 원본 SQL 문장
 

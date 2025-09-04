@@ -2309,6 +2309,32 @@ CREATE OR REPLACE /* FORCE */ /* [REMOVED] RULE-11008 : FORCE has been removed *
 AS SELECT * FROM t1;
 ```
 
+#### RULE-11009
+
+###### Type
+
+`REMOVED`
+
+###### Description
+
+DEFAULT COLLATION clause has been removed.
+
+###### Original SQL Text
+
+```sql
+CREATE OR REPLACE VIEW v1
+DEFAULT COLLATION "BINARY_AI"
+AS SELECT * FROM t1;
+```
+
+###### Processed SQL Text
+
+```sql
+CREATE OR REPLACE VIEW v1
+/* DEFAULT COLLATION "BINARY_AI" */ /* [REMOVED] RULE-11009 : DEFAULT COLLATION clause is removed */
+AS SELECT * FROM t1;
+```
+
 ### Trigger Conversion Rules
 
 #### RULE-12002
@@ -2811,6 +2837,38 @@ NULL;
 END /* trig1 */ /* [REMOVED] RULE-12017 : The trigger label name at the end of body has been removed */;
 ```
 
+#### RULE-12018
+
+###### Type
+
+`REMOVED`
+
+###### Description
+
+DEFAULT COLLATION clause has been removed.
+
+###### Original SQL Text
+
+```sql
+CREATE OR REPLACE TRIGGER trig1
+DEFAULT COLLATION USING_NLS_COMP
+BEFORE INSERT ON t1
+BEGIN
+NULL;
+END;
+```
+
+###### Processed SQL Text
+
+```sql
+CREATE OR REPLACE TRIGGER trig1
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-12018 : DEFAULT COLLATION clause is removed */
+BEFORE INSERT ON t1
+BEGIN
+NULL;
+END;
+```
+
 ### Function Conversion Rules
 
 #### RULE-13001
@@ -3279,6 +3337,38 @@ LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER /* [TODO] RULE-13015 : External data type of the parameters should be manually converted */);
 ```
 
+#### RULE-13016
+
+###### Type
+
+`REMOVED`
+
+###### Description
+
+DEFAULT COLLATION clause has been removed.
+
+###### Original SQL Text
+
+```sql
+CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
+RETURN VARCHAR2
+DEFAULT COLLATION USING_NLS_COMP
+IS BEGIN
+RETURN a1;
+END;
+```
+
+###### Processed SQL Text
+
+```sql
+CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
+RETURN VARCHAR2
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-13016 : DEFAULT COLLATION clause is removed */
+IS BEGIN
+RETURN a1;
+END;
+```
+
 ### Procedure Conversion Rules
 
 #### RULE-14001
@@ -3553,7 +3643,7 @@ External data type of the parameters should be manually converted.
 ###### Original SQL Text
 
 ```sql
-CREAT OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
+CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
 LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER);
 ```
@@ -3561,9 +3651,41 @@ PARAMETERS(a1 OCINUMBER);
 ###### Processed SQL Text
 
 ```sql
-CREAT OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
+CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
 LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER /* [TODO] RULE-14010 : External data type of the parameters should be manually converted */);
+```
+
+#### RULE-14011
+
+###### Type
+
+`REMOVED`
+
+###### Description
+
+DEFAULT COLLATION clause has been removed.
+
+###### Original SQL Text
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1
+DEFAULT COLLATION USING_NLS_COMP
+IS
+BEGIN
+NULL;
+END;
+```
+
+###### Processed SQL Text
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-14011 : DEFAULT COLLATION clause is removed */
+IS
+BEGIN
+NULL;
+END;
 ```
 
 ### Materialized View Conversion Rules
@@ -3670,6 +3792,34 @@ END;
 ```sql
 CREATE OR REPLACE PACKAGE pkg1
 /* ACCESSIBLE BY (TRIGGER trig1) */ /* [REMOVED] RULE-16002 : The ACCESSIBLE BY clause is removed */
+AS
+END;
+```
+
+#### RULE-16003
+
+###### Type
+
+`REMOVED`
+
+###### Description
+
+DEFAULT COLLATION clause has been removed.
+
+###### Original SQL Text
+
+```sql
+CREATE OR REPLACE PACKAGE pkg1
+DEFAULT COLLATION USING_NLS_COMP
+AS
+END;
+```
+
+###### Processed SQL Text
+
+```sql
+CREATE OR REPLACE PACKAGE pkg1
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-16003 : DEFAULT COLLATION clause is removed */
 AS
 END;
 ```
