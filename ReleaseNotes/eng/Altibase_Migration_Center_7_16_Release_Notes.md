@@ -162,6 +162,16 @@ This section introduces the DBMSs and versions that can be migrated using Migrat
 | ------------------------------------------------------------ | ------------------------ |
 | Altibase 4.3.9 or higher<br />CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br />Microsoft SQL Server 2005 ~ 2012<br />Oracle Database 10gR2 ~ 21c <br />Oracle MySQL 5.0 ~ 5.7 <br />Oracle TimesTen 11.2 <br />Tibero 4 SP1 ~ 7.2.2<br/>PostgreSQL 9.5.3 | Altibase 6.5.1 or higher |
 
+> [!NOTE]
+>
+> **Unsupported Versions**
+>
+> The following database versions are no longer supported in Migration Center starting from version 7.16:
+>
+> - **Oracle**: 9i, 10g Release 1 (10gR1)
+> - **TimesTen**: 7
+> - **Informix**: 11.50
+
 <br/>
 
 # 2. Release Information
@@ -174,13 +184,17 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 Oracle 21c has been added to the list of supported source databases.
 
 ### Support for JSON Data Type
-JSON data type has been added to the list of supported data types. When migrating, it will be mapped to the JSON type if the target database (Altibase) supports it. If the target database doesn't support JSON, it will be mapped to the CLOB type instead.
+The JSON data type has been added to the list of supported data types. During migration, it will be mapped to the JSON type if the target database (Altibase) supports it. If the target database doesn't support JSON, it will be mapped to the CLOB type instead.
 
-### Provide an Option to Specify Correction Factor for Character Type Conversion
-In the DB to DB migration option, the 'Correction Factor for Character Type Conversion' option was added to specify a correction factor for the automatic length conversion of character data types (CHAR, VARCHAR) when the source and target databases use different character sets. The default value is automatically calculated, and you cannot set it to a value less than 1. Note that this correction factor will not be applied to columns where the character set is specified on a column-by-column basis.
+### Provide an Option to Specify the Correction Factor for Character Type Conversion
+The 'Correction Factor for Character Type Conversion' option has been added to the DB to DB Migration Options. This option specifies a correction factor for the automatic length conversion of character data types (CHAR, VARCHAR) when the source and target databases use different character sets. The default value is automatically calculated, and it cannot be set to less than 1. Note that this correction factor does not apply to columns that have a column-specific character set defined.
 
-### Option Value Validation Added to Migration Option Window
-A new pop-up window has been added to the migration option window. This window will display a list of options with invalid values and their reasons when an invalid option value is entered. Invalid option values will not be applied unless they are corrected to a valid value within the option window.
+### Validation Added for Migration Option Values in the Migration Option Window
+A new pop-up window has been added to the migration option window. This window displays a list of options with invalid values and their reasons when an invalid option value is entered. Invalid option values will not be applied unless they are corrected to a valid value within the option window.
+
+### Oracle Internationalization Support Library (orai18n.jar) Added to Migration Center package
+
+To support Oracle’s multilingual character sets, the **orai18n.jar** has been added to the Migration Center package.
 
 <br/>
 
@@ -190,13 +204,10 @@ A new pop-up window has been added to the migration option window. This window w
 In the Reconcile phase, the "Unacceptable Name" step identifies objects that violate the target database’s naming rules and allows for renaming. Previously, when the target object was a column, the "Use double-quoted identifier" option was not applied due to an error. This issue has been resolved.
 
 ### BUG-51472 Add PSM converter rules: Add rule to remove unsupported DEFAULT COLLATION clause
-Altibase does not support the DEFAULT COLLATION clause. PSM converter rules RULE-11009, RULE-12018, RULE-13016, RULE-14011, and RULE-16003 have been added to remove the unsupproted DEFAULT COLLATION caluse.
+Altibase does not support the DEFAULT COLLATION clause. PSM converter rules RULE-11009, RULE-12018, RULE-13016, RULE-14011, and RULE-16003 have been added to remove the unsupported DEFAULT COLLATION clause.
 
 ### BUG-51650 Apply automatic adjustment of character column length between heterogeneous character sets when the source database uses a single-byte character set
 The automatic adjustment of character column length between heterogeneous character sets is now applied even when the source database uses a single-byte character set.
-
-### BUG-51657 Add Oracle internationalization support library orai18n.jar to Migration Center package
-To support Oracle’s multilingual character sets, the orai18n.jar internationalization support library has been added to the Migration Center package.
 
 <br/>
 
