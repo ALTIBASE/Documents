@@ -173,6 +173,16 @@ Migration Center 7.16 으로 마이그레이션 할 수 있는 데이터베이�
 | :----------------------------------------------------------- | :------------------------- |
 | Altibase 4.3.9 이상<br />CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br />Microsoft SQL Server 2005 ~ 2012<br />Oracle Database 10gR2 ~ 21c <br />Oracle MySQL 5.0 ~ 5.7 <br />Oracle TimesTen 11.2 <br />Tibero 4 SP1 ~ 7.2.2<br/>PostgreSQL 9.5.3 | Altibase 6.5.1 이상        |
 
+> [!NOTE]
+>
+> **지원 중단 데이터베이스 종류 및 버전**
+>
+> Migration Center7. 16부터는 다음 데이터베이스의 버전은 더 이상 지원되지 않습니다.
+>
+> - **Oracle**: 9i, 10g Release 1 (10gR1)
+> - **TimesTen**: 7
+> - **Informix**: 11.50
+
 <br/>
 
 # 2. 릴리즈 정보
