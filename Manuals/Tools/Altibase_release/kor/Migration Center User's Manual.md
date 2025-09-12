@@ -1,6 +1,6 @@
 # Migration Center User's Manual
 
-#### Release 7.15
+#### Release 7.16
 
 Altibase® Tools & Utilities
 
@@ -97,7 +97,7 @@ Altibase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities Migration Center User's Manual
-Release 7.15
+Release 7.16
 Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
 <b>㈜알티베이스</b>
@@ -141,7 +141,6 @@ Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 - [B.부록: 마이그레이션 가능한 데이터베이스 객체](#b부록-마이그레이션-가능한-데이터베이스-객체)
   - [Altibase to Altibase](#altibase-to-altibase)
   - [CUBRID to Altibase](#cubrid-to-altibase)
-  - [Informix to Altibase](#informix-to-altibase)
   - [MySQL to Altibase](#mysql-to-altibase)
   - [Oracle to Altibase](#oracle-to-altibase)
   - [SQL Server to Altibase](#sql-server-to-altibase)
@@ -171,7 +170,6 @@ Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
   - [Oracle](#oracle-1)
   - [MS-SQL](#ms-sql)
   - [Altibase](#altibase-1)
-  - [Informix](#informix-1)
   - [MySQL](#mysql-1)
   - [PostgreSQL](#postgresql-1)
   - [TimesTen](#timesten-1)
@@ -307,7 +305,7 @@ Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 
 ### 개요
 
-Migration Center는 데이터베이스 사이에 일반적으로 호환되는 데이터베이스 객체와 데이터를 직접 또는 간접적으로 복사하는 데이터베이스 마이그레이션(migration) 도구이다. 대부분의 데이터베이스는 국제 표준을 준수하지만, 어떤 데이터베이스라도 수동 데이터베이스 마이그레이션이 불가피한 경우가 있다. 일반적으로 데이터베이스 마이그레이션 작업을 수동으로 직접 하는 것은 복잡하고 시간이 많이 소모되며, 사람이 하는 일이기에 실수가 잦을 수 있다. Migration Center는 사용자가 그래픽 사용자 인터페이스(GUI) 모드에서 몇 번의 마우스 클릭만으로도 데이터베이스 마이그레이션 작업을 수행할 수 있게 도와준다. 또한, 명령어 인터페이스(CLI) 모드도 지원한다.
+Migration Center는 데이터베이스 사이에 일반적으로 호환되는 데이터베이스 객체와 데이터를 직접 또는 간접적으로 복사하는 데이터베이스 마이그레이션(migration) 도구이다. 일반적으로 데이터베이스 마이그레이션 작업을 수동으로 직접 하는 것은 복잡하고 시간이 많이 소모되며, 사람이 하는 일이기에 실수가 잦을 수 있다. Migration Center는 사용자가 그래픽 사용자 인터페이스(GUI) 모드에서 몇 번의 마우스 클릭만으로도 데이터베이스 마이그레이션 작업을 수행할 수 있게 도와준다. 또한, 명령어 인터페이스(CLI) 모드도 지원한다.
 
 이 도구 사용시 얻을 수 있는 주요 이점은 다음과 같다:
 
@@ -316,7 +314,7 @@ Migration Center는 데이터베이스 사이에 일반적으로 호환되는 �
 3. 데이터를 외부 파일로 내보내어(export), 나중에 iLoader로 Altibase에 가져올(import) 때 사용할 수 있다.
 4. 마이그레이션 과정을 단축시킬 수 있는 병렬 수행 옵션을 제공한다. 기본으로, 이 도구는 자동으로 여러 쓰레드 간의 데이터 마이그레이션 부하에 대한 균형을 조정한다. 이 도구는 또한 쓰레드들이 처리할 데이터를 수동으로 분할할 수 있는 방법도 제공한다.
 5. 서로 다른 종류의 데이터베이스 간에 다른 데이터 타입들의 데이터 타입 매핑을 제공한다. 유연성(flexibility)을 위한 사용자 정의 데이터 타입 매핑 뿐만 아니라 편의를 위한 기본 타입 매핑도 지원한다.
-6. 더 나은 사용성을 위한 GUI모드 뿐만 아니라, 만약의 경우를 대비해 명령어 인터페이스(CLI) 모드도 제공한다.
+6. 더 나은 사용성을 위한 GUI모드 뿐만 아니라, 명령어 인터페이스(CLI) 모드도 제공한다.
 7. 스키마 마이그레이션에 대해, 데이터베이스 객체 마이그레이션을 위한 DDL SQL문을 사용자가 수정할 수 있는 기능을 제공한다.
 
 ### 시스템 요구 사항
@@ -359,11 +357,10 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 ##### 원본 데이터베이스
 
 - Altibase: 4.3.9 이상 버전
-- Oracle Database: 9i~19c
+- Oracle Database: 10gR2~21c
 - Microsoft SQL Server: 2005~2012
 - Oracle MySQL: 5.0~5.7
-- Informix: 11.50
-- Oracle TimesTen: 7.0, 11.2
+- Oracle TimesTen: 11.2
 - CUBRID: 8.4.1~9.3.5 (ISO-8859-1, UTF-8 charset)
 - Tibero: 4sp1~7.2.2
 - PostgreSQL: 9.5.3
@@ -372,7 +369,7 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 
 Migration Center는 Altibase 및 다른 데이터베이스의 다양한 버전들과 함께 사용할 수 있다. 이 도구는 데이터베이스 접속을 위해 JDBC 드라이버를 사용하므로, 원본 데이터베이스와 대상 데이터베이스에 알맞은 JDBC 드라이버를 준비하는 것이 중요하다. 사용자 편의를 위해 지원되는 데이터베이스에 적합한 몇 가지 JDBC 드라이버를 Migration Center와 함께 제공한다.
 
-법적인 문제 때문에, 마이크로소프트 SQL Server의 JDBC 드라이버 파일과 Mysql Connector/J 파일, Informix JDBC 드라이버 파일, TimesTen의 JDBC 드라이버 파일은 패키지에 포함하지 않았다. 또한 TimesTen은 타입2 드라이버만 지원하기 때문에 반드시 TimesTen Client Package가 설치된 장비에서 이관을 수행하여야 한다.
+법적인 문제 때문에, 마이크로소프트 SQL Server의 JDBC 드라이버 파일과 Mysql Connector/J 파일, TimesTen의 JDBC 드라이버 파일은 패키지에 포함하지 않았다. 또한 TimesTen은 타입2 드라이버만 지원하기 때문에 반드시 TimesTen Client Package가 설치된 장비에서 이관을 수행하여야 한다.
 
 아래의 사이트에서 적절한 JDBC 드라이버 파일을 다운로드할 수 있다:
 
@@ -384,13 +381,11 @@ Migration Center는 Altibase 및 다른 데이터베이스의 다양한 버전�
    <https://docs.microsoft.com/en-us/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server-support-matrix?view=sql-server-2017>  
 3. Oracle MySQL Connector/J  
    <http://dev.mysql.com/downloads/connector/j/>
-4. Informix JDBC Driver  
-   <http://www14.software.ibm.com/webapp/download/search.jsp?go=y&rs=ifxjdbc>
-5. Oracle TimesTen  
+4. Oracle TimesTen  
    <http://www.oracle.com/technetwork/database/database-technologies/timesten/downloads/index.html>
-6. CUBRID  
+5. CUBRID  
    <http://www.cubrid.org/?mid=downloads&item=jdbc_driver>
-7. Tibero  
+6. Tibero  
    <https://technet.tmaxsoft.com/>
 
 ### 설치 및 제거
@@ -1030,7 +1025,8 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | View                     |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Trigger                  |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 
-### Informix to Altibase
+<!-- 
+Informix to Altibase
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
@@ -1047,6 +1043,8 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | Function               |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | View                   |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Trigger                |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+
+-->
 
 ### MySQL to Altibase
 
@@ -1068,13 +1066,13 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | 임시 테이블을 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. </br>외부 테이블(External Table)과 하이브리드 파티션드 테이블(Hybrid Partitioned Table)을 마이그레이션하기 위해서는 사용자가 접근할 수 있는 디스크 테이블 스페이스가 Altibase에 있어야 한다. Altibase는 Oracle이 제공하는 외부 테이블과 하이브리드 파티션드 테이블 기능을 제공하지 않으므로, 해당 테이블들은 일반 테이블 또는 파티션드 테이블로 변환되어 마이그레이션된다. 이러한 테이블들은 대용량일 가능성이 높아, 마이그레이션 시 자동으로 디스크 테이블스페이스에 할당되기 때문이다. |
+| Table                  |                   O                   |                   O                    | 임시 테이블을 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. </br>외부 테이블(External Table)과 하이브리드 파티션드 테이블(Hybrid Partitioned Table)을 마이그레이션하기 위해서는 사용자가 접근할 수 있는 디스크 테이블 스페이스가 Altibase에 있어야 한다. Altibase는 Oracle이 제공하는 외부 테이블과 하이브리드 파티션드 테이블 기능을 제공하지 않으므로, 해당 테이블들은 일반 테이블 또는 파티션드 테이블로 변환되어 마이그레이션된다. 이러한 테이블들은 대용량일 가능성이 높아, 마이그레이션 시 자동으로 디스크 테이블스페이스에 할당되기 때문이다. </br>블록체인 테이블(Blockchain Table)과 불변 테이블(Immutable Table)은 일반 테이블로 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
-| Check 제약             |                   O                   |                   O                    |                                                              |
+| Check 제약             |                   O                   |                   O                    | IS JSON 체크 제약 조건은 마이그레이션되지 않는다.            |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
-| Index                  |                   O                   |                   O                    | 보이지 않는 인덱스(Invisible Index)와 사용 불가능한 인덱스(Unusable Index)는 마이그레이션되지 않는다.                                                             |
-| Sequence               |                   O                   |                   X                    | 확장가능한 시퀀스는 마이그레이션되지 않는다.                                                             |
+| Index                  |                   O                   |                   O                    | 보이지 않는 인덱스(Invisible Index)와 사용 불가능한 인덱스(Unusable Index)는 마이그레이션되지 않는다. </br>다중값 인덱스(Multivalue Index)는 마이그레이션되지 않는다. |
+| Sequence               |                   O                   |                   X                    | 확장가능한 시퀀스(Scalable Sequence)는 마이그레이션되지 않는다. |
 | Private Synonym        |               부분 지원               |                   X                    | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
 | Procedure              |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
 | Function               |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
@@ -1222,6 +1220,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  15  | CLOB          | CLOB              |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666)   | Altibase에는 오라클 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다. |
 |  17  | ROWID         | VARCHAR(18)       | 오라클의 ROWID는 문자형 데이터 타입으로 변환한다. Altibase는 ROWID라는 데이터 타입을 지원하지 않는다. |
+|  18  | JSON          | CLOB 또는 JSON    | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 Altibase 8.1 이상 버전에서는 JSON 타입으로 변환된다. </br> 만약 VARCHAR2, BLOB, CLOB 등의 데이터 타입에 IS JSON 체크 제약 조건이 설정되어 있는 경우, 원본 데이터베이스의 해당 컬럼은 JSON 타입으로 간주된다. 단, IS JSON 체크 제약 조건은 마이그레이션되지 않는다. |
 
 #### MS-SQL Server to Altibase
 
@@ -1290,6 +1289,9 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  29  | LONGTEXT           | CLOB                            |                                                              |
 |  30  | ENUM               | VARCHAR(10666)                  | Altibase에는 MySQL ENUM 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
 |  31  | SET                | VARCHAR(10666)                  | Altibase에는 MySQL SET 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
+|  32  | JSON               | CLOB 또는 JSON                  | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 Altibase 8.1 이상 버전에서는 JSON 타입으로 변환된다. |
+
+<!--
 
 #### Informix 11.5 to Altibase
 
@@ -1320,6 +1322,8 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  23  | BYTE          | BLOB              |                                                              |
 |  24  | BLOB          | BLOB              |                                                              |
 |  25  | INTERVAL      | NUMBER(38)        |                                                              |
+
+-->
 
 #### TimesTen to Altibase
 
@@ -1401,6 +1405,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  15  | CLOB          | CLOB            |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666) | Altibase에는 티베로 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR의 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수 있다. |
 |  17  | ROWID         | VARCHAR(18)     | 티베로의 ROWID는 문자형 데이터 타입으로 변환한다. Altibase는 ROWID라는 데이터 타입을 지원하지 않는다. |
+|  18  | JSON          | CLOB 또는 JSON  | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 Altibase 8.1 이상 버전에서는 JSON 타입으로 변환된다. |
 
 #### PostgreSQL to Altibase
 
@@ -1443,6 +1448,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 | 35 | PATH | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
 | 36 | POLYGON | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
 | 37 | CIRCLE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 38 | JSON | CLOB 또는 JSON | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 Altibase 8.1 이상 버전에서는 JSON 타입으로 변환된다. |
 
 ### 이종 문자 집합을 고려한 문자형 칼럼 길이 자동 보정
 
@@ -1490,6 +1496,8 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 | utf8          | 3                        |
 | euckr         | 2                        |
 
+<!--
+
 ##### Informix
 
 | Character Set      | Max. Bytes Per Character |
@@ -1505,6 +1513,8 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 | ja_up.sjis         | 2                        |
 | ko_kr.cp949        | 2                        |
 | ko_kr.ksc          | 2                        |
+
+-->
 
 ##### MySQL
 
@@ -1767,6 +1777,8 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval <br />( c1 TIMESTAMP NOT NULL, <br />c2 INT DEFAULT 123, <br />c3 VARCHAR(50) DEFAULT 'test', <br />c4 INT DEFAULT NULL, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATE DEFAULT '1989-04-28', <br />c7 DATETIME DEFAULT '1989-04-28 12:31:29', <br />c8 TIMESTAMP DEFAULT '1989-04-28 12:31:29' NOT NULL, <br />c9 TIMESTAMP NOT NULL ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 DATE DEFAULT SYSDATE NOT NULL, <br />C2 INTEGER DEFAULT 123, <br />C3 CLOB DEFAULT 'test', C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE DEFAULT TO_DATE('1989-04-28', 'YYYY-MM-DD'), <br />C7 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS'), <br />C8 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS') NOT NULL, <br />C9 DATE /\* DEFAULT '0000-00-00 00:00:00' \*/ NOT NULL ); |
 
+<!--
+
 #### Informix 11.5 to Altibase
 
 <table>
@@ -1787,11 +1799,14 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
     </tr>     
 </table>
 
+
 아래는 변환 예제이다.
 
-| Informix의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                    | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                              |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Informix의 테이블 생성 SQL문                                 | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval ( <br />c1 INTEGER DEFAULT 123, <br />c2 BOOLEAN DEFAULT 't',<br />c3 CHAR(100) DEFAULT 'test', <br />c4 INTEGER DEFAULT null, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATETIME YEAR TO DAY DEFAULT DATETIME(07-3-6) YEAR TO DAY, <br />c7 DATETIME DAY TO HOUR DEFAULT CURRENT DAY TO HOUR, <br />c8 DATE DEFAULT TODAY ); | CREATE TABLE TESTTBL_4_DEFVAL ( <br />C1 INTEGER DEFAULT 123, <br />C2 CHAR (1) DEFAULT 't', <br />C3 CHAR (100) DEFAULT 'test', <br />C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE /\* DEFAULT '2007-03-06' \*/, <br />C7 DATE DEFAULT SYSDATE, <br />C8 DATE DEFAULT SYSDATE ); |
+
+-->
 
 #### TimesTen to Altibase
 
@@ -1956,7 +1971,6 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 | SQL Server   | 고정 길이 문자열 | **빈 문자열** |
 | PostgreSQL   | 고정 길이 문자열 | **빈 문자열** |
 | CUBRID       | 고정 길이 문자열 | **빈 문자열** |
-| Informix     | 고정 길이 문자열 | **빈 문자열** |
 
 Altibase는 기본적으로 빈 문자열을 NULL로 처리한다. 즉, 원본 데이터베이스에 빈 문자열 데이터가 있다면 마이그레이션 시 NULL 처리한다. 만약 빈 문자열이 칼럼의 기본값으로 설정되었다면(`DEFAULT ''`), Altibase는 이를 `DEFAULT NULL`로 해석하고, 기존의 기본값 설정을 제거한다.
 
@@ -7814,6 +7828,8 @@ BLOB, byte, nibble 데이터타입을 가진 테이블은 aexport와 iloader를 
 
 프로젝트를 열고 메뉴 Migration - Migration Option을 클릭하여 Batch Execution을 'No'로 선택한 뒤, 데이터 이관을 수행한다.
 
+<!--
+
 ### Informix
 
 #### 데이터 이관 중에 Informix JDBC Driver에서 java.sql.SQLException: Encoding or code set not supported. 발생
@@ -7844,6 +7860,8 @@ Informix 연결 속성에 IFX_USE_STRENC=true 를 추가한다.
 `참고`
 
 https://m.blog.naver.com/PostView.nhn?blogId=jangkeunna&logNo=70146227929&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
+
+-->
 
 ### MySQL
 
