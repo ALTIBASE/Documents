@@ -344,7 +344,7 @@ Migration Center는 데이터베이스 사이에 일반적으로 호환되는 �
 
 - Oracle 또는 IBM Java 8 이상의 JRE
 
-Migration Center는 GUI 모드의 경우 스윙(Swing)을 사용하는 순수 자바 애플리케이션이다. 이는 사용자의 하드웨어 및 운영 체제에 상관없이 대부분 독립적으로 실행되지만, 오라클 자바 런타임 환경(JRE)에 의존적이다. 오라클 또는 IBM Java 8 이상의 JRE를 설치할 것을 권장한다. GUI 모드로 Migration Center를 실행하려면, 사용자의 환경이 자바 스윙을 지원해야 한다.
+Migration Center는 GUI 모드의 경우 스윙(Swing)을 사용하는 순수 자바 애플리케이션이다. 따라서 오라클 Java 8 또는 IBM Java 8 이상의 JRE를 설치해야 한다.
 
 Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8과 함께 번들되었다. 그러므로 64비트 버전의 윈도우 사용자는 JRE에 대해 신경 쓸 필요가 없다. 그러나, 다른 운영 체제 사용자는 JRE 및 관련 환경 변수를 알맞게 설정해야 한다.
 
