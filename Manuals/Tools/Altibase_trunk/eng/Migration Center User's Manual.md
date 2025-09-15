@@ -1,6 +1,6 @@
 # Migration Center User's Manual
 
-#### Release 7.15
+#### Release 7.16
 
 Altibase® Tools & Utilities
 
@@ -85,7 +85,7 @@ Altibase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities Migration Center User's Manual
-Release 7.15
+Release 7.16
 Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
 software is prohibited.<br>
@@ -155,7 +155,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Oracle](#oracle-1)
   - [MS-SQL](#ms-sql)
   - [Altibase](#altibase-1)
-  - [Informix](#informix-1)
   - [MySQL](#mysql-1)
   - [PostgreSQL](#postgresql-1)
   - [TimesTen](#timesten-1)
@@ -296,7 +295,7 @@ This chapter introduces Migration Center and explains how to install it. This ch
 
 ### Overview
 
-Migration Center is a database migration tool that either directly or indirectly copies generally compatible database objects and data. Most databases comply with international standards, but no database is exempt from manual database migration. Generally, manual database migration is complicated, time-consuming, and error-prone. Migration Center helps users migrate databases with only a few mouse clicks in Graphic User Interface (GUI) mode, and offers Command Line Interface (CLI) mode as well.
+Migration Center is a database migration tool that either directly or indirectly copies generally compatible database objects and data. Generally, manual database migration is complicated, time-consuming, and error-prone. Migration Center helps users migrate databases with only a few mouse clicks in Graphic User Interface (GUI) mode, and offers Command Line Interface (CLI) mode as well.
 
 The major benefits of using this tool are:
 
@@ -305,7 +304,7 @@ The major benefits of using this tool are:
 3. Exports data to external files for later use in data importing to Altibase with iLoader. 
 4. Provides parallel execution options to shorten the migration process. By default, Migration Center automatically balances data migration load between a number of threads and also enables the user to manually split data over multiple threads. 
 5. Supports data type mapping of different data types between heterogeneous databases. Provides default type mapping for convenience and user-defined data type mapping for flexibility. 
-6. Provides GUI mode for better usability and CLI mode for special circumstances. 
+6. Provides GUI mode for better usability and CLI mode. 
 7. For schema migration, enables the user to modify DDL SQL statements for migrating database objects.
 
 ### System Requirements

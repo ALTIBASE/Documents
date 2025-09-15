@@ -1,6 +1,6 @@
 # Migration Center User's Manual
 
-#### Release 7.15
+#### Release 7.16
 
 Altibase® Tools & Utilities
 
@@ -85,7 +85,7 @@ Altibase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities Migration Center User's Manual
-Release 7.15
+Release 7.16
 Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
 software is prohibited.<br>
@@ -126,7 +126,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 - [Appendix B: Migratable Database Objects](#appendix-b-migratable-database-objects)
   - [Altibase to Altibase](#altibase-to-altibase)
   - [CUBRID to Altibase](#cubrid-to-altibase)
-  - [Informix to Altibase](#informix-to-altibase)
   - [MySQL to Altibase](#mysql-to-altibase)
   - [Oracle to Altibase](#oracle-to-altibase)
   - [SQL Server to Altibase](#sql-server-to-altibase)
@@ -156,7 +155,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Oracle](#oracle-1)
   - [MS-SQL](#ms-sql)
   - [Altibase](#altibase-1)
-  - [Informix](#informix-1)
   - [MySQL](#mysql-1)
   - [PostgreSQL](#postgresql-1)
   - [TimesTen](#timesten-1)
@@ -297,7 +295,7 @@ This chapter introduces Migration Center and explains how to install it. This ch
 
 ### Overview
 
-Migration Center is a database migration tool that either directly or indirectly copies generally compatible database objects and data. Most databases comply with international standards, but no database is exempt from manual database migration. Generally, manual database migration is complicated, time-consuming, and error-prone. Migration Center helps users migrate databases with only a few mouse clicks in Graphic User Interface (GUI) mode, and offers Command Line Interface (CLI) mode as well.
+Migration Center is a database migration tool that either directly or indirectly copies generally compatible database objects and data. Generally, manual database migration is complicated, time-consuming, and error-prone. Migration Center helps users migrate databases with only a few mouse clicks in Graphic User Interface (GUI) mode, and offers Command Line Interface (CLI) mode as well.
 
 The major benefits of using this tool are:
 
@@ -306,7 +304,7 @@ The major benefits of using this tool are:
 3. Exports data to external files for later use in data importing to Altibase with iLoader. 
 4. Provides parallel execution options to shorten the migration process. By default, Migration Center automatically balances data migration load between a number of threads and also enables the user to manually split data over multiple threads. 
 5. Supports data type mapping of different data types between heterogeneous databases. Provides default type mapping for convenience and user-defined data type mapping for flexibility. 
-6. Provides GUI mode for better usability and CLI mode for special circumstances. 
+6. Provides GUI mode for better usability and CLI mode. 
 7. For schema migration, enables the user to modify DDL SQL statements for migrating database objects.
 
 ### System Requirements
@@ -349,11 +347,10 @@ Since Migration Center is bundled with the JRE 8 for the 64-bit Microsoft Window
 ##### Source Database
 
 - Altibase: 4.3.9 or later
-- Oracle Database: 9i-19c
+- Oracle Database: 10gR2-21c
 - Microsoft SQL Server: 2005-2012
 - Oracle MySQL: 5.0-5.7
-- Informix: 11.50
-- Oracle TimesTen: 7.0, 11.2
+- Oracle TimesTen: 11.2
 - CUBRID: 8.4.1-9.3.5 (ISO-8859-1, UTF-8 charset)
 - Tibero: 4sp1-7.2.2
 - PostgreSQL: 9.5.3
@@ -362,7 +359,7 @@ Since Migration Center is bundled with the JRE 8 for the 64-bit Microsoft Window
 
 Migration Center is available for different versions of Altibase and other databases. This tool uses a JDBC driver for database connection, so it is important to prepare the appropriate JDBC driver for both source and destination databases. For user convenience, some JDBC drivers that are appropriate for use with supported databases are provided with Migration Center.
 
-Please note that for legal reasons, the Microsoft SQL Server JDBC driver file, MySQL Connector/J file, informix JDBC Driver file, and TimesTen JDBC driver file are not included in the package. Also, since TimesTen only supports type 2 driver, the migration must be performed on a machine that the TimesTen Client Package is installed.
+Please note that for legal reasons, the Microsoft SQL Server JDBC driver file, MySQL Connector/J file, and TimesTen JDBC driver file are not included in the package. Also, since TimesTen only supports type 2 driver, the migration must be performed on a machine that the TimesTen Client Package is installed.
 
 Users can download the appropriate JDBC driver file from the following site:
 
@@ -374,13 +371,11 @@ Users can download the appropriate JDBC driver file from the following site:
    <https://docs.microsoft.com/en-us/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server-support-matrix?view=sql-server-2017>
 3. Oracle MySQL Connector/J  
    <http://dev.mysql.com/downloads/connector/j/>
-4. Informix JDBC Driver  
-   <http://www14.software.ibm.com/webapp/download/search.jsp?go=y&rs=ifxjdbc>
-5. Oracle TimesTen  
+4. Oracle TimesTen  
    <http://www.oracle.com/technetwork/database/database-technologies/timesten/downloads/index.html>
-6. CUBRID  
+5. CUBRID  
    <http://www.cubrid.org/?mid=downloads&item=jdbc_driver>
-7. Tibero  
+6. Tibero  
    <https://technet.tmaxsoft.com/>
 
 ### Installation and Uninstallation
@@ -926,35 +921,36 @@ The primary option is the Migration Type: either “DB to DB” or “DB to File
 
 Object and table data of the source database to be migrated are migrated directly to the database (Altibase) to be stored.
 
-| Name                                         | Description                                                  |
-| -------------------------------------------- | ------------------------------------------------------------ |
-| Execution Thread                             | Specifies the maximum number of threads to be used when executing data migration. The default value is triple of the number of logical processors in the system running the Migration Center. The suggested range of this value is from 1 to triple of the number of logical processors in the system running the Migration Center. |
-| Migration Target                             | Specifies the targets for migration: <br />\- Object & Data: Database objects and table data<br />\- Object: Database objects only |
-| **Object Options**                           |                                                              |
-| Foreign Key Migration                        | Specifies whether or not to include foreign key constraints in migration target. This option is set to 'No' by default. |
-| PSM Migration                                | Specifies whether or not to include PSM objects such as procedures, functions, materialized views, views, typesets, and triggers in migration target. This option is set to 'No' by default. |
-| Drop Existing Objects                        | Specifies whether or not to recreate the database object before migration. <br />When this option is set to 'Yes', DROP and CREATE will be executed on migration target objects in target database. When this option is set to 'No', migration will be executed without dropping the database objects. This option is set to 'No' by default. |
-| Keep Partition Table                         | Specifies whether or not to maintain partitioned tables.<br />When this option is set to 'Yes', partitioned tables in the the source database will be migrated as partitioned tables. In this case, additional work is required for the partitioned tables in the reconcile stage's '5. Partitioned Table Conversion'. When this option is set to 'No', target partitioned tables will be migrated as non-partitioned tables. This option is set to 'No' by default. |
-| Use Double-quoted Identifier                 | Specifies whether or not to use double quotation marks for schema and object names. This option is set to 'No' by default. |
-| Remove FORCE from View DDL                   | Specifies whether or not to remove 'FORCE' keyword from the statement creating a view. |
-| Invisible Column Migration                   | Specifies whether invisible columns should be included in the table columns to be migrated. Altibase does not support the invisible column feature. </br>Yes means that invisible columns will be converted to normal columns and included in the migration. </br>No means that invisible columns will be excluded from the migration. </br>The default value is No. |
-| Postfix for reserved word                    | Specifies a user-defined word which is to be added to the database object name in the source database as a postfix when it conflicts with a reserved keyword of Altibase. The defualt value is _POC. |
-| Default '' (Empty String) Not Null Column    | Defines how to modify the column definition when an empty string[^1] is set as the default value and a NOT NULL constraint is applied <br />- Replace Default Empty String: Setting this option to 'Yes' allows to replace the default empty string with a user-defined value. The default setting is 'No'.<br />- Replacement Default Value: Specifies the string to be used as the new default value. This option is only enabled when Replace Default Empty String is set to 'Yes'.<br />- Remove Not Null: Setting this option to 'Yes' removes the NOT NULL constraint from the column where the empty string is the default value. The default setting is 'No'. |
-| **Data Options**                             |                                                              |
-| Batch Execution                              | Specifies whether or not to use batch insert in JDBC for higher performance. This option is set to 'Yes' by default. |
-| Batch Size                                   | Specifies the batch size when batch insert in JDBC is used. The default value is 10,000. |
-| Batch LOB type                               | Specifies whether or not to batch process BLOB and CLOB data types.<br />'Yes' means to allow batch processing. However, it should be noted that problems such as out of memory (OOM) may occur depending on the size of the LOB data. Also, an exception may be raised in TimesTen, which does not support the batch processing for LOB data types.'No' does not allow batch processing. This option is set to 'No' by default. |
-| Log Insert-failed Data                       | Specifies whether or not to log insert-failed rows during data migration. This option is available only when the Batch Execution option is disabled. This option is set to 'No' by default. |
-| File Encoding                                | Specifies the encoding character set to be used when logging the insert-failed data into files. This option is available only when the Log Insert-failed Data option is enabled. The default value is UTF8. |
-| Convert Oversized String VARCHAR To CLOB     | When a column's data type is mapped to the Altibase VARCHAR type, and its size exceeds 32,000 bytes — the maximum size supported by Altibase VARCHAR — it is specified whether the data type should be converted to CLOB. </br>Yes means the data type is converted to CLOB and processed accordingly. </br>No means the data type is converted to VARCHAR with a column size of 32,000 and processed as such. </br>The default setting is Yes. |
-| Replace Empty String Data                    | Specifies how to replace empty string data encountered during data migration with a user-defined string.<br />- Replace Empty Strings in Not Null: Setting this option to 'Yes' allows to replace empty string data with a user-defined string. The default setting is 'No'.<br/>- Replacement String: Specifies the string that will replace the empty string. This option is only enabled when Replace Empty Strings in Not Null is set to 'Yes'.<br />- Apply to Nullable Columns: Setting this option to 'Yes' allows to replace empty string data in columns **without a NOT NULL constraint** with the value specified in Replacement String. The default setting is 'No'. |
-| **Data Validation Options**                  |                                                              |
-| Operation                                    | Specifies the operation to be executed in the data validation stage: <br />- DIFF: Check data difference between the source and the target databases. <br/>- FILESYNC: Apply the CSV file created as a result of DIFF operation to the target database. |
-| Write to CSV                                 | Specifies whether or not to write the inconsistent data to the CSV file. |
-| Include LOB                                  | Specifies whether or not to include LOB data when writing inconsistent data to the CSV file. |
-| Data Sampling                                | Specifies whether or not to use data sampling feature.<br />When this option is set to 'Yes', to decrease the data validation time, only sample data will be validated. When this option is set to 'No', each data will be validated. This option is set to 'Yes' by default. |
-| Percent Sampling (exact counting)            | Specifies the percentage of data to be sampled from target tables. This option is used only when the Exact Counting Method is selected in the build stage. |
-| Record Count Sampling (approximate counting) | Specifies the number of records to be sampled from target tables. This option is used only if the Approximate Counting Method is selected in the build stage. |
+| Name                                            | Description                                                  |
+| ----------------------------------------------- | ------------------------------------------------------------ |
+| Execution Thread                                | Specifies the maximum number of threads to be used when executing data migration. The default value is triple of the number of logical processors in the system running the Migration Center. The suggested range of this value is from 1 to triple of the number of logical processors in the system running the Migration Center. |
+| Migration Target                                | Specifies the targets for migration: <br />\- Object & Data: Database objects and table data<br />\- Object: Database objects only |
+| **Object Options**                              |                                                              |
+| Foreign Key Migration                           | Specifies whether or not to include foreign key constraints in migration target. This option is set to 'No' by default. |
+| PSM Migration                                   | Specifies whether or not to include PSM objects such as procedures, functions, materialized views, views, typesets, and triggers in migration target. This option is set to 'No' by default. |
+| Drop Existing Objects                           | Specifies whether or not to recreate the database object before migration. <br />When this option is set to 'Yes', DROP and CREATE will be executed on migration target objects in target database. When this option is set to 'No', migration will be executed without dropping the database objects. This option is set to 'No' by default. |
+| Keep Partition Table                            | Specifies whether or not to maintain partitioned tables.<br />When this option is set to 'Yes', partitioned tables in the the source database will be migrated as partitioned tables. In this case, additional work is required for the partitioned tables in the reconcile stage's '5. Partitioned Table Conversion'. When this option is set to 'No', target partitioned tables will be migrated as non-partitioned tables. This option is set to 'No' by default. |
+| Use Double-quoted Identifier                    | Specifies whether or not to use double quotation marks for schema and object names. This option is set to 'No' by default. |
+| Remove FORCE from View DDL                      | Specifies whether or not to remove 'FORCE' keyword from the statement creating a view. |
+| Invisible Column Migration                      | Specifies whether invisible columns should be included in the table columns to be migrated. Altibase does not support the invisible column feature. </br>Yes means that invisible columns will be converted to normal columns and included in the migration. </br>No means that invisible columns will be excluded from the migration. </br>The default value is No. |
+| Postfix for reserved word                       | Specifies a user-defined word which is to be added to the database object name in the source database as a postfix when it conflicts with a reserved keyword of Altibase. The defualt value is _POC. |
+| Default '' (Empty String) Not Null Column       | Defines how to modify the column definition when an empty string[^1] is set as the default value and a NOT NULL constraint is applied <br />- Replace Default Empty String: Setting this option to 'Yes' allows to replace the default empty string with a user-defined value. The default setting is 'No'.<br />- Replacement Default Value: Specifies the string to be used as the new default value. This option is only enabled when Replace Default Empty String is set to 'Yes'.<br />- Remove Not Null: Setting this option to 'Yes' removes the NOT NULL constraint from the column where the empty string is the default value. The default setting is 'No'. |
+| **Data Options**                                |                                                              |
+| Batch Execution                                 | Specifies whether or not to use batch insert in JDBC for higher performance. This option is set to 'Yes' by default. |
+| Batch Size                                      | Specifies the batch size when batch insert in JDBC is used. The default value is 10,000. |
+| Batch LOB type                                  | Specifies whether or not to batch process BLOB and CLOB data types.<br />'Yes' means to allow batch processing. However, it should be noted that problems such as out of memory (OOM) may occur depending on the size of the LOB data. Also, an exception may be raised in TimesTen, which does not support the batch processing for LOB data types.'No' does not allow batch processing. This option is set to 'No' by default. |
+| Log Insert-failed Data                          | Specifies whether or not to log insert-failed rows during data migration. This option is available only when the Batch Execution option is disabled. This option is set to 'No' by default. |
+| File Encoding                                   | Specifies the encoding character set to be used when logging the insert-failed data into files. This option is available only when the Log Insert-failed Data option is enabled. The default value is UTF8. |
+| Convert Oversized String VARCHAR To CLOB        | When a column's data type is mapped to the Altibase VARCHAR type, and its size exceeds 32,000 bytes — the maximum size supported by Altibase VARCHAR — it is specified whether the data type should be converted to CLOB. </br>Yes means the data type is converted to CLOB and processed accordingly. </br>No means the data type is converted to VARCHAR with a column size of 32,000 and processed as such. </br>The default setting is Yes. |
+| Correction Factor for Character Type Conversion | This option specifies the correction factor used to automatically convert the length of character data type columns (CHAR, VARCHAR) when the character sets of the source and target databases differ.<br/> The default value is automatically calculated and cannot be set to a value less than 1. For more information, refer to [Appendix C: Data Type Mapping – Automatic Correction of Character Column Length Considering Heterogeneous Character Set](#automatic-correction-of-character-column-length-considering-heterogeneous-character-set).</br>If a character set is specified at the column level, the user-defined correction factor does not apply to the column length conversion; instead, the automatically calculated correction factor applies.  For more details, refer to the FAQ. |
+| Replace Empty String Data                       | Specifies how to replace empty string data encountered during data migration with a user-defined string.<br />- Replace Empty Strings in Not Null: Setting this option to 'Yes' allows to replace empty string data with a user-defined string. The default setting is 'No'.<br/>- Replacement String: Specifies the string that will replace the empty string. This option is only enabled when Replace Empty Strings in Not Null is set to 'Yes'.<br />- Apply to Nullable Columns: Setting this option to 'Yes' allows to replace empty string data in columns **without a NOT NULL constraint** with the value specified in Replacement String. The default setting is 'No'. |
+| **Data Validation Options**                     |                                                              |
+| Operation                                       | Specifies the operation to be executed in the data validation stage: <br />- DIFF: Check data difference between the source and the target databases. <br/>- FILESYNC: Apply the CSV file created as a result of DIFF operation to the target database. |
+| Write to CSV                                    | Specifies whether or not to write the inconsistent data to the CSV file. |
+| Include LOB                                     | Specifies whether or not to include LOB data when writing inconsistent data to the CSV file. |
+| Data Sampling                                   | Specifies whether or not to use data sampling feature.<br />When this option is set to 'Yes', to decrease the data validation time, only sample data will be validated. When this option is set to 'No', each data will be validated. This option is set to 'Yes' by default. |
+| Percent Sampling (exact counting)               | Specifies the percentage of data to be sampled from target tables. This option is used only when the Exact Counting Method is selected in the build stage. |
+| Record Count Sampling (approximate counting)    | Specifies the number of records to be sampled from target tables. This option is used only if the Approximate Counting Method is selected in the build stage. |
 
 [^1]: A string of length zero
 
@@ -1022,6 +1018,8 @@ Objects in the source database that Migration Center does not migrate automatica
 | View                            |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
 | Trigger                         |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
 
+<!--
+
 ### Informix to Altibase
 
 | Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
@@ -1039,6 +1037,8 @@ Objects in the source database that Migration Center does not migrate automatica
 | Function               |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
 | View                   |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
 | Trigger                |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+
+-->
 
 ### MySQL to Altibase
 
@@ -1060,13 +1060,13 @@ Objects in the source database that Migration Center does not migrate automatica
 
 | Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
 | :--------------------- | :------------------------: | :-------------------------: | :----------------------------------------------------------- |
-| Table                  |             O              |              O              | To migrate a temporary table from an Oracle database(source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace. Also, the comments specified in tables and columns are migrated as well. </br>To migrate external tables and Hybrid Partitioned Tables, the user must have access to a disk tablespace in Altibase. </br>Since Altibase does not support Oracle’s external table and hybrid partitioned table features, these tables are converted into regular tables or partitioned tables during migration. These types of tables often contain large volumes of data, so they are automatically allocated to a disk tablespace. |
+| Table                  |             O              |              O              | To migrate a temporary table from an Oracle database(source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace. Also, the comments specified in tables and columns are migrated as well. </br>To migrate external tables and Hybrid Partitioned Tables, the user must have access to a disk tablespace in Altibase. </br>Since Altibase does not support Oracle’s external table and hybrid partitioned table features, these tables are converted into regular tables or partitioned tables during migration. These types of tables often contain large volumes of data, so they are automatically allocated to a disk tablespace. </br>Blockchain and immutable tables are converted into regular tables during migration. |
 | Primary Key Constraint |             O              |              O              |                                                              |
 | Unique Constraint      |             O              |              O              |                                                              |
-| Check Constraint       |             O              |              O              |                                                              |
+| Check Constraint       |             O              |              O              | IS JSON check constraint is excluded from migration.         |
 | Foreign Key Constraint |             O              |              O              |                                                              |
-| Index                  |             O              |              O              | Invisible indexes and unusable indexes are not migrated. |
-| Sequence               |             O              |              X              | Scalable sequence is not migrated. |
+| Index                  |             O              |              O              | Invisible indexes and unusable indexes are not migrated. </br>Multivalue index is not migrated. |
+| Sequence               |             O              |              X              | Scalable sequence is not migrated.                           |
 | Private Synonym        |         Partly yes         |              X              | Only synonyms that refer to objects in the same schema are migrated. |
 | Procedure              |         Partly yes         |              X              | Converts object creation statements according to the rules defined in the PSM converter and attempts migration. |
 | Function               |         Partly yes         |              X              | Converts object creation statements according to the rules defined in the PSM converter and attempts migration. |
@@ -1214,6 +1214,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  15  | CLOB          | CLOB            |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666) | There is no compatible data type in Altibase for the Oracle NCLOB, so the data is stored in NVARCHAR with the maximum precision. This may cause data loss during data migration when the actual data precision exceeds the NVARCHAR maximum size. |
 |  17  | ROWID         | VARCHAR(18)     | Oracle's ROWID converts to a character data type. Altibase does not support the data type ROWID. |
+|  18  | JSON          | CLOB or JSON    | Altibase 7.3 and prior versions do not support the JSON data type, so JSON columns are converted to CLOB types. In contrast, in Altibase 8.1 and later versions that support the JSON data type, the columns are converted to JSON types. <br>Additionally, if a column in the source database is of type VARCHAR2, BLOB, or CLOB and has an IS JSON check constraint, the column is considered to be a JSON type. However, the IS JSON constraint is excluded from migration. |
 
 #### MS-SQL Server to Altibase
 
@@ -1282,6 +1283,9 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  31  | LONGTEXT           | CLOB                        |                                                              |
 |  32  | ENUM               | VARCHAR(10666)              | There is no compatible data type in Altibase for MySQL ENUM type, so VARCHAR is used to prevent data loss. |
 |  33  | SET                | VARCHAR(10666)              | There is no compatible data type in Altibase for MySQL SET type, so VARCHAR is used to prevent data loss. |
+|  34  | JSON               | CLOB or JSON                | Altibase 7.3 and prior versions do not support the JSON data type, so JSON columns are converted to CLOB types. In contrast, in Altibase 8.1 and later versions that support the JSON data type, the columns are converted to JSON types. |
+
+<!--
 
 #### Informix 11.5 to Altibase
 
@@ -1312,6 +1316,8 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  23  | BYTE          | BLOB        |                                                              |
 |  24  | BLOB          | BLOB        |                                                              |
 |  25  | INTERVAL      | FLOAT       |                                                              |
+
+-->
 
 #### TimesTen to Altibase
 
@@ -1393,6 +1399,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  15  | CLOB          | CLOB            |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666) | There is no compatible data type in Altibase for the Tibero NCLOB, so the data is stored in NVARCHAR with the maximum precision. This may cause data loss during data migration when the actual data precision exceeds the NVARCHAR maximum size. |
 |  17  | ROWID         | VARCHAR(18)     | Tibero's ROWID converts to a character data type. Altibase does not support the data type ROWID. |
+|  18  | JSON          | CLOB or JSON    | Altibase 7.3 and prior versions do not support the JSON data type, so JSON columns are converted to CLOB types. In contrast, in Altibase 8.1 and later versions that support the JSON data type, the columns are converted to JSON types. |
 
 #### PostgreSQL to Altibase
 
@@ -1435,13 +1442,14 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 | 35   | PATH                        | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
 | 36   | POLYGON                     | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
 | 37   | CIRCLE                      | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 38 | JSON | CLOB or JSON | Altibase 7.3 and prior versions do not support the JSON data type, so JSON columns are converted to CLOB types. In contrast, in Altibase 8.1 and later versions that support the JSON data type, the columns are converted to JSON types. |
 
 ### Automatic Correction of Character Column Length Considering Heterogeneous Character Set
 
-When the character sets of the source and destination databases are different during migration, character data types(CHAR, VARCHAR) require length conversion.
+During migration, if the character sets of the source and destination databases are different, character data types(CHAR, VARCHAR) require length conversion.
 For example, if the source database is set to the MS949 character set that requires a maximum of 2 bytes per character storage, and the target database is set to the UTF8 character set that requires 3 bytes per character, the character data of the target database is required to migrate without truncation. The size of the type should be 1.5 times the original.
 
-Migration Center automatically performs this length conversion, and the length correction formula for character data types is as follows.
+Migration Center automatically performs this length conversion, and the length correction formula for character data types and the calculation formula for the correction factor are as follows.
 
 ```
 Dest. Size = Ceil(Correction Factor * Src. Size)
@@ -1449,54 +1457,59 @@ Correction Factor = Dest. MaxBytes / Src. MaxBytes
 * MaxBytes = The maximum number of bytes required to store one character
 ```
 
-However, if MaxBytes of the original is 1 or the correction factor is less than 1, the length conversion is not performed.
+The correction factor is automatically calculated by the Migration Center, but users can modify it using the "Correction Factor for Character Type Conversion" migration option. Note that if the correction factor is set to 1, the length conversion will not be performed.
 
-The MaxBytes and correction factors of the source and target databases can be found on the summary page of the build report.
+The automatically calculated correction factor can be found on the Summary page of the Build Report, while the user-modified correction factor can be found on the Summary page of the Reconcile Report.
 
 #### Precautions
 
-For large tables, the length of data storage in the target database can be much larger than the original due to length correction. If there is a guarantee that the data will not be truncated without converting the length, the length can be manually specified in the reconcile step.
+* For large tables, the length of data storage in the target database can be much larger than the original due to length correction. 
+* If a character set is specified at the column level, the user-defined correction factor does not apply to the column length conversion; instead, the automatically calculated correction factor applies.
 
 #### Support Character Set for Each Database
 
-For character sets not listed in the table below, Migration Center does not perform length correction.
+For character sets not listed in the table below, Migration Center considers "MaxBytes Per Character" as 1.
 
 ##### Altibase
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| KO16KSC5601   | 2                        |
-| MS949         | 2                        |
-| BIG5          | 2                        |
-| GB231280      | 2                        |
-| MS936         | 2                        |
-| UTF8          | 3                        |
-| SHIFTJIS      | 2                        |
-| MS932         | 2                        |
-| EUCJP         | 3                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| KO16KSC5601   | 2                      |
+| MS949         | 2                      |
+| BIG5          | 2                      |
+| GB231280      | 2                      |
+| MS936         | 2                      |
+| UTF8          | 3                      |
+| SHIFTJIS      | 2                      |
+| MS932         | 2                      |
+| EUCJP         | 3                      |
 
 ##### Cubrid
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| utf8          | 3                        |
-| euckr         | 2                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| utf8          | 3                      |
+| euckr         | 2                      |
+
+<!--
 
 ##### Informix
 
-| Character Set      | Max. Bytes Per Character |
-| ------------------ | ------------------------ |
-| zh_cn.GB18030_2000 | 4                        |
-| zh_tw.big5         | 2                        |
-| zh_tw.euctw        | 4                        |
-| zh_cn.gb           | 2                        |
-| zh_tw.sbig5        | 2                        |
-| zh_tw.ccdc         | 2                        |
-| ja_jp.sjis-s       | 2                        |
-| ja_jp.ujis         | 3                        |
-| ja_up.sjis         | 2                        |
-| ko_kr.cp949        | 2                        |
-| ko_kr.ksc          | 2                        |
+| Character Set      | MaxBytes Per Character |
+| ------------------ | ---------------------- |
+| zh_cn.GB18030_2000 | 4                      |
+| zh_tw.big5         | 2                      |
+| zh_tw.euctw        | 4                      |
+| zh_cn.gb           | 2                      |
+| zh_tw.sbig5        | 2                      |
+| zh_tw.ccdc         | 2                      |
+| ja_jp.sjis-s       | 2                      |
+| ja_jp.ujis         | 3                      |
+| ja_up.sjis         | 2                      |
+| ko_kr.cp949        | 2                      |
+| ko_kr.ksc          | 2                      |
+
+-->
 
 ##### MySQL
 
@@ -1508,110 +1521,287 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 
 ##### SQL Server
 
-| Code Page | Max. Bytes Per Character |
-| --------- | ------------------------ |
-| 932       | 2                        |
-| 936       | 2                        |
-| 949       | 2                        |
-| 950       | 2                        |
+| Code Page | MaxBytes Per Character |
+| --------- | ---------------------- |
+| 932       | 2                      |
+| 936       | 2                      |
+| 949       | 2                      |
+| 950       | 2                      |
 
 ##### Oracle
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| AL32UTF8      | 4                        |
-| JA16EUC       | 3                        |
-| JA16EUCTILDE  | 3                        |
-| JA16SJIS      | 2                        |
-| JA16SJISTILDE | 2                        |
-| KO16MSWIN949  | 2                        |
-| UTF8          | 3                        |
-| ZHS16GBK      | 2                        |
-| ZHT16HKSCS    | 2                        |
-| ZHT16MSWIN950 | 2                        |
-| ZHT32EUC      | 4                        |
+| Character Set   | MaxBytes Per Character |
+| --------------- | ---------------------- |
+| AL32UTF8        | 4                      |
+| JA16EUC         | 3                      |
+| JA16EUCTILDE    | 3                      |
+| JA16SJIS        | 2                      |
+| JA16SJISTILDE   | 2                      |
+| KO16MSWIN949    | 2                      |
+| UTF8            | 3                      |
+| ZHS16GBK        | 2                      |
+| ZHT16HKSCS      | 2                      |
+| ZHT16MSWIN950   | 2                      |
+| ZHT32EUC        | 4                      |
+| ZHT16HKSCS31    | 2                      |
+| US7ASCII        | 1                      |
+| BG8PC437S       | 1                      |
+| BLT8PC775       | 1                      |
+| CON8PC863       | 1                      |
+| EE8PC852        | 1                      |
+| EL8EBCDIC423R   | 1                      |
+| EL8PC437S       | 1                      |
+| EL8PC851        | 1                      |
+| EL8PC869        | 1                      |
+| IS8PC861        | 1                      |
+| IW8PC1507       | 1                      |
+| LT8PC772        | 1                      |
+| LT8PC774        | 1                      |
+| LV8PC8LR        | 1                      |
+| LV8PC1117       | 1                      |
+| LV8RST104090    | 1                      |
+| N8PC865         | 1                      |
+| RU8PC855        | 1                      |
+| RU8PC866        | 1                      |
+| TR8PC857        | 1                      |
+| US8PC437        | 1                      |
+| WE8PC850        | 1                      |
+| WE8PC858        | 1                      |
+| WE8PC860        | 1                      |
+| AR8ARABICMACS   | 1                      |
+| CL8MACCVRILLICS | 1                      |
+| EE8MACCES       | 1                      |
+| EE8MACCROATIANS | 1                      |
+| EL8MACGREEKS    | 1                      |
+| IW8MACHEBREWS   | 1                      |
+| TH8MACTHAIS     | 1                      |
+| TH8MACTURKISHS  | 1                      |
+| WE8MACROMAN8S   | 1                      |
+| AR8MSWIN1256    | 1                      |
+| BG8MSWIN        | 1                      |
+| BLT8MSWIN1257   | 1                      |
+| CL8MSWIN1251    | 1                      |
+| EE8MSWIN1250    | 1                      |
+| EL8MSWIN1253    | 1                      |
+| ET8MSWIN923     | 1                      |
+| IW8MSWIN1255    | 1                      |
+| LT8MSWIN921     | 1                      |
+| TR8MSWIN1254    | 1                      |
+| VN8MSWIN1258    | 1                      |
+| WE8MSWIN1252    | 1                      |
+| AR8ADOS710      | 1                      |
+| AR8ADOS720      | 1                      |
+| AR8APTEC715     | 1                      |
+| AR8ASMO8X       | 1                      |
+| AR8EBCDICX      | 1                      |
+| AR8EBCDIC420S   | 1                      |
+| AR8ISO8859P6    | 1                      |
+| AR8MUSSAD768    | 1                      |
+| AR8NAFITHA711   | 1                      |
+| AR8NAFITHA721   | 1                      |
+| AR8SAKHR706     | 1                      |
+| AR8SAKHR707     | 1                      |
+| AZ8ISO8859P9E   | 1                      |
+| BLT8CP921       | 1                      |
+| BLT8EBCDIC1112  | 1                      |
+| BLT8EBCDIC1112S | 1                      |
+| BLT8ISO8859P13  | 1                      |
+| BN8BSCII        | 1                      |
+| CE8BS2000       | 1                      |
+| CEL8ISO8859P14  | 1                      |
+| CL8BS2000       | 1                      |
+| CL8EBCDIC1025   | 1                      |
+| CL8EBCDIC1025C  | 1                      |
+| CL8EBCDIC1025R  | 1                      |
+| CL8EBCDIC1025S  | 1                      |
+| CL8EBCDIC1025X  | 1                      |
+| CL8EBCDIC1158   | 1                      |
+| CL8EBCDIC1158R  | 1                      |
+| CL8ISO8859P5    | 1                      |
+| CL8ISOIR111     | 1                      |
+| CL8KOI8R        | 1                      |
+| CL8KOI8U        | 1                      |
+| D8BS2000        | 1                      |
+| D8EBCDIC273     | 1                      |
+| D8EBCDIC1141    | 1                      |
+| DK8BS2000       | 1                      |
+| DK8EBCDIC277    | 1                      |
+| DK8EBCDIC1142   | 1                      |
+| E8BS2000        | 1                      |
+| EE8BS2000       | 1                      |
+| EE8EBCDIC870    | 1                      |
+| EE8EBCDIC870C   | 1                      |
+| EE8EBCDIC870S   | 1                      |
+| EE8ISO8859P2    | 1                      |
+| EL8DEC          | 1                      |
+| EL8EBCDIC875    | 1                      |
+| EL8EBCDIC875R   | 1                      |
+| EL8GCOS7        | 1                      |
+| EL8ISO8859P7    | 1                      |
+| F8BS2000        | 1                      |
+| F8EBCDIC297     | 1                      |
+| F8EBCDIC1147    | 1                      |
+| HU8ABMOD        | 1                      |
+| HU8CWI2         | 1                      |
+| I8EBCDIC280     | 1                      |
+| I8EBCDIC1144    | 1                      |
+| IN8ISCII        | 1                      |
+| IW8EBCDIC424    | 1                      |
+| IW8EBCDIC424S   | 1                      |
+| IW8EBCDIC1086   | 1                      |
+| IW8ISO8859P8    | 1                      |
+| LA8ISO6937      | 1                      |
+| LA8PASSPORT     | 1                      |
+| NE8ISO8859P10   | 1                      |
+| NEE8ISO8859P4   | 1                      |
+| RU8BESTA        | 1                      |
+| S8BS2000        | 1                      |
+| S8EBCDIC278     | 1                      |
+| S8EBCDIC1143    | 1                      |
+| SE8ISO8859P3    | 1                      |
+| TH8TISEBCDIC    | 1                      |
+| TH8TISEBCDICS   | 1                      |
+| TH8TISASCII     | 1                      |
+| TR8DEC          | 1                      |
+| TR8EBCDIC1026   | 1                      |
+| TR8EBCDIC1026S  | 1                      |
+| US8BS2000       | 1                      |
+| US8ICL          | 1                      |
+| VN8VN3          | 1                      |
+| WE8BS2000       | 1                      |
+| WE8BS2000E      | 1                      |
+| WE8BS2000L5     | 1                      |
+| WE8DEC          | 1                      |
+| WE8DG           | 1                      |
+| WE8EBCDIC37     | 1                      |
+| WE8EBCDIC37C    | 1                      |
+| WE8EBCDIC284    | 1                      |
+| WE8EBCDIC285    | 1                      |
+| WE8EBCDIC500    | 1                      |
+| WE8EBCDIC500C   | 1                      |
+| WE8EBCDIC871    | 1                      |
+| WE8EBCDIC924    | 1                      |
+| WE8EBCDIC1047   | 1                      |
+| WE8EBCDIC1047E  | 1                      |
+| WE8EBCDIC1140   | 1                      |
+| WE8EBCDIC1140C  | 1                      |
+| WE8EBCDIC1145   | 1                      |
+| WE8EBCDIC1146   | 1                      |
+| WE8EBCDIC1148   | 1                      |
+| WE8EBCDIC1148C  | 1                      |
+| WE8GCOS7        | 1                      |
+| WE8ICL          | 1                      |
+| WE8ISO8859P1    | 1                      |
+| WE8ISO8859P9    | 1                      |
+| WE8ISO8859P15   | 1                      |
+| WE8NCR4970      | 1                      |
+| WE8NEXTSTEP     | 1                      |
+| WE8ROMAN8       | 1                      |
 
 ##### Tibero
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| UTF8          | 4                        |
-| EUCKR         | 2                        |
-| MSWIN949      | 2                        |
-| SJIS          | 2                        |
-| JA16SJIS      | 2                        |
-| JA16SJISTILDE | 2                        |
-| JA16EUC       | 3                        |
-| JA16EUCTILDE  | 3                        |
-| GBK           | 2                        |
-| ZHT16HKSCS    | 2                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| UTF8          | 4                      |
+| EUCKR         | 2                      |
+| MSWIN949      | 2                      |
+| SJIS          | 2                      |
+| JA16SJIS      | 2                      |
+| JA16SJISTILDE | 2                      |
+| JA16EUC       | 3                      |
+| JA16EUCTILDE  | 3                      |
+| GBK           | 2                      |
+| ZHT16HKSCS    | 2                      |
+| EUCTW         | 4                      |
+| GB18030       | 4                      |
+| UTF16         | 4                      |
+| SJISTILDE     | 2                      |
+| ZHT16BIG5     | 2                      |
+| ZHT16MSWIN950 | 2                      |
+| ASCII         | 1                      |
+| VN8VN3        | 1                      |
+| TH8TISASCII   | 1                      |
+| EE8ISO8859P2  | 1                      |
+| WE8MSWIN1252  | 1                      |
+| WE8ISO8859P1  | 1                      |
+| WE8ISO8859P9  | 1                      |
+| WE8ISO8859P15 | 1                      |
+| CL8MSWIN1251  | 1                      |
+| CL8KOI8R      | 1                      |
+| CL8ISO8859P5  | 1                      |
+| RU8PC866      | 1                      |
+| EL8ISO8859P7  | 1                      |
+| EL8MSWIN1253  | 1                      |
+| AR8ISO8859P6  | 1                      |
+| AR8MSWIN1256  | 1                      |
+| IW8ISO8859P8  | 1                      |
 
 ##### TimesTen
 
-| Character Set  | Max. Bytes Per Character |
-| -------------- | ------------------------ |
-| AL16UTF16      | 4                        |
-| AL32UTF8       | 4                        |
-| JA16EUC        | 3                        |
-| JA16EUCTILDE   | 3                        |
-| JA16SJIS       | 2                        |
-| JA16SJISTILDE  | 2                        |
-| KO16KSC5601    | 2                        |
-| KO16MSWIN949   | 2                        |
-| ZHS16CGB231280 | 2                        |
-| ZHS16GBK       | 2                        |
-| ZHS32GB18030   | 4                        |
-| ZHT16BIG5      | 2                        |
-| ZHT16HKSCS     | 2                        |
-| ZHT16MSWIN950  | 2                        |
-| ZHT32EUC       | 4                        |
+| Character Set  | MaxBytes Per Character |
+| -------------- | ---------------------- |
+| AL16UTF16      | 4                      |
+| AL32UTF8       | 4                      |
+| JA16EUC        | 3                      |
+| JA16EUCTILDE   | 3                      |
+| JA16SJIS       | 2                      |
+| JA16SJISTILDE  | 2                      |
+| KO16KSC5601    | 2                      |
+| KO16MSWIN949   | 2                      |
+| ZHS16CGB231280 | 2                      |
+| ZHS16GBK       | 2                      |
+| ZHS32GB18030   | 4                      |
+| ZHT16BIG5      | 2                      |
+| ZHT16HKSCS     | 2                      |
+| ZHT16MSWIN950  | 2                      |
+| ZHT32EUC       | 4                      |
 
 ##### PostgreSQL
 
-| Character Set  | Max. Bytes Per Character |
-| -------------- | ------------------------ |
-| BIG5           | 2                        |
-| EUC_CN         | 3                        |
-| EUC_JP         | 3                        |
-| EUC_JIS_2004   | 3                        |
-| EUC_KR         | 3                        |
-| EUC_TW         | 3                        |
-| GB18030        | 4                        |
-| GBK            | 2                        |
-| ISO_8859_5     | 1                        |
-| ISO_8859_6     | 1                        |
-| ISO_8859_7     | 1                        |
-| ISO_8859_8     | 1                        |
-| JOHAB          | 3                        |
-| KOI8R          | 1                        |
-| KOI8U          | 1                        |
-| LATIN1         | 1                        |
-| LATIN2         | 1                        |
-| LATIN3         | 1                        |
-| LATIN4         | 1                        |
-| LATIN5         | 1                        |
-| LATIN6         | 1                        |
-| LATIN7         | 1                        |
-| LATIN8         | 1                        |
-| LATIN9         | 1                        |
-| LATIN10        | 1                        |
-| MULE_INTERNAL  | 4                        |
-| SJIS           | 2                        |
-| SHIFT_JIS_2004 | 2                        |
-| SQL_ASCII      | 1                        |
-| UHC            | 2                        |
-| UTF8           | 4                        |
-| WIN866         | 1                        |
-| WIN874         | 1                        |
-| WIN1250        | 1                        |
-| WIN1251        | 1                        |
-| WIN1252        | 1                        |
-| WIN1253        | 1                        |
-| WIN1254        | 1                        |
-| WIN1255        | 1                        |
-| WIN1256        | 1                        |
-| WIN1257        | 1                        |
-| WIN1258        | 1                        |
+| Character Set  | MaxBytes Per Character |
+| -------------- | ---------------------- |
+| BIG5           | 2                      |
+| EUC_CN         | 3                      |
+| EUC_JP         | 3                      |
+| EUC_JIS_2004   | 3                      |
+| EUC_KR         | 3                      |
+| EUC_TW         | 3                      |
+| GB18030        | 4                      |
+| GBK            | 2                      |
+| ISO_8859_5     | 1                      |
+| ISO_8859_6     | 1                      |
+| ISO_8859_7     | 1                      |
+| ISO_8859_8     | 1                      |
+| JOHAB          | 3                      |
+| KOI8R          | 1                      |
+| KOI8U          | 1                      |
+| LATIN1         | 1                      |
+| LATIN2         | 1                      |
+| LATIN3         | 1                      |
+| LATIN4         | 1                      |
+| LATIN5         | 1                      |
+| LATIN6         | 1                      |
+| LATIN7         | 1                      |
+| LATIN8         | 1                      |
+| LATIN9         | 1                      |
+| LATIN10        | 1                      |
+| MULE_INTERNAL  | 4                      |
+| SJIS           | 2                      |
+| SHIFT_JIS_2004 | 2                      |
+| SQL_ASCII      | 1                      |
+| UHC            | 2                      |
+| UTF8           | 4                      |
+| WIN866         | 1                      |
+| WIN874         | 1                      |
+| WIN1250        | 1                      |
+| WIN1251        | 1                      |
+| WIN1252        | 1                      |
+| WIN1253        | 1                      |
+| WIN1254        | 1                      |
+| WIN1255        | 1                      |
+| WIN1256        | 1                      |
+| WIN1257        | 1                      |
+| WIN1258        | 1                      |
 
 # Appendix D: Mapping Default Values
 
@@ -1782,6 +1972,8 @@ The following is an example of the conversion.
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval <br />( c1 TIMESTAMP NOT NULL, <br />c2 INT DEFAULT 123, <br />c3 VARCHAR(50) DEFAULT 'test', <br />c4 INT DEFAULT NULL, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATE DEFAULT '1989-04-28', <br />c7 DATETIME DEFAULT '1989-04-28 12:31:29', <br />c8 TIMESTAMP DEFAULT '1989-04-28 12:31:29' NOT NULL, <br />c9 TIMESTAMP NOT NULL ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 DATE DEFAULT SYSDATE NOT NULL, <br />C2 INTEGER DEFAULT 123, <br />C3 CLOB DEFAULT 'test', C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE DEFAULT TO_DATE('1989-04-28', 'YYYY-MM-DD'), <br />C7 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS'), <br />C8 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS') NOT NULL, <br />C9 DATE /\* DEFAULT '0000-00-00 00:00:00' \*/ NOT NULL ); |
 
+<!--
+
 #### Informix 11.5 to Altibase
 
 <table>
@@ -1812,6 +2004,8 @@ The following is an example of the conversion.
 | Informix CREATE TABLE Statement                                                                                                                                                                                                                                                                                                                          | Altibase CREATE TABLE Statement                                                                                                                                                                                                                                                    |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval ( <br />c1 INTEGER DEFAULT 123, <br />c2 BOOLEAN DEFAULT 't',<br />c3 CHAR(100) DEFAULT 'test', <br />c4 INTEGER DEFAULT null, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATETIME YEAR TO DAY DEFAULT DATETIME(07-3-6) YEAR TO DAY, <br />c7 DATETIME DAY TO HOUR DEFAULT CURRENT DAY TO HOUR, <br />c8 DATE DEFAULT TODAY ); | CREATE TABLE TESTTBL_4_DEFVAL ( <br />C1 INTEGER DEFAULT 123, <br />C2 CHAR (1) DEFAULT 't', <br />C3 CHAR (100) DEFAULT 'test', <br />C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE /\* DEFAULT '2007-03-06' \*/, <br />C7 DATE DEFAULT SYSDATE, <br />C8 DATE DEFAULT SYSDATE ); |
+
+-->
 
 #### TimesTen to Altibase
 
@@ -2288,6 +2482,32 @@ AS SELECT * FROM t1;
 ```sql
 CREATE OR REPLACE /* FORCE */ /* [REMOVED] RULE-11008 : FORCE has been removed */ VIEW v1
 (c1, c2)
+AS SELECT * FROM t1;
+```
+
+#### RULE-11009
+
+###### Type
+
+`REMOVED`
+
+###### Description
+
+DEFAULT COLLATION clause has been removed.
+
+###### Original SQL Text
+
+```sql
+CREATE OR REPLACE VIEW v1
+DEFAULT COLLATION "BINARY_AI"
+AS SELECT * FROM t1;
+```
+
+###### Processed SQL Text
+
+```sql
+CREATE OR REPLACE VIEW v1
+/* DEFAULT COLLATION "BINARY_AI" */ /* [REMOVED] RULE-11009 : DEFAULT COLLATION clause is removed */
 AS SELECT * FROM t1;
 ```
 
@@ -2793,6 +3013,38 @@ NULL;
 END /* trig1 */ /* [REMOVED] RULE-12017 : The trigger label name at the end of body has been removed */;
 ```
 
+#### RULE-12018
+
+###### Type
+
+`REMOVED`
+
+###### Description
+
+DEFAULT COLLATION clause has been removed.
+
+###### Original SQL Text
+
+```sql
+CREATE OR REPLACE TRIGGER trig1
+DEFAULT COLLATION USING_NLS_COMP
+BEFORE INSERT ON t1
+BEGIN
+NULL;
+END;
+```
+
+###### Processed SQL Text
+
+```sql
+CREATE OR REPLACE TRIGGER trig1
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-12018 : DEFAULT COLLATION clause is removed */
+BEFORE INSERT ON t1
+BEGIN
+NULL;
+END;
+```
+
 ### Function Conversion Rules
 
 #### RULE-13001
@@ -3261,6 +3513,38 @@ LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER /* [TODO] RULE-13015 : External data type of the parameters should be manually converted */);
 ```
 
+#### RULE-13016
+
+###### Type
+
+`REMOVED`
+
+###### Description
+
+DEFAULT COLLATION clause has been removed.
+
+###### Original SQL Text
+
+```sql
+CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
+RETURN VARCHAR2
+DEFAULT COLLATION USING_NLS_COMP
+IS BEGIN
+RETURN a1;
+END;
+```
+
+###### Processed SQL Text
+
+```sql
+CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
+RETURN VARCHAR2
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-13016 : DEFAULT COLLATION clause is removed */
+IS BEGIN
+RETURN a1;
+END;
+```
+
 ### Procedure Conversion Rules
 
 #### RULE-14001
@@ -3535,7 +3819,7 @@ External data type of the parameters should be manually converted.
 ###### Original SQL Text
 
 ```sql
-CREAT OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
+CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
 LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER);
 ```
@@ -3543,9 +3827,41 @@ PARAMETERS(a1 OCINUMBER);
 ###### Processed SQL Text
 
 ```sql
-CREAT OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
+CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
 LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER /* [TODO] RULE-14010 : External data type of the parameters should be manually converted */);
+```
+
+#### RULE-14011
+
+###### Type
+
+`REMOVED`
+
+###### Description
+
+DEFAULT COLLATION clause has been removed.
+
+###### Original SQL Text
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1
+DEFAULT COLLATION USING_NLS_COMP
+IS
+BEGIN
+NULL;
+END;
+```
+
+###### Processed SQL Text
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-14011 : DEFAULT COLLATION clause is removed */
+IS
+BEGIN
+NULL;
+END;
 ```
 
 ### Materialized View Conversion Rules
@@ -3652,6 +3968,34 @@ END;
 ```sql
 CREATE OR REPLACE PACKAGE pkg1
 /* ACCESSIBLE BY (TRIGGER trig1) */ /* [REMOVED] RULE-16002 : The ACCESSIBLE BY clause is removed */
+AS
+END;
+```
+
+#### RULE-16003
+
+###### Type
+
+`REMOVED`
+
+###### Description
+
+DEFAULT COLLATION clause has been removed.
+
+###### Original SQL Text
+
+```sql
+CREATE OR REPLACE PACKAGE pkg1
+DEFAULT COLLATION USING_NLS_COMP
+AS
+END;
+```
+
+###### Processed SQL Text
+
+```sql
+CREATE OR REPLACE PACKAGE pkg1
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-16003 : DEFAULT COLLATION clause is removed */
 AS
 END;
 ```
@@ -7566,6 +7910,16 @@ This is an error that can occur when the maximum memory allocation value (-Xmx) 
 
 Change the value of -Xms -Xmx in bat and sh according to the user environment, and then restart Migration Center.
 
+#### In the Windows environment, some text in the migration options window is not visible.
+
+##### Cause
+
+In Windows environments, when display scaling is set above 100%, some text in the migration options window may appear overlapping or cut off.
+
+##### Solution
+
+Set the display scaling to 100%, and restart the Migration Center.
+
 ### Oracle
 
 #### The error message 'ORA-01652 unable to extend temp segment by 128 in tablespace TEMP' is printed.
@@ -7756,6 +8110,16 @@ Use a JDBC driver file that is compatible with the Java version running the Migr
 
 Example) mssql-jdbc-7.2.2.***jre11***.jar
 
+#### Even if the value of the 'Correction Factor for Character Type Conversion' option is changed, the automatically calculated correction factor is applied.
+
+##### Cause
+
+MS-SQL allows character collation to be specified at the column level. The 'Correction Factor for Character Type Conversion' option applies only to the character set defined as the default for MS-SQL. If a character set is specified at the column level, the correction factor is automatically calculated based on the column’s character set, and the user-defined correction factor set through the option is not applied.
+
+##### Solution
+
+Modify the size of the automatically converted columns directly in the DDL Editing window -Destination DDL in the Reconcile step.
+
 ### Altibase
 
 #### When migrating Altibase version 5.1.5 or lower, the characters are broken.
@@ -7807,6 +8171,8 @@ When the Altibase 6.1.1 or lower JDBC driver inserts bit, varbit, or nibble type
 
 Open the project, click the menu Migration-Migration Option, select 'No' for Batch Execution, and perform data migration.
 
+<!--
+
 ### Informix
 
 #### Java.sql.SQLException: Encoding or code set not supported in Informix JDBC Driver during data migration."
@@ -7837,6 +8203,8 @@ Add IFX_USE_STRENC = true to Informix connection properties.
 ##### References
 
 https://m.blog.naver.com/PostView.nhn?blogId=jangkeunna&logNo=70146227929&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
+
+-->
 
 ### MySQL
 
@@ -7873,6 +8241,16 @@ This phenomenon is normal.
 > 1. Reconcile step: Click on "NVARCHAR" row in "Data Type Mapping" 
 > 2. Click the "Change" button 
 > 3. Select 'NVARCHAR' as Destination DB Data Type, leave Precision blank, and save
+
+#### Even if the value of the 'Correction Factor for Character Type Conversion' option is changed, the automatically calculated correction factor is applied.
+
+##### Cause
+
+MySQL allows character sets to be specified at the column level. The 'Correction Factor for Character Type Conversion' option applies only to the character set defined as the default for MySQL. If a character set is specified at the column level, the correction factor is automatically calculated based on the column’s character set, and the user-defined correction factor set through the option is not applied.
+
+##### Solution
+
+Modify the size of the automatically converted columns directly in the DDL Editing window -Destination DDL in the Reconcile step.
 
 ### PostgreSQL
 
@@ -7963,4 +8341,3 @@ In Tibero version 7.2.2, a known issue exists where dependency information for f
 
 ##### Solution
 Manually review object dependencies during migration. Any objects that fail to migrate due to missing dependency information must be identified and migrated manually.
-

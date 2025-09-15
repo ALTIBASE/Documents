@@ -1,6 +1,6 @@
 # Migration Center User's Manual
 
-#### Release 7.15
+#### Release 7.16
 
 Altibase® Tools & Utilities
 
@@ -97,7 +97,7 @@ Altibase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities Migration Center User's Manual
-Release 7.15
+Release 7.16
 Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
 <b>㈜알티베이스</b>
@@ -106,6 +106,7 @@ Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 팩스 : 02-2082-1099
 고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
 홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
+
 
 
 <br>
@@ -141,7 +142,6 @@ Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 - [B.부록: 마이그레이션 가능한 데이터베이스 객체](#b부록-마이그레이션-가능한-데이터베이스-객체)
   - [Altibase to Altibase](#altibase-to-altibase)
   - [CUBRID to Altibase](#cubrid-to-altibase)
-  - [Informix to Altibase](#informix-to-altibase)
   - [MySQL to Altibase](#mysql-to-altibase)
   - [Oracle to Altibase](#oracle-to-altibase)
   - [SQL Server to Altibase](#sql-server-to-altibase)
@@ -171,7 +171,6 @@ Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
   - [Oracle](#oracle-1)
   - [MS-SQL](#ms-sql)
   - [Altibase](#altibase-1)
-  - [Informix](#informix-1)
   - [MySQL](#mysql-1)
   - [PostgreSQL](#postgresql-1)
   - [TimesTen](#timesten-1)
@@ -307,7 +306,7 @@ Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 
 ### 개요
 
-Migration Center는 데이터베이스 사이에 일반적으로 호환되는 데이터베이스 객체와 데이터를 직접 또는 간접적으로 복사하는 데이터베이스 마이그레이션(migration) 도구이다. 대부분의 데이터베이스는 국제 표준을 준수하지만, 어떤 데이터베이스라도 수동 데이터베이스 마이그레이션이 불가피한 경우가 있다. 일반적으로 데이터베이스 마이그레이션 작업을 수동으로 직접 하는 것은 복잡하고 시간이 많이 소모되며, 사람이 하는 일이기에 실수가 잦을 수 있다. Migration Center는 사용자가 그래픽 사용자 인터페이스(GUI) 모드에서 몇 번의 마우스 클릭만으로도 데이터베이스 마이그레이션 작업을 수행할 수 있게 도와준다. 또한, 명령어 인터페이스(CLI) 모드도 지원한다.
+Migration Center는 데이터베이스 사이에 일반적으로 호환되는 데이터베이스 객체와 데이터를 직접 또는 간접적으로 복사하는 데이터베이스 마이그레이션(migration) 도구이다. 일반적으로 데이터베이스 마이그레이션 작업을 수동으로 직접 하는 것은 복잡하고 시간이 많이 소모되며, 사람이 하는 일이기에 실수가 잦을 수 있다. Migration Center는 사용자가 그래픽 사용자 인터페이스(GUI) 모드에서 몇 번의 마우스 클릭만으로도 데이터베이스 마이그레이션 작업을 수행할 수 있게 도와준다. 또한, 명령어 인터페이스(CLI) 모드도 지원한다.
 
 이 도구 사용시 얻을 수 있는 주요 이점은 다음과 같다:
 
@@ -316,7 +315,7 @@ Migration Center는 데이터베이스 사이에 일반적으로 호환되는 �
 3. 데이터를 외부 파일로 내보내어(export), 나중에 iLoader로 Altibase에 가져올(import) 때 사용할 수 있다.
 4. 마이그레이션 과정을 단축시킬 수 있는 병렬 수행 옵션을 제공한다. 기본으로, 이 도구는 자동으로 여러 쓰레드 간의 데이터 마이그레이션 부하에 대한 균형을 조정한다. 이 도구는 또한 쓰레드들이 처리할 데이터를 수동으로 분할할 수 있는 방법도 제공한다.
 5. 서로 다른 종류의 데이터베이스 간에 다른 데이터 타입들의 데이터 타입 매핑을 제공한다. 유연성(flexibility)을 위한 사용자 정의 데이터 타입 매핑 뿐만 아니라 편의를 위한 기본 타입 매핑도 지원한다.
-6. 더 나은 사용성을 위한 GUI모드 뿐만 아니라, 만약의 경우를 대비해 명령어 인터페이스(CLI) 모드도 제공한다.
+6. 더 나은 사용성을 위한 GUI모드 뿐만 아니라, 명령어 인터페이스(CLI) 모드도 제공한다.
 7. 스키마 마이그레이션에 대해, 데이터베이스 객체 마이그레이션을 위한 DDL SQL문을 사용자가 수정할 수 있는 기능을 제공한다.
 
 ### 시스템 요구 사항
@@ -359,11 +358,10 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 ##### 원본 데이터베이스
 
 - Altibase: 4.3.9 이상 버전
-- Oracle Database: 9i~19c
+- Oracle Database: 10gR2~21c
 - Microsoft SQL Server: 2005~2012
 - Oracle MySQL: 5.0~5.7
-- Informix: 11.50
-- Oracle TimesTen: 7.0, 11.2
+- Oracle TimesTen: 11.2
 - CUBRID: 8.4.1~9.3.5 (ISO-8859-1, UTF-8 charset)
 - Tibero: 4sp1~7.2.2
 - PostgreSQL: 9.5.3
@@ -372,7 +370,7 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 
 Migration Center는 Altibase 및 다른 데이터베이스의 다양한 버전들과 함께 사용할 수 있다. 이 도구는 데이터베이스 접속을 위해 JDBC 드라이버를 사용하므로, 원본 데이터베이스와 대상 데이터베이스에 알맞은 JDBC 드라이버를 준비하는 것이 중요하다. 사용자 편의를 위해 지원되는 데이터베이스에 적합한 몇 가지 JDBC 드라이버를 Migration Center와 함께 제공한다.
 
-법적인 문제 때문에, 마이크로소프트 SQL Server의 JDBC 드라이버 파일과 Mysql Connector/J 파일, Informix JDBC 드라이버 파일, TimesTen의 JDBC 드라이버 파일은 패키지에 포함하지 않았다. 또한 TimesTen은 타입2 드라이버만 지원하기 때문에 반드시 TimesTen Client Package가 설치된 장비에서 이관을 수행하여야 한다.
+법적인 문제 때문에, 마이크로소프트 SQL Server의 JDBC 드라이버 파일과 Mysql Connector/J 파일, TimesTen의 JDBC 드라이버 파일은 패키지에 포함하지 않았다. 또한 TimesTen은 타입2 드라이버만 지원하기 때문에 반드시 TimesTen Client Package가 설치된 장비에서 이관을 수행하여야 한다.
 
 아래의 사이트에서 적절한 JDBC 드라이버 파일을 다운로드할 수 있다:
 
@@ -384,13 +382,11 @@ Migration Center는 Altibase 및 다른 데이터베이스의 다양한 버전�
    <https://docs.microsoft.com/en-us/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server-support-matrix?view=sql-server-2017>  
 3. Oracle MySQL Connector/J  
    <http://dev.mysql.com/downloads/connector/j/>
-4. Informix JDBC Driver  
-   <http://www14.software.ibm.com/webapp/download/search.jsp?go=y&rs=ifxjdbc>
-5. Oracle TimesTen  
+4. Oracle TimesTen  
    <http://www.oracle.com/technetwork/database/database-technologies/timesten/downloads/index.html>
-6. CUBRID  
+5. CUBRID  
    <http://www.cubrid.org/?mid=downloads&item=jdbc_driver>
-7. Tibero  
+6. Tibero  
    <https://technet.tmaxsoft.com/>
 
 ### 설치 및 제거
@@ -936,35 +932,36 @@ SELECT문이 수정된 테이블의 이름은 WHERE 절과 한 쌍으로 TableCo
 
 마이그레이션 대상이 되는 원본 데이터베이스의 객체와 테이블의 데이터가 저장하려는 데이터베이스(Altibase)로 직접 마이그레이션된다.
 
-| 이름                                         | 설명                                                         |
-| :------------------------------------------- | :----------------------------------------------------------- |
-| Execution Thread                             | 데이터 마이그레이션 실행 시 수행할 최대 스레드 개수를 설정한다. 기본 설정은 마이그레이션 센터가 실행된 시스템의 논리 CPU 개수 * 3이다. 설정값 범위는 1~논리 CPU 개수 * 3을 권장한다. |
-| Migration Target                             | 마이그레이션 대상을 선택한다. <br />- Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />- Object: 데이터베이스 객체만 |
-| **Object Options**                           |                                                              |
-| Foreign Key Migration                        | 마이그레이션 대상에 외래 키 제약 조건 포함 여부를 설정한다. 기본 설정은 No이다. |
-| PSM Migration                                | 마이그레이션 대상에 PSM 객체(저장 프로시저, 저장 함수, Materialized View, 뷰, 타입 세트 및 트리거) 포함 여부를 설정한다. 기본 설정은 Yes이다. |
-| Drop Existing Objects                        | 마이그레이션 수행 전 데이터베이스 객체 재생성 여부를 설정한다.<br />Yes는 대상 데이터베이스에서 마이그레이션 대상 객체를 삭제(Drop)하고 생성(Create)한다. No는 데이터베이스 객체 삭제 과정 없이 마이그레이션을 수행한다. 기본 설정은 No이다. |
-| Keep Partition Table                         | 파티션드 테이블 유지 여부를 설정한다. <br />Yes는 변환 가능한 경우 원본 데이터베이스와 동일한 파티션드 테이블을 생성한다. 이 경우 사용자는 조정(Reconcile) 단계 중 5. Partitioned Table Conversion에서 파티션드 테이블 변환에 필요한 추가 작업을 진행해야 한다. No는 논파티션드 테이블로 변경하여 생성한다. 기본 설정은 No이다. |
-| Use Double-quoted Identifier                 | 데이터베이스 객체 이름에 큰 따옴표 사용 여부를 설정한다. 기본 설정은 No이다. |
-| Remove FORCE from View DDL                   | 뷰 생성 구문에서 'FORCE' 키워드 삭제 여부를 설정한다. 기본 설정은 Yes이다. |
-| Invisible Column Migration                   | 마이그레이션 대상 테이블 칼럼에 Invisible 칼럼 포함 여부를 설정한다. Altibase는 Invisible 칼럼 기능을 제공하지 않는다. <br />Yes는 Invisible 칼럼을 일반 칼럼으로 변경하여 마이그레이션을 수행한다. No는 Invisible 칼럼을 제외하여 마이그레이션을 수행한다. 기본 설정은 No이다. |
-| Postfix for reserved word                    | 원본 데이터베이스 객체 이름이 Altibase 예약어와 충돌할 경우 객체 이름에 추가할 접미사를 설정한다. 기본 설정은 _POC이다. |
-| Default '' (Empty String) Not Null Column    | 빈 문자열(Empty string)[^1]이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼의 정의를 어떻게 조정할 지 설정한다. <br />- Replace Default Empty String: Yes는 기본값을 사용자가 지정한 문자열로 설정하는 것을 의미한다. 기본 설정은 No이다.<br />- Replacement Default Value: 기본값으로 설정될 문자열을 입력한다. Replace Default Empty String 설정이 Yes일 때만 활성화된다.<br />- Remove Not Null: Yes는 빈 문자열이 기본값인 칼럼에 설정된 NOT NULL 제약 조건을 해제하는 것을 의미한다. 기본 설정은 No이다. |
-| **Data Options**                             |                                                              |
-| Batch Execution                              | 성능 향상을 위한 JDBC 배치 입력 사용 여부를 설정한다. 기본 설정은 Yes이다. |
-| Batch Size                                   | JDBC 배치 입력 사용 시 배치 크기를 지정한다. 기본 설정은 10000이다. |
-| Batch LOB type                               | BLOB, CLOB 데이터 타입의 배치 처리 여부를 지정한다. <br/>Yes는 배치 처리를 허용하는 것을 의미한다. 단, LOB 데이터 크기에 따라 메모리 초과 (Out Of Memory) 등의 문제가 발생할 수 있음을 주의해야 한다. 또한 배치 기능을 지원하지 않는 TimesTen에서 예외가 발생할 수 있다. <br />No는 배치 처리를 허용하지 않는다. 기본 설정은 No이다. |
-| Log Insert-failed Data                       | 데이터 마이그레이션 중 입력 실패한 행(row)을 로그 파일에 작성할 것인지 설정한다. 이 옵션은 Batch Execution 옵션이 No인 경우 활성화된다. 기본 설정은 No이다. |
-| File Encoding                                | 입력 실패한 레코드를 파일에 기록할 때 인코딩 문자 집합을 지정한다. Log Insert-failed Data 옵션이 Yes인 경우 활성화된다. 기본설정은 UTF8이다. |
-| Convert Oversized String VARCHAR To CLOB     | 칼럼의 데이터 타입이 Altibase VARCHAR 타입으로 매핑되는 경우 칼럼의 크기가 Altibase의 VARCHAR 최대 크기인 32000 Bytes를 초과할 때, CLOB으로 데이터 타입 변환 여부를 지정한다. </br>Yes는 CLOB 타입으로 변환하여 처리하는 것을 의미한다. </br>No는 칼럼의 크기가 32000인 VARCHAR 타입으로 변환하여 처리하는 것을 의미한다. 기본 설정은 Yes이다.
-| Replace Empty String Data                    | 데이터 마이그레이션 수행 중 발견한 빈 문자열 데이터를 사용자가 지정한 문자열로 변경하기 위한 옵션이다.<br />- Replace Empty Strings in Not Null: Yes는 빈 문자열 데이터를 사용자가 지정한 문자열로 대체하는 것을 의미한다. 기본 설정은 No이다.<br>- Replacement String: 빈 문자열을 대체할 문자열을 입력한다. Replace Empty Strings in Not Null 설정이 Yes일 때만 활성화된다.<br />- Apply to Nullable Columns: Yes는 NOT NULL 제약 조건이 걸려있지 않은 칼럼의 빈 문자열 데이터도 Replacement String에 입력한 문자열로 대체하는 것을 의미한다. 기본 설정은  No이다. |
-| **Data Validation Options**                  |                                                              |
-| Operation                                    | 검증 단계에서 수행할 연산을 선택한다. <br />- DIFF : 원본 및 대상 데이터베이스 간 데이터 불일치 검사 <br />- FILESYNC: DIFF의 결과로 생성된 CSV 파일을 대상 데이터베이스에 반영 |
-| Write to CSV                                 | 불일치 데이터를 CSV 파일에 기록할 것인지 설정한다.           |
-| Include LOB                                  | 불일치 데이터를 CSV 파일에 기록할 때 LOB 데이터를 포함할 것인지 설정한다. |
-| Data Sampling                                | 데이터 샘플링 기능 사용 여부를 설정한다.<br />Yes는 검증 단계의 소요 시간을 줄이기 위해, 샘플 데이터를 대상으로 검증 단계를 수행한다. No는 전체 데이터를 대상으로 검증 단계를 수행한다. 기본 설정은 Yes이다. |
-| Percent Sampling (exact counting)            | 테이블에서 샘플링할 데이터의 비율을 퍼센트 단위로 지정한다. 구축 단계에서 Exact Counting Method를 선택한 경우 이 옵션이 사용된다. |
-| Record Count Sampling (approximate counting) | 테이블에서 샘플링할 레코드의 개수를 지정한다. 구축 단계에서 Approximate Counting Method를 선택한 경우 이 옵션이 사용된다. |
+| 이름                                            | 설명                                                         |
+| :---------------------------------------------- | :----------------------------------------------------------- |
+| Execution Thread                                | 데이터 마이그레이션 실행 시 수행할 최대 스레드 개수를 설정한다. 기본 설정은 마이그레이션 센터가 실행된 시스템의 논리 CPU 개수 * 3이다. 설정값 범위는 1~논리 CPU 개수 * 3을 권장한다. |
+| Migration Target                                | 마이그레이션 대상을 선택한다. <br />- Object & Data: 데이터베이스 객체 및 테이블 데이터 <br />- Object: 데이터베이스 객체만 |
+| **Object Options**                              |                                                              |
+| Foreign Key Migration                           | 마이그레이션 대상에 외래 키 제약 조건 포함 여부를 설정한다. 기본 설정은 No이다. |
+| PSM Migration                                   | 마이그레이션 대상에 PSM 객체(저장 프로시저, 저장 함수, Materialized View, 뷰, 타입 세트 및 트리거) 포함 여부를 설정한다. 기본 설정은 Yes이다. |
+| Drop Existing Objects                           | 마이그레이션 수행 전 데이터베이스 객체 재생성 여부를 설정한다.<br />Yes는 대상 데이터베이스에서 마이그레이션 대상 객체를 삭제(Drop)하고 생성(Create)한다. No는 데이터베이스 객체 삭제 과정 없이 마이그레이션을 수행한다. 기본 설정은 No이다. |
+| Keep Partition Table                            | 파티션드 테이블 유지 여부를 설정한다. <br />Yes는 변환 가능한 경우 원본 데이터베이스와 동일한 파티션드 테이블을 생성한다. 이 경우 사용자는 조정(Reconcile) 단계 중 5. Partitioned Table Conversion에서 파티션드 테이블 변환에 필요한 추가 작업을 진행해야 한다. No는 논파티션드 테이블로 변경하여 생성한다. 기본 설정은 No이다. |
+| Use Double-quoted Identifier                    | 데이터베이스 객체 이름에 큰 따옴표 사용 여부를 설정한다. 기본 설정은 No이다. |
+| Remove FORCE from View DDL                      | 뷰 생성 구문에서 'FORCE' 키워드 삭제 여부를 설정한다. 기본 설정은 Yes이다. |
+| Invisible Column Migration                      | 마이그레이션 대상 테이블 칼럼에 Invisible 칼럼 포함 여부를 설정한다. Altibase는 Invisible 칼럼 기능을 제공하지 않는다. <br />Yes는 Invisible 칼럼을 일반 칼럼으로 변경하여 마이그레이션을 수행한다. No는 Invisible 칼럼을 제외하여 마이그레이션을 수행한다. 기본 설정은 No이다. |
+| Postfix for reserved word                       | 원본 데이터베이스 객체 이름이 Altibase 예약어와 충돌할 경우 객체 이름에 추가할 접미사를 설정한다. 기본 설정은 _POC이다. |
+| Default '' (Empty String) Not Null Column       | 빈 문자열(Empty string)[^1]이 기본값이고 NOT NULL 제약 조건이 설정된 칼럼의 정의를 어떻게 조정할 지 설정한다. <br />- Replace Default Empty String: Yes는 기본값을 사용자가 지정한 문자열로 설정하는 것을 의미한다. 기본 설정은 No이다.<br />- Replacement Default Value: 기본값으로 설정될 문자열을 입력한다. Replace Default Empty String 설정이 Yes일 때만 활성화된다.<br />- Remove Not Null: Yes는 빈 문자열이 기본값인 칼럼에 설정된 NOT NULL 제약 조건을 해제하는 것을 의미한다. 기본 설정은 No이다. |
+| **Data Options**                                |                                                              |
+| Batch Execution                                 | 성능 향상을 위한 JDBC 배치 입력 사용 여부를 설정한다. 기본 설정은 Yes이다. |
+| Batch Size                                      | JDBC 배치 입력 사용 시 배치 크기를 지정한다. 기본 설정은 10000이다. |
+| Batch LOB type                                  | BLOB, CLOB 데이터 타입의 배치 처리 여부를 지정한다. <br/>Yes는 배치 처리를 허용하는 것을 의미한다. 단, LOB 데이터 크기에 따라 메모리 초과 (Out Of Memory) 등의 문제가 발생할 수 있음을 주의해야 한다. 또한 배치 기능을 지원하지 않는 TimesTen에서 예외가 발생할 수 있다. <br />No는 배치 처리를 허용하지 않는다. 기본 설정은 No이다. |
+| Log Insert-failed Data                          | 데이터 마이그레이션 중 입력 실패한 행(row)을 로그 파일에 작성할 것인지 설정한다. 이 옵션은 Batch Execution 옵션이 No인 경우 활성화된다. 기본 설정은 No이다. |
+| File Encoding                                   | 입력 실패한 레코드를 파일에 기록할 때 인코딩 문자 집합을 지정한다. Log Insert-failed Data 옵션이 Yes인 경우 활성화된다. 기본설정은 UTF8이다. |
+| Convert Oversized String VARCHAR To CLOB        | 칼럼의 데이터 타입이 Altibase VARCHAR 타입으로 매핑되는 경우 칼럼의 크기가 Altibase의 VARCHAR 최대 크기인 32000 Bytes를 초과할 때, CLOB으로 데이터 타입 변환 여부를 지정한다. </br>Yes는 CLOB 타입으로 변환하여 처리하는 것을 의미한다. </br>No는 칼럼의 크기가 32000인 VARCHAR 타입으로 변환하여 처리하는 것을 의미한다. 기본 설정은 Yes이다. |
+| Correction Factor for Character Type Conversion | 원본 데이터베이스와 대상 데이터베이스의 문자 집합이 서로 다른 경우, 문자형 데이터 타입(CHAR, VARCHAR) 칼럼 길이를 자동 변환하는데 사용되는 보정 계수(Correction Factor)를 지정하는 옵션이다. 기본 값은 자동으로 계산된 값이며, 1보다 작은 값으로 지정할 수 없다. </br> 더 자세한 내용은 [C.부록: 데이터 타입 매핑 - 이종 문자 집합을 고려한 문자형 칼럼 길이 자동 보정](#이종-문자-집합을-고려한-문자형-칼럼-길이-자동-보정)을 참고한다. </br> - 칼럼 단위로 문자 집합이 지정된 경우에는 이 옵션으로 설정한 보정 계수가 적용되지 않는다. 관련 내용은 FAQ를 참고한다. |
+| Replace Empty String Data                       | 데이터 마이그레이션 수행 중 발견한 빈 문자열 데이터를 사용자가 지정한 문자열로 변경하기 위한 옵션이다.<br />- Replace Empty Strings in Not Null: Yes는 빈 문자열 데이터를 사용자가 지정한 문자열로 대체하는 것을 의미한다. 기본 설정은 No이다.<br>- Replacement String: 빈 문자열을 대체할 문자열을 입력한다. Replace Empty Strings in Not Null 설정이 Yes일 때만 활성화된다.<br />- Apply to Nullable Columns: Yes는 NOT NULL 제약 조건이 걸려있지 않은 칼럼의 빈 문자열 데이터도 Replacement String에 입력한 문자열로 대체하는 것을 의미한다. 기본 설정은  No이다. |
+| **Data Validation Options**                     |                                                              |
+| Operation                                       | 검증 단계에서 수행할 연산을 선택한다. <br />- DIFF : 원본 및 대상 데이터베이스 간 데이터 불일치 검사 <br />- FILESYNC: DIFF의 결과로 생성된 CSV 파일을 대상 데이터베이스에 반영 |
+| Write to CSV                                    | 불일치 데이터를 CSV 파일에 기록할 것인지 설정한다.           |
+| Include LOB                                     | 불일치 데이터를 CSV 파일에 기록할 때 LOB 데이터를 포함할 것인지 설정한다. |
+| Data Sampling                                   | 데이터 샘플링 기능 사용 여부를 설정한다.<br />Yes는 검증 단계의 소요 시간을 줄이기 위해, 샘플 데이터를 대상으로 검증 단계를 수행한다. No는 전체 데이터를 대상으로 검증 단계를 수행한다. 기본 설정은 Yes이다. |
+| Percent Sampling (exact counting)               | 테이블에서 샘플링할 데이터의 비율을 퍼센트 단위로 지정한다. 구축 단계에서 Exact Counting Method를 선택한 경우 이 옵션이 사용된다. |
+| Record Count Sampling (approximate counting)    | 테이블에서 샘플링할 레코드의 개수를 지정한다. 구축 단계에서 Approximate Counting Method를 선택한 경우 이 옵션이 사용된다. |
 
 [^1]: 길이가 0인 문자열
 
@@ -1030,7 +1027,8 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | View                     |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Trigger                  |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 
-### Informix to Altibase
+<!-- 
+Informix to Altibase
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
@@ -1047,6 +1045,8 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 | Function               |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | View                   |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
 | Trigger                |                   X                   |                   X                    | 구축(Build) 단계에서 원본 데이터베이스에서 수집한 객체 생성 구문을 SrcDbObj_Create.sql과 BuildReport4Unsupported.html 파일에 기록한다. |
+
+-->
 
 ### MySQL to Altibase
 
@@ -1068,13 +1068,13 @@ Migration Center에서 지원하지 않는 원본 데이터베이스의 객체�
 
 | 데이터베이스 객체 유형 | 'Build User'로 마이그레이션 가능 여부 | 'Build Table'로 마이그레이션 가능 여부 | 비고                                                         |
 | :--------------------- | :-----------------------------------: | :------------------------------------: | :----------------------------------------------------------- |
-| Table                  |                   O                   |                   O                    | 임시 테이블을 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. </br>외부 테이블(External Table)과 하이브리드 파티션드 테이블(Hybrid Partitioned Table)을 마이그레이션하기 위해서는 사용자가 접근할 수 있는 디스크 테이블 스페이스가 Altibase에 있어야 한다. Altibase는 Oracle이 제공하는 외부 테이블과 하이브리드 파티션드 테이블 기능을 제공하지 않으므로, 해당 테이블들은 일반 테이블 또는 파티션드 테이블로 변환되어 마이그레이션된다. 이러한 테이블들은 대용량일 가능성이 높아, 마이그레이션 시 자동으로 디스크 테이블스페이스에 할당되기 때문이다. |
+| Table                  |                   O                   |                   O                    | 임시 테이블을 마이그레이션하기 위해서는 휘발성 테이블스페이스가 Altibase에 있어야 한다. Altibase의 임시 테이블은 휘발성 테이블스페이스에만 생성할 수 있기 때문이다. 테이블과 칼럼에 명시된 주석(comment)도 함께 마이그레이션된다. </br>외부 테이블(External Table)과 하이브리드 파티션드 테이블(Hybrid Partitioned Table)을 마이그레이션하기 위해서는 사용자가 접근할 수 있는 디스크 테이블 스페이스가 Altibase에 있어야 한다. Altibase는 Oracle이 제공하는 외부 테이블과 하이브리드 파티션드 테이블 기능을 제공하지 않으므로, 해당 테이블들은 일반 테이블 또는 파티션드 테이블로 변환되어 마이그레이션된다. 이러한 테이블들은 대용량일 가능성이 높아, 마이그레이션 시 자동으로 디스크 테이블스페이스에 할당되기 때문이다. </br>블록체인 테이블(Blockchain Table)과 불변 테이블(Immutable Table)은 일반 테이블로 마이그레이션된다. |
 | Primary Key 제약       |                   O                   |                   O                    |                                                              |
 | Unique 제약            |                   O                   |                   O                    |                                                              |
-| Check 제약             |                   O                   |                   O                    |                                                              |
+| Check 제약             |                   O                   |                   O                    | IS JSON 체크 제약 조건은 마이그레이션되지 않는다.            |
 | Foreign Key 제약       |                   O                   |                   O                    |                                                              |
-| Index                  |                   O                   |                   O                    | 보이지 않는 인덱스(Invisible Index)와 사용 불가능한 인덱스(Unusable Index)는 마이그레이션되지 않는다.                                                             |
-| Sequence               |                   O                   |                   X                    | 확장가능한 시퀀스는 마이그레이션되지 않는다.                                                             |
+| Index                  |                   O                   |                   O                    | 보이지 않는 인덱스(Invisible Index)와 사용 불가능한 인덱스(Unusable Index)는 마이그레이션되지 않는다. </br>다중값 인덱스(Multivalue Index)는 마이그레이션되지 않는다. |
+| Sequence               |                   O                   |                   X                    | 확장가능한 시퀀스(Scalable Sequence)는 마이그레이션되지 않는다. |
 | Private Synonym        |               부분 지원               |                   X                    | 동일 schema 내의 객체를 참조하는 시노님만 마이그레이션된다.  |
 | Procedure              |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
 | Function               |               부분 지원               |                   X                    | PSM 변환기에 정의된 규칙에 따라 객체 생성 문장을 변환하고 마이그레이션을 시도한다. |
@@ -1222,6 +1222,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  15  | CLOB          | CLOB              |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666)   | Altibase에는 오라클 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수도 있다. |
 |  17  | ROWID         | VARCHAR(18)       | 오라클의 ROWID는 문자형 데이터 타입으로 변환한다. Altibase는 ROWID라는 데이터 타입을 지원하지 않는다. |
+|  18  | JSON          | CLOB 또는 JSON    | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 Altibase 8.1 이상 버전에서는 JSON 타입으로 변환된다. </br> 만약 VARCHAR2, BLOB, CLOB 등의 데이터 타입에 IS JSON 체크 제약 조건이 설정되어 있는 경우, 원본 데이터베이스의 해당 컬럼은 JSON 타입으로 간주된다. 단, IS JSON 체크 제약 조건은 마이그레이션되지 않는다. |
 
 #### MS-SQL Server to Altibase
 
@@ -1290,6 +1291,9 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  29  | LONGTEXT           | CLOB                            |                                                              |
 |  30  | ENUM               | VARCHAR(10666)                  | Altibase에는 MySQL ENUM 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
 |  31  | SET                | VARCHAR(10666)                  | Altibase에는 MySQL SET 타입과 호환 가능한 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR 타입으로 매핑된다. |
+|  32  | JSON               | CLOB 또는 JSON                  | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 Altibase 8.1 이상 버전에서는 JSON 타입으로 변환된다. |
+
+<!--
 
 #### Informix 11.5 to Altibase
 
@@ -1320,6 +1324,8 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  23  | BYTE          | BLOB              |                                                              |
 |  24  | BLOB          | BLOB              |                                                              |
 |  25  | INTERVAL      | NUMBER(38)        |                                                              |
+
+-->
 
 #### TimesTen to Altibase
 
@@ -1401,6 +1407,7 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 |  15  | CLOB          | CLOB            |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666) | Altibase에는 티베로 NCLOB 타입과 호환 가능한 데이터 타입이 없으므로, 최대 크기의 NVARCHAR 타입으로 변환된다. 실제 데이터 크기가 NVARCHAR의 최대 크기를 초과하는 경우, 데이터를 마이그레이션하는 동안 데이터 손실이 발생할 수 있다. |
 |  17  | ROWID         | VARCHAR(18)     | 티베로의 ROWID는 문자형 데이터 타입으로 변환한다. Altibase는 ROWID라는 데이터 타입을 지원하지 않는다. |
+|  18  | JSON          | CLOB 또는 JSON  | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 Altibase 8.1 이상 버전에서는 JSON 타입으로 변환된다. |
 
 #### PostgreSQL to Altibase
 
@@ -1443,68 +1450,79 @@ Migration Center 7.11부터 원본 데이터베이스의 문자형 데이터 타
 | 35 | PATH | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
 | 36 | POLYGON | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
 | 37 | CIRCLE | VARCHAR(32000) | Altibase에는 호환되는 데이터 타입이 없으므로, 데이터 손실을 막기 위해 VARCHAR타입으로 저장된다. |
+| 38 | JSON | CLOB 또는 JSON | Altibase 7.3 이하 버전은 JSON 데이터 타입을 지원하지 않으므로 CLOB 타입으로 변환된다. 반면, JSON 데이터 타입을 지원하는 Altibase 8.1 이상 버전에서는 JSON 타입으로 변환된다. |
 
 ### 이종 문자 집합을 고려한 문자형 칼럼 길이 자동 보정
 
 마이그레이션시 원본(Source)과 대상(Destination) 데이터베이스의 문자 집합(character set)이 서로 다른 경우, 문자형 데이터 타입 (CHAR, VARCHAR)은 길이 변환이 필요하다.
-예를 들어 원본 데이터베이스는 한 문자당 최대 2바이트 저장소가 필요한 MS949 문자집합으로, 대상 데이터베이스는 한 문자당 3바이트가 필요한 UTF8 문자 집합으로 설정되어 있다면, 데이터 잘림 없이 마이그레이션을 하기 위해서는 대상 데이터베이스의 문자형 데이터 타입의 크기가 원본의 1.5배가 되어야 한다.
+예를 들어 원본 데이터베이스는 한 문자당 최대 2바이트 저장소가 필요한 MS949 문자 집합으로, 대상 데이터베이스는 한 문자당 3바이트가 필요한 UTF8 문자 집합으로 설정되어 있다면, 데이터 잘림 없이 마이그레이션을 하기 위해서는 대상 데이터베이스의 문자형 데이터 타입의 크기가 원본의 1.5배가 되어야 한다.
 
-Migration Center는 이러한 길이 변환을 자동으로 해 주며, 문자형 데이터 타입의 길이 보정식은 아래와 같다.
+Migration Center는 이러한 문자형 데이터 타입의 길이 변환을 자동으로 해 주며, 이때의 보정 계산식은 아래와 같다.
 
-```
+```mathematica
 Dest. Size = Ceil(Correction Factor * Src. Size)
 Correction Factor = Dest. MaxBytes / Src. MaxBytes
-* MaxBytes = The maximum number of bytes required to store one character
 ```
 
-단, 원본의 MaxBytes가 1이거나 보정 계수 (Correction Factor)가 1보다 작은 경우에는 길이 변환을 하지 않는다.
+* Dest. Size : 대상 칼럼의 길이
+* Src. Size : 원본 칼럼의 길이
+* Correction Factor : 보정 계수
+* MaxBytes : 한 문자를 저장하는데 필요한 최대 바이트 수(MaxBytes Per Character)
+* Ceil : 계산 결과를 올림 처리
 
-원본과 대상 데이터베이스의 MaxBytes와 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있다.
+보정 계수 (Correction Factor)는 기본적으로 Migration Center에서 자동으로 계산되지만, 사용자는 "Correction Factor for Character Type Conversion" 옵션을 수정하여 변경할 수 있다. 단, 보정 계수가 1인 경우에는 길이 변환을 하지 않는다.
+
+자동 계산된 보정 계수는 Build Report의 Summary 페이지에서 확인할 수 있으며, 사용자가 수정한 보정 계수는 Reconcile Report의 Summary 페이지에서 확인할 수 있다.
 
 #### 주의 사항
 
-대용량 테이블의 경우 길이 보정으로 인해 대상 데이터베이스의 데이터 저장 사이즈가 원본보다 훨씬 커질 수 있다. 길이를 변환하지 않아도 데이터가 잘리지 않는다는 보장이 있다면 조정(Reconcile) 단계에서 수동으로 길이를 지정할 수 있다.
+* 대용량 테이블의 경우 길이 보정으로 인해 대상 데이터베이스의 데이터 저장 사이즈가 원본보다 훨씬 커질 수 있다. 
+* 칼럼 단위로 문자 집합이 지정된 경우, "Correction Factor for Character Type Conversion" 옵션으로 설정한 값은 적용되지 않는다. 이 경우 자동으로 계산된 보정 계수가 해당 컬럼의 길이변환에 사용된다.
 
 #### 데이터베이스별 지원 문자 집합
 
-아래 표에 없는 문자 집합의 경우에는 Migration Center가 길이 보정을 하지 않는다.
+아래 표에 없는 문자 집합의 경우에는 Migration Center가 "MaxBytes Per Character"를 1로 간주한다.
 
 ##### Altibase
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| KO16KSC5601   | 2                        |
-| MS949         | 2                        |
-| BIG5          | 2                        |
-| GB231280      | 2                        |
-| MS936         | 2                        |
-| UTF8          | 3                        |
-| SHIFTJIS      | 2                        |
-| MS932         | 2                        |
-| EUCJP         | 3                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| KO16KSC5601   | 2                      |
+| MS949         | 2                      |
+| BIG5          | 2                      |
+| GB231280      | 2                      |
+| MS936         | 2                      |
+| UTF8          | 3                      |
+| SHIFTJIS      | 2                      |
+| MS932         | 2                      |
+| EUCJP         | 3                      |
 
 ##### Cubrid
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| utf8          | 3                        |
-| euckr         | 2                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| utf8          | 3                      |
+| euckr         | 2                      |
+
+<!--
 
 ##### Informix
 
-| Character Set      | Max. Bytes Per Character |
-| ------------------ | ------------------------ |
-| zh_cn.GB18030_2000 | 4                        |
-| zh_tw.big5         | 2                        |
-| zh_tw.euctw        | 4                        |
-| zh_cn.gb           | 2                        |
-| zh_tw.sbig5        | 2                        |
-| zh_tw.ccdc         | 2                        |
-| ja_jp.sjis-s       | 2                        |
-| ja_jp.ujis         | 3                        |
-| ja_up.sjis         | 2                        |
-| ko_kr.cp949        | 2                        |
-| ko_kr.ksc          | 2                        |
+| Character Set      | MaxBytes Per Character |
+| ------------------ | ---------------------- |
+| zh_cn.GB18030_2000 | 4                      |
+| zh_tw.big5         | 2                      |
+| zh_tw.euctw        | 4                      |
+| zh_cn.gb           | 2                      |
+| zh_tw.sbig5        | 2                      |
+| zh_tw.ccdc         | 2                      |
+| ja_jp.sjis-s       | 2                      |
+| ja_jp.ujis         | 3                      |
+| ja_up.sjis         | 2                      |
+| ko_kr.cp949        | 2                      |
+| ko_kr.ksc          | 2                      |
+
+-->
 
 ##### MySQL
 
@@ -1516,67 +1534,244 @@ SELECT CHARACTER_SET_NAME,MAXLEN FROM INFORMATION_SCHEMA.CHARACTER_SETS;
 
 ##### SQL Server
 
-| Code Page | Max. Bytes Per Character |
-| --------- | ------------------------ |
-| 932       | 2                        |
-| 936       | 2                        |
-| 949       | 2                        |
-| 950       | 2                        |
+| Code Page | MaxBytes Per Character |
+| --------- | ---------------------- |
+| 932       | 2                      |
+| 936       | 2                      |
+| 949       | 2                      |
+| 950       | 2                      |
 
 ##### Oracle
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| AL32UTF8      | 4                        |
-| JA16EUC       | 3                        |
-| JA16EUCTILDE  | 3                        |
-| JA16SJIS      | 2                        |
-| JA16SJISTILDE | 2                        |
-| KO16MSWIN949  | 2                        |
-| UTF8          | 3                        |
-| ZHS16GBK      | 2                        |
-| ZHT16HKSCS    | 2                        |
-| ZHT16MSWIN950 | 2                        |
-| ZHT32EUC      | 4                        |
+| Character Set   | MaxBytes Per Character |
+| --------------- | ---------------------- |
+| AL32UTF8        | 4                      |
+| JA16EUC         | 3                      |
+| JA16EUCTILDE    | 3                      |
+| JA16SJIS        | 2                      |
+| JA16SJISTILDE   | 2                      |
+| KO16MSWIN949    | 2                      |
+| UTF8            | 3                      |
+| ZHS16GBK        | 2                      |
+| ZHT16HKSCS      | 2                      |
+| ZHT16MSWIN950   | 2                      |
+| ZHT32EUC        | 4                      |
+| ZHT16HKSCS31    | 2                      |
+| US7ASCII        | 1                      |
+| BG8PC437S       | 1                      |
+| BLT8PC775       | 1                      |
+| CON8PC863       | 1                      |
+| EE8PC852        | 1                      |
+| EL8EBCDIC423R   | 1                      |
+| EL8PC437S       | 1                      |
+| EL8PC851        | 1                      |
+| EL8PC869        | 1                      |
+| IS8PC861        | 1                      |
+| IW8PC1507       | 1                      |
+| LT8PC772        | 1                      |
+| LT8PC774        | 1                      |
+| LV8PC8LR        | 1                      |
+| LV8PC1117       | 1                      |
+| LV8RST104090    | 1                      |
+| N8PC865         | 1                      |
+| RU8PC855        | 1                      |
+| RU8PC866        | 1                      |
+| TR8PC857        | 1                      |
+| US8PC437        | 1                      |
+| WE8PC850        | 1                      |
+| WE8PC858        | 1                      |
+| WE8PC860        | 1                      |
+| AR8ARABICMACS   | 1                      |
+| CL8MACCVRILLICS | 1                      |
+| EE8MACCES       | 1                      |
+| EE8MACCROATIANS | 1                      |
+| EL8MACGREEKS    | 1                      |
+| IW8MACHEBREWS   | 1                      |
+| TH8MACTHAIS     | 1                      |
+| TH8MACTURKISHS  | 1                      |
+| WE8MACROMAN8S   | 1                      |
+| AR8MSWIN1256    | 1                      |
+| BG8MSWIN        | 1                      |
+| BLT8MSWIN1257   | 1                      |
+| CL8MSWIN1251    | 1                      |
+| EE8MSWIN1250    | 1                      |
+| EL8MSWIN1253    | 1                      |
+| ET8MSWIN923     | 1                      |
+| IW8MSWIN1255    | 1                      |
+| LT8MSWIN921     | 1                      |
+| TR8MSWIN1254    | 1                      |
+| VN8MSWIN1258    | 1                      |
+| WE8MSWIN1252    | 1                      |
+| AR8ADOS710      | 1                      |
+| AR8ADOS720      | 1                      |
+| AR8APTEC715     | 1                      |
+| AR8ASMO8X       | 1                      |
+| AR8EBCDICX      | 1                      |
+| AR8EBCDIC420S   | 1                      |
+| AR8ISO8859P6    | 1                      |
+| AR8MUSSAD768    | 1                      |
+| AR8NAFITHA711   | 1                      |
+| AR8NAFITHA721   | 1                      |
+| AR8SAKHR706     | 1                      |
+| AR8SAKHR707     | 1                      |
+| AZ8ISO8859P9E   | 1                      |
+| BLT8CP921       | 1                      |
+| BLT8EBCDIC1112  | 1                      |
+| BLT8EBCDIC1112S | 1                      |
+| BLT8ISO8859P13  | 1                      |
+| BN8BSCII        | 1                      |
+| CE8BS2000       | 1                      |
+| CEL8ISO8859P14  | 1                      |
+| CL8BS2000       | 1                      |
+| CL8EBCDIC1025   | 1                      |
+| CL8EBCDIC1025C  | 1                      |
+| CL8EBCDIC1025R  | 1                      |
+| CL8EBCDIC1025S  | 1                      |
+| CL8EBCDIC1025X  | 1                      |
+| CL8EBCDIC1158   | 1                      |
+| CL8EBCDIC1158R  | 1                      |
+| CL8ISO8859P5    | 1                      |
+| CL8ISOIR111     | 1                      |
+| CL8KOI8R        | 1                      |
+| CL8KOI8U        | 1                      |
+| D8BS2000        | 1                      |
+| D8EBCDIC273     | 1                      |
+| D8EBCDIC1141    | 1                      |
+| DK8BS2000       | 1                      |
+| DK8EBCDIC277    | 1                      |
+| DK8EBCDIC1142   | 1                      |
+| E8BS2000        | 1                      |
+| EE8BS2000       | 1                      |
+| EE8EBCDIC870    | 1                      |
+| EE8EBCDIC870C   | 1                      |
+| EE8EBCDIC870S   | 1                      |
+| EE8ISO8859P2    | 1                      |
+| EL8DEC          | 1                      |
+| EL8EBCDIC875    | 1                      |
+| EL8EBCDIC875R   | 1                      |
+| EL8GCOS7        | 1                      |
+| EL8ISO8859P7    | 1                      |
+| F8BS2000        | 1                      |
+| F8EBCDIC297     | 1                      |
+| F8EBCDIC1147    | 1                      |
+| HU8ABMOD        | 1                      |
+| HU8CWI2         | 1                      |
+| I8EBCDIC280     | 1                      |
+| I8EBCDIC1144    | 1                      |
+| IN8ISCII        | 1                      |
+| IW8EBCDIC424    | 1                      |
+| IW8EBCDIC424S   | 1                      |
+| IW8EBCDIC1086   | 1                      |
+| IW8ISO8859P8    | 1                      |
+| LA8ISO6937      | 1                      |
+| LA8PASSPORT     | 1                      |
+| NE8ISO8859P10   | 1                      |
+| NEE8ISO8859P4   | 1                      |
+| RU8BESTA        | 1                      |
+| S8BS2000        | 1                      |
+| S8EBCDIC278     | 1                      |
+| S8EBCDIC1143    | 1                      |
+| SE8ISO8859P3    | 1                      |
+| TH8TISEBCDIC    | 1                      |
+| TH8TISEBCDICS   | 1                      |
+| TH8TISASCII     | 1                      |
+| TR8DEC          | 1                      |
+| TR8EBCDIC1026   | 1                      |
+| TR8EBCDIC1026S  | 1                      |
+| US8BS2000       | 1                      |
+| US8ICL          | 1                      |
+| VN8VN3          | 1                      |
+| WE8BS2000       | 1                      |
+| WE8BS2000E      | 1                      |
+| WE8BS2000L5     | 1                      |
+| WE8DEC          | 1                      |
+| WE8DG           | 1                      |
+| WE8EBCDIC37     | 1                      |
+| WE8EBCDIC37C    | 1                      |
+| WE8EBCDIC284    | 1                      |
+| WE8EBCDIC285    | 1                      |
+| WE8EBCDIC500    | 1                      |
+| WE8EBCDIC500C   | 1                      |
+| WE8EBCDIC871    | 1                      |
+| WE8EBCDIC924    | 1                      |
+| WE8EBCDIC1047   | 1                      |
+| WE8EBCDIC1047E  | 1                      |
+| WE8EBCDIC1140   | 1                      |
+| WE8EBCDIC1140C  | 1                      |
+| WE8EBCDIC1145   | 1                      |
+| WE8EBCDIC1146   | 1                      |
+| WE8EBCDIC1148   | 1                      |
+| WE8EBCDIC1148C  | 1                      |
+| WE8GCOS7        | 1                      |
+| WE8ICL          | 1                      |
+| WE8ISO8859P1    | 1                      |
+| WE8ISO8859P9    | 1                      |
+| WE8ISO8859P15   | 1                      |
+| WE8NCR4970      | 1                      |
+| WE8NEXTSTEP     | 1                      |
+| WE8ROMAN8       | 1                      |
 
 ##### Tibero
 
-| Character Set | Max. Bytes Per Character |
-| ------------- | ------------------------ |
-| UTF8          | 4                        |
-| EUCKR         | 2                        |
-| MSWIN949      | 2                        |
-| SJIS          | 2                        |
-| JA16SJIS      | 2                        |
-| JA16SJISTILDE | 2                        |
-| JA16EUC       | 3                        |
-| JA16EUCTILDE  | 3                        |
-| GBK           | 2                        |
-| ZHT16HKSCS    | 2                        |
+| Character Set | MaxBytes Per Character |
+| ------------- | ---------------------- |
+| UTF8          | 4                      |
+| EUCKR         | 2                      |
+| MSWIN949      | 2                      |
+| SJIS          | 2                      |
+| JA16SJIS      | 2                      |
+| JA16SJISTILDE | 2                      |
+| JA16EUC       | 3                      |
+| JA16EUCTILDE  | 3                      |
+| GBK           | 2                      |
+| ZHT16HKSCS    | 2                      |
+| EUCTW         | 4                      |
+| GB18030       | 4                      |
+| UTF16         | 4                      |
+| SJISTILDE     | 2                      |
+| ZHT16BIG5     | 2                      |
+| ZHT16MSWIN950 | 2                      |
+| ASCII         | 1                      |
+| VN8VN3        | 1                      |
+| TH8TISASCII   | 1                      |
+| EE8ISO8859P2  | 1                      |
+| WE8MSWIN1252  | 1                      |
+| WE8ISO8859P1  | 1                      |
+| WE8ISO8859P9  | 1                      |
+| WE8ISO8859P15 | 1                      |
+| CL8MSWIN1251  | 1                      |
+| CL8KOI8R      | 1                      |
+| CL8ISO8859P5  | 1                      |
+| RU8PC866      | 1                      |
+| EL8ISO8859P7  | 1                      |
+| EL8MSWIN1253  | 1                      |
+| AR8ISO8859P6  | 1                      |
+| AR8MSWIN1256  | 1                      |
+| IW8ISO8859P8  | 1                      |
 
 ##### TimesTen
 
-| Character Set  | Max. Bytes Per Character |
-| -------------- | ------------------------ |
-| AL16UTF16      | 4                        |
-| AL32UTF8       | 4                        |
-| JA16EUC        | 3                        |
-| JA16EUCTILDE   | 3                        |
-| JA16SJIS       | 2                        |
-| JA16SJISTILDE  | 2                        |
-| KO16KSC5601    | 2                        |
-| KO16MSWIN949   | 2                        |
-| ZHS16CGB231280 | 2                        |
-| ZHS16GBK       | 2                        |
-| ZHS32GB18030   | 4                        |
-| ZHT16BIG5      | 2                        |
-| ZHT16HKSCS     | 2                        |
-| ZHT16MSWIN950  | 2                        |
-| ZHT32EUC       | 4                        |
+| Character Set  | MaxBytes Per Character |
+| -------------- | ---------------------- |
+| AL16UTF16      | 4                      |
+| AL32UTF8       | 4                      |
+| JA16EUC        | 3                      |
+| JA16EUCTILDE   | 3                      |
+| JA16SJIS       | 2                      |
+| JA16SJISTILDE  | 2                      |
+| KO16KSC5601    | 2                      |
+| KO16MSWIN949   | 2                      |
+| ZHS16CGB231280 | 2                      |
+| ZHS16GBK       | 2                      |
+| ZHS32GB18030   | 4                      |
+| ZHT16BIG5      | 2                      |
+| ZHT16HKSCS     | 2                      |
+| ZHT16MSWIN950  | 2                      |
+| ZHT32EUC       | 4                      |
 
 ##### PostgreSQL
 
-| Character Set  | Max. Bytes Per Character |
+| Character Set  | MaxBytes Per Character |
 | :-------------- | :------------------------: |
 | BIG5           | 2                        |
 | EUC_CN         | 3                        |
@@ -1767,6 +1962,8 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval <br />( c1 TIMESTAMP NOT NULL, <br />c2 INT DEFAULT 123, <br />c3 VARCHAR(50) DEFAULT 'test', <br />c4 INT DEFAULT NULL, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATE DEFAULT '1989-04-28', <br />c7 DATETIME DEFAULT '1989-04-28 12:31:29', <br />c8 TIMESTAMP DEFAULT '1989-04-28 12:31:29' NOT NULL, <br />c9 TIMESTAMP NOT NULL ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 DATE DEFAULT SYSDATE NOT NULL, <br />C2 INTEGER DEFAULT 123, <br />C3 CLOB DEFAULT 'test', C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE DEFAULT TO_DATE('1989-04-28', 'YYYY-MM-DD'), <br />C7 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS'), <br />C8 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS') NOT NULL, <br />C9 DATE /\* DEFAULT '0000-00-00 00:00:00' \*/ NOT NULL ); |
 
+<!--
+
 #### Informix 11.5 to Altibase
 
 <table>
@@ -1787,11 +1984,14 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
     </tr>     
 </table>
 
+
 아래는 변환 예제이다.
 
-| Informix의 테이블 생성 SQL문                                                                                                                                                                                                                                                                                                                                    | Altibase의 테이블 생성 SQL문                                                                                                                                                                                                                                                              |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Informix의 테이블 생성 SQL문                                 | Altibase의 테이블 생성 SQL문                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CREATE TABLE testtbl_4_defval ( <br />c1 INTEGER DEFAULT 123, <br />c2 BOOLEAN DEFAULT 't',<br />c3 CHAR(100) DEFAULT 'test', <br />c4 INTEGER DEFAULT null, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATETIME YEAR TO DAY DEFAULT DATETIME(07-3-6) YEAR TO DAY, <br />c7 DATETIME DAY TO HOUR DEFAULT CURRENT DAY TO HOUR, <br />c8 DATE DEFAULT TODAY ); | CREATE TABLE TESTTBL_4_DEFVAL ( <br />C1 INTEGER DEFAULT 123, <br />C2 CHAR (1) DEFAULT 't', <br />C3 CHAR (100) DEFAULT 'test', <br />C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE /\* DEFAULT '2007-03-06' \*/, <br />C7 DATE DEFAULT SYSDATE, <br />C8 DATE DEFAULT SYSDATE ); |
+
+-->
 
 #### TimesTen to Altibase
 
@@ -1956,7 +2156,6 @@ Migration Center는 데이터를 이전하기 전에 마이그레이션 대상 �
 | SQL Server   | 고정 길이 문자열 | **빈 문자열** |
 | PostgreSQL   | 고정 길이 문자열 | **빈 문자열** |
 | CUBRID       | 고정 길이 문자열 | **빈 문자열** |
-| Informix     | 고정 길이 문자열 | **빈 문자열** |
 
 Altibase는 기본적으로 빈 문자열을 NULL로 처리한다. 즉, 원본 데이터베이스에 빈 문자열 데이터가 있다면 마이그레이션 시 NULL 처리한다. 만약 빈 문자열이 칼럼의 기본값으로 설정되었다면(`DEFAULT ''`), Altibase는 이를 `DEFAULT NULL`로 해석하고, 기존의 기본값 설정을 제거한다.
 
@@ -2262,6 +2461,32 @@ AS SELECT * FROM t1;
 ```sql
 CREATE OR REPLACE /* FORCE */ /* [REMOVED] RULE-11008 : FORCE has been removed */ VIEW v1
 (c1, c2)
+AS SELECT * FROM t1;
+```
+
+#### RULE-11009
+
+###### 타입
+
+`REMOVED`
+
+###### 설명
+
+DEFAULT COLLATION 절이 제거되었다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE VIEW v1
+DEFAULT COLLATION "BINARY_AI"
+AS SELECT * FROM t1;
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE VIEW v1
+/* DEFAULT COLLATION "BINARY_AI" */ /* [REMOVED] RULE-11009 : DEFAULT COLLATION clause is removed */
 AS SELECT * FROM t1;
 ```
 
@@ -2768,6 +2993,38 @@ NULL;
 END /* trig1 */ /* [REMOVED] RULE-12017 : The trigger label name at the end of body has been removed */;
 ```
 
+#### RULE-12018
+
+###### 타입
+
+`REMOVED`
+
+###### 설명
+
+DEFAULT COLLATION 절이 제거되었다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE TRIGGER trig1
+DEFAULT COLLATION USING_NLS_COMP
+BEFORE INSERT ON t1
+BEGIN
+NULL;
+END;
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE TRIGGER trig1
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-12018 : DEFAULT COLLATION clause is removed */
+BEFORE INSERT ON t1
+BEGIN
+NULL;
+END;
+```
+
 ### 함수 변환 규칙
 
 #### RULE-13001
@@ -3236,6 +3493,40 @@ LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER /* [TODO] RULE-13015 : External data type of the parameters should be manually converted */);
 ```
 
+#### RULE-13016
+
+###### 타입
+
+`REMOVED`
+
+###### 설명
+
+DEFAULT COLLATION 절이 제거되었다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
+RETURN VARCHAR2
+DEFAULT COLLATION USING_NLS_COMP
+IS
+BEGIN
+RETURN a1;
+END;
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE FUNCTION func1(a1 VARCHAR2)
+RETURN VARCHAR2
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-13016 : DEFAULT COLLATION clause is removed */
+IS
+BEGIN
+RETURN a1;
+END;
+```
+
 ### 프로시저 변환 규칙
 
 #### RULE-14001
@@ -3510,7 +3801,7 @@ PARAMETERS(a1 BY REFERENCE /* [TODO] RULE-14009 : BY REFERENCE clause must be co
 ###### 원본 SQL 문장
 
 ```sql
-CREAT OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
+CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
 LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER);
 ```
@@ -3518,9 +3809,41 @@ PARAMETERS(a1 OCINUMBER);
 ###### 변환된 SQL 문장
 
 ```sql
-CREAT OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
+CREATE OR REPLACE PROCEDURE proc1(a1 NUMBER) AS
 LANGUAGE C LIBRARY lib1
 PARAMETERS(a1 OCINUMBER /* [TODO] RULE-14010 : External data type of the parameters should be manually converted */);
+```
+
+#### RULE-14011
+
+###### 타입
+
+`REMOVED`
+
+###### 설명
+
+DEFAULT COLLATION 절이 제거되었다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1
+DEFAULT COLLATION USING_NLS_COMP
+IS
+BEGIN
+NULL;
+END;
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE PROCEDURE proc1
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-14011 : DEFAULT COLLATION clause is removed */
+IS
+BEGIN
+NULL;
+END;
 ```
 
 ### Materialized View 변환 규칙
@@ -3631,6 +3954,34 @@ AS
 END;
 ```
 
+#### RULE-16003
+
+###### 타입
+
+`REMOVED`
+
+###### 설명
+
+DEFAULT COLLATION 절이 제거되었다.
+
+###### 원본 SQL 문장
+
+```sql
+CREATE OR REPLACE PACKAGE pkg1
+DEFAULT COLLATION USING_NLS_COMP
+AS
+END;
+```
+
+###### 변환된 SQL 문장
+
+```sql
+CREATE OR REPLACE PACKAGE pkg1
+/* DEFAULT COLLATION USING_NLS_COMP */ /* [REMOVED] RULE-16003 : DEFAULT COLLATION clause is removed */
+AS
+END;
+```
+
 
 ### 라이브러리 변환 규칙
 
@@ -3690,7 +4041,7 @@ AS '${ORACLE_HOME}/lib/test_lib.so';
 
 ###### 설명
 
-지원하지 않는 EDITIONABLE/NONEDITIONABLE 키워드가 제거되었다.
+EDITIONABLE/NONEDITIONABLE 키워드가 제거되었다.
 
 ###### 원본 SQL 문장
 
@@ -7567,6 +7918,16 @@ bat, sh에서 설정된 최대 메모리 할당값(`-Xmx`) 자바 옵션이 시�
 
 bat, sh에서 -Xms -Xmx 값을 사용자 환경에 맞춰 변경한 뒤, Migration Center를 재실행한다.
 
+#### Windows 환경에서 마이그레이션 옵션 창의 글씨 일부가 보이지 않는다.
+
+`원인`
+
+Windows 환경에서 화면 배율을 100% 이상으로 설정하면, 마이그레이션 옵션 창의 일부 글자가 겹치거나 잘려 보일 수 있다.
+
+`해결 방법`
+
+화면 배율을 100%로 설정하고, 마이그레이션 센터를 재 실행한다.
+
 ### Oracle
 
 #### 오류 메시지 'ORA-01652 unable to extend temp segment by 128 in tablespace TEMP'가 출력된다.
@@ -7763,6 +8124,16 @@ JRE 10 이하 버전의 JDBC 드라이버에서 javax.xml.bind 모듈을 참조�
 
 예) mssql-jdbc-7.2.2.***jre11***.jar
 
+#### "Correction Factor for Character Type Conversion" 옵션 값을 변경하여도, 자동 계산된 보정 계수가 적용된다.
+
+`원인`
+
+MS-SQL은 칼럼별로 문자 콜레이션을 지정할 수 있다. "Correction Factor for Character Type Conversion" 옵션 값은 MS-SQL 기본 문자 집합으로 설정한 문자 집합에 대해서만 적용된다. 즉, 칼럼 단위로 문자 집합이 지정된 경우, 칼럼에 지정된 문자 집합에 따라 자동 계산된 보정 계수가 적용되며, 이런 경우에는 옵션으로 설정한 보정 계수는 적용되지 않는다.
+
+`해결 방법`
+
+자동 변환된 컬럼의 크기는 Reconcil 단계의 DDL Editing 창 - Destination DDL 에서 해당 칼럼 크기를 직접 수정한다.
+
 ### Altibase
 
 #### 버전 5.1.5 이하의 Altibase를 이관할 때, 문자가 깨진다.
@@ -7814,6 +8185,8 @@ BLOB, byte, nibble 데이터타입을 가진 테이블은 aexport와 iloader를 
 
 프로젝트를 열고 메뉴 Migration - Migration Option을 클릭하여 Batch Execution을 'No'로 선택한 뒤, 데이터 이관을 수행한다.
 
+<!--
+
 ### Informix
 
 #### 데이터 이관 중에 Informix JDBC Driver에서 java.sql.SQLException: Encoding or code set not supported. 발생
@@ -7844,6 +8217,8 @@ Informix 연결 속성에 IFX_USE_STRENC=true 를 추가한다.
 `참고`
 
 https://m.blog.naver.com/PostView.nhn?blogId=jangkeunna&logNo=70146227929&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
+
+-->
 
 ### MySQL
 
@@ -7884,6 +8259,16 @@ MySQL은 데이터 타입 NCHAR, NVARCHAR을 지원하지 않는다. 대신 CHAR
 > 2. Change 버튼을 클릭
 >
 > 3. Destination DB Data Type으로 NVARCHAR를 선택하고 Precision을 빈칸으로 둔 뒤, 저장한다.
+
+#### "Correction Factor for Character Type Conversion" 옵션 값을 변경하여도, 자동 계산된 보정 계수가 적용된다.
+
+`원인`
+
+MySQL은 칼럼별로 문자 집합을 지정할 수 있다. "Correction Factor for Character Type Conversion" 옵션 값은 MySQL 기본 문자 집합으로 설정한 문자 집합에 대해서만 적용된다. 즉, 칼럼 단위로 문자 집합이 지정된 경우, 칼럼에 지정된 문자 집합에 따라 자동 계산된 보정 계수가 적용되며, 이런 경우에는 옵션으로 설정한 보정 계수는 적용되지 않는다.
+
+`해결 방법`
+
+자동 변환된 컬럼의 크기는 Reconcil 단계의 DDL Editing 창 - Destination DDL 에서 해당 칼럼 크기를 직접 수정한다.
 
 ### PostgreSQL
 
