@@ -155,6 +155,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Oracle](#oracle-1)
   - [MS-SQL](#ms-sql)
   - [Altibase](#altibase-1)
+  - [Informix](#informix-1)
   - [MySQL](#mysql-1)
   - [PostgreSQL](#postgresql-1)
   - [TimesTen](#timesten-1)
