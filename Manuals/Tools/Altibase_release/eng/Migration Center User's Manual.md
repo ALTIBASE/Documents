@@ -1,6 +1,6 @@
 # Migration Center User's Manual
 
-#### Release 7.15
+#### Release 7.16
 
 Altibase® Tools & Utilities
 
@@ -85,7 +85,7 @@ Altibase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities Migration Center User's Manual
-Release 7.15
+Release 7.16
 Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
 software is prohibited.<br>
@@ -126,7 +126,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
 - [Appendix B: Migratable Database Objects](#appendix-b-migratable-database-objects)
   - [Altibase to Altibase](#altibase-to-altibase)
   - [CUBRID to Altibase](#cubrid-to-altibase)
-  - [Informix to Altibase](#informix-to-altibase)
   - [MySQL to Altibase](#mysql-to-altibase)
   - [Oracle to Altibase](#oracle-to-altibase)
   - [SQL Server to Altibase](#sql-server-to-altibase)
@@ -156,7 +155,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Oracle](#oracle-1)
   - [MS-SQL](#ms-sql)
   - [Altibase](#altibase-1)
-  - [Informix](#informix-1)
   - [MySQL](#mysql-1)
   - [PostgreSQL](#postgresql-1)
   - [TimesTen](#timesten-1)
@@ -349,11 +347,10 @@ Since Migration Center is bundled with the JRE 8 for the 64-bit Microsoft Window
 ##### Source Database
 
 - Altibase: 4.3.9 or later
-- Oracle Database: 9i-19c
+- Oracle Database: 10gR2-21c
 - Microsoft SQL Server: 2005-2012
 - Oracle MySQL: 5.0-5.7
-- Informix: 11.50
-- Oracle TimesTen: 7.0, 11.2
+- Oracle TimesTen: 11.2
 - CUBRID: 8.4.1-9.3.5 (ISO-8859-1, UTF-8 charset)
 - Tibero: 4sp1-7.2.2
 - PostgreSQL: 9.5.3
@@ -362,7 +359,7 @@ Since Migration Center is bundled with the JRE 8 for the 64-bit Microsoft Window
 
 Migration Center is available for different versions of Altibase and other databases. This tool uses a JDBC driver for database connection, so it is important to prepare the appropriate JDBC driver for both source and destination databases. For user convenience, some JDBC drivers that are appropriate for use with supported databases are provided with Migration Center.
 
-Please note that for legal reasons, the Microsoft SQL Server JDBC driver file, MySQL Connector/J file, informix JDBC Driver file, and TimesTen JDBC driver file are not included in the package. Also, since TimesTen only supports type 2 driver, the migration must be performed on a machine that the TimesTen Client Package is installed.
+Please note that for legal reasons, the Microsoft SQL Server JDBC driver file, MySQL Connector/J file, and TimesTen JDBC driver file are not included in the package. Also, since TimesTen only supports type 2 driver, the migration must be performed on a machine that the TimesTen Client Package is installed.
 
 Users can download the appropriate JDBC driver file from the following site:
 
@@ -374,13 +371,11 @@ Users can download the appropriate JDBC driver file from the following site:
    <https://docs.microsoft.com/en-us/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server-support-matrix?view=sql-server-2017>
 3. Oracle MySQL Connector/J  
    <http://dev.mysql.com/downloads/connector/j/>
-4. Informix JDBC Driver  
-   <http://www14.software.ibm.com/webapp/download/search.jsp?go=y&rs=ifxjdbc>
-5. Oracle TimesTen  
+4. Oracle TimesTen  
    <http://www.oracle.com/technetwork/database/database-technologies/timesten/downloads/index.html>
-6. CUBRID  
+5. CUBRID  
    <http://www.cubrid.org/?mid=downloads&item=jdbc_driver>
-7. Tibero  
+6. Tibero  
    <https://technet.tmaxsoft.com/>
 
 ### Installation and Uninstallation
@@ -1022,6 +1017,8 @@ Objects in the source database that Migration Center does not migrate automatica
 | View                            |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
 | Trigger                         |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
 
+<!--
+
 ### Informix to Altibase
 
 | Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
@@ -1039,6 +1036,8 @@ Objects in the source database that Migration Center does not migrate automatica
 | Function               |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
 | View                   |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
 | Trigger                |             X              |              X              | In the build step, the object creation statements collected from the source database are recorded in the SrcDbObj_Create.sql and BuildReport4Unsupported.html files. |
+
+-->
 
 ### MySQL to Altibase
 
@@ -1060,13 +1059,13 @@ Objects in the source database that Migration Center does not migrate automatica
 
 | Database Object Type   | Migratable in 'Build User' | Migratable in 'Build Table' | Remarks                                                      |
 | :--------------------- | :------------------------: | :-------------------------: | :----------------------------------------------------------- |
-| Table                  |             O              |              O              | To migrate a temporary table from an Oracle database(source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace. Also, the comments specified in tables and columns are migrated as well. </br>To migrate external tables and Hybrid Partitioned Tables, the user must have access to a disk tablespace in Altibase. </br>Since Altibase does not support Oracle’s external table and hybrid partitioned table features, these tables are converted into regular tables or partitioned tables during migration. These types of tables often contain large volumes of data, so they are automatically allocated to a disk tablespace. |
+| Table                  |             O              |              O              | To migrate a temporary table from an Oracle database(source database) to Altibase(destination database), a volatile tablespace is required in Altibase. This is because an Altibase temporary table can only be created in a volatile tablespace. Also, the comments specified in tables and columns are migrated as well. </br>To migrate external tables and Hybrid Partitioned Tables, the user must have access to a disk tablespace in Altibase. </br>Since Altibase does not support Oracle’s external table and hybrid partitioned table features, these tables are converted into regular tables or partitioned tables during migration. These types of tables often contain large volumes of data, so they are automatically allocated to a disk tablespace. </br>Blockchain and immutable tables are converted into regular tables during migration. |
 | Primary Key Constraint |             O              |              O              |                                                              |
 | Unique Constraint      |             O              |              O              |                                                              |
-| Check Constraint       |             O              |              O              |                                                              |
+| Check Constraint       |             O              |              O              | IS JSON check constraint is excluded from migration.         |
 | Foreign Key Constraint |             O              |              O              |                                                              |
-| Index                  |             O              |              O              | Invisible indexes and unusable indexes are not migrated. |
-| Sequence               |             O              |              X              | Scalable sequence is not migrated. |
+| Index                  |             O              |              O              | Invisible indexes and unusable indexes are not migrated. </br>Multivalue index is not migrated. |
+| Sequence               |             O              |              X              | Scalable sequence is not migrated.                           |
 | Private Synonym        |         Partly yes         |              X              | Only synonyms that refer to objects in the same schema are migrated. |
 | Procedure              |         Partly yes         |              X              | Converts object creation statements according to the rules defined in the PSM converter and attempts migration. |
 | Function               |         Partly yes         |              X              | Converts object creation statements according to the rules defined in the PSM converter and attempts migration. |
@@ -1214,6 +1213,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  15  | CLOB          | CLOB            |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666) | There is no compatible data type in Altibase for the Oracle NCLOB, so the data is stored in NVARCHAR with the maximum precision. This may cause data loss during data migration when the actual data precision exceeds the NVARCHAR maximum size. |
 |  17  | ROWID         | VARCHAR(18)     | Oracle's ROWID converts to a character data type. Altibase does not support the data type ROWID. |
+|  18  | JSON          | CLOB or JSON    | Altibase 7.3 and prior versions do not support the JSON data type, so JSON columns are converted to CLOB types. In contrast, in Altibase 8.1 and later versions that support the JSON data type, the columns are converted to JSON types. <br>Additionally, if a column in the source database is of type VARCHAR2, BLOB, or CLOB and has an IS JSON check constraint, the column is considered to be a JSON type. However, the IS JSON constraint is excluded from migration. |
 
 #### MS-SQL Server to Altibase
 
@@ -1282,6 +1282,9 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  31  | LONGTEXT           | CLOB                        |                                                              |
 |  32  | ENUM               | VARCHAR(10666)              | There is no compatible data type in Altibase for MySQL ENUM type, so VARCHAR is used to prevent data loss. |
 |  33  | SET                | VARCHAR(10666)              | There is no compatible data type in Altibase for MySQL SET type, so VARCHAR is used to prevent data loss. |
+|  34  | JSON               | CLOB or JSON                | Altibase 7.3 and prior versions do not support the JSON data type, so JSON columns are converted to CLOB types. In contrast, in Altibase 8.1 and later versions that support the JSON data type, the columns are converted to JSON types. |
+
+<!--
 
 #### Informix 11.5 to Altibase
 
@@ -1312,6 +1315,8 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  23  | BYTE          | BLOB        |                                                              |
 |  24  | BLOB          | BLOB        |                                                              |
 |  25  | INTERVAL      | FLOAT       |                                                              |
+
+-->
 
 #### TimesTen to Altibase
 
@@ -1393,6 +1398,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 |  15  | CLOB          | CLOB            |                                                              |
 |  16  | NCLOB         | NVARCHAR(10666) | There is no compatible data type in Altibase for the Tibero NCLOB, so the data is stored in NVARCHAR with the maximum precision. This may cause data loss during data migration when the actual data precision exceeds the NVARCHAR maximum size. |
 |  17  | ROWID         | VARCHAR(18)     | Tibero's ROWID converts to a character data type. Altibase does not support the data type ROWID. |
+|  18  | JSON          | CLOB or JSON    | Altibase 7.3 and prior versions do not support the JSON data type, so JSON columns are converted to CLOB types. In contrast, in Altibase 8.1 and later versions that support the JSON data type, the columns are converted to JSON types. |
 
 #### PostgreSQL to Altibase
 
@@ -1435,6 +1441,7 @@ Since Migration Center 7.11, if a table's column length of a source database exc
 | 35   | PATH                        | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
 | 36   | POLYGON                     | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
 | 37   | CIRCLE                      | VARCHAR(32000)    | There is no compatible data type in Altibase, so VARCHAR type is used to prevent any data loss. |
+| 38 | JSON | CLOB or JSON | Altibase 7.3 and prior versions do not support the JSON data type, so JSON columns are converted to CLOB types. In contrast, in Altibase 8.1 and later versions that support the JSON data type, the columns are converted to JSON types. |
 
 ### Automatic Correction of Character Column Length Considering Heterogeneous Character Set
 
@@ -1482,6 +1489,8 @@ For character sets not listed in the table below, Migration Center does not perf
 | utf8          | 3                        |
 | euckr         | 2                        |
 
+<!--
+
 ##### Informix
 
 | Character Set      | Max. Bytes Per Character |
@@ -1497,6 +1506,8 @@ For character sets not listed in the table below, Migration Center does not perf
 | ja_up.sjis         | 2                        |
 | ko_kr.cp949        | 2                        |
 | ko_kr.ksc          | 2                        |
+
+-->
 
 ##### MySQL
 
@@ -1782,6 +1793,8 @@ The following is an example of the conversion.
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval <br />( c1 TIMESTAMP NOT NULL, <br />c2 INT DEFAULT 123, <br />c3 VARCHAR(50) DEFAULT 'test', <br />c4 INT DEFAULT NULL, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATE DEFAULT '1989-04-28', <br />c7 DATETIME DEFAULT '1989-04-28 12:31:29', <br />c8 TIMESTAMP DEFAULT '1989-04-28 12:31:29' NOT NULL, <br />c9 TIMESTAMP NOT NULL ); | CREATE TABLE TESTTBL_4_DEFVAL <br />( C1 DATE DEFAULT SYSDATE NOT NULL, <br />C2 INTEGER DEFAULT 123, <br />C3 CLOB DEFAULT 'test', C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE DEFAULT TO_DATE('1989-04-28', 'YYYY-MM-DD'), <br />C7 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS'), <br />C8 DATE DEFAULT TO_DATE('1989-04-28 12:31:29', 'YYYY-MM-DD HH:MI:SS') NOT NULL, <br />C9 DATE /\* DEFAULT '0000-00-00 00:00:00' \*/ NOT NULL ); |
 
+<!--
+
 #### Informix 11.5 to Altibase
 
 <table>
@@ -1812,6 +1825,8 @@ The following is an example of the conversion.
 | Informix CREATE TABLE Statement                                                                                                                                                                                                                                                                                                                          | Altibase CREATE TABLE Statement                                                                                                                                                                                                                                                    |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CREATE TABLE testtbl_4_defval ( <br />c1 INTEGER DEFAULT 123, <br />c2 BOOLEAN DEFAULT 't',<br />c3 CHAR(100) DEFAULT 'test', <br />c4 INTEGER DEFAULT null, <br />c5 CHAR(10) DEFAULT '', <br />c6 DATETIME YEAR TO DAY DEFAULT DATETIME(07-3-6) YEAR TO DAY, <br />c7 DATETIME DAY TO HOUR DEFAULT CURRENT DAY TO HOUR, <br />c8 DATE DEFAULT TODAY ); | CREATE TABLE TESTTBL_4_DEFVAL ( <br />C1 INTEGER DEFAULT 123, <br />C2 CHAR (1) DEFAULT 't', <br />C3 CHAR (100) DEFAULT 'test', <br />C4 INTEGER, <br />C5 CHAR (10), <br />C6 DATE /\* DEFAULT '2007-03-06' \*/, <br />C7 DATE DEFAULT SYSDATE, <br />C8 DATE DEFAULT SYSDATE ); |
+
+-->
 
 #### TimesTen to Altibase
 
@@ -7807,6 +7822,8 @@ When the Altibase 6.1.1 or lower JDBC driver inserts bit, varbit, or nibble type
 
 Open the project, click the menu Migration-Migration Option, select 'No' for Batch Execution, and perform data migration.
 
+<!--
+
 ### Informix
 
 #### Java.sql.SQLException: Encoding or code set not supported in Informix JDBC Driver during data migration."
@@ -7837,6 +7854,8 @@ Add IFX_USE_STRENC = true to Informix connection properties.
 ##### References
 
 https://m.blog.naver.com/PostView.nhn?blogId=jangkeunna&logNo=70146227929&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
+
+-->
 
 ### MySQL
 
