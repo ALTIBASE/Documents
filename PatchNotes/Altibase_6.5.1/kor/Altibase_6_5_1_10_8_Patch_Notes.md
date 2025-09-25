@@ -1,0 +1,111 @@
+Altibase 6.5.1.10.8 Patch Notes
+===============================
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Fixed Bugs](#fixed-bugs)
+  - [BUG-51443 디스크 DB 미디어 복구 중 메모리를 많이 사용하는 경우가 있습니다.](#bug-51443)
+  - [BUG-51452 불완전 복구에서 로그 앵커 백업 파일과 데이터 백업 파일의 익스텐드(Extend) 범위의 불일치 경우에 대한 보완](#bug-51452)
+- [Changes](#changes)
+  - [Version Info](#version-info)
+  - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
+  - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+  - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+Fixed Bugs
+==========
+
+### BUG-51443<a name=bug-51443></a> 디스크 DB 미디어 복구 중 메모리를 많이 사용하는 경우가 있습니다.
+
+-   **module** : sm
+
+-   **Category** : Enhancement
+
+-   **재현 빈도** : Always
+
+-   **설명** : 디스크 DB 불완전 복구시 메모리를 많이 사용하는 문제를 개선했습니다.
+
+-   **재현 방법**
+    -   **재현 절차**
+    
+    -   **수행 결과**
+    
+    -   **예상 결과**
+    
+-   **Workaround**
+
+-   **변경사항**
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-51452<a name=bug-51452></a> 불완전 복구에서 로그 앵커 백업 파일과 데이터 백업 파일의 익스텐드(Extend) 범위의 불일치 경우에 대한 보완
+
+-   **module** : sm
+
+-   **Category** : Enhancement
+
+-   **재현 빈도** : Always
+
+-   **설명** : 로그 앵커 백업 파일과 데이터 백업 파일의 익스텐드 범위가 일치하지 않을 경우, 불완전 복구 과정에서 페이지 상태가 유효하지 않아 서버가 비정상 종료될 수 있습니다. 이번 패치에서 두 파일의 익스텐드 범위가 일치하지 않더라도 불완전 복구가 수행될 수 있도록 개선하였습니다.
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+Changes
+=======
+
+### Version Info
+
+| altibase version | database binary version | meta version | cm protocol version | replication protocol version |
+| ---------------- | ----------------------- | ------------ | ------------------- | ---------------------------- |
+| 6.5.1.10.8       | 6.3.1                   | 8.1.1        | 7.1.3               | 7.4.5                        |
+
+> Altibase 6.5.1 패치 버전별 히스토리는 [Version_Histories](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.5.1/Altibase_6_5_1_Version_Histories.md) 에서 확인할 수 있다.
+
+### 호환성
+
+#### Database binary version
+
+데이터베이스 바이너리 버전은 변경되지 않았다.
+
+> 데이터베이스 바이너리 버전은 데이터베이스 이미지 파일과 로그파일의
+> 호환성을 나타낸다. 이 버전이 다른 경우의 패치(업그레이드 포함)는
+> 데이터베이스를 재구성해야 한다.
+
+#### Meta Version
+
+메타 버전은 변경되지 않았다.
+
+#### CM protocol Version
+
+통신 프로토콜 버전은 변경되지 않았다.
+
+#### Replication protocol Version
+
+Replication 프로토콜 버전은 변경되지 않았다.
+
+### 프로퍼티
+
+추가/변경/삭제된 프로퍼티 없음.
+
+### 성능 뷰
+
+추가/변경/삭제된 성능뷰 없음.
