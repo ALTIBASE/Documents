@@ -6,28 +6,28 @@ Altibase 7.3.0.1.2 Patch Notes
 
 - [New Features](#new-features)
   - [BUG-49872 메모리 DB의 구동시 페이지 캐시 개선](#bug-49872)
-  - [BUG-51509 태국어 문자에 대한 정렬을 지원]()
-  - [BUG-51532 aexport에서 생성하는 iloader 스크립트의 병렬 수행 기능 추가]()
-  - [BUG-51652 사용자 암호 입력 대신 암호화된 암호 파일로 로그인이 가능해야 합니다.]()
-  - [BUG-51698 암호 관리를 위한 신규 유틸리티 altiEncrypt 추가]()
-  - [BUG-51538 FixedTable의 count(\*) 메모리 최적화]()
+  - [BUG-51509 태국어 문자에 대한 정렬을 지원](#bug-51509)
+  - [BUG-51532 aexport에서 생성하는 iloader 스크립트의 병렬 수행 기능 추가](#bug-51532)
+  - [BUG-51652 사용자 암호 입력 대신 암호화된 암호 파일로 로그인이 가능해야 합니다.](#bug-51652)
+  - [BUG-51698 암호 관리를 위한 신규 유틸리티 altiEncrypt 추가](#bug-51698)
+  - [BUG-51538 FixedTable의 count(\*) 메모리 최적화](#bug-51538)
 - [Fixed Bugs](#fixed-bugs)
-  - [BUG-50946 CCLOB 컬럼에 대해 SUBSTR 및 SUBSTRB 함수를 수행할 때 시작값이 음수인 경우, 잘못된 결과가 반환되는 문제 수정]()
-  - [BUG-51029 빈 LOB 컬럼에 대한 AFTER UPDATE 트리거 동작 오류 수정]()
-  - [BUG-51131 TO\_CHAR 함수에서 EEEE 출력 형식을 사용할 때, 실수부 자릿수가 잛은 NUMERIC 데이터는 EEEE 출력 형식이 적용되지 않는 문제 수정]()
-  - [BUG-51323 UPDATE 구문의 SET 절에 사용된 서브쿼리 내 뷰를 WHERE 절의 서브쿼리에서 참조할 때 발생하는 오류 수정]()
-  - [BUG-51347 중첩된 뷰에 대한 multiple update 구문 수행시 서버가 비정상 종료할 수 있습니다.]()
-  - [BUG-51419 aexport에서 생성되는 시노님과 디렉토리 객체의 DDL문 생성 순서를 알파벳 순으로 변경했습니다.]()
-  - [BUG-51519 Lead 함수 3번째 인자 사용시 특정 경우에 FATAL]()
-  - [BUG-51525 executeBatch 수행 후 executeUpdate 시 exception 발생]()
-  - [BUG-51543 복합키 인덱스가 존재하는 디스크 테이블에 동일한 인덱스의 데이터를 삽입하려고 할때 발생하는 에러를 수정합니다.]()
-  - [BUG-51574 altiProfile 에서 출력되는 SESSION STAT 에 SESSION ID가 0인 세션의 통계정보가 주기적으로 표시 됩니다.]()
-  - [BUG-51630 테이블, 뷰, 함수가 서로 참조하는 관계인 테이블에 DDL을 수행하면 오류가 발생합니다.]()
-  - [BUG-51632 SELECT Statement 의 순서에 따른 Lock 해제 현상 수정]()
-  - [BUG-51691 DDL 크기가 65,535 바이트를 초과하는 경우, aexport 실행 시 크기가 0인 빈 파일이 생성됩니다.]()
-  - [BUG-51707 다중화 환경에서 LOB을 포함한 디스크 테이블을 가진 이중화가 있을 경우 다른 이중화에서 LOB로그를 읽다가 에러가 발생합니다.]()
-  - [BUG-51766 altiMon 설정 파일인 config.xml.sample이 추가되었습니다.]()
-  - [BUG-51790 메모리 인덱스 탐색 중 리프노드 간 연결이 깨진것을 판단하는 MAX LOOP값을 변경합니다.]()
+  - [BUG-50946 CLOB 컬럼에 대해 SUBSTR 및 SUBSTRB 함수를 수행할 때 시작값이 음수인 경우, 잘못된 결과가 반환되는 문제 수정](#bug-50946)
+  - [BUG-51029 빈 LOB 컬럼에 대한 AFTER UPDATE 트리거 동작 오류 수정](#bug-51029)
+  - [BUG-51131 TO_CHAR 함수에서 EEEE 출력 형식을 사용할 때, 실수부 자릿수가 잛은 NUMERIC 데이터는 EEEE 출력 형식이 적용되지 않는 문제 수정](#bug-51131)
+  - [BUG-51323 UPDATE 구문의 SET 절에 사용된 서브쿼리 내 뷰를 WHERE 절의 서브쿼리에서 참조할 때 발생하는 오류 수정](#bug-51323)
+  - [BUG-51347 중첩된 뷰에 대한 multiple update 구문 수행시 서버가 비정상 종료할 수 있습니다.](#bug-51347)
+  - [BUG-51419 aexport에서 생성되는 시노님과 디렉토리 객체의 DDL문 생성 순서를 알파벳 순으로 변경했습니다.](#bug-51419)
+  - [BUG-51519 Lead 함수 3번째 인자 사용시 특정 경우에 FATAL](#bug-51519)
+  - [BUG-51525 executeBatch 수행 후 executeUpdate 시 exception 발생](#bug-51525)
+  - [BUG-51543 복합키 인덱스가 존재하는 디스크 테이블에 동일한 인덱스의 데이터를 삽입하려고 할때 발생하는 에러를 수정합니다.](#bug-51543)
+  - [BUG-51574 altiProfile 에서 출력되는 SESSION STAT 에 SESSION ID가 0인 세션의 통계정보가 주기적으로 표시 됩니다.](#bug-51574)
+  - [BUG-51630 테이블, 뷰, 함수가 서로 참조하는 관계인 테이블에 DDL을 수행하면 오류가 발생합니다.](#bug-51630)
+  - [BUG-51632 SELECT Statement 의 순서에 따른 Lock 해제 현상 수정](#bug-51632)
+  - [BUG-51691 DDL 크기가 65,535 바이트를 초과하는 경우, aexport 실행 시 크기가 0인 빈 파일이 생성됩니다.](#bug-51691)
+  - [BUG-51707 다중화 환경에서 LOB을 포함한 디스크 테이블을 가진 이중화가 있을 경우 다른 이중화에서 LOB로그를 읽다가 에러가 발생합니다.](#bug-51707)
+  - [BUG-51766 altiMon 설정 파일인 config.xml.sample이 추가되었습니다.](#bug-51766)
+  - [BUG-51790 메모리 인덱스 탐색 중 리프노드 간 연결이 깨진것을 판단하는 MAX LOOP값을 변경합니다.](#bug-51790)
 - [Changes](#changes)
   - [Version Info](#version-info)
   - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -215,7 +215,7 @@ New Features
 Fixed Bugs
 ----------
 
-### BUG-50946<a name=bug-50946></a> CCLOB 컬럼에 대해 SUBSTR 및 SUBSTRB 함수를 수행할 때 시작값이 음수인 경우, 잘못된 결과가 반환되는 문제 수정
+### BUG-50946<a name=bug-50946></a> CLOB 컬럼에 대해 SUBSTR 및 SUBSTRB 함수를 수행할 때 시작값이 음수인 경우, 잘못된 결과가 반환되는 문제 수정
 
 -   **module** : mt-function
 
