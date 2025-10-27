@@ -6,6 +6,7 @@ Altibase 7.3.0.1.2 Patch Notes
 
 - [New Features](#new-features)
   - [BUG-49872 메모리 DB의 구동시 페이지 캐시 개선](#bug-49872)
+  - [BUG-51490 IBM LinuxOne 플랫폼 지원](#bug-51490)
   - [BUG-51509 태국어 문자에 대한 정렬을 지원](#bug-51509)
   - [BUG-51532 aexport에서 생성하는 iloader 스크립트의 병렬 수행 기능 추가](#bug-51532)
   - [BUG-51652 사용자 암호 입력 대신 암호화된 암호 파일로 로그인이 가능해야 합니다.](#bug-51652)
@@ -51,6 +52,32 @@ New Features
 
 -   **재현 방법**
 
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-51490<a name=bug-51490></a> IBM LinuxOne 플랫폼 지원
+
+-   **module** :  id
+
+-   **Category** : Portability
+
+-   **재현 빈도** : Always
+
+-   **설명** : 이제 LinuxOne 환경에서도 Altibase를 설치하고 구동할 수 있습니다.
+
+-   **재현 방법**
     -   **재현 절차**
 
     -   **수행 결과**
