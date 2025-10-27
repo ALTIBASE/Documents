@@ -64,6 +64,8 @@ Altibase가 지원하는 OS 정보를 안내합니다.
 | POWER7 w/Red Hat Enterprise Linux 6.5                        |       ✅       |          ✅          | *- glibc 2.12 ~ 2.33*                          |
 | **Linux on Power** **(Little Endian)**                       |               |                     |                                                |
 | POWER8(LE) w/Red Hat Enterprise Linux 7.2                    |       ✅       |          ✅          | *- glibc 2.17 ~ 2.33*                          |
+| **on IBM Z and LinuxONE (s390x)**                            |               |                     |                                                |
+| Red Hat Enterprise Linux 8                                   |       ✅       |          ✅          | *- glibc 2.17 ~ 2.33*                          |
 | **Microsoft Windows (x64)**                                  |               |                     |                                                |
 | Microsoft Windows 10                                         |       ❌       |          ✅          |                                                |
 
