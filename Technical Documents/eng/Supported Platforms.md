@@ -44,31 +44,31 @@ For specific operating system not listed in the tables below, please contact the
 > - All versions of Altibase 7.3 support it unless the patch version is specified.
 > - For all operating systems, all minor versions within the respective major version are supported, unless a particular minor version is specified.
 
-| Operating System                                             | Altibase Server | Altibase Client | Software Requirements                                     |
-| :----------------------------------------------------------- | :-------------: | :-------------: | :-------------------------------------------------------- |
-| **Unix**                                                     |                 |                 |                                                           |
-| AIX 7.2                                                      |        ✅        |        ✅        |                                                           |
-| AIX 7.1                                                      |        ✅        |        ✅        |                                                           |
-| AIX 6.1 TL9 or later                                         |        ✅        |        ✅        |                                                           |
-| HP-UX Itanium (IA-64) 11.31                                  |        ✅        |        ✅        |                                                           |
-| **Linux (x86-64) - Red Hat-based**                           |                 |                 |                                                           |
-| Oracle Linux 9 / Red Hat Enterprise Linux 9 / CentOS 9 / Rocky Linux 9 |        ✅        |        ✅        | *- glibc 2.34 </br> - Altibase 7.3.0.0.9 or later*        |
-| Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |        ✅        |        ✅        | *- glibc 2.12 ~ 2.33*                                     |
-| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |        ✅        |        ✅        | *- glibc 2.12 ~ 2.33*                                     |
-| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |        ✅        |        ✅        | *- glibc 2.12 ~ 2.33*                                     |
-| **Linux (x86-64) - Debian-based**                            |                 |                 |                                                           |
-| Ubuntu 18                                                    |        ✅        |        ✅        | *- glibc 2.27 ~ 2.33*                                     |
-| Ubuntu 16                                                    |        ✅        |        ✅        | *- glibc 2.23 ~ 2.33*                                     |
-| Ubuntu 12                                                    |        ✅        |        ✅        | *- glibc 2.17 ~ 2.33*                                     |
-| **Linux on Power**                                           |                 |                 |                                                           |
-| POWER7 w/Red Hat Enterprise Linux 6.5                        |        ✅        |        ✅        | *- glibc 2.12 ~ 2.33*                                     |
-| **Linux on Power** **(Little Endian)**                       |                 |                 |                                                           |
-| POWER8(LE) w/Red Hat Enterprise Linux 7.2                    |        ✅        |        ✅        | *- glibc 2.17 ~ 2.33*                                     |
-| **Linux on IBM LinuxONE (s390x)**                            |                 |                 |                                                           |
-| Red Hat Enterprise Linux 8                                   |        ✅        |        ✅        | *- glibc 2.17 ~ 2.33*</br>- *Altibase 7.3.0.1.2 or later* |
-| **Microsoft Windows (x64)**                                  |                 |                 |                                                           |
-| Microsoft Windows 10                                         |        ❌        |        ✅        |                                                           |
-
+| Operating System                                             | Altibase Server | Altibase Client | Software Requirements                                 |
+| :----------------------------------------------------------- | :-------------: | :-------------: | :---------------------------------------------------- |
+| **Linux on IBM LinuxONE (s390x)**                            |                 |                 |                                                       |
+| Red Hat Enterprise Linux 8                                   |        ✅        |        ✅        | *- glibc 2.17 ~ 2.33*</br>- *Altibase 7.3.0.1.2 이상* |
+| **Linux (x86-64) - Red Hat 계열**                            |                 |                 |                                                       |
+| Oracle Linux 9 / Red Hat Enterprise Linux 9 / CentOS 9 / Rocky Linux 9 |        ✅        |        ✅        | *- glibc 2.34 </br> - Altibase 7.3.0.0.9 이상*        |
+| Oracle Linux 8 / Red Hat Enterprise Linux 8 / CentOS 8 / Rocky Linux 8 |        ✅        |        ✅        | *- glibc 2.12 ~ 2.33*                                 |
+| Oracle Linux 7 / Red Hat Enterprise Linux 7 / CentOS 7       |        ✅        |        ✅        | *- glibc 2.12 ~ 2.33*                                 |
+| Oracle Linux 6 / Red Hat Enterprise Linux 6 / CentOS 6       |        ✅        |        ✅        | *- glibc 2.12 ~ 2.33*                                 |
+| **Linux (x86-64) - Debian 계열**                             |                 |                 |                                                       |
+| Ubuntu 18                                                    |        ✅        |        ✅        | *- glibc 2.27 ~ 2.33*                                 |
+| Ubuntu 16                                                    |        ✅        |        ✅        | *- glibc 2.23 ~ 2.33*                                 |
+| Ubuntu 12                                                    |        ✅        |        ✅        | *- glibc 2.17 ~ 2.33*                                 |
+| **Linux on Power**                                           |                 |                 |                                                       |
+| POWER7 w/Red Hat Enterprise Linux 6.5                        |        ✅        |        ✅        | *- glibc 2.12 ~ 2.33*                                 |
+| **Linux on Power** **(Little Endian)**                       |                 |                 |                                                       |
+| POWER8(LE) w/Red Hat Enterprise Linux 7.2                    |        ✅        |        ✅        | *- glibc 2.17 ~ 2.33*                                 |
+| **AIX on IBM Power Systems**                                 |                 |                 |                                                       |
+| AIX 7.2                                                      |        ✅        |        ✅        |                                                       |
+| AIX 7.1                                                      |        ✅        |        ✅        |                                                       |
+| AIX 6.1 TL9 이상                                             |        ✅        |        ✅        |                                                       |
+| **HP-UX Itanium (IA-64)**                                    |                 |                 |                                                       |
+| HP-UX Itanium (IA-64) 11.31                                  |        ✅        |        ✅        |                                                       |
+| **Microsoft Windows (x64)**                                  |                 |                 |                                                       |
+| Microsoft Windows 10                                         |        ❌        |        ✅        |                                                       |
 
 ## Altibase 7.3 Library & Tools
 
