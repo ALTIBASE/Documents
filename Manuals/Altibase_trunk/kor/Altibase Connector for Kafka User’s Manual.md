@@ -279,10 +279,15 @@ Altibase 커넥터는 Confluent JDBC Connect의 메시지 형식을 사용하기
 * FLOAT 타입은 다른 데이터베이스 간 데이터 형식 차이로 인해, 데이터 전송 및 입력 시 문자열로 처리됩니다.
 * LOB 타입은 지원하지 않습니다.
 
-기타 제약조건
+#### 기타 제약조건
 
 * 소스 커넥터는 task 수를 1개로만 설정합니다.
-* 소스 커넥터에서 레코드를 Kafka로 전달할 때, 이중화 중지 후 재시작 등의 작업을 수행하면 일부 레코드가 중복해서 전달될 수 있습니다.  -> ??주의사항에 해당.  
+
+* 소스 커넥터에서 레코드를 Kafka로 전달할 때, 이중화 중지 후 재시작 등의 작업을 수행하면 일부 레코드가 중복해서 전달될 수 있습니다.  -> ??주의사항에 해당.
+
+* 소스 데이터베이스인 Altibase 가 이중화 환경으로 구성되어 있는 경우, 이중화 동기화(Sync) 작업을 수행할 경우 소스 커넥터의 ala.xlog.pool.size 프로퍼티 값을 변경해야 한다. ala.xlog.pool.size의 기본값은 Altibase 의 REPLICATION_SYNC_TUPLE_COUNT 프로퍼티보다 작을 수 있으므로, 보다 큰 값으로 설정해야 한다. 그렇지 않을 경우 ala.xlog.pool.size에 설정된 개수만큼의 XLog만 전송되어, 일부 데이터가 전송되지 않을 수 있다.
+
+  또한, ala.xlog.pool.size 값을 크게 설정할 경우 JVM의 힙(Heap) 크기가 필요한 메모리보다 작으면 Out of Memory(OOM)오류가 발생할 수 있다. 이 경우, Kafka Connect 의 힙 크기를 늘려주어야 한다.
 
 ### 싱크 커넥터의 제약조건
 
@@ -294,7 +299,7 @@ Altibase 커넥터는 Confluent JDBC Connect의 메시지 형식을 사용하기
 
 * 싱크 데이터베이스가 Altibase인 상태에서 싱크 커넥터의 insert.mode의 값을 upsert로 설정할 경우 아래의 제약이 있다.
 
-  * Altibase 의 COERCE_HOST_VAR_IN_SELECT_LIST_TO_VARCHAR 프로퍼티 값을 * 로 변경해야 한다. 그렇지 않을 경우 오류가 발생합니다. 이 경우 발생한 오류에 대한 해결방안은 [부록A.예외 상황 및 대처]()를 확인한다.
+  * Altibase 의 COERCE_HOST_VAR_IN_SELECT_LIST_TO_VARCHAR 프로퍼티 값을 * 로 변경해야 한다. 그렇지 않을 경우 오류가 발생합니다. 이 경우 발생한 오류에 대한 해결방안은 [부록A.예외 상황 및 해결 방안]()을 확인한다.
 
   ??권장값을 알려주는 것이 좋습니다. 
 
@@ -352,7 +357,7 @@ Altibase 소스 커넥터를 구동하기 위해서는 먼저 소스 데이터�
   iSQL> ALTER REPLICATION ALA START;
   ```
 
-  
+  ??소스커넥터를 구동시킨 이후, 소스커넥터의 프로퍼티 설정을 변경하려고 하는 경우는 어떻게 해야 하나요??
 
 ### 싱크 커넥터 구동하기
 
@@ -503,8 +508,6 @@ XLog 송신자의 IP 주소를 지정하는 프로퍼티이다. Altibase가 설�
 | 범위        | [1, 2147483647]                                              |
 | 설명        | XLog 콜렉터가 XLog를 수신하기 위해 사용하는 포트 번호를 지정하는 프로퍼티 이다. |
 
-
-
 #### ala.replication.name
 
 | 항목        | 설명                                                         |
@@ -526,7 +529,7 @@ XLog 송신자의 IP 주소를 지정하는 프로퍼티이다. Altibase가 설�
 >
 > XLog 콜렉터에는 Altibase 서버의 트랜잭션이 커밋되기 전의 레코드 변경 작업 내용이 XLog로 각각 쌓인다. 만약, Altibase 서버에 발생하는 트랜잭션이 다수의 레코드를 변경시키는 경우에는 XLog 콜렉터가 할당할 수 있는 XLog가 부족하여 정상적으로 복제할 수 없다. 따라서, Altibase 서버의 트랜잭션 유형에 따라서 이 프로퍼티 값을 조정해야 한다.
 >
-> Altibase 서버에서 sync 작업을 수행하는 경우에는 Altibase 서버의 REPLICATION_SYNC_TUPLE_COUNT 프로퍼티에 설정한 개수마다 커밋이 수행된다. 따라서, ala.xlog.pool.size 프로퍼티 값이 Altibase 서버의 REPLICATION_SYNC_TUPLE_COUNT 값보다 작다면 할당해야 하는 XLog가 부족하여 sync 작업이 진행되지 않으므로 프로퍼티 값을 더 크게 설정해야 된다.
+> Altibase 서버가 이중화 환경으로 구성되어 있는 경우, Sync 작업을 수행할 경우 ala.xlog.pool.size 를  Altibase 의 REPLICATION_SYNC_TUPLE_COUNT 프로퍼티 값보다 크게 설정해야 한다.
 >
 > 이 프로퍼티 값을 크게 설정했을 때, jvm의 heap size가 필요한 메모리에 비해 작게 설정되어 있다면 Out of Memory 오류가 발생할 수 있으므로, Kafka connect의 heap size를 적절한 크기로 같이 늘려주어야 한다.
 
@@ -690,11 +693,11 @@ l META_LOGGING Option을 사용할 경우 ALA도 이중화와 동일하게 갭�
 
 <br/>
 
-# 부록 A.예외 상황(Exception Cases) 및 대처
+# 부록 A.예외 상황(Exception Cases) 및 해결 방안
 
-이 장에서는 Altibase 커넥터에서 확인될 수 있는 예외 상황에 대해 설명한다.
+이 장에서는 Altibase 커넥터에서 확인될 수 있는 예외 상황과 해결 방안에 대해 설명한다.
 
-## 소스 커넥터에서 예외 상황 및 대처
+## 소스 커넥터에서 예외 상황 및 해결 방안
 
 #### "Received REPL_STOP message from Source DB."
 
@@ -772,7 +775,7 @@ ala.sender.port 값이 0이 아닐 때, XLog 송신자 wake up 불가
 
 * ala.sender.port 값을 sender의 이중화 포트 번호로 변경
 
-## 싱크 커넥터에서 예외 상황 및 대처
+## 싱크 커넥터에서 예외 상황 및 해결 방안
 
 #### "Exiting WorkerSinkTask due to unrecoverable exception"
 
