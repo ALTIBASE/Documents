@@ -29,7 +29,7 @@ Altibase Windows 2026 Release Notes
 
 ## 1. 시스템 요구사항
 
-### 하드웨어 최저 사양
+### 하드웨어 최소 사양
 
 * 1GB RAM (권장: 2GB)
 * 1 CPU (권장: 2 CPUs)
@@ -43,7 +43,6 @@ Altibase Windows 2026은 아래에 나열된 운영체제와 플랫폼 상에서
 
 * Microsoft Windows Server 2025
 * Microsoft Windows Server 2022
-* Microsoft Windows Server 2008
 * Microsoft Windows11
 
 > Altibase 서버/클라이언트 모두 64-bit 만 지원한다.<br>
