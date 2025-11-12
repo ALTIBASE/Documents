@@ -1,6 +1,6 @@
 # Migration Center User's Manual
 
-#### Release 7.16
+#### Release 7.17
 
 Altibase® Tools & Utilities
 
@@ -85,7 +85,7 @@ Altibase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities Migration Center User's Manual
-Release 7.16
+Release 7.17
 Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
 software is prohibited.<br>
@@ -343,10 +343,12 @@ Since Migration Center is bundled with the JRE 8 for the 64-bit Microsoft Window
 ##### Destination Database
 
 - Altibase 6.5.1 or later
+- Altibase Windows 2026 (Altibase 2.6.0)
 
 ##### Source Database
 
 - Altibase: 4.3.9 or later
+- Altibase Windows 2026 (Altibase 2.6.0)
 - Oracle Database: 10gR2-21c
 - Microsoft SQL Server: 2005-2012
 - Oracle MySQL: 5.0-5.7
