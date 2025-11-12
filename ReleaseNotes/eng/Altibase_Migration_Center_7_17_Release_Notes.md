@@ -177,7 +177,7 @@ Altibase Windows 2026 has been added to the list of supported databases.
 
 ## 2.2 Bug-Fixes
 
-### BUG-51321 Updates the manual link provided by Migration Center from the GitHub link to the manual website.
+### BUG-51780 Updates the manual link provided by Migration Center from the GitHub link to the manual website.
 With the release of the Altibase manual website, the manual link provided by Migration Center has been updated from the previous GitHub link to the manual website.
 
 <br/>
