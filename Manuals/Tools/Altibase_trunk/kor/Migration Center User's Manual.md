@@ -1,6 +1,6 @@
 # Migration Center User's Manual
 
-#### Release 7.16
+#### Release 7.17
 
 Altibase® Tools & Utilities
 
@@ -97,7 +97,7 @@ Altibase® Tools & Utilities
 
 <pre>
 Altibase Tools & Utilities Migration Center User's Manual
-Release 7.16
+Release 7.17
 Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
 <b>㈜알티베이스</b>
@@ -354,10 +354,12 @@ Migration Center는 64비트 마이크로소프트 윈도우 시스템의 JRE 8�
 ##### 대상 데이터베이스
 
 - Altibase 6.5.1 이상 버전
+- Altibase Windows 2026 (Altibase 2.6.0)
 
 ##### 원본 데이터베이스
 
 - Altibase: 4.3.9 이상 버전
+- Altibase Windows 2026 (Altibase 2.6.0)
 - Oracle Database: 10gR2~21c
 - Microsoft SQL Server: 2005~2012
 - Oracle MySQL: 5.0~5.7
