@@ -21,7 +21,7 @@ Altibase 7.3.0.1.2 Patch Notes
   - [BUG-51419 aexport에서 생성되는 시노님과 디렉토리 객체의 DDL문 생성 순서를 알파벳 순으로 변경했습니다.](#bug-51419)
   - [BUG-51519 Lead 함수 3번째 인자 사용시 특정 경우에 FATAL](#bug-51519)
   - [BUG-51525 executeBatch 수행 후 executeUpdate 시 exception 발생](#bug-51525)
-  - [BUG-51543 복합키 인덱스가 존재하는 디스크 테이블에 동일한 인덱스의 데이터를 삽입하려고 할때 발생하는 에러를 수정합니다.](#bug-51543)
+  - [BUG-51543 디스크 인덱스에서 낮은 확률로 [ERR-11069 : Internal server error in the storage manager (fail to insert key)] 오류 발생](#bug-51543)
   - [BUG-51574 altiProfile 에서 출력되는 SESSION STAT 에 SESSION ID가 0인 세션의 통계정보가 주기적으로 표시 됩니다.](#bug-51574)
   - [BUG-51630 테이블, 뷰, 함수가 서로 참조하는 관계인 테이블에 DDL을 수행하면 오류가 발생합니다.](#bug-51630)
   - [BUG-51632 SELECT Statement 의 순서에 따른 Lock 해제 현상 수정](#bug-51632)
