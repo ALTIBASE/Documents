@@ -21,7 +21,7 @@ Altibase 7.3.0.1.2 Patch Notes
   - [BUG-51419 aexport에서 생성되는 시노님과 디렉토리 객체의 DDL문 생성 순서를 알파벳 순으로 변경했습니다.](#bug-51419)
   - [BUG-51519 Lead 함수 3번째 인자 사용시 특정 경우에 FATAL](#bug-51519)
   - [BUG-51525 executeBatch 수행 후 executeUpdate 시 exception 발생](#bug-51525)
-  - [BUG-51543 복합키 인덱스가 존재하는 디스크 테이블에 동일한 인덱스의 데이터를 삽입하려고 할때 발생하는 에러를 수정합니다.](#bug-51543)
+  - [BUG-51543 디스크 인덱스에서 낮은 확률로 [ERR-11069 : Internal server error in the storage manager (fail to insert key)] 오류 발생](#bug-51543)
   - [BUG-51574 altiProfile 에서 출력되는 SESSION STAT 에 SESSION ID가 0인 세션의 통계정보가 주기적으로 표시 됩니다.](#bug-51574)
   - [BUG-51630 테이블, 뷰, 함수가 서로 참조하는 관계인 테이블에 DDL을 수행하면 오류가 발생합니다.](#bug-51630)
   - [BUG-51632 SELECT Statement 의 순서에 따른 Lock 해제 현상 수정](#bug-51632)
@@ -578,7 +578,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51543<a name=bug-51543></a> 복합키 인덱스가 존재하는 디스크 테이블에 동일한 인덱스의 데이터를 삽입하려고 할때 발생하는 에러를 수정합니다.
+### BUG-51543<a name=bug-51543></a> 디스크 인덱스에서 낮은 확률로 [ERR-11069 : Internal server error in the storage manager (fail to insert key)] 오류 발생
 
 -   **module** : sm
 
@@ -586,7 +586,10 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : 복합키 인덱스가 존재하는 디스크 테이블에 동일한 인덱스의 데이터를 삽입하려고 할때 발생하는 에러를 수정합니다.
+- **설명** : 디스크 인덱스에서 낮은 확률로 [ERR-11069 : Internal server error in the storage manager (fail to insert key)] 오류가 발생하는 문제를 수정합니다. 이 오류는 아래의 조건을 만족하는 경우에 발생할 수 있습니다.
+
+  -   삭제된것과 동일한 값을 INSERT 하거나 동일한 값으로 UPDATE하는 경우
+  -   인덱스 노드(페이지) 하나에 최대 2개의 키만 들어갈 수 있을 정도로 인덱스 키의 크기가 큰 경우
 
 - **재현 방법**
 
@@ -597,7 +600,7 @@ Fixed Bugs
     CREATE INDEX IDX1 ON T1 ( I2, I1 );
     INSERT INTO T1 VALUES ( 2, 2, 221 );
     INSERT INTO T1 VALUES ( 1, 7, 8 );
-    INSERT INTO T1 VALUES ( 2, 2, 221 );
+    UPDATE T1 SET I1 = 2 WHERE I2 = 2;
     ```
 
   - **수행 결과**
@@ -612,14 +615,14 @@ Fixed Bugs
     1 row inserted.
     ```
 
--   **Workaround**
+- **Workaround**
 
--   **변경사항**
+- **변경사항**
 
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
+  -   Performance view
+  -   Property
+  -   Compile Option
+  -   Error Code
 
 ### BUG-51574<a name=bug-51574></a> altiProfile 에서 출력되는 SESSION STAT 에 SESSION ID가 0인 세션의 통계정보가 주기적으로 표시 됩니다.
 
