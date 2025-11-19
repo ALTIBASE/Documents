@@ -111,7 +111,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [1.3 Compatible DBMS](#13-compatible-dbms)
 - [2. Release Information](#2-release-information)
   - [2.1 New Features](#21-new-features)
-  - [2.2 Bug-Fixes](#22-bug-fixes)
 - [3. Open Source Libraries / Royalty-Free Images Used](#3-open-source-libraries--royalty-free-images-used)
 - [4. Packages](#4-packages)
 - [5. Download](#5-download)
@@ -172,13 +171,6 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 
 ### Support Altibase Windows 2026 as Source and Target Database
 Altibase Windows 2026 has been added to the list of supported databases.
-
-<br/>
-
-## 2.2 Bug-Fixes
-
-### BUG-51780 Updates the manual link provided by Migration Center from the GitHub link to the manual website.
-With the release of the Altibase manual website, the manual link provided by Migration Center has been updated from the previous GitHub link to the manual website.
 
 <br/>
 
