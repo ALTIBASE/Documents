@@ -103,6 +103,9 @@ Altibase 서버와 클라이언트 간 통신 규약 호환성을 의미하며 �
 
 ### 2.3 패키지
 
+* AltibaseWindows2026-server-2.6.0.0.1-WINDOWS-X86-64bit-release.exe
+* AltibaseWindows2026-client-2.6.0.0.1-WINDOWS-X86-64bit-release.exe
+
 </br>
 
 ### 2.4 다운로드
