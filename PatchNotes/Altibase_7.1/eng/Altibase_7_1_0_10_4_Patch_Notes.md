@@ -70,7 +70,7 @@ Fixed Bugs
     > - The `UPDATE` trigger does **not** specify column names.
     > - Executing DDLs such as `ADD`, `DROP`, `RENAME`, or `MODIFY` column on the target table.
     
-- ****How to reproduce this bug****
+- **How to reproduce this bug**
 
   -   Reproduction conditions
 

@@ -1,5 +1,7 @@
 # Altibase 7.1 Patch Notes - English
 
+- #### Altibase 7.1.0.10.5 Patch Notes [(markdown)](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/eng/Altibase_7_1_0_10_5_Patch_Notes.md) 
+
 - #### Altibase 7.1.0.10.4 Patch Notes [(markdown)](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/eng/Altibase_7_1_0_10_4_Patch_Notes.md) 
 
 - #### Altibase 7.1.0.10.3 Patch Notes [(markdown)](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.1/eng/Altibase_7_1_0_10_3_Patch_Notes.md) 
