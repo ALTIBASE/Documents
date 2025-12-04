@@ -11,7 +11,7 @@
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-50945 SUBSTR 함수 내에서 EMPTY_CLOB()가 인자로 사용될 경우, [ERR-01003 : Unexpected end of string] 오류가 발생합니다.](#bug-50945)
     - [BUG-50946 CLOB 컬럼 에 대한 SUBSTR, SUBSTRB 함수 호출 시, 시작값이 음수일 경우 잘못된 결과가 반환됩니다.](#bug-50946)
-    - [BUG-50992 ALA가 DDL로그를 읽어서 adapter가 stop되었을때 offline adapter를 수행하면 offline adapter는 데이타 동기화가 이루어 지지 않는다.](#bug-50992)
+    - [BUG-50992 DDL로 인해 어뎁터가 종료된 경우, 오프라인 어뎁터를 수행하여도 데이터 동기화가 이루어지지 않는다.](#bug-50992)
     - [BUG-51029 빈 LOB 컬럼에 대한 AFTER UPDATE 트리거 동작 오류 수정](#bug-51029)
     - [BUG-51131 TO_CHAR 함수에서 EEEE 출력 형식을 사용할 때, 특정 NUMERIC 데이터에 EEEE 출력 형식이 적용되지 않는 문제 수정](#bug-51131)
     - [BUG-51323 UPDATE 구문의 SET 절에 사용된 서브쿼리 내 뷰를 WHERE 절의 서브쿼리에서 참조할 때 발생하는 오류 수정](#bug-51323)
