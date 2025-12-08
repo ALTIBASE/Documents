@@ -1,10 +1,28 @@
-Altibase 7.1.0.10.6 Patch Notes
-===============================
+# Altibase 7.1.0.10.6 Patch Notes
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [New Features](#new-features)
+    - [BUG-51698 암호 관리를 위한 신규 유틸리티 altiEncrypt 추가](#bug-51698)
+- [Fixed Bugs](#fixed-bugs)
+    - [BUG-51015 GROUP_SORT 힌트를 사용한 특정 조건에서 스칼라 서브쿼리와 GROUP BY 및 ORDER BY를 함께 사용하는 쿼리 수행시 발생하던 결과 오류를 수정](#bug-51015)
+    - [BUG-51834 V\$DISK\_TEMP\_STAT.TBS\_ID 값이 모두 0 으로 조회됩니다.](#bug-51834)
+    - [BUG-51841 ALA_SENDER_REPLICATION_PORT가 설정된 JDBCAdapter 환경에서 이중화 시작 과정 중 발생하던 교착(DeadLock) 유사 대기 현상을 개선](#bug-51841)
+    - [BUG-51849 ANTI JOIN의 INVERSE HASH PLAN에서 잘못 적용된 CONSTANT FILTER로 인한 결과 오류 수정](#bug-51849)
+- [Changes](#changes)
+    - [Version Info](#version-info)
+    - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
+    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 New Features
-------------
+============
 
-### BUG-51698 암호 관리를 위한 신규 유틸리티 altiEncrypt 추가
+### BUG-51698<a name=bug-51698></a> 암호 관리를 위한 신규 유틸리티 altiEncrypt 추가
 
 -   **module** : rp
 
@@ -31,9 +49,9 @@ New Features
     -   Error Code
 
 Fixed Bugs
-----------
+==========
 
-### BUG-51015 GROUP_SORT 힌트를 사용한 특정 조건에서 스칼라 서브쿼리와 GROUP BY 및 ORDER BY를 함께 사용하는 쿼리 수행시 발생하던 결과 오류를 수정
+### BUG-51015<a name=bug-51015></a> GROUP_SORT 힌트를 사용한 특정 조건에서 스칼라 서브쿼리와 GROUP BY 및 ORDER BY를 함께 사용하는 쿼리 수행시 발생하던 결과 오류를 수정
 
 -   **module** : qp-dml-pvo
 -   **Category** : Functional Error
@@ -55,7 +73,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51834 V\$DISK\_TEMP\_STAT.TBS\_ID 값이 모두 0 으로 조회됩니다.
+### BUG-51834<a name=bug-51834></a> V\$DISK\_TEMP\_STAT.TBS\_ID 값이 모두 0 으로 조회됩니다.
 
 -   **module** : sm
 
@@ -81,7 +99,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51841 ALA_SENDER_REPLICATION_PORT가 설정된 JDBCAdapter 환경에서 이중화 시작 과정 중 발생하던 교착(DeadLock) 유사 대기 현상을 개선
+### BUG-51841<a name=bug-51841></a> ALA_SENDER_REPLICATION_PORT가 설정된 JDBCAdapter 환경에서 이중화 시작 과정 중 발생하던 교착(DeadLock) 유사 대기 현상을 개선
 
 -   **module** : rp-ala
 
@@ -109,7 +127,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-51849 ANTI JOIN의 INVERSE HASH PLAN에서 잘못 적용된 CONSTANT FILTER로 인한 결과 오류 수정
+### BUG-51849<a name=bug-51849></a> ANTI JOIN의 INVERSE HASH PLAN에서 잘못 적용된 CONSTANT FILTER로 인한 결과 오류 수정
 
 -   **module** : qp-dml-pvo
 
@@ -167,7 +185,7 @@ Fixed Bugs
     -   Error Code
 
 Changes
--------
+=======
 
 ### Version Info
 
