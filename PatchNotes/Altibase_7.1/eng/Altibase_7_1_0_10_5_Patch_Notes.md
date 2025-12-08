@@ -223,13 +223,13 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-50992<a name=bug-50992></a> Offline adapter fails to synchronize data if the adapter is stopped by a DDL operation.
+### BUG-50992<a name=bug-50992></a> Offline adapter fails to synchronize data after the adapter is stopped by a DDL operation.
 
 - **module**: rp
 
 - **Category**: Functional Error
 
-- **Description**: Offline adapter fails to synchronize data if the adapter is stopped by a DDL operation.
+- **Description**: Fixed an issue where data synchronization failed when the offline adapter was executed immediately after the adapter was terminated by a DDL operation.
 
 - **How to reproduce this bug**
 
