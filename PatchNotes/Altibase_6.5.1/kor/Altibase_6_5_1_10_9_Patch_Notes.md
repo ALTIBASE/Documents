@@ -47,29 +47,30 @@
 
 - **설명** : 서버 비정상 종료시 altibase_error.log에 콜스택 외 클라이언트 정보를 출력하도록 개선합니다.
 
+  아래의 클라이언트 정보가 출력됩니다.
+
   - CliPkgVer: 클라이언트 버전
-
   - CliProtoVer: 클라이언트 통신 프로토콜 버전
-
   - CliType: 클라이언트 타입
-
   - AppInfo: 어플리케이션 정보
 
-    ```bash
-    기존 콜스택 정보 아래에 추가로 출력됩니다.
-    
-    BEGIN-DUMP Diagnostic Information ===============
-        Statement: 00007F75D24A9808                  
-        Session: 000000000A22F148                    
-            CliPkgVer: 7.4.0.0.0                     
-            CliProtoVer: 7.1.9                       
-            CliType: CLI-64LE                        
-            AppInfo: isql                                
-        Task: 000000000A16EF00                       
-        Link: 00007F74E0000990                       
-            ConnType: 1                              
-    END-DUMP Diagnostic Information =================
-    ```
+- 예시(altibase_error.log)
+
+  ```bash
+  ... 중략 ...
+  
+  BEGIN-DUMP Diagnostic Information ===============
+      Statement: 00007F75D24A9808                  
+      Session: 000000000A22F148                    
+          CliPkgVer: 7.4.0.0.0                     
+          CliProtoVer: 7.1.9                       
+          CliType: CLI-64LE                        
+          AppInfo: isql                                
+      Task: 000000000A16EF00                       
+      Link: 00007F74E0000990                       
+          ConnType: 1                              
+  END-DUMP Diagnostic Information =================
+  ```
 
 Fixed Bugs
 ==========
