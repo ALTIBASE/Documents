@@ -134,4 +134,4 @@ http://support.altibase.com
 
 #### Manual
 
-http://support.altibase.com/kr/manual
+http://manual.altibase.com/as3
