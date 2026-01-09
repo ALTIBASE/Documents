@@ -121,8 +121,8 @@ Altibase 서버와 클라이언트 간 통신 규약 호환성을 의미하며 �
 
 ### 2.3 패키지
 
-* altibase-server-3.2.0.0.1-LINUX-X86-64bit-release.run
-* altibase-client-3.2.0.0.1-LINUX-X86-64bit-release.run
+* AltibaseSharding-server-3.2.0.0.1-LINUX-X86-64bit-release.run
+* AltibaseSharding-client-3.2.0.0.1-LINUX-X86-64bit-release.run
 
 </br>
 
