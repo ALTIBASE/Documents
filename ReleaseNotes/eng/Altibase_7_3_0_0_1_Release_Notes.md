@@ -100,13 +100,13 @@ altiShapeLoader is a tool used to import and export shapefile<sup id="shapefile1
 
 #### 2.1.3 Partial Support for JDBC 4.2
 
-Altibase 7.3 provides partial support for JDBC API Specification 4.2. For more detailed information about the JDBC 4.2 API supported by the Altibase 7.3 JDBC driver, please refer to [**JDBC User's Manual** - JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md#6-jdbc-42-api-references). Additionally, for information on the changes and compatibility issues, please refer to [Changes and Compatibility Issues with Altibase 7.3 JDBC Driver]() section in this manual.
+Altibase 7.3 provides partial support for JDBC API Specification 4.2. For more detailed information about the JDBC 4.2 API supported by the Altibase 7.3 JDBC driver, please refer to [**JDBC User's Manual** - JDBC 4.2 API References](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/JDBC%20User's%20Manual.md#6-jdbc-42-api-references). Additionally, for information on the changes and compatibility issues, please refer to [Changes and Compatibility Issues with Altibase 7.3 JDBC Driver](#Changes-and-Compatibility-Issues-With-Altibase-7.3-JDBC-Driver) section in this manual.
 
 #### 2.1.4 OpenSSL 3.0.8 Support
 
 To enhance security, Altibase 7.3 supports the latest version of OpenSSL 3.0.8, and no longer provides support for OpenSSL versions 1.0.x. Altibase now extends its protocol support to include TLS 1.3, in addition to TLS 1.0 and 1.2. If users want to specify particular cipher algorithms for TLS 1.3, please set them in the server property, SSL_CIPHER_SUITES. For more detailed information, please refer to [**Altibase SSL TLS User's Guide** - server properties to connect over ssl](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Altibase%20SSL%20TLS%20User's%20Guide.md#step-2-set-server-properties-to-connect-over-ssl).
 
-Additionally, Altibase supports the Federal Information Processing Standards(FIPS) module. To use the FIPS module with SSL, users must set the SSL_LOAD_CONFIG property to 1. Refer to [Altibase SSL TLS User's Guide - Step4. FIPS module with SSL]().
+Additionally, Altibase supports the Federal Information Processing Standards(FIPS) module. To use the FIPS module with SSL, users must set the SSL_LOAD_CONFIG property to 1. Refer to [**Altibase SSL TLS User's Guide** -Step 4: Set Altibase Environment Variables (FIPS module with SSL)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Altibase%20SSL%20TLS%20User's%20Guide.md#step-4-set-altibase-environment-variables-fips-module-with-ssl).
 
 </br>
 
@@ -114,7 +114,7 @@ Additionally, Altibase supports the Federal Information Processing Standards(FIP
 
 ##### VARRAY TYPE
 
-Within stored procedures, the VARRAY type is now supported as a new user-defined type. The VARRAY type is capable of storing a sequence of data with the same data type. For more details, please refer to [Stored Procedures Manual - VARRAY]().
+Within stored procedures, the VARRAY type is now supported as a new user-defined type. The VARRAY type is capable of storing a sequence of data with the same data type. For more details, please refer to [Stored Procedures Manual - VARRAY](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/Stored%20Procedures%20Manual.md#varray).
 
 ##### Anonymous Block 
 
