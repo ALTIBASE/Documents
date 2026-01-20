@@ -260,7 +260,7 @@ This section describes the conventions used in this manual. Understanding these 
 
 There are two sets of conventions:
 
--   Syntax diagram convetions
+-   Syntax diagram conventions
 -   Sample code conventions
 
 ##### Syntax Diagram Conventions
@@ -271,13 +271,13 @@ This manual describes command syntax using diagrams composed of the following el
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [![image1](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif) | Indicates the start of a command. If a syntactic element starts with an arrow, it is not a complete command. |
 | [![image2](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif) | Indicates that the command continues to the next line. If a syntactic element ends with this symbol, it is not a complete command. |
-| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates taht the command continues from the previous line. If a syntactic element starts witht his symbol, it is not a complete command. |
+| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates that the command continues from the previous line. If a syntactic element starts with this symbol, it is not a complete command. |
 | [![image4](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif) | Indicates the end of a statement.                            |
-| [![image5](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif) | Indicates a manatory element.                                |
+| [![image5](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif) | Indicates a mandatory element.                               |
 | [![image6](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif) | Indicates an optional element.                               |
 | [![image7](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image7.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image7.gif) | Indicates a mandatory element comprised of options. One, and only one, option must be specified. |
 | [![image8](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif) | Indicates an optional element comprised of options.          |
-| [![image9](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comman must precede all but the first element. |
+| [![image9](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comma must precede all but the first element. |
 
 ##### Sample Code Conventions
 
@@ -6268,6 +6268,70 @@ SQLTransact(SQL_NULL_HENV, dbc, SQL_COMMIT);
 # 3. LOB Interface
 
 This chapter describes functions and data types that can be used for handling LOB data.
+
+### LOB 데이터 처리 방식
+
+
+
+Altibase는 CLI에서 LOB데이터를 처리하기위해 LOB 위치 입력기(LOB Locator)를 이용한다. LOB 데이터에 대응되는 고유값으로 Altibase 서버의 내부 자료구조이다. LOB 데이터를 연산하기 위해서는 먼저 LOB Locator를 획득해야 하며, 이를 통해 LOB 데이터를 읽거나 쓸 수 있다. LOB Locator는 MVCC와 관련하여 특정 시점의 LOB 데이터를 가리키기 때문에, LOB Locator를 발생시킨 트랜잭션과 생명주기를 같이하며, 그 트랜잭션에 종속된다.
+
+#### 자동 커밋 모드 해제
+
+
+
+LOB 위치 입력기는 트랜잭션에 종속적이기 때문에 **CLI에서 LOB 위치 입력기를 이용하여 LOB 데이터를 처리하려면 반드시 자동 커밋 모드를 해제해야 한다.**
+
+자동 커밋 모드를 해제하면 LOB 위치 입력기를 얻어오는 CLI 함수와 LOB 데이터를 읽고 쓰는 CLI 함수는 하나의 트랜잭션에서 개별 작업이 되어 LOB 위치 입력기를 공유할 수 있다. 반면, 자동 커밋 모드에서는 각각의 개별 트랜잭션으로 동작하기 때문에 두 트랜잭션 간에 LOB 위치 입력기를 공유할 수 없다.
+
+> **LOB 위치 입력기를 이용한 트랜잭션 커밋 시 주의사항**
+
+1. 자동 커밋 해제 모드에서 LOB 데이터를 읽고 쓰는 CLI 함수 수행 중 예상치 못한 에러가 발생하면, 내부적으로 초기화된 데이터가 남아 있을 수 있어 **반드시 트랜잭션을 롤백해야 한다.**
+2. NOT NULL 제약이 있는 LOB 타입 컬럼에 NULL 값을 INSERT 혹은 UPDATE 수행하면 [Unable to insert (or update) NULL into NOT NULL column.] 에러가 발생한다. 이 경우 초기화된 데이터가 남아 있어 **반드시 트랜잭션을 롤백해야 한다.**
+
+#### LOB 위치 입력기 얻기
+
+
+
+LOB 위치 입력기는 아래의 CLI 함수들을 실행할 때 얻는다.
+
+- SQLBindCol / SQLFetch
+
+- SQLBindParameter / SQLExecute
+
+  > ⚠️ SQLExecute 함수는 INSERT와 UPDATE 문을 실행할 때 LOB 데이터를 널로 초기화한다.
+
+#### LOB 데이터 읽고 쓰기
+
+
+
+LOB 위치 입력기를 얻은 후에 이것을 이용하여 LOB 데이터를 읽거나 쓸 수 있다. 관련 CLI 함수는 아래와 같다.
+
+- SQLBindFileToParam
+- SQLGetLob
+- SQLGetLobLength
+- SQLPutLob
+- SQLTrimLob
+
+#### LOB 데이터의 조회(SELECT)
+
+
+
+LOB 데이터를 SELECT 할때, 내부적으로는 LOB Locator를 얻어와서 처리되기 때문에 연관된 트랜잭션이 열린 상태가 된다. 따라서 사용자는 명시적으로 commit 또는 rollback과 같은 트랜잭션 종료 작업을 추가로 해주어야 한다.
+
+>  [!Caution]
+>
+> 만약, 사용자가 명시적으로 commit 또는 rollback 과 같은 트랜잭션 종료 작업을 하지 않으면, 데이터베이스의 메모리 사용량이 증가할 수 있다.
+
+#### 자원 해제하기
+
+
+
+LOB 데이터와 관련한 작업이 완료된 경우, 관련된 자원을 해제해주어야 한다. 관련 CLI 함수는 아래와 같다.
+
+- [SQLFreeLob](https://github.com/ALTIBASE/Documents/blob/8b65902599c5168fc2650bae077001ca57e04326/Manuals/Altibase_7.1/kor/CLI User's Manual.md#sqlfreelob)
+- [SQLEndTran](https://github.com/ALTIBASE/Documents/blob/8b65902599c5168fc2650bae077001ca57e04326/Manuals/Altibase_7.1/kor/CLI User's Manual.md#sqlendtran)
+
+SQLFreeLob 함수는 Lob Locator와 관련된 자원을 해제할 뿐, 트랜잭션을 종료하지는 않는다.
 
 ### LOB data types
 
