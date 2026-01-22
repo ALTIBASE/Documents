@@ -867,7 +867,7 @@ INSERT INTO test1 VALUES (6, GEOMCOLLFROMTEXT('GEOMETRYCOLLECTION EMPTY'));
 
 In Altibase, the GEOMETRY data type can be represented using any of the three ways described below:
 
--   WKT (Well-Known Text): A text format in which a spatial object is represented using letters and numbers. This allows it to be processed directly within SQL applications or other similar applications. The WKT format was designed using simple gramar for easy readability. 
+-   WKT (Well-Known Text): A text format in which a spatial object is represented using letters and numbers. This allows it to be processed directly within SQL applications or other similar applications. The WKT format was designed using simple grammar for easy readability. 
 -   WKB (Well-Known Binary): A format in which a spatial object is represented in binary form. It was designed for the purpose of efficiently transferring and performing operations on GEOMETRY type data.
 -   EWKT(Extended Well-Known Text) format: A text format in which Spatial Reference Identifier (SRID) information representing spatial objects has been added to the WKT format.
 -   EWKB(Extended Well-Known Binary) format: A text format in which Spatial Reference Identifier (SRID) information representing spatial objects is added to the WKB format
@@ -1183,9 +1183,8 @@ AThe spatial functions that are available in Altibase can be broadly classified 
 -   Spatial Analysis Functions  
     These functions are used to perform various analytical tasks on GEOMETRY type data.
 
-    Spatial Object Creationg Functions  
-    These functions are used to create spatial objects in WKT or WKB format, rather than in the internal storage format of Altibase.
-    
+-   Spatial Object Creation Functions  
+    These functions are used to create spatial objects in WKT, WKB, EWKT, or EWKB format, rather than in the internal storage format of Altibase.
 
 ### Basic Spatial Functions
 
@@ -3003,7 +3002,7 @@ F1          SRID(F2)
 ##### Syntax
 
 ```
-GEOMFROMTEXT( WKT)
+GEOMFROMTEXT( WKT[, srid])
 ```
 
 ##### Description
@@ -3014,7 +3013,7 @@ This function accepts a description of a spatial object in WKT (Well-known Text)
 
 The input can be any type of spatial object that can be described using WKT. If the syntax of the input WKT is not valid, this function outputs an error.
 
-The SIRD of the created object is 0.
+Users can specify SRID when using this function. If SRID is not specified, the SRID of the generated geometry object is 0.
 
 ##### Return Value
 
@@ -3039,6 +3038,12 @@ GEOMETRYCOLLECTION( POINT(10 10) , POINT(30 30) , LINESTRING(15 15, 20 20) )
 
 iSQL> INSERT INTO TB3 VALUES (102, GEOMFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10))'));
 [ERR-A101A : Parsing error of well-known-text]
+
+iSQL> SELECT ASEWKT(GEOMFROMTEXT('POINT(1 1)', 100)) AS OBJ FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;POINT(1 1)
+1 row selected.
 ```
 
 #### POINTFROMTEXT
@@ -3046,7 +3051,7 @@ iSQL> INSERT INTO TB3 VALUES (102, GEOMFROMTEXT('POLYGON((10 10, 10 20, 20 20, 2
 ##### Syntax
 
 ```
-POINTFROMTEXT( WKT)
+POINTFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -3057,7 +3062,7 @@ If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY 
 
 This function returns NULL if the value of the WKT argument is NULL.
 
-The SIRD of the created object is 0. 
+Users can specify SRID when using this function. If SRID is not specified, the SRID of the generated geometry object is 0.
 
 ##### Return Type
 
@@ -3081,6 +3086,12 @@ POINT(10 10)
 
 iSQL> INSERT INTO TB3 VALUES (103, POINTFROMTEXT('GEOMETRYCOLLECTION( POINT(10 10), POINT(30 30), LINESTRING(15 15, 20 20))'));
 [ERR-A1019 : Not applicable object type]
+
+iSQL> SELECT ASEWKT(POINTFROMTEXT('POINT(1 1)', 100)) AS OBJ FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;POINT(1 1)
+1 row selected.
 ```
 
 #### LINEFROMTEXT 
@@ -3088,7 +3099,7 @@ iSQL> INSERT INTO TB3 VALUES (103, POINTFROMTEXT('GEOMETRYCOLLECTION( POINT(10 1
 ##### Syntax
 
 ```
-LINEFROMTEXT( WKT )
+LINEFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -3099,7 +3110,7 @@ If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY 
 
 This function returns NULL if the value of the WKT argument is NULL.
 
-The SIRD of the created object is 0. 
+Users can specify SRID when using this function. If SRID is not specified, the SRID of the generated geometry object is 0.
 
 ##### Return Type
 
@@ -3123,6 +3134,12 @@ LINESTRING(10 10, 20 20, 30 40)
 
 iSQL> INSERT INTO TB3 VALUES (104, LINEFROMTEXT('MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60)))'));
 [ERR-A1019 : Not applicable object type]
+
+iSQL> SELECT ASEWKT(LINEFROMTEXT('LINESTRING(10 10, 20 20, 30 40)', 100) ) FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;LINESTRING(10 10, 20 20, 30 40)
+1 row selected.
 ```
 
 #### POLYFROMTEXT
@@ -3141,7 +3158,7 @@ If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY 
 
 This function returns NULL if the value of the WKT argument is NULL.
 
-The SRID of a created object is 0.
+Users can specify SRID when using this function. If SRID is not specified, the SRID of the generated geometry object is 0.
 
 ##### Return Type
 
@@ -3176,6 +3193,11 @@ ID          ASEWKT(OBJ)
 120         SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
 2 rows selected.
 
+iSQL> SELECT ASEWKT(POLYFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))', 100)) AS OBJ FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))
+1 row selected.
 ```
 
 #### ST_POLYGONFROMTEXT
@@ -3231,7 +3253,7 @@ ID          ASEWKT(OBJ)
 ##### Syntax
 
 ```
-MPOINTFROMTEXT( WKT )
+MPOINTFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -3242,7 +3264,7 @@ If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY 
 
 This function returns NULL if the value of the WKT argument is NULL.
 
-The SRID of a created object is 0.
+Users can specify SRID when using this function. If SRID is not specified, the SRID of the generated geometry object is 0.
 
 ##### Return Type
 
@@ -3266,6 +3288,13 @@ MULTIPOINT(10 10, 20 20)
 
 iSQL> INSERT INTO TB3 VALUES (106, MPOINTFROMTEXT('LINESTRING(10 10, 20 20, 30 40)'));
 [ERR-A1019 : Not applicable object type]
+
+
+iSQL> SELECT ASEWKT( MPOINTFROMTEXT('MULTIPOINT(10 10, 20 20)', 100) ) AS OBJ FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;MULTIPOINT(10 10, 20 20)
+1 row selected.
 ```
 
 #### MLINEFROMTEXT
@@ -3273,7 +3302,7 @@ iSQL> INSERT INTO TB3 VALUES (106, MPOINTFROMTEXT('LINESTRING(10 10, 20 20, 30 4
 ##### Syntax
 
 ```
-MLINEFROMTEXT( WKT )
+MLINEFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -3284,7 +3313,7 @@ This function accepts a spatial object in WKT (Well-known Text) format as input 
 
  This function returns NULL if the value of the WKT argument is NULL.
 
-The SRID of a created object is 0.
+Users can specify SRID when using this function. If SRID is not specified, the SRID of the generated geometry object is 0.
 
 ##### Return Type
 
@@ -3307,6 +3336,13 @@ MULTILINESTRING((10 10, 20 20), (15 15, 30 15))
 1 row selected.
 iSQL> INSERT INTO TB3 VALUES (107, MLINEFROMTEXT('POINT(10 10)'));
 [ERR-A1019 : Not applicable object type]
+
+
+iSQL> SELECT ASEWKT(MLINEFROMTEXT('MULTILINESTRING((10 10, 20 20), (15 15, 30 15))', 100))AS OBJ FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;MULTILINESTRING((10 10, 20 20), (15 15, 30 15))
+1 row selected.
 ```
 
 #### MPOLYFROMTEXT
@@ -3314,7 +3350,7 @@ iSQL> INSERT INTO TB3 VALUES (107, MLINEFROMTEXT('POINT(10 10)'));
 ##### Syntax
 
 ```
-MPOLYFROMTEXT( WKT )
+MPOLYFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -3324,6 +3360,8 @@ This function accepts a spatial object in WKT (Well-known Text) format as input 
 If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY subtype other than a MULTIPOLYGON object, this function outputs an error. 
 
 This function returns NULL if the value of the WKT argument is NULL.
+
+Users can specify SRID when using this function. If SRID is not specified, the SRID of the generated geometry object is 0.
 
 ##### Return Type
 
@@ -3347,6 +3385,13 @@ MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60
 
 iSQL> INSERT INTO TB3 VALUES (108, MPOLYFROMTEXT('MULTIPOINT(10 10, 20 20)'));
 [ERR-A1019 : Not applicable object type]
+
+
+iSQL> SELECT ASEWKT(MPOLYFROMTEXT('MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60)))',100)) AS OBJ FROM DUAL;
+OBJ
+-------------------------------------
+SRID=100;MULTIPOLYGON(((10 10, 10 20, 20 20, 20 15, 10 10)), ((60 60, 70 70, 80 60, 60 60)))
+1 row selected.
 ```
 
 #### GEOMCOLLFROMTEXT
@@ -3354,7 +3399,7 @@ iSQL> INSERT INTO TB3 VALUES (108, MPOLYFROMTEXT('MULTIPOINT(10 10, 20 20)'));
 ##### Syntax
 
 ```
-GEOMCOLLFROMTEXT( WKT )
+GEOMCOLLFROMTEXT( WKT[, srid] )
 ```
 
 ##### Description
@@ -3364,6 +3409,8 @@ This function accepts a spatial object in WKT (Well-known Text) format as input 
 If the syntax of the input WKT is not valid, or if the WKT describes a GEOMETRY subtype other than a GEOMETRYCOLLECTION, this function outputs an error. 
 
 This function returns NULL if the value of the WKT argument is NULL.
+
+Users can specify SRID when using this function. If SRID is not specified, the SRID of the generated geometry object is 0.
 
 ##### Return Type
 
@@ -3389,6 +3436,12 @@ GEOMETRYCOLLECTION( POINT(10 10) , POINT(30 30) , LINESTRING(15 15, 20 20) )
 
 iSQL> INSERT INTO TB3 VALUES (109, GEOMCOLLFROMTEXT('POLYGON((10 10, 10 20, 20 20, 20 15, 10 10))'));
 [ERR-A1019 : Not applicable object type]
+
+iSQL> SELECT ASEWKT(GEOMCOLLFROMTEXT('GEOMETRYCOLLECTION(POINT(10 10), POINT(30 30), LINESTRING(15 15, 20 20))',100)) AS OBJ FROM DUAL;
+OBJ
+---------------------------------------------
+SRID=100;GEOMETRYCOLLECTION( POINT(10 10) , POINT(30 30) , LINESTRING(15 15, 20 20) )
+1 row selected.
 ```
 
 #### ST_GEOMETRY
@@ -6828,7 +6881,27 @@ else
 
 ```
 
-# Appendix A. Limitations on the Use of Spatial Data in Altiabase
+# 4. Spatial Data Migration
+
+This section describes how to migrate spatial data between Altibase servers or Altibase and the other vendor database.
+
+### Spatial Data Migration Between Altibase Products
+
+Altibase Meta version 8.8.1 introduced a change in the spatial data storage format from WKB to EWKB. This alteration divides the scenarios for spatial data migration among Altibase products into four categories.
+
+For products with a meta version below 8.8.1, which cannot recognize EWKB format spatial data, **there may be a need to export EWKB format data into WKB format** in certain situations. Altibase provides functionality for exporting data in WKB format using the ILOADER_GEOM property in aexport and the '-geom WKB' option in iLoader. For detailed information on this feature, please refer to the respective manuals for aexport and iLoader.
+
+| Scenario                               | Data Migration Process Change                                |
+| -------------------------------------- | ------------------------------------------------------------ |
+| All meta versions are below 8.8.1      | None                                                         |
+| All meta versions are 8.8.1 or above   | None                                                         |
+| Meta version 8.8.1 below → 8.8.1 above | None (WKB format spatial data is automatically converted to EWKB format.) |
+| Meta version 8.8.1 above → 8.8.1 below | Add the property statement ILOADER_GEOM = WKB to the aexport.properties file and then proceed as usual.<br/>If users want to migrate only specific tables, use the '-geom WKB' option in iLoader. |
+
+> [!TIP]
+> Users can check the Altibase Meta version using the 'altibase -v' command.
+
+# Appendix A. Limitations on the Use of Spatial Data in Altibase
 
 With the expansion of Altibase into the realm of spatial data, inevitably some of Altibase's extensive functionality lacks support for use with spatial data. The current limitations are explained in detail in this Appendix.
 

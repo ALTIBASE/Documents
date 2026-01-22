@@ -783,7 +783,7 @@ Altibase를 설치할 때, aexport.properties 파일은 \$ALTIBASE_HOME/conf에 
 -   EXECUTE  
     생성한 스크립트를 자동으로 수행할 것인지 여부를 설정한다.  
     EXECUTE = ON/OFF  
-    ON일 경우 OPERATION 에 지정된 작업에 맞는 적절한 스크립트 파일을 자동으로 실행한다. 스크립트 파일 이름은 ILOADER_OUT, ILOADER_IN, ISQL, ISQL_CON, ISQL_INDEX, ISQL_FOREIGN_KEY, ISQL_REPL, ISQL_REFRESH_MVIEW, 그리고 ISQL_ALT_TBL 프로퍼티로 설정된다.  
+    ON일 경우 OPERATION 에 지정된 작업에 맞는 적절한 스크립트 파일을 자동으로 실행한다. 스크립트 파일 이름은 ILOADER_OUT, ILOADER_IN, ISQL, ISQL_CON, ISQL_INDEX, ISQL_FOREIGN_KEY, ISQL_REPL, ISQL_REFRESH_MVIEW, 그리고 ISQL_ALT_TBL 프로퍼티로 설정된다.   
     OFF일 경우 스크립트를 생성하기만 하고 실행하지는 않는다.
     
 -   INVALID_SCRIPT  
