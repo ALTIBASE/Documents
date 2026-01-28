@@ -41,10 +41,10 @@ Altibase Shard Manager Release Notes
 
 ### 1.2 Supported Operating Systems and Platforms
 
-| OS     | CPU    | Windows System | Bit (Client) | JRE              |
-| ------ | ------ | -------------- | ------------ | ---------------- |
-| LINUX  | x86_64 | GTK            | 64bit        | Java 6 or higher |
-| WINDOW | x86    | Win32          | 32bit        | Java 6 or higher |
+| OS      | CPU    | Windows System | Bit (Client) | JRE              |
+| ------- | ------ | -------------- | ------------ | ---------------- |
+| LINUX   | x86_64 | GTK            | 64bit        | Java 6 or higher |
+| Windows | x86    | Win32          | 32bit        | Java 6 or higher |
 
 ## 2. Release Information
 
@@ -59,10 +59,10 @@ Shard Manager is a graphical tool designed to efficiently manage multiple databa
 
 - Shard Database Connection and Management
 
-- Provides Shard Database Summary Reports(HTML format)
+- Provides Shard Database Summary Reports (HTML format)
 
   - Shard Configuration Report
-  - Recored Count Report
+  - Record Count Report
 
 - Shard Node Management
 
@@ -70,7 +70,6 @@ Shard Manager is a graphical tool designed to efficiently manage multiple databa
 
 - Supports shard table resharding
 
-  
 
 ### 2.2 Version and Compatibility
 
