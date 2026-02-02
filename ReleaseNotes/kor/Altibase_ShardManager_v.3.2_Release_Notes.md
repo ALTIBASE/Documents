@@ -60,7 +60,6 @@ Altibase Shard Manger는 Altibase Sharding 3.2의 샤드 데이터베이스 및 
   - Shard Configuration 레포트
 
   - Record Count 레포트
-
 - 샤드 노드 관리
 - 샤드 객체 관리
 - 샤드 테이블 리샤딩(Resharding) 지원

@@ -55,20 +55,13 @@ Altibase Shard Manager is a graphical tool for managing shard databases and obje
 #### 2.1.1 Main Features
 
 - Provides Graphical User Interface (GUI) including Command Line Interface (CLI) 
-
 - Shard Database Connection and Management
-
 - Provides Shard Database Summary Reports (HTML format)
-
   - Shard Configuration Report
   - Record Count Report
-
 - Shard Node Management
-
 - Shard Object Management
-
 - Supports shard table resharding
-
 
 ### 2.2 Version and Compatibility
 
