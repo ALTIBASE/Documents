@@ -50,7 +50,7 @@ Altibase Shard Manager Release Notes
 
 ### 2.1 Altibase Shard Manager
 
-Altibase Shard Manger는 Altibase Sharding 3.2의 샤드 데이터베이스 및 객체 관리를 위한 그래픽 도구입니다. GUI 및 CLI 기반의 통합 인터페이스를 제공하여, 샤드 노드와 객체에 대한 시각적 관리부터 리샤딩 작업까지 마우스 클릭만으로 손쉽게 수행할 수 있습니다.
+Altibase Shard Manger는 Altibase Sharding 3.2의 샤드 데이터베이스 및 객체 관리를 위한 그래픽 도구입니다. GUI 및 CLI 기반의 통합 인터페이스를 제공하여, 몇 번의 마우스 클릭만으로 샤드 노드 및 객체 관리(리샤딩 작업 포함)를 손쉽게 수행할 수 있습니다.
 
 #### 2.1.1 주요 기능
 
@@ -58,7 +58,6 @@ Altibase Shard Manger는 Altibase Sharding 3.2의 샤드 데이터베이스 및 
 - 샤드 데이터베이스 연결 및 관리
 - 샤드 데이터베이스 요약 보고서 제공(HTML 형식)
   - Shard Configuration 레포트
-
   - Record Count 레포트
 - 샤드 노드 관리
 - 샤드 객체 관리
