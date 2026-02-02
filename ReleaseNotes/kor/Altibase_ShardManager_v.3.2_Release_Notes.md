@@ -5,15 +5,15 @@
 
 
 - [Altibase Shard Manager Release Notes](#altibase-shard-manager-release-notes)
-  - [1. Abstract](#1-abstract)
-    - [1.1 System Requirements](#11-system-requirements)
-    - [1.2 Supported Operating Systems and Platforms](#12-supported-operating-systems-and-platforms)
-  - [2. Release Information](#2-release-information)
+  - [1. 개요](#1-%EA%B0%9C%EC%9A%94)
+    - [1.1 시스템 요구사항](#11-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD)
+    - [1.2 지원 OS](#12-%EC%A7%80%EC%9B%90-os)
+  - [2. 릴리즈 정보](#2-%EB%A6%B4%EB%A6%AC%EC%A6%88-%EC%A0%95%EB%B3%B4)
     - [2.1 Altibase Shard Manager](#21-altibase-shard-manager)
-    - [2.2 Version and Compatibility](#22-version-and-compatibility)
-    - [2.3 Open Source Libraries /Royalty-Free Images Used](#23-open-source-libraries-royalty-free-images-used)
-    - [2.4 Packages](#24-packages)
-    - [2.5 Downloads](#25-downloads)
+    - [2.2 버전 및 호환성](#22-%EB%B2%84%EC%A0%84-%EB%B0%8F-%ED%98%B8%ED%99%98%EC%84%B1)
+    - [2.3 사용된 오픈 소스 라이브러리 / 로열티 프리 이미지](#23-%EC%82%AC%EC%9A%A9%EB%90%9C-%EC%98%A4%ED%94%88-%EC%86%8C%EC%8A%A4-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC--%EB%A1%9C%EC%97%B4%ED%8B%B0-%ED%94%84%EB%A6%AC-%EC%9D%B4%EB%AF%B8%EC%A7%80)
+    - [2.4 패키지](#24-%ED%8C%A8%ED%82%A4%EC%A7%80)
+    - [2.5 다운로드](#25-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -28,63 +28,59 @@ Altibase Shard Manager Release Notes
 
 **(Feb. 6, 2026)**
 
-## 1. Abstract
+## 1. 개요
 
-### 1.1 System Requirements
+### 1.1 시스템 요구사항
 
-#### Minimum Hardware
+#### 하드웨어 최소 사양
 
-* Computer processor: 800MHz Pentium III or better
-* Computer memory: 512 MB or more
-* Computer disk : 120MB or more free space
-* Screen resolution : 1024 * 768 pixels or higher
+* 프로세서: 800MHz Pentium III 이상
+* 메모리: 512 MB 이상
+* 디스크 : 120MB 이상 여유공간
+* 화면 해상도 : 1024 * 768 픽셀 이상
 
-### 1.2 Supported Operating Systems and Platforms
+### 1.2 지원 OS
 
 | OS      | CPU    | Windows System | Bit (Client) | JRE              |
 | ------- | ------ | -------------- | ------------ | ---------------- |
 | LINUX   | x86_64 | GTK            | 64bit        | Java 6 or higher |
 | Windows | x86    | Win32          | 32bit        | Java 6 or higher |
 
-## 2. Release Information
+## 2. 릴리즈 정보
 
 ### 2.1 Altibase Shard Manager
 
-Altibase Shard Manager is a graphical tool for managing shard databases and objects in Altibase Sharding 3.2. It provides an integrated GUI and CLI-based interface, enabling easy management of shard nodes and objects, including resharding operations, with just a few mouse clicks.
+Altibase Shard Manger는 Altibase Sharding 3.2의 샤드 데이터베이스 및 객체 관리를 위한 그래픽 도구입니다. GUI 및 CLI 기반의 통합 인터페이스를 제공하여, 샤드 노드와 객체에 대한 시각적 관리부터 리샤딩 작업까지 마우스 클릭만으로 손쉽게 수행할 수 있습니다.
 
-#### 2.1.1 Main Features
+#### 2.1.1 주요 기능
 
-- Provides Graphical User Interface (GUI) including Command Line Interface (CLI) 
+- 사용자 편의를 위한 그래픽 인터페이스(GUI) 및 명령 줄 인터페이스(CLI)를 동시에 지원
+- 샤드 데이터베이스 연결 및 관리
+- 샤드 데이터베이스 요약 보고서 제공(HTML 형식)
+  - Shard Configuration 레포트
 
-- Shard Database Connection and Management
+  - Record Count 레포트
 
-- Provides Shard Database Summary Reports (HTML format)
-
-  - Shard Configuration Report
-  - Record Count Report
-
-- Shard Node Management
-
-- Shard Object Management
-
-- Supports shard table resharding
+- 샤드 노드 관리
+- 샤드 객체 관리
+- 샤드 테이블 리샤딩(Resharding) 지원
 
 
-### 2.2 Version and Compatibility
+### 2.2 버전 및 호환성
 
-#### 2.2.1 Version
+#### 2.2.1 버전
 
 * Altibase Shard Manager Version: 3.2
 
-#### 2.2.2 Compatibility
+#### 2.2.2 호환성
 
-* Compatible Altibase Version: Altibase Sharding 3.2
+* 호환되는 Altibase 버전: Altibase Sharding 3.2
 
-### 2.3 Open Source Libraries /Royalty-Free Images Used
+### 2.3 사용된 오픈 소스 라이브러리 / 로열티 프리 이미지
 
-Shard Manager is based on the following Open Source Libraries and Royalty-Free Images. The licenses are distributed in a text file format along with Shard Manager.
+Shard manager는 다음 오픈 소스 라이브러리와 로열티 프리 이미지를 기반으로 합니다. 라이선스는 Shard Manager와 함께 텍스트 파일 형식으로 배포됩니다.
 
-#### Open Source Libraries
+#### 오픈소스 라이브러리
 
 | Library              | Open Source License                                          |
 | -------------------- | ------------------------------------------------------------ |
@@ -96,7 +92,7 @@ Shard Manager is based on the following Open Source Libraries and Royalty-Free I
 | Log4j                | Homepage: http://logging.apache.org/index.html<br/>License: Apache License 2.0<br/>(http://www.apache.org/licenses/LICENSE-2.0.txt) |
 | JDOM                 | Homepage: http://www.jdom.org/<br/>License: Apache-style Open Source License<br/>(http://www.jdom.org/docs/faq.html#a0030) |
 
-#### Royalty-Free Images
+#### 로열티 프리 이미지
 
 | Library                      | Royalty-Free Images                                 |
 | ---------------------------- | --------------------------------------------------- |
@@ -108,19 +104,19 @@ Shard Manager is based on the following Open Source Libraries and Royalty-Free I
 | fugue-icons-3.2.3-src        | Homepage: http://code.google.com/p/fugue-icons-src/ |
 | SqlExplorer                  | Homepage: http://eclipsesql.sourceforge.net/        |
 
-### 2.4 Packages
+### 2.4 패키지
 
-| OS      | CPU    | Archive Name                      |
+| OS      | CPU    | 파일 이름                         |
 | ------- | ------ | --------------------------------- |
 | Linux   | x86_64 | ShardManager-linux.gtk.x86_64.zip |
 | Windows | x86    | ShardManager-win32.win32.x86.zip  |
 
-### 2.5 Downloads
+### 2.5 다운로드
 
-#### 2.5.1 Packages
+#### 2.5.1 패키지
 
 <http://support.altibase.com/kr/product>
 
-#### 2.5.2 Manual
+#### 2.5.2 매뉴얼
 
 https://manual.altibase.com/as3/admin/sharding/7.Shard-Manager/
