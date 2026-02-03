@@ -41,9 +41,10 @@ Altibase Sharding 3 Release Notes
 
 Altibase Sharding 3은 아래에 나열된 운영체제와 플랫폼 상에서 운영 가능하다.
 
-| **Linux x86-64**           | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항       |
-| -------------------------- | ------------- | ------------------- | ------------------------- |
-| Red Hat Enterprise Linux 7 | ●             | ●                   | *- GNU glibc 2.12 ~ 2.33* |
+| **Linux x86-64**                                             | Altibase 서버 | Altibase 클라이언트 | 소프트웨어 요구사항       |
+| ------------------------------------------------------------ | ------------- | ------------------- | ------------------------- |
+| Red Hat Enterprise Linux 6<br/> Red Hat Enterprise Linux 7<br/> Red Hat Enterprise Linux 8 | ●             | ●                   | *- GNU glibc 2.12 ~ 2.33* |
+| Red Hat Enterprise Linux 9                                   | ●             | ●                   | *- GNU glibc 2.34*        |
 
 > Altibase 서버/클라이언트 모두 64-bit 만 지원한다.<br>
 > Java 버전: JDK 1.5 이상에서 호환된다.
