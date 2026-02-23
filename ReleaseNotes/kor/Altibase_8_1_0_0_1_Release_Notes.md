@@ -205,6 +205,10 @@ Node.js 환경에서 Altibase 서버에 접근할 수 있도록 node-odbc-altiba
 * **JDBC 에서 Statement Caching 기능 지원**
 
   JDBC 드라이버에서 PreparedStatement 및 CallableStatement에 대한 Statement Caching을 지원한다. 이를 통해 동일 SQL의 반복 실행 시 성능을 향상할 수 있다. 해당 기능은 연결 속성 `stmt_cache_enable` 설정을 통해 활성화할 수 있으며, 기존 애플리케이션 코드 수정 없이 적용 가능하다.
+  
+* 이증화 META LOGGING 기능 확대
+
+  기존에는 JDBC Adapter와 OraAdapter에서만 사용가능하던 META LOGGING 옵션이, 이제 일반 이중화에서도 사용하도록 개선되었습니다.
 
 </br>
 
@@ -267,6 +271,13 @@ Altibase 서버와 클라이언트 간 통신 규약 호환성을 의미하며 �
 ##### iLoader API 빌드 환경 변경(신규 라이브러리 추가)
 
 iLoader API를 사용하는 응용 프로그램에서 암호화된 비밀번호 파일로 로그인하는 기능을 사용하려면, iLoader API 컴파일 시 신규 라이브러리인 `libaltiutil.a`를 추가해서 컴파일 해야 한다. 
+
+##### aexport 프로퍼티 변경사항
+
+| 프로퍼티 이름      | 변경 전 | 변경 후 |
+| ------------------ | ------- | ------- |
+| ILOADER_FIELD_TERM | ^       | ^C_c^   |
+| ILOADER_ROW_TERM   | %n      | ^R_r^%n |
 
 ##### Altibase 저장 패키지 변경사항
 
