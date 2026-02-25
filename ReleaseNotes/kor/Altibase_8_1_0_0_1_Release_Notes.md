@@ -225,7 +225,7 @@ DBA와 개발자가 알아야 할 추가, 변경, 제거된 기능을 아래에�
 | Altibase 버전 | 데이터베이스 바이너리 버전 | 메타 버전 | 통신 프로토콜 버전 | 이중화 프로토콜 버전 |
 | :-----------: | :------------------------: | :-------: | :----------------: | :------------------: |
 |   8.1.0.0.1   |           8.1.0            |  10.1.1   |       7.1.9        |        7.4.9         |
-|   7.3.0.1.2   |           7.3.0            |   9.4.1   |       7.1.8        |        7.4.9         |
+|   7.3.0.1.5   |           7.3.0            |   9.4.1   |       7.1.8        |        7.4.9         |
 |   7.3.0.0.1   |           7.3.0            |   9.3.1   |       7.1.8        |        7.4.9         |
 
 #### 2.2.2 호환성
@@ -326,15 +326,13 @@ Altibase 8.1.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티
 
 -   INSPECTION_LARGE_HEAP_THRESHOLD
 
-
-
 #### 2.2.5 메타 테이블
 
 추가/삭제/변경된 메타테이블 없음
 
 #### 2.2.6 성능 뷰
 
-아래의 성능 뷰 들이 추가되었다. 각 성능 뷰에 대한 자세한 내용은 [**General Reference-2.The Data Dictionary**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-2.The%20Data%20Dictionary.md)를 참고하기 바란다.
+아래의 성능 뷰 들이 추가되었다. 각 성능 뷰에 대한 자세한 내용은 [**General Reference-성능뷰**](https://manual.altibase.com/8.1/ref/general/3.-The-Data-Dictionary/Performance-Views/)를 참고하기 바란다.
 
 ##### 새로운 성능 뷰
 
