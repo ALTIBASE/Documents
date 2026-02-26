@@ -176,7 +176,7 @@ Node.js 환경에서 Altibase 서버에 접근할 수 있도록 node-odbc-altiba
 LOB 데이터 처리의 유연성을 높이기 위해, 데이터 크기가 0인 Empty LOB 처리를 위한 인터페이스별로 기능 추가 및 개선되었습니다.
 
 * CLI
-  * 신규 함수로 SQLEmptyLob()가 추가되었습니다.
+  * 신규 함수로 SQLEmptyLob(), SQLGetLobLength2가 추가되었습니다.
 * iLoader
   * Empty LOB처리를 위한 iloader의 동작방식이 개선되었습니다. (-lob -use_lob_file=yes일때만 지원)
 * JDBC
@@ -298,7 +298,7 @@ DBMS_METADATA 패키지를 업데이트 해야 한다.
 
 #### 2.2.4 Altibase 서버 프로퍼티
 
-Altibase 8.1.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티들이다. 각 프로퍼티에 대한 자세한 내용은 [General Reference-1.Data Types & Altibase Properties](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/General_Reference-1.Data%20Types%20%26%20Altibase%20Properties.md)를 참고하기 바란다.
+Altibase 8.1.0.0.1 에서 추가, 변경, 삭제된 Altibase 서버 프로퍼티들이다. 각 프로퍼티에 대한 자세한 내용은 **[General Reference-Altibase 프로퍼티](https://manual.altibase.com/8.1/ref/general/2.-Altibase-Properties/2.-Altibase-Properties/)**를 참고하기 바란다.
 
 ##### 새로운 프로퍼티
 
