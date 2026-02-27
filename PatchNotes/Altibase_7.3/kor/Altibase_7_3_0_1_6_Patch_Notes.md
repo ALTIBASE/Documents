@@ -125,11 +125,13 @@ Fixed Bugs
 -   **재현 빈도** : Always
 
 -   **설명** : 이중화 Conflict 시 BLOB, CLOB, GEOMETRY, JSON 타입의
-    컬럼이 존재하면 아래와 같이 불필요한 로그가 출력되는 현상을 수정했습니다.
+    컬럼이 존재하면 $ALTIBASE_HOME/trc/altibase_rp.log 파일에 아래와 같이 불필요한 로그가 출력되는 현상을 수정했습니다.
     
     ```
     ERR-61069(errno=62) Internal server error in replication module (Not Support Data Type( id : 40 )).
     ```
+    
+    또한, altibase_rp_conflict.log 파일에 BLOB, CLOB, GEOMETY, JSON 타입은 데이터 타입과 상관 없이 "\<None printable data>"와 같이 출력되는 것을 "<None printable data( id : 30 )>"처럼 해당 컬럼의 데이터 타입의 ID도 함께 출력하도록 수정했습니다.
     
 -   **재현 방법**
 
