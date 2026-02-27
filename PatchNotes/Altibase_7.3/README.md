@@ -2,6 +2,10 @@
 
 - #### Altibase 7.3.0.1.6 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.3/kor/Altibase_7_3_0_1_6_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.3/kor/PDF/Altibase_7_3_0_1_6_Patch_Notes.pdf)
 
+- #### Altibase 7.3.0.1.5 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.3/kor/Altibase_7_3_0_1_5_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.3/kor/PDF/Altibase_7_3_0_1_5_Patch_Notes.pdf)
+
+- #### Altibase 7.3.0.1.4 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.3/kor/Altibase_7_3_0_1_4_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.3/kor/PDF/Altibase_7_3_0_1_4_Patch_Notes.pdf)
+
 - #### Altibase 7.3.0.1.3 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.3/kor/Altibase_7_3_0_1_3_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.3/kor/PDF/Altibase_7_3_0_1_3_Patch_Notes.pdf)
 
 - #### Altibase 7.3.0.1.2 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.3/kor/Altibase_7_3_0_1_2_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_7.3/kor/PDF/Altibase_7_3_0_1_2_Patch_Notes.pdf)
