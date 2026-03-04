@@ -1,5 +1,24 @@
-Altibase 7.1.0.10.7 Patch Notes
-===============================
+# Altibase 7.1.0.10.7 Patch Notes
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [New Features](#new-features)
+    - [BUG-51902 The new CLI function SQLRowCount2 has been added.](#bug-51902%C2%A0the-new-cli-function-sqlrowcount2-has-been-added)
+    - [BUG-51467 Improved to record client information, in addition to the call stack, in `altibase_error.log` when the server terminates abnormally.](#bug-51467%C2%A0improved-to-record-client-information-in-addition-to-the-call-stack-in-altibase_errorlog-when-the-server-terminates-abnormally)
+    - [BUG-51540 Fixed Issue in Memory Index Aging](#bug-51540%C2%A0fixed-issue-in-memory-index-aging)
+    - [BUG-51864 Altibase Connector for Kafka Provided](#bug-51864%C2%A0altibase-connector-for-kafka-provided)
+    - [BUG-51880 Internal Logic Improvement for Query Stability (Change in Column Count Management Structure)](#bug-51880%C2%A0internal-logic-improvement-for-query-stability-change-in-column-count-management-structure)
+- [Fixed Bugs](#fixed-bugs)
+    - [BUG-51899 The index header address may not be updated when an index is added or dropped.](#bug-51899%C2%A0the-index-header-address-may-not-be-updated-when-an-index-is-added-or-dropped)
+    - [BUG-51909 When the server terminates abnormally, client information such as PID, COMMIT MODE, COMM_NAME, and statement details should be additionally recorded in the call stack.](#bug-51909%C2%A0when-the-server-terminates-abnormally-client-information-such-as-pid-commit-mode-comm_name-and-statement-details-should-be-additionally-recorded-in-the-call-stack)
+- [Changes](#changes)
+    - [Version Info](#version-info)
+    - [Compatibility](#compatibility)
+    - [Altibase Server Properties](#altibase-server-properties)
+    - [Performance Views](#performance-views)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # New Features
 

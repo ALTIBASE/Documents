@@ -1,9 +1,29 @@
 Altibase 7.1.0.10.7 Patch Notes
 ===============================
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [New Features](#new-features)
+    - [BUG-51902 신규 CLI 함수로 SQLRowCount2가 추가되었습니다.](#bug-51902)
+    - [BUG-51467 서버 비정상 종료시 altibase_error.log에 콜스택 외 클라이언트 정보를 출력하도록 개선](#bug-51467)
+    - [BUG-51540 VARIABLE 컬럼을 포함한 메모리 인덱스 AGING이 실패할 수 있습니다.](#bug-51540)
+    - [BUG-51864 Altibase Connector for Kafka(Altibase 커넥터) 제공](#bug-51864)
+    - [BUG-51880 쿼리 수행의 안정성 개선을 위한 내부 로직 개선(column count 관리 구조 변경)](#bug-51880)
+- [Fixed Bugs](#fixed-bugs)
+    - [BUG-51899 인덱스 추가/삭제시 Runtime Header에 저장된 인덱스 헤더 주소가 갱신되지 않을수 있습니다.](#bug-51899)
+    - [BUG-51909 서버 비정상 종료시 콜스택에 클라이언트 PID, COMMIT MODE, COMM_NAME, statement 정보 등을 추가로 출력해야 합니다.](#bug-51909)
+- [Changes](#changes)
+    - [Version Info](#version-info)
+    - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
+    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
+    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # New Features
 
-### BUG-51902 신규 CLI 함수로 SQLRowCount2가 추가되었습니다.
+### BUG-51902<a name=bug-51902></a> 신규 CLI 함수로 SQLRowCount2가 추가되었습니다.
 
 - **module** : ul-odbc
 
@@ -32,7 +52,7 @@ Altibase 7.1.0.10.7 Patch Notes
 
   - Error Code
 
-### BUG-51467 서버 비정상 종료시 altibase_error.log에 콜스택 외 클라이언트 정보를 출력하도록 개선
+### BUG-51467<a name=bug-51467></a> 서버 비정상 종료시 altibase_error.log에 콜스택 외 클라이언트 정보를 출력하도록 개선
 
 -   **module** : mm
 
@@ -83,7 +103,7 @@ Altibase 7.1.0.10.7 Patch Notes
     -   Compile Option
     -   Error Code
 
-### BUG-51540 VARIABLE 컬럼을 포함한 메모리 인덱스 AGING이 실패할 수 있습니다.
+### BUG-51540<a name=bug-51540></a> VARIABLE 컬럼을 포함한 메모리 인덱스 AGING이 실패할 수 있습니다.
 
 -   **module** : sm
 
@@ -111,7 +131,7 @@ Altibase 7.1.0.10.7 Patch Notes
     -   Compile Option
 -   Error Code
 
-### BUG-51864 Altibase Connector for Kafka(Altibase 커넥터) 제공
+### BUG-51864<a name=bug-51864></a> Altibase Connector for Kafka(Altibase 커넥터) 제공
 
 -   **module** : rp-kafkaConnector
 
@@ -140,7 +160,7 @@ Altibase 7.1.0.10.7 Patch Notes
     -   Compile Option
     -   Error Code
 
-### BUG-51880 쿼리 수행의 안정성 개선을 위한 내부 로직 개선(column count 관리 구조 변경)
+### BUG-51880<a name=bug-51880></a> 쿼리 수행의 안정성 개선을 위한 내부 로직 개선(column count 관리 구조 변경)
 
 -   **module** : qp
 
@@ -169,7 +189,7 @@ Altibase 7.1.0.10.7 Patch Notes
 
 # Fixed Bugs
 
-### BUG-51899 인덱스 추가/삭제시 Runtime Header에 저장된 인덱스 헤더 주소가 갱신되지 않을수 있습니다.
+### BUG-51899<a name=bug-51899></a> 인덱스 추가/삭제시 Runtime Header에 저장된 인덱스 헤더 주소가 갱신되지 않을수 있습니다.
 
 -   **module** : sm
 
@@ -196,7 +216,7 @@ Altibase 7.1.0.10.7 Patch Notes
     -   Compile Option
     -   Error Code
 
-### BUG-51909 서버 비정상 종료시 콜스택에 클라이언트 PID, COMMIT MODE, COMM_NAME, statement 정보 등을 추가로 출력해야 합니다.
+### BUG-51909<a name=bug-51909></a> 서버 비정상 종료시 콜스택에 클라이언트 PID, COMMIT MODE, COMM_NAME, statement 정보 등을 추가로 출력해야 합니다.
 
 -   **module** : mm
 
