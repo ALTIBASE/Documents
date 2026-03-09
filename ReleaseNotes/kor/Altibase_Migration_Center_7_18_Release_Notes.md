@@ -96,7 +96,7 @@ Altibase® Tools & Utilities
 <pre>
 Altibase Release Notes Migration Center 
 Release 7.18
-Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
+Copyright ⓒ 2001~2026 Altibase Corp. All Rights Reserved.<br>
 본 문서의 저작권은 ㈜알티베이스에 있습니다. 이 문서에 대하여 당사의 동의없이 무단으로 복제 또는 전용할 수 없습니다.<br>
 <b>㈜알티베이스</b>
 08378 서울시 구로구 디지털로 306 대륭포스트타워Ⅱ 10층
@@ -104,6 +104,7 @@ Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
 팩스 : 02-2082-1099
 고객서비스포털 : <a href='http://support.altibase.com'>http://support.altibase.com</a>
 홈페이지      : <a href='http://www.altibase.com/'>http://www.altibase.com</a></pre>
+
 
 <br>
 
@@ -181,7 +182,7 @@ Migration Center 7.18 의 새로운 기능과 수정된 버그 및 변경 사항
 
 ## 2.1 새로운 기능
 
-### 원본 및 대상 데이터베이스로 Altibase Windows 2026 지원
+### 원본 및 대상 데이터베이스로 Altibase 8.1 지원
 Migration Center의 호환 가능한 데이터베이스 목록에 Altibase 8.1이 추가되었다.
 
 <br/>
@@ -235,7 +236,7 @@ http://support.altibase.com/kr/product
 
 #### 매뉴얼
 
-[Migration Center User's Manual](https://manual.altibase.com/7.3/external-tools/migration-center/copyright/)
+[Migration Center User's Manual](https://manual.altibase.com/8.1/external-tools/migration-center/copyright/)
 
 #### 설치
 

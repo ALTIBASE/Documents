@@ -88,7 +88,7 @@ Altibase® Tools & Utilities
 <pre>
 Altibase Release Notes Migration Center 
 Release 7.18
-Copyright ⓒ 2001~2025 Altibase Corp. All Rights Reserved.<br>
+Copyright ⓒ 2001~2026 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited.<br>
 All trademarks, registered or otherwise, are the property of their respective owners.<br>
 <b>Altibase Corp</b>
@@ -169,7 +169,7 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 
 ## 2.1 New Features
 
-### Support Altibase Windows 2026 as Source and Target Database
+### Support Altibase 8.1 as Source and Target Database
 Altibase 8.1 has been added to the list of supported databases.
 
 <br/>
@@ -223,7 +223,7 @@ The Migration Center installation package is provided in two types (.zip, .gz) f
 
 #### Manual
 
-[Migration Center User's Manual](https://manual.altibase.com/7.3/en/external-tools/migration-center/copyright/)
+[Migration Center User's Manual](https://manual.altibase.com/8.1/en/external-tools/migration-center/copyright/)
 
 #### Installation
 
