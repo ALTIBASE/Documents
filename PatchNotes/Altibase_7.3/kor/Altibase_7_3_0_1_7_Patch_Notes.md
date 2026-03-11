@@ -44,8 +44,7 @@ Altibase 7.3.0.1.7 Patch Notes
     -   Compile Option
     -   Error Code
 
-Fixed Bugs
-==========
+# Fixed Bugs
 
 ### BUG-52087<a name=bug-52087></a> ROW_NUMBER() 함수가 사용된 View에서 UNION ALL 사용 시 발생할 수 있는 오류 수정
 
