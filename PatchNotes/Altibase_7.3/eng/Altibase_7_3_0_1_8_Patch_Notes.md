@@ -11,6 +11,7 @@ Altibase 7.3.0.1.8 Patch Notes
     - [BUG-51201 Fixed an issue where XLog application order could be reversed depending on partition order if replication target partitions are not divided by PK.](#bug-51201)
     - [BUG-51324  Fixed performance degradation when collecting disk index statistics in parallel.](#bug-51324)
     - [BUG-52171 Fixed a server crash when renaming a table that has a trigger using SQL functions.](#bug-52171)
+    - 
     - [BUG-52205 Fixed a memory access error during meta information updates related to offline replication.](#bug-52205)
 - [Changes](#changes)
     - [Version Info](#version-info)
@@ -100,6 +101,16 @@ Fixed Bugs
           Rename success.
 
 - **Workaround** : Drop the trigger, rename the table, and then recreate the trigger.
+
+### BUG-52119<a name=bug-52119></a> Fixed an issue where UPDATE operations failed while applying replicated data to the target table via the jdbcAdapter with SUPPLEMENTAL LOG enabled
+
+-   **module** : rp-jdbcAdapter
+
+-   **Category** : Functional Error
+
+-   **Reproducibility** : Always
+
+-   **Description** : Fixed an issue where UPDATE operations failed due to a primary key update error while applying replication data to the target table via the jdbcAdapter with SUPPLEMENTAL LOG enabled.
 
 ### BUG-52205<a name=bug-52205></a> Fixed a memory access error during meta information updates related to offline replication.
 
