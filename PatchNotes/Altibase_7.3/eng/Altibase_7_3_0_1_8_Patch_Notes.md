@@ -110,7 +110,7 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : Fixed an issue where UPDATE operations failed due to a primary key update error while applying replication data to the target table via the jdbcAdapter with SUPPLEMENTAL LOG enabled.
+-   **Description** : Fixed an issue where UPDATE operations failed while applying replication data to the target table via the jdbcAdapter with SUPPLEMENTAL LOG enabled.
 
 ### BUG-52205<a name=bug-52205></a> Fixed a memory access error during meta information updates related to offline replication.
 

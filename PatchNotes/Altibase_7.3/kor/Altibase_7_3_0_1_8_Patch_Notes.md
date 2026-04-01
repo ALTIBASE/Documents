@@ -193,7 +193,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : SUPPLEMENTAL LOG 활성화 상태에서 jdbcAdapter를 통해 이중화 대상 테이블에 반영하는 과정에서, UPDATE 수행 시 PK 업데이트 오류가 발생하는 문제를 수정합니다.
+-   **설명** : SUPPLEMENTAL LOG 활성화 상태에서 jdbcAdapter를 통해 이중화 대상 테이블에 반영하는 과정에서, UPDATE 문 수행이 실패하던 문제를 수정하였습니다.
 
 -   **재현 방법**
     -   **재현 절차**
