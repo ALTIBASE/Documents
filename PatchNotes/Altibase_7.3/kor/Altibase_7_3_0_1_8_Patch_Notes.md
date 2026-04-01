@@ -11,6 +11,7 @@ Altibase 7.3.0.1.8 Patch Notes
     - [BUG-51201 이중화 대상 파티션이 PK를 기준으로 나뉘어있지 않은 경우, 파티션의 순서에 따라 XLog 반영 순서가 역전될 수 있습니다.](#bug-51201)
     - [BUG-51324 디스크 인덱스 통계정보 병렬 수집 시 성능 저하 문제 수정](#bug-51324)
     - [BUG-52171 SQL 함수를 사용하는 트리거가 있는 테이블의 이름을 변경할 때 서버 비정상 종료 문제 수정](#bug-52171)
+    - [BUG-52119 SUPPLEMENTAL LOG 활성화 상태에서 jdbcAdapter를 통해 이중화 대상 테이블에 반영하는 과정에서, UPDATE 실패 문제 수정](#bug-52119)
     - [BUG-52205 이중화 환경에서 오프라인 이중화 관련 메타 정보를 업데이트하는 과정 중 발생하던 메모리 접근 오류 수정](#bug-52205)
 - [Changes](#changes)
     - [Version Info](#version-info)
@@ -176,6 +177,32 @@ Fixed Bugs
 - **Workaround**
 
   트리거를 제거(Drop)하고, 테이블의 이름을 변경한 다음 다시 트리거를 생성한다.
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-52119<a name=bug-52119></a> SUPPLEMENTAL LOG 활성화 상태에서 jdbcAdapter를 통해 이중화 대상 테이블에 반영하는 과정에서, UPDATE 실패 문제 수정
+
+-   **module** : rp-jdbcAdapter
+
+-   **Category** : Functional Error
+
+-   **재현 빈도** : Always
+
+-   **설명** : SUPPLEMENTAL LOG 활성화 상태에서 jdbcAdapter를 통해 이중화 대상 테이블에 반영하는 과정에서, UPDATE 문 수행이 실패하던 문제를 수정하였습니다.
+
+-   **재현 방법**
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
 
 -   **변경사항**
 
