@@ -96,7 +96,7 @@ Fixed Bugs
     -   The memory tablespace exceeds its maximum size
         (smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_MORE_THAN_TBS_MAXSIZE )
 
-### BUG-52181<a name=bug-52181></a> Fixed the replication give-up failure when the log file count exceeds REPLICATION_MAX_LOGFILE
+### BUG-52181<a name=bug-52181></a> Fixed an issue where Give-up could fail during data replication in a REPLICATION_MAX_LOGFILE configuration
 
 - **module** : rp-sender
 
@@ -104,10 +104,7 @@ Fixed Bugs
 
 - **Reproducibility** : Always
 
-- **Description1** : In a replication environment where `REPLICATION_MAX_LOGFILE` is set to 1 or higher,
-   if the number of log files exceeds the value of the `REPLICATION_MAX_LOGFILE` property, a give-up is triggered during checkpoint execution.
-
-  This issue has been fixed where the give-up operation failed due to a timeout during this process.
+- **Description** : Fixed an issue where Give-up could fail when replication is in progress and records are being applied to the standby server in an environment where the `REPLICATION_MAX_LOGFILE` property is set to 1 or higher.
 
 ### BUG-52213<a name=bug-52213></a> Improvement to Prevent Incorrect Accumulated Time in Statistics
 

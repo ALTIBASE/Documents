@@ -10,7 +10,7 @@ Altibase 7.3.0.1.9 Patch Notes
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-48937 증분 백업 디렉토리 경로에 사용자가 생성한 디렉토리가 존재하는 경우, 백업 파일의 삭제가 실패하는 문제를 수정](#bug-48937)
     - [BUG-51953 메모리 테이블스페이스 자원 부족 시 이중화 리시버를 중지하도록 동작 개선](#bug-51953)
-    - [BUG-52181 REPLICATION_MAX_LOGFILE 초과 시 giveup 수행 중 timeout 발생 문제 수정](#bug-52181)
+    - [BUG-52181 REPLICATION_MAX_LOGFILE 설정 환경에서 이중화 반영 중 Give-up 실패 문제 수정](#bug-52181)
     - [BUG-52213 통계 정보에 누적 시간이 잘못 기록되지 않도록 개선](#bug-52213)
     - [BUG-52190 Non-AutoCommit 환경에서 SELECT 문 실행 순서에 따른 Lock 비정상 해제 문제 수정](#bug-52190)
     - [BUG-52219 SUPPLEMENTAL LOG 를 생성할 때 VARIABLE COLUMN 패딩을 고려해야 합니다.](#bug-52219)
@@ -63,7 +63,7 @@ New Features
 
 - **재현 빈도** : Always
 
-- **설명** : REPLICATION_MAX_LOGFILE 프로퍼티 값을 1 이상으로 설정한 이후, Give-up이 발생했을 때 확인할 수 있는 로그 메시지와 Give-up
+- **설명** : `REPLICATION_MAX_LOGFILE` 프로퍼티 값을 1 이상으로 설정한 이후, Give-up이 발생했을 때 확인할 수 있는 로그 메시지와 Give-up
   이후 이중화 SENDER가 재시작되었을 때 확인할 수 있는 로그 메시지가 추가 되었습니다.
 
   로그 메시지는 아래와 같이 추가되었습니다.
@@ -156,12 +156,12 @@ Fixed Bugs
   -   Compile Option
   -   Error Code
 
-### BUG-52181<a name=bug-52181></a> REPLICATION_MAX_LOGFILE 초과 시 giveup 수행 중 timeout 발생 문제 수정
+### BUG-52181<a name=bug-52181></a> REPLICATION_MAX_LOGFILE 설정 환경에서 이중화 반영 중 Give-up 실패 문제 수정
 
 -   **module** : rp-sender
 -   **Category** : Functional Error
--   **재현 빈도** : Always
--   **설명1** : 이중화 환경에서 REPLICATION_MAX_LOGFILE 프로퍼티가 1 이상으로 설정된 상태에서 로그 파일의 수가 `REPLICATION_MAX_LOGFILE`의 값을 초과할 경우, 체크포인트 수행 중 giveup이 수행됩니다. 이 과정에서 timeout이 발생하여 giveup이 실패하던 문제를 수정했습니다.
+-   **재현 빈도** : Frequence
+-   **설명** : `REPLICATION_MAX_LOGFILE` 프로퍼티가 1 이상으로 설정된 환경에서, 이중화가 실행되어 레코드가 Standby 서버에 반영되고 있는 중일 경우 Give-up이 실패할 수 있는 문제를 수정하였습니다.
 
 -   **재현 방법**
     -   **재현 절차**
