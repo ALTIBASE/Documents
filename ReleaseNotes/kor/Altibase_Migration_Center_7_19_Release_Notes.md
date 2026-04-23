@@ -185,6 +185,12 @@ Migration Center 7.19 의 새로운 기능과 수정된 버그 및 변경 사항
 ### 원본 데이터베이스로 PostgreSQL 9.6 ~ 18 지원
 Migration Center의 호환 가능한 데이터베이스 목록에 PostgreSQL 9.6, 10, 11, 12, 13, 14, 15, 16, 17, 18이 추가되었다.
 
+### PostgreSQL이 제공하는 Identity 칼럼 마이그레이션을 지원
+Altibase는 Identity 칼럼 기능을 지원하지 않는다. 따라서 Identity 대신 해당 칼럼에 사용할 시퀀스를 자동 생성하고 칼럼의 기본값을 생성된 시퀀스의 .nextval로 설정하여 마이그레이션을 수행한다.
+
+### PostgreSQL이 제공하는 DOMAIN 데이터 타입 칼럼 마이그레이션을 지원
+Altibase는 DOMAIN 데이터 타입을 지원하지 않는다. 따라서 DOMAIN 타입을 원시 데이터 타입 칼럼으로 매핑하고, DOMAIN에 정의된 제약 조건을 칼럼 수준의 제약 조건으로 변환하여 마이그레이션을 수행한다.
+
 <br/>
 
 # 3. 사용된 오픈소스 라이브러리 / 로열티 프리 이미지
