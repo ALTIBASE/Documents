@@ -169,14 +169,14 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 
 ## 2.1 New Features
 
-### Support PostgreSQL 9.6 ~ 18 as Source Database
-PostgreSQL 9.6, 10, 11, 12, 13, 14, 15, 16, 17 and 18 have been added to the list of supported source databases.
+### Expanded Support for PostgreSQL 9.6 - 18 as Source Database
+PostgreSQL versions 9.6, 10, 11, 12, 13, 14, 15, 16, 17, and 18 are now supported as source databases.
 
 ### Support for PostgreSQL's Identity Column Migration
-Altibase does not support PostgreSQL's identity column feature. Accordingly, during migration, a sequence is automatically created to replace the identity column. The column’s default value is then set to the .nextval of the generated sequence to replicate the original behavior.
+Altibase does not support the identity column feature in PostgreSQL. Therefore, during migration, a sequence is automatically created to replace each identity column. The sequence is set to the last value of the identity column, and the column’s default is defined as the `.nextval` of the generated sequence to preserve the original behavior.
 
-### Support for PostgreSQL's DOMAIN Type Column Migration
-Altibase does not support PostgreSQL's DOMAIN data type. Accordingly, DOMAIN columns are mapped to base data type columns, and constraints defined on the DOMAIN are converted into column-level constraints.
+### Support for PostgreSQL's DOMAIN Data Type Column Migration
+Altibase does not support PostgreSQL's DOMAIN data type. Therefore, columns defined using DOMAINs are converted to their base data types, and constraints defined on the DOMAIN are converted into column-level constraints.
 
 <br/>
 
