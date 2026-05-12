@@ -1,24 +1,68 @@
 Altibase 7.1.0.10.8 Patch Notes
 =================================
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [New Features](#new-features)
+    - [BUG-51888 The maximum allowed length for encrypted PASSWORD used in dblink, aku, and Adapter has been extended to 256 characters.](#bug-51888)
+    - [BUG-52014 Enhanced diagnostic information for Protocol header error and Invalid protocol sequence error](#bug-52014)
+    - [BUG-52066 Added feature to print the last executed query on abnormal termination](#bug-52066)
+    - [BUG-52295 Improved handling of abnormal protocol by terminating session instead of assert and enhanced client logging](#bug-52295)
+- [Fixed Bugs](#fixed-bugs)
+    - [BUG-48937 Fixed a failure in deleting backup files when user-created directories exist in the incremental](#bug-48937)
+    - [BUG-49298 Fixed unnecessary log output during replication conflict (Not Support Data Type)](#bug-49298)
+    - [BUG-50643 Fixed issue where last LOB column value becomes NULL during SYNC conflict](#bug-50643)
+    - [BUG-50976 Incorrect value is entered when executing a MERGE INTO statement on a CLOB column.](#bug-50976)
+    - [BUG-51324 Fixed performance degradation when collecting disk index statistics in parallel.](#bug-51324)
+    - [BUG-51792 Fixed to not adjust the redo point when encountering a TBS Update log during Incomplete Recovery.](#bug-51792)
+    - [BUG-51905 Fixed replication issue for disk tables with LOB columns in adapter](#bug-51905)
+    - [BUG-51920 Fixed abnormal termination when using LOB type in ORDER BY clause](#bug-51920)
+    - [BUG-51953 Improved behavior to stop the replication receiver if memory tablespace resources are insufficient](#bug-51953)
+    - [BUG-51977 Fixed an issue where SQLDriverConnectW() returns SQL_SUCCESS_WITH_INFO even when the connection fails.](#bug-51977)
+    - [BUG-51989 Fixed an issue where some rows are not updated when performing Multiple Table Update on a disk table with indexes.](#bug-51989)
+    - [BUG-51994 Fixed a result error where some results were missing when executing nested Left Outer Join statements](#bug-51994)
+    - [BUG-52002 Fixed abnormal termination during record update processing when a conflict occurs during SYNC in SQL_APPLY mode.](#bug-52002)
+    - [BUG-52046 Fixed an issue where an error may occur during disk hash temp table insertion when a single record length is 2.5MB or more.](#bug-52046)
+    - [BUG-52062 Fixed an issue where the altiEncrypt binary was not included in the package.](#bug-52062)
+    - [BUG-52086 Fixed an issue where ServiceThread may reference invalid memory in an IPC connection environment.](#bug-52086)
+    - [BUG-52087 Fixed an error that could occur when using UNION ALL in a View that uses the ROW_NUMBER() function.](#bug-52087)
+    - [BUG-52091 Fixed a concurrency issue that could occur during metadata processing in a replication environment.](#bug-52091)
+    - [BUG-52168 Fixed performance issue for disk table DML after expanding BUFFER AREA SIZE](#bug-52168)
+    - [BUG-52171 Fixed a server crash when renaming a table that has a trigger using SQL functions.](#bug-52171)
+    - [BUG-52188 Improved stability of diagnostic dump information collection on server crash](#bug-52188)
+    - [BUG-52190 Fixed for Abnormal Lock Release Depending on SELECT Execution Order in Non-AutoCommit Mode](#bug-52190)
+    - [BUG-52219 Fixed incorrect variable column padding when generating Supplemental Logs](#bug-52219)
+    - [BUG-52220 Fixed server crash when executing DROP COLUMN on replicated disk tables with LOB and Supplemental Log](#bug-52220)
+    - [BUG-52226 Fixed standby server crash during DELETE log processing in SQL_APPLY mode](#bug-52226)
+    - [BUG-52230 Fixed "Meta table crashed" error when SYS revokes Role privileges granted by another user](#bug-52230)
+    - [BUG-52262 Fixed abnormal server termination when an invalid protocol header is received during connection from an older client (6.1.1 or earlier).](#bug-52262)
+- [Changes](#changes)
+    - [Version Info](#version-info)
+    - [Compatibility](#compatibility)
+    - [Altibase Server Properties](#altibase-server-properties)
+    - [Performance Views](#performance-views)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 New Features
 ============
 
-### BUG-51888 The maximum allowed length for encrypted PASSWORD used in dblink, aku, and Adapter has been extended to 256 characters.
+### BUG-51888<a name=bug-51888></a> The maximum allowed length for encrypted PASSWORD used in dblink, aku, and Adapter has been extended to 256 characters.
 
 -   **module** : rp
 -   **Category** : Enhancement
 -   **Reproducibility** : Always
 -   **Description** : The maximum allowed length of the encrypted PASSWORD used in dblink, aku, and Adapter has been changed to 256 characters. Note that altiEncrypt supports password input of up to 128 characters in length, and generates an encrypted PASSWORD of up to 256 characters.
 
-### BUG-52014 Enhanced diagnostic information for Protocol header error and Invalid protocol sequence error
+### BUG-52014<a name=bug-52014></a> Enhanced diagnostic information for Protocol header error and Invalid protocol sequence error
 
 -   **module** : cm
 -   **Category** : Functionality
 -   **Reproducibility** : Rare
 -   **Description** : Improved diagnostics by additionally logging session information and client PID when Protocol header error or Invalid protocol sequence error occurs.
 
-### BUG-52066 Added feature to print the last executed query on abnormal termination
+### BUG-52066<a name=bug-52066></a> Added feature to print the last executed query on abnormal termination
 
 -   **module** : mm
 -   **Category** : Enhancement
@@ -26,7 +70,7 @@ New Features
 -   **Description** : Added a feature to print the last executed query from the signal handler when the server terminates abnormally.
      This feature can be enabled using the internal property `__QUERY_BUCKET_FLAG`, and the output can be found in `dumptrc` or `altibase_error.log`. 
 
-### BUG-52295 Improved handling of abnormal protocol by terminating session instead of assert and enhanced client logging
+### BUG-52295<a name=bug-52295></a> Improved handling of abnormal protocol by terminating session instead of assert and enhanced client logging
 
 -   **module** : mm
 -   **Category** : Assert
@@ -36,7 +80,7 @@ New Features
 Fixed Bugs
 ==========
 
-### BUG-48937 Fixed a failure in deleting backup files when user-created directories exist in the incremental
+### BUG-48937<a name=bug-48937></a> Fixed a failure in deleting backup files when user-created directories exist in the incremental
 
 -   **module** : sm
 
@@ -54,7 +98,7 @@ Fixed Bugs
    [BackupInfoMgr] Unable to delete <backup_path> (errno=39)
   ```
 
-### BUG-49298 Fixed unnecessary log output during replication conflict (Not Support Data Type)
+### BUG-49298<a name=bug-49298></a> Fixed unnecessary log output during replication conflict (Not Support Data Type)
 
 -   **module** : rp
 
@@ -74,7 +118,7 @@ Fixed Bugs
     <None printable data( id : 30 )>
     ```
 
-### BUG-50643 Fixed issue where last LOB column value becomes NULL during SYNC conflict
+### BUG-50643<a name=bug-50643></a> Fixed issue where last LOB column value becomes NULL during SYNC conflict
 
 - **module** : rp
 
@@ -87,7 +131,7 @@ Fixed Bugs
   This issue only occurred when the conflict happened on the second or subsequent records, not the first record.
    It no longer occurs after applying this patch.
 
-### BUG-50976 Incorrect value is entered when executing a MERGE INTO statement on a CLOB column.
+### BUG-50976<a name=bug-50976></a> Incorrect value is entered when executing a MERGE INTO statement on a CLOB column.
 
 -   **module** : qp-dml-pvo
 
@@ -141,52 +185,68 @@ Fixed Bugs
 
   None
 
-### BUG-51324 Fixed performance degradation when collecting disk index statistics in parallel.
+### BUG-51324<a name=bug-51324></a> Fixed performance degradation when collecting disk index statistics in parallel.
 
 -   **module** : sm
 -   **Category** : Other
 -   **Reproducibility** : Always
 -   **Description** : Fixed an issue where more time was consumed when collecting disk index statistics in parallel.
 
-### BUG-51792 불완전 복구시에 TBS Update 로그를 만날경우 redo 시점을 조정하지 않도록 수정합니다.
+### BUG-51792<a name=bug-51792></a> Fixed to not adjust the redo point when encountering a TBS Update log during Incomplete Recovery.
 
 -   **module** : sm
 -   **Category** : Fatal
 -   **Reproducibility** : Always
--   **Description** : 불완전 복구시에 TBS Update 로그를 만나면 Redo 시점을 조정하지 않도록 합니다.
+-   **Description** : Fixed so that the Redo point is not adjusted when a TBS Update log is encountered during Incomplete Recovery.
 
-### BUG-51905 adapter에서 LOB 컬럼이 포함된 디스크 테이블 이중화 오류 수정
+### BUG-51905<a name=bug-51905></a> Fixed replication issue for disk tables with LOB columns in adapter
 
 -   **module** : rp-jdbcAdapter
 -   **Category** : Functional Error
 -   **Reproducibility** : Always
--   **Description** : adapter에서 LOB 컬럼이 포함된 디스크 테이블 이중화 오류를 수정하였습니다.
+-   **Description** : Fixed an issue where replication failed for disk tables containing LOB columns in the adapter.
 
-### BUG-51920 ORDER BY절에 LOB 타입을 사용시 비정상 종료 문제 수정
+### BUG-51920<a name=bug-51920></a> Fixed abnormal termination when using LOB type in ORDER BY clause
 
--   **module** : qp-dml-execute
--   **Category** : Fatal
--   **Reproducibility** : Always
--   **Description** : ORDER BY절에서는 LOB 타입을 사용할 수 없는데, LOB 컬럼을 사용한경우 비정상 종료하는 문제를 수정했습니다. 이제 ORDER BY절에서 LOB 타입을 사용하면 [ERR-31246 : Incomparable data types (GEOMETRY,LOB) cannot be used in ORDER BY, GROUP BY, HAVING and CONNECT BY clauses.] 오류가 정상적으로 반환됩니다.
+- **module** : qp-dml-execute
 
-### BUG-51953 메모리 테이블스페이스 자원 부족 시 이중화 리시버를 중지하도록 동작 개선
+- **Category** : Fatal
 
--   **module** : rp
--   **Category** : Enhancement
--   **Reproducibility** : Always
--   **Description** : 이중화 반영 과정에서 아래와 같은 메모리 테이블스페이스 자원 부족으로 인해 반영에 실패하는 경우, 기존에는 해당 오류가 충돌로 처리되었으나, 개선 후에는 이중화 리시버를 중지하도록 동작이 변경되었습니다.
-    - 메모리 테이블스페이스의 자동 확장 기능이 꺼져있는 경우 (smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_WHEN_AUTO_EXTEND_OFF)
-    - 메모리 테이블스페이스의 크기가 MEM_MAX_TBS_SIZE 를 초과한 경우 (smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_MORE_THAN_MEM_MAX_DB_SIZE)
-    - 메모리 테이블스페이스의 최대 크기를 초과한 경우 (smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_MORE_THAN_TBS_MAXSIZE )
+- **Reproducibility** : Always
 
-### BUG-51977 SQLDriverConnectW()에서 접속이 실패했는데 SQL_SUCCESS_WITH_INFO를 리턴하는 오류를 수정해야 합니다.
+- **Description** : Fixed an issue where using LOB types in ORDER BY caused abnormal termination.
+   Now, the following error is correctly returned:
+
+  ```
+  [ERR-31246 : Incomparable data types (GEOMETRY,LOB) cannot be used in ORDER BY, GROUP BY, HAVING and CONNECT BY clauses.] 
+  ```
+
+### BUG-51953<a name=bug-51953></a> Improved behavior to stop the replication receiver if memory tablespace resources are insufficient
+
+- **module** : rp
+
+- **Category** : Enhancement
+
+- **Reproducibility** : Always
+
+-   **Description** : When the replication fails due to insufficient memory tablespace resources, the behavior has been changed.
+    
+    Previously, such errors were treated as conflicts. After the fix, the replication receiver is stopped instead.
+    
+    This applies to the following cases:
+    
+    - Auto-extension of the memory tablespace is disabled (smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_WHEN_AUTO_EXTEND_OFF)
+    - The memory tablespace size exceeds MEM_MAX_TBS_SIZE (smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_MORE_THAN_MEM_MAX_DB_SIZE)
+    - The memory tablespace exceeds its maximum size (smERR_ABORT_UNABLE_TO_EXTEND_CHUNK_MORE_THAN_TBS_MAXSIZE )
+
+### BUG-51977<a name=bug-51977></a> Fixed an issue where SQLDriverConnectW() returns SQL_SUCCESS_WITH_INFO even when the connection fails.
 
 -   **module** : mm-cli
 -   **Category** : Functional Error
 -   **Reproducibility** : Always
--   **Description** : SQLDriverConnectW()함수를 호출할 때 InConnectionString 인자에 유효하지 않은 IP 주소가 포함되어 있고, BufferLength 인자에 16과 같이 작은 값을 전달할 경우, 접속이 실패해야 하는데 `SQL_SUCCESS_WITH_INFO`가 반환되는 문제를 수정합니다.
+-   **Description** : Fixed an issue where `SQLDriverConnectW()` returned `SQL_SUCCESS_WITH_INFO` even when connection failed due to invalid IP address and small buffer size.
 
-### BUG-51989 디스크 테이블에 인덱스가 존재하는 환경에서 Multiple Table Update 를 수행할 경우, 일부 행이 갱신되지 않는 문제를 수정하였습니다.
+### BUG-51989<a name=bug-51989></a> Fixed an issue where some rows are not updated when performing Multiple Table Update on a disk table with indexes.
 
 -   **module** : sm\_index
 
@@ -194,7 +254,7 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : 디스크 테이블에 인덱스가 존재하는 환경에서 Multiple Table Update 를 수행할 경우, 일부 행이 갱신되지 않는 문제를 수정하였습니다.
+-   **Description** : Fixed an issue where some rows were not updated when performing Multiple Table Update on a disk table that has indexes.
     
 - **How to reproduce this bug**
 
@@ -226,7 +286,7 @@ Fixed Bugs
 
         NO INDEX
 
-### BUG-51994 중첩된 Left Outer Join 구문 수행 시 일부 결과가 누락되는 결과 오류를 수정하였습니다.
+### BUG-51994<a name=bug-51994></a> Fixed a result error where some results were missing when executing nested Left Outer Join statements
 
 -   **module** : qp
 
@@ -234,7 +294,7 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : 중첩된 Left Outer Join 구문 수행 시 Join predicate 처리 오류로 인해, 일부 결과가 누락될 수 있는 문제를 수정하였습니다.
+-   **Description** : Fixed an issue where some results could be missing due to a Join predicate processing error when executing nested Left Outer Join statements.
 
 - **How to reproduce this bug**
 
@@ -289,58 +349,58 @@ Fixed Bugs
 
 - **Workaround**
 
-  없음
+  None
 
-### BUG-52002 SQL\_APPLY 모드로 SYNC 수행 중 충돌 발생 시, 레코드 갱신 처리 중 비정상 종료가 발생합니다.
+### BUG-52002<a name=bug-52002></a> Fixed abnormal termination during record update processing when a conflict occurs during SYNC in SQL_APPLY mode.
 
 -   **module** : rp
 -   **Category** : Fatal
 -   **Reproducibility** : Always
--   **Description** : SQL_APPLY 모드로 SYNC 수행 중 충돌 발생 시, 충돌 해결 정책에 따라 레코드 갱신이 이루어질 경우, 서버가 비정상적으로 종료되는 현상을 수정했습니다.
+-   **Description** : Fixed an issue where the server terminated abnormally when a record update occurred according to the conflict resolution policy during SYNC execution in SQL_APPLY mode when a conflict was detected.
 
-### BUG-52046 레코드 1건의 길이가 2.5MB 이상일 때 디스크 해시 템프 테이블 삽입 중 오류가 발생할 수 있는 문제를 수정하였습니다.
+### BUG-52046<a name=bug-52046></a> Fixed an issue where an error may occur during disk hash temp table insertion when a single record length is 2.5MB or more.
 
 -   **module** : sm
 -   **Category** : Functional Error
 -   **Reproducibility** : Always
--   **Description** : 레코드 1건의 길이가 2.5MB 이상일 때 디스크 해시 템프 테이블 삽입 중 오류가 발생할 수 있는 문제를 수정하였습니다.
+-   **Description** : Fixed an issue where an error could occur during disk hash temp table insertion when a single record's length was 2.5MB or more.
 
-### BUG-52062 altiEncrypt 바이너리가 패키지에 포함되지 않은 문제 수정
+### BUG-52062<a name=bug-52062></a> Fixed an issue where the altiEncrypt binary was not included in the package.
 
 -   **module** : rp-jdbcAdapter
 -   **Category** : Other
 -   **Reproducibility** : Always
--   **Description** : 패키지 구성 과정에서 altiEncrypt 바이너리가 포함되지 않아 해당 기능을 사용할 수 없는 문제를 수정하였습니다.
+-   **Description** : Fixed an issue where the altiEncrypt binary was not included during the package build process, making the feature unavailable.
 
-### BUG-52086 IPC 접속 환경에서 ServiceThread가 유효하지 않은 메모리를 참조할 수 있는 문제를 수정하였습니다.
+### BUG-52086<a name=bug-52086></a> Fixed an issue where ServiceThread may reference invalid memory in an IPC connection environment.
 
 -   **module** : mm
 -   **Category** : Memory Error
 -   **Reproducibility** : Rare
--   **Description** : IPC 접속 환경에서 ServiceThread가 유효하지 않은 메모리를 참조할 수 있는 문제를 수정하였습니다.
+-   **Description** : Fixed an issue where ServiceThread could reference invalid memory in an IPC connection environment..
 
-### BUG-52087 ROW_NUMBER() 함수가 사용된 View에서 UNION ALL 사용 시 발생할 수 있는 오류 수정
+### BUG-52087<a name=bug-52087></a> Fixed an error that could occur when using UNION ALL in a View that uses the ROW_NUMBER() function.
 
 -   **module** : qp
 -   **Category** : Fatal
 -   **Reproducibility** : Frequence
--   **Description** : ROW_NUMBER() 함수가 사용된 View에서 UNION ALL이 포함된 쿼리를 수행할 때, 특정 상황에서 오류가 발생할 수 있는 문제를 수정하였습니다.
+-   **Description** : Fixed an issue where an error could occur in certain situations when executing a query containing UNION ALL in a View that uses the ROW_NUMBER() function.
 
-### BUG-52091 이중화 환경에서 메타데이터 처리 중 동시성 문제 수정
+### BUG-52091<a name=bug-52091></a> Fixed a concurrency issue that could occur during metadata processing in a replication environment.
 
 -   **module** : rp
 -   **Category** : Fatal
 -   **Reproducibility** : Rare
--   **Description** : 이중화 환경에서 메타 데이터 처리 중 발생할 수 있는 동시성 문제를 수정하였습니다.
+-   **Description** : Fixed a concurrency issue that could occur during metadata processing in a replication environment.
 
-### BUG-52168 BUFFER AREA SIZE 확장 후 디스크 테이블 DML 성능 미반영 문제 수정
+### BUG-52168<a name=bug-52168></a> Fixed performance issue for disk table DML after expanding BUFFER AREA SIZE
 
 -   **module** : sm
 -   **Category** : Functional Error
 -   **Reproducibility** : Always
--   **Description** : 서비스 중 DISK BUFFER AREA SIZE를 확장하더라도 디스크 테이블의 DML 성능이 향상되지 않던 문제를 수정하였습니다.
+-   **Description** : Fixed an issue where DML performance on disk tables did not improve after expanding the DISK BUFFER AREA SIZE during service.
 
-### BUG-52171 SQL 함수를 사용하는 트리거가 있는 테이블의 이름을 변경할 때 서버 비정상 종료 문제 수정
+### BUG-52171<a name=bug-52171></a> Fixed a server crash when renaming a table that has a trigger using SQL functions.
 
 -   **module** : qp-psm-trigger-execute
 
@@ -348,7 +408,7 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : SQL 함수를 사용하는 트리거가 있는 테이블의 이름을 변경할 때 서버가 비정상 종료할 수 있는 문제를 수정했습니다.
+-   **Description** : Fixed an issue where the server could crash when renaming a table that has a trigger using SQL functions.
     
 - **How to reproduce this bug**
 
@@ -379,45 +439,44 @@ Fixed Bugs
 
 -   **Workaround**
 
-        트리거를 제거(Drop)하고, 테이블의 이름을 변경한 다음 다시 트리거를 생성한다.
+        Drop the trigger, rename the table, and then recreate the trigger.
 
-### BUG-52188 비정상 종료 시 진단 덤프 정보 수집 안정성 개선
+### BUG-52188<a name=bug-52188></a> Improved stability of diagnostic dump information collection on server crash
 
 -   **module** : mm
 -   **Category** : Reliability
 -   **Reproducibility** : Rare
--   **Description** : 비정상 종료 시 특정 상황에서 세션 및 태스크 진단 정보가 누락되던 오류를 수정했습니다.
-    또한 장애 분석에 도움이 되도록 통신 읽기 버퍼와 서비스 스레드 Statement ID 정보도 함께 덤프하도록 개선하였다.
+-   **Description** : Fixed an error where session and task diagnostic information were missing in certain situations upon abnormal termination. Also improved the dump to include communication read buffers and service thread Statement ID to assist in failure analysis.
 
-### BUG-52190 Non-AutoCommit 환경에서 SELECT 문 실행 순서에 따른 Lock 비정상 해제 문제 수정
+### BUG-52190<a name=bug-52190></a> Fixed for Abnormal Lock Release Depending on SELECT Execution Order in Non-AutoCommit Mode
 
 -   **module** : sm
 -   **Category** : Fatal
 -   **Reproducibility** : Always
--   **Description** : Non-AutoCommit 모드에서 하나의 트랜잭션 내 여러 SELECT 문을 수행할 때, SELECT 문 실행 순서에 따라 IS_LOCK이 비정상적으로 해제되던 문제를 수정합니다.
+-   **Description** : Fixed an issue where IS_LOCK was released abnormally depending on the execution order of SELECT statements within a single transaction in Non-AutoCommit mode.
 
-### BUG-52219 SUPPLEMENTAL LOG 를 생성할 때 VARIABLE COLUMN 패딩을 고려해야 합니다.
+### BUG-52219<a name=bug-52219></a> Fixed incorrect variable column padding when generating Supplemental Logs
 
 -   **module** : sm
 -   **Category** : Functional Error
 -   **Reproducibility** : Always
--   **Description** : SUPPLEMENTAL LOG 를 생성할 때 VARIABLE COLUMN의 패딩 처리가 올바르게 처리되지 않아, UPDATE문 수행시 실패하던 문제를 수정하였습니다.
+-   **Description** : Fixed an issue where `UPDATE` statements failed due to incorrect handling of variable column padding during the generation of Supplemental Logs.
 
-### BUG-52220 이중화 환경에서 LOB 컬럼과 SUPPLEMENTAL LOG가 설정된 디스크 테이블에 DROP COLUMN 구문 수행 시 서버 비정상 종료 문제 수정
+### BUG-52220<a name=bug-52220></a> Fixed server crash when executing DROP COLUMN on replicated disk tables with LOB and Supplemental Log
 
 -   **module** : sm
 -   **Category** : Fatal
 -   **Reproducibility** : Always
--   **Description** : LOB 컬럼과 SUPPLEMENTAL LOG가 설정된 디스크 테이블이 이중화(Replication)에 포함된 경우, DROP COLUMN 구문 수행 시 서버가 비정상 종료되던 문제를 수정하였습니다.
+-   **Description** : Fixed an issue where the server could crash when executing a DROP COLUMN statement on a disk table containing LOB columns and Supplemental Log, when the table is included in replication.
 
-### BUG-52226 SQL_APPLY 모드에서 DELETE 로그 처리 시 standby 서버 비정상 종료 문제 수정
+### BUG-52226<a name=bug-52226></a> Fixed standby server crash during DELETE log processing in SQL_APPLY mode
 
 -   **module** : rp-receiver
 -   **Category** : Fatal
 -   **Reproducibility** : Always
--   **Description** : Supplemental Log가 설정된 테이블의 이중화 환경에서 standby 서버가 SQL_APPLY 모드로 동작할 때, DELETE 로그 처리 중 비정상 종료되는 문제를 수정합니다.
+-   **Description** : Fixed an issue where the standby server could crash during DELETE log processing when operating in SQL_APPLY mode in a replication environment with Supplemental Log enabled on the table.
 
-### BUG-52230 다른 사용자가 부여한 Role 권한을 SYS 계정에서 회수시에 The meta table crashed. 에러가 발생
+### BUG-52230<a name=bug-52230></a> Fixed "Meta table crashed" error when SYS revokes Role privileges granted by another user
 
 -   **module** : qp-ddl-dcl-execute
 
@@ -425,25 +484,25 @@ Fixed Bugs
 
 -   **Reproducibility** : Always
 
--   **Description** : 사용자 계정에서 생성한 Role에 객체 권한을 부여한 후, SYS 계정에서 해당 권한을 회수할 경우 [ERR-31015 : The meta table crashed.] 오류가 발생하던 문제를 수정합니다.
+-   **Description** : Fixed an issue where `[ERR-31015: The meta table crashed.]` occurred when the `SYS` account attempted to revoke object privileges from a Role that were originally granted by the Role owner (another user).
     
 - **How to reproduce this bug**
 
   - **Reproduction conditions**
 
     ```sql
-    ## userA user 생성, role 생성
+    ## Create userA user , role 
     create user userA identified by userA;
     create role r_userA;
     
-    ## userA 으로 접속하여 userA.T1 테이블 생성
+    ## connect by userA and create userA.T1
     connect userA/userA;
     create table T1(c1 integer primary key, c2 varchar(10), c3 varchar(10));
     
-    ## userA user(소유자)가 r_userA role에 객체 권한 부여
+    ## userA user grants the privileges to r_userA
     grant delete, insert, select, update on userA.T1 to r_userA; 
     
-    ## sys user가 r_userA role에게서 객체권한 회수 시도
+    ## sys user try to revoke the privileges from r_userA
     connect sys/manager;
     revoke delete, insert, select, update on userA.T1 from r_userA;
     ```
@@ -457,18 +516,20 @@ Fixed Bugs
     ]
     ```
 
-  -   **Expected Results**
+  - **Expected Results**
+
+    
 
 -   **Workaround**
 
-        sys user가 권한을 주고 회수
+        Grant and revoke privileges using the SYS user.
 
-### BUG-52262 구버전 클라이언트(6.1.1 이하) 연결 중 잘못된 프로토콜 헤더가 수신될 경우 서버가 비정상 종료되는 문제 수정
+### BUG-52262<a name=bug-52262></a> Fixed abnormal server termination when an invalid protocol header is received during connection from an older client (6.1.1 or earlier).
 
 -   **module** : cm
 -   **Category** : Fatal
 -   **Reproducibility** : Rare
--   **Description** : 구버전 클라이언트(6.1.1 이하) 연결 중 잘못된 프로토콜 헤더 값이 수신되는 특정 상황에서 서버가 비정상 종료될 수 있는 문제를 수정하였습니다.
+-   **Description** : Fixed an issue where the server could terminate abnormally in certain situations when an invalid protocol header value was received during a connection from an older client (version 6.1.1 or earlier).
 
 Changes
 =======
