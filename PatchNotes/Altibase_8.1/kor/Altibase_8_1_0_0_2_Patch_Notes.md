@@ -23,6 +23,7 @@ Altibase 8.1.0.0.2 Patch Notes
     - [BUG-52168 BUFFER AREA SIZE 확장 후 디스크 테이블 DML 성능 미반영 문제 수정](#bug-52168)
     - [BUG-52171 SQL 함수를 사용하는 트리거가 있는 테이블의 이름을 변경할 때 서버 비정상 종료 문제 수정](#bug-52171)
     - [BUG-52181 REPLICATION_MAX_LOGFILE 설정 환경에서 이중화 반영 중 Give-up 실패 문제 수정](#bug-52181)
+    - [BUG-52188 비정상 종료 시 진단 덤프의 정보 수집 안정성 개선](#bug-52188)
     - [BUG-52189 json 함수에서 EMPTY_CLOB() 입력 시 오류 발생 문제 수정](#bug-52189)
     - [BUG-52190 Non-AutoCommit 환경에서 SELECT 문 실행 순서에 따른 Lock 비정상 해제 문제 수정](#bug-52190)
     - [BUG-52192 파일 백업 과정에서 시스템 콜 호출 실패 시 오류 메시지 개선](#bug-52192)
@@ -534,6 +535,32 @@ Fixed Bugs
 
 -   **설명** : REPLICATION_MAX_LOGFILE 프로퍼티가 1 이상으로 설정된 환경에서, 이중화가 실행되어 레코드가 Standby 서버에 반영되고 있는 중일 경우 Give-up이 실패할 수 있는 문제를 수정하였습니다.
     
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-52188<a name=bug-52188></a> 비정상 종료 시 진단 덤프의 정보 수집 안정성 개선
+
+-   **module** : mm
+
+-   **Category** : Reliability
+
+-   **재현 빈도** : Rare
+
+-   **설명** : 비정상 종료 시 특정 상황에서 세션 및 태스크 진단 정보가 누락되던 오류를 수정했습니다. 또한 장애 분석에 도움이 되도록 통신 읽기 버퍼와 서비스 스레드 Statement ID 정보도 함께 덤프하도록 개선하였습다.
+
 -   **재현 방법**
 
     -   **재현 절차**

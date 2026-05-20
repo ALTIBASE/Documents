@@ -23,6 +23,7 @@ Altibase 8.1.0.0.2 Patch Notes
     - [BUG-52168 Fixed performance issue for disk table DML after expanding BUFFER AREA SIZE](#bug-52168)
     - [BUG-52171 Fixed a server crash when renaming a table that has a trigger using SQL functions.](#bug-52171)
     - [BUG-52181 Fixed an issue where Give-up could fail during data replication in a REPLICATION_MAX_LOGFILE configuration](#bug-52181)
+    - [BUG-52188 Improved stability of diagnostic dump information collection during abnormal termination](#bug-52188)
     - [BUG-52189 Fixed Error When Using EMPTY_CLOB() in JSON Functions](#bug-52189)
     - [BUG-52190 Fix for Abnormal Lock Release Depending on SELECT Execution Order in Non-AutoCommit Mode](#bug-52190)
     - [BUG-52192 Improved error messages when system call fails during file backup.](#bug-52192)
@@ -257,6 +258,16 @@ Fixed Bugs
 -   **Category** : Functional Error
 -   **Reproducibility** : Frequence
 -   **Description** : Fixed an issue where Give-up could fail when replication is in progress and records are being applied to the standby server in an environment where the `REPLICATION_MAX_LOGFILE` property is set to 1 or higher.
+
+### BUG-52188<a name=bug-52188></a> Improved stability of diagnostic dump information collection during abnormal termination
+
+-   **module** : mm
+
+-   **Category** : Reliability
+
+-   **Reproducibility** : Rare
+
+-   **Description** : Fixed an issue where session and task diagnostic information could be missing under certain conditions during abnormal termination. Additionally, the diagnostic dump was enhanced to include communication read buffer data and the service thread's Statement ID information to aid failure analysis.
 
 ### BUG-52189<a name=bug-52189></a> Fixed Error When Using EMPTY_CLOB() in JSON Functions
 
