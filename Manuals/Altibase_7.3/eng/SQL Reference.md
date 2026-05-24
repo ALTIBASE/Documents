@@ -3049,6 +3049,10 @@ Alter success.
 
 ![sync_table_clause](media/SQL/sync_table_clause.gif)
 
+**restart_clause ::=**
+
+![restart_clause](media/SQL/restart_sequence_clause.gif)
+
 #### Prerequisites 
 
 Only the SYS user, the owner of the schema to which the sequence belongs, users having the ALTER object privilege on the sequence, and users having the ALTER ANY SEQUENCE system privilege can execute this statement.
@@ -3104,6 +3108,19 @@ When changing the definition of an existing sequence, the START WITH clause cann
  A custom table for sequence replication can be created only if the length of the sequence name is equal to or smaller than 36 bytes. 
 
 For detailed more information about sequences, please refer to the description of the CREATE SEQUENCE statement.
+
+*restart_clause*
+
+There are three statement to restart the sequence
+
+- RESTART
+  - This statement initialize START VALUE to specific value by INCREMENT VALUE, and restarts the sequence.
+    - If INCREMENT VALUE is equal to or greater than 1, START VALUE is set to MINVALUE.
+    - If INCREMENT VALUE is equal to or less than -1, START VALUE is set to MAXVALUE.
+- RESTART WITH N
+  - This statement initializes START VALUE to N, and restarts the sequence.
+- RESTART START WITH N
+  - Like RESTART WITH N, this statement initializes START VALUE to N, and restarts the sequence.
 
 #### Examples
 
@@ -5998,6 +6015,10 @@ This clause specifies the user-defined column. It refers to CREATE TABLE stateme
 
 This is used to set the maximum number of records that can be stored in a queue table. This value can be set within the range from 1 to 4294967295 (or (2<sup>32</sup>) -1). When not specified, it defaults to the maximum value of 4294967295. 
 
+*DELETE [ON|OFF]*
+
+This determines if DELETE statement can be applied to the queue table or not. ON allows the DELETE statement on the queue table. OFF does not allow the DELETE statement on the queue table. In this case, when DELETE is not allowed, the DEQUEUE parallel performance improves. If the DELETE clause is omitted, the queue table is created with DELETE ON. Users can find queue tables that do not allow the DELETE statement in V$QUEUE_DELETE_OFF.
+
 #### Considerations
 
 - When a queue is created, an object having the name queue_name + "_NEXT_MSG_ID" is created in the database. Therefore, if any existing table, view, sequence, synonym or stored procedure has the same name as the queue to be created, or has the name queue_name + "_NEXT_MSG_ID", the CREATE QUEUE statement will return an error. 
@@ -6035,7 +6056,13 @@ abc         1           99.999
 1 row selected.
 ```
 
+<Query\> Create a queue named Q3 that does not allow the DELETE statement, with a maximum message length is 40 bytes.
 
+
+```
+iSQL> CREATE QUEUE Q3(40) DELETE OFF;
+Create success.
+```
 
 ### CREATE REPLICATION 
 
@@ -10552,7 +10579,17 @@ This chapter explains each of the Data Manipulation Language (DML) statements th
 
 ![mutlipledelete_clause](media/SQL/multiple_delete.png)
 
-tbl_ref ::=
+**tbl_ref ::=**
+
+![tbl_ref](media/SQL/tbl_ref.gif)
+
+**one_table ::=**
+
+![one_table](media/SQL/one_table.gif)
+
+**join_table ::=**
+
+![join_table](media/SQL/join_table.gif)
 
 #### Prerequisites
 
@@ -10614,13 +10651,29 @@ Limitations of the returning clause:
 
 *multiple_delete*
 
-The following example deletes records that meet the join condition from the table specified in tbl_name.
+This deletes records that meet the join condition from the table specified in tbl_name.
 
 Limitations of the multiple delete clause:
 
 - limit_clause and returning_clause cannot be used.
 - dictionary table cannot be used.
-- full outer join canno be used.
+- full outer join cannot be used.
+
+*tbl_ref*
+
+This specifies the table to be applied to multiple_delete.
+
+multiple update 를 하기 위한 table 을 명시한다.
+
+*one_table*
+
+This indicates that multiple_delete applies to one table or view.
+
+ 한 개의 table이거나 혹은 view 를 명시한다.
+
+*join_table*
+
+This specifies the join conditions between tables.
 
 #### HINTS Options
 
@@ -11421,14 +11474,21 @@ The following example shows how Altibase manages data concurrency, integrity, an
 
 ![subquery](media/SQL/subquery.gif)
 
-[limit_clause ::=](#limit_clause)
+[**limit_clause ::=**](#limit_clause)
+
+![limit_clause](media/SQL/limit_clause.gif)
 
 **select_clause ::=**
 
 ![](media/SQL/77d1a3feb68a0257346ff3590901be12.png)
 
-[hierarchical_query_clause ::=](#hierarchical_query_clause), [group_by_clause
-::=](#group_by_clause)
+[**hierarchical_query_clause ::=**](#hierarchical_query_clause)
+
+![hierarchical_query_clause](media/SQL/hierarchical_query_clause.gif)
+
+[**group_by_clause::=**](#group_by_clause)
+
+![group_by_clause](media/SQL/group_by_clause.gif)
 
 **select_list ::=**
 
@@ -11440,7 +11500,9 @@ The following example shows how Altibase manages data concurrency, integrity, an
 
 ![](media/SQL/e71b7bc2eebb6dec22a57132da33f80c.png)
 
-[joined_table ::=](#joined_table)
+[**joined_table ::=**](#joined_table)
+
+![joined_table](media/SQL/joined_table.gif)
 
 <a name="single_table"><a/>
 
@@ -13399,7 +13461,9 @@ C1          C2
 
 ![update_image229](media/SQL/update_image229.gif)
 
-[returning_clause ::=](#returning_clause)
+[**returning_clause ::=**](#returning_clause)
+
+![returning_clause](media/SQL/returning_clause.gif)
 
 **set_clause_list ::=**
 
@@ -13414,6 +13478,22 @@ C1          C2
 **limit_clause ::=**
 
 ![limit_clause_](media/SQL/limit_clause_.gif)
+
+[**multiple_update ::=**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/eng/SQL Reference.md#multiple_update)
+
+![multiple_update](media/SQL/multiple_update.gif)
+
+**tbl_ref ::=**
+
+![tbl_ref](media/SQL/tbl_ref.gif)
+
+**one_table ::=**
+
+![one_table](media/SQL/one_table.gif)
+
+**join_table ::=**
+
+![join_table](media/SQL/join_table.gif)
 
 #### Prerequisites
 
@@ -13461,6 +13541,28 @@ Another way to update a TIMESTAMP column with the system time is to use the DEFA
 *returning_clause*
 
 Please refer to the returning_clause of the DELETE statement.
+
+*multiple_update*
+
+This finds records that meet the join conditions and updates that specified columns.
+
+Limitations of the multiple update clause:
+
+- limit_clause and returning_clause cannot be used.
+- dictionary table cannot be used.
+- full outer join cannot be used.
+
+*tbl_ref*
+
+This specifies tables to be applied to multiple_update.
+
+*one_table*
+
+This indicates that multiple_update applies to one table or view.
+
+*join_table*
+
+This specifies the join conditions between tables.
 
 #### HINTS Options
 
@@ -23275,15 +23377,78 @@ Appendix A. Regular Expressions
 
 This section explains the regular expressions supported by Altibase.
 
-### Regular Expression Support
+All examples in this section are based on the sample schema $ALTIBASE_HOME/sample/APRE/schema/schema.sql.
 
-Regular expressions are a syntax convention for writing text patterns and consist of one or more character strings and metacharacters. Altibase partly supports POSIX Basic Regular Expression (BRE) and Extended Regular Expression (ERE). Regular expressions supported by Altibase have the following limitations and features.
+### Regular Expression
+
+Regular expressions are a syntax convention for writing text patterns and consist of one or more character strings and metacharacters. Altibase partly supports POSIX Basic Regular Expression (BRE) and Extended Regular Expression (ERE). PCRE2 compatibility mode supports the regular expression syntax fo the  PCRE2 library.
+
+Regular expression syntax and functionality may vary in detail by DBMS. Different DBMS use different regular expression libraries or versions, leading to potential differences in the supported syntax and features between Altibase and other DBMS.
+
+In Altibase SQL, regular expressions can be used in conjunction with the following string functions or operators:
+
+- REGEXP_COUNT
+- REGEXP_REPLACE
+- REGEXP_INSTR
+- REGEXP_SUBSTR
+- REGEXP_LIKE Condition Operator
+
+### How to Set the Regular Expression Mode
+
+Users can choose one option between Altibase regular expression mode and PCRE2 compatibility mode. The default setting is Altibase regular expression mode. Thus, users who want to use PCRE2 compatibility mode should change the regular expression mode with the statements below:
+
+> ###### Change at the System Level
+
+The following statement changes the system property while the Altibase server is running. To apply the modified settings, reconnect the session.
+
+```
+ALTER SYSTEM SET REGEXP_MODE=1;
+```
+
+
+
+> ###### Change at the Session Level
+
+The following statement changes the session property while the Altibase server is running. 
+
+```
+ALTER SESSION SET REGEXP_MODE=1;
+```
+
+
+
+> ###### Change the Regular Expression Mode on the Altibase Server Permanently
+
+The following statement applies the changed regular expression mode permanently on the Altibase server. This statement adds "REGEXP_MODE=1" in the Altibase server property file and restarts the server. 
+
+```
+$ vi $ALTIBASE_HOME/conf/altibase.properties
+REGEXP_MODE=1
+```
+
+### Altibase Regular Expression Mode
+
+This section explains the Altibase regular expression mode.
+
+#### Features
+
+The Altibase regular expression mode is the default setting for Altibase. It partially supports the syntax of POSIX basic regular expressions and extended regular expressions, and minimal regular expression syntax.
+
+Regular expressions supported by Altibase have the following limitations and features.
 
 -   Multibyte characters are unsupported. 
 -   Backreferences ( \digit) are unsupported. 
 -   Lookaheads ( ?=)and lookbehinds ( ?<=) are unsupported. 
 -   Conditional regular expressions (e.g., condition)B|C) are unsupported. 
 -   The escape character is supported.
+
+#### Regular Expression Syntax
+
+This section describes the regular expression syntax of Altibase regular expression mode.
+
+##### Character Class
+
+Character Class defines the set of characters frequently used. Users can represent this class in an escape sequence or POSIX standard enclosed in square brackets.
 
 The following table describes character classes.
 
@@ -23314,124 +23479,619 @@ The following table describes character classes.
 
 The following table describes metacharacters that can be used for regular expressions in Altibase, and their meanings.
 
-<table>
-<tbody>
-<tr>
-<th>
-<p>Metacharacter</p>
-</th>
-<th>
-<p>Description</p>
-</th>
-</tr>
-<tr>
-<td>
-<p>.</p>
-</td>
-<td>
-<p>Matches a single character, other than the newline. The punctuation character(.) of a regular expression enclosed in square brackets matches the literal
-dot. For example, a.c matches “abc”, but [a.c] matches only “a”, “.”, or “c”. </p>
-</td>
-</tr>
-<tr>
-<td>
-<p>[]</p>
-</td>
-<td>
-<p>A character class expression. Matches a single character enclosed in square
-brackets. For example, [abc] matches “a”, “b”, or “c”; [a-z] matches any alphabetic character in lowercase, from “a” to “z”. The format can also be
-mixed: both [a-cx-z] and [abcx-z] match “a”, “b”, “c”, “x”, “y”, or “z”.
-If the right square bracket (]) is the initial character to follow a circumflex (^),
-it can be included in the expression enclosed in square brackets: []abc].</p>
-<p>] If the circumflex (^) is the initial character enclosed in square brackets ([]), it
-matches any character other than those enclosed in the square brackets ([]). For
-example, [^abc]d matches “ed”, “fd”, but not “ad”, “bd” and “cd”. [^a-z]
-matches any character that does not start with an alphabetic character in lowercase.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>^</p>
-</td>
-<td>
-<p>Matches the beginning character of a string.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>$</p>
-</td>
-<td>
-<p>Matches the last character of a string or the preceding character of the last
-newline of a string.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>*</p>
-</td>
-<td>
-<p>Matches the preceding element for 0 or more times. For example, ab*c matches "ac", "abc", "abbbc", etc.; [xyz]* matches "", "x", "y", "z", "zx", "zyx",
-"xyzzy", etc.; (ab)* matches "", "ab", "abab", "ababab", etc.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>+</p>
-</td>
-<td>
-<p>Matches the preceding character for 1 or more times.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>?</p>
-</td>
-<td>
-<p>Matches the preceding character for 0 or 1 time.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>{m,n}</p>
-</td>
-<td>
-<p>Matches the preceding element for a minimum of m, and a maximum of n
-times. For example a{3,5} matches "aaa", "aaaa", and "aaaaa".</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>{m}</p>
-</td>
-<td>
-<p>Matches the preceding element for m times.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>{m,}</p>
-</td>
-<td>
-<p>Matches the preceding element for m or more times.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>|</p>
-</td>
-<td>
-<p>Matches a single expression among multiple expressions.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p>()</p>
-</td>
-<td>
-<p>Matches a subexpression. Multiple expressions can be grouped as a single
-complex regular expression.</p>
-</td>
-</tr>
-</tbody>
-</table>
+| Metacharacter | Action                                                       |
+| ------------- | ------------------------------------------------------------ |
+| .             | Match a single character, except the newline. The punctuation character(.) of a regular expression enclosed in square brackets matches the literal dot. <br/>For example, a.c matches “abc”, but [a.c] matches only “a”, “.”, or “c”. |
+| \             | Use the literal meaning of the following metacharacter.      |
+| []            | A character class expression. <br/>Match a single character enclosed in square brackets. <br/>For example, [abc] matches “a”, “b”, or “c”; [a-z] matches any alphabetic character in lowercase, from “a” to “z”. <br/>The format can also be mixed; both [a-cx-z] and [abcx-z] match “a”, “b”, “c”, “x”, “y”, or “z”.<br/>If the right square bracket (]) is the initial character to follow a circumflex (^), it can be included in the expression enclosed in square brackets; []abc].<br/>If the circumflex (^) is the initial character enclosed in square brackets ([]), it matches any character except those enclosed in the square brackets ([]). <br/>For example, [ ^abc ]d matches “ed”, “fd”, but not “ad”, “bd” and “cd”. [ ^a-z ] matches any character that does not start with an alphabetic character in lowercase. |
+| ^             | Match the beginning character of a string.                   |
+| $             | Match the last character of a string or the preceding character of the last newline of a string |
+| *             | Match the preceding element for zero, one, or more times. <br/>For example, ab\*c matches "ac", "abc", "abbbc", etc. <br/>[xyz]* matches "", "x", "y", "z", "zx", "zyx", "xyzzy", etc.<br/>(ab)* matches "", "ab", "abab", "ababab", etc. |
+| +             | Match the preceding character for 1 or more times.           |
+| ?             | Match the preceding character for 0 or 1 time.               |
+| {m,n}         | Matches the preceding element for a minimum of m, and a maximum of n times. <br/>For example, a{3,5} matches "aaa", "aaaa", and "aaaaa". |
+| {m}           | Match the preceding element for m times.                     |
+| {m,}          | Match the preceding element for m or more times.             |
+| \|            | Match a single expression among multiple expressions.        |
+| ()            | Match a subexpression. Multiple expressions can be grouped as a single complex regular expression. |
+
+
+##### Escape Sequence
+
+Users can search for invisible characters such as tab or line feed using an escape sequence.
+
+| Escape Sequence | Description     |
+| --------------- | --------------- |
+| \t              | tab             |
+| \n              | line feed       |
+| \r              | carriage return |
+| \f              | form feed       |
+
+
+
+### PCRE2 Compatibility Mode
+
+This section describes the PCRE2 compatibility mode.
+
+PCRE2 compatibility mode supports the regular expression syntax of the PCRE2 library, which version is 10.40.
+
+#### Features
+
+PCRE2 Compatibility mode has the features and constraints as below.
+
+- Altibase server character-set should be set to US7ASCII or UTF-8.
+- Korean searching is available.
+- Backreference, positive lookahead, negative lookahead, and conditional regular expressions are available.
+- The regular expression syntax differs between Altibase regular expression mode and PCRE2 compatibility mode. Therefore, when setting it to PCRE2 compatibility mode, certain syntax supported in Altibase regular expression mode may not be available, or even when using the same regular expression syntax, query results may be different. For notable differences, please refer to the [Syntax Differences between Regular Expression Modes](#Syntax-Differences-between-Regular-Expression-Modes)
+
+#### Regular Expression Syntax
+
+This section describes the notable regular expression syntax for PCRE2 compatibility mode. For regular expression syntax not covered in this manual, please refer to the [PCRE2 Pattern Manual](https://www.pcre.org/current/doc/html/pcre2pattern.html).
+
+##### Metacharacters
+
+Each metacharacter has its own meaning when it is used in regular expression. Some metacharacters change their meaning depending on whether they are used inside or outside square brackets.
+
+> ###### Metacharacters outside square brackets
+
+| Metacharacter | Action                                                       |
+| ------------- | ------------------------------------------------------------ |
+| \             | Escape character for various purposes.                       |
+| ^             | The beginning character of a string or a line in multi-line mode. |
+| $             | The end character of a string or a line in multi-line mode.  |
+| .             | Match any single character, except a newline character.      |
+| [             | Begin of character class definition.                         |
+| \|            | Select one expression among several expressions.             |
+| (             | Start grouping or control verbs.                             |
+| )             | End grouping or control verbs.                               |
+| *             | Match zero, one, or many of the preceding expression.        |
+| +             | Match one, or many of the preceding expression.              |
+| ?             | Match zero or one of the preceding expression.               |
+| {             | Minimum/maximum value                                        |
+
+> ###### Metacharacters inside square brackets
+
+| Metacharacter | Action                                                       |
+| ------------- | ------------------------------------------------------------ |
+| \             | Use the literal meaning of the following metacharacter.      |
+| ^             | Exclude a character, range, characters or range in a set following ^ immediately. |
+| -             | Character range.                                             |
+| [             | Begin of character class.                                    |
+| ]             | End of character class.                                      |
+
+##### Escape Sequence
+
+The following table describes escape sequences, specifically unprintable.
+
+| Escape Sequence | Description                                                  |
+| --------------- | ------------------------------------------------------------ |
+| \a              | Alert character.                                             |
+| \c*x*           | control-*x* Character. *x* is a printable ASCII character.   |
+| \e              | ESC(escape). The 27th character in ASCII code(hex 1B)        |
+| \f              | Form feed. The 12th character in ASCII code(hex 0C)          |
+| \n              | Line feed. The 10th character in ASCII code(hex 0A)          |
+| \r              | Carriage return. The 13th character in ASCII code(hex 0D)    |
+| \t              | Tab. The 9th character in ASCII code(hex 09)                 |
+| \0*dd*          | The character corresponding to the octal code *dd* in ASCII. For example, \061 means the number '1'. |
+| \*ddd*          | The character or backreference corresponding to the octal code *ddd* in ASCII. |
+| \o{*ddd..*}     | The character corresponding to the octal code *ddd...* in ASCII. |
+| \x*hh*          | The character corresponding to the hexadecimal code *hh* in ASCII. For example, \x31 means the number '1'. |
+| \x{*hhh..*}     | The character corresponding to the hexadecimal code *hhh...* in ASCII. |
+| \N{U+*hhh..*}   | The character corresponding to the hexadecimal code *hhh...* in Unicode. |
+
+**Example**
+
+<Query\> Using escape sequence, search for strings that include 1 corresponding to the hexadecimal code 31 in ASCII.
+
+```
+iSQL> SELECT GNAME FROM GOODS WHERE REGEXP_LIKE(GNAME, '\x31');
+GNAME
+------------------------
+IM-310
+M-150
+M-180
+M-190G
+M-U310
+M-T153
+M-T102
+AU-100
+8 rows selected.
+```
+
+
+
+##### General Character Type
+
+The following table describes escape sequences that indicate frequently used general character set.
+
+| Escape Squence | Description                                            |
+| -------------- | ------------------------------------------------------ |
+| \d             | decimal number.                                        |
+| \D             | Any character not decimal number.                      |
+| \h             | Horizontal whitespace character(i.e. space(" "), tab). |
+| \H             | Any character not horizontal whitespace character.     |
+| \N             | Any character not newline character.                   |
+| \p{*xx*}       | Unicode character which has *xx* property .            |
+| \P{*xx*}       | Unicode character which does not have *xx* property.   |
+| \R             | Newline character.                                     |
+| \s             | Whitespace character.                                  |
+| \S             | Any character not whitespace character                 |
+| \v             | Vertical whitespace character(i.e. newline).           |
+| \V             | Any character not vertical whitespace character.       |
+| \w             | Word character.                                        |
+| \W             | Any character not word character.                      |
+| \X             | Unicode extended grapheme cluster.                     |
+
+> ###### Unicode Character Property
+
+The following table describes the character properties categorized as general, which can be used in \p{*xx*} and \P{*xx*}. The properties represented by *xx* are case-sensitive, and curly braces("{}") are optional. The following two examples denote the same property.
+
+```
+\p{L}
+\pL
+```
+
+
+
+| Property | Description                                                  |
+| -------- | ------------------------------------------------------------ |
+| C        | Other: This includes all properties starting with C.         |
+| Cc       | Control                                                      |
+| Cf       | Format                                                       |
+| Cn       | Unassigned                                                   |
+| Co       | Private use                                                  |
+|          |                                                              |
+| L        | Letter: This includes all properties starting with L.        |
+| Ll       | Lower case letter                                            |
+| Lm       | Modifier letter                                              |
+| Lo       | Other letter                                                 |
+| Lt       | Title case letter                                            |
+| Lu       | Upper case letter                                            |
+| L&       | Lower case letter, upper case letter, or title case letter(Ll, Lu, or Lt) |
+|          |                                                              |
+| M        | Mark: This includes all properties starting with M.          |
+| Mc       | Spacing mark                                                 |
+| Me       | Enclosing mark                                               |
+| Mn       | Non-spacing mark                                             |
+|          |                                                              |
+| N        | Number: This includes all properties starting with N.        |
+| Nd       | Decimal number                                               |
+| Nl       | Letter number                                                |
+| No       | Other number                                                 |
+|          |                                                              |
+| P        | Punctuation: This includes all properties starting with P.   |
+| Pc       | Connector punctuation                                        |
+| Pd       | Dash punctuation                                             |
+| Pe       | Close punctuation                                            |
+| Pf       | Final punctuation                                            |
+| Pi       | Initial punctuation                                          |
+| Po       | Other punctuation                                            |
+| Ps       | Open punctuation                                             |
+|          |                                                              |
+| S        | Symbol: This includes all properties starting with S.        |
+| Sc       | Currency symbol                                              |
+| Sk       | Modifier symbol                                              |
+| Sm       | Mathematical symbol                                          |
+| So       | Other symbol                                                 |
+|          |                                                              |
+| Z        | Separator: This includes all properties starting with Z.     |
+| Zl       | Line separator                                               |
+| Zp       | Paragraph separator                                          |
+| Zs       | Space separator                                              |
+|          |                                                              |
+| Xan      | Alphanumeric: the union of properties L and N                |
+| Xps      | POSIX space: property Z or tab, NL, VT, FF, CR               |
+| Xsp      | Perl space: property Z or tab, NL, VT, FF, CR                |
+| Xuc      | Universally-named character: one that can be represented by a Universal Character Name |
+| Xwd      | Perl word: property Xan or underscore                        |
+
+**Example**
+
+<Query\> Using escape sequence '\p', search for EMP_JOB column data which includes the lowercase Unicode characters from the EMPLOYEES table.
+
+```
+iSQL> SELECT EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, '\p{Ll}');
+EMP_JOB
+-------------------
+webmaster
+manager
+planner
+3 rows selected.
+```
+
+
+
+> ###### Unicode Script Name
+
+Unicode script name is available to be used as the property of \p{*xx*} and \P{*xx*} as below.
+
+```
+\p{Greek}
+\P{Han}
+```
+
+
+
+This is a list of supported scripts:
+
+```
+Adlam, Ahom, Anatolian_Hieroglyphs, Arabic, Armenian, Avestan, Balinese, Bamum, Bassa_Vah, Batak, Bengali, Bhaiksuki, Bopomofo, Brahmi, Braille, Buginese, Buhid, Canadian_Aboriginal, Carian, Caucasian_Albanian, Chakma, Cham, Cherokee, Chorasmian, Common, Coptic, Cuneiform, Cypriot, Cypro_Minoan, Cyrillic, Deseret, Devanagari, Dives_Akuru, Dogra, Duployan, Egyptian_Hieroglyphs, Elbasan, Elymaic, Ethiopic, Georgian, Glagolitic, Gothic, Grantha, Greek, Gujarati, Gunjala_Gondi, Gurmukhi, Han, Hangul, Hanifi_Rohingya, Hanunoo, Hatran, Hebrew, Hiragana, Imperial_Aramaic, Inherited, Inscriptional_Pahlavi, Inscriptional_Parthian, Javanese, Kaithi, Kannada, Katakana, Kayah_Li, Kharoshthi, Khitan_Small_Script, Khmer, Khojki, Khudawadi, Lao, Latin, Lepcha, Limbu, Linear_A, Linear_B, Lisu, Lycian, Lydian, Mahajani, Makasar, Malayalam, Mandaic, Manichaean, Marchen, Masaram_Gondi, Medefaidrin, Meetei_Mayek, Mende_Kikakui, Meroitic_Cursive, Meroitic_Hieroglyphs, Miao, Modi, Mongolian, Mro, Multani, Myanmar, Nabataean, Nandinagari, New_Tai_Lue, Newa, Nko, Nushu, Nyakeng_Puachue_Hmong, Ogham, Ol_Chiki, Old_Hungarian, Old_Italic, Old_North_Arabian, Old_Permic, Old_Persian, Old_Sogdian, Old_South_Arabian, Old_Turkic, Old_Uyghur, Oriya, Osage, Osmanya, Pahawh_Hmong, Palmyrene, Pau_Cin_Hau, Phags_Pa, Phoenician, Psalter_Pahlavi, Rejang, Runic, Samaritan, Saurashtra, Sharada, Shavian, Siddham, SignWriting, Sinhala, Sogdian, Sora_Sompeng, Soyombo, Sundanese, Syloti_Nagri, Syriac, Tagalog, Tagbanwa, Tai_Le, Tai_Tham, Tai_Viet, Takri, Tamil, Tangsa, Tangut, Telugu, Thaana, Thai, Tibetan, Tifinagh, Tirhuta, Toto, Ugaritic, Vai, Vithkuqi, Wancho, Warang_Citi, Yezidi, Yi, Zanabazar_Square
+```
+
+
+
+> ###### Unicode Extended Grapheme Cluster
+
+\X escape sequence indicates Unicode extended grapheme cluster. 'Grapheme cluster' is a single character, readable for humans. One grapheme cluster is comprised of several code points.
+
+확장 문자소 클러스터로 구성된 유니코드 캐릭터들과 매치된다. 
+
+For detailed information on extended grapheme clusters, refer to the [Unicode Official Document UAX #29: Unicode Text Segmentation](http://www.unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries). For detailed information on extended grapheme cluster matching, refer to the [PCRE2 Pattern Manual Page](https://www.pcre.org/current/doc/html/pcre2pattern.html).
+
+##### POSIX Character Class
+
+Character class defines the set of characters frequently used. Users can represent this class in an escape sequence like [general character type](#General-Charater-Type), or POSIX standard enclosed in square brackets. POSIX character class is enclosed "[:" and ":]". Outer square brackets define the character set, and inner square brackets indicate POSIX character class syntax.
+
+| POSIX Character Cleass | Description                                                  |
+| ---------------------- | ------------------------------------------------------------ |
+| [[:alnum:]]            | Alphabet and number                                          |
+| [[:alpha:]]            | Alphabet characters                                          |
+| [[:ascii:]]            | Characters corresponding to 0 to 127 ASCII code              |
+| [[:blank:]]            | Space or tab                                                 |
+| [[:cntrl:]]            | Characters corresponding to 127, 31, and less than 31 ASCII code |
+| [[:digit:]]            | Numbers                                                      |
+| [[:graph:]]            | 32 to 126 ASCII code, which is printable, except whitespace character(32 ASCII code) |
+| [[:lower:]]            | Lowercase alphabet                                           |
+| [[:print:]]            | 32 to 126 ASCII code, which is printable                     |
+| [[:punct:]]            | 32 to 126 ASCII code, which is printable, except whitespace, number, and alphabet |
+| [[:space:]]            | Unprintable whitespace character(i.e. space, carriage return, newline, vertical tab, form feed) |
+| [[:upper:]]            | Uppercase alphabet                                           |
+| [[:word:]]             | Alphabet, number, _                                          |
+| [[:xdigit:]]           | hexadecimal numbers, 0-9, a-f, A-F                           |
+
+**Example**
+
+<Query\> Using the POSIX character class, search for EMP_JOB column data which includes uppercase letters from the EMPLOYEES table. 
+
+```
+iSQL> SELECT EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, '[[:upper:]]');
+EMP_JOB          
+-------------------
+CEO              
+PL               
+PL               
+PM               
+PM               
+PM               
+6 rows selected.
+```
+
+
+
+##### Simple Assertions
+
+Assertion is checking the forward and backward of a certain character or strings. "^" and "$", introduced in [Metacharacters](#Metacharacters), are examples of assertions. This is also called "anchor".
+
+| Escape Sequence | Description                                                  |
+| --------------- | ------------------------------------------------------------ |
+| \A              | The beginning of string                                      |
+| \b              | The boundary of a word. The beginning or end of word.        |
+| \B              | Match when the boundary of a word is nonexistent             |
+| \G              | Match at the first matching position in the string           |
+| \z              | The end of string                                            |
+| \Z              | The end of string or right before of the newline character at the end of the string |
+
+**Example**
+
+<Query\> Search for CNO and ADDRESS, which includes the word 'Street', from the CUSTOMERS table.
+
+```
+iSQL> SELECT CNO, ADDRESS FROM CUSTOMERS WHERE REGEXP_COUNT(ADDRESS, '\bStreet\b') > 0;
+CNO                  ADDRESS                                             
+----------------------------------------------------------------------------
+5                    142 Francis Street Western Australia AUS            
+10                   8A Ton Duc Thang Street District 1 HCMC Vietnam     
+12                   3484 Taylor Street Dallas TX USA                    
+13                   12th Floor Five Kemble Street London UK             
+18                   2 Chaoyang Men Wai Street Chaoyang Beijing          
+19                   3300 L Street NW Washington DC USA                  
+6 rows selected.
+```
+
+
+
+<Query\> Search for ENO and EMP_JOB ending with 'er' from the EMPLOYEES table. 
+
+```
+iSQL> SELECT ENO, EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, 'er\Z');
+ENO         EMP_JOB                                             
+-------------------------------------------------------------------
+2           designer                                            
+3           engineer                                            
+6           programmer                                          
+7           manager                                             
+8           manager                                             
+9           planner                                             
+10          programmer                                          
+11          webmaster                                           
+15          webmaster                                           
+16          manager                                             
+18          planner                                             
+11 rows selected.
+```
+
+
+
+##### Group
+
+"(" and ")" are metacharacter representing group. Capture group refers to an area where multiple expressions inside parentheses are grouped together.
+
+| Syntax        | Description                                                  |
+| ------------- | ------------------------------------------------------------ |
+| (...)         | Capture group to search for specified strings in parentheses |
+| (?<name>...)  | Name capture group (Perl)                                    |
+| (?'name'...)  | Name capture group (Perl)                                    |
+| (?P<name>...) | Name capture group (Python)                                  |
+| (?:...)       | Non-capture group                                            |
+| (?\|...)      | Non-capture group; reset group numbers for capture groups in each alternative |
+| (?>...)       | Atomic non-capture group                                     |
+| (*atomic:...) | Atomic non-capture group                                     |
+
+**Example**
+
+<Query\> Search for GNAME which includes TM-T, TM-U, M-T, M-U from the GOODS table.
+
+```
+iSQL> SELECT GNAME FROM GOODS WHERE REGEXP_LIKE(GNAME, '(TM|M)-(T|U)') ;
+GNAME                                     
+--------------------------------------------
+TM-T88                                    
+TM-U950                                   
+TM-U925                                   
+TM-U375                                   
+TM-U325                                   
+TM-U200                                   
+TM-U300                                   
+TM-U590                                   
+TM-U295                                   
+M-T245                                    
+M-U310                                    
+M-T153                                    
+M-T102                                    
+M-T500                                    
+M-T300                                    
+M-T260                                    
+M-U420                                    
+M-U290
+```
+
+
+
+##### Lookaround
+
+This statement checks if the specified string exists before or after the string that users are willing to search.
+
+| 문법                                                        | 설명                                                         |
+| ----------------------------------------------------------- | ------------------------------------------------------------ |
+| (?=...) (*pla:...) (*positive_lookahead:...)                | Positive lookaheads: Search for the string that corresponds to the  `...` immediately to the right of the desired string |
+| (?!...) (*nla:...) (*negative_lookahead:...)                | Negative lookaheads: Search for the string that does not have a corresponding string for the  `...` immediately to the right of the desired string. |
+| (?<=...) (*plb:...) (*positive_lookbehind:...)              | Positive lookbehinds: Search for the string that corresponds to the  `...` immediately to the left of the desired string |
+| (?<!...) (*nlb:...) (*negative_lookbehind:...)              | Negative lookbehinds:  Search for the string that does not have a corresponding string for the  `...` immediately to the left of the desired string |
+| (?*...) (*napla:...) (*non_atomic_positive_lookahead:...)   | Non-atomic positive lookaheads: Positive lookadheads that backreference is available |
+| (?<*...) (*naplb:...) (*non_atomic_positive_lookbehind:...) | Non-atomic positive lookaheads: Positive lookbehinds that backreference is available |
+
+**Example**
+
+<Query\> Using the positive lookaheads, search for EMP_JOB column data which 'rep' is to the right of 'sales' from the EMPLOYEES table. 
+
+```
+iSQL> SELECT EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, 'sales (?=rep)');
+EMP_JOB                                                                                               
+--------------------------------------------------------------------------------------------------------
+sales rep                                                                                             
+sales rep                                                                                             
+sales rep                                                                                             
+3 rows selected.
+
+iSQL> SELECT EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, 'sales (*pla:rep)');
+EMP_JOB                                                                                               
+--------------------------------------------------------------------------------------------------------
+sales rep                                                                                             
+sales rep                                                                                             
+sales rep                                                                                             
+3 rows selected.
+```
+
+
+
+<Query\> Using the negative lookaheads, search for GNAME column data that 'U' is not to the right of 'TM-' from the GOODS table.
+
+```
+iSQL> SELECT GNAME FROM GOODS WHERE REGEXP_LIKE(GNAME, 'TM-(?!U)');
+GNAME                                                                                                 
+--------------------------------------------------------------------------------------------------------
+TM-H5000                                                                                              
+TM-T88                                                                                                
+TM-L60                                                                                                
+3 rows selected.
+
+iSQL> SELECT GNAME FROM GOODS WHERE REGEXP_LIKE(GNAME, 'TM-(*nla:U)');
+GNAME                                                                                                 
+--------------------------------------------------------------------------------------------------------
+TM-H5000                                                                                              
+TM-T88                                                                                                
+TM-L60                                                                                                
+3 rows selected.
+```
+
+
+
+##### Quantifiers
+
+Quantifiers specify how many times the desired character repeats in the search.
+
+| Syntax | Action                                                       |
+| ------ | ------------------------------------------------------------ |
+| ?      | Search for a character whose preceding character occurs 0 or 1 times. Greedy quantifier. |
+| ?+     | Search for a character whose preceding character occurs 0 or 1 times. Possessive quantifier. |
+| ??     | Search for a character whose preceding character occurs 0 or 1 times. Lazy quantifier. |
+| *      | Search for a character whose preceding character occurs 0 or more times. Greedy quantifier. |
+| *+     | Search for a character whose preceding character occurs 0 or more times. Possessive quantifier. |
+| *?     | Search for a character whose preceding character occurs 0 or more times. Lazy quantifier. |
+| +      | Search for a character whose preceding character occurs 1 or more times. Greedy quantifier. |
+| ++     | Search for a character whose preceding character occurs 1 or more times. Possessive quantifier. |
+| +?     | Search for a character whose preceding character occurs 1 or more times. Lazy quantifier. |
+| {n}    | Search for a character whose preceding character occurs n times. |
+| {n,m}  | Search for a character whose preceding character is repeated at least n times and at most m times. Greedy quantifier. |
+| {n,m}+ | Search for a character whose preceding character is repeated at least n times and at most m times. Possessive quantifier. |
+| {n,m}? | Search for a character whose preceding character is repeated at least n times and at most m times. Lazy quantifier. |
+| {n,}   | Search for a character whose preceding character occurs n or more times. Greedy quantifier. |
+| {n,}+  | Search for a character whose preceding character occurs n or more times. Possessive quantifier. |
+| {n,}?  | Search for a character whose preceding character occurs n or more times. Lazy quantifier. |
+
+**Example**
+
+<Query\> Search for CNO and ADDRESS, which 'th' occurs one time after numbers in customer address, from the CUSTOMERS table.
+
+```
+iSQL> SELECT CNO, ADDRESS FROM CUSTOMERS WHERE REGEXP_LIKE(ADDRESS, '[0-9]th{1}');
+CNO                  ADDRESS                                                       
+--------------------------------------------------------------------------------------
+2                    4712 West 10th Avenue Vancouver BC Canada                     
+9                    10th Floor No. 334 Jiujiang Road Shanghai                     
+13                   12th Floor Five Kemble Street London UK                       
+3 rows selected.
+```
+
+
+
+##### Backreference
+
+Backreference is to reuse a previously referenced pattern using either a number or a name.
+
+| Syntax    | Description                                                  |
+| --------- | ------------------------------------------------------------ |
+| \n        | Referencing using a number (The sequence order can be ambiguous according to the regular expression) |
+| \gn       | Referencing using a number                                   |
+| \g{n}     | Referencing using a number                                   |
+| \g+n      | Relative referencing using a number (PCRE2 extended syntax)  |
+| \g-n      | Relative referencing using a number                          |
+| \g{+n}    | Relative referencing using a number (PCRE2 extended syntax)  |
+| \g{-n}    | Relative referencing using a number                          |
+| \k<name>  | Referencing using a name (Perl syntax)                       |
+| \k'name'  | Referencing using a name (Perl syntax)                       |
+| \g{name}  | Referencing using a name (Perl syntax)                       |
+| \k{name}  | Referencing using a name (.NET syntax)                       |
+| (?P=name) | Referencing using a name (Python syntax)                     |
+
+##### Conditional Matching
+
+The following statement in the table searches for one of the characters separated by "|".
+
+| Syntax           | Description                          |
+| ---------------- | ------------------------------------ |
+| expr\|expr\|expr | Select one among several expressions |
+
+**Example**
+
+<Query\> Search for ENO and EML_TEL which starts with 016 or 018 from EMPLOYEES table.
+
+```
+ISQL> SELECT ENO, EMP_TEL FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_TEL, '^016|018');
+ENO         EMP_TEL          
+--------------------------------
+3           0162581369       
+4           0182563984       
+9           0165293668       
+10          0167452000       
+13          0187636550       
+17          0165293886       
+19          0185698550       
+7 rows selected.
+```
+
+
+
+##### Options for Regular Expression
+
+These are characters enclosed between "(?"and ")". These provide special instructions in regular expressions.
+
+| Option  | Description                                                  |
+| ------- | ------------------------------------------------------------ |
+| (?i)    | Ignore case sensitivity                                      |
+| (?J)    | Allow groups with the same name                              |
+| (?m)    | Search in multi-line mode                                    |
+| (?n)    | Disable automatic capturing                                  |
+| (?s)    | Search in single-line mode                                   |
+| (?U)    | Search non-greedy(Lazy) mode                                 |
+| (?x)    | Ignore whitespace. Whitespace characters within character classes are an exception. |
+| (?xx)   | Ignore whitespace, including whitespace characters within character classes. |
+| (?-...) | Unset the specified option(s)                                |
+| (?^)    | Unset i/m/n/s/x option(s)                                    |
+
+**Example**
+
+<Query\> Search for E_LASTNAME which includes m without case sensitivity from the EMPLOYEES table.
+
+```
+iSQL> SELECT E_LASTNAME FROM EMPLOYEES WHERE REGEXP_LIKE(E_LASTNAME, '(?i)m');
+E_LASTNAME                                                    
+----------------------------------------------------------------
+Moon                                                          
+Momoi                                                         
+Hammond                                                       
+Miura                                                         
+Marquez                                                       
+5 rows selected.
+iSQL> 
+```
+
+
+
+##### Comment
+
+This is the comment using in the regular expression. It starts with "(?#" and ends with")".
+
+| Syntax   | Description |
+| -------- | ----------- |
+| (?#....) | Comment     |
+
+**Example**
+
+<Query\> Search for EMP_JOB which includes 'mas' or 'man' without case sensitivity, with the comment 'test', from the EMPLOYEES table.
+
+```
+iSQL> SELECT EMP_JOB FROM EMPLOYEES WHERE REGEXP_LIKE(EMP_JOB, '(?i)M(?#test)A(s|n)');
+EMP_JOB
+-------------------
+webmaster
+manager
+2 rows selected.
+```
+
+
+
+
+
+### Syntax Differences between Regular Expression Modes
+
+These are representative examples of differences in regular expression syntax between Altibase regular expression mode and PCRE2 compatibility mode.
+
+| Regular Expression Syntax | Altibase Regular Expression Mode                             | PCRE2 Compatibility Mode                                     | Difference                                                   |
+| ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| POSIX Character Class     | `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[:punct:]+');` | `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[[:punct:]]+');` | POSIX character class expressions are different.             |
+| Escape Sequence           | `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','\l+');` | `SELECT REGEXP_COUNT('ABCDEFG1234567abcdefgh!@#$%^&*(','[[:lower:]]+');` | PCRE2 compatibility mode does not support  `\l`. Instead, it supports [[:lower:]]. |
+| POSIX Equivalence Class   | [=A=]                                                        | -                                                            | Not supported                                                |
+|                           | [A-[.CH.]]                                                   | -                                                            | Not supported                                                |
+
+### Regular Expression Error Message
+
+The error code 0x2106C occurring in PCRE2 compatibility mode is presented in the following format in the error message. <1%s> represents the message returned by the PCRE2 library, and <0%s> indicates the location where the error occurred in Altibase.
+
+The cause and solution for this error message can be found in the [15.Regular Expression Error Code]() section of the Error Message Reference.
+
+ 이 에러 메시지에 대한 원인과 조치 방법은 Error Message Reference의 [15.Regular Expression Error Code](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/Error Message Reference.md#15regular-expression-error-code) 장에서 확인할 수 있다.
+
+```
+ERR-2106C : PCRE2 error: <1%s> (occurred in <0%s>)
+```
