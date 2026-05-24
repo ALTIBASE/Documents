@@ -2643,12 +2643,14 @@ while(sRs.next())
 
 ##### Reading BLOB Data
 
+When reading LOB data, it is essential to include explicit transaction termination such as commit or rollback because Lob Locator is internally utilized.
+
 ###### Using the getBinaryStream method with an InputStream object
 
-```
+```java
 ...
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN
-FROM BLOB_TABLE");
+sCon = getConnection();
+PreparedStatement sPstmt = sCon.prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE");
 ResultSet sRs = sPstmt.executeQuery();
 while(sRs.next())
 {
@@ -2657,16 +2659,17 @@ while(sRs.next())
   ...
 }
 ...
+sCon.commit();
 ```
 
 
 
 ###### Using the getBlob method with an InputStream object
 
-```
+```java
 ...
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN
-FROM BLOB_TABLE");
+sCon = getConnection();
+PreparedStatement sPstmt = sCon.prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE");
 ResultSet sRs = sPstmt.executeQuery();
 while(sRs.next())
 {
@@ -2676,17 +2679,19 @@ while(sRs.next())
   ...
 }
 ...
+sCon.commit();
 ```
 
 
 
 ###### Using the getBlob method with a byte array
 
-```
+```java
 ...
 final int sReadLength = 100;
-  
-PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM BLOB_TABLE");
+
+sCon = getConnection();
+PreparedStatement sPstmt = connection().prepareStatement("SELECT BLOB_COLUMN FROM LOB_TABLE");
   
 ResultSet sRs = sPstmt.executeQuery();
  
@@ -2705,8 +2710,8 @@ while(sRs.next())
     }
     ...
 }
- 
 ...
+sCon.commit();
 ```
 
 
