@@ -1,5 +1,4 @@
-Stored Procedures Manual
-========================
+# Stored Procedures Manual
 
 #### Altibase 7.3
 
@@ -100,9 +99,9 @@ Customer Service Portal : <a href='http://support.altibase.com/en/'>http://suppo
 Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 
 
-<br>
-
-# Table Of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+# Table of Contents
 
 - [Preface](#preface)
   - [About This Manual](#about-this-manual)
@@ -153,7 +152,8 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [Overview](#overview-4)
   - [Defining a User-Defined Type](#defining-a-user-defined-type)
   - [Functions for Use with Associative Arrays](#functions-for-use-with-associative-arrays)
-  - [Using RECORD Type Variables and Associative Array Variables](#using-record-type-variables-and-associative-array-variables)
+  - [Functions for Use with VARRAY](#functions-for-use-with-varray)
+  - [Using User-Defined Type Variables within Stored Procedures](#using-user-defined-type-variables-within-stored-procedures)
   - [REF CURSOR](#ref-cursor)
 - [7. Typesets](#7-typesets)
   - [Overview](#overview-5)
@@ -215,6 +215,8 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [UTL_SMTP Example](#utl_smtp-example)
   - [Checking SENDMAIL DAEMON Example](#checking-sendmail-daemon-example)
 
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 
 Preface
@@ -261,7 +263,7 @@ This manual is organized as follows:
     This chapter explains cursor-related statements, which are used to define and control cursors so that multiple records returned by a SELECT statement can be processed within a stored procedure.
 
 -   Chapter 6: User-Defined Types  
-    This chapter explains how to define and use records and associative arrays, which are user-defined types that can be used within stored procedures and functions.
+    This chapter explains how to define and use records, associative arrays, and VARRAY, which are user-defined types that can be used within stored procedures and functions.
 
 -   Chapter 7: Typesets  
     This chapter explains how to define and use user-defined typesets.
@@ -1842,7 +1844,7 @@ max_val CONSTANT integer := 100;
 
 ##### NOCOPY
 
-The NOCOPY option of local variables operates is on equal terms with that of the parameters. Thus, only the address assigned to variables is copied if the NOCOPY option is specified when declaring variables.
+The NOCOPY option of local variables operates on equal terms with that of the parameters. Thus, only the address assigned to variables is copied if the NOCOPY option is specified when declaring variables. The NOCOPY option is utilized when accessing subarrays within an ASSOCIATIVE ARRAY or VARRAY structure.
 
 ##### DEFAULT
 
@@ -2122,7 +2124,7 @@ When a standard exception occurs, the stored procedure raises an error. The NO_D
 Unlike the INTO clause that returns one record each time, the BULK COLLECT clause returns all of the execution results of the SELECT statement at once. Two types of bind variables as shown below can be specified to follow INTO:
 
 -   array_record_name  
-    This specifies the associative array variables of RECORD type that are to store the records that the SELECT statement returns.
+    This specifies the VARRAY variables or associative array variables of RECORD type that are to store the records that the SELECT statement returns.
 
 -   array_variable_name  
     SThis specifies the array variables for each column of the SELECT list. Each data type of the array variables must be compatible with the data type of the corresponding column in the SELECT list, and the number of array variables must equal the number of columns of the SELECT list.
@@ -2424,7 +2426,7 @@ This is the name of the RECORD type variable which is to store the row returned 
 Unlike the INTO clause which retrieves one record at a time, the BULK COLLECT clause retrieves all of the rows returned by the statement at once. Two types of bind variables as shown below can be specified to follow INTO:
 
 -   array_record_name  
-    This specifies the associative array variables of RECORD.
+    This specifies the VARRAY variables or associative array variables of RECORD.
 
 -   array_variable_name  
     This specifies the array variables for each column of the *expr* list. Each data type of the array variables must be compatible with the data type of the corresponding column in the expr list, and the number of array variables must equal the number of columns of the *expr* list.
@@ -2860,7 +2862,7 @@ CREATE OR REPLACE PROCEDURE PROC1
 AS
     V1 INTEGER;
 BEGIN
-    <<LABEL1>>    --- LABLE 지정
+    <<LABEL1>>    --- Declare LABLE
     <<LABEL2>>
      DECLARE
             V1 INTEGER; .......(1)
@@ -2869,9 +2871,9 @@ BEGIN
             DECLARE
                 V1 INTEGER; ......(2)
             BEGIN    
-                LABEL1.V1 := 1;   -- (1)의 V1 참조
-                LABEL2.V1 := 2;   -- (1)의 V1 참조
-                LABEL3.V1 := 3;   -- (2)의 V1 참조
+                LABEL1.V1 := 1;   -- refer to V1 of (1)
+                LABEL2.V1 := 2;   -- refer to V1 of (1)
+                LABEL3.V1 := 3;   -- refer to V1 of (2)
             END;
        END;
 END;
@@ -5165,7 +5167,9 @@ In this chapter, the user-defined types that can be used with stored procedures 
 
 ### Overview
 
-RECORD types and associative arrays, the user-defined types provided for use with store procedures, make it possible to organize data into logical units for processing. They can also be used as parameters or return values when stored procedures and functions call other stored procedures and functions. Note however that values that have user-defined types cannot be passed to clients.
+RECORD types, associative arrays, and VARRAY, the user-defined types provided for use with store procedures, make it possible to organize data into logical units for processing. They can also be used as parameters or return values when stored procedures and functions call other stored procedures and functions. However, values that have user-defined types cannot be passed to clients.  
+
+Currently, the precompiler(apre) offers limited support for Associative Arrays and VARRAYs.
 
 #### RECORD Types
 
@@ -5178,7 +5182,7 @@ For information on defining RECORD types, please refer to "Defining a User-Defin
 An associative array is similar to a hash table. An associative array is a set of key-value pairs. The keys are unique indexes that are used to locate the associated values with the syntax:
 
 ```
-variable_name[index] 또는 variable_name(index)
+variable_name[index] or variable_name(index)
 ```
 
 The data type of index can be either VARCHAR or INTEGER. It can be used to combine data items of the same type into a single data item for processing, regardless of the amount of data. For example, suppose that it is desired to process the data pertaining to employees having employee numbers from 1 to 100. These 100 data items can be processed using an associative array.
@@ -5190,6 +5194,30 @@ Square brackets “[ ]“ or parenthesis “()“ are used to access the element
 Example 1) V1[ 1 ] := 1;
 
 Example 2) V2( 1 ) := 1;
+
+#### VARRAY
+
+A VARRAY type is a user-defined data type in ARRAY format capable of storing a sequence of data with the same data type.
+
+The keys (indexes) of a VARRAY are of INTEGER type and can be used up to the size specified during its declaration. Keys start from 1 and can be set up to a maximum of 2,147,483,647.
+
+Each VARRAY variable can be used within the memory size set by the VARRAY_MEMORY_MAXIMUM property. For detailed information about this property, please refer to the *General Reference*.
+
+For the declaration syntax of a VARRAY, please refer to section 6, "[Defining User-Defined Types](#Defining-a-User-Defined-Type)".
+
+Initialization of VARRAY variables is required through constructors to use them. They can be initialized as shown below:
+
+```
+variable_name := type_name( ); 
+or 
+variable_name := type_name( initial_value1, initial_value2, ..., initial_value*N* );
+```
+
+Once initialized, users must ensure sufficient space by extending it. Extension can be performed incrementally or in multiples. Refer to the EXTEND function in section 6, "Functions for Use with VARRAY," for methods on how to extend variables.
+
+When using VARRAY type variables in the BULK COLLECT clause, it can be used without initialization or extension. Refer to the VARRAY type examples in section 6, "Using User-Defined Type Variables within Stored Procedures," for examples of using VARRAY type variables in the BULK COLLECT clause.
+
+Accessing array elements of VARRAY variables is similar to an Associative Array. The key difference is that VARRAY variables cannot delete elements in the middle of the array. the entire array or the last element ca be deleted. Refer to the TRIM and DELETE functions in section 6, "Functions for Use with VARRAY," for methods for deleting array elements.
 
 #### REF CURSOR (Cursor Variable)
 
@@ -5219,9 +5247,13 @@ This defines a RECORD type that consists of multiple columns, each having its ow
 
 This clause defines RECORD type, which is comprised of data_type. Any data type applicable to SQL statements can be associated with data_type
 
+##### varray_type_spec
+
+This clause defined the VARRAY type, which is comprised of data_type. The 'size' sets the maximum number of elements in the VARRAY. The maximum size can be set up to 2,147,483,647.
+
 #### Example
 
-##### Exampl 1
+##### Example 1
 
 Define a RECORD type called employee that consists of the name (VARCHAR(20)), department (INTEGER) and salary (NUMBER(8)) elements.
 
@@ -5268,7 +5300,20 @@ BEGIN
 …
 ```
 
+##### Example 4
 
+Define a VARRAY called employeelist that uses the employee user-defined record type for its elements and its max size is 100.
+
+```
+DECLARE
+TYPE employee IS RECORD( name VARCHAR(20),
+  dept INTEGER,
+  salary NUMBER(8) );
+TYPE employeelist IS VARRAY(100) OF employee;
+…
+BEGIN
+…
+```
 
 ### Functions for Use with Associative Arrays
 
@@ -5429,9 +5474,142 @@ V1 IDX IS : 38 VALUE IS : 3
 Execute success.
 ```
 
+### Functions for Use with VARRAY
 
+#### Syntax
 
-### Using RECORD Type Variables and Associative Array Variables
+[![associative_array](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.3/kor/media/StoredProcedure/varray_method.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/media/StoredProcedure/varray_method.gif)
+
+#### Purpose
+
+Various functions are provided for manipulating VARRAY array elements. Unlike SQL functions, parentheses “()“ cannot be omitted when using these functions.
+
+##### COUNT
+
+This returns the number of elements in a VARRAY.
+
+##### DELETE
+
+DELETE() removes all elements and returns the number of elements that were removed.
+
+##### LIMIT
+
+LIMIT returns the maximum number of elements in a VARRAY. This value is set as 'size' when users declare the VARRAY type.
+
+##### EXTEND
+
+EXTENT() expands a VARRAY variable within the maximum elements count and returns the count of the expanded elements. If the maximum elements count is exceeded, an error is returned:
+
+EXTEND() expands the VARRAY variable by 1.
+
+EXTEND(n) expands the VARRAY variable by 'n'.
+
+EXTEND(m, n) expands the VARRAY variable by 'm' while duplicating the 'n'th element.
+
+##### TRIM
+
+The TRIM deletes elements from the end of a VARRAY variable and returns the count of the deleted elements.
+
+TRIM() deletes 1 element from the end of the VARRAY variable.
+
+TRIM(n) deletes 'n' elements from the end of the VARRAY variable.
+
+##### EXISTS
+
+EXISTS(n) checks if an element corresponding to n exists in the VARRAY variable. If it exists, it returns the boolean value TRUE; otherwise, it returns FALSE.
+
+##### FIRST
+
+For a VARRAY variable, this function always returns 1. However, if there are no elements, it returns NULL.
+
+##### LAST
+
+For a VARRAY variable, this function returns the largest index number, which is equivalent to the number of elements. Yet, if there are no elements, it returns NULL.
+
+##### NEXT
+
+NEXT(n) returns the index number following n. If the next index doesn't exist, it returns NULL.
+
+##### PRIOR
+
+PRIOR(n) returns the previous index number of n. If the previous index doesn't exist, it returns NULL.
+
+#### Example
+
+##### Example1
+
+Delete element V1 of the VARRAY variables
+
+```
+CREATE OR REPLACE PROCEDURE PROC1( ) AS
+    TYPE MY_ARR IS VARRAY(10) OF INTEGER;
+    V1 MY_ARR;
+    V2 INTEGER;
+BEGIN
+    V1 := MY_ARR( );
+    V2 := V1.EXTEND( V1.LIMIT( ) );
+ 
+    FOR I IN 1 .. V1.LIMIT( ) LOOP
+      V1(I) := I;
+    END LOOP;
+    PRINTLN( 'V1 COUNT IS : '||V1.COUNT() );
+ 
+    V2 := V1.TRIM( );
+    PRINTLN( 'DELETED COUNT IS : '||V2);
+    PRINTLN( 'V1 COUNT IS : '||V1.COUNT() );
+ 
+    FOR I IN V1.FIRST() .. V1.LAST() LOOP
+      PRINTLN( 'V1(' || I || ') : ' || V1(I) );
+    END LOOP;
+ 
+    V2 := V1.TRIM(3);
+    PRINTLN( 'DELETED COUNT IS : '||V2);
+    PRINTLN( 'V1 COUNT IS : '||V1.COUNT() );
+ 
+    FOR I IN V1.FIRST() .. V1.LAST() LOOP
+      PRINTLN( 'V1(' || I || ') : ' || V1(I) );
+    END LOOP;
+ 
+    V2 := V1.DELETE( );
+    PRINTLN( 'DELETED COUNT IS : '||V2);
+    PRINTLN( 'V1 COUNT IS : '||V1.COUNT() );
+END;
+/
+```
+
+The result of execution:
+
+TRIM() deletes the last 1 element, TRIM(3) deletes the last 3 elements, and DELETE deletes the remaining elements.
+
+```
+EXEC PROC1;
+ 
+V1 COUNT IS : 10
+DELETED COUNT IS : 1
+V1 COUNT IS : 9
+V1(1) : 1
+V1(2) : 2
+V1(3) : 3
+V1(4) : 4
+V1(5) : 5
+V1(6) : 6
+V1(7) : 7
+V1(8) : 8
+V1(9) : 9
+DELETED COUNT IS : 3
+V1 COUNT IS : 6
+V1(1) : 1
+V1(2) : 2
+V1(3) : 3
+V1(4) : 4
+V1(5) : 5
+V1(6) : 6
+DELETED COUNT IS : 6
+V1 COUNT IS : 0
+Execute success.
+```
+
+### Using User-Defined Type Variables within Stored Procedures
 
 This section outlines the rules governing the use of user-defined types in stored procedures, with reference to examples. For information on using user-defined types as parameters and return values, please refer to Chapter7: Typesets.
 
@@ -5449,6 +5627,7 @@ The inter-compatibility between user-defined types when used in assignment state
 | RECORD Type       | %ROWTYPE          | Compatible, as long as they comprise the same number and type of columns. |
 | %ROWTYPE          | RECORD Type       | Compatible, as long as they comprise the same number and type of columns. |
 | Associative Array | Associative Array | Only associative array variables that are the same user-defined type (i.e. that have the same type name) are compatible. |
+| VARRAY            | VARRAY            | Only associative array variables that are the same user-defined type (i.e. that have the same type name) are compatible. |
 
 In the following example, the last assignment statement fails even though the two user-defined types have the same internal structure.
 
@@ -5610,6 +5789,106 @@ William              Blake                sales rep
 Execute success.
 ```
 
+#### VARRAY Type Examples
+
+##### Example 1
+
+Output the name of all employees whose ID numbers range from 1 to 20 inclusive.
+
+```
+iSQL> CREATE OR REPLACE PROCEDURE PROC1
+AS
+TYPE emp_array_type IS VARRAY(20) OF VARCHAR(20);
+v_emp emp_array_type;
+BEGIN
+  SELECT e_lastname BULK COLLECT INTO v_emp FROM employees WHERE eno BETWEEN 1 AND 20;
+ 
+  FOR I IN v_emp.FIRST() .. v_emp.LAST() LOOP
+    PRINTLN( v_emp[I] );
+  END LOOP;
+END;
+/
+Create success.
+ 
+iSQL> EXEC PROC1;
+Moon
+Davenport
+Kobain
+Foster
+Ghorbani
+Momoi
+Fleischer
+Wang
+Diaz
+Bae
+Liu
+Hammond
+Jones
+Miura
+Davenport
+Chen
+Fubuki
+Huxley
+Marquez
+Blake
+Execute success.
+```
+
+
+
+##### Example 2
+
+Output the name, salary, and department of all employees whose ID numbers range from 1 to 20 inclusive.
+
+```
+iSQL> CREATE OR REPLACE PROCEDURE PROC1
+AS
+TYPE emp_rec_type IS RECORD (
+         first_name VARCHAR(20),
+         last_name VARCHAR(20),
+                emp_job VARCHAR(15),
+         salary NUMBER(8) );
+TYPE emp_array_type IS VARRAY(20) OF emp_rec_type;
+v_emp emp_array_type;
+BEGIN
+ SELECT e_firstname, e_lastname, emp_job, salary BULK COLLECT INTO v_emp
+ FROM employees
+ WHERE eno BETWEEN 1 AND 20;
+  FOR I IN v_emp.FIRST() .. v_emp.LAST() LOOP
+    PRINTLN( v_emp[I].first_name||' '||
+      v_emp[I].last_name||' '||
+      v_emp[I].emp_job||' '||
+      v_emp[I].salary );
+  END LOOP;
+END;
+/
+Create success.
+ 
+ 
+iSQL> EXEC PROC1;
+Chan-seung           Moon                 CEO
+Susan                Davenport            designer 1500
+Ken                  Kobain               engineer 2000
+Aaron                Foster               PL 1800
+Farhad               Ghorbani             PL 2500
+Ryu                  Momoi                programmer 1700
+Gottlieb             Fleischer            manager 500
+Xiong                Wang                 manager
+Curtis               Diaz                 planner 1200
+Elizabeth            Bae                  programmer 4000
+Zhen                 Liu                  webmaster 2750
+Sandra               Hammond              sales rep 1890
+Mitch                Jones                PM 980
+Yuu                  Miura                PM 2003
+Jason                Davenport            webmaster 1000
+Wei-Wei              Chen                 manager 2300
+Takahiro             Fubuki               PM 1400
+John                 Huxley               planner 1900
+Alvar                Marquez              sales rep 1800
+William              Blake                sales rep
+Execute success.
+```
+
 
 
 #### Overlapping RECORD Type Variables
@@ -5708,7 +5987,60 @@ James                Stone
 Execute success
 ```
 
+#### Multidimensional VARRAY Type Variables
 
+##### Example
+
+Create variables of multidimensional VARRAY type storing the customer name and order number.
+
+```
+iSQL> CREATE OR REPLACE PROCEDURE PROC1
+AS
+TYPE order_array_type IS VARRAY(5) OF INTEGER;
+TYPE customer_order_rec_type IS RECORD ( first_name VARCHAR(20), last_name VARCHAR(20), orders order_array_type );
+TYPE customer_order_array_type IS VARRAY(5) OF customer_order_rec_type;
+v_cust_order customer_order_array_type;
+v_order_array NOCOPY order_array_type;
+ret INTEGER;
+BEGIN
+  v_cust_order := customer_order_array_type();
+  FOR I IN 1 .. 5 LOOP
+    ret := v_cust_order.extend();
+    v_cust_order[I].orders := order_array_type();
+    v_order_array := v_cust_order[I].orders;
+    SELECT c_firstname, c_lastname INTO v_cust_order[I].first_name, v_cust_order[I].last_name FROM customers WHERE cno = I;
+    SELECT ono BULK COLLECT INTO v_order_array FROM orders WHERE cno = I;
+  END LOOP;
+  FOR i in 1 .. 5 LOOP
+    println ( v_cust_order[I].first_name || ' ' || v_cust_order[I].last_name );
+    v_order_array := v_cust_order[I].orders;
+    FOR J IN v_order_array.FIRST() .. v_order_array.LAST() LOOP
+      PRINTLN ( '   order no : ' || v_order_array[J] );
+    END LOOP;
+  END LOOP;
+END;
+/
+Create success.
+ 
+iSQL> EXEC PROC1;
+Estevan              Sanchez
+   order no : 12300001
+   order no : 12310008
+   order no : 12310012
+Pierre               Martin
+   order no : 12300002
+   order no : 12310006
+Gabriel              Morris
+   order no : 11290007
+   order no : 12300012
+Soo-jung             Park
+   order no : 12300005
+James                Stone
+   order no : 12100277
+   order no : 12310004
+   order no : 12310009
+Execute success.
+```
 
 ### REF CURSOR
 
