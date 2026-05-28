@@ -5,16 +5,19 @@ Altibase 7.1.0.10.8 Patch Notes
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [New Features](#new-features)
+    - [BUG-51873 Altibase Connector for Kafka now supports automatic restart functionality.](#bug-51873)
     - [BUG-51888 The maximum allowed length for encrypted PASSWORD used in dblink, aku, and Adapter has been extended to 256 characters.](#bug-51888)
     - [BUG-52014 Enhanced diagnostic information for Protocol header error and Invalid protocol sequence error](#bug-52014)
     - [BUG-52066 Added feature to print the last executed query on abnormal termination](#bug-52066)
     - [BUG-52295 Improved handling of abnormal protocol by terminating session instead of assert and enhanced client logging](#bug-52295)
+    
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-48937 Fixed a failure in deleting backup files when user-created directories exist in the incremental](#bug-48937)
     - [BUG-49298 Fixed unnecessary log output during replication conflict (Not Support Data Type)](#bug-49298)
     - [BUG-50643 Fixed issue where last LOB column value becomes NULL during SYNC conflict](#bug-50643)
     - [BUG-50976 Incorrect value is entered when executing a MERGE INTO statement on a CLOB column.](#bug-50976)
     - [BUG-51324 Fixed performance degradation when collecting disk index statistics in parallel.](#bug-51324)
+    - [BUG-51529 Fixed an intermittent communication error (Protocol header error) that occurred during adapter execution.](#bug-51529)
     - [BUG-51792 Fixed to not adjust the redo point when encountering a TBS Update log during Incomplete Recovery.](#bug-51792)
     - [BUG-51905 Fixed replication issue for disk tables with LOB columns in adapter](#bug-51905)
     - [BUG-51920 Fixed abnormal termination when using LOB type in ORDER BY clause](#bug-51920)
@@ -47,6 +50,13 @@ Altibase 7.1.0.10.8 Patch Notes
 
 New Features
 ============
+
+### BUG-51873<a name=bug-51873></a> Altibase Connector for Kafka now supports automatic restart functionality.
+
+-   **module** :
+-   **Category** : Functionality
+-   **Reproducibility** : Always
+-   **Description** : Altibase Source Connector for Kafka now supports automatic connector restart upon receiving a DDL message. To enable this feature, set the `restart.ddl` property to `true`. The default value is `false`.
 
 ### BUG-51888<a name=bug-51888></a> The maximum allowed length for encrypted PASSWORD used in dblink, aku, and Adapter has been extended to 256 characters.
 
@@ -191,6 +201,13 @@ Fixed Bugs
 -   **Category** : Other
 -   **Reproducibility** : Always
 -   **Description** : Fixed an issue where more time was consumed when collecting disk index statistics in parallel.
+
+### BUG-51529<a name=bug-51529></a> Fixed an intermittent communication error (Protocol header error) that occurred during adapter execution.
+
+-   **module** : rp-jdbcAdapter
+-   **Category** : Functional Error
+-   **Reproducibility** : Always
+-   **Description** : Fixed an intermittent communication error (Protocol header error) that occurred during adapter execution.
 
 ### BUG-51792<a name=bug-51792></a> Fixed to not adjust the redo point when encountering a TBS Update log during Incomplete Recovery.
 
@@ -377,7 +394,7 @@ Fixed Bugs
 -   **module** : mm
 -   **Category** : Memory Error
 -   **Reproducibility** : Rare
--   **Description** : Fixed an issue where ServiceThread could reference invalid memory in an IPC connection environment..
+-   **Description** : Fixed an issue where ServiceThread could reference invalid memory in an IPC connection environment.
 
 ### BUG-52087<a name=bug-52087></a> Fixed an error that could occur when using UNION ALL in a View that uses the ROW_NUMBER() function.
 

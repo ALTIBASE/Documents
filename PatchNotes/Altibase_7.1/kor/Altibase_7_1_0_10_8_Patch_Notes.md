@@ -4,6 +4,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [New Features](#new-features)
+    - [BUG-51873 Altibase Connector for Kafka에 자동 재시작 기능이 추가되었습니다.](#bug-51873)
     - [BUG-51888 dblink, aku, Adapter에서 사용하는 암호화된 PASSWORD의 최대 허용 길이를 256자로 확장하였습니다.](#bug-51888)
     - [BUG-52014 Protocol header error 및 Invalid protocol sequence error 발생 시 진단 정보 출력 보강](#bug-52014)
     - [BUG-52066 비정상 종료 시 직전에 수행된 쿼리 출력 기능 추가](#bug-52066)
@@ -14,6 +15,7 @@
     - [BUG-50643 컬럼이 포함된 테이블의 SYNC 작업 중 특정 레코드에서 충돌(Conflict)이 발생 할 경우, 직전에 입력된 레코드의 마지막 LOB 컬럼값이 NULL로 변경되는 문제를 수정했습니다.](#bug-50643)
     - [BUG-50976 CLOB 컬럼을 포함한 MERGE 문 수행 시 NULL 값이 포함된 행이 예상과 다르게 INSERT되는 문제 수정](#bug-50976)
     - [BUG-51324 디스크 인덱스 통계정보 병렬 수집 시 성능 저하 문제 수정](#bug-51324)
+    - [BUG-51529 adapter 실행 중 간헐적으로 발생하던 통신 오류(Protocol header error) 문제를 수정하였습니다.](#bug-51529)
     - [BUG-51792 불완전 복구시에 TBS Update 로그를 만날경우 redo 시점을 조정하지 않도록 수정합니다.](#bug-51792)
     - [BUG-51905 adapter에서 LOB 컬럼이 포함된 디스크 테이블 이중화 오류 수정](#bug-51905)
     - [BUG-51920 ORDER BY절에 LOB 타입을 사용시 비정상 종료 문제 수정](#bug-51920)
@@ -46,6 +48,33 @@
 
 New Features
 ============
+
+### BUG-51873<a name=bug-51873></a> Altibase Connector for Kafka에 자동 재시작 기능이 추가되었습니다.
+
+-   **module** :
+
+-   **Category** : Functionality
+
+-   **재현 빈도** : Always
+
+-   **설명** : Altibase source connector for Kafka에 DDL 메시지 수신 시
+    자동 재시작 기능이 추가되었습니다. 이 기능을 사용하려면 `restart.ddl` 프로퍼티의 값을 true로 설정해야 합니다.(기본값은 false)
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
 
 ### BUG-51888<a name=bug-51888></a> dblink, aku, Adapter에서 사용하는 암호화된 PASSWORD의 최대 허용 길이를 256자로 확장하였습니다.
 
@@ -325,6 +354,32 @@ Fixed Bugs
     
 -   **재현 방법**
 
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-51529<a name=bug-51529></a> adapter 실행 중 간헐적으로 발생하던 통신 오류(Protocol header error) 문제를 수정하였습니다.
+
+-   **module** : rp-jdbcAdapter
+
+-   **Category** : Functional Error
+
+-   **재현 빈도** : Always
+
+-   **설명** : adapter 실행 중 간헐적으로 발생하던 통신 오류(Protocol header error) 문제를 수정하였습니다.
+
+-   **재현 방법**
     -   **재현 절차**
 
     -   **수행 결과**

@@ -5,7 +5,6 @@ Altibase 7.3.0.1.6 Patch Notes
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [New Features](#new-features)
-    - [BUG-51652 사용자 암호 입력 대신 암호화된 암호 파일로 로그인이 가능해야 합니다.](#bug-51652)
     - [BUG-52085 Altibase Backup Manager](#bug-52085)
     - [BUG-52026 Malformed packet 에러, 프로토콜 헤더 에러가 발생했을 때 분석을 위해 정보 출력을 보강해야 합니다.](#bug-52026)
 - [Fixed Bugs](#fixed-bugs)
@@ -26,35 +25,6 @@ Altibase 7.3.0.1.6 Patch Notes
 
 New Features
 ============
-
-### BUG-51652<a name=bug-51652></a> 사용자 암호 입력 대신 암호화된 암호 파일로 로그인이 가능해야 합니다.
-
--   **module** : ux-isql
-
--   **Category** : Functionality
-
--   **재현 빈도** : Always
-
--   **설명** : iSQL에서 사용자 비밀번호를 암호화된 파일로 저장할 수
-    있으며, 저장된 암호 파일은 iSQL, aexport, iLoader에서 -pf 옵션을
-    통해 로그인 시 사용할 수 있습니다.
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
 
 ### BUG-52085<a name=bug-52085></a> Altibase Backup Manager
 
