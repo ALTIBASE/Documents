@@ -5,7 +5,7 @@
 
 - [New Features](#new-features)
     - [BUG-52165 Enhanced Diagnostic Information for Abnormal Termination](#bug-52165)
-    - [BUG-52321 Support for Debezium-Format Kafka Messages in the Altibase Source Connector](#bug-52321)
+    - [BUG-52321 Support for Debezium-Format Messages in the Altibase Source Connector](#bug-52321)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-52244 Fixed Unnecessary Lock Acquisition on META TABLEs During Statistics Collection After Server Restart](#bug-52244)
     - [BUG-52257 Improved Last Query Logging for UTrans Timeout](#bug-52257)
@@ -34,12 +34,12 @@ New Features
 -   **Reproducibility** : Always
 -   **Description** : Improved diagnostic information recorded in the trace log when the server terminates abnormally due to signals such as SIGSEGV. Statement timing information, cursor information, and transaction lock information are now included to facilitate root cause analysis.
 
-### BUG-52321<a name=bug-52321></a> Support for Debezium-Format Kafka Messages in the Altibase Source Connector
+### BUG-52321<a name=bug-52321></a> Support for Debezium-Format Messages in the Altibase Source Connector
 
 -   **module** : rp-kafkaConnector
 -   **Category** : Functionality
 -   **Reproducibility** : Always
--   **Description** : Added a hidden property that allows the Altibase Source Connector to publish Kafka messages in Debezium format. The default format remains the existing Confluent JDBC Connector format, and no behavior changes occur unless the option is explicitly enabled.
+-   **Description** : Added a hidden property that allows the Altibase Source Connector to publish messages in Debezium format. The default format remains the existing Confluent JDBC Connector format, and no behavior changes occur unless the option is explicitly enabled.
 
 Fixed Bugs
 ==========
@@ -56,7 +56,7 @@ Fixed Bugs
 -   **module** : mm
 -   **Category** : Enhancement
 -   **Reproducibility** : Rare
--   **Description** : Fixed an issue where the **Last Query** field could be logged as **"(null)"** when a statement had already been freed before a UTrans Timeout occurred. The last executed SQL statement is now recorded in the log to improve troubleshooting and root cause analysis.
+-   **Description** : Fixed an issue where the **Last Query** field could be logged as **"(null)"** when a statement had already been freed before a UTrans Timeout occurred. The last executed SQL statement is now recorded in the log when a Utrans Timeout occurs.
 
 ### BUG-52261<a name=bug-52261></a> Fixed Timeout Issue When Concurrently Executing UPDATE Statements Containing EMPTY_CLOB() or EMPTY_BLOB() in oraAdapter
 
