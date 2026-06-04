@@ -7,12 +7,15 @@
     - [BUG-52165 비정상 종료 발생 시 진단 정보 보강](#bug-52165)
     - [BUG-52321 Altibase 소스 커넥터에서 debezium 형식의 kafka 메시지 출력 지원](#bug-52321)
 - [Fixed Bugs](#fixed-bugs)
+    - [BUG-52244 서버 재시작 시 통계 정보 수집 과정에서 META TABLE에 대한 불필요한 Lock 획득 문제 수정](#bug-52244)
     - [BUG-52257 UTransTimeout 발생시 boot 로그에 출력되는 Last Query 개선](#bug-52257)
     - [BUG-52261 oraAdapter에서 EMPTY_CLOB() 또는 EMPTY_BLOB()을 포함한 UPDATE 문을 동시 수행 시 timeout 발생 문제 수정](#bug-52261)
     - [BUG-52262 구버전 클라이언트(6.1.1 이하) 연결 중 잘못된 프로토콜 헤더가 수신될 경우 서버가 비정상 종료되는 문제 수정](#bug-52262)
     - [BUG-52284 모든 public synonym 제거 시 aexport에서 DBMS_METADATA 수행 실패 문제 수정](#bug-52284)
     - [BUG-52314 External Procedure 수행 중 ERR-010A3 : Failed to start an agent process 에러 발생 시 altibase_qp.log에 진단용 메시지 추가](#bug-52314)
     - [BUG-52316 Disconnect Adit 처리 중 서버 비정상 종료 문제 수정](#bug-52316)
+    - [BUG-52318 SSL 통신 중 간헐적인 이중화 Sync 실패 문제 수정](#bug-52318)
+    - [BUG-52320 이중화 테이블 Sync 중 데드락 발생 시 즉시 실패하도록 개선](#bug-52320)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -79,6 +82,33 @@ New Features
 
 Fixed Bugs
 ==========
+
+### BUG-52244<a name=bug-52244></a> 서버 재시작 시 통계 정보 수집 과정에서 META TABLE에 대한 불필요한 Lock 획득 문제 수정
+
+-   **module** : sm
+
+-   **Category** : Functional Error
+
+-   **재현 빈도** : Always
+
+-   **설명** : 서버 재시작 시 통계 정보를 수집하는 과정에서 META TABLE에 대해서도 Lock을 획득하는 문제를 수정했습니다. META TABLE은 Lock 획득이 불필요하므로, 이제 META TABLE인 경우 Lock을 획득하지 않도록 개선했습니다.
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
 
 ### BUG-52257<a name=bug-52257></a> UTransTimeout 발생시 boot 로그에 출력되는 Last Query 개선
 
@@ -257,6 +287,46 @@ Fixed Bugs
 -   **Workaround**
 -   **변경사항**
 
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-52318<a name=bug-52318></a> SSL 통신 중 간헐적인 이중화 Sync 실패 문제 수정
+
+-   **module** : rp
+-   **Category** : Functional Error
+-   **재현 빈도** : Rare
+-   **설명** : SSL 통신 환경에서 간헐적으로 발생하는 일시적인 통신 오류로 인해 이중화 Sync가 실패할 수 있는 문제를 수정했습니다.
+-   **재현 방법**
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+-   **Workaround**
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-52320<a name=bug-52320></a> 이중화 테이블 Sync 중 데드락 발생 시 즉시 실패하도록 개선
+
+-   **module** : rp
+-   **Category** : Functional Error
+-   **재현 빈도** : Rare
+-   **설명** : INSERT가 수행 중인 이중화 대상 테이블에 대해 Sync를 수행할 때 특정 상황에서 데드락이 발생하면, `REPLICATION_SYNC_LOCK_TIMEOUT` 만큼 대기 후 Sync가 실패하는 문제를 개선했습니다. 이제 Sync 수행 중 필요한 Table IS Lock을 획득하지 못하는 경우 즉시 실패하도록 개선했습니다.
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+-   **Workaround**
+-   **변경사항**
     -   Performance view
     -   Property
     -   Compile Option
