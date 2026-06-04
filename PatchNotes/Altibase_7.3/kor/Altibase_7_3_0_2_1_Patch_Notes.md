@@ -53,7 +53,7 @@ New Features
     -   Compile Option
     -   Error Code
 
-### BUG-52321<a name=bug-52321></a> Altibase 소스 커넥터에서 debezium 형식의 kafka 메시지 출력 지원
+### BUG-52321<a name=bug-52321></a> Altibase 소스 커넥터에서 debezium 형식의 메시지 출력 지원
 
 -   **module** : rp-kafkaConnector
 
@@ -61,7 +61,7 @@ New Features
 
 -   **재현 빈도** : Always
 
--   **설명** : 히든 프로퍼티를 통해 Altibase 소스 커넥터에서 Kafka 메시지를 Debezium 형식으로 출력할 수 있는 옵션을 추가했습니다. 기본값은 기존 Confluent JDBC Connector 형식이며, 별도 설정이 없는 경우 기존 동작에는 영향을 주지 않습니다.
+-   **설명** : 히든 프로퍼티를 통해 Altibase 소스 커넥터에서 메시지를 Debezium 형식으로 출력할 수 있는 옵션을 추가했습니다. 기본값은 기존 Confluent JDBC Connector 형식이며, 별도 설정이 없는 경우 기존 동작에는 영향을 주지 않습니다.
 
 -   **재현 방법**
 
@@ -118,7 +118,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Rare
 
--   **설명** : UTrans Timeout 발생 시 마지막으로 수행된 Statement가 해제된 경우 Last Query 정보가 "(null)"로 출력될 수 있는 문제를 개선했습니다. 이제 마지막으로 수행된 SQL 문을 로그에 기록하여 원인 분석이 가능하도록 개선했습니다.
+-   **설명** : UTrans Timeout 발생 시 마지막으로 수행된 Statement가 해제된 경우 Last Query 정보가 "(null)"로 출력될 수 있는 문제를 개선했습니다. 이제 UTrans Timeout 발생 시 마지막으로 수행된 SQL 문을 Last Query로 출력하도록 개선했습니다.
 
 - **재현 방법**
 
