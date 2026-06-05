@@ -7,7 +7,7 @@
     - [BUG-52165 비정상 종료 발생 시 진단 정보 보강](#bug-52165)
     - [BUG-52321 Altibase 소스 커넥터에서 debezium 형식의 kafka 메시지 출력 지원](#bug-52321)
 - [Fixed Bugs](#fixed-bugs)
-    - [BUG-52244 서버 재시작 시 통계 정보 수집 과정에서 META TABLE에 대한 불필요한 Lock 획득 문제 수정](#bug-52244)
+    - [BUG-52244 HARD PREPARE 중 META TABLE에 대한 불필요한 Lock 획득 문제 수정](#bug-52244)
     - [BUG-52257 UTransTimeout 발생시 boot 로그에 출력되는 Last Query 개선](#bug-52257)
     - [BUG-52261 oraAdapter에서 EMPTY_CLOB() 또는 EMPTY_BLOB()을 포함한 UPDATE 문을 동시 수행 시 timeout 발생 문제 수정](#bug-52261)
     - [BUG-52262 구버전 클라이언트(6.1.1 이하) 연결 중 잘못된 프로토콜 헤더가 수신될 경우 서버가 비정상 종료되는 문제 수정](#bug-52262)
@@ -83,7 +83,7 @@ New Features
 Fixed Bugs
 ==========
 
-### BUG-52244<a name=bug-52244></a> 서버 재시작 시 통계 정보 수집 과정에서 META TABLE에 대한 불필요한 Lock 획득 문제 수정
+### BUG-52244<a name=bug-52244></a> HARD PREPARE 중 META TABLE에 대한 불필요한 Lock 획득 문제 수정
 
 -   **module** : sm
 
@@ -91,16 +91,15 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : 서버 재시작 시 통계 정보를 수집하는 과정에서 META TABLE에 대해서도 Lock을 획득하는 문제를 수정했습니다. META TABLE은 Lock 획득이 불필요하므로, 이제 META TABLE인 경우 Lock을 획득하지 않도록 개선했습니다.
+-   **설명** : HARD PREPARE 과정에서 META TABLE에 대해 불필요한 Lock을 획득하던 문제를 수정했습니다.
 
 -   **재현 방법**
-
     -   **재현 절차**
-
+    
     -   **수행 결과**
-
+    
     -   **예상 결과**
-
+    
 -   **Workaround**
 
 -   **변경사항**
