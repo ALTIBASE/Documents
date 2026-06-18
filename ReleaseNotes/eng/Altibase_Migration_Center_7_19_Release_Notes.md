@@ -1,7 +1,7 @@
 Altibase Migration Center 7.20 Release Notes
 ================
 
-#### Release 7.20 (April 30, 2026)
+#### Release 7.20 (June 19, 2026)
 
 Altibase® Tools & Utilities
 
@@ -156,7 +156,7 @@ Migration Center is a pure Java application that uses Swing for GUI mode. It run
 
 ## 1.3 Compatible DBMS
 
-This section introduces the DBMSs and versions that can be migrated using Migration Center 7.19.
+This section introduces the DBMSs and versions that can be migrated using Migration Center 7.20.
 
 | Source DBMS                                                  | Target DBMS                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -189,9 +189,9 @@ When this option is enabled, the migration project directory contains the `DbInd
 
 Regardless of this option, Function-Based Indexes are automatically created before data insertion.
 
-### Added 'Global to Local Partitioned Index' Migration Option
+### Added 'Global to Local Partition Index' Migration Option
 
-A new **Global to Local Partitioned Index** option has been added to optimize performance and reduce log usage by converting Global Non-Partitioned Indexes on partitioned tables in the source database to Local Prefixed Partitioned Indexes. The conversion is performed only when the table partition key and the index key match exactly.
+A new **Global to Local Partition Index** option has been added to optimize performance and reduce log usage by converting Global Non-Partitioned Indexes on partitioned tables in the source database to Local Prefixed Partitioned Indexes. The conversion is performed only when the table partition key and the index key match exactly.
 
 The default value is **Yes**, and this option is applied only when **Keep Partitioned Table** is set to **Yes**.
 

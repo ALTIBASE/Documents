@@ -189,18 +189,18 @@ Migration Center의 호환 가능한 데이터베이스 목록에 CUBRID 9.4 부
 
 ### 마이그레이션 옵션 'No Logging' 추가
 
-성능 향상을 위한 옵션으로 테이블과 인덱스의 마이그레이션 수행 시 로그 생성을 하지 않도록 하여 디스크 사용량을 최적화하는 'No Logging' 옵션이 추가되었다. 기본 설정은 Yes이다. No Logging 기능은 지원되는 환경에서만 적용되며, 적용 여부는 Migration Center가 대상 DB 환경을 확인하여 자동으로 결정한다.
+성능 향상을 위한 옵션으로 테이블과 인덱스의 마이그레이션 수행 시 로그 생성을 하지 않도록 하여 디스크 사용량을 최적화하는 **No Logging**'옵션이 추가되었다. 기본 설정은 Yes이다. No Logging 기능은 지원되는 환경에서만 적용되며, 적용 여부는 Migration Center가 대상 DB 환경을 확인하여 자동으로 결정한다.
 
 - 테이블의 경우 iLoader의 lightmode 옵션을 켠 것과 동일한 기능이 적용되며, 데이터 마이그레이션 수행 시 대상 DB인 알티베이스에 로그를 남기지 않도록 한다. 이 기능은 Altibase 7.3 이상 버전에서만 적용된다. 
 - 인덱스의 경우 인덱스 생성 구문에 NOLOGGING FORCE 절이 추가되어 인덱스 생성 시 로그를 남기지 않도록 한다. 이 기능은 Disk B+ Tree 인덱스에만 적용된다.
 
 ### 마이그레이션 옵션 'Defer Index Creation' 추가
 
-- 성능 향상을 위한 옵션으로 마이그레이션 수행 시 인덱스를 자동으로 생성하지 않고 사용자가 추후 수동 생성할 수 있도록 하는 'Defer Index Creation' 옵션이 추가되었다. 기본 설정은 No이다. 마이그레이션 프로젝트 디렉터리에 생성을 위한 `DbIndex_Create.sql`과 삭제를 위한 `DbIndex_Drop.sql` 파일을 제공한다. 단, Function-Based Index는 해당 옵션의 설정 여부와 관계없이 데이터 적재(Data Insertion) 전에 생성된다.
+- 성능 향상을 위한 옵션으로 마이그레이션 수행 시 인덱스를 자동으로 생성하지 않고 사용자가 추후 수동 생성할 수 있도록 하는 **Defer Index Creation** 옵션이 추가되었다. 기본 설정은 No이다. 이 옵션을 true로 설정하면, 마이그레이션 프로젝트 디렉터리에 생성을 위한 `DbIndex_Create.sql`과 삭제를 위한 `DbIndex_Drop.sql` 파일을 제공한다. 단, 함수 기반 인덱스(Function-Based Index)는 이 옵션의 설정 여부와 관계없이 데이터 적재(Data Insertion) 전에 생성된다.
 
-### 마이그레이션 옵션 'Global to Local Partitioned Index' 추가
+### 마이그레이션 옵션 'Global to Local Partition Index' 추가
 
-- 성능 및 로그 사용량 최적화를 위한 옵션으로 원본 데이터베이스의 파티션드 테이블에 생성된 Global Non-Partitioned Index를 Local Prefixed Partitioned Index로 변환하는 'Global to Local Partitioned Index' 옵션이 추가되었다. 변환은 테이블의 파티션 키와 인덱스 키가 정확히 일치하는 경우에만 수행된다. 기본값은 Yes이며, 'Keep Partitioned Table' 옵션이 Yes로 설정된 경우에만 적용된다.
+- 성능 및 로그 사용량 최적화를 위한 옵션으로 원본 데이터베이스의 파티션드 테이블에 생성된 Global Non-Partitioned Index를 Local Prefixed Partitioned Index로 변환하는 **Global to Local Partition Index** 옵션이 추가되었다. 변환은 테이블의 파티션 키와 인덱스 키가 정확히 일치하는 경우에만 수행된다. 기본값은 Yes이며, 'Keep Partitioned Table' 옵션이 Yes로 설정된 경우에만 적용된다.
 
 <br/>
 
