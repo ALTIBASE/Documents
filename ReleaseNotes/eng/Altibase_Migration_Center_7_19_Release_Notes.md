@@ -1,7 +1,7 @@
-Altibase Migration Center 7.20 Release Notes
+Altibase Migration Center 7.19 Release Notes
 ================
 
-#### Release 7.20 (June 19, 2026)
+#### Release 7.19 (April 30, 2026)
 
 Altibase® Tools & Utilities
 
@@ -87,7 +87,7 @@ Altibase® Tools & Utilities
 
 <pre>
 Altibase Release Notes Migration Center 
-Release 7.20
+Release 7.19
 Copyright ⓒ 2001~2026 Altibase Corp. All Rights Reserved.<br>
 This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the software is prohibited.<br>
 All trademarks, registered or otherwise, are the property of their respective owners.<br>
@@ -111,7 +111,6 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [1.3 Compatible DBMS](#13-compatible-dbms)
 - [2. Release Information](#2-release-information)
   - [2.1 New Features](#21-new-features)
-  - [2.2 Bug-Fixes](#22-bug-fixes)
 - [3. Open Source Libraries / Royalty-Free Images Used](#3-open-source-libraries--royalty-free-images-used)
 - [4. Packages](#4-packages)
 - [5. Download](#5-download)
@@ -156,58 +155,28 @@ Migration Center is a pure Java application that uses Swing for GUI mode. It run
 
 ## 1.3 Compatible DBMS
 
-This section introduces the DBMSs and versions that can be migrated using Migration Center 7.20.
+This section introduces the DBMSs and versions that can be migrated using Migration Center 7.19.
 
-| Source DBMS                                                  | Target DBMS                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Altibase 4.3.9 or higher<br />Altibase Windows 2026 (Altibase 2.6.0)<br />CUBRID 8.4 ~ 11.4 (ISO-8859-1, UTF-8 charset) <br />Microsoft SQL Server 2005 ~ 2012<br />Oracle Database 10gR2 ~ 21c <br />Oracle MySQL 5.0 ~ 5.7 <br />Oracle TimesTen 11.2 <br />Tibero 4 SP1 ~ 7.2.2<br/>PostgreSQL 9.5 ~ 18 | Altibase 6.5.1 or higher<br />Altibase Windows 2026 (Altibase 2.6.0) |
+| Source DBMS                                                  | Target DBMS              |
+| ------------------------------------------------------------ | ------------------------ |
+| Altibase 4.3.9 or higher<br />Altibase Windows 2026 (Altibase 2.6.0)<br />CUBRID 8.4.1 ~ 9.3.5 (ISO-8859-1, UTF-8 charset) <br />Microsoft SQL Server 2005 ~ 2012<br />Oracle Database 10gR2 ~ 21c <br />Oracle MySQL 5.0 ~ 5.7 <br />Oracle TimesTen 11.2 <br />Tibero 4 SP1 ~ 7.2.2<br/>PostgreSQL 9.5 ~ 18 | Altibase 6.5.1 or higher<br />Altibase Windows 2026 (Altibase 2.6.0) |
 
 <br/>
 
 # 2. Release Information
 
-This section summarizes new features, fixed bugs, and changes in Migration Center 7.20.
+This section summarizes new features, fixed bugs, and changes in Migration Center 7.19.
 
 ## 2.1 New Features
 
-### Expanded Support for CUBRID 8.4 - 11.4 as Source Database
+### Expanded Support for PostgreSQL 9.6 - 18 as Source Database
+PostgreSQL versions 9.6, 10, 11, 12, 13, 14, 15, 16, 17, and 18 are now supported as source databases.
 
-CUBRID versions 8.4 - 11.4 are now supported as source databases.
+### Support for PostgreSQL's Identity Column Migration
+Altibase does not support the identity column feature in PostgreSQL. Therefore, during migration, a sequence is automatically created to replace each identity column. The sequence is set to the last value of the identity column, and the column’s default is defined as the `.nextval` of the generated sequence to preserve the original behavior.
 
-### Added 'No Logging' Migration Option
-
-A new **No Logging** option has been added to improve migration performance and optimize disk usage by preventing log generation during table and index migration. The default value is **Yes**. The No Logging feature is applied only in supported environments, and Migration Center automatically determines whether it can be used by checking the target database environment.
-
-- For **tables**, this option prevents log generation in the target Altibase database during data migration. This feature is supported only on **Altibase 7.3 or later**.
-- For **indexes**, the **NOLOGGING FORCE** clause is added to the index creation statement, preventing log generation during index creation. This feature applies only to **Disk B+Tree indexes**.
-
-### Added 'Defer Index Creation' Migration Option
-
-A new **Defer Index Creation** option has been added to improve migration performance by postponing index creation during migration and allowing users to create indexes manually after the migration is completed. The default value is **No**.
-
-When this option is enabled, the migration project directory contains the `DbIndex_Create.sql` file for index creation and the `DbIndex_Drop.sql` file for index removal.
-
-Regardless of this option, Function-Based Indexes are automatically created before data insertion.
-
-### Added 'Global to Local Partition Index' Migration Option
-
-A new **Global to Local Partition Index** option has been added to optimize performance and reduce log usage by converting Global Non-Partitioned Indexes on partitioned tables in the source database to Local Prefixed Partitioned Indexes. The conversion is performed only when the table partition key and the index key match exactly.
-
-The default value is **Yes**, and this option is applied only when **Keep Partitioned Table** is set to **Yes**.
-
-## 2.2 Bug-Fixes
-
-### BUG-52287 Fixed an Issue Where Converted Object Names Exceeded the Altibase Object Name Length Limit
-
-Fixed an issue where migration could fail when a converted object name exceeded the Altibase object name length limit. This occurred when Migration Center generated a new object name based on an existing object name that exceeded a certain length.
-
-### BUG-52333 Fixed Incorrect Default Tablespace Assignment for Users with ALL PRIVILEGES
-
-Fixed an issue where the default tablespace of the SYS user was incorrectly used when generating default tablespace information for users granted the ALL PRIVILEGES privilege in Altibase. As a result, the target database user could be assigned an incorrect default tablespace.
-
-### BUG-52375 Fixed Incorrect Detection of Function-Based Indexes in Altibase
-
-Fixed an issue where Migration Center could incorrectly determine whether an index was a Function-Based Index when Altibase was used as the source database.
+### Support for PostgreSQL's DOMAIN Data Type Column Migration
+Altibase does not support PostgreSQL's DOMAIN data type. Therefore, columns defined using DOMAINs are converted to their base data types, and constraints defined on the DOMAIN are converted into column-level constraints.
 
 <br/>
 
@@ -246,9 +215,9 @@ Migration Center is based on the following open-source libraries. The licenses a
 
 The Migration Center installation package is provided in two types (.zip, .gz) files.
 
-- MigrationCenter7.20.zip
+- MigrationCenter7.19.zip
 
-- MigrationCenter7.20.tar.gz
+- MigrationCenter7.19.tar.gz
 
 <br/>
 
