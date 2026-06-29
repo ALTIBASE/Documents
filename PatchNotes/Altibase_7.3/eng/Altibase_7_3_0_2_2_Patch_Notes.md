@@ -15,9 +15,9 @@ Altibase 7.3.0.2.2 Patch Notes
     - [BUG-52397 Fixed a server crash caused by memory corruption when processing NCHAR and NVARCHAR data in UTF8 character set environment](#bug-52397)
 - [Changes](#changes)
     - [Version Info](#version-info)
-    - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
-    - [프로퍼티](#%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)
-    - [성능 뷰](#%EC%84%B1%EB%8A%A5-%EB%B7%B0)
+    - [Compatibility](#compatibility)
+    - [Altibase Server Properties](#altibase-server-properties)
+    - [Performance Views](#performance-views)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
