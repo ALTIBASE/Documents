@@ -45,14 +45,19 @@ OpenAPI 문서와 Swagger UI 에 표시되는 버전 정보가 실제 설치된 
 
 ## 2. 다운로드
 
-### 패키지 (ZIP)
+### 패키지
 
-* [document-access-java-1.0.3-ALL.zip](http://ux-jenkins.altibase.local:8080/job/KADA_1.0.3/lastSuccessfulBuild/artifact/document-access-java/build/distributions/document-access-java-1.0.3-ALL.zip)
-* [document-access-rest-1.0.3-ALL.zip](http://ux-jenkins.altibase.local:8080/job/KADA_1.0.3/lastSuccessfulBuild/artifact/document-access-rest/build/distributions/document-access-rest-1.0.3-ALL.zip)
+KADA API 패키지는 아래의 파일로 제공되며, http://support.altibase.com/kr/product 에서 다운로드 받을 수 있습니다.
 
-### 도커 이미지 (TAR)
+* document-access-java-1.0.3-ALL.zip
+* document-access-rest-1.0.3-ALL.zip
 
-* [document-access-rest-1.0.3.tar](http://ux-jenkins.altibase.local:8080/job/KADA_1.0.3/lastSuccessfulBuild/artifact/build/docker/document-access-rest-1.0.3.tar)
+### 도커 이미지
+
+KADA REST API Docker 이미지는 다음 태그로 제공됩니다.
+
+- altibase/document-access-rest:1.0.3
+- altibase/document-access-rest:latest
 
 ### 매뉴얼
 

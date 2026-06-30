@@ -3,6 +3,20 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
+- [Altibase KADA Release Notes](#altibase-kada-release-notes)
+  - [Packages](#packages)
+    - [Docker Image](#docker-image)
+  - [Version 1.0.3 (2026-07-01)](#version-103-2026-07-01)
+    - [KADA REST API](#kada-rest-api)
+    - [KADA JAVA API](#kada-java-api)
+  - [Version 1.0.2 (2026-04-21)](#version-102-2026-04-21)
+    - [KADA REST API](#kada-rest-api-1)
+    - [KADA JAVA API](#kada-java-api-1)
+  - [Version 1.0.1 (2026-04-09)](#version-101-2026-04-09)
+    - [KADA REST API](#kada-rest-api-2)
+    - [KADA JAVA API](#kada-java-api-2)
+
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 <br/>
@@ -10,22 +24,25 @@
 Altibase KADA Release Notes
 ===============================
 
-또는 Altibase KADA Release History 라는 제목이 어떠한지요?
 
 
+## Packages
+
+KADA API 의 최신 패키지는 http://support.altibase.com/kr/product 에서 다운로드 받을 수 있습니다.
+
+* document-access-java-1.0.3-ALL.zip
+* document-access-rest-1.0.3-ALL.zip
+
+### Docker Image
+
+KADA REST API Docker 이미지는 다음 태그로 제공됩니다.
+
+- altibase/document-access-rest:1.0.3
+- altibase/document-access-rest:latest
+
+<br/>
 
 ## Version 1.0.3 (2026-07-01)
-
-### Downloads
-
-**Binary Package (ZIP)**
-
-* [document-access-java-1.0.3-ALL.zip](http://ux-jenkins.altibase.local:8080/job/KADA_1.0.3/lastSuccessfulBuild/artifact/document-access-java/build/distributions/document-access-java-1.0.3-ALL.zip)
-* [document-access-rest-1.0.3-ALL.zip](http://ux-jenkins.altibase.local:8080/job/KADA_1.0.3/lastSuccessfulBuild/artifact/document-access-rest/build/distributions/document-access-rest-1.0.3-ALL.zip)
-
-**Docker Image (TAR)**
-
-* [document-access-rest-1.0.3.tar](http://ux-jenkins.altibase.local:8080/job/KADA_1.0.3/lastSuccessfulBuild/artifact/build/docker/document-access-rest-1.0.3.tar)
 
 ### KADA REST API
 
@@ -45,17 +62,7 @@ OpenAPI 문서와 Swagger UI 에 표시되는 버전 정보가 실제 설치된 
 
 <br/>
 
-## Version 1.0.2 (2026-07-01)
-
-### Downloads
-
-**Binary Package (ZIP)**
-
-* 
-
-**Docker Image (TAR)**
-
-* 
+## Version 1.0.2 (2026-04-21)
 
 ### KADA REST API
 
@@ -75,17 +82,7 @@ JSON 쿼리 처리, API Key 인증, 테넌트 격리 및 문서 갱신 처리에
 
 <br/>
 
-## Version 1.0.1 (2026-07-01)
-
-### Downloads
-
-**Binary Package (ZIP)**
-
-* 
-
-**Docker Image (TAR)**
-
-* 
+## Version 1.0.1 (2026-04-09)
 
 ### KADA REST API
 
