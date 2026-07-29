@@ -34,11 +34,39 @@
 
 <br/>
 
-# Altibase 7.3
+
+
+# Altibase 8.1
+
+Java 22 이상에서는 JDK의 변경 사항으로 인해 추가 설정이 필요합니다. 자세한 내용은 *[JDBC 시작하기](https://manual.altibase.com/8.1/dev/jdbc/1.-Starting-JDBC/#1-jdbc-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)* 를 참고하시기 바랍니다.
 
 ### Altibase Server Side
 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 | Java 7 | Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 21 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 ~ 7 | Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 25 |
+| ------------------------------------------------------------ | :--------: | :----: | :----: | :-----: | :-----: | :-----: | :----------: |
+| **altiMon**                                                  |     x      |   ●    |   ●    |    ●    |    ●    |    ●    |      ●       |
+| **Adapter for JDBC**                                         |     x      |   ●    |   ●    |    ●    |    ●    |    ●    |      ●       |
+| **DB Link**                                                  |     x      |   ●    |   ●    |    ●    |    ●    |    ●    |      ●       |
+
+
+
+### Altibase JDBC 드라이버
+
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 ~ 7 | Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 25 |
+| :----------------------------------------------------------- | :--------: | :----: | :----: | :-----: | :-----: | :-----: | :----------: |
+| **Altibase.jar**                                             |     x      |   ●    |   ●    |    ●    |    ●    |    ●    |      ●       |
+
+<br/>
+
+<br/>
+
+# Altibase 7.3
+
+Java 22 이상에서는 JDK의 변경 사항으로 인해 추가 설정이 필요합니다. 자세한 내용은 *[JDBC 시작하기](https://manual.altibase.com/7.3/dev/jdbc/1.-Starting-JDBC/#1-jdbc-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)* 를 참고하시기 바랍니다.
+
+### Altibase Server Side
+
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 | Java 7 | Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 25 |
 | ------------------------------------------------------------ | :----: | :----: | :----: | :----: | :----: | :-----: | :-----: | :-----: | :----------: |
 | **altiMon**                                                  |   x    |   x    |   x    |   ●    |   ●    |    ●    |    ●    |    ●    |      ●       |
 | **Adapter for JDBC**                                         |   x    |   x    |   x    |   ●    |   ●    |    ●    |    ●    |    ●    |      ●       |
@@ -48,7 +76,7 @@
 
 ### Altibase JDBC 드라이버
 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 | Java 7 | Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 21 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 | Java 7 | Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 25 |
 | :----------------------------------------------------------- | :----: | :----: | :----: | :----: | :----: | :-----: | :-----: | :-----: | :----------: |
 | **Altibase.jar**                                             |   x    |   x    |   x    |   ●    |   ●    |    ●    |    ●    |    ●    |      ●       |
 
@@ -58,9 +86,11 @@
 
 # Altibase 7.1
 
+Java 22 이상에서는 JDK의 변경 사항으로 인해 추가 설정이 필요합니다. 자세한 내용은 *[JDBC 시작하기](https://manual.altibase.com/7.1/dev/jdbc/1.-Starting-JDBC/#1-jdbc-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0)* 를 참고하시기 바랍니다.
+
 ### Altibase Server Side
 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 | Java 7 | Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 21 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 | Java 7 | Java 8 | Java 9 | Java 10 | Java 11 | Java 12 | Java 17 ~ 25 |
 | ------------------------------------------------------------ | :----: | :----: | :----: | :----: | :----: | :-----: | :-----: | :-----: | :----------: |
 | **altiMon**                                                  |   ●    |   ●    |   ●    |   ●    |   ●    |    ●    |  ●[^1]  |    ●    |      ●       |
 | **Adapter for JDBC**                                         |   x    |   x    |   ●    |   ●    |   ●    |    ●    |  ●[^2]  |    ●    |      ●       |
@@ -74,7 +104,7 @@
 
 ### Altibase JDBC 드라이버
 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 ~ Java 7 | Java 8 | Java 9 ~ Java 10 | Java 11[^4] | Java 12 | Java 17 ~ 21 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Java 5 | Java 6 ~ Java 7 | Java 8 | Java 9 ~ Java 10 | Java 11[^4] | Java 12 | Java 17 ~ 25 |
 | :----------------------------------------------------------- | :----: | :-------------: | :----: | :--------------: | :---------: | :-----: | :----------: |
 | **Altibase.jar**                                             |   ●    |        ●        |   ●    |        ●         |      ●      |    ●    |      ●       |
 | **Altibase42.jar**                                           |   x    |        x        |   ●    |        ●         |      ●      |    ●    |      ●       |
