@@ -54,11 +54,11 @@ New Features
 
     -   Performance view
     -   Property
-        -   ALA\_VERIFY\_SENDER\_IP (ALA Properties)
+        -   ALA\_VERIFY\_SENDER\_IP (Adapter Properties)
             -   Value range: 0, 1
                 -   1: (default) Verify
                 -   0: Do not verify
-        -   ala.verify.sender.ip (커넥터 Properties)
+        -   ala.verify.sender.ip (Altibase Connector Properties)
             -   Type: boolean
                 -   true: (default) Verify
                 -   false: Do not verify
