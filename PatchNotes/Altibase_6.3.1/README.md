@@ -1,5 +1,11 @@
 # Altibase 6.3.1 Patch Notes - Korean
 
+- #### Altibase 6.3.1.13.0 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.3.1/kor/Altibase_6_3_1_13_0_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.3.1/kor/PDF/Altibase_6_3_1_13_0_Patch_Notes.pdf)
+
+- #### Altibase 6.3.1.12.9 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.3.1/kor/Altibase_6_3_1_12_9_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.3.1/kor/PDF/Altibase_6_3_1_12_9_Patch_Notes.pdf)
+
+- #### Altibase 6.3.1.12.8 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.3.1/kor/Altibase_6_3_1_12_8_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.3.1/kor/PDF/Altibase_6_3_1_12_8_Patch_Notes.pdf)
+
 - #### Altibase 6.3.1.12.7 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.3.1/kor/Altibase_6_3_1_12_7_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.3.1/kor/PDF/Altibase_6_3_1_12_7_Patch_Notes.pdf)
 
 - #### Altibase 6.3.1.12.6 Patch Notes [[markdown]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.3.1/kor/Altibase_6_3_1_12_6_Patch_Notes.md) [[pdf]](https://github.com/ALTIBASE/Documents/blob/master/PatchNotes/Altibase_6.3.1/kor/PDF/Altibase_6_3_1_12_6_Patch_Notes.pdf)
