@@ -178,7 +178,7 @@ Altibase has developed the **Altibase Handler** for integration with **MindsDB**
 
 * **Support for .NET 8 Environment**
 
-Altibase ADO.NET 드라이버 및 Altibase EF(Entity Framework) Core가 .NET 8.0 환경에서 동작할 수 있도록 개선되었다.
+The Altibase ADO.NET driver and Altibase EF (Entity Framework) Core have been improved to support operation in .NET 8.0 environments.
 
 * **Support for Node.js Driver (node-odbc-altibase)**
 
