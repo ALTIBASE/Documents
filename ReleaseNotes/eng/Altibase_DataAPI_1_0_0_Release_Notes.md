@@ -4,7 +4,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [Altibase DataAPI 1.0.0 Release Notes](#altibase-dataapi-100-release-notes)
+- [Altibase Data API 1.0.0 Release Notes](#altibase-data-api-100-release-notes)
   - [1. Overview](#1-overview)
   - [2. Key Features](#2-key-features)
     - [Support for JWT Bearer Authentication and Basic Authentication](#support-for-jwt-bearer-authentication-and-basic-authentication)
@@ -27,14 +27,14 @@
 
 <br/>
 
-Altibase DataAPI 1.0.0 Release Notes
+Altibase Data API 1.0.0 Release Notes
 ===============================
 
 **(July 1, 2026)**
 
 ## 1. Overview
 
-The Altibase Data API is a Spring Boot–based service that provides Altibase SQL execution and query capabilities over HTTP APIs. Clients can perform SQL queries, execute DML/DDL statements, and leverage streaming for bulk data retrieval via either DB user authentication or JWT token–based authentication. Additionally, it offers a monitoring API to query connection pool status and metric information for the Data API.
+The Altibase Data API is a Spring Boot-based service that provides Altibase SQL execution and query capabilities over HTTP APIs. Clients can perform SQL queries, execute DML/DDL statements, and leverage streaming for bulk data retrieval via either DB user authentication or JWT Bearer authentication. Additionally, it offers a monitoring API to query connection pool status and metric information for the Data API.
 
 ## 2. Key Features
 
@@ -67,7 +67,10 @@ Provides APIs for retrieving connection pool status and metrics, as well as Prom
 ## 3. Compatibility
 
 - Compatible with Java 17 or later.
-- Available for Altibase 7.1.0.5.6 or later.
+- Available for Altibase 7.1.0.5.6 or later. (However, the Altibase version supported depends on the package.)
+  - `data-api-1.0.0-altibase8.jar`: Altibase 8.x or later
+  - `data-api-1.0.0-altibase7.jar`: Altibase 7.1.0.5.6 to 7.3.x.x.x
+
 
 
 
@@ -84,9 +87,11 @@ The Data API packages are provided as the following files and can be downloaded 
 
 The Data API Docker images are provided with the following tags.
 
-- altibase/data-api:1.0.0
-- altibase/data-api:1.0.0-altibase7
-- altibase/data-api:latest
+| Docker tag                        | Supported Altibase               |
+| --------------------------------- | -------------------------------- |
+| altibase/data-api:1.0.0           | Altibase 8.x or later            |
+| altibase/data-api:latest          | Altibase 8.x or later            |
+| altibase/data-api:1.0.0-altibase7 | Altibase 7.1.0.5.6  to 7.3.x.x.x |
 
 ### Manual
 

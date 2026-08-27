@@ -4,7 +4,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [Altibase DataAPI 1.0.0 Release Notes](#altibase-dataapi-100-release-notes)
+- [Altibase Data API 1.0.0 Release Notes](#altibase-data-api-100-release-notes)
   - [1. 개요](#1-%EA%B0%9C%EC%9A%94)
   - [2. 주요 특징](#2-%EC%A3%BC%EC%9A%94-%ED%8A%B9%EC%A7%95)
     - [JWT Bearer 인증 및 Basic 인증 지원](#jwt-bearer-%EC%9D%B8%EC%A6%9D-%EB%B0%8F-basic-%EC%9D%B8%EC%A6%9D-%EC%A7%80%EC%9B%90)
@@ -27,7 +27,7 @@
 
 <br/>
 
-Altibase DataAPI 1.0.0 Release Notes
+Altibase Data API 1.0.0 Release Notes
 ===============================
 
 **(July 1, 2026)**
@@ -67,7 +67,9 @@ SQL 실행, 결과 조회, 대용량 스트리밍, 인증 및 세션 관리에 �
 ## 3. 호환성
 
 - Java 17 이상에서 호환됩니다.
-- Altibase 7.1.0.5.6 이상에서 사용할 수 있습니다.
+-  Altibase 7.1.0.5.6 이상에서 사용할 수 있습니다. (단, 패키지별로 지원하는 Altibase버전이 다릅니다.)
+    - `data-api-1.0.0-altibase8.jar`: Altibase 8.x or later
+    - `data-api-1.0.0-altibase7.jar`: Altibase 7.1.0.5.6 to 7.3.x.x.x
 
 
 
@@ -84,9 +86,11 @@ Data API 패키지는 아래의 파일로 제공되며, http://support.altibase.
 
 Data API Docker 이미지는 다음 태그로 제공됩니다.
 
-- altibase/data-api:1.0.0
-- altibase/data-api:1.0.0-altibase7
-- altibase/data-api:latest
+| 도커 태그                         | 지원하는 Altibase 버전           |
+| --------------------------------- | -------------------------------- |
+| altibase/data-api:1.0.0           | Altibase 8.x or later            |
+| altibase/data-api:latest          | Altibase 8.x or later            |
+| altibase/data-api:1.0.0-altibase7 | Altibase 7.1.0.5.6  to 7.3.x.x.x |
 
 ### 매뉴얼
 
