@@ -68,6 +68,9 @@ Provides APIs for retrieving connection pool status and metrics, as well as Prom
 
 - Compatible with Java 17 or later.
 - Available for Altibase 7.1.0.5.6 or later. (However, the Altibase version supported depends on the package.)
+  - `data-api-1.0.0-altibase8.jar`: Altibase 8.x or later
+  - `data-api-1.0.0-altibase7.jar`: Altibase 7.1.0.5.6 to 7.3.x.x.x
+
 
 
 
@@ -77,19 +80,18 @@ Provides APIs for retrieving connection pool status and metrics, as well as Prom
 
 The Data API packages are provided as the following files and can be downloaded from http://support.altibase.com/kr/product.
 
-| Package                      | Supported Altibase          |
-| ---------------------------- | --------------------------- |
-| data-api-1.0.0-altibase8.jar | Altibase 8.x                |
-| data-api-1.0.0-altibase7.jar | Altibase 7.1.0.5.6 or later |
+* data-api-1.0.0-altibase8.jar
+* data-api-1.0.0-altibase7.jar
 
 ### Docker Images
 
 The Data API Docker images are provided with the following tags.
 
-| Docker tag                                            | Supported Altibase          |
-| ----------------------------------------------------- | --------------------------- |
-| altibase/data-api:1.0.0,<br/>altibase/data-api:latest | Altibase 8.x                |
-| altibase/data-api:1.0.0-altibase7                     | Altibase 7.1.0.5.6 or later |
+| Docker tag                        | Supported Altibase               |
+| --------------------------------- | -------------------------------- |
+| altibase/data-api:1.0.0           | Altibase 8.x or later            |
+| altibase/data-api:latest          | Altibase 8.x or later            |
+| altibase/data-api:1.0.0-altibase7 | Altibase 7.1.0.5.6  to 7.3.x.x.x |
 
 ### Manual
 

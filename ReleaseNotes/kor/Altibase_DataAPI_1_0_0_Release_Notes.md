@@ -67,7 +67,9 @@ SQL 실행, 결과 조회, 대용량 스트리밍, 인증 및 세션 관리에 �
 ## 3. 호환성
 
 - Java 17 이상에서 호환됩니다.
-- Altibase 7.1.0.5.6 이상에서 사용할 수 있습니다. (단, 패키지별로 지원하는 Altibase버전이 다릅니다.)
+-  Altibase 7.1.0.5.6 이상에서 사용할 수 있습니다. (단, 패키지별로 지원하는 Altibase버전이 다릅니다.)
+    - `data-api-1.0.0-altibase8.jar`: Altibase 8.x or later
+    - `data-api-1.0.0-altibase7.jar`: Altibase 7.1.0.5.6 to 7.3.x.x.x
 
 
 
@@ -77,19 +79,18 @@ SQL 실행, 결과 조회, 대용량 스트리밍, 인증 및 세션 관리에 �
 
 Data API 패키지는 아래의 파일로 제공되며, http://support.altibase.com/kr/product 에서 다운로드 받을 수 있습니다.
 
-| 패키지                       | 지원하는 Altibase 버전      |
-| ---------------------------- | --------------------------- |
-| data-api-1.0.0-altibase8.jar | Altibase 8.x                |
-| data-api-1.0.0-altibase7.jar | Altibase 7.1.0.5.6 or later |
+* data-api-1.0.0-altibase8.jar
+* data-api-1.0.0-altibase7.jar
 
 ### 도커 이미지
 
 Data API Docker 이미지는 다음 태그로 제공됩니다.
 
-| 도커 태그                                             | 지원하는 Altibase 버전      |
-| ----------------------------------------------------- | --------------------------- |
-| altibase/data-api:1.0.0,<br/>altibase/data-api:latest | Altibase 8.x                |
-| altibase/data-api:1.0.0-altibase7                     | Altibase 7.1.0.5.6 or later |
+| 도커 태그                         | 지원하는 Altibase 버전           |
+| --------------------------------- | -------------------------------- |
+| altibase/data-api:1.0.0           | Altibase 8.x or later            |
+| altibase/data-api:latest          | Altibase 8.x or later            |
+| altibase/data-api:1.0.0-altibase7 | Altibase 7.1.0.5.6  to 7.3.x.x.x |
 
 ### 매뉴얼
 
