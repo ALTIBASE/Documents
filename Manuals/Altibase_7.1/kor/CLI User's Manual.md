@@ -265,6 +265,10 @@ Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
 -   제 3장 LOB 인터페이스  
     이 장은 LOB 데이터를 사용하는데 필요한 함수 및 데이터 타입을 설명한다.
 
+-   제 4장 커서 사용
+    
+    이 장은 Altibase CLI 드라이버가 제공하는 커서의 사용법을 설명한다.
+    
 -   A. 부록: Sample Code  
     본 매뉴얼에서 전반적으로 사용된 예에 대한 전체 코드 리스트를 나타낸다.
 
