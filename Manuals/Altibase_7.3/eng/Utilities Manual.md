@@ -815,11 +815,8 @@ When Altibase is installed, the \$ALTIBASE_HOME/conf directory does not actually
 -   ILOADER_PARTITION  
     This property determines whether the iLoader scripts are generated for each partition when there is a partitioned table in the source database. 
     ILOADER\_ PARTITION = ON/OFF  
-
     When this property is set to ON, scripts for extracting form files and data for each partition are generated in run_il_out.sh. Similarly, scripts for loading data for each partition are generated in run_il_in.sh.
-
     When this property is set to OFF, scripts for handling partitioned tables are generated to use a single data file for extraction and loading, similar to non-partitioned tables.
-
     For more detailed information, please refer to the *iLoader User's Manual.*  
 
 -   ILOADER_ERRORS  
@@ -847,6 +844,10 @@ When Altibase is installed, the \$ALTIBASE_HOME/conf directory does not actually
     SSL_ENABLE = ON/OFF  
     If this property is set to ON, SSL-related options are enabled for iSQL and iLoader commands in the shell scripts (run_is.sh and run_il_in.sh) to be executed on the target database.  
     SSL-related options can be enabled with the SSL_CA, SSL_CAPATH, SSL_CERT, SSL_KEY, SSL_CIPHER, SSL_VERIFY properties. For further information about these properties, please refer to Parameters.
+    
+- ILOADER_GEOM
+  ILOADER_GEOM = WKB
+  This property exports the spatial data in Well-Known Binary (WKB) format. The '-geom WKB' option is added to the run_il_out.sh file after adding 'ILOADER_GEOM = WKB' in aexport.properties and execution.
 
 
 

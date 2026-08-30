@@ -7364,22 +7364,145 @@ else
 }
 
 ```
-# 4. 공간 데이터 마이그레이션
+# 4. 공간 데이터 마이그레이션 (A)
 
-본 장에서는 Altibase 또는 타 벤더  데이터베이스 제품과 공간 데이터 마이그레이션 하는 방법을 설명한다.
+본 장에서는 Altibase 데이터베이스 간  공간 데이터 마이그레이션하는 방법을 설명한다.
 
-### Altibase 제품간 공간 데이터 마이그레이션
+### Altibase 데이터베이스 간 공간 데이터 마이그레이션
 
-Altibase 제품간 공간 데이터 마이그레이션을 위해 iLoader와 aexport를 사용가능하다. 데이터 이관을 위한 iLoader와 마이그레이션을 위한 aexport는 공간 데이터를 지원하기에 다른 데이터 타입과 동일한 방식으로 마이그레이션이 가능하다.  
+공간 데이터 마이그레이션을 하기 위해 aexport와 iLoader를 사용한다. Altibase의 aexport와 iLoader는 공간 데이터를 지원하기때문에, 다른 데이터 타입과 동일한 방식으로 마이그레이션한다. 상세한 내용은 [**Utilities Manual**-aexport]() 와 [**iLoader User’s Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/iLoader%20User's%20Manual.md)를 참조한다.
 
-한가지 주의할 점은 Altibase가 공간 데이터를 저장하는 포맷이다. SYSTEM\_.SYS\_DATABASE\_ 테이블 기준 메타 버젼 8.8.1 미만 버젼은 WKB 포맷을, 8.8.1이상 버젼은 EWKB 포맷을 지원한다. 마이그레이션 수행 시 추출되는 공간 데이터의 포맷은 공간 데이터가 저장된 Altibase가 지원하는 포맷에 따른다. 따라서, 8.8.1 미만 버젼은 WKB 포맷 공간 데이터 파일이 생성되고, 8.8.1이상 버젼은 EWKB 포맷 데이터 파일을 생성한다.
+> **주의**
+>
+> Altibase 메타 버전 8.8.1부터 공간 데이터 저장 포맷이 WKB에서 EWKB로 변경되었다. 이에 따라 메타버전이 8.8.1 이전의 WKB 포맷의 공간데이터를 메타버전이 8.8.1 이상의 데이터 베이스로 이관하는 경우, WKB 포맷 공간 데이터는 EWKB 포맷으로 자동 변환된다.
+>
+> 반면, 메타버전 8.8.1 미만의 Altibase는 EWKB 포맷 공간 데이터를 인식하지 못한다. 만약 메타버전이 8.8.1 이상인 데이터베이스에서 메타버전이 8.8.1 미만의 Altibase로 데이터를 이관해야 하는 경우는, 원본 데이터를 WKB 포맷으로 추출하고 진행해야 한다.  
 
-WKB 포맷의 공간 데이터는 EWKB 지원 Altibase가 읽고 자동으로 변환한다. 반면, EWKB 포맷 공간 데이터는 WKB 지원 Altibase가 인식하지 못한다. 따라서, EWKB 포맷 데이터를  WKB 지원 Altibase로 데이터 이관 할때 원본 데이터를 WKB 포맷으로 추출하는 옵션을 사용해야 한다. 마이그레이션 작업할 때는 aexport의 aexport.properties 파일에 'ILOADER_GEOM = WKB' 옵션을, 하나의 테이블만 작업할 때는 iLoader에서 '-geom WKB' 옵션을 사용한다. 상세 내용은 iLoader와 aexport 매뉴얼을 참조한다.
+#### aexport 수행시 WKB 포맷으로 데이터 추출하는 방법
+
+aexport.properties 파일에 아래의 프로퍼티 설정을 추가한다.
+
+```
+ILOADER_GEOM_FORMAT = WKB
+```
+
+ILOADER_GEOM_FORMAT = WKB 프로퍼티 설정을 추가한 후 aexport를 수행하면, 생성되는 run_il_out.sh 파일에 -geom WKB 옵션이 추가된다.
+
+#### iLoader 수행시 WKB 포맷으로 데이터를 이관하는 방법
+
+iLoader를 이용하여 WKB 포맷으로 추출하는 방법
+
+특정 테이블만 마이그레이션 하려는 경우는 iLoader의 '-geom WKB' 옵션을 사용한다.
+
+> [!TIP]
+> Altibase의 메타 버전은 altibase -v 구문으로 확인할 수 있다.
+
+# 4. 공간 데이터 마이그레이션 (B)
+
+본 장에서는 Altibase 데이터베이스 간  공간 데이터 마이그레이션하는 방법을 설명한다.
+
+### Altibase 데이터베이스 간 공간 데이터 마이그레이션
+
+공간 데이터 마이그레이션을 하기 위해 aexport와 iLoader를 사용한다. Altibase의 aexport와 iLoader는 공간 데이터를 지원하기때문에, 다른 데이터 타입과 동일한 방식으로 마이그레이션한다. 상세한 내용은 [**Utilities Manual**-aexport]() 와 [**iLoader User’s Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/iLoader%20User's%20Manual.md)를 참조한다.
+
+> **주의**
+>
+> Altibase 메타 버전 8.8.1부터 공간 데이터 저장 포맷이 WKB에서 EWKB로 변경되었다. 이에 따라 메타버전이 8.8.1 이전의 WKB 포맷의 공간데이터를 메타버전이 8.8.1 이상의 데이터 베이스로 이관하는 경우, WKB 포맷 공간 데이터는 EWKB 포맷으로 자동 변환된다.
+>
+> 반면, 메타버전 8.8.1 미만의 Altibase는 EWKB 포맷 공간 데이터를 인식하지 못한다. 만약 메타버전이 8.8.1 이상인 데이터베이스에서 메타버전이 8.8.1 미만의 Altibase로 데이터를 이관해야 하는 경우는, 원본 데이터를 WKB 포맷으로 추출하고 진행해야 한다.  
+
+#### 원본 데이터를 WKB 포맷으로 추출하는 방법
+
+##### aexport를 이용하여 WKB 포맷으로 추출하는 방법 
+
+aexport.properties 파일에 아래의 프로퍼티 설정을 추가한 다음 aexport를 수행한다.
+
+```
+ILOADER_GEOM_FORMAT = WKB
+```
+
+ILOADER_GEOM_FORMAT = WKB 프로퍼티 설정을 추가한 후 aexport를 수행하면, 생성되는 run_il_out.sh 파일에 -geom WKB 옵션이 추가된다.
+
+##### iLoader를 이용하여 WKB 포맷으로 추출하는 방법
+
+특정 테이블만 마이그레이션 하려는 경우는 iLoader의 '-geom WKB' 옵션을 사용한다.
+
+>[!TIP]
+>Altibase의 메타 버전은 altibase -v 구문으로 확인할 수 있다.
+
+
+
+# 4. 공간 데이터 마이그레이션 (C)
+
+본 장에서는 Altibase 데이터베이스 간  공간 데이터 마이그레이션하는 방법을 설명한다.
+
+### Altibase 데이터베이스 간 공간 데이터 마이그레이션
+
+공간 데이터 마이그레이션을 하기 위해 aexport와 iLoader를 사용한다. Altibase의 aexport와 iLoader는 공간 데이터를 지원하기때문에, 다른 데이터 타입과 동일한 방식으로 마이그레이션한다. 상세한 내용은 [**Utilities Manual**-aexport]() 와 [**iLoader User’s Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/iLoader%20User's%20Manual.md)를 참조한다.
+
+ Altibase 메타 버전 8.8.1부터 공간 데이터 저장 포맷이 EWKB로 변경되었다. (Altibase 메타 버전 8.8.1 이하의 공간 데이터 저장 포맷은 WKB이다.) 만약, 메타버전이 8.8.1 이상인 데이터베이스에서 메타버전이 8.8.1 미만의 Altibase로 데이터를 이관해야 하는 경우는, 아래의 "원본 데이터를 WKB 포맷으로 추출하는 방법"을 참고한다. 
+
+> 참고
+>
+> 메타버전이 8.8.1 이전의 WKB 포맷의 공간 데이터를 메타버전이 8.8.1 이상의 데이터베이스로 이관하는 경우, WKB 포맷 공간 데이터는 EWKB 포맷으로 자동 변환된다. 
+>
+
+#### 원본 데이터를 WKB 포맷으로 추출하는 방법
+
+##### aexport를 이용하여 WKB 포맷으로 추출하는 방법 
+
+aexport.properties 파일에 아래의 프로퍼티 설정을 추가한 다음 aexport를 수행한다.
+
+```
+ILOADER_GEOM_FORMAT = WKB
+```
+
+ILOADER_GEOM_FORMAT = WKB 프로퍼티 설정을 추가한 후 aexport를 수행하면, 생성되는 run_il_out.sh 파일에 -geom WKB 옵션이 추가된다.
+
+##### iLoader를 이용하여 WKB 포맷으로 추출하는 방법
+
+특정 테이블만 마이그레이션 하려는 경우는 iLoader의 '-geom WKB' 옵션을 사용한다.
+
+>[!TIP]
+>Altibase의 메타 버전은 altibase -v 구문으로 확인할 수 있다.
+
+# 4. 공간 데이터 마이그레이션 (D)
+
+본 장에서는 Altibase 데이터베이스 간  공간 데이터 마이그레이션하는 방법을 설명한다.
+
+### Altibase 데이터베이스 간 공간 데이터 마이그레이션
+
+공간 데이터 마이그레이션을 하기 위해 aexport와 iLoader를 사용한다. Altibase의 aexport와 iLoader는 공간 데이터를 지원하기때문에, 다른 데이터 타입과 동일한 방식으로 마이그레이션한다. 상세한 내용은 [**Utilities Manual**-aexport]() 와 [**iLoader User’s Manual**](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.3/kor/iLoader%20User's%20Manual.md)를 참조한다.
+
+마이그레이션 수행시 추출되는 공간 데이터의 포맷은 공간 데이터가 저장된 Altibase가 지원하는 포맷을 따르는데, Altibase 메타 버전 8.8.1 부터 공간 데이터 저장 포맷이 EWKB로 변경되었다. 이로 인해 하위버전에서 상위버전으로의 마이그레이션 방법에는 변경이 없지만, 상위 버전에서 하위버전으로의 마이그레이션은 아래의 주의 사항을 참고해야 한다.
+
+> 주의
+>
+> 메타버전 8.8.1 미만의 Altibase는 EWKB 포맷 공간 데이터를 인식하지 못한다. 메타버전이 8.8.1 이상인 데이터베이스에서 메타버전이 8.8.1 미만의 Altibase로 데이터를 이관해야 하는 경우는, 아래의 "원본 데이터를 WKB 포맷으로 추출하는 방법"을 참고한다. 
+
+> 참고
+>
+> 메타버전이 8.8.1 이전의 WKB 포맷의 공간데이터를 메타버전이 8.8.1 이상의 데이터 베이스로 이관하는 경우, WKB 포맷 공간 데이터는 EWKB 포맷으로 자동 변환된다. 
+
+#### 원본 데이터를 WKB 포맷으로 추출하는 방법
+
+##### aexport를 이용하여 WKB 포맷으로 추출하는 방법 
+
+aexport.properties 파일에 아래의 프로퍼티 설정을 추가한 다음 aexport를 수행한다.
+
+```
+ILOADER_GEOM_FORMAT = WKB
+```
+
+ILOADER_GEOM_FORMAT = WKB 프로퍼티 설정을 추가한 후 aexport를 수행하면, 생성되는 run_il_out.sh 파일에 -geom WKB 옵션이 추가된다.
+
+##### iLoader를 이용하여 WKB 포맷으로 추출하는 방법
+
+특정 테이블만 마이그레이션 하려는 경우는 iLoader의 '-geom WKB' 옵션을 사용한다.
 
 # A.부록: Spatial 칼럼의 제약사항
 
-이 부록은 Altibase에 Spatial 기능을 확장함에 따라 기존의 DBMS 기능 중 GEOEMTRY
-칼럼에 대한 지원이 제한되는 부분을 기술한다.
+이 부록은 Altibase에 Spatial 기능을 확장함에 따라 기존의 DBMS 기능 중 GEOEMTRY 칼럼에 대한 지원이 제한되는 부분을 기술한다.
 
 ### GEOMETRY 칼럼에 대한 제약 사항
 
