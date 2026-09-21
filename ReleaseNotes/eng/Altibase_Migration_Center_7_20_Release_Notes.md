@@ -1,7 +1,7 @@
 Altibase Migration Center 7.21 Release Notes
 ================
 
-#### Release 7.21 (June 19, 2026)
+#### Release 7.21 (September 23, 2026)
 
 Altibase® Tools & Utilities
 
@@ -170,7 +170,7 @@ This section summarizes new features, fixed bugs, and changes in Migration Cente
 
 ## 2.1 New Features
 
-### Changed Required Size to Estimated Size in 5. Destination Tablespaces of ReconcileReport.html
+### BUG-52338 Changed Required Size to Estimated Size in 5. Destination Tablespaces of ReconcileReport.html
 
 In **5. Destination Tablespaces** of `ReconcileReport.html`, `Required Size` has been changed to `Estimated Size`. The estimated tablespace size is calculated based on Altibase data type sizing formulas.
 
