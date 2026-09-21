@@ -1,7 +1,7 @@
-Altibase Migration Center 7.20 Release Notes
+Altibase Migration Center 7.21 Release Notes
 ================
 
-#### Release 7.20 (June 19, 2026)
+#### Release 7.21 (June 19, 2026)
 
 Altibase® Tools & Utilities
 
@@ -156,7 +156,7 @@ Migration Center is a pure Java application that uses Swing for GUI mode. It run
 
 ## 1.3 Compatible DBMS
 
-This section introduces the DBMSs and versions that can be migrated using Migration Center 7.20.
+This section introduces the DBMSs and versions that can be migrated using Migration Center 7.21.
 
 | Source DBMS                                                  | Target DBMS                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -166,48 +166,36 @@ This section introduces the DBMSs and versions that can be migrated using Migrat
 
 # 2. Release Information
 
-This section summarizes new features, fixed bugs, and changes in Migration Center 7.20.
+This section summarizes new features, fixed bugs, and changes in Migration Center 7.21.
 
 ## 2.1 New Features
 
-### Expanded Support for CUBRID 8.4 - 11.4 as Source Database
+### Changed Required Size to Estimated Size in 5. Destination Tablespaces of ReconcileReport.html
 
-CUBRID versions 8.4 - 11.4 are now supported as source databases.
+In **5. Destination Tablespaces** of `ReconcileReport.html`, `Required Size` has been changed to `Estimated Size`. The estimated tablespace size is calculated based on Altibase data type sizing formulas.
 
-### Added 'No Logging' Migration Option
+`Estimated Size` is provided as a reference for estimating the required tablespace size before migration and may differ from the actual storage usage. LOB data is not included in the calculation, and partitioned tables and indexes are assumed to reside in the same tablespace. Actual storage usage may vary depending on data distribution, indexes, partitioning, and database configuration.
 
-A new **No Logging** option has been added to improve migration performance and optimize disk usage by preventing log generation during table and index migration. The default value is **Yes**. The No Logging feature is applied only in supported environments, and Migration Center automatically determines whether it can be used by checking the target database environment.
+During migration, additional disk space for DBMS transaction logs must be reserved separately from the estimated data size.
 
-- For **tables**, this option prevents log generation in the target Altibase database during data migration. This feature is supported only on **Altibase 7.3 or later**.
-- For **indexes**, the **NOLOGGING FORCE** clause is added to the index creation statement, preventing log generation during index creation. This feature applies only to **Disk B+Tree indexes**.
+### BUG-52431 Added Available Size to 5. Destination Tablespaces of ReconcileReport.html
 
-### Added 'Defer Index Creation' Migration Option
+`Available Size` has been added to **5. Destination Tablespaces** of `ReconcileReport.html`. `Available Size` reflects the estimated data size calculated based on the schema information and record count determined during the Reconcile phase, allowing the available capacity of the destination tablespace to be estimated more accurately.
 
-A new **Defer Index Creation** option has been added to improve migration performance by postponing index creation during migration and allowing users to create indexes manually after the migration is completed. The default value is **No**.
-
-When this option is enabled, the migration project directory contains the `DbIndex_Create.sql` file for index creation and the `DbIndex_Drop.sql` file for index removal.
-
-Regardless of this option, Function-Based Indexes are automatically created before data insertion.
-
-### Added 'Global to Local Partition Index' Migration Option
-
-A new **Global to Local Partition Index** option has been added to optimize performance and reduce log usage by converting Global Non-Partitioned Indexes on partitioned tables in the source database to Local Prefixed Partitioned Indexes. The conversion is performed only when the table partition key and the index key match exactly.
-
-The default value is **Yes**, and this option is applied only when **Keep Partitioned Table** is set to **Yes**.
+- **Available Size** (tablespace available capacity)
+  - `Available Size` = `Max Size` - `Used Size`
+  - **Max Size:** The maximum size available for the tablespace (MB)
+  - **Used Size:** The size of actual data stored in the pages currently used by the tablespace (MB)
 
 ## 2.2 Bug-Fixes
 
-### BUG-52287 Fixed an Issue Where Converted Object Names Exceeded the Altibase Object Name Length Limit
+### BUG-52457 Discontinued Support for the No Logging Option in Migration Center
 
-Fixed an issue where migration could fail when a converted object name exceeded the Altibase object name length limit. This occurred when Migration Center generated a new object name based on an existing object name that exceeded a certain length.
+Support for the **No Logging** option has been discontinued in Migration Center following the discontinuation of the corresponding interface in the Altibase server and iLoader. Accordingly, the default value of the No Logging option in Migration Center has been changed to `No`.
 
-### BUG-52333 Fixed Incorrect Default Tablespace Assignment for Users with ALL PRIVILEGES
+### BUG-52468 Prevented NO LOGGING OFF from Being Executed When an Inconsistent Table State Occurs During No Logging Mode
 
-Fixed an issue where the default tablespace of the SYS user was incorrectly used when generating default tablespace information for users granted the ALL PRIVILEGES privilege in Altibase. As a result, the target database user could be assigned an incorrect default tablespace.
-
-### BUG-52375 Fixed Incorrect Detection of Function-Based Indexes in Altibase
-
-Fixed an issue where Migration Center could incorrectly determine whether an index was a Function-Based Index when Altibase was used as the source database.
+Fixed an issue where the `NO LOGGING OFF` statement was executed when an inconsistent table state occurred while performing a migration in **No Logging** mode.
 
 <br/>
 
@@ -246,9 +234,9 @@ Migration Center is based on the following open-source libraries. The licenses a
 
 The Migration Center installation package is provided in two types (.zip, .gz) files.
 
-- MigrationCenter7.20.zip
+- MigrationCenter7.21.zip
 
-- MigrationCenter7.20.tar.gz
+- MigrationCenter7.21.tar.gz
 
 <br/>
 
