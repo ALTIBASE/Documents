@@ -1,6 +1,6 @@
-# Altibase Migration Center 7.21 Release Notes
+# Altibase Migration Center 7.20 Release Notes
 
-#### Release 7.21 (September 23, 2026)
+#### Release 7.20 (June 19, 2026)
 
 Altibase® Tools & Utilities
 
@@ -170,7 +170,7 @@ Migration Center는 GUI 모드의 경우 스윙(Swing)을 사용하는 순수 �
 
 ## 1.3 호환 가능한 데이터베이스 시스템
 
-Migration Center 7.21 으로 마이그레이션 할 수 있는 데이터베이스 시스템 종류와 버전을 소개한다.
+Migration Center 7.20 으로 마이그레이션 할 수 있는 데이터베이스 시스템 종류와 버전을 소개한다.
 
 | **원본 데이터베이스 종류 및 버전**                           | **대상 데이터베이스 버전**                                   |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
@@ -180,38 +180,43 @@ Migration Center 7.21 으로 마이그레이션 할 수 있는 데이터베이�
 
 # 2. 릴리즈 정보
 
-Migration Center 7.21 의 새로운 기능과 수정된 버그 및 변경 사항에 관한 내용이다.
+Migration Center 7.20 의 새로운 기능과 수정된 버그 및 변경 사항에 관한 내용이다.
 
 ## 2.1 새로운 기능
 
-### BUG-52338 ReconcileReport.html의 5.Destination Tablespaces에서 Required Size를 Estimated Size로 변경
+### 원본 데이터베이스로 CUBRID 8.4 ~ 11.4 지원
+Migration Center의 호환 가능한 데이터베이스 목록에 CUBRID 9.4 부터 11.4 가 추가되었다.
 
-ReconcileReport.html의 5.Destination Tablespaces 에서 제공하던 `Required Size`를 `Estimated Size`로 변경하고, Altibase 데이터 타입별 크기 산정식을 기반으로 예상 테이블스페이스 크기를 계산하도록 개선하였다.
+### 마이그레이션 옵션 'No Logging' 추가
 
-`Estimated Size`는 마이그레이션 전에 필요한 테이블스페이스 크기를 예측하기 위한 참고 정보이며, 실제 저장 공간 사용량과 다를 수 있다. LOB 데이터는 계산에 포함되지 않으며, 파티션 테이블과 인덱스는 동일한 테이블스페이스에 저장되는 것으로 가정한다. 실제 저장 공간은 데이터 분포, 인덱스, 파티셔닝 및 데이터베이스 설정에 따라 달라질 수 있다.
+성능 향상을 위한 옵션으로 테이블과 인덱스의 마이그레이션 수행 시 로그 생성을 하지 않도록 하여 디스크 사용량을 최적화하는 **No Logging**'옵션이 추가되었다. 기본 설정은 Yes이다. No Logging 기능은 지원되는 환경에서만 적용되며, 적용 여부는 Migration Center가 대상 DB 환경을 확인하여 자동으로 결정한다.
 
-마이그레이션 시에는 예상 데이터 크기와 별도로 DBMS 트랜잭션 로그에 필요한 추가 디스크 공간을 확보해야 한다.
+- 테이블의 경우 iLoader의 lightmode 옵션을 켠 것과 동일한 기능이 적용되며, 데이터 마이그레이션 수행 시 대상 DB인 알티베이스에 로그를 남기지 않도록 한다. 이 기능은 Altibase 7.3 이상 버전에서만 적용된다. 
+- 인덱스의 경우 인덱스 생성 구문에 NOLOGGING FORCE 절이 추가되어 인덱스 생성 시 로그를 남기지 않도록 한다. 이 기능은 Disk B+ Tree 인덱스에만 적용된다.
 
-### BUG-52431 ReconcileReport.html의 5.Destination Tablespaces에 Avalible size 추가
+### 마이그레이션 옵션 'Defer Index Creation' 추가
 
-ReconcileReport.html의 5.Destination Tablespaces 에 `Available Size`를 추가하였다. 이 available size는 reconcile 단계에서 확정된 스키마 정보와 레코드 수를 기반으로 산정한 예상 데이터 크기를 반영하여 대상 테이블스페이스의 가용 용량을 보다 정확하게 확인할 수 있도록 제공한다.
+- 성능 향상을 위한 옵션으로 마이그레이션 수행 시 인덱스를 자동으로 생성하지 않고 사용자가 추후 수동 생성할 수 있도록 하는 **Defer Index Creation** 옵션이 추가되었다. 기본 설정은 No이다. 이 옵션을 true로 설정하면, 마이그레이션 프로젝트 디렉터리에 생성을 위한 `DbIndex_Create.sql`과 삭제를 위한 `DbIndex_Drop.sql` 파일을 제공한다. 단, 함수 기반 인덱스(Function-Based Index)는 이 옵션의 설정 여부와 관계없이 데이터 적재(Data Insertion) 전에 생성된다.
 
-* Available size (테이블스페이스 가용 용량) 계산 산식
-  * `Available Size` = `Max Size` - `Used Size`
-  * *Max Size:* 테이블스페이스에서 사용할 수 있는 최대 크기(M)
-  * *Used Size:* 테이블스페이스가 사용 중인 페이지에서 실제 데이터가 적재된 크기(M)
+### 마이그레이션 옵션 'Global to Local Partition Index' 추가
+
+- 성능 및 로그 사용량 최적화를 위한 옵션으로 원본 데이터베이스의 파티션드 테이블에 생성된 Global Non-Partitioned Index를 Local Prefixed Partitioned Index로 변환하는 **Global to Local Partition Index** 옵션이 추가되었다. 변환은 테이블의 파티션 키와 인덱스 키가 정확히 일치하는 경우에만 수행된다. 기본값은 Yes이며, 'Keep Partitioned Table' 옵션이 Yes로 설정된 경우에만 적용된다.
 
 <br/>
 
 ## 2.2 수정된 버그
 
-### BUG-52457 마이그레이션 옵션에서 No Logging 옵션 지원 중단
+### BUG-52287 변환된 객체 이름 길이가 Altibase 객체 이름 길이 제한을 초과하는 오류 수정
 
-Altibase 서버 및 iLoader에서 관련 인터페이스의 지원 중단에 따라 Migration Center에서도 No Logging 옵션의 지원을 중단한다. 이에 따라 Migration Center의 No Logging 옵션 기본값을 `No`로 변경하였다.
+Migration Center에서 일부 객체를 마이그레이션하는 과정에서 기존 객체 이름을 기반으로 새로운 객체 이름을 생성할 때, 기존 객체 이름이 일정 길이 이상인 경우 생성된 객체 이름이 Altibase의 객체 이름 길이 제한을 초과하여 마이그레이션이 실패하는 문제를 수정하였다.
 
-### BUG-52468 Migration Center에서 No Logging 모드 수행 중 inconsistent table state 발생 시 NO LOGGING OFF 구문을 수행하지 않도록 수정
+### BUG-52333 ALL PRIVILEGES 권한 사용자의 기본 테이블 스페이스 설정 오류 수정
 
-Migration Center에서 No Logging 모드로 마이그레이션을 수행하는 중 inconsistent table state 발생한 경우, NO LOGGING OFF 구문을 수행하지 않도록 수정하였다.
+Altibase의 ALL PRIVILEGES 권한이 부여된 사용자의 기본 테이블 스페이스 정보를 생성할 때 SYS 사용자의 기본 테이블 스페이스 값이 사용되는 문제가 있었다. 이로 인해 대상 데이터베이스 사용자의 기본 테이블 스페이스가 잘못 할당될 수 있어 이를 수정하였다.
+
+### BUG-52375 Altibase 인덱스의 함수 기반 인덱스 판별 오류 수정
+
+Migration Center에서 원본 데이터베이스가 Altibase인 경우, 인덱스의 함수 기반 인덱스(Function-Based Index) 여부를 잘못 판별하던 문제를 수정하였다.
 
 # 3. 사용된 오픈소스 라이브러리 / 로열티 프리 이미지
 
@@ -248,9 +253,9 @@ Migration Center는 아래의 오픈소스 라이브러리에 기반한다. 각 
 
 Migration Center 설치 패키지는 두 가지 형태(.zip, .gz) 파일로 제공한다.
 
-- MigrationCenter7.21.zip
+- MigrationCenter7.20.zip
 
-- MigrationCenter7.21.tar.gz
+- MigrationCenter7.20.tar.gz
 
 <br/>
 
