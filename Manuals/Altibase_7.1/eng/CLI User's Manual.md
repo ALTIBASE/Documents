@@ -172,6 +172,7 @@ Homepage                : <a href='http://www.altibase.com'>http://www.altibase.
   - [SQLTables](#sqltables)
   - [SQLTransact](#sqltransact)
 - [3. LOB Interface](#3-lob-interface)
+  - [How to Process LOB Data](#How-to-Process-LOB-Data)
   - [LOB data types](#lob-data-types)
   - [LOB Function Overview](#lob-function-overview)
   - [SQLBindFileToCol](#sqlbindfiletocol)
@@ -242,6 +243,9 @@ This manual is organized as follows:
 -   Chapter 3: LOB Interface  
     This chapter describes the functions and data types necessary for using LOB data.
 
+-   Chapter 4: Using Cursors
+    This chapter introduces how to use cursors that the Altibase CLI driver provides.
+    
 -   Appendix A. Sample Codes  
     This appendix shows all the sample codes used in this document.
 
@@ -260,7 +264,7 @@ This section describes the conventions used in this manual. Understanding these 
 
 There are two sets of conventions:
 
--   Syntax diagram convetions
+-   Syntax diagram conventions
 -   Sample code conventions
 
 ##### Syntax Diagram Conventions
@@ -271,13 +275,13 @@ This manual describes command syntax using diagrams composed of the following el
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [![image1](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image1.gif) | Indicates the start of a command. If a syntactic element starts with an arrow, it is not a complete command. |
 | [![image2](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image2.gif) | Indicates that the command continues to the next line. If a syntactic element ends with this symbol, it is not a complete command. |
-| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates taht the command continues from the previous line. If a syntactic element starts witht his symbol, it is not a complete command. |
+| [![image3](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image3.gif) | Indicates that the command continues from the previous line. If a syntactic element starts with this symbol, it is not a complete command. |
 | [![image4](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image4.gif) | Indicates the end of a statement.                            |
-| [![image5](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif) | Indicates a manatory element.                                |
+| [![image5](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image5.gif) | Indicates a mandatory element.                               |
 | [![image6](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image6.gif) | Indicates an optional element.                               |
 | [![image7](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image7.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image7.gif) | Indicates a mandatory element comprised of options. One, and only one, option must be specified. |
 | [![image8](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image8.gif) | Indicates an optional element comprised of options.          |
-| [![image9](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comman must precede all but the first element. |
+| [![image9](https://github.com/ALTIBASE/Documents/raw/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif)](https://github.com/ALTIBASE/Documents/blob/master/Manuals/Altibase_7.1/eng/media/SQL/image9.gif) | Indicates an optional element in which multiple elements may be specified. A comma must precede all but the first element. |
 
 ##### Sample Code Conventions
 
@@ -2840,22 +2844,8 @@ SQLRETURN  SQLEndTran (
 	SQLSMALLINT 	type );
 ```
 
+#### Arguments
 
-
-#### <pre>
-Altibase Application Development Database Link User’s Manual
-Release 7.1
-Copyright ⓒ 2001~2023 Altibase Corp. All Rights Reserved.<br>
-This manual contains proprietary information of Altibase® Corporation; it is provided under a license agreement containing restrictions on use and disclosure and is also protected by copyright patent and other intellectual property law. Reverse engineering of the
-software is prohibited.<br>
-All trademarks, registered or otherwise, are the property of their respective owners.<br>
-<b>Altibase Corp</b>
-10F, Daerung PostTower II,
-306, Digital-ro, Guro-gu, Seoul 08378, Korea
-Telephone : +82-2-2082-1000 
-Fax       : +82-2-2082-1099
-Customer Service Portal : <a href='http://support.altibase.com/en/'>http://support.altibase.com/en/</a>
-Homepage                : <a href='http://www.altibase.com'>http://www.altibase.com</a></pre>
 | Data Type   | Argument   | In/Output | Description                                                  |
 | ----------- | ---------- | --------- | ------------------------------------------------------------ |
 | SQLSMALLINT | handleType | Input     | Handle type identifier. it should be eitherSQL_HANDLE_ENV or SQL_HANDLE_DBC.<br/> |
@@ -6280,39 +6270,93 @@ SQLTransact(SQL_NULL_HENV, dbc, SQL_COMMIT);
 
 # 3. LOB Interface
 
-This chapter describes functions and data types that can be used for handling LOB data.
+This chapter describes how CLI processes LOB data, and functions and data types that can be used for handling LOB data.
+
+### How to Process LOB Data
+
+Altibase uses a **LOB Locator** in the CLI to handle LOB data processing. The LOB Locator is an internal data structure of the Altibase server corresponding to a unique value for LOB data and allows users to read or write LOB data. Therefore, the LOB Locator should be obtained first to process LOB data. Since the LOB Locator points to LOB data at a specific point in time with respect to MVCC, the LOB Locator is bound to the transaction that generated it and shares its lifecycle.
+
+#### NON-AUTOCOMMIT Mode
+
+Because LOB Locators are transaction-bound, **when using LOB Locators in the CLI to handle LOB data, it is essential to disable auto-commit mode,i.e., NON-AUTOCOMMIT mode.**
+
+NON-AUTOCOMMIT mode allows CLI functions for obtaining LOB Locators and for reading and writing LOB data to operate as individual tasks within a single transaction, enabling sharing of the LOB Locator. Conversely, in auto-commit mode, each CLI function operates within its transaction, preventing the sharing of the LOB Locator between two transactions.
+
+> **Considerations When Committing Transactions Using LOB Locators**
+
+1. In NON-AUTOCOMMIT mode, if an unexpected error occurs during CLI functions for reading from or writing to LOB data, it is essential to **rollback the transaction** to ensure that internally initialized data is cleared.
+2. Attempting to INSERT or UPDATE the NULL value into a LOB type column with NOT NULL constraint will result in the error message [Unable to insert (or update) NULL into NOT NULL column.]. In this case, it is essential to **rollback the transaction** as internally initialized data may persist.
+
+#### Obtaining LOB Locator
+
+LOB Locator is obtained when executing the following CLI functions:
+
+- SQLBindCol / SQLFetch
+
+- SQLBindParameter / SQLExecute
+
+  > ⚠️ The SQLExecute function initializes LOB data to null when executing INSERT and UPDATE statements.
+
+#### Reading and Writing LOB Data
+
+After obtaining a LOB Locator, users can use it to read or write LOB data. The relevant CLI functions are as follows:
+
+- SQLBindFileToParam
+- SQLGetLob
+- SQLGetLobLength
+- SQLPutLob
+- SQLTrimLob
+
+#### Retrieving LOB Data (SELECT)
+
+When performing SELECT LOB data, it is internally processed by obtaining a LOB Locator, resulting in an open transaction. Therefore, the user must explicitly perform transaction-ending operations such as COMMIT or ROLLBACK.
+
+> [!Caution] 
+>
+> If users do not perform explicit transaction-ending operation such as COMMIT or ROLLBACK, database memory usage may increase.
+
+#### Releasing Resources
+
+Once LOB data-related operations are complete, the associated resources must be released. The relevant CLI functions are as follows:
+
+- [SQLFreeLob](#sqlfreelob)
+- [SQLEndTran](#sqlendtran)
+
+> The SQLFreeLob function only releases resources related to the LOB Locator and does not end the transaction.
 
 ### LOB data types
 
+#### SQL Data Type
+
 The following table shows SQL data type identifiers that support LOB:
 
-| SQL Type Identifier | Data Type | Description                                           |
-| ------------------- | --------- | ----------------------------------------------------- |
-| SQL_BLOB            | BLOB      | BLOB is a binary data type with a variable length.    |
-| SQL_CLOB            | CLOB      | CLOB is a character data type with a variable length. |
+| SQL Type Identifier | Altibase Data Type | Description                                           |
+| ------------------- | ------------------ | ----------------------------------------------------- |
+| SQL_BLOB            | BLOB               | BLOB is a binary data type with a variable length.    |
+| SQL_CLOB            | CLOB               | CLOB is a character data type with a variable length. |
 
 [Table 3‑1] Identifier of the SQL data type
 
+#### C Data Type
+
 The following table shows C data type identifiers that support LOB. It lists C data type of ODBC for each identifier and their definition.
-
-| C Type Identifier  | ODBC C Type | C Type Definition |
-| ------------------ | ----------- | ----------------- |
-| SQL_C_BLOB_LOCATOR | SQLUBIGINT  | unsigned \_int64  |
-| SQL_C_CLOB_LOCATOR | SQLUBIGINT  | unsigned \_int64  |
-
-[Table 3‑2] Identifier for LOB-supported C data types
-
-The name of a 64-bit integer type may vary depending on platform. The _int64 shown in the above table is the name of a 64-bit integer that is used in several platforms. 
 
 Use SQL_C_CHAR for CLOB data and SQL_C_BINARY for BLOB data to bind user variables. 
 
-To obtain a LOB locator, bind SQL_C_CLOB_LOCATOR or SQL_C_BLOB_LOCATOR appropriately based on the LOB column type. A LOB locator in this context, – a LOB location input scheme – is a handle that is used during LOB data operation like a file pointer in an operating system. 
+To obtain a LOB locator, bind SQL_C_CLOB_LOCATOR or SQL_C_BLOB_LOCATOR appropriately based on the LOB column type.
 
-The LOB location input scheme for Read can be obtained after SELECT LOB column name FROM table where… and select are executed. The LOB location input scheme for Write can be obtained after SELECT LOB column name FROM table where… FOR UPDATE are executed. 
+| C Type Identifier  | Altibase Data Type | ODBC C Type | C Type Definition |
+| ------------------ | ------------------ | ----------- | ----------------- |
+| SQL_C_BINARY       | BLOB               | SQLCHAR *   | unsigned char *   |
+| SQL_C_CHAR         | CLOB               | SQLSCHAR *  | char *            |
+| SQL_C_BLOB_LOCATOR |                    | SQLUBIGINT  | unsigned \_int64  |
+| SQL_C_CLOB_LOCATOR |                    | SQLUBIGINT  | unsigned \_int64  |
 
-Since a LOB location input scheme refers to LOB data at a certain point in relation to MVCC, it has the same life cycle with the transaction that has created itself. Therefore, to perform LOB operation with a LOB location input scheme, a connection should be always established in Non-Autocommit Mode. 
+[Table 3‑2] Identifier for LOB-supported C data types
 
-Care must be taken as there is no LOB type of a user variable such as SQL_C_BLOB or SQL_C_CLOB. 
+> SQL_C_BLOB and SQL_C_CLOB are not supported as a C type identifier.
+
+> The name of a 64-bit integer type may vary depending on platform. The _int64 shown in the above table is the name of a 64-bit integer that is used in several platforms. 
 
 ### LOB Function Overview
 
@@ -6343,7 +6387,9 @@ The functions that are available for manipulating LOB data are as follows:
 
 Among the above functions, the functions #1 through #6 are special functions that are provided by Altibase for LOB manipulation, and they are not ODBC standard functions.
 
-ODBC standard functions such as #7 and #8 can be used to access LOB data whether the database column type is LOB or not. However, when only a standard function is used, the functions for partial update and partial retrieve are not available. If a user wants to do programming with ODBC Driver Manager, he should add the following entry to the odbc.ini file:
+ODBC standard functions such as #7 and #8 can be used to access LOB data whether the database column type is LOB or not. However, when only a standard function is used, the functions for partial update and partial retrieve are not available. 
+
+If a user wants to do programming with ODBC Driver Manager, he should add the following entry to the odbc.ini file:
 
 ```
 LongDataCompat = yes
