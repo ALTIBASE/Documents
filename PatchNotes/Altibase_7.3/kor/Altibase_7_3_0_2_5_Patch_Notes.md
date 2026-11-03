@@ -10,6 +10,8 @@ Altibase 7.3.0.2.5 Patch Notes
   - [BUG-52560 Altibase source connector for Kafka에서 스키마 생성 시 컬럼 순서를 유지하지 않는 문제 수정](#bug-52560)
   - [BUG-52573 iloader help 화면에서 "-lightmode" 옵션 제거](#bug-52573)
   - [BUG-52575 이중화에서 잘못된 Update Log 처리 시 Sender가 비정상 종료되는 문제 수정](#bug-52575)
+  - [BUG-52589 Disk Hash Temp Table 사용 시 잘못된 결과가 반환되는 문제 수정](#bug-52589)
+  - [BUG-52603 보안 취약점 KVE-2026-2355 수정](#bug-52603)
   - [BUG-52620 서버 패키지에서 altiMon 분리](#bug-52620)
   - [BUG-52621 DDL 수행 후 이중화 재시작 시 잘못된 Table OID 참조로 비정상 종료되는 문제 수정](#bug-52621)
 - [Changes](#changes)
@@ -164,6 +166,58 @@ Fixed Bugs
 
 -   **변경사항**
 
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-52589 Disk Hash Temp Table 사용 시 잘못된 결과가 반환되는 문제 수정
+
+-   **module** : sm-disk-resource
+
+-   **Category** : Reliability
+
+-   **재현 빈도** : Always
+
+-   **설명** : 특정 조건에서 GROUP BY 수행 중 Disk Hash Temp Table을 사용할 경우 잘못된 결과가 반환될 수 있는 문제를 수정했습니다.
+
+-   **재현 방법**
+
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-52603<a name=bug-52603></a> 보안 취약점 KVE-2026-2355 수정
+
+-   **module** : id
+
+-   **Category** : Maintainability
+
+-   **재현 빈도** : Always
+
+-   **설명** : 복제(HA) 수신 처리 과정에서 압축 데이터를 해제할 때 출력 버퍼의 경계를 검사하지 않아 스택 버퍼 오버플로우가 발생할 수 있는 보안 취약점 KVE-2026-2355를 수정했습니다.
+
+-   **재현 방법**
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
     -   Performance view
     -   Property
     -   Compile Option

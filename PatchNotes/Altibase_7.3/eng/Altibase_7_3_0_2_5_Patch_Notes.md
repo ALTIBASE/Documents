@@ -10,6 +10,8 @@ Altibase 7.3.0.2.5 Patch Notes
   - [BUG-52560 Server shutdown when a commit fails during DDL execution](#bug-52560)
   - [BUG-52573 Remove the "-lightmode" option from the iLoader help](#bug-52573)
   - [BUG-52575 Sender shutdown when an invalid update log is read during replication](#bug-52575)
+  - [BUG-52589 Fixed an issue where incorrect results are returned when using Disk Hash Temp Table in GROUP BY operations](#bug-52589)
+  - [BUG-52603 Fixed security vulnerability KVE-2026-2355 (Stack Buffer Overflow in Replication Receive Processing](#bug-52603)
   - [BUG-52620 Separate altiMon from the server package](#bug-52620)
   - [BUG-52621 Server shutdown due to an invalid Table OID reference when restarting replication after DDL execution](#bug-52621)
 - [Changes](#changes)
@@ -67,6 +69,20 @@ Fixed Bugs
     ERR-11069(errno=62) Internal server error in the storage manager
     ([smiLogRec::analyzeColumnMVImageMemory] Column Count is 0(zero) at
     [LSN: 16818,50008944)])
+
+### BUG-52589<a name=bug-52589></a> Fixed an issue where incorrect results are returned when using Disk Hash Temp Table in GROUP BY operations
+
+-   **module** : sm-disk-resource
+-   **Category** : Reliability
+-   **Reproducibility** : Always
+-   **description** : Fixed an issue in which SQL queries could return incorrect results when using Disk Hash Temp Table during GROUP BY operations under certain conditions.
+
+### BUG-52603<a name=bug-52603></a> Fixed security vulnerability KVE-2026-2355 (Stack Buffer Overflow in Replication Receive Processing)
+
+-   **module** : id
+-   **Category** : Maintainability
+-   **Reproducibility** : Always
+-   **description** : Fixed security vulnerability KVE-2026-2355, which could cause a stack buffer overflow because the output buffer boundary was not checked when decompressing data in the replication receive processing path.
 
 ### BUG-52620<a name=bug-52620></a> Separate altiMon from the server package
 
