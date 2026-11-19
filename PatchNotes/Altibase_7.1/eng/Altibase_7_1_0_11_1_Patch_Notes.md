@@ -50,9 +50,12 @@ Fixed Bugs
 -   **module** : mm-jdbc
 -   **Category** : Functionality
 -   **Reproducibility** : Always
--   **Description** : The Altibase JDBC driver does not support name-based parameter binding in `CallableStatement`.
+- **Description** : The Altibase JDBC driver does not support name-based parameter binding in `CallableStatement`.
 
-    Previously, calling a name-based parameter API resulted in a `NullPointerException`. This has been fixed to throw a `SQLFeatureNotSupportedException` instead.
+  Previously, calling a name-based parameter API resulted in a `NullPointerException`. This has been fixed so that the appropriate exception is thrown depending on the JDBC driver:
+
+  * Altibase.jar: `SQLException(Unsupported feature)`
+  * Altibase42.jar: `SQLFeatureNotSupportedException`
 
 -   **How to reproduce this bug**
 
@@ -74,7 +77,7 @@ Fixed Bugs
 
     -   **Expected Results**
 
-        `SQLFeatureNotSupportedException` is thrown because name-based parameter binding is not supported.
+         `SQLException(Unsupported feature)` or `SQLFeatureNotSupportedException` occurs.
 
 -   **Workaround** : Use an index-based API such as `sStmt.getCharacterStream(3)` instead of the name-based API.
 

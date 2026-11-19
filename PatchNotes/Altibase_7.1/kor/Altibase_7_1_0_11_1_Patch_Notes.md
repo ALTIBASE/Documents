@@ -93,9 +93,12 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : Altibase JDBC 드라이버는 CallableStatement의 이름 기반 파라미터 바인딩을 지원하지 않습니다.
+- **설명** : Altibase JDBC 드라이버는 CallableStatement의 이름 기반 파라미터 바인딩을 지원하지 않습니다.
 
-    기존에는 이름 기반 파라미터 API 호출 시 `NullPointerException`이 발생했으나, 이를 `SQLFeatureNotSupportedException`이 발생하도록 수정했습니다.
+  기존에는 이름 기반 파라미터 API 호출 시 `NullPointerException`이 발생했으나, 이제 다음과 같은 예외가 발생하도록 수정했습니다.
+
+  * Altibase.jar: `SQLException(Unsupported feature)` 발생
+  * Altibase42.jar: `SQLFeatureNotSupportedException` 발생
 
 - **재현 방법**
 
@@ -117,7 +120,7 @@ Fixed Bugs
 
   -   **예상 결과**
 
-          이름 기반 파라미터 바인딩을 지원하지 않으므로 `SQLFeatureNotSupportedException`을 발생시킨다.
+          `SQLException(Unsupported feature)` 또는 `SQLFeatureNotSupportedException`이 발생한다.
 
 -   **Workaround**
 
