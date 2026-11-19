@@ -36,11 +36,8 @@ Fixed Bugs
 
 -   **재현 빈도** : Always
 
--   **설명** : DDL Sync 수행 중 TableOID가 변경되었음에도 이중화 메타를
-    다시 빌드하지 않아 문제가 발생할 수 있었습니다. 이를 수정하여 DDL Sync
-    중 TableOID가 변경되면 이중화 메타를 다시 빌드하도록 하였으며, 이와
-    관련된 에러 코드를 추가하였습니다.
-    
+-   **설명** : DDL Sync 수행 중 TableOID가 변경되었음에도 이중화 메타를 다시 빌드하지 않아 문제가 발생할 수 있었습니다. DDL Sync 중 TableOID가 변경되면 이중화 메타를 다시 빌드하도록 예외 처리를 개선했습니다.
+
 -   **재현 방법**
     -   **재현 절차**
     
@@ -145,14 +142,13 @@ Fixed Bugs
 
 -   **재현 빈도** : Impossible
 
--   **설명** : 이중화에서 잘못된 Update Log를 읽을 경우 FATAL 오류로 인해 서버가 비정상 종료되는 문제를 수정했습니다. 잘못된 Update Log가 감지되면 오류 로그를 기록하고 Sender를 종료하도록 변경했습니다. 
-    
-    사용자는 아래 에러가 altibase\_rp.log에 남을 경우 이중화를 drop후 재
-    생성하여야 합니다.
-    
-    ERR-11069(errno=62) Internal server error in the storage manager
-    ([smiLogRec::analyzeColumnMVImageMemory] Column Count is 0(zero) at
-    [LSN: 16818,50008944)])
+-   **설명** : 이중화에서 잘못된 Update Log를 읽을 경우 서버가 비정상 종료되는 문제를 수정했습니다. 잘못된 Update Log가 감지되면 오류 로그를 기록하고 Sender를 종료하도록 변경했습니다.
+
+    사용자는 아래와 같은 에러가 `altibase_rp.log`에 남을 경우 이중화를 drop한 후 재생성해야 합니다.
+
+    ```text
+    ERR-11069(errno=62) Internal server error in the storage manager (... Column Count is 0(zero) ...)
+    ```
 
 -   **재현 방법**
 
