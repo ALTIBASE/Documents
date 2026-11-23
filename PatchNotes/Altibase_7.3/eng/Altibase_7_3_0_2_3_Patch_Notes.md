@@ -9,7 +9,6 @@ Altibase 7.3.0.2.3 Patch Notes
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-51279 Fixed an issue where patching from version 7.3.0.x.x to 7.3.1.x.x was not possible](#bug-51279)
   - [BUG-51719 Fixed an issue where the Replication name was not displayed correctly in the receiver initialization error message](#bug-51719)
-  - [BUG-52325 Improved stability of Supplemental Log processing in replication environments](#bug-52325)
   - [BUG-52381 Fixed LOB data insertion errors when using the iLoader -lightmode option](#bug-52381)
   - [BUG-52384 Fixed an issue where trigger Statement objects were not reused when repeatedly executing the same Prepared Statement with different bind values](#bug-52384)
   - [BUG-52466 Fixed incorrect results during index access after recreating a Primary Key constraint on a Temporary Table in a Volatile Tablespace](#bug-52466)
@@ -27,7 +26,7 @@ New Features
 
 ### BUG-52430<a name=bug-52430></a> Added a feature to enable or disable Sender IP verification during the ALA handshake process
 
--   **module** : rp-kafkaConnector
+-   **module** : rp-ala
 
 -   **Category** : Functionality
 
@@ -35,10 +34,9 @@ New Features
 
 -   **Description** : Added a feature that allows you to choose whether to verify the Sender IP during the ALA handshake process. The newly added `ALA_SetVerifySenderIP()` function can be used to enable or disable Sender IP verification. The default is Verify (`ALA_TRUE`).
     
-    In addition, properties for configuring the same functionality have been added to oraAdapter, jdbcAdapter, and Altibase Source Connector for Kafka.
+    In addition, properties for configuring the same functionality have been added to oraAdapter and jdbcAdapter.
     
     - `ALA_VERIFY_SENDER_IP` (0: Do not verify, 1: Verify)
-    - `ala.verify.sender.ip` (false: Do not verify, true: Verify)
     
 -   **How to Reproduce**
 
@@ -58,10 +56,6 @@ New Features
             -   Value range: 0, 1
                 -   1: (default) Verify
                 -   0: Do not verify
-        -   ala.verify.sender.ip (Altibase Connector Properties)
-            -   Type: boolean
-                -   true: (default) Verify
-                -   false: Do not verify
     -   Compile Option
     -   Error Code
 
@@ -112,33 +106,6 @@ Fixed Bugs
     -   **Expected Result**
 -   **Workaround**
 -   **Changes**
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-52325<a name=bug-52325></a> Improved stability of Supplemental Log processing in replication environments
-
--   **module** : sm\_interface
-
--   **Category** : Fatal
-
--   **Reproducibility** : Always
-
--   **Description** : Fixed a server crash that could occur when executing UPDATE operations on disk tables with Supplemental Log enabled in a replication environment.
-
--   **How to Reproduce**
-
-    -   **Reproduction Steps**
-
-    -   **Actual Result**
-
-    -   **Expected Result**
-
--   **Workaround**
-
--   **Changes**
-
     -   Performance view
     -   Property
     -   Compile Option

@@ -6,7 +6,6 @@
 - [New Features](#new-features)
     - [BUG-51467 서버 비정상 종료시 altibase_error.log에 콜스택 외 클라이언트 정보를 출력하도록 개선](#bug-51467)
     - [BUG-51698 암호 관리를 위한 신규 유틸리티 altiEncrypt 추가](#bug-51698)
-    - [BUG-51864 Altibase Connector for Kafka(Altibase 커넥터) 제공](#bug-51864)
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-50945 SUBSTR 함수 내에서 EMPTY_CLOB()가 인자로 사용될 경우, [ERR-01003 : Unexpected end of string] 오류가 발생합니다.](#bug-50945)
   - [BUG-50976 CLOB 컬럼에 대한 MERGE INTO 구문 수행시 잘못된 값이 입력됩니다.](#bug-50976)
@@ -100,29 +99,6 @@
 
 -   **변경사항**
 
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-51864<a name=bug-51864></a> Altibase Connector for Kafka(Altibase 커넥터) 제공
-
--   **module** : rp-kafkaConnector
--   **Category** : Other
--   **재현 빈도** : Always
--   **설명** : Confluent JDBC connector 프로토콜 호환성을 가진 Altibase connector for Kafka(이하 Altibase 커넥터)가 개발되었습니다. Altibase 커넥터를 사용하면 Kafka를 통해 Altibase의 변경 데이터를 다른 데이터베이스로 복제하거나, 다른 데이터베이스의 변경 데이터를 Altibase로 복제할 수 있습니다. Altibase 커넥터는 다음 두 종류의 커넥터로 구성됩니다.
-    -   **Altibase 소스 커넥터**: Altibase의 변경 데이터를 Kafka로 스트리밍하여 다른 데이터베이스로 복제
-    
-    -   **Altibase 싱크 커넥터**: Kafka를 통해 수신한 다른 데이터베이스의 변경 데이터를 Altibase 및 기타 지원 싱크 데이터베이스로 적용
-    
--   **재현 방법**
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
--   **Workaround**
--   **변경사항**
     -   Performance view
     -   Property
     -   Compile Option

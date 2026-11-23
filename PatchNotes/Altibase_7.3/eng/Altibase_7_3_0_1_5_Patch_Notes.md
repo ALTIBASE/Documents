@@ -5,7 +5,6 @@ Altibase 7.3.0.1.5 Patch Notes
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [New Features](#new-features)
-    - [BUG-51873 Altibase Connector for Kafka now supports automatic restart functionality.](#bug-51873)
     - [BUG-51888 The maximum allowed length for encrypted PASSWORD used in dblink, aku, and Adapter has been extended to 256 characters.](#bug-51888)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-50643 Fixed issue where last LOB column value becomes NULL during SYNC conflict.](#bug-50643)
@@ -24,13 +23,6 @@ Altibase 7.3.0.1.5 Patch Notes
 
 New Features
 ============
-
-### BUG-51873<a name=bug-51873></a> Altibase Connector for Kafka now supports automatic restart functionality.
-
--   **module** :
--   **Category** : Functionality
--   **Reproducibility** : Always
--   **Description** : Altibase Source Connector for Kafka now supports automatic connector restart upon receiving a DDL message. To enable this feature, set the `restart.ddl` property to `true`. The default value is `false`.
 
 ### BUG-51888<a name=bug-51888></a> The maximum allowed length for encrypted PASSWORD used in dblink, aku, and Adapter has been extended to 256 characters.
 

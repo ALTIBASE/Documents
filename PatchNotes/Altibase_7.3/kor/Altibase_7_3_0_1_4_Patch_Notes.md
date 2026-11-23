@@ -6,7 +6,6 @@ Altibase 7.3.0.1.4 Patch Notes
 
 - [New Features](#new-features)
     - [BUG-51881 태국어 캐릭터셋 지원](#bug-51881)
-    - [BUG-51867 Altibase Connector for Kafka에 태국어 지원 기능 추가](#bug-51867)
     - [BUG-51880 쿼리 수행의 안정성 개선을 위한 내부 로직 개선(column count 관리 구조 변경)](#bug-51880)
     - [BUG-51902 신규 CLI 함수 SQLRowCount2가 추가되었습니다.](#bug-51902)
 - [Fixed Bugs](#fixed-bugs)
@@ -38,33 +37,6 @@ New Features
     -   NLS_COMP=1
 
 -   **재현 방법**
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-51867<a name=bug-51881></a> Altibase Connector for Kafka에 태국어 지원 기능 추가
-
--   **module** : rp-kafkaConnector
-
--   **Category** : Functionality
-
--   **재현 빈도** : Always
-
--   **설명** : Altibase Connector for Kafka(Altibase 커넥터) 에서 태국어를 지원하도록 개선되었습니다.
-
--   **재현 방법**
-
     -   **재현 절차**
 
     -   **수행 결과**

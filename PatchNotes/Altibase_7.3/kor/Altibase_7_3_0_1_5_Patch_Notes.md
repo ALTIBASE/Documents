@@ -5,7 +5,6 @@ Altibase 7.3.0.1.5 Patch Notes
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [New Features](#new-features)
-    - [BUG-51873 Altibase Connector for Kafka에 자동 재시작 기능이 추가되었습니다.](#bug-51873)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-50643 LOB 컬럼이 포함된 테이블의 SYNC 작업 중 특정 레코드에서 충돌(Conflict)이 발생 할 경우, 직전에 입력된 레코드의 마지막 LOB 컬럼값이 NULL로 변경되는 문제를 수정했습니다.](#bug-50643)
     - [BUG-51888 dblink, aku, Adapter에서 사용하는 암호화된 PASSWORD의 최대 허용 길이를 256자로 확장하였습니다.](#bug-51888)
@@ -24,33 +23,6 @@ Altibase 7.3.0.1.5 Patch Notes
 
 New Features
 ============
-
-### BUG-51873<a name=bug-51873></a> Altibase Connector for Kafka에 자동 재시작 기능이 추가되었습니다.
-
--   **module** :
-
--   **Category** : Functionality
-
--   **재현 빈도** : Always
-
--   **설명** : Altibase source connector for Kafka에 DDL 메시지 수신 시
-    자동 재시작 기능이 추가되었습니다. 이 기능을 사용하려면 `restart.ddl` 프로퍼티의 값을 true로 설정해야 합니다.(기본값은 false)
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
 
 Fixed Bugs
 ==========

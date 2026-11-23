@@ -8,7 +8,6 @@ Altibase 7.1.0.10.7 Patch Notes
     - [BUG-51902 신규 CLI 함수로 SQLRowCount2가 추가되었습니다.](#bug-51902)
     - [BUG-51467 서버 비정상 종료시 altibase_error.log에 콜스택 외 클라이언트 정보를 출력하도록 개선](#bug-51467)
     - [BUG-51540 VARIABLE 컬럼을 포함한 메모리 인덱스 AGING이 실패할 수 있습니다.](#bug-51540)
-    - [BUG-51864 Altibase Connector for Kafka(Altibase 커넥터) 제공](#bug-51864)
     - [BUG-51880 쿼리 수행의 안정성 개선을 위한 내부 로직 개선(column count 관리 구조 변경)](#bug-51880)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-51899 인덱스 추가/삭제시 Runtime Header에 저장된 인덱스 헤더 주소가 갱신되지 않을수 있습니다.](#bug-51899)
@@ -130,35 +129,6 @@ Altibase 7.1.0.10.7 Patch Notes
         
     -   Compile Option
 -   Error Code
-
-### BUG-51864<a name=bug-51864></a> Altibase Connector for Kafka(Altibase 커넥터) 제공
-
--   **module** : rp-kafkaConnector
-
--   **Category** : Other
-
--   **재현 빈도** : Always
-
--   **설명** : Confluent JDBC connector 프로토콜 호환성을 가진 Altibase connector for Kafka(이하 Altibase 커넥터)가 개발되었습니다. Altibase 커넥터를 사용하면 Kafka를 통해 Altibase의 변경 데이터를 다른 데이터베이스로 복제하거나, 다른 데이터베이스의 변경 데이터를 Altibase로 복제할 수 있습니다. Altibase 커넥터는 다음 두 종류의 커넥터로 구성됩니다.
-- **Altibase 소스 커넥터**: Altibase의 변경 데이터를 Kafka로 스트리밍하여 다른 데이터베이스로 복제
-    - **Altibase 싱크 커넥터**: Kafka를 통해 수신한 다른 데이터베이스의 변경 데이터를 Altibase 및 기타 지원 싱크 데이터베이스로 적용
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
 
 ### BUG-51880<a name=bug-51880></a> 쿼리 수행의 안정성 개선을 위한 내부 로직 개선(column count 관리 구조 변경)
 

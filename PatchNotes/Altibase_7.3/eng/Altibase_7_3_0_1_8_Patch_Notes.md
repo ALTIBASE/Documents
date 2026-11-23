@@ -102,16 +102,6 @@ Fixed Bugs
 
 - **Workaround** : Drop the trigger, rename the table, and then recreate the trigger.
 
-### BUG-52119<a name=bug-52119></a> Fixed an issue where UPDATE operations failed while applying replicated data to the target table via the jdbcAdapter with SUPPLEMENTAL LOG enabled
-
--   **module** : rp-jdbcAdapter
-
--   **Category** : Functional Error
-
--   **Reproducibility** : Always
-
--   **Description** : Fixed an issue where UPDATE operations failed while applying replication data to the target table via the jdbcAdapter with SUPPLEMENTAL LOG enabled.
-
 ### BUG-52205<a name=bug-52205></a> Fixed a memory access error during meta information updates related to offline replication.
 
 -   **module** : rp

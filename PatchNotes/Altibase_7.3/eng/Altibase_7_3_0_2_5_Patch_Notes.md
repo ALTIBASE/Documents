@@ -7,7 +7,6 @@ Altibase 7.3.0.2.5 Patch Notes
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-52533 Failure to rebuild replication metadata when the Table OID changes during DDL Sync](#bug-52533)
   - [BUG-52553 Server shutdown when a commit fails during DDL execution](#bug-52553)
-  - [BUG-52560 Server shutdown when a commit fails during DDL execution](#bug-52560)
   - [BUG-52573 Remove the "-lightmode" option from the iLoader help](#bug-52573)
   - [BUG-52575 Sender shutdown when an invalid update log is read during replication](#bug-52575)
   - [BUG-52589 Fixed an issue where incorrect results are returned when using Disk Hash Temp Table in GROUP BY operations](#bug-52589)
@@ -41,13 +40,6 @@ Fixed Bugs
 -   **Category** : Fatal
 -   **Reproducibility** : Always
 -   **description** : Fixed an issue that could cause the server to shut down abnormally if a commit failed during DDL execution.
-
-### BUG-52560<a name=bug-52560></a> Column order not preserved when creating a schema in the Altibase Source Connector for Kafka
-
--   **module** : rp-kafkaConnector
--   **Category** : Functional Error
--   **Reproducibility** : Always
--   **description** : Fixed an issue in which columns could be registered in a different order from the source table when creating a schema in the Altibase Source Connector for Kafka. Previously, primary key and non-primary key columns could appear in a different order. The schema is now created in the same column order as the source table.
 
 ### BUG-52573<a name=bug-52573></a> Remove the "-lightmode" option from the iLoader help
 

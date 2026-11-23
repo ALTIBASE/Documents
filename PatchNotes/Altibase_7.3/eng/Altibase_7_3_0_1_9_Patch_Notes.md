@@ -13,7 +13,6 @@ Altibase 7.3.0.1.9 Patch Notes
     - [BUG-52181 Fixed the replication give-up failure when the log file count exceeds REPLICATION_MAX_LOGFILE](#bug-52181)
     - [BUG-52213 Improvement to Prevent Incorrect Accumulated Time in Statistics](#bug-52213)
     - [BUG-52190 Fix for Abnormal Lock Release Depending on SELECT Execution Order in Non-AutoCommit Mode](#bug-52190)
-    - [BUG-52219 Fixed incorrect variable column padding when generating Supplemental Logs](#bug-52219)
     - [BUG-52230 Fixed "Meta table crashed" error when SYS revokes Role privileges granted by another user](#bug-52230)
 - [Changes](#changes)
     - [Version Info](#version-info)
@@ -119,13 +118,6 @@ Fixed Bugs
 -   **Category** : Fatal
 -   **Reproducibility** : Always
 -   **Description** : Fixed an issue where IS_LOCK was released abnormally depending on the execution order of SELECT statements within a single transaction in Non-AutoCommit mode.
-
-### BUG-52219<a name=bug-52219></a> Fixed incorrect variable column padding when generating Supplemental Logs
-
--   **module** : sm
--   **Category** : Functional Error
--   **Reproducibility** : Always
--   **Description** : Fixed an issue where `UPDATE` statements failed due to incorrect handling of variable column padding during the generation of Supplemental Logs.
 
 ### BUG-52230<a name=bug-52230></a> Fixed "Meta table crashed" error when SYS revokes Role privileges granted by another user
 
