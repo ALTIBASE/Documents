@@ -9,7 +9,6 @@ Altibase 7.3.0.2.3 Patch Notes
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-51279 7.3.0.x.x 버전에서 7.3.1.x.x 버전으로 패치할 수 없는 문제 수정](#bug-51279)
   - [BUG-51719 Receiver 초기화 오류 메시지에 Replication 이름이 올바르게 표시되지 않는 문제 수정](#bug-51719)
-  - [BUG-52325 이중화 환경에서 Supplemental Log 처리 안정성 개선](#bug-52325)
   - [BUG-52381 iLoader -lightmode 옵션 이용 시, LOB 데이터 삽입 오류 수정](#bug-52381)
   - [BUG-52384 동일한 Prepared Statement에서 바인드 값만 변경하며 반복 실행하는 경우, 트리거 내부 statement 가 재사용되지 않는 문제 수정](#bug-52384)
   - [BUG-52466 Volatile Tablespace 내 Temporary Table의 Primary Key 제약조건 재생성 후 인덱스 접근 시 발생하는 결과 오류 수정](#bug-52466)
@@ -27,7 +26,7 @@ New Features
 
 ### BUG-52430<a name=bug-52430></a> ALA에서 Handshake 과정 중 Sender IP 확인 여부를 선택할 수 있는 기능을 추가
 
--   **module** : rp-kafkaConnector
+-   **module** : rp-ala
 
 -   **Category** : Functionality
 
@@ -37,10 +36,9 @@ New Features
     
     새로 추가된 `ALA_SetVerifySenderIP()` 함수를 사용하여 Sender IP 검증을 활성화하거나 비활성화할 수 있으며, 기본값은 검증 수행(`ALA_TRUE`)입니다.
     
-    또한 oraAdapter, jdbcAdapter, Altibase Source Connector for Kafka에도 동일한 기능을 설정할 수 있는 프로퍼티를 추가했습니다.
+    또한 oraAdapter, jdbcAdapter에도 동일한 기능을 설정할 수 있는 프로퍼티를 추가했습니다.
     
     - `ALA_VERIFY_SENDER_IP` (0: 검증 안 함, 1: 검증 수행)
-    - `ala.verify.sender.ip` (false: 검증 안 함, true: 검증 수행)
     
 -   **재현 방법**
 
@@ -60,10 +58,6 @@ New Features
             -   값 범위: 0, 1
                 -   1: (기본값) Sender IP 를 확인
                 -   0: Sender IP 를 확인하지 않음
-        -   ala.verify.sender.ip (커넥터 프로퍼티)
-            -   타입: boolean
-                -   true: (기본값) Sender IP 를 확인
-                -   false: Sender IP 를 확인하지 않음
     -   Compile Option
     -   Error Code
 
@@ -113,33 +107,6 @@ Fixed Bugs
 
     -   **예상 결과**
 -   **Workaround**
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-52325<a name=bug-52325></a> 이중화 환경에서 Supplemental Log 처리 안정성 개선
-
--   **module** : sm\_interface
-
--   **Category** : Fatal
-
--   **재현 빈도** : Always
-
--   **설명** : 이중화 환경에서 Supplemental Log가 활성화된 디스크 테이블에 대해 UPDATE 작업 수행시 서버 비정상 종료되는 문제를 수정하였습니다.
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
 -   **변경사항**
 
     -   Performance view

@@ -3,7 +3,6 @@
 - [New Features](#new-features)
   - [BUG-51467 Improved logging in altibase_error.log on Abnormal server shutdown](#bug-51467)
   - [BUG-51698 Added a new utility, altiEncrypt, to encrypt passwords in dblink, aku, and Adapter](#bug-51698)
-  - [BUG-51864 Altibase Connector for Kafka (Altibase Connector) provided](#bug-51864)
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-50945 "ERR-01003 : Unexpected end of string" error occurs when EMPTY_CLOB() is used as an argument within the SUBSTR function.](#bug-50945)
   - [BUG-50976 Incorrect value is entered when executing a MERGE INTO statement on a CLOB column.](#bug-50976)
@@ -63,17 +62,6 @@
 - **Description**: 
 - The password encryption tool `altiEncrypt` has been added.
   Using `altiEncrypt`, user can now encrypt the `PASSWORD` values in the dblink, aku, and Adapter configuration (conf) files and set them securely.
-
-### BUG-51864<a name=bug-51864></a> Altibase Connector for Kafka (Altibase Connector) provided
-
-- **module**: rp-kafkaConnector
-- **Category**: Other
-- **Reproducibility**: Always
-- **Description**: Altibase Connector for Kafka (Altibase Connector), compatible with the Confluent JDBC connector protocol, has been developed. The Altibase Connector enables replication of modified Altibase data to other databases, or replication of modified data from other databases to Altibase, via Kafka. The Altibase Connector consists of two types of connectors:
-  - **Altibase Source Connector**: Streams modified Altibase data to Kafka for replication to other databases.
-  - **Altibase Sink Connector**: Applies modified data from other databases, received via Kafka, to Altibase and other supported sink databases.
-
-# Fixed Bugs
 
 ### BUG-50945<a name=bug-50945></a> [ERR-01003 : Unexpected end of string] error occurs when EMPTY_CLOB() is used as an argument within the SUBSTR function.
 

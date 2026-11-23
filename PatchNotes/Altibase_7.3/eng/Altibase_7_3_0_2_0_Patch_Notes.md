@@ -11,8 +11,6 @@ Altibase 7.3.0.2.0 Patch Notes
     - [BUG-52106 Fixed missing server error messages during incremental backup in abm](#bug-52106)
     - [BUG-52122 Fixed incorrect error message when Change Tracking is disabled in abm](#bug-52122)
     - [BUG-52168 Fixed performance issue for disk table DML after expanding BUFFER AREA SIZE](#bug-52168)
-    - [BUG-52220 Fixed server crash when executing DROP COLUMN on replicated disk tables with LOB and Supplemental Log](#bug-52220)
-    - [BUG-52226 Fixed standby server crash during DELETE log processing in SQL_APPLY mode](#bug-52226)
     - [BUG-52236 Fixed ASSERT failure when handling bind-less requests from older client](#bug-52236)
 - [Changes](#changes)
     - [Version Info](#version-info)
@@ -62,20 +60,6 @@ Fixed Bugs
 - **Category** : Functional Error
 - **Reproducibility** : Always
 - **Description** : Fixed an issue where DML performance on disk tables did not improve after expanding the DISK BUFFER AREA SIZE during service.
-
-### BUG-52220<a name=bug-52220></a> Fixed server crash when executing DROP COLUMN on replicated disk tables with LOB and Supplemental Log
-
-- **module** : sm
-- **Category** : Fatal
-- **Reproducibility** : Always
-- **Description** : Fixed an issue where the server could crash when executing a DROP COLUMN statement on a disk table containing LOB columns and Supplemental Log, when the table is included in replication.
-
-### BUG-52226<a name=bug-52226></a> Fixed standby server crash during DELETE log processing in SQL_APPLY mode
-
-- **module** : rp-receiver
-- **Category** : Fatal
-- **Reproducibility** : Always
-- **Description** : Fixed an issue where the standby server could crash during DELETE log processing when operating in SQL_APPLY mode in a replication environment with Supplemental Log enabled on the table.
 
 ### BUG-52236<a name=bug-52236></a> Fixed ASSERT failure when handling bind-less requests from older client
 

@@ -6,7 +6,6 @@ Altibase 7.1.0.10.9 Patch Notes
 
 - [New Features](#new-features)
     - [BUG-52165 비정상 종료 발생 시 진단 정보 보강](#bug-52165)
-    - [BUG-52321 Altibase 소스 커넥터에서 debezium 형식의 메시지 출력 지원](#bug-52321)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-52314 External Procedure 수행 중 ERR-010A3 : Failed to start an agent process 에러 발생 시 altibase_qp.log에 진단용 메시지 추가](#bug-52314)
     - [BUG-52316 Disconnect Audit 처리 중 서버 비정상 종료 문제 수정](#bug-52316)
@@ -34,33 +33,6 @@ New Features
 -   **설명** : SIGSEGV 등 signal에 의한 비정상 종료 발생 시 원인 분석에 필요한 statement 의 시간 정보, 커서 정보 및 transaction lock 정보를 trc 파일에 출력하도록 개선되었습니다.
 
 -   **재현 방법**
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-52321<a name=bug-52321></a> Altibase 소스 커넥터에서 debezium 형식의 메시지 출력 지원
-
--   **module** : rp-kafkaConnector
-
--   **Category** : Functionality
-
--   **재현 빈도** : Always
-
--   **설명** : 히든 프로퍼티를 통해 Altibase 소스 커넥터에서 메시지를 Debezium 형식으로 출력할 수 있는 옵션을 추가했습니다. 기본값은 기존 Confluent JDBC Connector 형식이며, 별도 설정이 없는 경우 기존 동작에는 영향을 주지 않습니다.
-
--   **재현 방법**
-
     -   **재현 절차**
 
     -   **수행 결과**

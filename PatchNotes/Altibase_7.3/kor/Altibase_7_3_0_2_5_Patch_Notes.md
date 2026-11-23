@@ -7,7 +7,6 @@ Altibase 7.3.0.2.5 Patch Notes
 - [Fixed Bugs](#fixed-bugs)
   - [BUG-52533 DDL Sync 중 TableOID가 변경되어도 이중화 메타를 다시 빌드하지 않는 문제 수정](#bug-52533)
   - [BUG-52553 DDL 수행 중 Commit 실패로 서버가 비정상 종료되는 문제 수정](#bug-52553)
-  - [BUG-52560 Altibase source connector for Kafka에서 스키마 생성 시 컬럼 순서를 유지하지 않는 문제 수정](#bug-52560)
   - [BUG-52573 iloader help 화면에서 "-lightmode" 옵션 제거](#bug-52573)
   - [BUG-52575 이중화에서 잘못된 Update Log 처리 시 Sender가 비정상 종료되는 문제 수정](#bug-52575)
   - [BUG-52589 Disk Hash Temp Table 사용 시 잘못된 결과가 반환되는 문제 수정](#bug-52589)
@@ -72,33 +71,6 @@ Fixed Bugs
     
     -   **예상 결과**
     
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-52560<a name=bug-52560></a> Altibase source connector for Kafka에서 스키마 생성 시 컬럼 순서를 유지하지 않는 문제 수정
-
--   **module** : rp-kafkaConnector
-
--   **Category** : Functional Error
-
--   **재현 빈도** : Always
-
--   **설명** : Altibase Source Connector for Kafka에서 스키마 생성 시 컬럼 순서가 원본 테이블의 컬럼 순서와 다르게 등록될 수 있는 문제를 수정했습니다. 기존에는 PK 컬럼과 일반 컬럼의 순서가 변경되어 스키마가 생성될 수 있었습니다. 원본 테이블의 컬럼 순서대로 스키마가 생성되도록 수정했습니다.
-    
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
 -   **Workaround**
 
 -   **변경사항**

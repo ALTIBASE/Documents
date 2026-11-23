@@ -4,7 +4,6 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [New Features](#new-features)
-    - [BUG-51873 Altibase Connector for Kafka에 자동 재시작 기능이 추가되었습니다.](#bug-51873)
     - [BUG-51888 dblink, aku, Adapter에서 사용하는 암호화된 PASSWORD의 최대 허용 길이를 256자로 확장하였습니다.](#bug-51888)
     - [BUG-52014 Protocol header error 및 Invalid protocol sequence error 발생 시 진단 정보 출력 보강](#bug-52014)
     - [BUG-52066 비정상 종료 시 직전에 수행된 쿼리 출력 기능 추가](#bug-52066)
@@ -33,9 +32,6 @@
     - [BUG-52171 SQL 함수를 사용하는 트리거가 있는 테이블의 이름을 변경할 때 서버 비정상 종료 문제 수정](#bug-52171)
     - [BUG-52188 비정상 종료 시 진단 덤프 정보 수집 안정성 개선](#bug-52188)
     - [BUG-52190 Non-AutoCommit 환경에서 SELECT 문 실행 순서에 따른 Lock 비정상 해제 문제 수정](#bug-52190)
-    - [BUG-52219 SUPPLEMENTAL LOG 를 생성할 때 VARIABLE COLUMN 패딩을 고려해야 합니다.](#bug-52219)
-    - [BUG-52220 이중화 환경에서 LOB 컬럼과 SUPPLEMENTAL LOG가 설정된 디스크 테이블에 DROP COLUMN 구문 수행 시 서버 비정상 종료 문제 수정](#bug-52220)
-    - [BUG-52226 SQL_APPLY 모드에서 DELETE 로그 처리 시 standby 서버 비정상 종료 문제 수정](#bug-52226)
     - [BUG-52230 다른 사용자가 부여한 Role 권한을 SYS 계정에서 회수시에 The meta table crashed. 에러가 발생](#bug-52230)
     - [BUG-52262 구버전 클라이언트(6.1.1 이하) 연결 중 잘못된 프로토콜 헤더가 수신될 경우 서버가 비정상 종료되는 문제 수정](#bug-52262)
 - [Changes](#changes)
@@ -48,33 +44,6 @@
 
 New Features
 ============
-
-### BUG-51873<a name=bug-51873></a> Altibase Connector for Kafka에 자동 재시작 기능이 추가되었습니다.
-
--   **module** :
-
--   **Category** : Functionality
-
--   **재현 빈도** : Always
-
--   **설명** : Altibase source connector for Kafka에 DDL 메시지 수신 시
-    자동 재시작 기능이 추가되었습니다. 이 기능을 사용하려면 `restart.ddl` 프로퍼티의 값을 true로 설정해야 합니다.(기본값은 false)
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
 
 ### BUG-51888<a name=bug-51888></a> dblink, aku, Adapter에서 사용하는 암호화된 PASSWORD의 최대 허용 길이를 256자로 확장하였습니다.
 
@@ -916,87 +885,6 @@ Fixed Bugs
 -   **재현 빈도** : Always
 
 -   **설명** : Non-AutoCommit 모드에서 하나의 트랜잭션 내 여러 SELECT 문을 수행할 때, SELECT 문 실행 순서에 따라 IS_LOCK이 비정상적으로 해제되던 문제를 수정합니다.
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-52219<a name=bug-52219></a> SUPPLEMENTAL LOG 를 생성할 때 VARIABLE COLUMN 패딩을 고려해야 합니다.
-
--   **module** : sm
-
--   **Category** : Functional Error
-
--   **재현 빈도** : Always
-
--   **설명** : SUPPLEMENTAL LOG 를 생성할 때 VARIABLE COLUMN의 패딩 처리가 올바르게 처리되지 않아, UPDATE문 수행시 실패하던 문제를 수정하였습니다.
-
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-52220<a name=bug-52220></a> 이중화 환경에서 LOB 컬럼과 SUPPLEMENTAL LOG가 설정된 디스크 테이블에 DROP COLUMN 구문 수행 시 서버 비정상 종료 문제 수정
-
--   **module** : sm
-
--   **Category** : Fatal
-
--   **재현 빈도** : Always
-
--   **설명** : LOB 컬럼과 SUPPLEMENTAL LOG가 설정된 디스크 테이블이 이중화(Replication)에 포함된 경우, DROP COLUMN 구문 수행 시 서버가 비정상 종료되던 문제를 수정하였습니다.
-    
--   **재현 방법**
-
-    -   **재현 절차**
-
-    -   **수행 결과**
-
-    -   **예상 결과**
-
--   **Workaround**
-
--   **변경사항**
-
-    -   Performance view
-    -   Property
-    -   Compile Option
-    -   Error Code
-
-### BUG-52226<a name=bug-52226></a> SQL_APPLY 모드에서 DELETE 로그 처리 시 standby 서버 비정상 종료 문제 수정
-
--   **module** : rp-receiver
-
--   **Category** : Fatal
-
--   **재현 빈도** : Always
-
--   **설명** : Supplemental Log가 설정된 테이블의 이중화 환경에서 standby 서버가 SQL_APPLY 모드로 동작할 때, DELETE 로그 처리 중 비정상 종료되는 문제를 수정합니다.
 
 -   **재현 방법**
 

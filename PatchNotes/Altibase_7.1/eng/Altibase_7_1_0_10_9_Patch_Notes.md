@@ -6,7 +6,6 @@ Altibase 7.1.0.10.9 Patch Notes
 
 - [New Features](#new-features)
     - [BUG-52165 Enhanced Diagnostic Information for Abnormal Termination](#bug-52165)
-    - [BUG-52321 Support for Debezium-Format Messages in the Altibase Source Connector](#bug-52321)
 - [Fixed Bugs](#fixed-bugs)
     - [BUG-52314 Added Diagnostic Messages to altibase_qp.log for ERR-010A3 During External Procedure Execution](#bug-52314)
     - [BUG-52316 Fixed Server Crash During Disconnect Audit Processing](#bug-52316)
@@ -29,13 +28,6 @@ New Features
 -   **Category** : Enhancement
 -   **Reproducibility** : Always
 -   **Description** : Improved diagnostic information recorded in the trace log when the server terminates abnormally due to signals such as SIGSEGV. Statement timing information, cursor information, and transaction lock information are now included to facilitate root cause analysis.
-
-### BUG-52321<a name=bug-52321></a> Support for Debezium-Format Messages in the Altibase Source Connector
-
--   **module** : rp-kafkaConnector
--   **Category** : Functionality
--   **Reproducibility** : Always
--   **Description** : Added a hidden property that allows the Altibase Source Connector to publish messages in Debezium format. The default format remains the existing Confluent JDBC Connector format, and no behavior changes occur unless the option is explicitly enabled.
 
 Fixed Bugs
 ==========

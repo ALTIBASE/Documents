@@ -5,7 +5,6 @@ Altibase 7.1.0.10.8 Patch Notes
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [New Features](#new-features)
-    - [BUG-51873 Altibase Connector for Kafka now supports automatic restart functionality.](#bug-51873)
     - [BUG-51888 The maximum allowed length for encrypted PASSWORD used in dblink, aku, and Adapter has been extended to 256 characters.](#bug-51888)
     - [BUG-52014 Enhanced diagnostic information for Protocol header error and Invalid protocol sequence error](#bug-52014)
     - [BUG-52066 Added feature to print the last executed query on abnormal termination](#bug-52066)
@@ -35,9 +34,6 @@ Altibase 7.1.0.10.8 Patch Notes
     - [BUG-52171 Fixed a server crash when renaming a table that has a trigger using SQL functions.](#bug-52171)
     - [BUG-52188 Improved stability of diagnostic dump information collection on server crash](#bug-52188)
     - [BUG-52190 Fixed for Abnormal Lock Release Depending on SELECT Execution Order in Non-AutoCommit Mode](#bug-52190)
-    - [BUG-52219 Fixed incorrect variable column padding when generating Supplemental Logs](#bug-52219)
-    - [BUG-52220 Fixed server crash when executing DROP COLUMN on replicated disk tables with LOB and Supplemental Log](#bug-52220)
-    - [BUG-52226 Fixed standby server crash during DELETE log processing in SQL_APPLY mode](#bug-52226)
     - [BUG-52230 Fixed "Meta table crashed" error when SYS revokes Role privileges granted by another user](#bug-52230)
     - [BUG-52262 Fixed abnormal server termination when an invalid protocol header is received during connection from an older client (6.1.1 or earlier).](#bug-52262)
 - [Changes](#changes)
@@ -50,13 +46,6 @@ Altibase 7.1.0.10.8 Patch Notes
 
 New Features
 ============
-
-### BUG-51873<a name=bug-51873></a> Altibase Connector for Kafka now supports automatic restart functionality.
-
--   **module** :
--   **Category** : Functionality
--   **Reproducibility** : Always
--   **Description** : Altibase Source Connector for Kafka now supports automatic connector restart upon receiving a DDL message. To enable this feature, set the `restart.ddl` property to `true`. The default value is `false`.
 
 ### BUG-51888<a name=bug-51888></a> The maximum allowed length for encrypted PASSWORD used in dblink, aku, and Adapter has been extended to 256 characters.
 
@@ -471,27 +460,6 @@ Fixed Bugs
 -   **Category** : Fatal
 -   **Reproducibility** : Always
 -   **Description** : Fixed an issue where IS_LOCK was released abnormally depending on the execution order of SELECT statements within a single transaction in Non-AutoCommit mode.
-
-### BUG-52219<a name=bug-52219></a> Fixed incorrect variable column padding when generating Supplemental Logs
-
--   **module** : sm
--   **Category** : Functional Error
--   **Reproducibility** : Always
--   **Description** : Fixed an issue where `UPDATE` statements failed due to incorrect handling of variable column padding during the generation of Supplemental Logs.
-
-### BUG-52220<a name=bug-52220></a> Fixed server crash when executing DROP COLUMN on replicated disk tables with LOB and Supplemental Log
-
--   **module** : sm
--   **Category** : Fatal
--   **Reproducibility** : Always
--   **Description** : Fixed an issue where the server could crash when executing a DROP COLUMN statement on a disk table containing LOB columns and Supplemental Log, when the table is included in replication.
-
-### BUG-52226<a name=bug-52226></a> Fixed standby server crash during DELETE log processing in SQL_APPLY mode
-
--   **module** : rp-receiver
--   **Category** : Fatal
--   **Reproducibility** : Always
--   **Description** : Fixed an issue where the standby server could crash during DELETE log processing when operating in SQL_APPLY mode in a replication environment with Supplemental Log enabled on the table.
 
 ### BUG-52230<a name=bug-52230></a> Fixed "Meta table crashed" error when SYS revokes Role privileges granted by another user
 
