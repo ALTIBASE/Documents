@@ -8,13 +8,13 @@ Altibase 7.3.0.2.6 Patch Notes
 - [New Features](#new-features)
     - [BUG-52383 임시 테이블스페이스의 Extent 크기 설정에 따른 동작 개선](#bug-52383)
 - [Fixed Bugs](#fixed-bugs)
-    - [BUG-52436 이중화 Receiver에서 Parallel 옵션을 사용하는 경우 DML 처리 순서가 꼬일 수 있습니다.](#bug-52436)
+    - [BUG-52436 이중화 수신자(Receiver)에서 병렬 적용자(Parallel Applier)를 사용하는 경우 DML 적용 순서가 역전될 수 있는 문제 수정](#bug-52436)
     - [BUG-52548 JDBC 드라이버의 CallableStatement 이름 기반 파라미터 API 호출 시 NullPointerException이 발생하는 문제 수정](#bug-52548)
     - [BUG-52617 FAST SIMPLE QUERY 처리 과정에서 읽기 전용 파티션에 UPDATE가 수행되는 문제 수정](#bug-52617)
     - [BUG-52629 파티션 테이블에서 CLOB 컬럼 조건으로 SELECT FOR UPDATE 수행 시 잘못된 결과가 반환되는 문제 수정](#bug-52629)
     - [BUG-52639 LIMIT 절의 정수 오버플로 문제 수정](#bug-52639)
     - [BUG-52644 파티션 테이블 조회 시 ERR-31455 (Failed to work because an internal exception occurred from an OS) 오류가 발생하는 문제 수정](#bug-52644)
-    - [BUG-52669 REPLICATION\_SYNC\_APPLY\_METHOD 프로퍼티 제거](#bug-52669)
+    - [BUG-52669 Direct-Path INSERT 기능 제거에 따른 REPLICATION\_SYNC\_APPLY\_METHOD 프로퍼티 제거](#bug-52669)
     - [BUG-52675 SQL Apply 모드에서 LOB 데이터가 복제될 때 수신 측 테이블에 해당 LOB 컬럼이 아직 생성되지 않은 경우 서버가 비정상 종료될 수 있는 문제를 수정합니다.](#bug-52675)
 - [Changes](#changes)
     - [Version Info](#version-info)
@@ -56,7 +56,7 @@ New Features
 Fixed Bugs
 ==========
 
-### BUG-52436<a name=bug-52436></a> 이중화 Receiver에서 Parallel 옵션을 사용하는 경우 DML 처리 순서가 꼬일 수 있습니다.
+### BUG-52436<a name=bug-52436></a> 이중화 수신자(Receiver)에서 병렬 적용자(Parallel Applier)를 사용하는 경우 DML 적용 순서가 역전될 수 있는 문제 수정
 
 -   **module** : rp-receiver
 
@@ -64,17 +64,15 @@ Fixed Bugs
 
 -   **재현 빈도** : Rare
 
--   **설명** : Redo 로그가 Group Commit이고 receiver에서 parallel
-    applier를 사용 할 경우 DML 처리 순서가 역전 될 수 있는 문제 수정
-
+-   **설명** : Redo 로그가 Group Commit으로 기록되고 이중화 수신자에서 병렬 적용자(Parallel Applier)를 사용하는 경우, DML 적용 순서가 역전될 수 있는 문제를 수정했습니다.
+    
 -   **재현 방법**
-
     -   **재현 절차**
-
+    
     -   **수행 결과**
-
+    
     -   **예상 결과**
-
+    
 -   **Workaround**
 
 -   **변경사항**
@@ -327,7 +325,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-52669<a name=bug-52669></a> REPLICATION\_SYNC\_APPLY\_METHOD 프로퍼티 제거
+### BUG-52669<a name=bug-52669></a> Direct-Path INSERT 기능 제거에 따른 REPLICATION\_SYNC\_APPLY\_METHOD 프로퍼티 제거
 
 -   **module** : rp-receiver
 
@@ -335,7 +333,7 @@ Fixed Bugs
 
 -   **재현 빈도** : Unknown
 
--   **설명** : REPLICATION\_SYNC\_APPLY\_METHOD 프로퍼티를 제거했습니다.
+-   **설명** :  Direct-Path INSERT 기능이 제거됨에 따라 해당 기능과 관련된 REPLICATION\_SYNC\_APPLY\_METHOD 프로퍼티를 제거했습니다.
 
 -   **재현 방법**
 
@@ -348,7 +346,6 @@ Fixed Bugs
 -   **Workaround**
 
 -   **변경사항**
-
     -   Performance view
     -   Property
     -   Compile Option
@@ -365,13 +362,12 @@ Fixed Bugs
 -   **설명** : SQL Apply 모드로 복제할 때 송신 측에서 LOB 데이터 변경이 전달되었으나 수신 측 테이블에 해당 LOB 컬럼이 아직 생성되지 않은 경우, 서버가 비정상 종료될 수 있던 문제를 수정했습니다.
 
 -   **재현 방법**
-
     -   **재현 절차**
-
+    
     -   **수행 결과**
-
+    
     -   **예상 결과**
-
+    
 -   **Workaround**
 
 -   **변경사항**
