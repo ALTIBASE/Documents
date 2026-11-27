@@ -18,6 +18,7 @@ Altibase 7.1.0.11.0 Patch Notes
     - [BUG-52466 Volatile Tablespace 내 Temporary Table의 Primary Key 제약조건 재생성 후 인덱스 접근 시 발생하는 결과 오류 수정](#bug-52466)
     - [BUG-52484 잘못된 프로토콜 헤더 수신 시 진단 정보 출력 과정에서 서버가 비정상 종료되는 문제 수정](#bug-52484)
     - [BUG-52499 AUDIT 사용 시 메모리 오류로 비정상 종료가 발생할 수 있는 문제 수정](#bug-52499)
+    - [Altibase source connector for Kafka에서 스키마 생성 시 컬럼 순서를 유지하지 않는 문제 수정](#bug-52560)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
@@ -31,7 +32,7 @@ New Features
 
 ### BUG-52430<a name=bug-52430></a> ALA에서 Handshake 과정 중 Sender IP 확인 여부를 선택할 수 있는 기능을 추가
 
--   **module** : rp-ala
+-   **module** : rp-kafkaConnector
 
 -   **Category** : Functionality
 
@@ -41,9 +42,10 @@ New Features
     
     새로 추가된 `ALA_SetVerifySenderIP()` 함수를 사용하여 Sender IP 검증을 활성화하거나 비활성화할 수 있으며, 기본값은 검증 수행(`ALA_TRUE`)입니다.
     
-    또한 oraAdapter, jdbcAdapter에도 동일한 기능을 설정할 수 있는 프로퍼티를 추가했습니다.
+    또한 oraAdapter, jdbcAdapter, Altibase Source Connector for Kafka에도 동일한 기능을 설정할 수 있는 프로퍼티를 추가했습니다.
     
     - `ALA_VERIFY_SENDER_IP` (0: 검증 안 함, 1: 검증 수행)
+    - ala.verify.sender.ip (false: 검증 안 함, true: 검증 수행)
     
 -   **재현 방법**
 
@@ -447,6 +449,33 @@ Fixed Bugs
 
     -   Performance view
         
+    -   Property
+    -   Compile Option
+    -   Error Code
+
+### BUG-52560<a name=bug-52560></a> Altibase source connector for Kafka에서 스키마 생성 시 컬럼 순서를 유지하지 않는 문제 수정
+
+-   **module** : rp-kafkaConnector
+
+-   **Category** : Functional Error
+
+-   **재현 빈도** : Always
+
+-   **설명** : Altibase Source Connector for Kafka에서 스키마 생성 시 컬럼 순서가 원본 테이블의 컬럼 순서와 다르게 등록될 수 있는 문제를 수정했습니다. 기존에는 PK 컬럼과 일반 컬럼의 순서가 변경되어 스키마가 생성될 수 있었습니다. 원본 테이블의 컬럼 순서대로 스키마가 생성되도록 수정했습니다.
+
+-   **재현 방법**
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+
     -   Property
     -   Compile Option
     -   Error Code

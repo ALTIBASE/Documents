@@ -8,6 +8,7 @@ Altibase 7.1.0.11.1 Patch Notes
 - [New Features](#new-features)
     - [BUG-52383 임시 테이블스페이스의 Extent 크기 설정에 따른 동작 개선](#bug-52383)
 - [Fixed Bugs](#fixed-bugs)
+    - [BUG-52324 Supplemental Logging이 설정된 디스크 테이블에서, UPDATE 시 NULL 값이 EMPTY로 변경되는 문제 수정](#bug-52324)
     - [BUG-52533 DDL Sync 중 TableOID가 변경되어도 이중화 메타를 다시 빌드하지 않는 문제 수정](#bug-52533)
     - [BUG-52548 JDBC 드라이버의 CallableStatement 이름 기반 파라미터 API 호출 시 NullPointerException이 발생하는 문제 수정](#bug-52548)
     - [BUG-52553 DDL 수행 중 Commit 실패로 서버가 비정상 종료되는 문제 수정](#bug-52553)
@@ -57,6 +58,32 @@ New Features
 
 Fixed Bugs
 ==========
+
+### BUG-52324<a name=bug-52324></a> Supplemental Logging이 설정된 디스크 테이블에서, UPDATE 시 NULL 값이 EMPTY로 변경되는 문제 수정
+
+-   **module** : sm-disk-resource
+
+-   **Category** : Fatal
+
+-   **재현 빈도** : Unknown
+
+-   **설명** : Supplemental Logging이 설정된 디스크 테이블에서, UPDATE 수행 시 SET 절에 포함되지 않은 NULL 컬럼의 값이 EMPTY(길이 0, 값 포인터 non-NULL)로 변경되어 저장되는 문제가 수정되었습니다. 이미 EMPTY로 저장된 값도 이후 UPDATE 수행 시 NULL로 변경되어 저장되도록 수정했습니다.
+
+-   **재현 방법**
+    -   **재현 절차**
+
+    -   **수행 결과**
+
+    -   **예상 결과**
+
+-   **Workaround**
+
+-   **변경사항**
+
+    -   Performance view
+    -   Property
+    -   Compile Option
+    -   Error Code
 
 ### BUG-52533<a name=bug-52533></a> DDL Sync 중 TableOID가 변경되어도 이중화 메타를 다시 빌드하지 않는 문제 수정
 
