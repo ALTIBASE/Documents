@@ -18,7 +18,7 @@ Altibase 7.1.0.11.0 Patch Notes
     - [BUG-52466 Volatile Tablespace 내 Temporary Table의 Primary Key 제약조건 재생성 후 인덱스 접근 시 발생하는 결과 오류 수정](#bug-52466)
     - [BUG-52484 잘못된 프로토콜 헤더 수신 시 진단 정보 출력 과정에서 서버가 비정상 종료되는 문제 수정](#bug-52484)
     - [BUG-52499 AUDIT 사용 시 메모리 오류로 비정상 종료가 발생할 수 있는 문제 수정](#bug-52499)
-    - [Altibase source connector for Kafka에서 스키마 생성 시 컬럼 순서를 유지하지 않는 문제 수정](#bug-52560)
+    - [BUG-52560 Altibase source connector for Kafka에서 스키마 생성 시 컬럼 순서를 유지하지 않는 문제 수정](#bug-52560)
 - [Changes](#changes)
     - [Version Info](#version-info)
     - [호환성](#%ED%98%B8%ED%99%98%EC%84%B1)
