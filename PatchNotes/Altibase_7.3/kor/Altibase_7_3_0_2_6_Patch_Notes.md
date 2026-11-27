@@ -351,7 +351,7 @@ Fixed Bugs
     -   Compile Option
     -   Error Code
 
-### BUG-52675<a name=bug-52675></a> SQL Apply 모드에서 LOB 데이터가 복제될 때 수신 측 테이블에 해당 LOB 컬럼이 아직 생성되지 않은 경우 서버가 비정상 종료될 수 있는 문제를 수정합니다.
+### BUG-52675<a name=bug-52675></a> SQL Apply 모드에서 LOB 데이터가 복제될 때 수신 측 테이블에 해당 LOB 컬럼이 아직 생성되지 않은 경우 서버가 비정상 종료될 수 있는 문제 수정
 
 -   **module** : rp
 
